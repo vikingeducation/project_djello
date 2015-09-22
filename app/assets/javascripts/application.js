@@ -14,8 +14,12 @@
 //  GEMFILE
 //= require jquery
 //= require jquery_ujs
+//= require angular
 
 // VENDOR TREE
+//= require underscore
 //= require devise
+//= require restangular
+//= require ui-router
 
 //= require_tree .
