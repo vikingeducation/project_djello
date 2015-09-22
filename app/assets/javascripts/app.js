@@ -1,10 +1,15 @@
 var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
 
-// .config(["RestangularProvider", function(RestangularProvider){
-//   RestangularProvider.setBaseUrl("/api/v1")
-//   RestangularProvider.setRequestSuffix(".json")
+.config(["RestangularProvider", function(RestangularProvider){
+  RestangularProvider.setBaseUrl("/api/v1")
+  RestangularProvider.setRequestSuffix(".json")
 
-// }])
+}])
+
+.config(["AuthInterceptProvider", function(AuthInterceptProvider) {
+  // Intercept 401 Unauthorized everywhere
+  AuthInterceptProvider.interceptAuth(true);
+}])
 
 .config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider){

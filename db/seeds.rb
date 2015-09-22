@@ -7,5 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 5.times do |i|
-  User.create(username: Faker::Name.name, password: "dddddddd", password_confirmation: "dddddddd")
+  new_user = User.create(username: Faker::Name.name, password: "dddddddd", password_confirmation: "dddddddd")
+  5.times do
+    new_user.boards.create(name: Faker::Commerce.product_name)
+  end
 end

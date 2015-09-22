@@ -1,11 +1,13 @@
-app.controller('SessionCtrl', ['$scope', 'Session', function($scope, Session){
+app.controller('SessionCtrl', ['$scope', '$location', 'Session', function($scope, $location, Session){
   $scope.loggedIn = Session.loggedIn;
+
+  if ($scope.loggedIn.status) {
+    $location.path('/board')
+  }
+
   $scope.currentUser = Session.currentUser;
 
   $scope.credentials = { username: "", password: ""};
-  // if ($scope.loggedIn) {
-  //   $location.path()
-  // }
 
   $scope.login = function(){
     var config = {
@@ -21,4 +23,7 @@ app.controller('SessionCtrl', ['$scope', 'Session', function($scope, Session){
     Session.logout();
   };
 
+  $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
+    $location.path('/login');
+  })
 }])

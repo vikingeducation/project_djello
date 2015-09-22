@@ -51,13 +51,13 @@ RSpec.describe BoardsController, type: :controller do
       sign_in user
       boards = Board.all
       get :index, format: :json
-      expect(assigns(:boards)).to eq(boards)
+      expect(assigns(:boards)).to match_array(boards)
     end
 
     it 'cannot index a board if not logged in' do
       boards = Board.all
       get :index, format: :json
-      expect(assigns(:boards)).to_not eq(boards)
+      expect(assigns(:boards)).to_not match_array(boards)
     end
   end
 

@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
   before_action :require_owner, only: [:update, :destroy]
 
   def index
-    @boards = Board.all
+    @boards = Board.where(user: current_user)
 
     respond_to do |format|
       format.json {render json: @boards}
