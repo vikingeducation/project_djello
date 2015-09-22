@@ -30,10 +30,15 @@ djello.config(['$urlRouterProvider', '$stateProvider',
             controller: 'headerCtrl'
           },
           '' : {
-            templateUrl: 'templates/boardIndex.html',
+            templateUrl: 'templates/boardLayout.html',
             controller: 'boardCtrl',
           }
         }
+      })
+      .state('board.index', {
+        url: '/:id',
+        templateUrl: 'templates/boardIndex.html',
+        controller: 'boardCtrl'
       });
 
 
