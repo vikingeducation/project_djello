@@ -24,14 +24,13 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
 
       .state('board', {
         url: '/board',
-        views: {
-          'layout': {
-            templateUrl: 'templates/boards/layout.html',
-            controller: 'BoardsCtrl'
-          }
-          'child': {
-            templateUrl: 'templates/boards/child.html',
-          }
-        }
+        templateUrl: 'templates/boards/layout.html',
+        controller: 'BoardCtrl',
+      })
+
+      .state('board.create', {
+        url: '/create',
+        templateUrl: 'templates/boards/create.html',
+        controller: 'BoardCreateCtrl',
       })
   }])
