@@ -11,10 +11,12 @@ djelloApp.config(['RestangularProvider', function(RestangularProvider){
 }]);
 
 djelloApp.config(function(AuthProvider) {
-        // Configure Auth service with AuthProvider
-        AuthProvider.loginPath('/api/v1/users/sign_in.json');
-        AuthProvider.logoutPath('/api/v1/users/sign_out.json');
-    });
+    // Configure Auth service with AuthProvider
+    AuthProvider.loginPath('/api/v1/users/sign_in.json');
+    AuthProvider.loginMethod('GET');
+    AuthProvider.logoutPath('/api/v1/users/sign_out.json');
+    AuthProvider.logoutMethod('DELETE');
+});
 
 djelloApp.config(['$stateProvider', '$urlRouterProvider',
                   function($stateProvider, $urlRouterProvider){

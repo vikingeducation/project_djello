@@ -1,17 +1,50 @@
-<h2>My Login hfbsdhfbhsdbfhs</h2>
+<div class='row text-center'>
 
-<form>
- 
-  <div class="form-group">
-    <label for="inputEmail">Email Address</label>
-    <input type="email" class="form-control" id="inputEmail" placeholder="Enter email" ng-model="user.email">
+  <div class='row'>
+    <h2>Welcome to Djello Project Management!</h2>
   </div>
-  
-  <div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password">
-  </div> 
-  
-  <button ng-click="signInUser()"  class="btn btn-default" >Sign Up</button>
-  
-</form>
+
+  <div class='row' id='sign-in-sub-heading-text'>
+    <h5>Please sign in to continue...</h5><br>
+  </div>
+
+  <div class='row'>
+    <div class='col-sm-2 col-sm-offset-5'>
+      <form>
+
+        <div class="row">
+          <label for="inputUsername">Username</label>
+        </div>
+        <div class="row">
+          <input  type="email" class="form-control"
+                  id="inputUsername" placeholder="Enter username"
+                  ng-model="user.username">
+        </div><br>
+
+        <div class="row">
+          <label for="inputEmail">Email</label>
+        </div>
+        <div class="row">
+          <input  type="email" class="form-control"
+                  id="inputEmail" placeholder="Enter email"
+                  ng-model="user.email">
+        </div><br>
+
+        <div class="row">
+          <label for="inputPassword">Password</label>
+        </div>
+        <div class="row">
+          <input  type="password" class="form-control"
+                  id="inputPassword" placeholder="Enter password"
+                  ng-model="user.password">
+        </div><br>
+
+        <button ng-click="signIn()" class="btn btn-success">
+          Sign In
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+</div>
