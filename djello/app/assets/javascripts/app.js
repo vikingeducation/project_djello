@@ -3,7 +3,17 @@ var djello = angular.module('djello', ['restangular', 'ui.router', 'Devise']);
 djello.config(['RestangularProvider', function(RestangularProvider){
     RestangularProvider.setBaseUrl('/api/v1');
     RestangularProvider.setRequestSuffix('.json');
+    RestangularProvider.setDefaultHttpFields({
+        "content-type": "application/json"
+    });
 }]);
+
+djello.config(function(AuthProvider) {
+
+        AuthProvider.loginPath('api/v1/users/sign_in.json');
+
+        AuthProvider.logoutPath('api/v1/users/sign_out.json');
+    });
 
 djello.config(['$urlRouterProvider', '$stateProvider',
   function($urlRouterProvider, $stateProvider){
@@ -24,6 +34,17 @@ djello.config(['$urlRouterProvider', '$stateProvider',
 
       .state('board', {
         url: '/board',
+        resolve:{
+          'check': function($location, loginService){
+            if(loginService.signedInUser.user){
+              //get board data
+            }else{
+              $location.path('/');    //redirect login
+              alert("You don't have access here");
+            }
+          }
+        },
+
         views: {
           'header': {
             templateUrl: 'templates/loggedInHeader.html',
@@ -35,10 +56,12 @@ djello.config(['$urlRouterProvider', '$stateProvider',
           }
         }
       })
-      .state('board.index', {
+
+      .state('board.show', {
         url: '/:id',
         templateUrl: 'templates/boardIndex.html',
         controller: 'boardCtrl'
+        //server request to validate board owner ok
       });
 
 
