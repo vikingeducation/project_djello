@@ -10,12 +10,6 @@ djelloApp.config(['RestangularProvider', function(RestangularProvider){
 
 }]);
 
-djelloApp.config(function(AuthProvider) {
-        AuthProvider.loginPath('path/on/server.json');
-        AuthProvider.loginMethod('GET');
-        AuthProvider.resourceName('user');
-    });
-
 djelloApp.config(['$stateProvider', '$urlRouterProvider',
                   function($stateProvider, $urlRouterProvider){
 
@@ -23,7 +17,8 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
 
   $stateProvider.state('home', {
     url: '/home',
-    templateUrl: 'templates/home.html'
+    templateUrl: 'templates/home.html',
+    controller: 'authenticationCtrl'
   });
 
   $stateProvider.state('sign_in', {
