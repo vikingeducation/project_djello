@@ -25,8 +25,19 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
 
   $stateProvider.state('board', {
     url: '/board',
-    templateUrl: 'templates/board.html',
-    controller: 'boardCtrl'
+    templateUrl: 'templates/boards.html',
+    controller: 'boardCtrl',
+    resolve: {
+              boards: ['Restangular', function(Restangular){
+                return Restangular.all('boards').getList();
+              }]
+            }
+  });
+
+  $stateProvider.state('board.show', {
+    url: '/board/:id',
+    templateUrl: 'templates/boardShow.html',
+    controller: 'boardShowCtrl'
   });
 
   $stateProvider.state('sign_in', {
