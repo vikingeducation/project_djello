@@ -13,9 +13,17 @@ djelloApp.config(['RestangularProvider', function(RestangularProvider){
 djelloApp.config(['$stateProvider', '$urlRouterProvider',
                   function($stateProvider, $urlRouterProvider){
 
+  $urlRouterProvider.otherwise('/home');
+
   $stateProvider.state('home', {
     url: '/home',
     templateUrl: 'templates/home.html'
+  });
+
+  $stateProvider.state('sign_in', {
+    url: '/users/sign_in',
+    templateUrl: 'templates/signIn.html',
+    controller: 'authenticationCtrl'
   });
 
 }]);
