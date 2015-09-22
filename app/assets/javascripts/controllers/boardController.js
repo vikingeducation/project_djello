@@ -18,4 +18,7 @@ app.controller('BoardCtrl', ['$scope', '$location', 'Restangular', 'Session', 'B
   };
 
   if ($scope.boards.length == 0) Boards.getBoards();
+
+ 
+
 }])

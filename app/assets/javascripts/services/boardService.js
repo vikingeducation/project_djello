@@ -11,6 +11,10 @@ app.factory('Boards', ['Restangular', 'Session', function(Restangular, Session){
     boards.push(board);
   }
 
+  function deleteBoard(board){
+    boards.splice(boards.indexOf(board), 1);
+  }
+
   return {
     boards: boards,
     getBoards: getBoards,
