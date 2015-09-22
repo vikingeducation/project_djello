@@ -1,8 +1,5 @@
 
-
-
-
-  
+Rails Models
   1. user model
   2. boards model
   3. lists model
@@ -10,8 +7,34 @@
   5. members model
   6. activity model?
 
-  CONTROLLER USER
-    get login
-      after success login -> route to boards.index page
-    get logout
+Rails Controllers
+User (devise)
+  get login
+    after success login -> route to boards.index page
+  get logout
+
+Main (serve primary page)
+
+Angular
+
+Routes
+- Board
+  - List   (board.list)
+    - Card  (list.card)
+
+Controllers
+- boardCtrl
+- listCtrl
+- cardCtrl
+
+Services
+- authService
+- board
+- list
+- card
+
+Templates
+- board.html
+- list.html
+- card.html
 
