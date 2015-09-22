@@ -21,18 +21,18 @@ djelloApp.config(function(AuthProvider) {
 djelloApp.config(['$stateProvider', '$urlRouterProvider',
                   function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/board');
 
-  $stateProvider.state('home', {
-    url: '/home',
-    templateUrl: 'templates/home.html',
-    controller: 'authenticationCtrl'
+  $stateProvider.state('board', {
+    url: '/board',
+    templateUrl: 'templates/board.html',
+    controller: 'boardCtrl'
   });
 
   $stateProvider.state('sign_in', {
     url: '/users/sign_in',
     templateUrl: 'templates/signIn.html',
-    controller: 'authenticationCtrl'
+    controller: 'authCtrl'
   });
 
 }]);
