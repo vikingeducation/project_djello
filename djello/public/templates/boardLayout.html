@@ -1,10 +1,11 @@
 
 Select board:
-<select>
-  <option>One board</option>
-  <option>Two board</option>
+<select >
+  <option ng-repeat = "board in boards">{{board.title}}</option>
+  
 </select>
 
+<p>Boards here {{boards}}</p>
 <a href="">Delete board</a>
 <a href="">New board</a>
 

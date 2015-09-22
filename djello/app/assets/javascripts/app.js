@@ -34,15 +34,20 @@ djello.config(['$urlRouterProvider', '$stateProvider',
 
       .state('board', {
         url: '/board',
+        controller: 'boardCtrl',
         resolve:{
-          'check': function($location, loginService){
-            if(loginService.signedInUser.user){
-              //get board data
-            }else{
-              $location.path('/');    //redirect login
-              alert("You don't have access here");
-            }
-          }
+          'boards': function($location, loginService, Restangular){
+                      if(loginService.signedInUser.user){
+                        //get board data
+                        return  Restangular.all('boards').getList();
+                          
+          
+                      }else{
+                        $location.path('/');    //redirect login
+                        alert("You don't have access here");
+                      }
+                    }
+                  
         },
 
         views: {
@@ -52,7 +57,7 @@ djello.config(['$urlRouterProvider', '$stateProvider',
           },
           '' : {
             templateUrl: 'templates/boardLayout.html',
-            controller: 'boardCtrl',
+            controller: 'boardCtrl'
           }
         }
       })
