@@ -17,11 +17,13 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
     $stateProvider
       .state('login', {
         url: "/",
-        views: {
-          "login": {
-            templateUrl: 'templates/auth/login.html',
-            controller: 'LoginCtrl'
-          }
-        }
+        templateUrl: 'templates/auth/login.html',
+        controller: 'LoginCtrl'
+      })
+
+      .state('boards', {
+        url: "boards",
+        templateUrl: 'templates/boards/layout.html',
+        controller: 'BoardsCtrl'
       })
   }])

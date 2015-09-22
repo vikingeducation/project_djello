@@ -5,7 +5,7 @@ gem 'devise'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-gem 'faker'
+
 gem 'twitter-bootstrap-rails'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
@@ -42,9 +42,16 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'pry'
+
+  gem 'faker'
+
+  gem 'guard-rspec', require: false
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
