@@ -1,6 +1,6 @@
 djelloApp = angular.module('djelloApp', ['ui.router', 'restangular', 'Devise']);
 
-djelloApp..config(['RestangularProvider', function(RestangularProvider){
+djelloApp.config(['RestangularProvider', function(RestangularProvider){
 
    RestangularProvider.setBaseUrl('/api/v1');
     RestangularProvider.setRequestSuffix('.json');
@@ -10,9 +10,12 @@ djelloApp..config(['RestangularProvider', function(RestangularProvider){
 
 }]);
 
-djelloApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+djelloApp.config(['$stateProvider', '$urlRouterProvider',
+                  function($stateProvider, $urlRouterProvider){
 
-  $stateProvider
+  $stateProvider.state('home', {
+    url: '/home',
+    templateUrl: 'templates/home.html'
+  });
 
-  .state();
-});
+}]);
