@@ -14,8 +14,33 @@ RestangularProvider.setRequestSuffix('.json')
   $stateProvider
     .state('index', {
       url: "/",
-      templateUrl: 'templates/index.html',
-      controller: function(){}
+      // templateUrl: 'templates/index.html',
+      // controller: function(){},
+      views: {
+        "": {
+          templateUrl: "templates/index.html"
+        },
+        "navbar": {
+          templateUrl: "templates/navbar.html"
+        },
+        "menu": {
+          templateUrl: "templates/menu.html"
+        }
+      }
+    })
+    .state('signUp', {
+      url: "/signUp",
+      views: {
+        "": {
+          templateUrl: "templates/sign_up.html"
+        },
+        "navbar": {
+          templateUrl: "templates/navbar.html"
+        },
+        "menu": {
+          templateUrl: "templates/menu.html"
+        }
+      }
     })
 
 }])
