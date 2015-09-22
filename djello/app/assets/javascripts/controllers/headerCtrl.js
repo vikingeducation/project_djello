@@ -1,23 +1,13 @@
-djello.controller('headerCtrl', ['$scope', '$location','Auth', function($scope, $location, Auth){
+djello.controller('headerCtrl', ['$scope', '$location','Auth', 'loginService', function($scope, $location, Auth, loginService){
 
   console.log('headerCtrl initiated');
-  $scope.username = 'USER';
+  
 
   $scope.loginFormData = {};
 
-  var config = {
-      headers: {
-          'X-HTTP-Method-Override': 'POST'
-      }
-  };
 
   $scope.signInUser = function(){
-    console.log('inside signInUser function');
-    Auth.login($scope.loginFormData, config).then(function(user) {
-        console.log(user); // => {id: 1, ect: '...'}
-    }, function(error) {
-        console.log("Authentication failed...");
-    });
+    loginService.loginUser($scope.loginFormData);
 
     $scope.$on('devise:login', function(event, currentUser) {
         // after a login, a hard refresh, a new tab
@@ -28,6 +18,9 @@ djello.controller('headerCtrl', ['$scope', '$location','Auth', function($scope, 
         // user logged in by Auth.login({...})
         $location.path('/board');
     });
+
+    $scope.user = loginService.getUser().username;
+    console.log("in ctrl", $scope.user )
   };
 
 }]);
