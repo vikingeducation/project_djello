@@ -7,6 +7,11 @@ RestangularProvider.setRequestSuffix('.json')
 
 }])
 
+
+.config(function(AuthProvider) {
+  AuthProvider.registerPath('api/v1/users.json');
+})
+
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
   $urlRouterProvider.otherwise("/")
@@ -28,11 +33,12 @@ RestangularProvider.setRequestSuffix('.json')
         }
       }
     })
-    .state('signUp', {
-      url: "/signUp",
+    .state('sign-up', {
+      url: "/sign-up",
       views: {
         "": {
-          templateUrl: "templates/sign_up.html"
+          templateUrl: "templates/sign_up.html",
+          controller: "signUp"
         },
         "navbar": {
           templateUrl: "templates/navbar.html"

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  get 'djello/index'
+
+  scope :api do
+    scope :v1 do
+      devise_for :users, :controllers => {:registrations => "registrations"}
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

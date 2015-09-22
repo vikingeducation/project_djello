@@ -1,1 +1,14 @@
-signUP
+
+<div class="col-sm-6 col-sm-offset-3>
+    <div class="input-group">
+      <br>
+      <input type="text" class="form-control" placeholder="Email" ng-model='credentials.email'>
+      <br>
+      <input type="password" class="form-control" placeholder="Password" ng-model='credentials.password'>
+      <br>
+      <input type="password" class="form-control" placeholder="Password Confirmation" ng-model='credentials.password_confirmation'>
+      <br>
+      <input type="submit" class="btn btn-primary" ng-click="registerUser()">
+    </div>
+  {{credentials}}
+</div>
