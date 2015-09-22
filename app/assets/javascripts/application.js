@@ -14,7 +14,6 @@
 //  GEMFILE
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 
 // VENDOR TREE
 //= require devise
