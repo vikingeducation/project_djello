@@ -5,16 +5,16 @@ djello.config(['RestangularProvider', function(RestangularProvider){
     RestangularProvider.setRequestSuffix('.json');
 }]);
 
-// djello.config(['$urlRouterProvider', '$stateProvider',
-//   function($urlRouterProvider, $stateProvider){
-//     $stateProvider
-//       // .state('djello', {
-//       //   url: '/pins',
-//       //   templateUrl: 'templates/pinsLayout.html'
-//       });
+djello.config(['$urlRouterProvider', '$stateProvider',
+  function($urlRouterProvider, $stateProvider){
+    $stateProvider
+      .state('header', {
+        url: '/',
+        templateUrl: 'templates/headerLayout.html'
+      });
 
 
-//   }]);
+  }]);
 
 //for errors
 
