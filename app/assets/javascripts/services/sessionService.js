@@ -6,7 +6,7 @@ app.factory('Session',  ['Auth', '$location', function(Auth,$location){
     Auth.login(credentials, config).then(function(user) {
       loggedIn.status = true;
       currentUser.user = user;
-      $location.path("/loggedIn") 
+      $location.path("/loggedIn")
     }, function(error) {
       loggedIn.status = false;
     });
@@ -21,6 +21,8 @@ app.factory('Session',  ['Auth', '$location', function(Auth,$location){
     Auth.logout(config).then(function(e){
       console.log("logged out");
       $location.path("/login");
+    }, function(er){
+      console.log(er);
     });
   }
 

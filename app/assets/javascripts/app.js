@@ -21,4 +21,17 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
         templateUrl: 'templates/session/temp.html',
         controller: 'SessionCtrl'
       })
+
+      .state('board', {
+        url: '/board',
+        views: {
+          'layout': {
+            templateUrl: 'templates/boards/layout.html',
+            controller: 'BoardsCtrl'
+          }
+          'child': {
+            templateUrl: 'templates/boards/child.html',
+          }
+        }
+      })
   }])
