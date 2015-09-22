@@ -10,7 +10,16 @@ djello.config(['$urlRouterProvider', '$stateProvider',
     $stateProvider
       .state('header', {
         url: '/',
-        templateUrl: 'templates/headerLayout.html'
+        
+        controller: 'headerCtrl',
+        views: {
+          '': {
+            templateUrl: 'templates/headerLayout.html',
+          },
+          'loginForm' : {
+            templateUrl: 'templates/loginForm.html'
+          }
+        }
       });
 
 
