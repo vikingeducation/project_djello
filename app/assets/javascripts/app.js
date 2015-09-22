@@ -9,7 +9,7 @@ RestangularProvider.setRequestSuffix('.json')
 
 
 .config(function(AuthProvider) {
-  AuthProvider.registerPath('api/v1/users.json');
+  // AuthProvider.registerPath('api/v1/users.json');
 })
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){

@@ -1,4 +1,4 @@
-djello.controller('signUp',['$scope', 'Auth', '$state', 
+djello.controller('signUp',['$scope', 'Auth', '$state',
   function($scope, Auth, $state){
   $scope.credentials = {};
   var config = {
@@ -17,9 +17,7 @@ djello.controller('signUp',['$scope', 'Auth', '$state',
     });
   }
 
+  Auth.currentUser()
   console.log(Auth.isAuthenticated());
 
-  $scope.$on('devise:new-registration', function(event, user) {
-    // ...
-  });
 }])

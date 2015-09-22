@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
 
-  scope :api do
-    scope :v1 do
+  # scope :api do
+    # scope :v1 do
       devise_for :users
-    end
-  end
+  #   end
+  # end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'djello#index'
+
+  get 'current_user', to: 'application#me'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
