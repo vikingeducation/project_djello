@@ -1,4 +1,12 @@
-app.controller("LoginCtrl", ["$scope", "Restangular", "$location", "UserService", function($scope, Restangular, $location, UserService){
+app.controller("LoginCtrl",
+  ["$scope", "Restangular", "$location", "UserService", 'userPromise',
+  function($scope, Restangular, $location, UserService, userPromise){
+  console.log("Signed in as: ")
+  console.log(userPromise)
+  if (userPromise) {
+    console.log("inside if - redirecting to boards from LoginCtrl")
+    $location.path('/boards')
+  };
 
   $scope.currentUser = UserService.currentUser;
 
@@ -9,5 +17,6 @@ app.controller("LoginCtrl", ["$scope", "Restangular", "$location", "UserService"
         }
     };
     UserService.login($scope.credentials, config)
+    $location.path('/boards')
   }
 }])
