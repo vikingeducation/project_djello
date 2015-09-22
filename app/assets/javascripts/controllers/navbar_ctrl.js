@@ -3,10 +3,14 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
 
     console.log("setting up navbarCtrl")
 
-    userService.getCurrentUser.then(function(response){
+    var getCurrentUser = function(){
+      userService.getCurrentUser.then(function(response){
         console.log(response.data);
         $scope.currentUser = response.data;
-    })
+      })
+    }
+
+    getCurrentUser();
 
     $scope.signOut = function(){
       var config = {
@@ -14,8 +18,9 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
               'X-HTTP-Method-Override': 'DELETE'
           }
       };
-      userService.signOut(config);
       console.log("signing out!")
+      userService.signOut(config);
+      getCurrentUser();
 
     }
 
@@ -25,8 +30,8 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
               'X-HTTP-Method-Override': 'POST'
           }
       };
-      userService.signIn(credentials, config)
       console.log("signing in")
+      userService.signIn(credentials, config)
 
     }
 
@@ -35,7 +40,8 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
       $scope.currentUser = null
     });
     $scope.$on('devise:login', function(event, currentUser) {
-      console.log("signed IN!!!!")
+      console.log("propagation", currentUser)
+      $scope.currentUser = currentUser
       $location.path('/board')
     });
 
