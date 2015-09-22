@@ -1,20 +1,26 @@
 <h1 class="page-header"> Welcome! </h1>
 
-{{ boards }}
+<div class="row">
+  <div class="col-md-6">
 
-<div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">HTML</a></li>
-    <li><a href="#">CSS</a></li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="board in boards">{{ board.name }}</li>
+    </ul>
+  </div>
+
+  <h5> Delete Board </h5>
+  <h5 ui-sref="board.create"> New Board </h5>
+
+  <button ng-click="logout()" class="btn btn-primary">Log out</button>
 </div>
 
-<h5> Delete Board </h5>
-<h5> New Board </h5>
-
-<button ng-click="logout()" class="btn btn-primary">Log out</button>
-
-<ui-view></ui-view>
+<div class="col-md-6">
+  <ui-view></ui-view>
+  <h3> Your Boards: </h3>
+  <div class="row">
+    <div class="col-md-6" ng-repeat="board in boards">{{ board.name }}</div>
+  </div>
+</div>

@@ -7,8 +7,13 @@ app.factory('Boards', ['Restangular', 'Session', function(Restangular, Session){
     })
   }
 
+  function addBoard(board){
+    boards.push(board);
+  }
+
   return {
     boards: boards,
     getBoards: getBoards,
+    addBoard: addBoard,
   }
 }]);

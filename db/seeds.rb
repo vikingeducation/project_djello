@@ -6,6 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.destroy_all
+Board.destroy_all
+
+base_user = User.create(username: 'dddddddd', password: "dddddddd", password_confirmation: "dddddddd")
+
+5.times do
+  base_user.boards.create(name: Faker::Commerce.product_name)
+end
+
 5.times do |i|
   new_user = User.create(username: Faker::Name.name, password: "dddddddd", password_confirmation: "dddddddd")
   5.times do
