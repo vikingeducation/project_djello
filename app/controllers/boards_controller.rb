@@ -28,9 +28,10 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    @cached_board = @board
     if @board.destroy
       respond_to do |format|
-        format.json { render json: "Deleted!"}
+        format.json { render json: @cached_board }
       end
     end
   end

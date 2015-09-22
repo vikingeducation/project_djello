@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {sessions: 'sessions'}
 
   root to: "main#index"
-  
+
   scope :api do
     scope :v1 do
-      resources :boards, :except => [:new, :edit]
+      resources :boards, except: [:new, :edit]
+      resources :lists, only: [:create, :update, :destroy]
     end
   end
 end

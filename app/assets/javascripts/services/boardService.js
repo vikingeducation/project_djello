@@ -12,12 +12,17 @@ app.factory('Boards', ['Restangular', 'Session', function(Restangular, Session){
   }
 
   function deleteBoard(board){
-    boards.splice(boards.indexOf(board), 1);
+    var index = boards.reduce(function(result, el, index){
+      if (el.id == board.id) return index;
+    }, -1)
+
+    if (index >= 0) boards.splice(boards.indexOf(index), 1);
   }
 
   return {
     boards: boards,
     getBoards: getBoards,
+    deleteBoard: deleteBoard,
     addBoard: addBoard,
   }
 }]);
