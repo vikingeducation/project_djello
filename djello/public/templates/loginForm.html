@@ -1,7 +1,7 @@
 Form is here:
 
-<form ng-submit="loginFormData">
+<form ng-model="loginFormData">
 <input type="email" ng-model="loginFormData.email" placeholder="Please enter email">
 <input type="password" ng-model="loginFormData.password" placeholder="Please enter password">
-<input type="submit">
+<input type="submit" ng-click="signInUser()">
 </form>

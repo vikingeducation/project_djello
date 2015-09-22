@@ -10,14 +10,28 @@ djello.config(['$urlRouterProvider', '$stateProvider',
     $stateProvider
       .state('header', {
         url: '/',
-        
-        controller: 'headerCtrl',
         views: {
-          '': {
+          'header': {
             templateUrl: 'templates/headerLayout.html',
+            controller: 'headerCtrl'
           },
-          'loginForm' : {
-            templateUrl: 'templates/loginForm.html'
+          '' : {
+            templateUrl: 'templates/loginForm.html',
+            controller: 'headerCtrl',
+          }
+        }
+      })
+
+      .state('board', {
+        url: '/board',
+        views: {
+          'header': {
+            templateUrl: 'templates/loggedInHeader.html',
+            controller: 'headerCtrl'
+          },
+          '' : {
+            templateUrl: 'templates/boardIndex.html',
+            controller: 'boardCtrl',
           }
         }
       });
