@@ -10,7 +10,13 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//
+//  GEMFILE
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
+// VENDOR TREE
+//= require devise
+
 //= require_tree .
