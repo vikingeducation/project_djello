@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'rails_12factor'
+
+gem 'figaro'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
@@ -33,6 +36,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+
+  gem 'better_errors'
+
+  gem 'guard-rspec', require: false
+  gem 'rspec-rails'
+  gem 'factory_girl_rails', '~> 4.0'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -42,4 +54,3 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
