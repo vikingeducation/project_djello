@@ -1,2 +1,12 @@
 <nav navbar-main></nav>
 <h1>BOARD</h1>
+{{boards}}
+
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="input-group">
+      <br>
+      <input type="text" class="form-control" placeholder="Name" ng-model='board.name'>
+      <br>
+      <button class="btn btn-primary" ng-click="createBoard()">Create</button>
+    </div>
+</div>

@@ -2,7 +2,7 @@ var djello = angular.module("djello", ['ui.router', 'Devise', 'restangular'])
 
 .config(['RestangularProvider', function(RestangularProvider){
 
-RestangularProvider.setBaseUrl('/api/v1/')
+// RestangularProvider.setBaseUrl('/api/v1/')
 RestangularProvider.setRequestSuffix('.json')
 
 }])
@@ -37,9 +37,17 @@ RestangularProvider.setRequestSuffix('.json')
       views: {
 
         "": {
-          templateUrl: "templates/board.html"
+          templateUrl: "templates/board.html",
+          controller: 'boardCtrl',
+          resolve: {
+            boards: ['Restangular', function(Restangular) {
+              return Restangular.all('boards').getList()
+            }],
+            currentUser: ['userService', function(userService) {
+              return userService.getCurrentUser().then()
+            }]
+          }
         },
-
 
       }
     })
