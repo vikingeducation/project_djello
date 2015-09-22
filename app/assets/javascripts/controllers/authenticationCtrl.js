@@ -4,7 +4,8 @@ djelloApp.controller( 'authenticationCtrl',
 
     $scope.user = {};
 
-    $scope.signIn = function(){
+    $scope.signInUser = function(){
+      console.log("Sign in method called");
       console.log($scope.user);
 
       var config = {

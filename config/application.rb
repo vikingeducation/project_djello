@@ -24,6 +24,10 @@ module AssignmentDjello
 
     # DEVISE SETUP FOR HEROKU DEPLOY
     config.assets.initialize_on_precompile = false
+
+    config.to_prepare do
+        DeviseController.respond_to :html, :json
+      end
     
 
     config.active_record.raise_in_transactional_callbacks = true
