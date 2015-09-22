@@ -21,7 +21,9 @@ djelloApp.factory('authService', ['$location', 'Auth',
         console.info('Error in authenticating user!');
         alert('Error in signing in user!');
       });
-  };
+    };
+
+    
 
   obj.signOut = function() {
     console.log('running');
@@ -33,6 +35,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
 
   // oldUser is not working
     Auth.logout(config).then(function(oldUser) {
+      console.log(oldUser);
       $location.path('/users/sign_in');
       alert(oldUser + "you're signed out now.");
     }, function(error) {
@@ -41,8 +44,13 @@ djelloApp.factory('authService', ['$location', 'Auth',
   };
 
   obj.checkSignIn = function() {
-    return Auth.isAuthenticated();
+
+      return Auth.isAuthenticated();
+
   };
+
+
+
 
   return obj;
 
