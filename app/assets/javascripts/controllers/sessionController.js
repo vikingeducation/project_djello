@@ -1,4 +1,4 @@
-app.controller('SessionCtrl', ['$scope', 'Auth', 'Session', function($scope, Auth, Session){
+app.controller('SessionCtrl', ['$scope', 'Session', function($scope, Session){
   $scope.loggedIn = Session.loggedIn;
   $scope.currentUser = Session.currentUser;
 
@@ -15,6 +15,10 @@ app.controller('SessionCtrl', ['$scope', 'Auth', 'Session', function($scope, Aut
     };
 
     Session.login($scope.credentials, config);
-  }
+  };
+
+  $scope.logout = function(){
+    Session.logout();
+  };
 
 }])

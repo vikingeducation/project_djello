@@ -16,5 +16,9 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
         templateUrl: 'templates/session/login.html',
         controller: 'SessionCtrl'
       })
-
+      .state('loggedIn', {
+        url: "/loggedIn",
+        templateUrl: 'templates/session/temp.html',
+        controller: 'SessionCtrl'
+      })
   }])
