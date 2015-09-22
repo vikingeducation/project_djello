@@ -67,10 +67,10 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
           // not going to #login, we should redirect now
           $location.path( '/' );
         }
-      } else {
-        if ( next.templateUrl == 'templates/auth/login.html' ) {
-          $location.path( '/boards' );
-        }
+      // } else {
+      //   if ( next.templateUrl == 'templates/auth/login.html' ) {
+      //     $location.path( '/boards' );
+      //   }
       }
     });
  })
