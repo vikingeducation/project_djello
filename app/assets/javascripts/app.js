@@ -17,21 +17,30 @@ RestangularProvider.setRequestSuffix('.json')
   $urlRouterProvider.otherwise("/")
 
   $stateProvider
-    .state('index', {
+    .state('loggedOut', {
       url: "/",
       // templateUrl: 'templates/index.html',
       // controller: function(){},
       views: {
+
         "": {
-          templateUrl: "templates/index.html"
+          templateUrl: "templates/welcome.html"
         },
-        "navbar": {
-          templateUrl: "templates/navbar.html",
-          controller: "navbarCtrl"
+
+
+      }
+    })
+    .state('loggedIn', {
+      url: "/board",
+      // templateUrl: 'templates/index.html',
+      // controller: function(){},
+      views: {
+
+        "": {
+          templateUrl: "templates/board.html"
         },
-        "menu": {
-          templateUrl: "templates/menu.html"
-        }
+
+
       }
     })
     .state('sign-up', {
@@ -41,13 +50,8 @@ RestangularProvider.setRequestSuffix('.json')
           templateUrl: "templates/sign_up.html",
           controller: "signUp"
         },
-        "navbar": {
-          templateUrl: "templates/navbar.html",
-          controller: "navbarCtrl"
-        },
-        "menu": {
-          templateUrl: "templates/menu.html"
-        }
+
+
       }
     })
 
