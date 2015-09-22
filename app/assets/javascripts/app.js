@@ -26,7 +26,8 @@ RestangularProvider.setRequestSuffix('.json')
           templateUrl: "templates/index.html"
         },
         "navbar": {
-          templateUrl: "templates/navbar.html"
+          templateUrl: "templates/navbar.html",
+          controller: "navbarCtrl"
         },
         "menu": {
           templateUrl: "templates/menu.html"
@@ -41,7 +42,8 @@ RestangularProvider.setRequestSuffix('.json')
           controller: "signUp"
         },
         "navbar": {
-          templateUrl: "templates/navbar.html"
+          templateUrl: "templates/navbar.html",
+          controller: "navbarCtrl"
         },
         "menu": {
           templateUrl: "templates/menu.html"
