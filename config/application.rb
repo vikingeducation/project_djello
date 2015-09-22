@@ -21,6 +21,11 @@ module AssignmentDjello
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+
+    # DEVISE SETUP FOR HEROKU DEPLOY
+    config.assets.initialize_on_precompile = false
+    
+
     config.active_record.raise_in_transactional_callbacks = true
   end
 end

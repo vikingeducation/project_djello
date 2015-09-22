@@ -1,0 +1,17 @@
+
+
+
+
+  
+  1. user model
+  2. boards model
+  3. lists model
+  4. cards model
+  5. members model
+  6. activity model?
+
+  CONTROLLER USER
+    get login
+      after success login -> route to boards.index page
+    get logout
+
