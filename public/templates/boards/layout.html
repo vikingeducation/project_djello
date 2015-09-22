@@ -1,26 +1,22 @@
 <h1 class="page-header"> Welcome! </h1>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-2 pull-right">
 
   <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li ng-repeat="board in boards">{{ board.name }}</li>
+      <li ng-repeat="board in boards" ui-sref="board.show({id : board.id})">{{ board.name }}</li>
     </ul>
   </div>
 
-  <h5> Delete Board </h5>
-  <h5 ui-sref="board.create"> New Board </h5>
+  <button class="btn btn-danger"> Delete Board </button>
+  <button class="btn btn-success" ui-sref="board.create"> New Board </button>
 
-  <button ng-click="logout()" class="btn btn-primary">Log out</button>
+  <!-- <button ng-click="logout()" class="btn btn-primary">Log out</button> -->
 </div>
 
 <div class="col-md-6">
   <ui-view></ui-view>
-  <h3> Your Boards: </h3>
-  <div class="row">
-    <div class="col-md-6" ng-repeat="board in boards">{{ board.name }}</div>
-  </div>
 </div>

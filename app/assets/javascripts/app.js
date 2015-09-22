@@ -6,10 +6,10 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
 
 }])
 
-.config(["AuthInterceptProvider", function(AuthInterceptProvider) {
-  // Intercept 401 Unauthorized everywhere
-  AuthInterceptProvider.interceptAuth(true);
-}])
+// .config(["AuthInterceptProvider", function(AuthInterceptProvider) {
+//   // Intercept 401 Unauthorized everywhere
+//   AuthInterceptProvider.interceptAuth(true);
+// }])
 
 .config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider){
@@ -33,9 +33,32 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
         controller: 'BoardCtrl',
       })
 
+      .state('board.index', {
+        url: '/index',
+        templateUrl: 'templates/boards/index.html',
+        controller: 'BoardIndexCtrl',
+      })
+
       .state('board.create', {
         url: '/create',
         templateUrl: 'templates/boards/create.html',
         controller: 'BoardCreateCtrl',
+      })
+
+      .state('board.show', {
+        url: '/show/:id',
+        templateUrl: 'templates/boards/show.html',
+        controller: 'BoardShowCtrl',
+        resolve: {
+          board: ['Restangular', '$stateParams', '$location',
+          function(Restangular, $stateParams, $location){
+            return Restangular.one('boards', $stateParams.id).get().then(function(success){
+              return success
+            }, function(error){
+              console.log(error)
+              $location.path('/board/index');
+            })
+          }]
+        }
       })
   }])

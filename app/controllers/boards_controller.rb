@@ -1,12 +1,12 @@
 class BoardsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_owner, only: [:update, :destroy]
+  before_action :require_owner, only: [:update, :destroy, :show]
 
   def index
     @boards = Board.where(user: current_user)
 
     respond_to do |format|
-      format.json {render json: @boards}
+      format.json {render json: @boards.to_json(include: :lists)}
     end
 
   end
@@ -16,15 +16,14 @@ class BoardsController < ApplicationController
     @board.user_id = current_user.id
     if @board.save
       respond_to do |format|
-        format.json {render json: @board }
+        format.json {render json: @board.to_json(include: :lists) }
       end
     end
   end
 
   def show
-    @board = Board.find(params[:id])
     respond_to do |format|
-      format.json { render json: @board}
+      format.json { render json: @board.to_json(include: :lists)}
     end
   end
 
@@ -39,7 +38,7 @@ class BoardsController < ApplicationController
   def update
     if @board.update(board_whitelist_params)
       respond_to do |format|
-        format.json { render json: @board }
+        format.json { render json: @board.to_json(include: :lists) }
       end
     end
   end
@@ -53,7 +52,7 @@ class BoardsController < ApplicationController
       @board = Board.find(params[:id])
       unless current_user.id == @board.user_id
         respond_to do |format|
-          format.json {render json: "Not allowed!", response: 403}
+          format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
         end
       end
     end

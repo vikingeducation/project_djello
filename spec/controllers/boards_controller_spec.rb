@@ -10,7 +10,7 @@ require 'rails_helper'
 RSpec.describe BoardsController, type: :controller do
 
   let(:user) { create(:user) }
-  let(:board) { create(:board)}
+  let(:board) { create(:board, user: user)}
 
   before :each do
     sign_out user
@@ -33,15 +33,23 @@ RSpec.describe BoardsController, type: :controller do
 
   describe "show" do
 
+    let(:other_user) { create(:user) }
+
     it 'can show a board if logged in' do
       sign_in user
       get :show, format: :json, id: board.id
-      expect(assigns(:board)).to eq(board)
+      expect(response.body).to include(board.name)
     end
 
     it 'cannot show a board if not logged in' do
       get :show, format: :json, id: board.id
-      expect(assigns(:board)).to_not eq(board)
+      expect(response.body).to_not include(board.name)
+    end
+
+    it 'cannot show a board if not owner' do
+      sign_in other_user
+      get :show, format: :json, id: board.id
+      expect(response.body).to_not include(board.name)
     end
   end
 

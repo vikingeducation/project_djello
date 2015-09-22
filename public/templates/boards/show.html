@@ -1,0 +1,8 @@
+<h1> Your Board: </h1>
+
+{{ board.name }}
+
+<h1> Lists </h1>
+<div col-md-3 ng-repeat="list in board.lists">
+  {{ list.title }}
+</div>
