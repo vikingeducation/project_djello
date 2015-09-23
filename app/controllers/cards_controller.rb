@@ -2,7 +2,9 @@ class CardsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_author , only: [:create]
   def create
-    @card = Card.new(card_whitelist_params)
+    list = List.find(params[:card]['list_id'])
+    @card = list.cards.build(card_whitelist_params)
+
 
     if @card.save
       respond_to do |format|

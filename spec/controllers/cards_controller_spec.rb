@@ -8,9 +8,19 @@ RSpec.describe CardsController, type: :controller do
 
   it 'should not allow cards to be placed on non-owned lists' do
     sign_in other_user
-    card = {title: 'abc123', description: "abab123", completed: false}
+    card = {title: 'abc123', description: "abab123", completed: false, list_id: list.id}
     expect {
-      post :create, format: :json, card: card.to_json
+      post :create, format: :json, card: card
     }.to change(Card, :count).by (0)
   end
+
+  it 'should allow cards to be placed owned lists' do
+    sign_in user
+    card = {title: 'abc123', description: "abab123", completed: false, list_id: list.id}
+    expect {
+      post :create, format: :json, card: card
+    }.to change(Card, :count).by (1)
+  end
+
 end
+
