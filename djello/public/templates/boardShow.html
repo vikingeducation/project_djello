@@ -1,10 +1,8 @@
 <div class="row">
 
-  <div class="col-sm-4">
-    <a href="" ng-click="newList()">New List</a>
-  </div>
 
-  <div class="col-sm-4">
+
+  <div class="col-sm-12">
     <div ng-hide="BoardTitleEnabled">
       <h1>{{board.title}}</h1>
       <a href="" ng-click ='deleteBoard()' >Delete board</a>
@@ -16,19 +14,21 @@
       <a href="" ng-click="editorBoardTitle('cancel')">Cancel</a>
     </div>
 
-    <div ng-repeat="list in lists track by $index">
+    <p><a href="" ng-click="newList()">New List</a></p>
+    <div class="row">
+      <div class='col-sm-3' ng-repeat="list in lists track by $index">
 
-      <h3>{{list.title}}</h3>
-      <h4>{{list.description}}</h4>
-      <hr>
+        <h3>{{list.title}}</h3>
+        <h4>{{list.description}}</h4>
+        <hr>
 
-      <div ng-repeat="card in list.cards">
-        <p>{{card.title}}!!!</p>
+        <div ng-repeat="card in list.cards">
+          <p>{{card.title}}!!!</p>
 
+        </div>
+
+        <a href="">Add a Card</a>
       </div>
-
-      <a href="">Add a Card</a>
-
     </div>
   </div>
 </div>
