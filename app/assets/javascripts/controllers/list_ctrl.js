@@ -15,4 +15,38 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
       $scope.lists.push(response)
     })
   }
+
+  $scope.createCard = function(cardForm, list){
+    console.log("list", list);
+    var post = Restangular.one('boards', $stateParams.id).all('cards').post({
+      card: {
+        name: cardForm.name,
+        content: cardForm.content,
+        list_id: list.id
+      }
+    })
+
+    post.then(function(response){
+      list.cards = list.cards || [];
+      list.cards.push(response);
+      $scope.card = {};
+    })
+  }
+
+  $scope.setList = function(list) {
+    $scope.curList = list;
+  }
+
+  $scope.setCard = function(card) {
+    $scope.modalCard = card;
+  }
+
 }])
+
+
+
+
+
+
+
+

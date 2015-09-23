@@ -8,9 +8,8 @@ Rails.application.routes.draw do
   # end
 
   resources :boards do
-    resources :lists do
-      resources :cards
-    end
+    resources :lists 
+    resources :cards
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

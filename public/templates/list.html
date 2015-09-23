@@ -1,19 +1,46 @@
 <h1>Lists</h1>
 
-{{lists}}
+{{list}}
 <hr>
 <div class="row">
   <div class="col-sm-3" ng-repeat="list in lists">
     <article class="djello-list">
       <h3 class="text-center">{{list.name}}</h3>
       <ul style='list-style-type:none'>
-        <li class="djello-card" ng-repeat="card in list.cards">
+        <li class="djello-card" ng-repeat="card in list.cards" card-modal card="card" data-toggle="modal" data-target="#myModal{{card.id}}" ng-click="setCard(card)">
           {{card.name}}
+
           <br>
           &nbsp &nbsp &nbsp {{card.content}}
         </li>
       </ul>
-      <button class="btn btn-info list-button">New Card</button>
+
+      <button type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#myModal" ng-click="setList(list)">New Card</button>
+      {{list.name}}
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        {{curList.name}}
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              NAme: <input type="text" ng-model="card.name">
+            </div>
+            <div class="modal-body">
+              Content: <input type="text" ng-model="card.content">
+            </div>
+            <div class="modal-footer">
+              {{curList.name}}
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createCard(card, curList)">Add New Card</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Modal -->
+
     </article>
   </div>
 
@@ -25,7 +52,7 @@
       type="text" style="margin-left:25%;width:50%;"></input>
       <br><br>
       <button class="btn btn-info list-button"
-       ng-click="createList(newListName)">Create List</button>
+      ng-click="createList(newListName)">Create List</button>
 
     </article>
   </div>
