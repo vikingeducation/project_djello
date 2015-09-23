@@ -10,6 +10,15 @@ djello.controller('boardCtrl',
   $scope.boards = boards;
   console.log("boards in ctrl", $scope.boards);
 
+  // creates default board w/o title
+
+  $scope.createBoard = function(){
+    Restangular.all('boards').post(
+          { board: {  title: 'Default Board Title'} })
+                  .then(function(createdBoard){
+                        $scope.boards.push(createdBoard);
+                  });
+  };
 
 
   // $scope.cards = ["task1", "task2"];

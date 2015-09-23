@@ -72,7 +72,14 @@ djello.config(['$urlRouterProvider', '$stateProvider',
 
         }
         //server request to validate board owner ok
-      });
+      })
+
+      // .state('board.new', {
+      //   url: '/new',
+      //   templateUrl: 'templates/newBoard.html',
+      //   controller: 'board'
+      // })
+      ;
 
 
   }]);
