@@ -5,6 +5,7 @@ RSpec.describe ListsController, type: :controller do
   let(:other_user) { create(:user) }
   let(:board) { create(:board, user: user) }
   let(:other_board) { create(:board, user: other_user) }
+  let(:list) {create(:list, board: board)}
 
   describe 'create' do
     it 'should allow creation of a list if owner' do
@@ -22,7 +23,21 @@ RSpec.describe ListsController, type: :controller do
         post :create, format: :json, list: new_list.attributes
       }.to change(List, :count).by(0)
     end
+  end
 
-    
+  describe 'update' do
+    it 'should not allow editing if not owner' do
+      sign_in other_user
+      edited_list = build(:list)
+      put :update, format: :json, id: list.id, list: edited_list.attributes
+      expect(list.title).to_not eq(edited_list.title)
+    end
+
+    it 'should not allow editing if not owner' do
+      sign_in user
+      edited_list = build(:list)
+      put :update, format: :json, id: list.id, list: edited_list.attributes
+      expect(list.title).to eq(edited_list.title)
+    end
   end
 end
