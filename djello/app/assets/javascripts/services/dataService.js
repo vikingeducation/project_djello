@@ -15,9 +15,8 @@ djello.service('dataService',['Restangular', 'loginService',
     obj.checkBoardOwner = function(boardId){
       for(var i=0; i<obj.boards.allBoards.length; i++){
         if(obj.boards.allBoards[i].id == boardId){return true}
-
-      } 
-      return false
+      }
+      return false;
     };
 
     obj.deleteBoard = function(board){

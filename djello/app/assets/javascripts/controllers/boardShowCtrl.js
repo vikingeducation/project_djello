@@ -5,13 +5,11 @@ djello.controller('boardShowCtrl',
     console.log("boardShowCtrl initiated");
   $scope.user = loginService.signedInUser.user;
   var oldTitle = "";
-    // redirect back to root if not signed in
-  // if(!$scope.user.user) $location.path('/');
 
   $scope.board = JSON.parse(showresponse.board);
-
   $scope.lists = JSON.parse(showresponse.lists);
 
+  // ==============all board methods===============
 
   $scope.deleteBoard = function(){
     Restangular.one('boards', $scope.board.id).remove();
@@ -33,26 +31,21 @@ djello.controller('boardShowCtrl',
       }
       oldTitle = $scope.board.title;
       $scope.BoardTitleEnabled=!$scope.BoardTitleEnabled;
-      //   $document.off('click', clickListener);
 
-      // } else if (saved != 'saved' && $scope.BoardTitleEnabled){
-      //   $document.off('click', clickListener);
-
-
-      //   //no change, revert back to oldTitle
-      //   $scope.BoardTitleEnabled = oldTitle;
-
-      // } else {
-      //   //when clicking to edit
-      //   oldTitle = $scope.board.title;
-      //   // for click outside box;
-      //   clickListener;
-
-      // }
   };
 
+  // ==============all list methods===============
 
-
+  $scope.newList = function(){
+    console.log('list create');
+    Restangular.all('lists').post(
+          { list: {  title: 'Blank List' ,
+                    description: 'insert description here',
+                    board_id: $scope.board.id }})
+              .then(function(createdList){
+                $scope.lists.push(createdList);
+                  });
+  };
 
   console.log("lists", $scope.lists);
 

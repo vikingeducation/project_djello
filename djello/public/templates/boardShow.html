@@ -1,26 +1,34 @@
+<div class="row">
 
-<div ng-hide="BoardTitleEnabled">
-  <h1>{{board.title}}</h1>
-  <a href="" ng-click ='deleteBoard()' >Delete board</a>
-  <a href="#" ng-click="editorBoardTitle()">Edit title</a>
-</div>
-<div ng-show="BoardTitleEnabled">
-  <input ng-model="board.title">
-  <a href="#" ng-click="editorBoardTitle('saved')">Done editing?</a>
-  <a href="" ng-click="editorBoardTitle('cancel')">Cancel</a>
-</div>
-
-<div ng-repeat="list in lists track by $index">
-
-  <h3>{{list.title}}</h3>
-  <h4>{{list.description}}</h4>
-  <hr>
-
-  <div ng-repeat="card in list.cards">
-    <p>{{card.title}}!!!</p>
-
+  <div class="col-sm-4">
+    <a href="" ng-click="newList()">New List</a>
   </div>
 
-  <a href="">Add a Card</a>
+  <div class="col-sm-4">
+    <div ng-hide="BoardTitleEnabled">
+      <h1>{{board.title}}</h1>
+      <a href="" ng-click ='deleteBoard()' >Delete board</a>
+      <a href="#" ng-click="editorBoardTitle()">Edit title</a>
+    </div>
+    <div ng-show="BoardTitleEnabled">
+      <input ng-model="board.title">
+      <a href="#" ng-click="editorBoardTitle('saved')">Done editing?</a>
+      <a href="" ng-click="editorBoardTitle('cancel')">Cancel</a>
+    </div>
 
+    <div ng-repeat="list in lists track by $index">
+
+      <h3>{{list.title}}</h3>
+      <h4>{{list.description}}</h4>
+      <hr>
+
+      <div ng-repeat="card in list.cards">
+        <p>{{card.title}}!!!</p>
+
+      </div>
+
+      <a href="">Add a Card</a>
+
+    </div>
+  </div>
 </div>
