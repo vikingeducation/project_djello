@@ -17,6 +17,7 @@ app.controller("LoginCtrl",
         }
     };
     UserService.login($scope.credentials, config)
+    console.log("redirect");
     $location.path('/boards')
   }
 }])
