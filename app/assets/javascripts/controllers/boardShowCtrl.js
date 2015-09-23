@@ -5,7 +5,6 @@ app.controller('BoardShowCtrl',['$scope', '$location', 'Restangular', 'Boards', 
   $scope.addList = function(){
      Restangular.all('lists').post({list: {title: $scope.title,description: "" ,board_id: $scope.board.id}}).then(function(newList){
       $scope.board.lists.push(newList);
-
      });
   }
 

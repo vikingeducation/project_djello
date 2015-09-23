@@ -22,7 +22,7 @@ app.directive("editableList", function(){
                         {{card.description}}\
                       </div>\
                       <input type="text" ng-model="newCardName">\
-                      <button ng-click="addCard()">Add</button>\
+                      <button ng-click="createCard()">Add</button>\
                     </div>\
                   </div>'
 
@@ -59,8 +59,9 @@ app.directive("editableList", function(){
             $scope.value.description = $scope.view.editableValue.description;
         };
 
-        $scope.addCard = function(){
-            $scope.addCard({card: {title: $scope.NewCardName, list_id: $scope.value.id}})
+        $scope.createCard = function(){
+            $scope.addCard({card: {title: $scope.newCardName, description: "", list_id: $scope.value.id}})
+            $scope.value.cards.push({title: $scope.newCardName, description: "", list_id: $scope.value.id});
         }
     }
 };

@@ -3,10 +3,10 @@ class CardsController < ApplicationController
   before_action :require_author , only: [:create]
   def create
     list = List.find(params[:card]['list_id'])
-    @card = list.cards.build(card_whitelist_params)
+    @card = list.cards.create(card_whitelist_params)
 
 
-    if @card.save
+    if @card
       respond_to do |format|
         format.json { render json: @card }
       end
