@@ -1,9 +1,16 @@
-board.html
+<h2>Create a new board</h2>
 
 <input type="text" ng-model="newBoard.title">
 <a ng-click='createBoard()'>New Board</a>
 
-{{boards}}
+<ul>
+<li><a href="#" ng-repeat='board in boards'>
+  <p>ID: {{board.id}}</p>
+  <p>Title: {{board.title}}</p>
+</a>
+</li>
+</ul>
+<!-- {{boards}} -->
 
 <h2 class="text-center">
   <a ng-click="addList()">Add a List</a>

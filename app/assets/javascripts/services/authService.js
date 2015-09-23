@@ -31,7 +31,6 @@ djelloApp.factory('authService', ['$location', 'Auth',
       }
     };
 
-    // oldUser is not working
     Auth.logout(config).then(function(oldUser) {
       console.log(oldUser);
       $location.path('/users/sign_in');
