@@ -6,7 +6,7 @@ app.controller("BoardsCtrl",
   };
 
   $scope.boards = BoardService.boards;
-  // $scope.selectedBoard = $scope.boards.list[0].id
+  // $scope.selectedBoard = BoardService.boards.selectedBoard
 
   $scope.deleteBoard = function() {
     if (!$scope.selectedBoard) return;

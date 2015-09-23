@@ -86,6 +86,18 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
                 return Auth.currentUser()
               }]
             }
+          },
+          "newList@app.boards": {
+            templateUrl: 'templates/lists/new.html',
+          }
+        }
+      })
+
+      .state('app.boards.newList', {
+        url: "/list/new",
+        views: {
+          "newList@app.boards": {
+            templateUrl: 'templates/lists/form.html',
           }
         }
       })

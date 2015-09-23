@@ -2,7 +2,7 @@
   <form class="form-inline">
     <div class="form-group">
       <label for="boardSelect">Select Board: </label>
-      <select id="boardSelect" class='form-control' ng-model="selectedBoard">
+      <select id="boardSelect" class='form-control' ng-model="boards.selectedBoard">
         <option ng-repeat="board in boards.list" value="{{board.id}}"> {{ board.title }} </option>
       </select>
     </div>
