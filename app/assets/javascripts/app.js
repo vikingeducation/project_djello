@@ -15,7 +15,7 @@ RestangularProvider.setRequestSuffix('.json')
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
-  // $urlRouterProvider.otherwise("/")
+  $urlRouterProvider.otherwise("/")
 
   $stateProvider
     .state('loggedOut', {
@@ -57,10 +57,17 @@ RestangularProvider.setRequestSuffix('.json')
     })
 
     .state('lists', {
-      url: "/:id",
-      templateUrl: 'templates/show.html',
+      url: "/boards/:id",
+      templateUrl: 'templates/list.html',
       controller: 'listCtrl',
-
+      resolve: {
+        lists: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
+          return Restangular.one('boards', $stateParams.id).all('lists').getList()
+        }],
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      }
 
     })
 
