@@ -18,6 +18,14 @@ app.controller('BoardShowCtrl',['$scope', '$location', 'Restangular', 'Boards', 
     })
   }
 
+  $scope.addCard = function(card){
+    Restangular.all('cards').post({card: card}).then(function(result){
+      console.log(result);
+    }, function(fail){
+      console.log(fail);
+    })
+  }
+
   $scope.deleteBoard = function(id){
     Restangular.one('boards', id).remove().then(function(success){
       console.log(success);

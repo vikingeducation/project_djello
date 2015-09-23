@@ -9,7 +9,8 @@
 
 <ul class="horizontal-slide">
     <li class="span2" ng-repeat="list in board.lists | orderBy: '-created_at' ">
-       <div editable-list="list" edit-list="editList(listid, result)"></div>
+       <div editable-list="list" edit-list="editList(listid, result)" add-card="addCard(card)">
+       </div>
     </li>
 
 </ul>

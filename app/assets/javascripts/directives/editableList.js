@@ -21,6 +21,8 @@ app.directive("editableList", function(){
                         {{card.title}}\
                         {{card.description}}\
                       </div>\
+                      <input type="text" ng-model="newCardName">\
+                      <button ng-click="addCard()">Add</button>\
                     </div>\
                   </div>'
 
@@ -31,8 +33,11 @@ app.directive("editableList", function(){
     scope: {
         value: "=editableList",
         editList: "&",
+        addCard: "&",
     },
     controller: function($scope) {
+        $scope.newCardName = "";
+
         $scope.view = {
             editableValue: {title: $scope.value.title, description: $scope.value.description},
             editorEnabled: false
@@ -53,6 +58,10 @@ app.directive("editableList", function(){
             $scope.value.title = $scope.view.editableValue.title;
             $scope.value.description = $scope.view.editableValue.description;
         };
+
+        $scope.addCard = function(){
+            $scope.addCard({card: {title: $scope.NewCardName, list_id: $scope.value.id}})
+        }
     }
 };
 })
