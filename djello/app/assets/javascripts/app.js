@@ -65,11 +65,16 @@ djello.config(['$urlRouterProvider', '$stateProvider',
         templateUrl: 'templates/boardShow.html',
         controller: 'boardShowCtrl',
         resolve: {
-          showresponse: ['Restangular', '$stateParams',
-                function(Restangular, $stateParams){
-                  return Restangular.one('boards', $stateParams.id).get();
-                  }]
+          'showresponse': function(Restangular, $stateParams, loginService, dataService){
 
+            if(dataService.checkBoardOwner( $stateParams.id)){
+              return Restangular.one('boards', $stateParams.id).get();
+            } else {
+              $location.path('/#/');    //redirect login
+              alert("You don't have access to this board");
+            }
+
+          }
         }
         //server request to validate board owner ok
       })
