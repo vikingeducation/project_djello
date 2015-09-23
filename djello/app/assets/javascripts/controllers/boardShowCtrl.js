@@ -5,6 +5,21 @@ djello.controller('boardShowCtrl',
     console.log("boardShowCtrl initiated");
   $scope.user = loginService.signedInUser.user;
 
+  $scope.editorBoardTitle = function(saved){
+      $scope.BoardTitleEnabled=!$scope.BoardTitleEnabled
+      if (saved == 'saved') {
+        Restangular.all('boards').post(
+          { board: {  title: 'Default Board Title' ,
+                      user_id: $scope.user.id }})
+                  .then(function(createdBoard){
+                        $scope.boards.push(createdBoard);
+                  });
+      } else {
+        $scope.oldTitle = $scope.BoardTitleEnabled
+      }
+  } ;
+
+
   // redirect back to root if not signed in
   // if(!$scope.user.user) $location.path('/');
 

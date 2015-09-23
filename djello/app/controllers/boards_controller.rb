@@ -15,8 +15,13 @@ class BoardsController < ApplicationController
     @board = Board.new(params_list)
     @board.user_id = current_user.id
     if @board.save
-      puts "Saved board"
-
+      respond_to do |format|
+        format.json {render json: @board}
+      end
+    else
+      respond_to do |format|
+        format.json {render status: :unprocessable_entity}
+      end
     end
   end
 
@@ -42,6 +47,6 @@ class BoardsController < ApplicationController
   private
 
   def params_list
-    param.require(:board).permit(:title, :user_id, :id)
+    params.require(:board).permit(:title, :user_id, :id)
   end
 end

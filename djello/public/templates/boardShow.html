@@ -1,5 +1,14 @@
-<h1>{{board.title}}</h1>
 
+
+
+    <div ng-hide="BoardTitleEnabled">
+      <h1>{{board.title}}</h1>
+      <a href="#" ng-click="editorBoardTitle()">Edit title</a>
+    </div>
+    <div ng-show="BoardTitleEnabled">
+      <input ng-model="board.title">
+      <a href="#" ng-click="editorBoardTitle('saved')">Done editing?</a>
+    </div>
 <div ng-repeat="list in lists track by $index">
 
   <h3>{{list.title}}</h3>
