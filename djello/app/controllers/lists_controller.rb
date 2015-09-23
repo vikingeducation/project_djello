@@ -11,6 +11,18 @@ class ListsController < ApplicationController
     end
   end
 
+  def update
+    @list = List.find(params["id"])
+    respond_to do |format|
+      if @list.update(params_list)
+        format.json {render json: @list}
+      else
+        format.json {render status: :unprocessable_entity}
+      end
+    end
+
+  end
+
   private
 
   def params_list
