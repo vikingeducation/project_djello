@@ -4,4 +4,69 @@
       <h2> {{ board.title }} </h2>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-4 col-xs-6" ng-repeat = "list in board.lists">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <h3> {{ list.title }} </h3>
+              <h5> {{ list.description }} </h5>
+            </div>
+          </div>
+
+          <hr>
+          <div ng-repeat = "card in list.cards">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b> {{ card.title }} <b></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+ <!--    <div class="col-md-4 col-xs-6" ng-repeat = "list in board.lists">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <h3> {{ list.title }} </h3>
+              <h5> {{ list.description }} </h5>
+            </div>
+          </div>
+
+          <hr>
+          <div ng-repeat = "card in list.cards">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p><b> {{ card.title }} <b></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div> -->
+
+
+  </div>
+
 </div>

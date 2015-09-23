@@ -31,7 +31,9 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
             resolve: {
               userPromise: ['Auth', function(Auth) {
                 console.log("resolving promise")
-                return Auth.currentUser()
+                if (Auth.isAuthenticated()) {
+                  return Auth.currentUser()
+                } else { return };
               }]
             }
           },
@@ -50,7 +52,9 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
             resolve: {
               userPromise: ['Auth', function(Auth) {
                 console.log("resolving promise")
-                return Auth.currentUser()
+                if (Auth.isAuthenticated()) {
+                  return Auth.currentUser()
+                } else { return };
               }]
             }
           }

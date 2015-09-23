@@ -1,4 +1,4 @@
-app.factory("UserService", ['Auth', function(Auth){
+app.factory("UserService", ['Auth', '$location', function(Auth, $location){
   var loggedIn = {status: Auth.isAuthenticated()};
   var currentUser = {user: {}};
 
@@ -16,6 +16,8 @@ app.factory("UserService", ['Auth', function(Auth){
       console.log(user); // => {id: 1, ect: '...'}
       loggedIn.status = true;
       currentUser.user = user;
+      console.log("redirecting to boards");
+      $location.path('/boards')
     }, function(error) {
       loggedIn.status = false;
     });

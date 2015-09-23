@@ -8,13 +8,15 @@ app.controller("BoardsCtrl",
   $scope.boards = BoardService.boards;
   // $scope.selectedBoard = $scope.boards.list[0].id
 
-  var deleteBoard = function() {
+  $scope.deleteBoard = function() {
+    if (!$scope.selectedBoard) return;
     var id = $scope.selectedBoard
     Restangular.one("boards", id).get().then(function(board) {
       board.remove();
-      for (var i = 0; i < $scope.boards.length; i++) {
-        if ($scope.boards[i].id === board.id) {
-          return $scope.boards.splice(i, 1);
+      for (var i = 0; i < $scope.boards.list.length; i++) {
+        if ($scope.boards.list[i].id === board.id) {
+
+          return $scope.boards.list.splice(i, 1);
         }
       };
     })
