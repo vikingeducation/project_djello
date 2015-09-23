@@ -8,11 +8,9 @@ djelloApp.controller('authCtrl',
 
     $scope.$on('devise:login', function(event, currentUser) {
       // after a login, a hard refresh, a new tab
-      // $scope.user = currentUser;
       $location.path('/boards/');
     });
 
 }]);
 
 
-// authService.setCurrentUser(currentUser);

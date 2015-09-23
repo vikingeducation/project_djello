@@ -1,11 +1,13 @@
 djelloApp.controller('boardCtrl',
-  ['$scope', 'authService', '$location', 'boards', 'Restangular', function($scope, authService, $location, boards, Restangular){
+  ['$scope', 'authService', '$location', 'boards', '$state',
+  function($scope, authService, $location, boards, $state){
 
     $scope.boards = boards;
     $scope.newBoard = {};
     $scope.newBoard.title = "add a title";
 
-    // currentUser = authService.getCurrentUser();
+   
+
 
     // Redirect if not signed in
     var checkSignIn = authService.checkSignIn();
@@ -25,14 +27,3 @@ djelloApp.controller('boardCtrl',
     };
 
   }]);
-
-    // $scope.lists = listService.getLists();
-
-    // $scope.addList = function(){
-    //   console.log("add a list called");
-    //   listService.addList();
-    // };
-
-    // $scope.addCard = function(list){
-    //   listService.addCard(list);
-    // };

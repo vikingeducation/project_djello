@@ -1,17 +1,40 @@
 <h2>Create a new board</h2>
 
-<input type="text" ng-model="newBoard.title">
-<a ng-click='createBoard()'>New Board</a>
+<div class="container">
+  
+  <div class="row">
+    <div class="pull-right">
+      <div class="row">
+        <select name="" id="" ng-model="boardSelected">
+  
+          <option value=""></option>
 
-<ul>
-<li><a href="#" ng-repeat='board in boards'>
-  <p>ID: {{board.id}}</p>
-  <p>Title: {{board.title}}</p>
-</a>
-</li>
-</ul>
-<!-- {{boards}} -->
+          <!-- value = "ui-sref()" -->
+          <option value="{{board.id}}" ng-repeat="board in boards">{{board.title}}</option>
 
-<h2 class="text-center">
-  <a ng-click="addList()">Add a List</a>
-</h2>
+        </select>
+      </div>
+
+      <div class="row">
+        <ul class="list-inline">
+          <li>
+            <a class=""ng-click="deleteBoard()">Delete Board</a>
+          </li>
+          <li>
+            <a ng-click='createBoard()'>New Board</a> 
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+  <input type="text" ng-model="newBoard.title">
+
+
+<!-- BOARD SHOW PAGE -->
+  <ui-view></ui-view>
+</div>
+
