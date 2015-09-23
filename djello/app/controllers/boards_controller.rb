@@ -14,13 +14,22 @@ class BoardsController < ApplicationController
   def create
     @board = Board.new(params_list)
     @board.user_id = current_user.id
-    if @board.save
-      respond_to do |format|
+    respond_to do |format|
+      if @board.save
         format.json {render json: @board}
-      end
-    else
-      respond_to do |format|
+      else
         format.json {render status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update
+    @board = Board.find(params["id"])
+    respond_to do |format|
+      if @board.update(params_list)
+          format.json {render json: @board}
+      else
+          format.json {render status: :unprocessable_entity}
       end
     end
   end

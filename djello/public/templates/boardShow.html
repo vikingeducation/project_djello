@@ -6,6 +6,7 @@
 <div ng-show="BoardTitleEnabled">
   <input ng-model="board.title">
   <a href="#" ng-click="editorBoardTitle('saved')">Done editing?</a>
+  <a href="" ng-click="editorBoardTitle('cancel')">Cancel</a>
 </div>
 
 <div ng-repeat="list in lists track by $index">
