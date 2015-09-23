@@ -17,14 +17,22 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser'
     })
   }
 
-  $scope.remove = function(id, index){
-    console.log("removing a board")
-    var board = Restangular.one('boards', id).get()
-    board.then(function(response){
-      console.log(response)
-      response.remove().then(function(){
-        $scope.boards.splice(index, 1)
-      });
+  $scope.remove = function(board){
+    board.remove().then(function(){
+      $scope.boards.splice($scope.boards.indexOf(board), 1)
     })
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  //
 }])

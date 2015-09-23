@@ -25,10 +25,11 @@ class BoardsController < ApplicationController
 
   def show
     board = Board.find(params[:id])
+    p board
     respond_to do |format|
 
-      if @board
-        format.json { render json: @board }
+      if board
+        format.json { render json: board }
       else
         format.json { render nothing: true, status: 400 }
       end
@@ -39,8 +40,8 @@ class BoardsController < ApplicationController
     board = Board.find(params[:id])
     respond_to do |format|
 
-      if @board.destroy
-        format.json { render json: @board }
+      if board.destroy
+        format.json { render json: board }
       else
         format.json { render nothing: true, status: 400 }
       end

@@ -1,3 +1,4 @@
+
 var djello = angular.module("djello", ['ui.router', 'Devise', 'restangular'])
 
 .config(['RestangularProvider', function(RestangularProvider){
@@ -14,7 +15,7 @@ RestangularProvider.setRequestSuffix('.json')
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise("/")
+  // $urlRouterProvider.otherwise("/")
 
   $stateProvider
     .state('loggedOut', {
@@ -24,14 +25,17 @@ RestangularProvider.setRequestSuffix('.json')
       views: {
 
         "": {
-          templateUrl: "templates/welcome.html"
+          templateUrl: "templates/welcome.html",
+          // TODO: add ctrl to redirect to state: boards
+          // if logged in already
+
         },
 
 
       }
     })
-    .state('loggedIn', {
-      url: "/board",
+    .state('boards', {
+      url: "/boards",
       // templateUrl: 'templates/index.html',
       // controller: function(){},
       views: {
@@ -51,6 +55,17 @@ RestangularProvider.setRequestSuffix('.json')
 
       }
     })
+
+    .state('lists', {
+      url: "/:id",
+      templateUrl: 'templates/show.html',
+      controller: 'listCtrl',
+
+
+    })
+
+
+
     .state('sign-up', {
       url: "/sign-up",
       views: {
