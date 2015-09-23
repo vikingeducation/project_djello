@@ -5,7 +5,7 @@ djelloApp.controller('boardCtrl',
     $scope.newBoard = {};
     $scope.newBoard.title = "add a title";
 
-    currentUser = authService.getCurrentUser();
+    // currentUser = authService.getCurrentUser();
 
     // Redirect if not signed in
     var checkSignIn = authService.checkSignIn();

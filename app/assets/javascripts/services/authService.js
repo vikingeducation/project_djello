@@ -2,7 +2,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
                   function($location, Auth){
 
   var obj = {};
-  var _currentUser = {};
+  var _loggedInUser = {};
 
   obj.signIn = function(user) {
     var config = {
@@ -12,7 +12,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
     };
 
     Auth.login(user, config).then(function(user) {
-        _currentUser = user;
+        _loggedInUser = user;
         $location.path('/boards/');
         alert('Successfully signed in user!');
       }, function(error) {
@@ -41,12 +41,12 @@ djelloApp.factory('authService', ['$location', 'Auth',
   };
 
   obj.setCurrentUser = function(currentUser){
-    _currentUser = currentUser;
+    _loggedInUser = currentUser;
   };
 
   obj.getCurrentUser = function(){
-    return _currentUser;
-    // return Auth.currentUser();
+    // return _loggedInUser;
+    return Auth.currentUser();
   };
 
   return obj;
