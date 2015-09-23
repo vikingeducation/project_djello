@@ -14,5 +14,15 @@ RSpec.describe ListsController, type: :controller do
         post :create, format: :json, list: new_list.attributes
       }.to change(List, :count).by(1)
     end
+
+    it 'should not allow another user to create list on board not owned' do
+      sign_in other_user
+      new_list = build(:list, board: board)
+      expect{
+        post :create, format: :json, list: new_list.attributes
+      }.to change(List, :count).by(0)
+    end
+
+    
   end
 end

@@ -1,4 +1,12 @@
 <h3> Your Boards: </h3>
 <div class="row">
-  <div class="col-md-6" ng-repeat="board in boards"><a ui-sref='board.show({id : board.id})'>{{ board.name }}</a></div>
+  <div class="col-md-6 list-group" ng-repeat="board in boards">
+  '
+  <a ui-sref='board.show({id : board.id})' class="btn btn-info btn-lg">
+
+  {{ board.name }}
+
+  </a>
+
+  </div>
 </div>
