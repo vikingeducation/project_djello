@@ -1,22 +1,18 @@
 
 Select board:
 <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose the board
   <span class="caret"></span></button>
+  
   <ul class="dropdown-menu">
-    <li ng-repeat = "board in boards"><a ui-sref = "djello.board.show({'id': board.id})">{{board.title}}</a></li>
+    <li ng-repeat = "board in boards"><a ui-sref = "board.show({'id': board.id})">{{board.title}}</a></li>
   </ul>
 </div>
-<select >
-  <option ng-repeat = "board in boards" ><a ui-sref = "djello.board.show({'id': board.id})">{{board.title}}</a></option>
 
-</select>
 
 <p>Boards here {{boards}}</p>
 <a href="">Delete board</a>
 <a href="">New board</a>
 
 
-<div ui-view>
-
-</div>
+<div ui-view>Board is not shown</div>

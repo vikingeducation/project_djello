@@ -20,6 +20,13 @@ class BoardsController < ApplicationController
     end
   end
 
+  def show
+
+    @board = Board.find(params["id"])
+    respond_to do |format|
+      format.json {render json: @board}
+    end
+  end
 
   private
 
