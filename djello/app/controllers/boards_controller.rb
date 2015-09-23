@@ -13,7 +13,7 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(params_list)
-
+    @board.user_id = current_user.id
     if @board.save
       puts "Saved board"
 
