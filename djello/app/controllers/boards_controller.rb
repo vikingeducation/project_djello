@@ -20,6 +20,19 @@ class BoardsController < ApplicationController
     end
   end
 
+  def show
+
+    @board = Board.find(params["id"])
+    @lists = @board.lists
+
+    respond_to do |format|
+      format.json {render json: 
+                      {:board => @board.to_json(:include => :lists),
+                      :lists => @lists.to_json(:include => :cards)}
+                   }
+      
+    end
+  end
 
   private
 

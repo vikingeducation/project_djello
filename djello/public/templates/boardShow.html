@@ -1,0 +1,15 @@
+<h1>Add board title...{{board.title}}</h1>
+  <p>Board here {{board}}</p>
+
+  <p>Lists here {{lists}}</p>
+
+<div ng-repeat = "list in lists">
+  <h3>{{list.title}}</h3>
+  <h4>{{list.description}}</h4>
+  <hr>
+  <div ng-repeat = "card in list">
+    <p>{{card.title}}!!!</p>
+
+  </div>
+  <a href="">Add a Card</a>
+</div>
