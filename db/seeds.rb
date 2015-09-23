@@ -8,13 +8,17 @@
 
 User.destroy_all
 Board.destroy_all
+Card.destroy_all
 
 base_user = User.create(username: 'd', password: "dddddddd", password_confirmation: "dddddddd")
 
 5.times do
   new_board = base_user.boards.create(name: Faker::Commerce.product_name)
   2.times do
-    new_board.lists.create(title: "seeded list", description: "desc")
+    new_list = new_board.lists.create(title: "seeded list", description: "desc")
+    2.times do
+      new_list.cards.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph)
+    end
   end
 end
 
@@ -23,7 +27,10 @@ end
   5.times do
     new_board = new_user.boards.create(name: Faker::Commerce.product_name)
     2.times do
-      new_board.lists.create(title: "seeded list", description: "desc")
+      new_list = new_board.lists.create(title: "seeded list", description: "desc")
+      2.times do
+        new_list.cards.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph)
+      end
     end
   end
 end

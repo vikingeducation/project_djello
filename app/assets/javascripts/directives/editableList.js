@@ -1,5 +1,5 @@
 app.directive("editableList", function(){
-  var template = '<div class="panel panel-primary" >\
+  var template = '<div class="panel panel-primary list-display" >\
                     <div class="panel-heading">\
                       <h3 ng-hide="view.editorEnabled" class="panel-title" ng-click="enableEditor()">  {{ value.title }}</h3>\
                       <h6 ng-hide="view.editorEnabled" class="panel-title">{{ value.description }}</h6>\
@@ -17,7 +17,10 @@ app.directive("editableList", function(){
                       </h3>\
                     </div>\
                     <div class="panel-body">\
-                      Panel content\
+                      <div class="col-xs-12 list-card" ng-repeat="card in value.cards">\
+                        {{card.title}}\
+                        {{card.description}}\
+                      </div>\
                     </div>\
                   </div>'
 
