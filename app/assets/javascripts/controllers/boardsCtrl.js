@@ -6,11 +6,39 @@ app.controller("BoardsCtrl",
   };
 
   $scope.boards = BoardService.boards;
-  // $scope.selectedBoard = BoardService.boards.selectedBoard
+  // $scope.boards.selectedBoard = BoardService.boards.selectedBoard
+
+  $scope.editForm = { hidden: false }
+
+  $scope.editField = function(item, idx) {
+    console.log(item + " | " + idx)
+    $scope.editForm.hidden = true;
+    $scope.editForm.fieldToEdit = item;
+    $scope.editForm.listIndex = idx;
+  }
+
+  $scope.hideForm = function() {
+    $scope.editForm.hidden = false;
+    $scope.editForm.fieldToEdit = undefined;
+    $scope.editForm.listIndex = undefined;
+  }
+
+  $scope.updateList = function(list) {
+
+    $scope.hideForm();
+
+    Restangular.one("lists", list.id).get().then(function(jsonList) {
+      jsonList.title = list.title
+      jsonList.description = list.description
+      jsonList.put();
+
+    })
+
+  }
 
   $scope.deleteBoard = function() {
-    if (!$scope.selectedBoard) return;
-    var id = $scope.selectedBoard
+    if (!$scope.boards.selectedBoard) return;
+    var id = $scope.boards.selectedBoard
     Restangular.one("boards", id).get().then(function(board) {
       board.remove();
       for (var i = 0; i < $scope.boards.list.length; i++) {
@@ -24,12 +52,16 @@ app.controller("BoardsCtrl",
 
   $scope.createList = function(list) {
 
-    list.board_id = $scope.selectedBoard;
+    if (!$scope.boards.selectedBoard || !list) return;
+
+    console.log($scope.boards.selectedBoard)
+
+    list.board_id = $scope.boards.selectedBoard;
 
     Restangular.all('lists').post( { list : list} )
       .then(function(response){
         for (var i = 0; i < $scope.boards.list.length; i++) {
-          if ($scope.boards.list[i].id === $scope.selectedBoard) {
+          if ($scope.boards.list[i].id === $scope.boards.selectedBoard) {
             console.log("found board")
             BoardService.boards.list[i].lists.push(response)
             $location.path("/boards")
