@@ -20,7 +20,17 @@ class ListsController < ApplicationController
         format.json {render status: :unprocessable_entity}
       end
     end
+  end
 
+  def destroy
+    @list = List.find(params["id"])
+    respond_to do |format|
+      if @list.destroy
+          format.json {head :ok}
+      else
+          format.json {render status: :unprocessable_entity}
+      end
+    end
   end
 
   private

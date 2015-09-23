@@ -55,6 +55,11 @@ djello.controller('boardShowCtrl',
 
   };
 
+  $scope.deleteList= function(index){
+    Restangular.one('lists', $scope.lists[index].id).remove();
+    $scope.lists.splice(index, 1);
+  };
+
   $scope.newList = function(){
     console.log('list create');
     Restangular.all('lists').post(
