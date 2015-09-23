@@ -15,6 +15,8 @@ djelloApp.factory('authService', ['$location', 'Auth',
 
     Auth.login(user, config).then(function(user) {
         _currentUser = user;
+        console.log(_currentUser);
+
         $location.path('/home');
         alert('Successfully signed in user!');
       }, function(error) {
@@ -47,6 +49,10 @@ djelloApp.factory('authService', ['$location', 'Auth',
 
       return Auth.isAuthenticated();
 
+  };
+
+  obj.getCurrentUser = function(){
+    return _currentUser;
   };
 
 

@@ -1,30 +1,30 @@
 djelloApp.factory('listService',
   function(){
 
-    obj = {};
+    // obj = {};
     
-    var _lists = [];
+    // var _lists = [];
 
-    obj.addList = function(){
-      var list = {
-                    title: "Sample",
-                    description: "samp description",
-                    cards: []
-                  };
+    // obj.addList = function(){
+    //   var list = {
+    //                 title: "Sample",
+    //                 description: "samp description",
+    //                 cards: []
+    //               };
 
-      _lists.push(list);
-    };
+    //   _lists.push(list);
+    // };
 
-    obj.addCard = function(list_index){
-      var card = {};
-      _lists[list_index].cards.push(card);
-    };
+    // obj.addCard = function(list_index){
+    //   var card = {};
+    //   _lists[list_index].cards.push(card);
+    // };
 
-    obj.getLists = function() {
-      return _lists;
-    };
+    // obj.getLists = function() {
+    //   return _lists;
+    // };
 
-    return obj;
+    // return obj;
 
 
 

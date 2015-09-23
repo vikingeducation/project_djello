@@ -5,6 +5,7 @@ djelloApp.controller( 'boardCtrl',
 
     $scope.boards = boards;
     $scope.newBoard = {};
+    $scope.newBoard.title = "add a title";
 
     $scope.signOut = function(){
       console.log("delete called");
@@ -24,17 +25,17 @@ djelloApp.controller( 'boardCtrl',
     // };
 
     $scope.createBoard = function(){
+      console.log("board created.");
+
       Restangular.all('boards').post(
         { board: {
-          title: $scope.newBoard.title
+          title: $scope.newBoard.title,
+          user_id: authService.getCurrentUser().id
         }}).then(function(createdBoard){
         $scope.boards.push(createdBoard);
+         console.log(createdBoard);
         $scope.newBoard = {};
       });
-    };
-
-    $scope.createBoard = function(){
-
     };
 
   }]);

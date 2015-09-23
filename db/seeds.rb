@@ -8,6 +8,10 @@
 
 User.destroy_all
 
+User.create(username: "foo",
+                email: "foo@1",
+                password: '12345678',
+                password_confirmation: '12345678')
 10.times do
 
   User.create( username: Faker::Internet.user_name,

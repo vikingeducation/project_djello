@@ -21,10 +21,10 @@ djelloApp.config(function(AuthProvider) {
 djelloApp.config(['$stateProvider', '$urlRouterProvider',
                   function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/board');
+  $urlRouterProvider.otherwise('/boards');
 
-  $stateProvider.state('board', {
-    url: '/board',
+  $stateProvider.state('boards', {
+    url: '/boards',
     templateUrl: 'templates/boards.html',
     controller: 'boardCtrl',
     resolve: {
@@ -34,8 +34,8 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
             }
   });
 
-  $stateProvider.state('board.show', {
-    url: '/board/:id',
+  $stateProvider.state('boards.show', {
+    url: '/boards/:id',
     templateUrl: 'templates/boardShow.html',
     controller: 'boardShowCtrl'
   });
@@ -47,3 +47,7 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
   });
 
 }]);
+
+djelloApp.run(function($rootScope){
+    $rootScope.$on("$stateChangeError", console.log.bind(console));
+  });

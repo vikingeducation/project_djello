@@ -12,7 +12,8 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(whitelist_board_params)
-    @board.user_id = current_user.id
+    # binding.pry
+    # @board.user_id = current_user.id
 
     respond_to do |format|
       if @board.save
