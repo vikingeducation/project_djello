@@ -1,4 +1,12 @@
-<div ng-repeat="board in boards">
-  {{ board }}
-  <br>
+<div class="pull-right">
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="boardSelect">Select Board: </label>
+      <select id="boardSelect" class='form-control' ng-model="selectedBoard">
+        <option ng-repeat="board in boards.list" value="{{board.id}}"> {{ board.title }} </option>
+      </select>
+    </div>
+  </form>
+  <span class="pull-right"><a ui-sref="app.boards.new">New Board</a> | <a href="#">Delete Board</a></span>
 </div>
+<div ui-view="index"></div>

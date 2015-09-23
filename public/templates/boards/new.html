@@ -1,0 +1,13 @@
+<div class="col-md-offset-2 col-md-8">
+  <form ng-submit="createBoard()">
+    <div class="form-group">
+      <label for="newBoardTitle">Title</label>
+      <input type="text" class="form-control" id="newBoardTitle" placeholder="Title" ng-model="board.title">
+    </div>
+    <div class="form-group">
+      <label for="newBoardDesc">Description</label>
+      <textarea class="form-control" id="newBoardDesc" placeholder="Describe your new board..." ng-model="board.description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Create Board</button>
+  </form>
+</div>
