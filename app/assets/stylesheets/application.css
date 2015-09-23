@@ -13,3 +13,38 @@
  *= require_tree .
  *= require_self
  */
+/*.items {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+    background-color: blue;
+}
+
+.items .panel {
+    display: inline-block;
+    float: none;
+    background-color: pink;
+}*/
+ul.horizontal-slide {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+ul.horizontal-slide li[class*="span"] {
+    display: inline-block;
+    float: none;
+    margin: 10px;
+}
+
+ul.horizontal-slide li[class*="span"]:first-child {
+    margin-left: 0;
+}
+.panel{
+  min-width: 200px;
+  min-height: 300px;
+}

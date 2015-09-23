@@ -1,5 +1,5 @@
 app.directive("editableList", function(){
-  var template = '<div class="panel panel-primary">\
+  var template = '<div class="panel panel-primary" >\
                     <div class="panel-heading">\
                       <h3 ng-hide="view.editorEnabled" class="panel-title" ng-click="enableEditor()">  {{ value }}</h3>\
                       <h3 ng-show="view.editorEnabled" class="panel-title">\
