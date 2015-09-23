@@ -20,6 +20,23 @@
 
         <h3>{{list.title}}</h3>
         <h4>{{list.description}}</h4>
+
+        <div ng-hide="ListEditEnabled">
+          <h1>{{list.title}}</h1>
+          <h1>{{list.description}}</h1>
+          <a href="" ng-click ='deleteList($index)' >Delete list</a>
+          <a href="#" ng-click="editorListTitle($index)">Edit title</a>
+        </div>
+        <div ng-show="ListEditEnabled">
+          <input ng-model="list.title">
+          <input ng-model="list.description">
+          <a href="#" ng-click="editorListTitle($index,'saved')">Done editing?</a>
+          <a href="" ng-click="editorListTitle($index, 'cancel')">Cancel</a>
+        </div>
+
+
+
+
         <hr>
 
         <div ng-repeat="card in list.cards">

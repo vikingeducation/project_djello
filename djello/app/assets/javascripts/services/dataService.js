@@ -38,6 +38,8 @@ djello.service('dataService',['Restangular', 'loginService',
       // obj.boards.allBoards = Restangular.all('boards').getList();
     };
 
+    
+
     return obj;
 
   }
