@@ -36,13 +36,13 @@ djello.config(['$urlRouterProvider', '$stateProvider',
         url: '/board',
         controller: 'boardCtrl',
         resolve:{
-          'boards': function($location, loginService, Restangular){
+          'boards': function($location, loginService, dataService){
                       if(loginService.signedInUser.user){
                         //get board data
-                        return  Restangular.all('boards').getList();
+                        return  dataService.boards;
 
                       }else{
-                        $location.path('/');    //redirect login
+                        $location.path('/#/');    //redirect login
                         alert("You don't have access here");
                       }
                     }
