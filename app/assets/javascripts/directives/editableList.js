@@ -17,12 +17,13 @@ app.directive("editableList", function(){
                       </h3>\
                     </div>\
                     <div class="panel-body">\
-                      <div class="col-xs-12 list-card" ng-repeat="card in value.cards">\
+                      <div class="col-xs-12 list-card well" ng-repeat="card in value.cards">\
                         {{card.title}}\
-                        {{card.description}}\
                       </div>\
-                      <input type="text" ng-model="newCardName">\
-                      <button ng-click="createCard()">Add</button>\
+                      <div class="add-card">\
+                        <input type="text" ng-model="newCardName">\
+                        <button class="btn btn-xs btn-success" ng-click="createCard()">Add</button>\
+                      </div>\
                     </div>\
                   </div>'
 

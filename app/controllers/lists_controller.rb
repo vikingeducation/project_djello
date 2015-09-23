@@ -7,7 +7,7 @@ class ListsController < ApplicationController
     @list = List.new(list_whitelist_params)
     if @list.save
       respond_to do |format|
-        format.json { render json: @list }
+        format.json { render json: @list.to_json(include: :cards) }
       end
     end
   end
@@ -22,6 +22,7 @@ class ListsController < ApplicationController
   end
 
   private
+
     def list_whitelist_params
       params.require(:list).permit(:title, :description, :board_id)
     end

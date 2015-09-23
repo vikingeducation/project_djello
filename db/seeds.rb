@@ -17,7 +17,7 @@ base_user = User.create(username: 'd', password: "dddddddd", password_confirmati
   2.times do
     new_list = new_board.lists.create(title: "seeded list", description: "desc")
     2.times do
-      new_list.cards.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph)
+      new_list.cards.create(title: Faker::Lorem.words.join(" "), description: Faker::Lorem.paragraph)
     end
   end
 end
@@ -29,7 +29,7 @@ end
     2.times do
       new_list = new_board.lists.create(title: "seeded list", description: "desc")
       2.times do
-        new_list.cards.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph)
+        new_list.cards.create(title: Faker::Lorem.words.join(" "), description: Faker::Lorem.paragraph)
       end
     end
   end

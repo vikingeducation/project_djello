@@ -37,6 +37,7 @@ ul.horizontal-slide {
 
 ul.horizontal-slide li[class*="span"] {
     display: inline-block;
+    vertical-align: top;
     float: none;
     margin: 10px;
 }
@@ -46,5 +47,9 @@ ul.horizontal-slide li[class*="span"]:first-child {
 }
 .panel{
   min-width: 200px;
-  min-height: 300px;
+/*  min-height: 300px;*/
+}
+.add-card input[type="text"] {
+    width:75%;
+    margin: auto;
 }
