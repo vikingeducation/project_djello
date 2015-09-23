@@ -7,7 +7,7 @@ djello.controller('boardCtrl',
   console.log("boards in ctrl", $scope.boards);
 
   
-  $scope.cards = ["task1", "task2"];
-  $scope.lists = ["list1", "list2"];
+  // $scope.cards = ["task1", "task2"];
+  // $scope.lists = ["list1", "list2"];
 
 }]);
