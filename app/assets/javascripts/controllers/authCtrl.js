@@ -1,4 +1,4 @@
-djelloApp.controller( 'authCtrl',
+djelloApp.controller('authCtrl',
   ['$scope', 'authService', '$location',
   function($scope, authService, $location){
 
@@ -7,10 +7,11 @@ djelloApp.controller( 'authCtrl',
     $scope.signIn  = function(){authService.signIn($scope.user);};
 
     $scope.$on('devise:login', function(event, currentUser) {
-            // after a login, a hard refresh, a new tab
-            $scope.user = currentUser;
-            $location.path('/boards');
-
-        });
+      // after a login, a hard refresh, a new tab
+      $location.path('/boards/');
+    });
 
 }]);
+
+
+// authService.setCurrentUser(currentUser);

@@ -5,8 +5,6 @@ djelloApp.factory('authService', ['$location', 'Auth',
   var _currentUser = {};
 
   obj.signIn = function(user) {
-    console.log(user);
-
     var config = {
       headers: {
         'X-HTTP-Method-Override': 'POST'
@@ -15,7 +13,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
 
     Auth.login(user, config).then(function(user) {
         _currentUser = user;
-        $location.path('/boards');
+        $location.path('/boards/');
         alert('Successfully signed in user!');
       }, function(error) {
         console.info('Error in authenticating user!');
@@ -24,7 +22,6 @@ djelloApp.factory('authService', ['$location', 'Auth',
     };
 
   obj.signOut = function() {
-    console.log('running');
     var config = {
       headers: {
           'X-HTTP-Method-Override': 'DELETE'
@@ -32,7 +29,6 @@ djelloApp.factory('authService', ['$location', 'Auth',
     };
 
     Auth.logout(config).then(function(oldUser) {
-      console.log(oldUser);
       $location.path('/users/sign_in');
       alert('Cheers ' + oldUser.username + ' you are signed out now.');
     }, function(error) {
@@ -44,8 +40,13 @@ djelloApp.factory('authService', ['$location', 'Auth',
     return Auth.isAuthenticated();
   };
 
+  obj.setCurrentUser = function(currentUser){
+    _currentUser = currentUser;
+  };
+
   obj.getCurrentUser = function(){
-    return Auth.currentUser();
+    return _currentUser;
+    // return Auth.currentUser();
   };
 
   return obj;

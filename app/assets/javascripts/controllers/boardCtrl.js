@@ -1,4 +1,4 @@
-djelloApp.controller( 'boardCtrl',
+djelloApp.controller('boardCtrl',
   ['$scope', 'authService', '$location', 'boards', 'Restangular', function($scope, authService, $location, boards, Restangular){
 
     $scope.boards = boards;
@@ -7,21 +7,7 @@ djelloApp.controller( 'boardCtrl',
 
     currentUser = authService.getCurrentUser();
 
-    // $scope.$on('devise:login', function(event, currentUser) {
-    //         // after a login, a hard refresh, a new tab
-    //     });
-
-
-    $scope.signOut = function(){
-      console.log("delete called");
-      authService.signOut();
-    };
-
-   $scope.$on('devise:logout', function(event, oldCurrentUser) {
-          // ...
-          $location('/users/sign_in');
-      });
-
+    // Redirect if not signed in
     var checkSignIn = authService.checkSignIn();
     if (!checkSignIn) { $location.path('/users/sign_in'); }
 
@@ -30,7 +16,6 @@ djelloApp.controller( 'boardCtrl',
       Restangular.all('boards').post(
         { board: {
           title: $scope.newBoard.title,
-          // user_id: authService.getCurrentUser().id
         }}).then(function(createdBoard){
         console.log("board created.");
         $scope.boards.push(createdBoard);

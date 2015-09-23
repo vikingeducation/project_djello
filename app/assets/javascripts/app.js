@@ -25,19 +25,34 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
 
   $stateProvider.state('boards', {
     url: '/boards',
+
+    views: {
+
+      'navbar':{
+        templateUrl: 'templates/navbar.html',
+        controller: 'navbarCtrl'
+        },
+
+      '':{
+        templateUrl: 'templates/boardsLayout.html'
+      }
+
+    }
+  });
+
+  $stateProvider.state('boards.index',{
+    url: '/',
     templateUrl: 'templates/boards.html',
     controller: 'boardCtrl',
     resolve: {
-              boards: ['Restangular', function(Restangular){
-                return Restangular.all('boards').getList();
+      boards: ['Restangular', function(Restangular){
+                    return Restangular.all('boards').getList();
               }]
-            }
+        }
   });
 
-// Add the Navbar as a view above under boards
-
-  $stateProvider.state('boards.show', {
-    url: '/boards/:id',
+  $stateProvider.state('boards.index.show', {
+    url: ':id',
     templateUrl: 'templates/boardShow.html',
     controller: 'boardShowCtrl'
   });
