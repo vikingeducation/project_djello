@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 
-  before_fitler :get_board
+  # before_filter :get_board
 
   def index
     respond_to do |format|

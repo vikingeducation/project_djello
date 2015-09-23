@@ -1,10 +1,19 @@
-<form>
+<form ng-submit = "createList(newList)">
+
   <div class="col-md-12">
+
     <div class="form-group">
-      <input type="text" placeholder="Title" class="form-control">
+      <input type="text" ng-model = "newList.title" placeholder="Add a list..." class="form-control">
     </div>
+
     <div class="form-group">
-      <textarea placeholder="Description" class="form-control"></textarea>
+      <textarea placeholder = "Description" ng-model = "newList.description" class="form-control"></textarea>
     </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success btn-lg">Save</button>
+      <a class="text-muted pull-right icon-lg" ui-sref = "app.boards"><span class = "glyphicon glyphicon-remove"></span></a>
+    </div>
+
   </div>
 </form>

@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       devise_for :users, controllers: { sessions: "users/sessions" }
-      resources :boards do
-        resources :lists do
-          resources :cards
-        end
-      end
+      resources :boards
+      resources :lists
+      resources :cards
     end
   end
 end

@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
 
-  before_fitler :get_list
+  # before_filter :get_list
 
   def index
     respond_to do |format|

@@ -22,4 +22,21 @@ app.controller("BoardsCtrl",
     })
   }
 
+  $scope.createList = function(list) {
+
+    list.board_id = $scope.selectedBoard;
+
+    Restangular.all('lists').post( { list : list} )
+      .then(function(response){
+        for (var i = 0; i < $scope.boards.list.length; i++) {
+          if ($scope.boards.list[i].id === $scope.selectedBoard) {
+            console.log("found board")
+            BoardService.boards.list[i].lists.push(response)
+            $location.path("/boards")
+          }
+        };
+      });
+
+  }
+
 }])
