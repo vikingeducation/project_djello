@@ -5,12 +5,22 @@ djelloApp.controller( 'boardCtrl',
     $scope.newBoard = {};
     $scope.newBoard.title = "add a title";
 
-    // currentUser = authService.getCurrentUser();
+    currentUser = authService.getCurrentUser();
+
+    // $scope.$on('devise:login', function(event, currentUser) {
+    //         // after a login, a hard refresh, a new tab
+    //     });
+
 
     $scope.signOut = function(){
       console.log("delete called");
       authService.signOut();
     };
+
+   $scope.$on('devise:logout', function(event, oldCurrentUser) {
+          // ...
+          $location('/users/sign_in');
+      });
 
     var checkSignIn = authService.checkSignIn();
     if (!checkSignIn) { $location.path('/users/sign_in'); }
