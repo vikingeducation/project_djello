@@ -3,9 +3,9 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
 
     console.log("setting up navbarCtrl")
 
-    Auth.currentUser().then(function(user){
-      console.log(user)
-    })
+    // Auth.currentUser().then(function(user){
+    //   console.log(user)
+    // })
 
     // var getCurrentUser = function(){
     //   userService.getCurrentUser.then(function(response){

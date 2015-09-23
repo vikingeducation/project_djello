@@ -2,6 +2,7 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser'
   function($scope, Restangular, boards, currentUser){
   $scope.boards = boards;
   console.log("current User", currentUser);
+  $scope.currentUser = currentUser;
 
   $scope.createBoard = function() {
     var post = Restangular.all('boards').post({
