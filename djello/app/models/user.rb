@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
   devise :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   devise :database_authenticatable, :authentication_keys => [:username]
+
+  has_many :boards
 end

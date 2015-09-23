@@ -23,7 +23,7 @@ Board.destroy_all
                                 user_id: User.first.id )
 
     2.times do |i|
-      list = board.list.create(title: Faker::Lorem.sentence,
+      list = board.lists.create(title: Faker::Lorem.sentence,
                         description:  "some description here" )
 
       4.times do |i|

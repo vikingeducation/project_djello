@@ -3,6 +3,12 @@ djello.service('loginService', ['$location','Auth', function($location, Auth){
   var obj= {};
   obj.signedInUser = {};
 
+  var _session = Auth.currentUser().then(
+    function(user){
+      console.log('user logged in');
+      obj.signedInUser.user = user;
+      $location.path('/board');
+    });
 
   obj.logout = function(){
     var config = {
@@ -15,7 +21,7 @@ djello.service('loginService', ['$location','Auth', function($location, Auth){
         // alert(oldUser.name + "you're signed out now.");
         console.log('successfully logged out');
         obj.signedInUser = {};
-        $location.path('/');
+        // $location.path('/');
       }, function(error) {
         // An error occurred logging out.
         console.log('could not log out');

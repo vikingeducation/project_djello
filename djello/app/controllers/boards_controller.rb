@@ -1,7 +1,14 @@
 class BoardsController < ApplicationController
+  
+  before_action :authenticate_user!
 
   def index
-    @boards = Board.all
+    puts "=================action index in board ctrl================"
+    puts current_user.boards
+    @boards = current_user.boards
+    respond_to do |format|
+      format.json {render json: @boards}
+    end
   end
 
   def create

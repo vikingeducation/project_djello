@@ -24,3 +24,13 @@ module Djello
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+# module RailsApp
+#   class Application < Rails::Application
+#     # ...
+
+#     config.to_prepare do
+#       DeviseController.respond_to :html, :json
+#     end
+#   end
+# end
