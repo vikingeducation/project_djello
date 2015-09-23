@@ -3,7 +3,7 @@ djelloApp.controller('navbarCtrl',
   function($scope, authService, $location){
 
     $scope.user = authService.getCurrentUser().$$state.value;
-    // user1 = authService.getCurrentUser;
+    // user1 = authService.getCurrentUser();
 
     $scope.signOut = function(){
       authService.signOut();

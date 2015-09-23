@@ -42,6 +42,16 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    @board = Board.find(params['id'])
+
+    respond_to do |format|
+      if @board.destroy
+        @boards = Board.all
+        format.json { render json: @boards.to_json(:include => :lists) }
+      else
+        format.json { render status: :unprocessable_entity }
+      end
+    end
   end
 
   private

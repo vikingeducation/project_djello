@@ -48,18 +48,20 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
       boards: ['Restangular', function(Restangular){
                     return Restangular.all('boards').getList();
               }]
-        }
+    }
   });
 
   $stateProvider.state('boards.index.show', {
     url: ':id',
     templateUrl: 'templates/boardShow.html',
-    //nesting controllers? in nested routes???
     controller: 'boardShowCtrl',
-    board: ['Restangular', '$stateParams',
+    resolve: {
+      board: ['Restangular', '$stateParams',
                 function(Restangular, $stateParams){
+                  console.log($stateParams);
                   return Restangular.one('boards', $stateParams.id).get();
-          }]
+            }]
+    }
   });
 
   $stateProvider.state('sign_in', {

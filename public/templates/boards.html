@@ -1,17 +1,11 @@
 <h2>Create a new board</h2>
 
 <div class="container">
-  
+
   <div class="row">
     <div class="pull-right">
       <div class="row">
-        <select name="" id="" ng-model="boardSelected">
-  
-          <option value=""></option>
-
-          <!-- value = "ui-sref()" -->
-          <option value="{{board.id}}" ng-repeat="board in boards">{{board.title}}</option>
-
+        <select ng-model="boardSelected" ng-change='changeBoard()' ng-options='board.title for board in boards'>
         </select>
       </div>
 
@@ -21,15 +15,13 @@
             <a class=""ng-click="deleteBoard()">Delete Board</a>
           </li>
           <li>
-            <a ng-click='createBoard()'>New Board</a> 
+            <a ng-click='createBoard()'>New Board</a>
           </li>
         </ul>
       </div>
-      
+
     </div>
   </div>
-
-
 
   <input type="text" ng-model="newBoard.title">
 
