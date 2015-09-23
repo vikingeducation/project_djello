@@ -1,3 +1,32 @@
 <h1>Lists</h1>
 
 {{lists}}
+<hr>
+<div class="row">
+  <div class="col-sm-3" ng-repeat="list in lists">
+    <article class="djello-list">
+      <h3 class="text-center">{{list.name}}</h3>
+      <ul style='list-style-type:none'>
+        <li class="djello-card" ng-repeat="card in list.cards">
+          {{card.name}}
+          <br>
+          &nbsp &nbsp &nbsp {{card.content}}
+        </li>
+      </ul>
+      <button class="btn btn-info list-button">New Card</button>
+    </article>
+  </div>
+
+  <div class="col-sm-3">
+    <article class="djello-list"  class="text-center">
+      <h3 class="text-center">New List:</h3>
+      <h5 class="text-center">Name:</h5>
+      <input ng-model="newListName"
+      type="text" style="margin-left:25%;width:50%;"></input>
+      <br><br>
+      <button class="btn btn-info list-button"
+       ng-click="createList(newListName)">Create List</button>
+
+    </article>
+  </div>
+</div>

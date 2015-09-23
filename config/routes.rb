@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   # scope :api do
     # scope :v1 do
       devise_for :users, controllers: { sessions: "users/sessions" }
@@ -7,7 +8,9 @@ Rails.application.routes.draw do
   # end
 
   resources :boards do
-    resources :lists
+    resources :lists do
+      resources :cards
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

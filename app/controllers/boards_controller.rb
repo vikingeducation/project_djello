@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
       if @board.save
         format.json { render json: @board }
       else
-        format.json { render nothing: true, status: 400 }
+        format.json { render nothing: true}
       end
     end
   end
@@ -31,7 +31,7 @@ class BoardsController < ApplicationController
       if board
         format.json { render json: board }
       else
-        format.json { render nothing: true, status: 400 }
+        format.json { render nothing: true}
       end
     end
   end
@@ -43,7 +43,7 @@ class BoardsController < ApplicationController
       if board.destroy
         format.json { render json: board }
       else
-        format.json { render nothing: true, status: 400 }
+        format.json { render nothing: true}
       end
     end
   end

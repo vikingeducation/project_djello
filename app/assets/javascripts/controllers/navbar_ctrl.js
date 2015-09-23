@@ -21,13 +21,13 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
               'X-HTTP-Method-Override': 'POST'
           }
       };
-      console.log("signing in")
+
       userService.signIn(credentials, config)
 
     }
 
     $scope.$on('devise:logout', function(event, oldCurrentUser) {
-      console.log("signed OUT!!!!")
+
       $scope.currentUser = null
     });
     $scope.$on('devise:login', function(event, currentUser) {
