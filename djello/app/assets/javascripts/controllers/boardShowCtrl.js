@@ -18,7 +18,7 @@ djello.controller('boardShowCtrl',
   };
 
   $scope.editorBoardTitle = function(input){
-
+   //use diff. var.
       if (input == 'cancel' && $scope.BoardTitleEnabled) {
         $scope.board.title = oldTitle;
       }
