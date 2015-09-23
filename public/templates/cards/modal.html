@@ -1,0 +1,22 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1>{{ modalCard.title }}</h1>
+        <h6> Completed: {{ modalCard.completed }} </h6>
+        <h4>{{ modalCard.description }}</h4>
+        <h4>{{ modalCard.description }}</h4>
+        <h4>{{ modalCard.description }}</h4>
+        <h4>{{ modalCard.description }}</h4>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

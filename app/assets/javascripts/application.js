@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require angular
+//= require angular-modal-service
 //= require devise
 //= require ui-router
 //= require lodash
