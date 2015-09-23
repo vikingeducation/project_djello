@@ -1,16 +1,17 @@
 djello.controller('boardShowCtrl',
-  ['$scope', '$location', '$stateParams','loginService', 'board',
-   function($scope, $location, $stateParams, loginService, board){
+  ['$scope', '$location', '$stateParams','loginService', 'showresponse',
+   function($scope, $location, $stateParams, loginService, showresponse){
 
     console.log("boardShowCtrl initiated")
   $scope.user = loginService.signedInUser.user;
 
 
-  $scope.board = board.board;
+  $scope.board = showresponse.board;
 
-  $scope.lists = board.lists;
+  $scope.lists = showresponse.lists;
 
-  console.log("lists", $scope.lists);
+  console.log("lists", $scope.lists)
+
   //$scope.cards = ;
 
 }]);

@@ -23,7 +23,9 @@ class BoardsController < ApplicationController
   def show
 
     @board = Board.find(params["id"])
-    @lists = @board.lists
+    @lists = List.where(:board_id => @board.id)
+    puts "===================!!!!!!!!!!===================="
+    puts @lists
 
     respond_to do |format|
       format.json {render json: 

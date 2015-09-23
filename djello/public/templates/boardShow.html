@@ -1,15 +1,22 @@
 <h1>Add board title...{{board.title}}</h1>
-  <p>Board here {{board}}</p>
+  <p>Board here {{board.length}}</p>
 
-  <p>Lists here {{lists}}</p>
+  <p>Lists here {{lists.length}}</p>
 
-<div ng-repeat = "list in lists">
-  <h3>{{list.title}}</h3>
+<h2>Lists with cards here:</h2>
+
+
+<div ng-repeat="list in lists track by $index">
+    
+  <!-- <h3>{{list.title}}</h3>
   <h4>{{list.description}}</h4>
   <hr>
-  <div ng-repeat = "card in list">
+  
+  <div ng-repeat="card in list.cards">
     <p>{{card.title}}!!!</p>
 
   </div>
-  <a href="">Add a Card</a>
+  
+  <a href="">Add a Card</a> -->
+
 </div>
