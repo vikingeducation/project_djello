@@ -27,17 +27,49 @@ def generate_board(user)
   board.title = Faker::Book.title
   board.description = Faker::Lorem.sentence
   board.save
+  board
+end
+
+def generate_list(board)
+  list = List.new
+  list.board_id = board.id
+  list.title = Faker::Book.title
+  list.description = Faker::Lorem.sentence
+  list.save
+  list
+end
+
+def generate_card(list)
+  card = Card.new
+  card.list_id = list.id
+  card.title = Faker::Book.title
+  card.description = Faker::Lorem.sentence
+  card.completed = false
+  card.save
+  card
 end
 
 u = User.create(email: "test@test.com", username: "test", password: "password", password_confirmation: "password")
 
 5.times do
-  generate_board(u)
+  b = generate_board(u)
+  5.times do
+    l = generate_list(b)
+    5.times do
+      c = generate_card(l)
+    end
+  end
 end
 
 MULTIPLIER.times do
   user = generate_user
   (MULTIPLIER / 5).times do
-    generate_board(user)
+    board = generate_board(user)
+    (MULTIPLIER / 5).times do
+      list = generate_list(board)
+      (MULTIPLIER / 5).times do
+        card = generate_card(list)
+      end
+    end
   end
 end
