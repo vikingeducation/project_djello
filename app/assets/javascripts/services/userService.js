@@ -6,7 +6,8 @@ app.factory("UserService", ['Auth', function(Auth){
 
   Auth.currentUser().then(function(user) {
     currentUser.user = user;
-    console.log("resolve user with " + user)
+    console.log("resolve user with (look below)")
+    console.log(user)
   })
 
   function login(credentials, config){
