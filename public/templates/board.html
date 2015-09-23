@@ -1,6 +1,17 @@
 <nav navbar-main></nav>
 <h1>BOARD</h1>
-{{boards}}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <tr ng-repeat="board in boards">
+    <td>{{board.name}}</td>
+    <td><a href="#">Edit</a></td>
+    <td><a ng-click="remove(board.id, $index)">Delete</a></td>
+  </tr>
+</table>
 
 <div class="col-sm-6 col-sm-offset-3">
     <div class="input-group">

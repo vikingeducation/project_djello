@@ -1,16 +1,20 @@
-djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
-  function($scope, $state, userService, $location) {
+djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location', 'Auth',
+  function($scope, $state, userService, $location, Auth) {
 
     console.log("setting up navbarCtrl")
 
-    var getCurrentUser = function(){
-      userService.getCurrentUser.then(function(response){
-        console.log(response.data);
-        $scope.currentUser = response.data;
-      })
-    }
+    Auth.currentUser().then(function(user){
+      console.log(user)
+    })
 
-    getCurrentUser();
+    // var getCurrentUser = function(){
+    //   userService.getCurrentUser.then(function(response){
+    //     console.log(response.data);
+    //     $scope.currentUser = response.data;
+    //   })
+    // }
+
+    // getCurrentUser();
 
     $scope.signOut = function(){
       var config = {

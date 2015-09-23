@@ -1,7 +1,12 @@
 class BoardsController < ApplicationController
 
   def index
-    @boards = Board.where(user_id: current_user.id)
+    if current_user
+      @boards = Board.where(user_id: current_user.id)
+    else
+      @boards = []
+    end
+
     render json: @boards
   end
 
@@ -11,7 +16,7 @@ class BoardsController < ApplicationController
     respond_to do |format|
 
       if @board.save
-        format.json { render @board }
+        format.json { render json: @board }
       else
         format.json { render nothing: true, status: 400 }
       end
@@ -19,6 +24,27 @@ class BoardsController < ApplicationController
   end
 
   def show
+    board = Board.find(params[:id])
+    respond_to do |format|
+
+      if @board
+        format.json { render json: @board }
+      else
+        format.json { render nothing: true, status: 400 }
+      end
+    end
+  end
+
+  def destroy
+    board = Board.find(params[:id])
+    respond_to do |format|
+
+      if @board.destroy
+        format.json { render json: @board }
+      else
+        format.json { render nothing: true, status: 400 }
+      end
+    end
   end
 
   private
@@ -26,5 +52,5 @@ class BoardsController < ApplicationController
   def board_params
     params.require(:board).permit(:name, :user_id)
   end
-  
+
 end

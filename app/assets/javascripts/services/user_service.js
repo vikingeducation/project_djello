@@ -1,7 +1,13 @@
 djello.factory('userService', ['$http', 'Auth', function($http, Auth){
   var obj = {};
 
-  obj.getCurrentUser = $http.get("/current_user.json");
+  obj.getCurrentUser = function(){
+    $http.get("/current_user.json").then(function(response){
+    return response.data;
+  }, function(error){
+    return error;
+  });
+  }
 
   // obj.getCurrentUser.then(function(response){
   //   obj.currentUser = response.data;

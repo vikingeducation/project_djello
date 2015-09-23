@@ -43,8 +43,8 @@ RestangularProvider.setRequestSuffix('.json')
             boards: ['Restangular', function(Restangular) {
               return Restangular.all('boards').getList()
             }],
-            currentUser: ['userService', function(userService) {
-              return userService.getCurrentUser().then()
+            currentUser: ['Auth', function(Auth) {
+              return Auth.currentUser();
             }]
           }
         },
