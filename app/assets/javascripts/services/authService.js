@@ -5,7 +5,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
   var _currentUser = {};
 
   obj.signIn = function(user) {
-    console.log("Sign in method called");
+    console.log(user);
 
     var config = {
       headers: {
@@ -34,7 +34,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
     Auth.logout(config).then(function(oldUser) {
       console.log(oldUser);
       $location.path('/users/sign_in');
-      alert(oldUser + "you're signed out now.");
+      alert('Cheers ' + oldUser.username + ' you are signed out now.');
     }, function(error) {
       alert('An error occurred logging out.');
     });

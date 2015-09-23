@@ -6,4 +6,4 @@ djelloApp.controller( 'authCtrl',
 
     $scope.signIn  = function(){authService.signIn($scope.user);};
 
-  }]);
+}]);
