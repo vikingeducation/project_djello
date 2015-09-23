@@ -44,9 +44,9 @@ djelloApp.factory('authService', ['$location', 'Auth',
     return Auth.isAuthenticated();
   };
 
-  // obj.getCurrentUser = function(){
-  //   return _currentUser;
-  // };
+  obj.getCurrentUser = function(){
+    return Auth.currentUser();
+  };
 
   return obj;
 

@@ -5,6 +5,8 @@ djelloApp.controller( 'boardCtrl',
     $scope.newBoard = {};
     $scope.newBoard.title = "add a title";
 
+    // currentUser = authService.getCurrentUser();
+
     $scope.signOut = function(){
       console.log("delete called");
       authService.signOut();

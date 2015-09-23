@@ -34,6 +34,8 @@ djelloApp.config(['$stateProvider', '$urlRouterProvider',
             }
   });
 
+// Add the Navbar as a view above under boards
+
   $stateProvider.state('boards.show', {
     url: '/boards/:id',
     templateUrl: 'templates/boardShow.html',
