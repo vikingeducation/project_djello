@@ -1,7 +1,5 @@
 djelloApp.controller( 'boardCtrl',
-  ['$scope', 'authService', '$location', 'listService', 'boards', 'Restangular', function($scope, authService, $location, listService, boards, Restangular){
-
-    // $scope.lists = listService.getLists();
+  ['$scope', 'authService', '$location', 'boards', 'Restangular', function($scope, authService, $location, boards, Restangular){
 
     $scope.boards = boards;
     $scope.newBoard = {};
@@ -15,6 +13,24 @@ djelloApp.controller( 'boardCtrl',
     var checkSignIn = authService.checkSignIn();
     if (!checkSignIn) { $location.path('/users/sign_in'); }
 
+    $scope.createBoard = function(){
+
+      Restangular.all('boards').post(
+        { board: {
+          title: $scope.newBoard.title,
+          // user_id: authService.getCurrentUser().id
+        }}).then(function(createdBoard){
+        console.log("board created.");
+        $scope.boards.push(createdBoard);
+         console.log(createdBoard);
+        $scope.newBoard = {};
+      });
+    };
+
+  }]);
+
+    // $scope.lists = listService.getLists();
+
     // $scope.addList = function(){
     //   console.log("add a list called");
     //   listService.addList();
@@ -23,19 +39,3 @@ djelloApp.controller( 'boardCtrl',
     // $scope.addCard = function(list){
     //   listService.addCard(list);
     // };
-
-    $scope.createBoard = function(){
-      console.log("board created.");
-
-      Restangular.all('boards').post(
-        { board: {
-          title: $scope.newBoard.title,
-          user_id: authService.getCurrentUser().id
-        }}).then(function(createdBoard){
-        $scope.boards.push(createdBoard);
-         console.log(createdBoard);
-        $scope.newBoard = {};
-      });
-    };
-
-  }]);

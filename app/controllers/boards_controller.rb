@@ -1,5 +1,6 @@
 class BoardsController < ApplicationController
 
+  before_action :authenticate_user!
 
   def index
     @boards = Board.all
@@ -13,7 +14,7 @@ class BoardsController < ApplicationController
   def create
     @board = Board.new(whitelist_board_params)
     # binding.pry
-    # @board.user_id = current_user.id
+    @board.user_id = current_user.id
 
     respond_to do |format|
       if @board.save

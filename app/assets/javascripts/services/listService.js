@@ -1,31 +1,31 @@
-djelloApp.factory('listService',
-  function(){
+// djelloApp.factory('listService',
+//   function(){
 
-    // obj = {};
-    
-    // var _lists = [];
+//     // obj = {};
 
-    // obj.addList = function(){
-    //   var list = {
-    //                 title: "Sample",
-    //                 description: "samp description",
-    //                 cards: []
-    //               };
+//     // var _lists = [];
 
-    //   _lists.push(list);
-    // };
+//     // obj.addList = function(){
+//     //   var list = {
+//     //                 title: "Sample",
+//     //                 description: "samp description",
+//     //                 cards: []
+//     //               };
 
-    // obj.addCard = function(list_index){
-    //   var card = {};
-    //   _lists[list_index].cards.push(card);
-    // };
+//     //   _lists.push(list);
+//     // };
 
-    // obj.getLists = function() {
-    //   return _lists;
-    // };
+//     // obj.addCard = function(list_index){
+//     //   var card = {};
+//     //   _lists[list_index].cards.push(card);
+//     // };
 
-    // return obj;
+//     // obj.getLists = function() {
+//     //   return _lists;
+//     // };
+
+//     // return obj;
 
 
 
-});
+// });

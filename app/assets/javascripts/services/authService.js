@@ -15,17 +15,13 @@ djelloApp.factory('authService', ['$location', 'Auth',
 
     Auth.login(user, config).then(function(user) {
         _currentUser = user;
-        console.log(_currentUser);
-
-        $location.path('/home');
+        $location.path('/boards');
         alert('Successfully signed in user!');
       }, function(error) {
         console.info('Error in authenticating user!');
         alert('Error in signing in user!');
       });
     };
-
-    
 
   obj.signOut = function() {
     console.log('running');
@@ -35,7 +31,7 @@ djelloApp.factory('authService', ['$location', 'Auth',
       }
     };
 
-  // oldUser is not working
+    // oldUser is not working
     Auth.logout(config).then(function(oldUser) {
       console.log(oldUser);
       $location.path('/users/sign_in');
@@ -46,17 +42,12 @@ djelloApp.factory('authService', ['$location', 'Auth',
   };
 
   obj.checkSignIn = function() {
-
-      return Auth.isAuthenticated();
-
+    return Auth.isAuthenticated();
   };
 
-  obj.getCurrentUser = function(){
-    return _currentUser;
-  };
-
-
-
+  // obj.getCurrentUser = function(){
+  //   return _currentUser;
+  // };
 
   return obj;
 
