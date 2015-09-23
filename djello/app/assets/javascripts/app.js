@@ -63,12 +63,12 @@ djello.config(['$urlRouterProvider', '$stateProvider',
       .state('board.show', {
         url: '/:id',
         templateUrl: 'templates/boardIndex.html',
-        controller: 'boardCtrl',
-        resolve: {
-          board: ['Restangular', '$stateParams',
-                function(Restangular, $stateParams){
-            return Restangular.one('boards', $stateParams.id).get();
-          }],
+        controller: 'boardCtrl' //,
+        // resolve: {
+        //   board: ['Restangular', '$stateParams',
+        //         function(Restangular, $stateParams){
+        //     return Restangular.one('boards', $stateParams.id).get();
+        //   }],
 
         }
         //server request to validate board owner ok

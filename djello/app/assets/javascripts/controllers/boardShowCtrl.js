@@ -1,4 +1,4 @@
-djello.controller('boardCtrl',
+djello.controller('boardShowCtrl',
   ['$scope', '$location', '$stateParams','loginService', 'board',
    function($scope, $location, $stateParams, loginService, board){
 
