@@ -3,6 +3,10 @@ djello.controller('boardCtrl',
    function($scope, $location, loginService, boards){
 
   $scope.user = loginService.signedInUser.user;
+
+  // redirect back to root if not signed in
+  // if(!$scope.user.user) $location.path('/');
+
   $scope.boards = boards;
   console.log("boards in ctrl", $scope.boards);
 
