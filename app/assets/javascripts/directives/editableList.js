@@ -2,12 +2,18 @@ app.directive("editableList", function(){
   var template = '<div class="panel panel-primary" >\
                     <div class="panel-heading">\
                       <h3 ng-hide="view.editorEnabled" class="panel-title" ng-click="enableEditor()">  {{ value.title }}</h3>\
-                      <h6 class="panel-title"> Description: {{ value.description }}</h6>\
+                      <h6 ng-hide="view.editorEnabled" class="panel-title">{{ value.description }}</h6>\
                       <h3 ng-show="view.editorEnabled" class="panel-title">\
+                        <label>\
+                        Title\
                         <input style="background-color: gray;" ng-model="view.editableValue.title"></br>\
+                        </label>\
+                        <label>\
+                        Description\
                         <input style="background-color: gray;" ng-model="view.editableValue.description">\
-                        <a ng-click="save()">Save</a>\
-                        <a ng-click="disableEditor()()">Cancel</a>\
+                        <label>\
+                        <a class="btn btn-success" ng-click="save()">Save</a>\
+                        <a class="btn btn-danger" ng-click="disableEditor()()">Cancel</a>\
                       </h3>\
                     </div>\
                     <div class="panel-body">\

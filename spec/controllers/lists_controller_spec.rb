@@ -30,6 +30,7 @@ RSpec.describe ListsController, type: :controller do
       sign_in other_user
       edited_list = build(:list)
       put :update, format: :json, id: list.id, list: edited_list.attributes
+      list.reload
       expect(list.title).to_not eq(edited_list.title)
     end
 
@@ -37,6 +38,7 @@ RSpec.describe ListsController, type: :controller do
       sign_in user
       edited_list = build(:list)
       put :update, format: :json, id: list.id, list: edited_list.attributes
+      list.reload
       expect(list.title).to eq(edited_list.title)
     end
   end

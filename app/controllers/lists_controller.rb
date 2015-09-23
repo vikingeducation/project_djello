@@ -13,7 +13,6 @@ class ListsController < ApplicationController
   end
 
   def update
-    binding.pry
     @list = List.find(params[:id])
     if @list.update(list_whitelist_params)
       respond_to do |format|
