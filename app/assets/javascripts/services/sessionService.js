@@ -1,6 +1,14 @@
 app.factory('Session',  ['Auth', '$location', function(Auth,$location){
   var loggedIn = {status: Auth.isAuthenticated()};
-  var currentUser = {user: {}}
+  var currentUser = {user: Auth.currentUser()}
+
+  function relog(user){
+    console.log(user)
+    currentUser.user = user;
+
+    console.log(Auth.isAuthenticated());
+    loggedIn.status = Auth.isAuthenticated();
+  }
 
   function login(credentials, config){
     Auth.login(credentials, config).then(function(user) {
@@ -32,5 +40,6 @@ app.factory('Session',  ['Auth', '$location', function(Auth,$location){
     logout: logout,
     currentUser: currentUser,
     login: login,
+    relog: relog,
   }
 }])
