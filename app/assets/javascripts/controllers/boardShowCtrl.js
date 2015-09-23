@@ -9,6 +9,15 @@ app.controller('BoardShowCtrl',['$scope', '$location', 'Restangular', 'Boards', 
      });
   }
 
+  $scope.editList = function(listid, result){
+    console.log(listid, result)
+    Restangular.one('lists', listid).patch(result).then(function(res){
+      console.log(res)
+    }, function(fail){
+      console.log(fail);
+    })
+  }
+
   $scope.deleteBoard = function(id){
     Restangular.one('boards', id).remove().then(function(success){
       console.log(success);
