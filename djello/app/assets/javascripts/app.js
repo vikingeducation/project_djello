@@ -65,7 +65,7 @@ djello.config(['$urlRouterProvider', '$stateProvider',
         templateUrl: 'templates/boardShow.html',
         controller: 'boardShowCtrl',
         resolve: {
-          board: ['Restangular', '$stateParams',
+          showresponse: ['Restangular', '$stateParams',
                 function(Restangular, $stateParams){
                   return Restangular.one('boards', $stateParams.id).get();
                   }]

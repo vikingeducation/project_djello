@@ -9,9 +9,11 @@
 
 User.destroy_all
 Board.destroy_all
+List.destroy_all
+Card.destroy_all
 
 #create
-10.times do
+2.times do
 
   user = User.create(username: Faker::Internet.user_name,
     email:    Faker::Internet.email,
@@ -22,11 +24,11 @@ Board.destroy_all
     board = user.boards.create(title: "Board Title #{i}",
                                 user_id: User.first.id )
 
-    2.times do |i|
+    2.times do 
       list = board.lists.create(title: Faker::Lorem.sentence,
                         description:  "some description here" )
 
-      4.times do |i|
+      4.times do 
         list.cards.create(title: Faker::Lorem.sentence,
                           description: Faker::Lorem.sentence )
       end
