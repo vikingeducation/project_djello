@@ -10,6 +10,8 @@ djello.controller('boardCtrl',
   $scope.boards = boards.allBoards;
   console.log("boards in ctrl", $scope.boards);
 
+
+
   // creates default board w/o title
 
   $scope.createBoard = function(){

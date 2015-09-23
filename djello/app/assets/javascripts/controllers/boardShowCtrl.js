@@ -13,6 +13,11 @@ djello.controller('boardShowCtrl',
   $scope.lists = JSON.parse(showresponse.lists);
 
 
+  $scope.deleteBoard = function(){
+    Restangular.one('boards', $scope.board.id).remove();
+    dataService.deleteBoard($scope.board);
+    $location.path('/board');
+  };
 
   $scope.editorBoardTitle = function(input){
 

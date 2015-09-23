@@ -10,6 +10,15 @@ djello.service('dataService',['Restangular',
       }
       );
 
+    obj.deleteBoard = function(board){
+      var id = board.id;
+      for(var i =0; i < obj.boards.allBoards.length; i++){
+        if(obj.boards.allBoards[i].id == id){
+          obj.boards.allBoards.splice(i,1);
+        }
+      }
+    };
+
     obj.updateBoard = function(updatedB){
       var id = updatedB.id;
       for(var i =0; i < obj.boards.allBoards.length; i++){
