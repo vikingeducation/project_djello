@@ -18,7 +18,7 @@ djello.controller('boardCtrl',
           { board: {  title: 'Default Board Title' ,
                       user_id: $scope.user.id }})
               .then(function(createdBoard){
-                    $scope.boards.push(createdBoard);
+                    // $scope.boards.push(createdBoard);
                     dataService.boards.allBoards.push(createdBoard);
                   });
   };
