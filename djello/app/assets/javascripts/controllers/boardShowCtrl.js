@@ -1,10 +1,9 @@
 djello.controller('boardCtrl',
-  ['$scope', '$location', 'loginService', 'boards',
-   function($scope, $location,  loginService, boards){
+  ['$scope', '$location', '$stateParams','loginService', 'board',
+   function($scope, $location, $stateParams, loginService, board){
 
   $scope.user = loginService.signedInUser.user;
-  $scope.boards = boards;
-  console.log("boards in ctrl", $scope.boards);
+
 
   $scope.board = board;
   $scope.cards = ["task1", "task2"];
