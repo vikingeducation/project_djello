@@ -31,11 +31,7 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
             resolve: {
               userPromise: ['Auth', function(Auth) {
                 console.log("resolving promise")
-                if (Auth.isAuthenticated()) {
-                  return Auth.currentUser()
-                } else {
-                  return
-                }
+                return Auth.currentUser()
               }]
             }
           },
@@ -54,10 +50,7 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
             resolve: {
               userPromise: ['Auth', function(Auth) {
                 console.log("resolving promise")
-                if (Auth.isAuthenticated()) {
-                  return Auth.currentUser()
-                }
-                return
+                return Auth.currentUser()
               }]
             }
           }
@@ -103,14 +96,3 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
         }
       })
   }])
-
-
-.run( function($rootScope, $location, Auth) {
-    // register listener to watch route changes
-    $rootScope.$on( "$stateChangeStart", function(event, next, current) {
-      // console.log(Auth.isAuthenticated())
-      if ( !Auth.isAuthenticated() ) {
-          $location.path( '/' );
-      }
-    });
- })

@@ -2,8 +2,11 @@ app.factory("UserService", ['Auth', function(Auth){
   var loggedIn = {status: Auth.isAuthenticated()};
   var currentUser = {user: {}};
 
+  console.log("inst UserService")
+
   Auth.currentUser().then(function(user) {
     currentUser.user = user;
+    console.log("resolve user with " + user)
   })
 
   function login(credentials, config){

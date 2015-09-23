@@ -11,13 +11,13 @@
         <li><a href="/path1">Link1</a></li>
       </ul>
 
-      <p class="navbar-text pull-right" ng-if = "loggedIn.status">
+      <p class="navbar-text pull-right" ng-show = "loggedIn.status">
         Logged in as <strong>{{ currentUser.user.username }}</strong>.
         <a class="navbar-link" href="/api/v1/users/edit">Edit profile</a> |
         <a class="navbar-link" ui-sref="app.logout">Logout</a>
       </p>
 
-      <p class="navbar-text pull-right" ng-if = "!loggedIn.status">
+      <p class="navbar-text pull-right" ng-show = "!loggedIn.status">
         <a class="navbar-link" href="/api/v1/users/sign_up">Sign up</a> |
         <a class="navbar-link" ui-sref="app.login">Login</a>
       </p>

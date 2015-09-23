@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: "tests#index"
   scope :api do
     scope :v1 do
-      devise_for :users
+      devise_for :users, controllers: { sessions: "users/sessions" }
       resources :boards
     end
   end
