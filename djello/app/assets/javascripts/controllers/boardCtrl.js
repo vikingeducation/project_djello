@@ -1,6 +1,6 @@
 djello.controller('boardCtrl',
-  ['$scope', '$location', 'loginService', 'boards',
-   function($scope, $location, loginService, boards){
+  ['$scope', '$location', 'loginService', 'boards', 'Restangular',
+   function($scope, $location, loginService, boards, Restangular){
 
   $scope.user = loginService.signedInUser.user;
 
@@ -14,7 +14,8 @@ djello.controller('boardCtrl',
 
   $scope.createBoard = function(){
     Restangular.all('boards').post(
-          { board: {  title: 'Default Board Title'} })
+          { board: {  title: 'Default Board Title' ,
+                      user_id: $scope.user.id }})
                   .then(function(createdBoard){
                         $scope.boards.push(createdBoard);
                   });
