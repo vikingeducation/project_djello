@@ -5,11 +5,21 @@
         <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h2 class="modal-title">{{card.title}}</h2>
         <div class="row">
+
+          <div class="col-xs-12" ng-show = "card.completed">
+            <div class="alert alert-success alert-dismissible fade-in" role="alert">
+              <button class="close" data-dismiss="alert">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+              </button>
+              <strong>Card was completed!</strong>
+            </div>
+          </div>
+
           <div class="col-xs-6">
             <p class="text-muted">In list: <b>{{ card.list.title }}</b></p>
           </div>
           <div class="col-xs-6 text-right">
-            <p><a href="#">Mark Completed</a></p>
+            <p><a ng-click = "deleteCard()">Mark Completed</a></p>
           </div>
         </div>
       </div>
@@ -43,5 +53,6 @@
         <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
       </div>
     </div>
+
   </div>
 </div>

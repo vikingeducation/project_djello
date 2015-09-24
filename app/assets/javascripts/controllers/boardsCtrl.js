@@ -77,13 +77,15 @@ app.controller("BoardsCtrl",
 
   }
 
-  $scope.showCard = function(card) {
+  $scope.showCard = function(card, boardIndex, cardIndex) {
 
     ModalService.showModal({
       templateUrl: "templates/cards/cardmodal.html",
       controller: "CardsCtrl",
       inputs: {
-        card: card
+        card: card,
+        boardIndex: boardIndex,
+        cardIndex: cardIndex,
       }
     }).then(function(modal) {
       console.log(card)
