@@ -2,9 +2,11 @@ app.factory('Boards', ['Restangular',  function(Restangular){
   var boards = [];
 
   function getBoards(){
-    Restangular.all('boards').getList().then(function(boardList){
-      boards.push.apply(boards, boardList);
-    })
+    if (boards.length == 0){
+      Restangular.all('boards').getList().then(function(boardList){
+        if (boards.length == 0) boards.push.apply(boards, boardList);
+      })
+    }
   }
 
   function addBoard(board){
@@ -13,7 +15,7 @@ app.factory('Boards', ['Restangular',  function(Restangular){
 
   function deleteBoard(board){
     var index = boards.reduce(function(result, el, index){
-      if (el.id == board.id) return index;
+      return el.id == board.id ? index : result
     }, -1)
 
     if (index >= 0) boards.splice(boards.indexOf(index), 1);

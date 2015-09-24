@@ -19,9 +19,21 @@ app.directive("card", function(){
             modalCard: $scope.value
           },
           templateUrl: "templates/cards/modal.html",
-          controller: ['$scope','Cards', 'close', 'modalCard', function($scope,Cards, close, modalCard){
+          controller: ['$scope','Cards', 'close', 'modalCard', 'Users',
+           function($scope,Cards, close, modalCard, Users){
+            if (Users.users.length == 0){
+              Users.getUsers();
+            }
+
+            $scope.users = Users.users;
 
             $scope.modalCard = modalCard;
+
+            $scope.addMember = function(target){
+              Cards.addMember($scope.modalCard, target, function(result){
+                $scope.modalCard.members.push(result);
+              });
+            }
 
             $scope.enableTitleEditor = function() {
               $scope.disableDescEditor();

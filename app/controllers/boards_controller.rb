@@ -1,9 +1,10 @@
 class BoardsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_owner, only: [:update, :destroy, :show]
+  before_action :require_access, only: [:show, :update, :destroy]
+  before_action :require_owner, only: [:update, :destroy]
 
   def index
-    @boards = Board.where(user: current_user)
+    @boards = current_user.all_boards
 
     respond_to do |format|
       format.json {render json: @boards.to_json(include: {lists: {include: {cards: {include: :members}}}} )}
@@ -49,9 +50,17 @@ class BoardsController < ApplicationController
       params.require(:board).permit(:name)
     end
 
+    def require_access
+      @board = Board.find_by_id(params[:id].to_i)
+      unless current_user.all_boards.include? (@board)
+        respond_to do |format|
+          format.json {render json: {errors: ["You must be a member of this content!"]}, status: 403}
+        end
+      end
+    end
+
     def require_owner
-      @board = Board.find(params[:id])
-      unless current_user.id == @board.user_id
+      unless current_user.boards.include? (@board)
         respond_to do |format|
           format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
         end

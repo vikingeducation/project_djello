@@ -1,6 +1,11 @@
-app.controller('BoardShowCtrl',['$scope', '$location', 'Restangular', 'Boards', 'board', function($scope, $location, Restangular, Boards, board){
+app.controller('BoardShowCtrl',['$scope', '$location', 'Restangular', 'Boards', 'board', 'Session',
+  function($scope, $location, Restangular, Boards, board, Session){
   $scope.board = board
   $scope.title = ""
+
+  $scope.isOwner = function(){
+    return Session.currentUser.user.id == $scope.board.user_id
+  }
 
   $scope.addList = function(){
      Restangular.all('lists').post({list: {title: $scope.title,description: "" ,board_id: $scope.board.id}}).then(function(newList){
@@ -9,7 +14,6 @@ app.controller('BoardShowCtrl',['$scope', '$location', 'Restangular', 'Boards', 
   }
 
   $scope.editList = function(listid, result){
-    console.log(listid, result)
     Restangular.one('lists', listid).patch(result).then(function(res){
       console.log(res)
     }, function(fail){

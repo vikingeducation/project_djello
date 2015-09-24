@@ -11,9 +11,22 @@
         <h4 ng-hide="descEditorEnabled" ng-click="enableDescEditor()">{{ modalCard.description || "No Description Yet..." }}</h4>
         <h4 ng-show="descEditorEnabled"><input type="text" ng-model="descEditableValue"></h4>
         </hr>
+        {{ modalCard }}
         <h3> Members </h3>
+
         <h6 ng-repeat="member in modalCard.members">{{ member.username }}</h6>
-        <button> Add a member !</button>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add a member!
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="user in users" ng-click="addMember(user)">{{ user.username }}</li>
+          </ul>
+        </div>
+
+
+
+
+
       </div>
       <div ng-show="titleEditorEnabled" class="modal-footer">
           <a class="btn btn-success" ng-click="saveTitle()">Save</a>

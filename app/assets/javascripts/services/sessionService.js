@@ -3,10 +3,8 @@ app.factory('Session',  ['Auth', '$location', function(Auth,$location){
   var currentUser = {user: Auth.currentUser()}
 
   function relog(user){
-    console.log(user)
     currentUser.user = user;
 
-    console.log(Auth.isAuthenticated());
     loggedIn.status = Auth.isAuthenticated();
   }
 

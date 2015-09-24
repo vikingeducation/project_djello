@@ -15,12 +15,19 @@ app.factory('Cards', ['Restangular',  function(Restangular){
     })
   }
 
-  // function completeCard(card, callback){
-  //   Restangular.one('cards', card)
-  // }
+  function addMember(card, target, callback){
+    // console.log(card, target);
+    editedCard = Restangular.all('memberships').post({card_id: card.id, user_id: target.id}).then(function(res){
+      console.log(res);
+      callback(res);
+    }, function(fail){
+      console.log(fail);
+    })
+  }
 
   return {
     addCard: addCard,
     editCard: editCard,
+    addMember: addMember,
   }
 }]);
