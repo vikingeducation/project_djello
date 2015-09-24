@@ -1,51 +1,63 @@
 class BoardsController < ApplicationController
 
   def index
+
     if current_user
-      @boards = Board.where(user_id: current_user.id)
+      boards = Board.where(user_id: current_user.id)
     else
-      @boards = []
+      boards = []
     end
 
-    render json: @boards
+    render json: boards
   end
 
   def create
-    @board = Board.new(board_params)
+    board = Board.new(board_params)
 
     respond_to do |format|
 
-      if @board.save
-        format.json { render json: @board }
+      if board.save
+        format.json { render json: board }
       else
         format.json { render nothing: true}
       end
+
     end
+
   end
 
   def show
-    board = Board.find(params[:id])
-    p board
+
+    board = Board.find_by_id(params[:id])
+
     respond_to do |format|
 
       if board
         format.json { render json: board }
       else
-        format.json { render nothing: true}
+        format.json { render nothing: true, status: 404 }
       end
+
     end
+
   end
 
   def destroy
-    board = Board.find(params[:id])
+
+    board = Board.find_by_id(params[:id])
+
     respond_to do |format|
 
-      if board.destroy
+      if !board
+        format.json { render nothing: true, status: 404 }
+      elsif board.destroy
         format.json { render json: board }
       else
-        format.json { render nothing: true}
+        format.json { render nothing: true, status: 400 }
       end
+
     end
+
   end
 
   private

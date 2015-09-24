@@ -28,21 +28,12 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
 
 
   $scope.submitEdit = function(editCard, card){
-    console.log(editCard)
-    var put = Restangular.one('boards', $stateParams.id).one('cards', card.id).put({
-      card: {
-        name: editCard.name,
-        content: editCard.content,
-      }
-    })
+    Restangular.one('boards', $stateParams.id).one('cards', card.id).get().then(function(card){
+      card.name = editCard.name;
+      card.content = editCard.content;
+      card.put();
+    });
 
-    put.then(function(response){
-      // list.cards = list.cards || [];
-      // list.cards.push(response);
-      // $scope.card = {};
-    })
-    //
-    //
     $scope.edit = false
   }
 

@@ -1,32 +1,45 @@
 class CardsController < ApplicationController
-  def index
-  end
 
   def create
 
-    @card = Card.new(card_params)
+    card = Card.new(card_params)
 
     respond_to do |format|
 
-      if @card.save
-        format.json { render json: @card }
+      if card.save
+        format.json { render json: card }
       else
-        format.json { render nothing: true }
+        format.json { render nothing: true, status: 400 }
       end
     end
   end
 
+  def show
+
+    card = Card.find_by_id(params[:id])
+
+    respond_to do |format|
+      if card
+        format.json { render json: card }
+      else
+        format.json { render nothing: true, status: 404 }
+      end
+    end
+
+  end
+
   def update
 
-    @card = Card.find(params[:id])
-
+    card = Card.find_by_id(params[:id])
 
     respond_to do |format|
 
-      if @card.update(card_params)
-        format.json { render json: @card }
+      if !card
+        format.json { render nothing: true, status: 404 }
+      elsif card.update(card_params)
+        format.json { render json: card }
       else
-        format.json { render nothing: true }
+        format.json { render nothing: true, status: 400 }
       end
     end
   end
