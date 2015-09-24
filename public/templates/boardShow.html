@@ -1,20 +1,56 @@
-<p>WHAT IS THID</p>
-
-<h1>boardShow</h1>
-  <div class="panel panel-default" ng-repeat="list in board.lists">
-    <div class="panel-heading">
-      <h3 class="panel-title">{{list.title}}</h3>
-      <p class="panel-title">{{list.description}}</p>
-    </div>
-    <div class="panel-body">
-      CARDS GO HERE
-    </div>
-  </div>
-</div>
-
-
-
+<!-- Add a list -->
 
 <h2 class="text-center">
   <a ng-click="addList()">Add a List</a>
 </h2>
+
+<form name='newListForm' ng-if='addNewList'>
+  <label>Title</label>
+  <input type="text" class="form-control"
+          id="inputNewListTitle" placeholder="Enter list title"
+          ng-model="newList.title">
+  <label>Description</label>
+  <input type="text" class="form-control"
+          id="inputNewListDescription" placeholder="Enter list description"
+          ng-model="newList.description">
+  <button ng-click="createList()" class="btn btn-success">
+    Create List!
+  </button>
+</form>
+
+<br><br>
+
+<!-- Display all lists -->
+
+<div class="panel panel-default col-sm-4" ng-repeat="list in board.lists">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">{{list.title}}</h3>
+      <p class="panel-title">{{list.description}}</p>
+    </div>
+
+    <div class="panel-body">
+<!--       <h2 class="text-center">
+        <a ng-click="addCard()">Add a Card</a>
+      </h2>
+
+      <form name='newCardForm' ng-if='addNewCard'>
+        <label>Title</label>
+        <input type="text" class="form-control"
+                id="inputNewCardTitle" placeholder="Enter card title"
+                ng-model="newCard.title">
+        <label>Description</label>
+        <input type="text" class="form-control"
+                id="inputNewCardDescription" placeholder="Enter card description"
+                ng-model="newCard.description">
+        <label>Members</label>
+        Dropdown
+        <label>Activity</label>
+        List of checkboxes
+        <button ng-click="createCard()" class="btn btn-success">
+          Create Card!
+        </button>
+      </form> -->
+    </div>
+
+</div>
