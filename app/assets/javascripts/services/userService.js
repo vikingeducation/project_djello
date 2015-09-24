@@ -25,13 +25,12 @@ app.factory("UserService", ['Auth', '$location', function(Auth, $location){
 
   function logout(config) {
     console.log(config)
+    loggedIn.status = false;
     Auth.logout(config).then(function(oldUser) {
       console.log(oldUser.name + "you're signed out now.");
-      loggedIn.status = false;
       currentUser.user = {};
     }, function(error) {
       console.log('An error occurred logging out.');
-      loggedIn.status = true;
     });
 
   }

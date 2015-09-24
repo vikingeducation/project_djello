@@ -1,58 +1,65 @@
 <div class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h2 class="modal-title">{{card.title}}</h2>
-        <div class="row">
 
-          <div class="col-xs-12" ng-show = "card.completed">
-            <div class="alert alert-success alert-dismissible fade-in" role="alert">
-              <button class="close" data-dismiss="alert">
-                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-              </button>
-              <strong>Card was completed!</strong>
+      <form ng-submit="updateCard(card)">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <h2 class="modal-title"
+              ng-hide = "beingEdited('title')"
+              ng-click = "editField('title')">
+              {{ card.title }}
+          </h2>
+          <input  class="form-control"
+                  ng-show = "beingEdited('title')"
+                  type="text"
+                  ng-model = "card.title">
+
+          <save-list-changes being-edited = "beingEdited('title')" hide-form = "hideForm()"></save-list-changes>
+
+          <div class="row">
+
+            <div class="col-xs-12" ng-show = "card.completed">
+              <div class="alert alert-success alert-dismissible fade-in" role="alert">
+                <button class="close" data-dismiss="alert">
+                  <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <strong>Card was completed!</strong>
+              </div>
+            </div>
+
+            <div class="col-xs-6">
+              <p class="text-muted">In list: <b>{{ card.list.title }}</b></p>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p><a ng-click = "deleteCard()">Mark Completed</a></p>
             </div>
           </div>
+        </div>
+        <div class="modal-body">
+          <h5 ng-hide = "beingEdited('description')"
+              ng-click = "editField('description')">
+            {{ card.description }}
+          </h5>
+          <textarea class="form-control"
+                    ng-show = "beingEdited('description')"
+                    ng-model = "card.description"></textarea>
 
-          <div class="col-xs-6">
-            <p class="text-muted">In list: <b>{{ card.list.title }}</b></p>
-          </div>
-          <div class="col-xs-6 text-right">
-            <p><a ng-click = "deleteCard()">Mark Completed</a></p>
-          </div>
+          <save-list-changes being-edited = "beingEdited('description')" hide-form = "hideForm()"></save-list-changes>
+          <p><a ng-click = "editField('description')">Edit the description</a></p>
+        <hr>
+          <h3> Members </h3>
+          <p><a href="#">Add member</a></p>
+        <hr>
+          <h3> Activity </h3>
         </div>
-      </div>
-      <br>
-      <div class="modal-body">
-        <p>{{ card.description }}</p>
-        <p><a href="#">Edit the description</a></p>
-      <hr>
-        <h3> Members </h3>
-        <p><a href="#">Add member</a></p>
-      <hr>
-        <h3> Activity </h3>
-      </div>
 
-    <!-- <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" placeholder="Your Name" ng-model="name">
+        <div class="modal-footer">
+          <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="age" class="col-sm-2 control-label">Age</label>
-        <div class="col-sm-10">
-          <input type="number" class="form-control" id="inputPassword3" placeholder="Age" ng-model="age">
-        </div>
-      </div>
-    </form>
- -->
-      <div class="modal-footer">
-        <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
-      </div>
+      </form>
+
     </div>
-
   </div>
 </div>

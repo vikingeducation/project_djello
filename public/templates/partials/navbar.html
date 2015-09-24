@@ -8,7 +8,7 @@
     <a class="navbar-brand" ui-sref = 'app.login'>Djello</a>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/path1">Link1</a></li>
+        <li><a ui-sref = "app.boards">Boards</a></li>
       </ul>
 
       <p class="navbar-text pull-right" ng-show = "loggedIn.status">
@@ -17,7 +17,7 @@
         <a class="navbar-link" ui-sref="app.logout">Logout</a>
       </p>
 
-      <p class="navbar-text pull-right" ng-show = "!loggedIn.status">
+      <p class="navbar-text pull-right" ng-hide = "loggedIn.status">
         <a class="navbar-link" href="/api/v1/users/sign_up">Sign up</a> |
         <a class="navbar-link" ui-sref="app.login">Login</a>
       </p>
