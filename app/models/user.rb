@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     WHERE memberships.user_id = ?
     SQL
 
-    return base_boards + (Board.find_by_sql [query, self.id])
+    return (base_boards + (Board.find_by_sql [query, self.id])).uniq
   end
 
   # A user can view a board if they own it or have any cards where they
