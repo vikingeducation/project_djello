@@ -1,9 +1,10 @@
 <h3> Your Board: {{ board.name }} <button class="btn btn-danger btn-small" ng-click="deleteBoard(board.id)"> Delete Board </button></h3>
 <h3> Lists </h3>
-<div class="form-group">
-<input type="text" class="form-control" ng-model="title">
+<div class="form-group add-list">
+<input type="text" ng-model="title"><button ng-click="addList()" class="btn btn-primary btn-xs">Add</button>
 </div>
-<button ng-click="addList()" class="btn btn-primary btn-xs">Add</button>
+
+</hr>
 
 
 
