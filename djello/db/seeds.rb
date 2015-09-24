@@ -21,15 +21,14 @@ Card.destroy_all
     password_confirmation: 'foobar_1234')
   3.times do |i|
 
-    board = user.boards.create(title: "Board Title #{i}",
-                                user_id: User.first.id )
+    board = user.boards.create(title: "Board Title #{i}")
 
-    2.times do 
-      list = board.lists.create(title: Faker::Lorem.sentence,
-                        description:  "some description here" )
+    2.times do
+      list = board.lists.create(title: Faker::Commerce.department,
+                            description:  Faker::Lorem.sentence)
 
-      4.times do 
-        list.cards.create(title: Faker::Lorem.sentence,
+      4.times do
+        list.cards.create(title: Faker::SlackEmoji.activity,
                           description: Faker::Lorem.sentence )
       end
 
@@ -39,3 +38,24 @@ Card.destroy_all
 
 end
 
+testuser = User.create(username: 'tester',
+                      email:    Faker::Internet.email,
+                      password: 'password',
+                      password_confirmation: 'password')
+
+3.times do |i|
+
+    board = testuser.boards.create(title: "Random Board Title #{i}")
+
+    2.times do
+      list = board.lists.create(title: Faker::Commerce.department,
+                            description:  Faker::Lorem.sentence )
+
+      4.times do
+        list.cards.create(title: Faker::SlackEmoji.activity,
+                          description: Faker::Lorem.sentence )
+      end
+
+    end
+
+  end

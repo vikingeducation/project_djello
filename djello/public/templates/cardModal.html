@@ -4,50 +4,63 @@
       <div class="modal-header">
         <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">{{card.title}}</h4>
+        <div ng-hide="editCardEnabled">
+          <h3 ng-click="editCard()">{{oldCard.title}}</h3>
+        </div>
+        <div ng-show="editCardEnabled">
+          <input ng-model="oldCard.title">
+          <button type="button" class="btn btn-success"
+                    ng-click="editCard('saved')">
+            Save
+          </button>
+          <button type="button" class="btn btn-warning"
+                    ng-click="editCard('cancel')">
+            Cancel
+          </button>
+        </div>
+        <div class="row">
+          <p class='col-sm-6 pull left'>
+            In list
+            <a href="" ng-click="close()" data-dismiss="modal">
+              {{list.title}}
+            </a>
+          </p>
+          <p class='col-sm-6 pull right'>
+            <a href="">Mark Completed</a>
+          </p>
+        </div>
       </div>
+
       <div class="modal-body">
-        <p>{{card.description}}</p>
+<!--         <p>{{card.description}}</p>
 
-
-    <div ng-hide="editCardEnabled">
-      <h1>{{oldCard.title}}</h1>
-      <a href="#" ng-click="editCard()">Edit title</a>
-    </div>
-    <div ng-show="editCardEnabled">
-      <input ng-model="oldCard.title">
-      <button ng-click="editCard('saved')">Save<button>
-      <a href="" ng-click="editCard('cancel')">Cancel</a>
-    </div>
-
-    <div ng-hide="editCardEnabled">
-      <h1>{{oldCard.description}}</h1>
-      <a href="#" ng-click="editCard()">Edit Description</a>
-    </div>
-    <div ng-show="editCardEnabled">
-      <input ng-model="oldCard.description">
-      <button ng-click="editCard('saved')">Save<button>
-      <a href="" ng-click="editCard('cancel')">Cancel</a>
-    </div>
-
-<!--     <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" placeholder="Your Name" ng-model="name">
+        <hr> -->
+        <div ng-hide="editCardEnabled">
+          <p ng-click="editCard()">{{oldCard.description}}</p>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="age" class="col-sm-2 control-label">Age</label>
-        <div class="col-sm-10">
-          <input type="number" class="form-control" id="inputPassword3" placeholder="Age" ng-model="age">
+        <div ng-show="editCardEnabled">
+          <input ng-model="oldCard.description">
+          <button type="button" class="btn btn-success"
+                    ng-click="editCard('saved')">
+            Save
+          </button>
+          <button type="button" class="btn btn-warning"
+                    ng-click="editCard('cancel')">
+            Cancel
+          </button>
         </div>
-      </div>
-    </form> -->
 
-      </div>
-      <hr>
-      <div class="modal-footer">
-        <h3>Activity</h3>
+        <hr>
+
+        <div>
+          <h4>Members</h4>
+          <a href="">Add Members</a>
+        </div>
+
+        <hr>
+        <div>
+          <h4>Activity</h4>
+        </div>
       </div>
     </div>
   </div>

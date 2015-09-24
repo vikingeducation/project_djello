@@ -2,9 +2,10 @@ djello.controller('boardShowCtrl',
   ['$scope', '$location', '$stateParams','$document','loginService', 'showresponse', 'Restangular', 'dataService', 'ModalService',
    function($scope, $location, $stateParams, $document, loginService, showresponse, Restangular, dataService, ModalService){
 
-    console.log("boardShowCtrl initiated");
+  // ==============initial variable settings ===============
+
+  console.log("boardShowCtrl initiated");
   $scope.user = loginService.signedInUser.user;
-  var oldTitle = "";
 
   $scope.board = JSON.parse(showresponse.board);
   $scope.lists = JSON.parse(showresponse.lists);
@@ -17,20 +18,21 @@ djello.controller('boardShowCtrl',
     $location.path('/board');
   };
 
+  var oldTitle = "";
+
   $scope.editorBoardTitle = function(input){
-   //use diff. var.
-      if (input == 'cancel' && $scope.BoardTitleEnabled) {
-        $scope.board.title = oldTitle;
-      }
-      else if (input == 'saved' && $scope.BoardTitleEnabled){
-        var oldboard = Restangular.one('boards', $scope.board.id);
-        oldboard.title = $scope.board.title;
-        oldboard.put().then(
-          dataService.updateBoard(oldboard)
-          );
-      }
-      oldTitle = $scope.board.title;
-      $scope.BoardTitleEnabled=!$scope.BoardTitleEnabled;
+    if (input == 'cancel' && $scope.BoardTitleEnabled) {
+      $scope.board.title = oldTitle;
+    }
+    else if (input == 'saved' && $scope.BoardTitleEnabled){
+      var oldboard = Restangular.one('boards', $scope.board.id);
+      oldboard.title = $scope.board.title;
+      oldboard.put().then(
+        dataService.updateBoard(oldboard)
+        );
+    }
+    oldTitle = $scope.board.title;
+    $scope.BoardTitleEnabled=!$scope.BoardTitleEnabled;
 
   };
 
@@ -39,21 +41,21 @@ djello.controller('boardShowCtrl',
 
   $scope.editorListTitle = function(index, input){
     if (input == 'cancel' && $scope.ListEditEnabled) {
-        $scope.lists[index].title = oldList.title;
-        $scope.lists[index].description = oldList.description;
-      }
-      else if (input == 'saved' && $scope.ListEditEnabled){
-        oldList = Restangular.one('lists', $scope.lists[index].id);
-        oldList.title = $scope.lists[index].title;
-        oldList.description = $scope.lists[index].description;
-        oldList.put();
-      }
-      oldList = { id:  $scope.lists[index].id,
-                  title: $scope.lists[index].title,
-                  description: $scope.lists[index].description};
+      $scope.lists[index].title = oldList.title;
+      $scope.lists[index].description = oldList.description;
+    }
+    else if (input == 'saved' && $scope.ListEditEnabled){
+      oldList = Restangular.one('lists', $scope.lists[index].id);
+      oldList.title = $scope.lists[index].title;
+      oldList.description = $scope.lists[index].description;
+      oldList.put();
+    }
+    oldList = { id:  $scope.lists[index].id,
+      title: $scope.lists[index].title,
+      description: $scope.lists[index].description};
       $scope.ListEditEnabled=!$scope.ListEditEnabled;
 
-  };
+    };
 
   $scope.deleteList= function(index){
     Restangular.one('lists', $scope.lists[index].id).remove();
@@ -72,7 +74,7 @@ djello.controller('boardShowCtrl',
                   });
   };
 
-  console.log("lists", $scope.lists);
+  // console.log("lists", $scope.lists);
   // ==============all card methods===============
 
   $scope.newCard = function(index){
@@ -86,13 +88,23 @@ djello.controller('boardShowCtrl',
                   });
   };
 
+  var findList = function (listId){
+    for(var i =0; i < $scope.lists.length; i++){
+      if($scope.lists[i].id == listId){
+        return $scope.lists[i];
+      }
+    }
+  };
+
   $scope.editCard = function(card){
-      console.log("card in edit is" , card);
-      ModalService.showModal({
+    console.log("card in edit is" , card);
+    list = findList(card.list_id);
+    ModalService.showModal({
       templateUrl: "/templates/cardModal.html",
       controller: "cardModalCtrl",
       inputs: {
-        card: card
+        card: card,
+        list: list
       }
     }).then(function(modal) {
 
@@ -103,7 +115,7 @@ djello.controller('boardShowCtrl',
       });
     });
 
-  }
+  };
 
 }]);
 

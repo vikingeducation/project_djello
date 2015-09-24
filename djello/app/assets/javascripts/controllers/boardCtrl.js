@@ -25,9 +25,4 @@ djello.controller('boardCtrl',
                   });
   };
 
-
-  // $scope.cards = ["task1", "task2"];
-  // $scope.lists = ["list1", "list2"];
-
-
 }]);
