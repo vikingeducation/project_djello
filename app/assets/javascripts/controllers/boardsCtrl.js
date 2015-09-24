@@ -1,6 +1,6 @@
 app.controller("BoardsCtrl",
-              ["$scope", "Restangular", "UserService", 'userPromise', '$location', "BoardService",
-              function($scope, Restangular, UserService, userPromise, $location, BoardService){
+              ["$scope", "Restangular", "UserService", 'userPromise', '$location', "BoardService", "ModalService",
+              function($scope, Restangular, UserService, userPromise, $location, BoardService, ModalService){
   if (!userPromise) {
     $location.path('/')
   };
@@ -71,4 +71,20 @@ app.controller("BoardsCtrl",
 
   }
 
+  $scope.showCard = function(card) {
+
+    ModalService.showModal({
+      templateUrl: "templates/cards/cardmodal.html",
+      controller: "CardsCtrl",
+      inputs: {
+        card: card
+      }
+    }).then(function(modal) {
+      console.log(card)
+      modal.element.modal();
+      modal.close.then(function(result) {
+      });
+    });
+
+  };
 }])
