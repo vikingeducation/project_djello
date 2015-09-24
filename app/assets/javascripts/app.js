@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularModalService'])
+var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularModalService', 'ui.bootstrap'])
 
   .config(["RestangularProvider", function(RestangularProvider){
     RestangularProvider.setBaseUrl("/api/v1")

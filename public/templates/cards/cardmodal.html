@@ -53,7 +53,22 @@
           <div ng-repeat = "member in card.members">
             {{ card.member }}
           </div>
-          <p><a href="#">Add member</a></p>
+          <p><a ng-click = "editField('member')">Add member</a></p>
+          <form ng-submit = "addMember()" ng-show = "beingEdited('member')">
+            <input  type="text"
+                    name = "newmember"
+                    required="string"
+                    typeahead="user as user.username for user in users.list | filter: {username: $viewValue} | limitTo: 8"
+                    typeahead-no-results="noResults"
+                    placeholder = "Little Johnny"
+                    ng-model = "newmember"
+                    class = "form-control">
+
+            <div ng-show="noResults">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+            <save-list-changes being-edited = "beingEdited('member')" hide-form = "hideForm()"></save-list-changes>
+          </form>
         <hr>
           <h3> Activity </h3>
         </div>

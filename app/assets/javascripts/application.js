@@ -16,6 +16,7 @@
 //= require angular
 //= require devise
 //= require ui-router
+//= require ui-bootstrap
 //= require lodash
 //= require restangular
 //= require modal

@@ -1,12 +1,10 @@
-app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardIndex', 'BoardService', 'cardIndex',
-                            function($scope, close, card, Restangular, boardIndex, BoardService, cardIndex){
+app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardIndex', 'BoardService', 'cardIndex', 'UserService',
+                            function($scope, close, card, Restangular, boardIndex, BoardService, cardIndex, UserService){
 
   $scope.card = card;
   console.log(boardIndex)
 
-  // Restangular.all("card_members").getList().then(function(data){
-  //   $scope.cardMembers = data;
-  // })
+  $scope.users = UserService.users;
 
   $scope.deleteCard = function() {
 
@@ -15,7 +13,6 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
       $scope.card.completed = true;
 
       for (var i = 0; i < BoardService.boards.list[boardIndex].lists.length; i++) {
-        console.log("comparing " + BoardService.boards.list[boardIndex].lists[i].id + " with " + card.list.id)
         if (BoardService.boards.list[boardIndex].lists[i].id === card.list.id) {
           return BoardService.boards.list[boardIndex].lists[i].cards.splice(cardIndex, 1);
         }

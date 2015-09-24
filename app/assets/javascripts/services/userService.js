@@ -1,6 +1,17 @@
-app.factory("UserService", ['Auth', '$location', function(Auth, $location){
+app.factory("UserService",  ['Auth', '$location', 'Restangular',
+                            function(Auth, $location, Restangular){
+
   var loggedIn = {status: Auth.isAuthenticated()};
   var currentUser = {user: {}};
+
+  var users = {};
+
+  Restangular.all("users").getList().then(function(data){
+    users.list = data;
+    // for (var i = 0; i < users.list.length; i++) {
+    //   users.list[i].userIndex = i;
+    // };
+  })
 
   console.log("inst UserService")
 
@@ -36,9 +47,11 @@ app.factory("UserService", ['Auth', '$location', function(Auth, $location){
   }
 
   return {
+    users: users,
     loggedIn: loggedIn,
     currentUser: currentUser,
     login: login,
     logout: logout,
   }
+
 }]);

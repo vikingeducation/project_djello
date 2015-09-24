@@ -67,16 +67,6 @@ end
 
 u = User.create(email: "test@test.com", username: "test", password: "password", password_confirmation: "password")
 
-5.times do
-  b = generate_board(u)
-  5.times do
-    l = generate_list(b)
-    5.times do
-      generate_card(l)
-    end
-  end
-end
-
 MULTIPLIER.times do
   user = generate_user
   (MULTIPLIER / 5).times do
@@ -91,7 +81,16 @@ MULTIPLIER.times do
 end
 
 5.times do
-  CardMember.create(user_id: u.id, card_id: Card.ids.sample)
+  b = generate_board(u)
+  5.times do
+    l = generate_list(b)
+    5.times do
+      c = generate_card(l)
+      5.times do
+        CardMember.create(user_id: User.ids.sample, card_id: c)
+      end
+    end
+  end
 end
 
 (MULTIPLIER * 200).times do
