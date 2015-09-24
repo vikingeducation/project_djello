@@ -14,11 +14,21 @@ class MembershipsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    membership = Membership.find_by(user_id: params[:user_id].to_i, card_id: params[:card_id].to_i)
+    @cached_membership = membership
+    if membership.destroy
+      respond_to do |format|
+        format.json { render json: @cached_membership }
+      end
+    end
+  end
   private
     # You can access a card if it's on a board you own or if you're
     # a member of the exact card.
     def require_access
-      if !(current_user.owned_card_ids.include? params[:card_id].to_i or current_user.card_ids.include? params[:card_id].to_i)
+      if !(current_user.owned_card_ids.include? params[:card_id].to_i)
         respond_to do |format|
           format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
         end

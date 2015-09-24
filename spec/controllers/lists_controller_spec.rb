@@ -34,7 +34,7 @@ RSpec.describe ListsController, type: :controller do
       expect(list.title).to_not eq(edited_list.title)
     end
 
-    it 'should not allow editing if not owner' do
+    it 'should allow editing if owner' do
       sign_in user
       edited_list = build(:list)
       put :update, format: :json, id: list.id, list: edited_list.attributes

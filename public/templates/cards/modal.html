@@ -14,7 +14,7 @@
         <h3> Members </h3>
 
         <h5 ng-repeat="member in modalCard.members">
-        {{ member.username }} <a ng-show="isOwner()">remove</a>
+        {{ member.username }} <a ng-show="isOwner()" ng-click="removeMember(member)">remove</a>
         </h5>
         <div class="dropdown" ng-show="isOwner()">
           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add a member!

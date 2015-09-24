@@ -36,7 +36,8 @@ class ListsController < ApplicationController
     end
 
     def require_owner
-      unless  Board.where(user: current_user).pluck(:id).include? List.find(params[:id]).board_id
+      board_id = List.find(params[:id]).board_id
+      unless  Board.where(user: current_user).pluck(:id).include? board_id or current_user.can_view? board_id
         respond_to do |format|
           format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
         end

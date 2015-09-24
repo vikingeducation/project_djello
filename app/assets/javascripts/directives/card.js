@@ -41,6 +41,18 @@ app.directive("card", function(){
               });
             }
 
+            $scope.removeMember = function(target){
+              Cards.removeMember($scope.modalCard, target, function(member){
+                console.log(member);
+                var index = $scope.modalCard.members.reduce(function(result, el, index){
+                  return el.id == member.user_id ? index : result
+                }, -1)
+                console.log(index);
+                console.log($scope.modalCard.members);
+                if (index >= 0) $scope.modalCard.members.splice(index, 1);
+              })
+            }
+
             $scope.enableTitleEditor = function() {
               $scope.disableDescEditor();
               $scope.titleEditorEnabled = true;
