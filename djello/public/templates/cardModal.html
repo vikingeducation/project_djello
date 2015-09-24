@@ -53,7 +53,20 @@
 
         <div>
           <h4>Members</h4>
-          <a href="">Add Members</a>
+          <ul>
+            <li ng-repeat="member in members">{{member.name}}</li>
+          </ul>
+
+          <form ng-model="newMember">
+            <select>
+              <option ng-repeat="user in users" value="user.id">
+                {{user.name}}
+              </option>
+            </select>
+
+            <input type="submit" value="Add Member" class="btn btn-success">
+
+          </form>
         </div>
 
         <hr>

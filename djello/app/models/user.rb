@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :lists, through: :boards
   has_many :cards, through: :lists
 
-  #===== read only access associations below====
+  #===== card member associations below ====
   has_many :collaborations, class_name: "CardMembership"
   has_many :tasks, through: :collaborations
   has_many :task_lists, through: :tasks, source: :list

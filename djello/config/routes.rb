@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   scope 'api' do
     scope 'v1' do
       devise_for :users, :controllers => {sessions: 'sessions'}
-      resources :boards
+      resources :boards, except: [:new, :edit]
+      resources :users, only: [:index]
 
-      resources :lists do
-          resources :cards
+      resources :lists, only: [:create, :update, :destroy] do
+          resources :cards, except: [:new, :edit]
       end
 
 

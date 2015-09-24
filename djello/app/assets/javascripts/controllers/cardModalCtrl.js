@@ -8,6 +8,11 @@ djello.controller('cardModalCtrl', [
   $scope.list = list;
   $scope.editCardEnabled = {};
 
+  //get users for adding members
+  Restangular.all('users').getList().then(function(result){
+    $scope.users = result;
+  });
+
 
   //  This close function doesn't need to use jQuery or bootstrap, because
   //  the button has the 'data-dismiss' attribute.
