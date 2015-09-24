@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :boards, dependent: :destroy
 
+  has_many :memberships
+  has_many :cards, through: :memberships, source: 'card'
   def email_required?
    false
   end
