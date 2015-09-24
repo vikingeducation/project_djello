@@ -1,6 +1,6 @@
 djello.controller('boardShowCtrl',
-  ['$scope', '$location', '$stateParams','$document','loginService', 'showresponse', 'Restangular', 'dataService',
-   function($scope, $location, $stateParams, $document, loginService, showresponse, Restangular, dataService){
+  ['$scope', '$location', '$stateParams','$document','loginService', 'showresponse', 'Restangular', 'dataService', 'ModalService',
+   function($scope, $location, $stateParams, $document, loginService, showresponse, Restangular, dataService, ModalService){
 
     console.log("boardShowCtrl initiated");
   $scope.user = loginService.signedInUser.user;
@@ -86,10 +86,25 @@ djello.controller('boardShowCtrl',
                   });
   };
 
-  $scope.editCard = function(index, card){
-    debugger
-    var cardId = card.id;
-    var listId = card.list_id;
+  $scope.editCard = function(card){
+      console.log("card in edit is" , card);
+      ModalService.showModal({
+      templateUrl: "/templates/cardModal.html",
+      controller: "cardModalCtrl",
+      inputs: {
+        card: card
+      }
+    }).then(function(modal) {
+
+      //it's a bootstrap element, use 'modal' to show it
+      modal.element.modal();
+      modal.close.then(function(result) {
+        console.log(result);
+      });
+    });
+
   }
 
 }]);
+
+

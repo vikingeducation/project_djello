@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
-
+//= require angular-modal-service.min.js
 //= require angular-ui-router.min.js
 
 //= require devise-min.js
