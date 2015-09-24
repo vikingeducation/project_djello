@@ -64,8 +64,14 @@ RestangularProvider.setRequestSuffix('.json')
         board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
           return Restangular.one('boards', $stateParams.id).get()
         }],
+        boards: ['Restangular', function(Restangular) {
+              return Restangular.all('boards').getList()
+        }],
         lists: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
           return Restangular.one('boards', $stateParams.id).all('lists').getList()
+        }],
+        users: ['Restangular', function(Restangular) {
+          return Restangular.all('users').getList()
         }],
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();
@@ -73,9 +79,6 @@ RestangularProvider.setRequestSuffix('.json')
       }
 
     })
-
-
-
     .state('sign-up', {
       url: "/sign-up",
       views: {

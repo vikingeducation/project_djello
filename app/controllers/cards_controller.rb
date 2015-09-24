@@ -44,6 +44,24 @@ class CardsController < ApplicationController
     end
   end
 
+  def destroy
+
+    card = Card.find_by_id(params[:id])
+
+    respond_to do |format|
+
+      if !card
+        format.json { render nothing: true, status: 404 }
+      elsif card.destroy
+        format.json { render json: card }
+      else
+        format.json { render nothing: true, status: 400 }
+      end
+
+    end
+
+  end
+
   private
 
   def card_params

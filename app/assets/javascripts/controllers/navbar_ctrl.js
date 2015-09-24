@@ -28,12 +28,13 @@ djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location',
 
     $scope.$on('devise:logout', function(event, oldCurrentUser) {
 
-      $scope.currentUser = null
+      $scope.currentUser = null;
+      $location.path('/');
     });
     $scope.$on('devise:login', function(event, currentUser) {
-      console.log("propagation", currentUser)
-      $scope.currentUser = currentUser
-      $location.path('/boards')
+      console.log("propagation", currentUser);
+      $scope.currentUser = currentUser;
+      $location.path('/boards');
     });
 
 

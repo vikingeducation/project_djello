@@ -1,12 +1,24 @@
 <nav navbar-main user="currentUser"></nav>
-
+{{boards}}
 <div class="panel">
   <div class="panel-heading">
-    <h1>BOARD</h1>
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        BOARDS
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li ng-repeat="board in boards |orderBy:'-created_at'">
+          <a ui-sref="lists({id: board.id})">{{board.name}}</a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="panel-body">
     <div class="row">
-      <a class ="col-sm-3 djello-board" ng-repeat="board in boards |orderBy:'-created_at'" ui-sref="lists({id: board.id})">
+      <a class ="col-sm-3 djello-board" 
+         ng-repeat="board in boards |orderBy:'-created_at'" 
+         ui-sref="lists({id: board.id})">
         <!-- <ul>
           <li>Name: {{board.name}} Index: {{$index}} ID: {{board.id}}</li>
           <li><a ui-sref="lists({id: board.id})">Go to Board</a></li>

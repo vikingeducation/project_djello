@@ -1,24 +1,53 @@
-<!-- Modal -->
+
 <div class="modal fade" id="card-modal" role="dialog">
-  {{modalCard.name}}
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <div ng-show="!edit">Name: {{modalCard.name}}</div>
-        <div ng-hide="!edit">Name: <input type="text" ng-model='editCard.name' ></div>
-      </div>
       <div class="modal-body">
-        <div ng-show="!edit">Content: {{modalCard.content}}</div>
-        <div ng-hide="!edit">Content: <input type="text" ng-model='editCard.content'></div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="col-xs-12 form-group">
+          <div ng-show="!edit">Name: {{modalCard.name}}</div>
+          <div ng-hide="!edit">Name: <input class="form-control" type="text" ng-model='editCard.name' ></div>
+
+          <div ng-show="!edit">Content: {{modalCard.content}}</div>
+          <div ng-hide="!edit">Content: <input class="form-control" type="text" ng-model='editCard.content'></div>
+        </div>
+
+        <!-- Member List -->
+        <div class="col-xs-12">
+          <p>Members</p>
+          <table class="table table-responsive table-hover">
+            <tr ng-repeat="member in board.members">
+              <td style="border-top: none !important;">{{member.email}}</td>
+              <td style="border-top: none !important;" 
+                  ng-click="removeMember(modalCard.id, member)"
+                  ng-if="member.id !== board.user_id"><a href="">&#9447</a></td>
+            </tr>
+          </table>
+        </div>
+        <!-- Member List -->
+
+        <!-- drop down user list -->
+        <div class="col-xs-12">
+          <select ng-model="selectedUserID">
+            <option ng-repeat="user in users" ng-value="user.id">
+              {{user.email}}
+            </option>
+          </select>
+          <button ng-click="addMember(modalCard.id, selectedUserID)">Add</button>
+        </div>
+        <!-- drop down user list -->
+
       </div>
       <div class="modal-footer">
         <button class="btn btn-success" ng-click="setEdit(modalCard)" ng-hide="edit">Edit Card</button>
         <button type="button" class="btn btn-danger" ng-click="cancelEdit()" ng-show="edit">Cancel</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-show="edit" ng-click="submitEdit(editCard, modalCard)">Submit</button>
 
+        <button class="btn btn-primary" 
+                data-dismiss="modal"
+                ng-click="completeCard(modalCard, list)">Complete</button>
       </div>
     </div>
 

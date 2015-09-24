@@ -4,6 +4,7 @@ class BoardsController < ApplicationController
 
     if current_user
       boards = Board.where(user_id: current_user.id)
+      boards += current_user.assigned_boards
     else
       boards = []
     end
@@ -19,7 +20,7 @@ class BoardsController < ApplicationController
       if board.save
         format.json { render json: board }
       else
-        format.json { render nothing: true}
+        format.json { render nothing: true, status: 400 }
       end
 
     end
@@ -33,7 +34,7 @@ class BoardsController < ApplicationController
     respond_to do |format|
 
       if board
-        format.json { render json: board }
+        format.json { render json: board.to_json(:include => [:members]) }
       else
         format.json { render nothing: true, status: 404 }
       end

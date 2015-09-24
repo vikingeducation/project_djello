@@ -1,8 +1,21 @@
 <nav navbar-main user="currentUser"></nav>
-
+<!-- members: {{board.members}}<br>
+users: {{users}}
+ -->
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    BOARDS
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li ng-repeat="board in boards |orderBy:'-created_at'">
+      <a ui-sref="lists({id: board.id})">{{board.name}}</a>
+    </li>
+  </ul>
+</div>
 <div class="panel">
   <div class="panel-heading">
-    <h1 ng-click="showBoardForm = !showBoardForm">{{board.name}}</h1>
+      <h1 ng-click="showBoardForm = !showBoardForm">{{board.name}}</h1>
   </div>
   <div ng-if="showBoardForm" class="col-sm-3 panel-body form-group board-form">
     <p>Rename Board</p>
@@ -14,7 +27,7 @@
   </div>
   <div class="panel-body djello-lists">
     <div class="row">
-      <div class="col-sm-3" ng-repeat="list in lists | orderBy: '-created_at'">
+      <div class="col-sm-3" ng-repeat="list in lists | orderBy: 'created_at'">
 
         <!-- list area -->
         <div class="panel panel-default djello-list">
@@ -31,7 +44,7 @@
           </div>
 
           <div class="panel-body djello-cards">
-            <p draggable-card class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
+            <p class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
               {{card.name}}
               &nbsp &nbsp &nbsp {{card.content}}
             </p>

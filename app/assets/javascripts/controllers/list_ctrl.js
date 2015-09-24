@@ -1,9 +1,19 @@
-djello.controller('listCtrl', ['$scope', 'board', 'lists', 'Restangular', '$stateParams', 'currentUser',
- function($scope, board, lists, Restangular, $stateParams, currentUser) {
+djello.controller('listCtrl', 
+  ['$scope', 
+   'board',
+   'boards',
+   'lists', 
+   'Restangular', 
+   '$stateParams', 
+   'currentUser',
+   'users',
+ function($scope, board, boards, lists, Restangular, $stateParams, currentUser, users) {
   $scope.board = board;
+  $scope.boards = boards;
   $scope.lists = lists;
-  $scope.edit = false;
   $scope.currentUser = currentUser;
+  $scope.users = users;
+  $scope.edit = false;
   $scope.listForm = {};
   $scope.showEditListForm = {};
 
@@ -73,12 +83,41 @@ djello.controller('listCtrl', ['$scope', 'board', 'lists', 'Restangular', '$stat
     })
   }
 
+  $scope.completeCard = function(card, list) {
+    board.one('cards', card.id).remove().then(function(deletedCard){
+      list.cards.splice(list.cards.indexOf(card), 1);
+    })
+  }
+
   $scope.setList = function(list) {
     $scope.curList = list;
   }
 
   $scope.setCard = function(card) {
     $scope.modalCard = card;
+  }
+
+  $scope.addMember = function(card_id, member_id) {
+    Restangular.all("user_boards").post({
+      card_id: card_id,
+      user_id: member_id
+    })
+    .then(function(newMember) {
+      $scope.board.members.push(newMember);
+    })
+  }
+
+  $scope.removeMember = function(card_id, member) {
+    console.log("member:", member)
+    console.log("id:", member.id)
+    Restangular.all("user_boards").remove({
+      card_id: card_id,
+      user_id: member.id
+    })
+    .then(function() {
+      var index = $scope.board.members.indexOf(member);
+      $scope.board.members.splice(index, 1);
+    })
   }
 
 }])
