@@ -97,8 +97,8 @@ djello.controller('boardShowCtrl',
   };
 
   $scope.editCard = function(card, idxInList){
-    console.log("card in edit is" , card);
     list = findList(card.list_id);
+
     ModalService.showModal({
       templateUrl: "/templates/cardModal.html",
       controller: "cardModalCtrl",
@@ -108,7 +108,6 @@ djello.controller('boardShowCtrl',
         idxInList: idxInList
       }
     }).then(function(modal) {
-
       //it's a bootstrap element, use 'modal' to show it
       modal.element.modal();
       modal.close.then(function(result) {
@@ -116,7 +115,6 @@ djello.controller('boardShowCtrl',
         // no info sent back from close fn b/c data binding did it
       });
     });
-
   };
 
 }]);

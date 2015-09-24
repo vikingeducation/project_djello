@@ -2,11 +2,10 @@
 
 
 
-  <div class="col-sm-12">
+  <div class="col-sm-10">
     <div ng-hide="BoardTitleEnabled">
-      <h1>{{board.title}}</h1>
+      <h1 ng-click="editorBoardTitle()">{{board.title}}</h1>
       <a href="" ng-click ='deleteBoard()' >Delete board</a>
-      <a href="#" ng-click="editorBoardTitle()">Edit title</a>
     </div>
     <div ng-show="BoardTitleEnabled">
       <input ng-model="board.title">
@@ -14,16 +13,18 @@
       <a href="" ng-click="editorBoardTitle('cancel')">Cancel</a>
     </div>
 
-    <p><a href="" ng-click="newList()">New List</a></p>
+    <button class="btn btn-info pull-right" ng-click="newList()">
+      New List
+    </button>
+
     <div class="row">
       <div class='col-sm-3' ng-repeat="list in lists">
 
 
-        <div ng-hide="ListEditEnabled">
+        <div ng-hide="ListEditEnabled" ng-click="editorListTitle($index)">
           <h3>{{list.title}}</h3>
           <h4>{{list.description}}</h4>
           <a href="" ng-click ='deleteList($index)' >Delete list</a>
-          <a href="#" ng-click="editorListTitle($index)">Edit list</a>
         </div>
         <div ng-show="ListEditEnabled">
           <input ng-model="list.title">
@@ -31,10 +32,6 @@
           <a href="#" ng-click="editorListTitle($index,'saved')">Done editing?</a>
           <a href="" ng-click="editorListTitle($index, 'cancel')">Cancel</a>
         </div>
-
-
-
-        <hr>
 
         <div ng-repeat="card in list.cards">
 
@@ -45,9 +42,10 @@
         </div>
 
         <hr>
-
         <a href="" ng-click='newCard($index)'>Add a Card</a>
+        <hr>
       </div>
+
     </div>
   </div>
 </div>

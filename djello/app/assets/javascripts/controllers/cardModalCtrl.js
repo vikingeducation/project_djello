@@ -19,6 +19,18 @@ djello.controller('cardModalCtrl', [
     console.log('close method ran');
   };
 
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+
+    //  Manually hide the modal.
+    $element.modal('hide');
+
+    //  Now call close, returning control to the caller.
+    close({
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
   //=================card editing methods==================
 
   // to populate editable data in modal
@@ -37,13 +49,11 @@ djello.controller('cardModalCtrl', [
   };
 
   $scope.editCard = function(field, save){
-    debugger;
     if (save && $scope.editCardEnabled[field]){
       updateCard(field);
     } else {
       setEditData();
     }
-    debugger
     if (Object.keys($scope.editCardEnabled)[0] != field){
       $scope.editCardEnabled = {};
     }
@@ -62,9 +72,8 @@ djello.controller('cardModalCtrl', [
   $scope.cardComplete = function(){
     getRectangularObj().remove().then(function(){
       $scope.list.cards.splice(idxInList, 1);
-      $scope.close();
-    }
-      );
+    });
+    $scope.cancel();
   };
 
 
