@@ -24,9 +24,13 @@
           </ul>
         </div>
 
+        </hr>
 
+        <h3> Activity </h3>
 
-
+        <div ng-repeat="activity in modalCard.activities">
+          {{ activity.message }}
+        </div>
 
       </div>
       <div ng-show="titleEditorEnabled" class="modal-footer">

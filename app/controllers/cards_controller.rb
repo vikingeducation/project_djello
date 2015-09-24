@@ -7,8 +7,9 @@ class CardsController < ApplicationController
 
 
     if @card
+      @activity = Activity.create(recordable:@card, message: "This card was created!")
       respond_to do |format|
-        format.json { render json: @card }
+        format.json { render json: @card.to_json(include: :activities)}
       end
     end
   end

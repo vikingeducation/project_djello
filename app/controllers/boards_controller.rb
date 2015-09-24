@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
     @boards = current_user.all_boards
 
     respond_to do |format|
-      format.json {render json: @boards.to_json(include: {lists: {include: {cards: {include: :members}}}} )}
+      format.json {render json: @boards.to_json(include: {lists: {include: {cards: {include: [:members, :activities]}}}} )}
     end
 
   end
@@ -17,14 +17,14 @@ class BoardsController < ApplicationController
     @board.user_id = current_user.id
     if @board.save
       respond_to do |format|
-        format.json {render json: @board.to_json(include: {lists: {include: {cards: {include: :members}}}} ) }
+        format.json {render json: @board.to_json(include: {lists: {include: {cards: {include: [:members, :activities]}}}} ) }
       end
     end
   end
 
   def show
     respond_to do |format|
-      format.json { render json: @board.to_json(include: {lists: {include: {cards: {include: :members}}}} )}
+      format.json { render json: @board.to_json(include: {lists: {include: {cards: {include: [:members, :activities]}}}} )}
     end
   end
 
@@ -40,7 +40,7 @@ class BoardsController < ApplicationController
   def update
     if @board.update(board_whitelist_params)
       respond_to do |format|
-        format.json { render json: @board.to_json(include: {lists: {include: {cards: {include: :members}}}} ) }
+        format.json { render json: @board.to_json(include: {lists: {include: {cards: {include: [:members, :activities]}}}} ) }
       end
     end
   end
