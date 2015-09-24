@@ -42,6 +42,24 @@ class BoardsController < ApplicationController
 
   end
 
+  def update
+
+    board = Board.find_by_id(params[:id])
+
+    respond_to do |format|
+
+      if !board
+        format.json { render nothing: true, status: 404 }
+      elsif board.update(board_params)
+        format.json { render json: board }
+      else
+        format.json { render nothing: true, status: 400 }
+      end
+
+    end
+
+  end
+
   def destroy
 
     board = Board.find_by_id(params[:id])

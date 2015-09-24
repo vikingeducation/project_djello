@@ -1,60 +1,92 @@
-<h1>Lists</h1>
+<nav navbar-main></nav>
+{{currentUser}}
+<div class="panel">
+  <div class="panel-heading">
+    <h1 ng-click="showBoardForm = !showBoardForm">{{board.name}}</h1>
+  </div>
+  <div ng-if="showBoardForm" class="col-sm-3 panel-body form-group board-form">
+    <p>Rename Board</p>
+    <hr>
+    <label>Name: 
+      <input type="text" ng-model="board.name" class="form-control">
+    </label>
+    <button class="btn btn-info"
+          ng-click="updateBoard()">Save</button>
+  </div>
+  <div class="panel-body djello-lists">
+    <div class="row">
+      <div class="col-sm-3" ng-repeat="list in lists | orderBy: '-created_at'">
 
-{{list}}
-<hr>
-<div class="row">
-  <div class="col-sm-3" ng-repeat="list in lists">
-    <article class="djello-list">
-      <h3 class="text-center">{{list.name}}</h3>
-      <ul style='list-style-type:none'>
-        <li class="djello-card" ng-repeat="card in list.cards" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
-          {{card.name}}
-
-          <br>
-          &nbsp &nbsp &nbsp {{card.content}}
-        </li>
-      </ul>
-      <div card-modal card="card" ></div>
-
-      <button type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#newCard" ng-click="setList(list)">New Card</button>
-      {{list.name}}
-      <!-- Modal -->
-      <div class="modal fade" id="newCard" role="dialog">
-        {{curList.name}}
-        <div class="modal-dialog">
-
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              NAme: <input type="text" ng-model="card.name">
-            </div>
-            <div class="modal-body">
-              Content: <input type="text" ng-model="card.content">
-            </div>
-            <div class="modal-footer">
-              {{curList.name}}
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createCard(card, curList)">Add New Card</button>
-            </div>
+        <!-- list area -->
+        <div class="panel panel-default djello-list">
+          <div class="panel-heading">
+            <h5 class="text-center" ng-click="showEditListForm = !showEditListForm">{{list.name}}</h5>
+            showEditListForm{{showEditListForm}}
           </div>
 
+          <div class="panel-body" ng-if="showEditListForm">
+            <label>Rename List
+              <input type="text" ng-model="list.name" class="form-control">
+            </label>
+            <button class="btn btn-info"
+                  ng-click="updateList(list)">Save</button>
+          </div>
+
+          <div class="panel-body djello-cards">
+            <p class="djello-card" ng-repeat="card in list.cards" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
+              {{card.name}}
+              &nbsp &nbsp &nbsp {{card.content}}
+            </p>
+
+            <div card-modal card="card" ></div>
+          </div>
+
+          <div class="panel-body">
+
+            <a type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#newCard" ng-click="setList(list)">Add a new card</a>
+            <!-- Modal -->
+            <div class="modal fade" id="newCard" role="dialog">
+              {{curList.name}}
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-body form-group">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <label>Name: 
+                      <input type="text" ng-model="card.name" class="form-control">
+                    </label>
+                    <br>
+                    <label>Content:
+                      <input type="text" ng-model="card.content" class="form-control">
+                    </label>
+                  </div>
+                  <div class="modal-footer">
+                    {{curList.name}}
+                    <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="createCard(card, curList)">Save</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- Modal -->
+
+          </div>
         </div>
       </div>
-      <!-- Modal -->
 
-    </article>
-  </div>
-
-  <div class="col-sm-3">
-    <article class="djello-list"  class="text-center">
-      <h3 class="text-center">New List:</h3>
-      <h5 class="text-center">Name:</h5>
-      <input ng-model="newListName"
-      type="text" style="margin-left:25%;width:50%;"></input>
-      <br><br>
-      <button class="btn btn-info list-button"
-      ng-click="createList(newListName)">Create List</button>
-
-    </article>
-  </div>
+      <div class="col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="text-center" ng-click="showListForm = !showListForm">Add a new List</h5>
+        </div>
+        <div class="panel-body" ng-if="showListForm">
+          <input ng-model="listForm.name" type="text" placeholder="New List Name" style="margin-left:10%;width:80%;margin-bottom: 10px;"/>
+          <br>
+          <button class="btn btn-info list-button"
+          ng-click="createList()">Create List</button>
+        </div>
+      </div>
+    </div>
+  </div> <!-- panel-body -->
 </div>

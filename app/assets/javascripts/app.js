@@ -61,6 +61,9 @@ RestangularProvider.setRequestSuffix('.json')
       templateUrl: 'templates/list.html',
       controller: 'listCtrl',
       resolve: {
+        board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
+          return Restangular.one('boards', $stateParams.id).get()
+        }],
         lists: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
           return Restangular.one('boards', $stateParams.id).all('lists').getList()
         }],
