@@ -3,11 +3,11 @@ class BoardsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    puts "=================action index in board ctrl================"
-    puts current_user.boards
-    @boards = current_user.boards
     respond_to do |format|
-      format.json {render json: @boards}
+      if current_user
+        @boards = current_user.boards
+        format.json {render json: @boards.to_json( include: [:user, lists: { include: [cards:{ include: :list }] } ] ) }
+      end
     end
   end
 
@@ -49,18 +49,12 @@ class BoardsController < ApplicationController
 
     @board = Board.find(params["id"])
     @lists = List.where(:board_id => @board.id)
-    puts "===================!!!!!!!!!!===================="
-    puts @lists
-
+    
     respond_to do |format|
       format.json {render json:
                       {:board => @board.to_json(:include => :lists),
                       :lists => @lists.to_json(:include => :cards)}
                    }
-
-      # {render json: @board.to_json(:include => {:lists => :cards)}
-
-      # # @venue.to_json(:include => {:published_events => {:method => :to_param}})
     end
   end
 
@@ -69,4 +63,5 @@ class BoardsController < ApplicationController
   def params_list
     params.require(:board).permit(:title, :user_id, :id)
   end
+
 end

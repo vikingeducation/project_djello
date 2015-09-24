@@ -3,31 +3,32 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">{{card.title}}</h4>
+            <!-- Title -->
+      <div ng-hide="editCardEnabled">
+        <h4 class="modal-title">{{cardModal.title}}<a href="#" ng-click="editCard()">Edit title</a></h4>
+        
+      </div>
+      <div ng-show="editCardEnabled">
+        <input ng-model="cardModal.title">
+        <br>
+        <button class = "btn btn-success" ng-click="editCard('saved')">Save</button>
+        <button class = "btn btn-default" ng-click="editCard('cancel')">Cancel</button>
+      </div>
+            <!-- Description -->
+      <div ng-hide="editCardEnabled">
+        <h5>{{cardModal.description}}<a href="#" ng-click="editCard()">Edit Description</a></h5>
+        
+      </div>
+      <div ng-show="editCardEnabled">
+        <input ng-model="cardModal.description">
+        <br>
+        <button class = "btn btn-success" ng-click="editCard('saved')">Save</button>
+        <button class = "btn btn-default" ng-click="editCard('cancel')">Cancel</button>
+      </div>
+
       </div>
       <div class="modal-body">
-        <p>{{card.description}}</p>
 
-
-    <div ng-hide="editCardEnabled">
-      <h1>{{oldCard.title}}</h1>
-      <a href="#" ng-click="editCard()">Edit title</a>
-    </div>
-    <div ng-show="editCardEnabled">
-      <input ng-model="oldCard.title">
-      <button ng-click="editCard('saved')">Save<button>
-      <a href="" ng-click="editCard('cancel')">Cancel</a>
-    </div>
-
-    <div ng-hide="editCardEnabled">
-      <h1>{{oldCard.description}}</h1>
-      <a href="#" ng-click="editCard()">Edit Description</a>
-    </div>
-    <div ng-show="editCardEnabled">
-      <input ng-model="oldCard.description">
-      <button ng-click="editCard('saved')">Save<button>
-      <a href="" ng-click="editCard('cancel')">Cancel</a>
-    </div>
 
 <!--     <form class="form-horizontal" role="form">
       <div class="form-group">
@@ -45,10 +46,13 @@
     </form> -->
 
       </div>
-      <hr>
-      <div class="modal-footer">
+     
+
+      <div><h4>Members</h4></div>
+
+<!--       <div class="modal-footer">
         <h3>Activity</h3>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

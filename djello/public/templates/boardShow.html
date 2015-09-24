@@ -16,7 +16,7 @@
 
     <p><a href="" ng-click="newList()">New List</a></p>
     <div class="row">
-      <div class='col-sm-3' ng-repeat="list in lists">
+      <div class='col-sm-4' ng-repeat="list in lists">
 
 
         <div ng-hide="ListEditEnabled">
@@ -36,8 +36,8 @@
 
         <hr>
 
-        <div ng-repeat="card in list.cards">
-
+        <div ng-repeat="card in list.cards | orderBy: created_at">
+          <p>created {{card.created_at | date}}</p>
           <p>{{card.title}}</p>
           <p>{{card.description}}</p>
           <a href="" ng-click="editCard(card)" >Edit Card</a>

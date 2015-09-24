@@ -1,12 +1,12 @@
 
 djello.controller('cardModalCtrl', [
-  '$scope', '$element', 'card', 'close',
-  function($scope, $element, card, close) {
+  '$scope', '$element', 'card', 'close', 'Restangular',
+  function($scope, $element, card, close, Restangular) {
 
   // $scope.name = null;
   // $scope.age = null;
   // console.log("Modal ctrl has card", card)
-  $scope.card = card;
+
 
   //  This close function doesn't need to use jQuery or bootstrap, because
   //  the button has the 'data-dismiss' attribute.
@@ -31,27 +31,31 @@ djello.controller('cardModalCtrl', [
 
   //=================card editing methods==================
 
-  $scope.oldCard = { id: card.id,
+  $scope.cardModal = { id: card.id,
                   title: card.title,
                   description: card.description};
 
   $scope.editCard = function(input){
     if (input == 'cancel' && $scope.editCardEnabled) {
-      $scope.oldCard =  $scope.card;
+      $scope.cardModal =  $scope.oldCard;
     }
     else if (input == 'saved' && $scope.editCardEnabled){
+      
       var updatedCard = Restangular.one('lists', card.list_id).one('cards', card.id);
-      updatedCard.title = $scope.oldCard.title;
-      updatedCard.description = $scope.oldCard.description;
+      
+      updatedCard.title = $scope.cardModal.title;
+      updatedCard.description = $scope.cardModal.description;
       updatedCard.put().then( function(){
-        $scope.card = $scope.oldCard;
+        console.log("changed");
+        //$scope.card = $scope.oldCard;
       }
       );
+
     }
-    $scopd.oldCard = { id: card.id,
+    $scope.oldCard = { id: card.id,
                   title: card.title,
-                  description: card.description}
-    $scope.editCardEnabled  = !$scope.editCardEnabled
+                  description: card.description};
+    $scope.editCardEnabled  = !$scope.editCardEnabled;
   };
 
 
