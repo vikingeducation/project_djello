@@ -31,7 +31,7 @@
           </div>
 
           <div class="panel-body djello-cards">
-            <p class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
+            <p draggable-card class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
               {{card.name}}
               &nbsp &nbsp &nbsp {{card.content}}
             </p>
@@ -74,17 +74,18 @@
       </div>
 
       <div class="col-sm-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="text-center" ng-click="showListForm = !showListForm">Add a new List</h5>
-        </div>
-        <div class="panel-body" ng-if="showListForm">
-          <input ng-model="listForm.name" type="text" placeholder="New List Name" style="margin-left:10%;width:80%;margin-bottom: 10px;"/>
-          <br>
-          <button class="btn btn-info list-button"
-          ng-click="createList()">Create List</button>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="text-center" ng-click="showListForm = !showListForm">Add a new List</h5>
+          </div>
+          <div class="panel-body" ng-if="showListForm">
+            <input ng-model="listForm.name" type="text" placeholder="New List Name" style="margin-left:10%;width:80%;margin-bottom: 10px;"/>
+            <br>
+            <button class="btn btn-info list-button"
+            ng-click="createList()">Create List</button>
+          </div>
         </div>
       </div>
-    </div>
+    <div id="drag"></div>
   </div> <!-- panel-body -->
 </div>
