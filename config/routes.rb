@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :boards
       resources :lists
       resources :cards
+      resources :card_members
     end
   end
 end

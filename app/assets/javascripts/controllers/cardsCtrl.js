@@ -4,6 +4,10 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
   $scope.card = card;
   console.log(boardIndex)
 
+  // Restangular.all("card_members").getList().then(function(data){
+  //   $scope.cardMembers = data;
+  // })
+
   $scope.deleteCard = function() {
 
     Restangular.one("cards", $scope.card.id).get().then(function(jsonCard) {

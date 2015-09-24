@@ -11,7 +11,7 @@
               ng-click = "editField('title')">
               {{ card.title }}
           </h2>
-          <input  class="form-control"
+          <input  class="form-control" placeholder = "Write a card title"
                   ng-show = "beingEdited('title')"
                   type="text"
                   ng-model = "card.title">
@@ -42,7 +42,7 @@
               ng-click = "editField('description')">
             {{ card.description }}
           </h5>
-          <textarea class="form-control"
+          <textarea class="form-control" placeholder = "Write a description..."
                     ng-show = "beingEdited('description')"
                     ng-model = "card.description"></textarea>
 
@@ -50,6 +50,9 @@
           <p><a ng-click = "editField('description')">Edit the description</a></p>
         <hr>
           <h3> Members </h3>
+          <div ng-repeat = "member in card.members">
+            {{ card.member }}
+          </div>
           <p><a href="#">Add member</a></p>
         <hr>
           <h3> Activity </h3>

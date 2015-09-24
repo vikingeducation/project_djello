@@ -1,26 +1,19 @@
 class CardsController < ApplicationController
 
-  # before_filter :get_list
+  before_filter :get_card, only: [:show, :update, :destroy]
 
   def index
-    respond_to do |format|
-      if current_user
-        @cards = current_user.cards
-        format.json { render json: @cards.to_json( include: :list ) }
-      else
+    if current_user
+      @cards = current_user.cards
+    else
+      respond_to do |format|
         format.json { render :status => 401, :json => { :success => false,
-                                                        :info => "Unable to get cards" } }
+                                                      :info => "Unable to get cards" } }
       end
-
     end
   end
 
   def show
-    @card = Card.find(params[:id])
-
-    respond_to do |format|
-      format.json { render json: @card.to_json( include: :list ) }
-    end
   end
 
   def create
@@ -34,7 +27,6 @@ class CardsController < ApplicationController
   end
 
   def update
-    @card = Card.find(params[:id])
     respond_to do |format|
       if @card.update(card_params)
         format.json { render json: @card.to_json( include: :list ) }
@@ -43,7 +35,6 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card =Card.find(params[:id])
     respond_to do |format|
       if @card.destroy
         format.json { render json: @card.to_json( include: :list ) }
@@ -54,8 +45,8 @@ class CardsController < ApplicationController
 
   private
 
-  def get_list
-    @list = List.find(params[:list_id])
+  def get_card
+    @card = Card.find(params[:id])
   end
 
   def card_params
