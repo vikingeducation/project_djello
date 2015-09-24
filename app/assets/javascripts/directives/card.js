@@ -71,7 +71,7 @@ app.directive("card", function(){
               message.completed = true;
               Cards.editCard(message, function(result){
                 $scope.modalCard.completed = result.completed
-                $scope.close(result);
+                $scope.close('');
               })
             }
 
