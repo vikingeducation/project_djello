@@ -12,16 +12,16 @@ Board.destroy_all
 
 List.destroy_all
 
-User.create(  username: "foo",
-              email: "foo@1",
-              password: '12345678',
-              password_confirmation: '12345678'
-            )
+# User.create(  username: "foo",
+#               email: "foo@1",
+#               password: '12345678',
+#               password_confirmation: '12345678'
+#             )
 
 
-10.times do
+1.times do
 
-  User.create(  username: Faker::Internet.user_name,
+  User.create(  username: "foo",
                 email: Faker::Internet.safe_email,
                 password: '12345678',
                 password_confirmation: '12345678'
@@ -31,7 +31,7 @@ User.create(  username: "foo",
 
 end
 
-Board.create(user_id: User.ids.sample,
+Board.create(user_id: 1,
               title: "sample board")
 
 List.create( board_id: Board.first.id,
@@ -43,3 +43,11 @@ List.create( board_id: Board.first.id,
               title: "Sample List 2",
               description: "Sample list description 2"
             )
+Card.create( list_id: List.first.id,
+              title: "My first Card",
+              description: "my first card descript")
+
+
+
+
+

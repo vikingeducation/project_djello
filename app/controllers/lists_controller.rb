@@ -13,6 +13,15 @@ class ListsController < ApplicationController
 
   end
 
+  def update
+    @list = List.find(params[:id])
+    if @list.update(whitelist_list_params)
+      respond_to do |format|
+        format.json { render json: @list }
+      end
+    end
+  end
+
   def destroy
     @list = List.find(params['id'])
 

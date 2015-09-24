@@ -3,6 +3,8 @@ djelloApp.controller('boardCtrl',
   function($scope, authService, $location, boards, $state, Restangular){
 
     $scope.boards = boards;
+    console.log("boards");
+    console.log(boards);
     $scope.newBoard = {};
     $scope.newBoard.title = "add a title";
     $scope.boardSelected = null;
@@ -27,7 +29,6 @@ djelloApp.controller('boardCtrl',
     };
 
     $scope.changeBoard = function(){
-      console.log($scope.boardSelected);
       $state.go('boards.index.show', {id: $scope.boardSelected.id});
     };
 

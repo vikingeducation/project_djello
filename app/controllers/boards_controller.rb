@@ -3,10 +3,11 @@ class BoardsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @boards = Board.all
+    @boards = current_user.boards
 
     respond_to do |format|
-      format.json {render json: @boards.to_json(include: :lists)}
+      # format.json {render json: @boards.to_json(include: :lists)}
+      format.json {render json: @boards.to_json(include: {lists: {include: :cards}} )}
     end
 
   end
@@ -31,7 +32,8 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       if @board
-        format.json { render json: @board.to_json(include: :lists) }
+        # format.json { render json: @board.to_json(include: :lists) }
+        format.json { render json: @board.to_json(include: {lists: {include: :cards}} )}
       else
         format.json { render status: :unprocessable_entity }
       end

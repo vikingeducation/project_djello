@@ -22,5 +22,6 @@
 //= require underscore.min.js
 
 //= require angular-devise.min.js
+//= require angular-modal-service.min.js
 
 //= require_tree .

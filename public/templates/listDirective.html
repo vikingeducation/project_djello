@@ -1,0 +1,16 @@
+<div>
+  <div class="panel-heading">
+    <h2 class="panel-title" ng-hide="editable" ng-click="enableEdit()">{{listAttr.title}}</h2>
+    <p class="panel-title" ng-hide="editable" ng-click="enableEdit()">
+      {{listAttr.description}}
+    </p>
+    <input ng-show="editable" ng-model="listAttr.title" >
+    <input ng-show="editable" ng-model="listAttr.description" >
+    <button  ng-click="saveList(listAttr.title)">Save</button>
+  </div>
+  <div ng-repeat="card in list.cards" class="panel panel-default">{{card.title}}
+  </div>
+  <h2 class="text-center">
+    <a ng-click="createCard(list)">Add a Card</a>
+  </h2>
+</div>
