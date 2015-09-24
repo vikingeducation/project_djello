@@ -8,7 +8,10 @@
     <input ng-show="editable" ng-model="listAttr.description" >
     <button  ng-click="saveList(listAttr.title)">Save</button>
   </div>
-  <div ng-repeat="card in list.cards" class="panel panel-default">{{card.title}}
+  <div ng-repeat="card in list.cards" class="panel panel-default">
+    
+    <card-directive card="card" save-title="saveTitle()" class="panel panel-default"></card-directive>
+    
   </div>
   <h2 class="text-center">
     <a ng-click="createCard(list)">Add a Card</a>

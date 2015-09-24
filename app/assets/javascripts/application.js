@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 
+
 //= require angular
+//= require angular-modal-service.min.js
 
 // AFTER angular, BEFORE require_tree:
 //= require angular-ui-router.min.js
@@ -22,6 +24,7 @@
 //= require underscore.min.js
 
 //= require angular-devise.min.js
-//= require angular-modal-service.min.js
+//= require twitter/bootstrap
+
 
 //= require_tree .

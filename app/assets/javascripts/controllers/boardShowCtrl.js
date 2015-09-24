@@ -60,6 +60,10 @@ djelloApp.controller('boardShowCtrl',
       });
     };
 
+    $scope.saveTitle = function(){
+      console.log("saved title in view!");
+    };
+
     // LIST
 
     $scope.editListTitle = function(){
