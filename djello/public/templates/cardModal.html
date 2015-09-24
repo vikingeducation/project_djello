@@ -26,15 +26,12 @@
             </a>
           </p>
           <p class='col-sm-6 pull right'>
-            <a href="">Mark Completed</a>
+            <a href="" ng-click="cardComplete()">Mark Completed</a>
           </p>
         </div>
       </div>
 
       <div class="modal-body">
-<!--         <p>{{card.description}}</p>
-
-        <hr> -->
         <div ng-hide="editCardEnabled">
           <p ng-click="editCard()">{{oldCard.description}}</p>
         </div>
