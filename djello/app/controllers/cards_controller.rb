@@ -4,7 +4,7 @@ class CardsController < ApplicationController
     @card = Card.new(params_list)
     respond_to do |format|
       if @card.save
-        format.json {render :json @card}
+        format.json {render json: @card}
       else
         format.json {render status: :unprocessable_entity}
       end
@@ -14,12 +14,19 @@ class CardsController < ApplicationController
   def show
     @card = Card.find(param['id'])
     respond_to do |format|
-      format.json {render :json @card }
+      format.json {render json: @card }
     end
   end
 
   def update
-
+    @card = Card.find(params["id"])
+    respond_to do |format|
+      if @card.update(params_list)
+        format.json {render json: @card}
+      else
+        format.json {render status: :unprocessable_entity}
+      end
+    end
   end
 
   private

@@ -32,17 +32,22 @@
           <a href="" ng-click="editorListTitle($index, 'cancel')">Cancel</a>
         </div>
 
-
+        <p>{{list.id}}</p>
 
 
         <hr>
 
-        <div ng-repeat="card in list.cards">
+        <div ng-repeat="card in list.cards track by $id(list)">
+          <p>{{card.id}}</p>
+          <p>{{$index}}</p>
           <p>{{card.title}}!!!</p>
-
+          <p>{{card.description}}</p>
+          <a href="" ng-click="editCard($index, $id)" >Edit Card</a>
         </div>
 
-        <a href="">Add a Card</a>
+        <hr>
+
+        <a href="" ng-click='newCard($index)'>Add a Card</a>
       </div>
     </div>
   </div>

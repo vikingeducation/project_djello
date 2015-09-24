@@ -67,12 +67,29 @@ djello.controller('boardShowCtrl',
                     description: 'insert description here',
                     board_id: $scope.board.id }})
               .then(function(createdList){
+                createdList.cards = [];
                 $scope.lists.push(createdList);
                   });
   };
 
   console.log("lists", $scope.lists);
+  // ==============all card methods===============
 
-  //$scope.cards = ;
+  $scope.newCard = function(index){
+    var listId = $scope.lists[index].id;
+    Restangular.one('lists', listId).all('cards').post(
+          { card: {  title: 'Blank Card' ,
+                    description: 'card task details here',
+                    list_id: listId }})
+            .then(function(createdCard){
+                $scope.lists[index].cards.push(createdCard);
+                  });
+  };
+
+  $scope.editCard = function(index, card){
+    debugger
+    var cardId = card.id;
+    var listId = card.list_id;
+  }
 
 }]);
