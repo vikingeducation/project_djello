@@ -20,10 +20,30 @@ app.directive("card", function(){
           },
           templateUrl: "templates/cards/modal.html",
           controller: ['$scope', 'close', 'modalCard', function($scope, close, modalCard){
+
             $scope.modalCard = modalCard;
+
+            $scope.enableTitleEditor = function() {
+                $scope.titleEditorEnabled = true;
+                $scope.titleEditableValue = $scope.modalCard.title;
+            };
+
+            $scope.disableTitleEditor = function() {
+                $scope.titleEditorEnabled = false;
+            };
+
+            $scope.save = function(id) {
+                $scope.disableTitleEditor();
+                $scope.disableDescriptionEditor();
+                $scope.editList({listid: $scope.value.id, result: {list: $scope.view.editableValue}});
+                $scope.value.title = $scope.view.editableValue.title;
+                $scope.value.description = $scope.view.editableValue.description;
+            };
+
             $scope.close = function(result){
               close(result, 500);
             };
+
           }]
         }).then(function(modal) {
 
