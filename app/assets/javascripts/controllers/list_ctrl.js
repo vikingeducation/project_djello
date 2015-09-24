@@ -18,12 +18,15 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
   }
 
   $scope.setEdit = function(card){
-    $scope.editCard = card
+
+    $scope.editCard = {}
+    $.extend($scope.editCard, card)
     $scope.edit = true
   }
 
   $scope.cancelEdit = function(){
     $scope.edit = false
+
   }
 
 
@@ -35,10 +38,11 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
     put.put()
 
     .then(function(response){
-
-      // list.cards = list.cards || [];
-      // list.cards.push(response);
-      // $scope.card = {};
+      var list = $.grep($scope.lists, function(val){
+                    return val.id == response.list_id
+                  })[0]
+      var idx = list.cards.indexOf(card);
+      list.cards[idx] = response;
     })
     //
     //

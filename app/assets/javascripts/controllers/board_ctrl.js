@@ -1,8 +1,9 @@
 djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser',
   function($scope, Restangular, boards, currentUser){
   $scope.boards = boards;
-  console.log("current User", currentUser);
+  $scope.edit = {};
   $scope.currentUser = currentUser;
+  $scope.boardName = {};
 
   $scope.createBoard = function() {
     var post = Restangular.all('boards').post({
@@ -14,6 +15,7 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser'
 
     post.then(function(response){
       $scope.boards.push(response)
+      $scope.board.name = ""
     })
   }
 
@@ -24,6 +26,33 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser'
   }
 
 
+  $scope.editBoardName = function(board){
+    // debugger
+    $scope.boardName[board.id] = board.name;
+    $scope.edit[board.id] = !$scope.edit[board.id]
+  }
+
+   $scope.cancelEdit = function(board){
+    // debugger
+    $scope.boardName[board.id] = ""
+    $scope.edit[board.id] = !$scope.edit[board.id]
+  }
+
+  $scope.saveBoardName = function(board, newName){
+    var put = Restangular.one('boards', board.id);
+    put.name = newName;
+    put.put()
+
+    .then(function(response){
+      board.name = newName;
+      $scope.boardName[board.id] = ""
+      $scope.edit[board.id] = !$scope.edit[board.id]
+
+    })
+    //
+    //
+
+  }
 
 
 

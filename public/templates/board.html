@@ -1,23 +1,38 @@
 <nav navbar-main user="currentUser"></nav>
 <h1>BOARD</h1>
 <div class="row">
-  <div class="col-sm-6 col-sm-offset-3">
+  <div class="col-sm-6">
     <div class="input-group">
       <br>
-      <input type="text" class="form-control" placeholder="Name" ng-model='board.name'>
-      <br>
+      <label for="new-form-input">New Board</label>
+      <input id="new-form-input"type="text" class="form-control" placeholder="Name" ng-model='board.name'>
+      <hr>
       <button class="btn btn-primary" ng-click="createBoard()">Create</button>
     </div>
   </div>
 </div>
 <hr>
 <div class="row">
-<div class ="col-sm-3 djello-board" ng-repeat="board in boards |orderBy:'-created_at'">
-    <ul>
-      <li>Name: {{board.name}} Index: {{$index}} ID: {{board.id}}</li>
-      <li><a ui-sref="lists({id: board.id})">Go to Board</a></li>
-      <li><a href="#">Edit</a></li>
-      <li><a ng-click="remove(board)">Delete</a></li>
+<div class ="col-sm-3 " ng-repeat="board in boards |orderBy:'-created_at'">
+    <ul class='djello-board' style="list-style:none">
+
+      <span ng-hide="edit['{{board.id}}']">
+        <a ui-sref="lists({id: board.id})"><h4>{{board.name}}</h4></a>
+      </span>
+      <span ng-show="edit['{{board.id}}']">
+        <h5><input type="text" ng-model='boardName[board.id]' class="edit-board"></h5>
+      </span>
+      <div>
+      <li>
+        <a ng-hide="edit[board.id]" ng-click="editBoardName(board)">Edit Board Name</a>
+        <a ng-show="edit[board.id]" ng-click="saveBoardName(board, boardName[board.id])">Save</a>
+      </li>
+
+      <li>
+        <a ng-show="edit[board.id]" ng-click="cancelEdit(board)">Cancel</a>
+        <a ng-hide="edit[board.id]" ng-click="remove(board)">Delete</a>
+      </li>
+      </div>
     </ul>
   </div>
 </table>

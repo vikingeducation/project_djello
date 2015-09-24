@@ -23,6 +23,19 @@ class BoardsController < ApplicationController
     end
   end
 
+  def update
+    @board = Board.find(params[:id])
+
+    respond_to do |format|
+
+      if @board.update(board_params)
+        format.json { render json: @board }
+      else
+        format.json { render nothing: true}
+      end
+    end
+  end
+
   def show
     board = Board.find(params[:id])
     p board
