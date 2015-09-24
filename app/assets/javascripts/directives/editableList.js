@@ -17,7 +17,7 @@ app.directive("editableList", function(){
                       </h3>\
                     </div>\
                     <div class="panel-body">\
-                      <card ng-repeat="card in value.cards | filter: {completed:false} | orderBy: ' + '-created_at' + '" cardel="card"></card>\
+                      <card ng-repeat="card in value.cards | filter: {completed:false} | orderBy: ' + '-created_at' + '" cardel="card" owner="owner"></card>\
                       <div class="add-card">\
                         <input type="text" ng-model="newCardName">\
                         <button class="btn btn-xs btn-success" ng-click="createCard()">Add</button>\
@@ -33,6 +33,7 @@ app.directive("editableList", function(){
         value: "=editableList",
         editList: "&",
         addCard: "&",
+        owner: "=",
     },
     controller: ['$scope', 'Cards', function($scope, Cards) {
         $scope.newCardName = "";

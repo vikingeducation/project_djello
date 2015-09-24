@@ -13,8 +13,10 @@
         </hr>
         <h3> Members </h3>
 
-        <h6 ng-repeat="member in modalCard.members">{{ member.username }}</h6>
-        <div class="dropdown">
+        <h5 ng-repeat="member in modalCard.members">
+        {{ member.username }} <a ng-show="isOwner()">remove</a>
+        </h5>
+        <div class="dropdown" ng-show="isOwner()">
           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add a member!
           <span class="caret"></span></button>
           <ul class="dropdown-menu">

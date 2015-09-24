@@ -9,6 +9,7 @@ app.directive("card", function(){
     template: template,
     scope: {
       value: "=cardel",
+      owner: "=",
     },
     controller: ['$scope', 'ModalService', function($scope, ModalService){
 
@@ -16,13 +17,18 @@ app.directive("card", function(){
         console.log($scope.value)
         ModalService.showModal({
           inputs: {
-            modalCard: $scope.value
+            modalCard: $scope.value,
+            owner: $scope.owner,
           },
           templateUrl: "templates/cards/modal.html",
-          controller: ['$scope','Cards', 'close', 'modalCard', 'Users',
-           function($scope,Cards, close, modalCard, Users){
+          controller: ['$scope','Cards', 'close', 'modalCard', 'Users', 'Session', 'owner',
+           function($scope,Cards, close, modalCard, Users, Session, owner){
             if (Users.users.length == 0){
               Users.getUsers();
+            }
+
+            $scope.isOwner = function(){
+              return Session.currentUser.user.id == owner
             }
 
             $scope.users = Users.users;

@@ -27,7 +27,8 @@ class ListsController < ApplicationController
       params.require(:list).permit(:title, :description, :board_id)
     end
     def require_author
-      unless params[:list] and Board.where(user: current_user).pluck(:id).include? (params[:list]["board_id"])
+      board_id = params[:list]["board_id"].to_i
+      unless params[:list] and (current_user.board_ids.include? board_id or current_user.can_view? board_id)
         respond_to do |format|
          format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
         end
