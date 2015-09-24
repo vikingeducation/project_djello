@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
       INNER JOIN cards_lists on cards_lists.list_id = lists.id
       INNER JOIN cards on cards.id = cards_lists.card_id
     SQL
-    (Card.find_by_sql [query, self.id]).map {|el| el.id }
+    (Card.find_by_sql [query, self.id]).map {|el| el.id }.uniq
   end
 
   def email_required?

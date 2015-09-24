@@ -5,8 +5,11 @@ class MembershipsController < ApplicationController
     @card = Card.find_by_id(params[:card_id].to_i)
     @new_member = User.find_by_id(params[:user_id].to_i)
 
-    if @card.members.push(@new_member)
-      respond_to do |format|
+    respond_to do |format|
+      if @card.members.include? @new_member
+        format.json {render json: {errors: ["User already exists on list."]}, status: 403}
+      else
+        @card.members.push(@new_member)
         format.json { render json: @new_member }
       end
     end

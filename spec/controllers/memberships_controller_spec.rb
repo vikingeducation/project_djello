@@ -7,8 +7,11 @@ RSpec.describe MembershipsController, type: :controller do
   let(:list) {create(:list, board: board)}
   let(:card) {create(:card)}
 
-  it 'should allow adding membership if board owner' do
+  before do
     list.cards.push([card])
+  end
+
+  it 'should allow adding membership if board owner' do
     sign_in user
     expect{
       post :create, format: :json, user_id: other_user.id, card_id: card.id
@@ -20,5 +23,13 @@ RSpec.describe MembershipsController, type: :controller do
     expect{
       post :create, format: :json, user_id: user.id, card_id: card.id
     }.to change(Membership, :count).by(0)
+  end
+
+  it 'should not add another membership if already existing' do
+    sign_in user
+    expect{
+      post :create, format: :json, user_id: other_user.id, card_id: card.id
+      post :create, format: :json, user_id: other_user.id, card_id: card.id
+    }.to change(Membership, :count).by(1)
   end
 end
