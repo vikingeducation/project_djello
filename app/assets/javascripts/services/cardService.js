@@ -15,6 +15,10 @@ app.factory('Cards', ['Restangular',  function(Restangular){
     })
   }
 
+  // function completeCard(card, callback){
+  //   Restangular.one('cards', card)
+  // }
+
   return {
     addCard: addCard,
     editCard: editCard,

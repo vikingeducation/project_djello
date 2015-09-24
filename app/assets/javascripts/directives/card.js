@@ -66,6 +66,15 @@ app.directive("card", function(){
               $scope.disableTitleEditor();
             }
 
+            $scope.complete = function(){
+              var message = JSON.parse(JSON.stringify($scope.modalCard));
+              message.completed = true;
+              Cards.editCard(message, function(result){
+                $scope.modalCard.completed = result.completed
+                $scope.close(result);
+              })
+            }
+
             $scope.close = function(result){
               close(result, 500);
             };
@@ -76,7 +85,6 @@ app.directive("card", function(){
           //it's a bootstrap element, use 'modal' to show it
           modal.element.modal();
           modal.close.then(function(result) {
-            console.log(result);
           });
         });
       }
