@@ -31,7 +31,7 @@ class ListsController < ApplicationController
     @list = List.find(params['id'])
 
     respond_to do |format|
-      if @list.update(whitelisted_params)
+      if @list.update(whitelist_list_params)
         format.json { render json: @list }
       else
         format.json { render status: :unprocessable_entity }

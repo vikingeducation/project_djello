@@ -20,66 +20,6 @@
   </form>
 </div>
 
-<!-- Display all lists -->
-
-<!-- 1. How do I uniquely identify the title to update?
-2. How do I create a Restangular object to update? -->
-
-<div class="panel panel-default col-sm-4" ng-repeat="list in board.lists">
-
-    <div class="panel-body">
-
-      <h3 class="panel-title text-center"
-          ng-hide='updateFieldForListTitle'
-          ng-click='beginUpdatingListTitle(list.id)'>
-          {{list.title}}
-      </h3>
-
-      <div class="panel-title text-center"
-            ng-if='updateFieldForListTitle'>
-
-        <input  type='text'
-                id='updatedListTitle'
-                ng-model='updatedList.title'
-                ng-value='list.title'
-                ng-click='updateListTitle(list)'
-                ng-model='list.title'>
-
-        <span class="glyphicon glyphicon-remove"
-              aria-hidden="true"
-              ng-click='beginUpdatingListTitle()'>
-        </span>
-
-      </div>
-
-      <br>
-
-      <p class="text-center">{{list.description}}</p>
-      <hr>
-    </div>
-
-    <div class="panel-body">
-<!--       <h2 class="text-center">
-        <a ng-click="addCard()">Add a Card</a>
-      </h2>
-
-      <form name='newCardForm' ng-if='addNewCard'>
-        <label>Title</label>
-        <input type="text" class="form-control"
-                id="inputNewCardTitle" placeholder="Enter card title"
-                ng-model="newCard.title">
-        <label>Description</label>
-        <input type="text" class="form-control"
-                id="inputNewCardDescription" placeholder="Enter card description"
-                ng-model="newCard.description">
-        <label>Members</label>
-        Dropdown
-        <label>Activity</label>
-        List of checkboxes
-        <button ng-click="createCard()" class="btn btn-success">
-          Create Card!
-        </button>
-      </form> -->
-    </div>
+<div board-list class="panel panel-default col-sm-4" ng-repeat="list in board.lists">
 
 </div>
