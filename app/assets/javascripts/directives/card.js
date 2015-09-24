@@ -37,19 +37,19 @@ app.directive("card", function(){
 
             $scope.addMember = function(target){
               Cards.addMember($scope.modalCard, target, function(result){
-                $scope.modalCard.members.push(result);
+                $scope.modalCard.members.push(result.member);
+                $scope.modalCard.activities.push(result.activity);
               });
             }
 
             $scope.removeMember = function(target){
-              Cards.removeMember($scope.modalCard, target, function(member){
-                console.log(member);
+              Cards.removeMember($scope.modalCard, target, function(response){
                 var index = $scope.modalCard.members.reduce(function(result, el, index){
-                  return el.id == member.user_id ? index : result
+                  return el.id == response.member.user_id ? index : result
                 }, -1)
-                console.log(index);
-                console.log($scope.modalCard.members);
                 if (index >= 0) $scope.modalCard.members.splice(index, 1);
+
+                $scope.modalCard.activities.push(response.activity);
               })
             }
 

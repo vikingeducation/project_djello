@@ -29,7 +29,7 @@
         <h3> Activity </h3>
 
         <div ng-repeat="activity in modalCard.activities">
-          {{ activity.message }}
+          {{ activity.message }} - {{ activity.created_at | date }}
         </div>
 
       </div>

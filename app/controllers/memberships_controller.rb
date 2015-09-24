@@ -10,17 +10,21 @@ class MembershipsController < ApplicationController
         format.json {render json: {errors: ["User already exists on list."]}, status: 403}
       else
         @card.members.push(@new_member)
-        format.json { render json: @new_member }
+        @activity = Activity.create(recordable: @card, message: "Added member #{@new_member.username}!")
+        format.json { render json: {member: @new_member, activity: @activity } }
       end
     end
   end
 
   def destroy
+    member = User.find_by(id: params[:user_id].to_i)
+    card = Card.find_by(id: params[:card_id].to_i)
     membership = Membership.find_by(user_id: params[:user_id].to_i, card_id: params[:card_id].to_i)
     @cached_membership = membership
-    if membership.destroy
+    if member and card and membership.destroy
+      @activity = Activity.create(recordable: card, message: "Removed member #{member.username}.")
       respond_to do |format|
-        format.json { render json: @cached_membership }
+        format.json { render json: {member: @cached_membership, activity: @activity} }
       end
     end
   end
