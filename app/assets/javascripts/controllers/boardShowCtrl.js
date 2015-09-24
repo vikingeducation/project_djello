@@ -5,6 +5,25 @@ djelloApp.controller('boardShowCtrl',
     $scope.board = board;
     $scope.newList = {};
     $scope.addNewList = false;
+    $scope.list = {};
+
+    $scope.updateFieldForListTitle = false;
+
+    $scope.beginUpdatingListTitle = function(listID){
+      console.log(listID);
+      $scope.updateFieldForListTitle = $scope.updateFieldForListTitle ? false : true;
+    };
+
+    $scope.updateListTitle = function(list){
+      // console.log(list);
+      var listToUpdate = Restangular.one('lists', list.id);
+      console.log(listToUpdate);
+      // listToUpdate = list;
+      Restangular.copy(listToUpdate).put().then(function(){
+        $scope.updateFieldForListTitle = false;
+        $location.path('/boards/'+$scope.board.id);
+      });
+    };
 
     $scope.addList = function(){
       $scope.addNewList = $scope.addNewList ? false : true;

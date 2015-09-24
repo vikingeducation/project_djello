@@ -13,6 +13,33 @@ class ListsController < ApplicationController
 
   end
 
+  def show
+    @list = List.find(params['id'])
+
+    respond_to do |format|
+      if @list
+        format.json { render json: @list }
+      else
+        format.json { render status: :unprocessable_entity }
+      end
+    end
+
+  end
+
+
+  def update
+    @list = List.find(params['id'])
+
+    respond_to do |format|
+      if @list.update(whitelisted_params)
+        format.json { render json: @list }
+      else
+        format.json { render status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   def destroy
     @list = List.find(params['id'])
 
