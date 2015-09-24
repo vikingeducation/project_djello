@@ -34,12 +34,13 @@ app.directive("card", function(){
 
             $scope.save = function(id) {
                 $scope.disableTitleEditor();
-                $scope.disableDescriptionEditor();
+                // $scope.disableDescriptionEditor();
                 var message = JSON.parse(JSON.stringify($scope.modalCard));
                 message.title = $scope.titleEditableValue;
-                Cards.editCard(message);
-                $scope.value.title = $scope.view.editableValue.title;
-                $scope.value.description = $scope.view.editableValue.description;
+                Cards.editCard(message, function(result){
+                  $scope.modalCard.title = result.title;
+                });
+                $scope.modalCard.title = $scope.titleEditableValue.title;
             };
 
             $scope.close = function(result){

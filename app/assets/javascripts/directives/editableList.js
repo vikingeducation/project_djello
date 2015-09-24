@@ -17,7 +17,7 @@ app.directive("editableList", function(){
                       </h3>\
                     </div>\
                     <div class="panel-body">\
-                      <card ng-repeat="card in value.cards" cardel="card"></card>\
+                      <card ng-repeat="card in value.cards | orderBy: ' + '-created_at' + '" cardel="card"></card>\
                       <div class="add-card">\
                         <input type="text" ng-model="newCardName">\
                         <button class="btn btn-xs btn-success" ng-click="createCard()">Add</button>\
@@ -51,7 +51,7 @@ app.directive("editableList", function(){
             $scope.view.editorEnabled = false;
         };
 
-        $scope.save = function(id) {
+        $scope.save = function() {
             $scope.disableEditor();
             $scope.editList({listid: $scope.value.id, result: {list: $scope.view.editableValue}});
             $scope.value.title = $scope.view.editableValue.title;

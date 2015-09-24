@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_author , only: [:create]
+  before_action :require_author
   def create
     list = List.find(params[:card]['list_id'])
     @card = list.cards.create(card_whitelist_params)
@@ -9,6 +9,16 @@ class CardsController < ApplicationController
     if @card
       respond_to do |format|
         format.json { render json: @card }
+      end
+    end
+  end
+
+  def update
+  @card = Card.find(params[:id])
+
+    if @card.update(card_whitelist_params)
+      respond_to do |format|
+        format.json {render json: @card }
       end
     end
   end
