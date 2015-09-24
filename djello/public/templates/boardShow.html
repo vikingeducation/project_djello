@@ -16,7 +16,7 @@
 
     <p><a href="" ng-click="newList()">New List</a></p>
     <div class="row">
-      <div class='col-sm-3' ng-repeat="list in lists track by $index">
+      <div class='col-sm-3' ng-repeat="list in lists">
 
 
         <div ng-hide="ListEditEnabled">
@@ -37,12 +37,12 @@
 
         <hr>
 
-        <div ng-repeat="card in list.cards track by $id(list)">
+        <div ng-repeat="card in list.cards">
           <p>{{card.id}}</p>
           <p>{{$index}}</p>
           <p>{{card.title}}!!!</p>
           <p>{{card.description}}</p>
-          <a href="" ng-click="editCard($index, $id)" >Edit Card</a>
+          <a href="" ng-click="editCard($index)" >Edit Card</a>
         </div>
 
         <hr>
