@@ -15,6 +15,7 @@
         <div ng-hide="!edit">Content: <input type="text" ng-model='editCard.content'></div>
       </div>
       <div class="modal-footer">
+        <button class="btn btn-info">Add Members</button>
         <button class="btn btn-warning" ng-click="setEdit(modalCard)" ng-hide="edit">Edit Card</button>
 
         <button type="button" class="btn btn-danger" ng-click="cancelEdit()" ng-show="edit">Cancel</button>

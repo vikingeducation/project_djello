@@ -9,6 +9,12 @@
 
           <h4>{{card.name}}</h4><p>{{card.content}}</p>
           <hr>
+          <strong>Members:</strong>
+          <div ng-repeat="member in card.users">
+            {{member.email}}
+          </div>
+          <span ng-if="card.users.length == 0">None</span>
+          <hr>
           <span ng-show="card.completed">Complete</span>
           <span ng-hide="card.completed">Not Complete</span>
         </div>

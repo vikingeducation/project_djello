@@ -8,7 +8,10 @@ class ListsController < ApplicationController
         format.json { render nothing: true, status: 404 }
       elsif board.user.id == current_user.id
         @lists = board.lists
-        format.json { render json: @lists.to_json(:include => [:cards]) }
+        format.json do
+                      render json: @lists.to_json(include: { cards:
+                                                 {include: :users } })
+                    end
       else
         format.json { render nothing: true, status: 403 }
       end
