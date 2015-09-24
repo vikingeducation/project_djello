@@ -5,17 +5,23 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <div class="col-xs-12 form-group">
-          <div ng-show="!edit">Name: {{modalCard.name}}</div>
-          <div ng-hide="!edit">Name: <input class="form-control" type="text" ng-model='editCard.name' ></div>
+      <div class="panel">
 
-          <div ng-show="!edit">Content: {{modalCard.content}}</div>
-          <div ng-hide="!edit">Content: <input class="form-control" type="text" ng-model='editCard.content'></div>
+      <!-- edit card form -->
+        <div class="panel-body">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="col-xs-12 form-group">
+            <div ng-show="!edit">Name: {{modalCard.name}}</div>
+            <div ng-hide="!edit">Name: <input class="form-control" type="text" ng-model='editCard.name' ></div>
+
+            <div ng-show="!edit">Content: {{modalCard.content}}</div>
+            <div ng-hide="!edit">Content: <input class="form-control" type="text" ng-model='editCard.content'></div>
+          </div>  
         </div>
+      <!-- edit card form -->
 
         <!-- Member List -->
-        <div class="col-xs-12">
+        <div class="panel-body">
           <p>Members</p>
           <table class="table table-responsive table-hover">
             <tr ng-repeat="member in board.members">
@@ -29,7 +35,7 @@
         <!-- Member List -->
 
         <!-- drop down user list -->
-        <div class="col-xs-12">
+        <div class="panel-body">
           <select ng-model="selectedUserID">
             <option ng-repeat="user in users" ng-value="user.id">
               {{user.email}}
@@ -38,6 +44,19 @@
           <button ng-click="addMember(modalCard.id, selectedUserID)">Add</button>
         </div>
         <!-- drop down user list -->
+
+        <!-- activities list -->
+        <div class="panel-body">
+          <table class="table table-responsive table-hover">
+            <p>Acticities</p>
+            <tr ng-repeat="activity in modalCard.activities">
+              <td style="border-top: none !important;">{{activity.content}}</td>
+            </tr>
+          </table>
+        </div>
+        <!-- activities list -->
+
+      </div>
 
       </div>
       <div class="modal-footer">

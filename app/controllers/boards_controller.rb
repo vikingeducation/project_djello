@@ -3,8 +3,7 @@ class BoardsController < ApplicationController
   def index
 
     if current_user
-      boards = Board.where(user_id: current_user.id)
-      boards += current_user.assigned_boards
+      boards = current_user.assigned_boards
     else
       boards = []
     end
@@ -18,6 +17,7 @@ class BoardsController < ApplicationController
     respond_to do |format|
 
       if board.save
+        board.members << User.find_by_id(board_params[:user_id])
         format.json { render json: board }
       else
         format.json { render nothing: true, status: 400 }

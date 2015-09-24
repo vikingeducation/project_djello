@@ -1,4 +1,5 @@
 class CardsController < ApplicationController
+  before_action :authorized_user?
 
   def create
 
@@ -16,7 +17,7 @@ class CardsController < ApplicationController
 
   def show
 
-    card = Card.find_by_id(params[:id])
+    # card = Card.find_by_id(params[:id])
 
     respond_to do |format|
       if card
@@ -30,7 +31,7 @@ class CardsController < ApplicationController
 
   def update
 
-    card = Card.find_by_id(params[:id])
+    # card = Card.find_by_id(params[:id])
 
     respond_to do |format|
 
@@ -46,7 +47,7 @@ class CardsController < ApplicationController
 
   def destroy
 
-    card = Card.find_by_id(params[:id])
+    # card = Card.find_by_id(params[:id])
 
     respond_to do |format|
 
@@ -63,6 +64,23 @@ class CardsController < ApplicationController
   end
 
   private
+
+  def authorized_user?
+
+    list = List.find_by_id(card_params[:list_id]) if card_params[:list_id]
+    card = Card.find_by_id(params[:id]) if params[:id]
+
+    if list
+      if !list.members.include?(current_user)
+        format.json { render nothing: true, status: 401 }
+      end
+    elsif card
+      if !card.members.include?(current_user)
+        format.json { render nothing: true, status: 401 }
+      end
+    end
+
+  end
 
   def card_params
 

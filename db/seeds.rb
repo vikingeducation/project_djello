@@ -10,15 +10,17 @@
 
 3.times do |i|
   user = User.create(email: "#{i}@email.com",
-                     password: "12345678")
+                     password: "11111111")
 
   board = user.boards.create(name: "board#{i}")
+  board.members << user
 
   list = board.lists.create(name: "list#{i}")
 
-    5.times do |card|
-      list.cards.create(name: "CARD #{card}",
-                       content: "Lorem Ipsum")
+    5.times do |num|
+      card = list.cards.create(name: "CARD #{num}",
+                               content: "Lorem Ipsum")
+      card.activities.create(content: "activity #{num}")
     end
 
 end

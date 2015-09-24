@@ -1,5 +1,7 @@
 class Card < ActiveRecord::Base
   belongs_to :list
+  has_many :activities,
+            dependent: :destroy
 
   def owner
     self.list.user
@@ -8,4 +10,9 @@ class Card < ActiveRecord::Base
   def board
     self.list.board
   end
+
+  def members
+    self.board.members
+  end
+
 end
