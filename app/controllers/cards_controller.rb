@@ -3,13 +3,27 @@ class CardsController < ApplicationController
   end
 
   def create
-    p "*************************"
 
     @card = Card.new(card_params)
 
     respond_to do |format|
 
       if @card.save
+        format.json { render json: @card }
+      else
+        format.json { render nothing: true }
+      end
+    end
+  end
+
+  def update
+
+    @card = Card.find(params[:id])
+
+
+    respond_to do |format|
+
+      if @card.update(card_params)
         format.json { render json: @card }
       else
         format.json { render nothing: true }

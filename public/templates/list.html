@@ -7,18 +7,19 @@
     <article class="djello-list">
       <h3 class="text-center">{{list.name}}</h3>
       <ul style='list-style-type:none'>
-        <li class="djello-card" ng-repeat="card in list.cards" card-modal card="card" data-toggle="modal" data-target="#myModal{{card.id}}" ng-click="setCard(card)">
+        <li class="djello-card" ng-repeat="card in list.cards" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
           {{card.name}}
 
           <br>
           &nbsp &nbsp &nbsp {{card.content}}
         </li>
       </ul>
+      <div card-modal card="card" ></div>
 
-      <button type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#myModal" ng-click="setList(list)">New Card</button>
+      <button type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#newCard" ng-click="setList(list)">New Card</button>
       {{list.name}}
       <!-- Modal -->
-      <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal fade" id="newCard" role="dialog">
         {{curList.name}}
         <div class="modal-dialog">
 
@@ -36,7 +37,7 @@
               <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="createCard(card, curList)">Add New Card</button>
             </div>
           </div>
-          
+
         </div>
       </div>
       <!-- Modal -->

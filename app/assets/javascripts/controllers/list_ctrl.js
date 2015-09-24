@@ -1,6 +1,7 @@
 djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
  function($scope, lists, Restangular, $stateParams) {
   $scope.lists = lists;
+  $scope.edit = false
 
 
   $scope.createList = function(newName){
@@ -16,8 +17,37 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
     })
   }
 
+  $scope.setEdit = function(card){
+    $scope.editCard = card
+    $scope.edit = true
+  }
+
+  $scope.cancelEdit = function(){
+    $scope.edit = false
+  }
+
+
+  $scope.submitEdit = function(editCard, card){
+    console.log(editCard)
+    var put = Restangular.one('boards', $stateParams.id).one('cards', card.id).put({
+      card: {
+        name: editCard.name,
+        content: editCard.content,
+      }
+    })
+
+    put.then(function(response){
+      // list.cards = list.cards || [];
+      // list.cards.push(response);
+      // $scope.card = {};
+    })
+    //
+    //
+    $scope.edit = false
+  }
+
   $scope.createCard = function(cardForm, list){
-    console.log("list", list);
+
     var post = Restangular.one('boards', $stateParams.id).all('cards').post({
       card: {
         name: cardForm.name,
