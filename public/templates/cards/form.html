@@ -1,0 +1,23 @@
+<form ng-submit = "createCard(newCard)" ng-show = "listId === selectedList">
+
+  <div class="col-md-12">
+
+    <div class="form-group">
+      <input type="text" ng-model = "newCard.title" placeholder="Add a card..." class="form-control">
+    </div>
+
+    <div class="form-group">
+      <textarea placeholder = "Description" ng-model = "newCard.description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">Add</button>
+      <a class="text-muted pull-right icon-lg" ui-sref = "app.boards"><span class = "glyphicon glyphicon-remove"></span></a>
+    </div>
+
+  </div>
+</form>
+
+<p ng-hide = "listId === selectedList">
+  <b><a ui-sref="app.boards.newCard({listId: listId})">Add a card</a></b>
+</p>

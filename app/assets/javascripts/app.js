@@ -69,6 +69,7 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularM
       .state('app.boards', {
         url: "boards",
         views: {
+
           "content@": {
             templateUrl: 'templates/boards/layout.html',
             controller: 'BoardsCtrl',
@@ -78,6 +79,7 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularM
               }]
             }
           },
+
           "index@app.boards": {
             templateUrl: 'templates/boards/index.html',
             controller: 'BoardsCtrl',
@@ -87,9 +89,15 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularM
               }]
             }
           },
+
           "newList@app.boards": {
             templateUrl: 'templates/lists/new.html',
-          }
+          },
+
+          "newCard@app.boards": {
+            templateUrl: 'templates/cards/new.html',
+          },
+
         }
       })
 
@@ -98,6 +106,16 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularM
         views: {
           "newList@app.boards": {
             templateUrl: 'templates/lists/form.html',
+          }
+        }
+      })
+
+      .state('app.boards.newCard', {
+        url: "/cards/new/:listId",
+        views: {
+          "newCard@app.boards": {
+            templateUrl: 'templates/cards/form.html',
+            controller: 'CardsNewCtrl'
           }
         }
       })

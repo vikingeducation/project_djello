@@ -1,7 +1,7 @@
-<div ng-repeat="(boardsIdx, board) in boards.list | filter : { id  : boards.selectedBoard }">
+<div ng-repeat="board in boards.list | filter : { id  : boards.selectedBoard }">
   <div class="row" ng-if="boards.selectedBoard">
     <div class="col-xs-6">
-      <h2> {{ board.title }} </h2>
+      <h2> {{ board.title }} | {{ board.boardIndex }} </h2>
     </div>
   </div>
 
@@ -16,13 +16,24 @@
               <div class="row">
                 <div class="col-md-12">
 
-                  <h3 ng-hide = "beingEdited('title', $index)" ng-click = "editField('title', $index)"> {{ list.title }} </h3>
-                  <input class="form-control" ng-show = "beingEdited('title', $index)" type="text" ng-model = "list.title">
+                  <h3 ng-hide = "beingEdited('title', $index)"
+                      ng-click = "editField('title', $index)">
+                      {{ list.title }}
+                  </h3>
+                  <input  class="form-control"
+                          ng-show = "beingEdited('title', $index)"
+                          type="text"
+                          ng-model = "list.title">
 
                   <save-list-changes being-edited = "beingEdited('title', $index)" hide-form = "hideForm()"></save-list-changes>
 
-                  <h5 ng-hide = "beingEdited('description', $index)" ng-click = "editField('description', $index)"> {{ list.description }} </h5>
-                  <textarea class="form-control" ng-show = "beingEdited('description', $index)" ng-model = "list.description"></textarea>
+                  <h5 ng-hide = "beingEdited('description', $index)"
+                      ng-click = "editField('description', $index)">
+                    {{ list.description }}
+                  </h5>
+                  <textarea class="form-control"
+                            ng-show = "beingEdited('description', $index)"
+                            ng-model = "list.description"></textarea>
 
                   <save-list-changes being-edited = "beingEdited('description', $index)" hide-form = "hideForm()"></save-list-changes>
 
@@ -44,15 +55,7 @@
               </div>
             </div>
 
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p><b><a href="#">Add a card</a></b></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <new-card-panel list-index = '$index' list-id = 'list.id' board-index = 'board.boardIndex'></new-card-panel>
 
           </div>
         </div>

@@ -5,11 +5,11 @@ class CardsController < ApplicationController
   def index
     respond_to do |format|
       if current_user
-        @cards = @list.cards
+        @cards = current_user.cards
         format.json { render json: @cards.to_json( include: :list ) }
       else
         format.json { render :status => 401, :json => { :success => false,
-                                                        :info => "Unable to get card" } }
+                                                        :info => "Unable to get cards" } }
       end
 
     end
@@ -24,7 +24,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(whitelist_card_params)
+    @card = Card.new(card_params)
 
     respond_to do |format|
       if @card.save
@@ -36,7 +36,7 @@ class CardsController < ApplicationController
   def update
     @card = Card.find(params[:id])
     respond_to do |format|
-      if @card.update(whitelist_card_params)
+      if @card.update(card_params)
         format.json { render json: @card.to_json( include: :list ) }
       end
     end
@@ -58,7 +58,7 @@ class CardsController < ApplicationController
     @list = List.find(params[:list_id])
   end
 
-  def whitelist_list_params
-    params.require(:card).permit(:list_id, :id, :title, :description, :completed)
+  def card_params
+    params.require(:card).permit(:list_id, :title, :description, :completed)
   end
 end
