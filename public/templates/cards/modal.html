@@ -12,7 +12,7 @@
         <h4 ng-show="descEditorEnabled"><input type="text" ng-model="descEditableValue"></h4>
         </hr>
         <h3> Members </h3>
-        <h6 ng-repeat="member in modalCard.members">{{ member }}</h6>
+        <h6 ng-repeat="member in modalCard.members">{{ member.username }}</h6>
         <button> Add a member !</button>
       </div>
       <div ng-show="titleEditorEnabled" class="modal-footer">

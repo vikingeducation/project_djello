@@ -21,6 +21,21 @@ class User < ActiveRecord::Base
     (Card.find_by_sql [query, self.id]).map {|el| el.id }.uniq
   end
 
+  # A user can view a board if they own it or have any cards where they
+  # are a member
+  def can_view? (board_id)
+    query = <<-SQL
+    SELECT memberships.*
+      FROM boards
+      INNER JOIN lists on lists.board_id = boards.id
+      INNER JOIN cards_lists on cards_lists.list_id = lists.id
+      INNER JOIN cards on cards.id = cards_lists.card_id
+      INNER JOIN memberships on memberships.card_id = cards.id
+    WHERE boards.id = ? AND memberships.user_id = ?
+    SQL
+    (Board.find_by_sql [query, board_id, self.id]).length > 0
+  end
+
   def email_required?
    false
   end
