@@ -41,4 +41,9 @@
 
 .board-form {
   float: left;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #B4B4B4;
+  z-index: 100;
+  border-radius: 5px;
 }

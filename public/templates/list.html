@@ -1,5 +1,5 @@
-<nav navbar-main></nav>
-{{currentUser}}
+<nav navbar-main user="currentUser"></nav>
+
 <div class="panel">
   <div class="panel-heading">
     <h1 ng-click="showBoardForm = !showBoardForm">{{board.name}}</h1>
@@ -7,9 +7,8 @@
   <div ng-if="showBoardForm" class="col-sm-3 panel-body form-group board-form">
     <p>Rename Board</p>
     <hr>
-    <label>Name: 
-      <input type="text" ng-model="board.name" class="form-control">
-    </label>
+    <input type="text" ng-model="board.name" class="form-control">
+    <br>
     <button class="btn btn-info"
           ng-click="updateBoard()">Save</button>
   </div>
@@ -20,11 +19,10 @@
         <!-- list area -->
         <div class="panel panel-default djello-list">
           <div class="panel-heading">
-            <h5 class="text-center" ng-click="showEditListForm = !showEditListForm">{{list.name}}</h5>
-            showEditListForm{{showEditListForm}}
+            <h5 class="text-center" ng-click="showEditListForm[list.id] = !showEditListForm[list.id]">{{list.name}}</h5>
           </div>
 
-          <div class="panel-body" ng-if="showEditListForm">
+          <div class="panel-body" ng-if="showEditListForm[list.id]">
             <label>Rename List
               <input type="text" ng-model="list.name" class="form-control">
             </label>
@@ -33,7 +31,7 @@
           </div>
 
           <div class="panel-body djello-cards">
-            <p class="djello-card" ng-repeat="card in list.cards" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
+            <p class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
               {{card.name}}
               &nbsp &nbsp &nbsp {{card.content}}
             </p>

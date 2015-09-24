@@ -5,6 +5,7 @@ djello.controller('listCtrl', ['$scope', 'board', 'lists', 'Restangular', '$stat
   $scope.edit = false;
   $scope.currentUser = currentUser;
   $scope.listForm = {};
+  $scope.showEditListForm = {};
 
   $scope.updateBoard = function() {
     board.put();
@@ -33,7 +34,7 @@ djello.controller('listCtrl', ['$scope', 'board', 'lists', 'Restangular', '$stat
     //   }
     // })
     list.put();
-    $scope.showEditListForm = false;
+    $scope.showEditListForm[list.id] = false;
   }
 
   $scope.setEdit = function(card){
