@@ -7,6 +7,8 @@ djelloApp.controller('boardCtrl',
     $scope.newBoard.title = "add a title";
     $scope.boardSelected = null;
 
+    state = $state;
+
     // Redirect if not signed in
     var checkSignIn = authService.checkSignIn();
     if (!checkSignIn) { $location.path('/users/sign_in'); }
