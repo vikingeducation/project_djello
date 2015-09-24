@@ -3,6 +3,8 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
   $scope.lists = lists;
   $scope.edit = false
 
+  debugger
+
 
   $scope.createList = function(newName){
     var post = Restangular.one('boards', $stateParams.id).all('lists').post({

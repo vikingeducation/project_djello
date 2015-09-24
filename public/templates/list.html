@@ -10,7 +10,7 @@
           <h4>{{card.name}}</h4><p>{{card.content}}</p>
           <hr>
           <strong>Members:</strong>
-          <div ng-repeat="member in card.users">
+          <div ng-repeat="member in card.members">
             {{member.email}}
           </div>
           <span ng-if="card.users.length == 0">None</span>

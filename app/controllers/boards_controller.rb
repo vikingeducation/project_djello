@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
 
   def index
     if current_user
-      @boards = Board.owned_and_member
+      @boards = current_user.owned_and_member_boards
     else
       @boards = []
     end
