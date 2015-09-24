@@ -34,7 +34,7 @@ app.directive("editableList", function(){
         editList: "&",
         addCard: "&",
     },
-    controller: function($scope) {
+    controller: ['$scope', 'Cards', function($scope, Cards) {
         $scope.newCardName = "";
 
         $scope.view = {
@@ -59,9 +59,10 @@ app.directive("editableList", function(){
         };
 
         $scope.createCard = function(){
-            $scope.addCard({card: {title: $scope.newCardName, description: "", list_id: $scope.value.id, completed: false}})
-            $scope.value.cards.push({title: $scope.newCardName, description: "", list_id: $scope.value.id, completed: false});
+            Cards.addCard({title: $scope.newCardName, description: "", list_id: $scope.value.id, completed: false}, function(result){
+                $scope.value.cards.push(result);
+            })
         }
-    }
+    }]
 };
 })

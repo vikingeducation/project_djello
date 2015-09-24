@@ -1,9 +1,14 @@
 app.factory('Cards', ['Restangular',  function(Restangular){
+  function addCard(card, callback){
+    Restangular.all('cards').post({card: card}).then(function(res){
+      callback(res);
+    }, function(fail){
+      console.log(fail);
+    })
+  }
 
   function editCard(card, callback){
-    console.log(card)
     Restangular.one('cards', card.id).patch({card: card}).then(function(res){
-      console.log(res)
       callback(res);
     }, function(fail){
       console.log(fail);
@@ -11,6 +16,7 @@ app.factory('Cards', ['Restangular',  function(Restangular){
   }
 
   return {
-    editCard: editCard
+    addCard: addCard,
+    editCard: editCard,
   }
 }]);
