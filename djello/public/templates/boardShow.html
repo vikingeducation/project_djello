@@ -30,7 +30,9 @@
           <input ng-model="list.title">
           <input ng-model="list.description">
           <a href="#" ng-click="editorListTitle($index,'saved')">Done editing?</a>
-          <a href="" ng-click="editorListTitle($index, 'cancel')">Cancel</a>
+          <a href="" ng-click="editorListTitle($index, 'cancel')">
+            Cancel
+          </a>
         </div>
 
         <div ng-repeat="card in list.cards">

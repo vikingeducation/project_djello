@@ -78,6 +78,11 @@ djello.controller('boardShowCtrl',
                   });
   };
 
+  // $scope.escapeEvent = function(e) {
+  //   debugger;
+  //   if (e.which == 27) closeEdit();
+  // };
+
   // console.log("lists", $scope.lists);
   // ==============all card methods===============
 
