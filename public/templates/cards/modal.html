@@ -5,11 +5,12 @@
         <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body">
-        <h1>{{ modalCard.title }}</h1>
+        <h1 ng-hide="titleEditorEnabled" ng-click="enableTitleEditor()">{{ modalCard.title }}</h1>
+        <h1 ng-show="titleEditorEnabled" ><input type="text" ng-model="titleEditableValue">
+          <a class="btn btn-success" ng-click="save()">Save</a>
+          <a class="btn btn-danger" ng-click="disableTitleEditor()">Cancel</a>
+        </h1>
         <h6> Completed: {{ modalCard.completed }} </h6>
-        <h4>{{ modalCard.description }}</h4>
-        <h4>{{ modalCard.description }}</h4>
-        <h4>{{ modalCard.description }}</h4>
         <h4>{{ modalCard.description }}</h4>
 
       </div>

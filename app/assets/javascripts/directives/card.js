@@ -19,7 +19,7 @@ app.directive("card", function(){
             modalCard: $scope.value
           },
           templateUrl: "templates/cards/modal.html",
-          controller: ['$scope', 'close', 'modalCard', function($scope, close, modalCard){
+          controller: ['$scope','Cards', 'close', 'modalCard', function($scope,Cards, close, modalCard){
 
             $scope.modalCard = modalCard;
 
@@ -35,7 +35,9 @@ app.directive("card", function(){
             $scope.save = function(id) {
                 $scope.disableTitleEditor();
                 $scope.disableDescriptionEditor();
-                $scope.editList({listid: $scope.value.id, result: {list: $scope.view.editableValue}});
+                var message = JSON.parse(JSON.stringify($scope.modalCard));
+                message.title = $scope.titleEditableValue;
+                Cards.editCard(message);
                 $scope.value.title = $scope.view.editableValue.title;
                 $scope.value.description = $scope.view.editableValue.description;
             };

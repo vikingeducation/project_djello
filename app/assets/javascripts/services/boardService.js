@@ -1,4 +1,4 @@
-app.factory('Boards', ['Restangular', 'Session', function(Restangular, Session){
+app.factory('Boards', ['Restangular',  function(Restangular){
   var boards = [];
 
   function getBoards(){
