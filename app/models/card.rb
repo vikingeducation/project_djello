@@ -3,5 +3,5 @@ class Card < ActiveRecord::Base
   has_and_belongs_to_many :lists
 
   has_many :memberships
-  has_many :users, through: :memberships
+  has_many :members, through: :memberships, source: :user
 end
