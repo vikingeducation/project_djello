@@ -13,7 +13,8 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser'
     })
 
     post.then(function(response){
-      $scope.boards.push(response)
+      $scope.boards.push(response);
+      $scope.board = {};
     })
   }
 

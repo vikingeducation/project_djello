@@ -1,7 +1,23 @@
 <nav navbar-main user="currentUser"></nav>
 <h1>BOARD</h1>
+
 <div class="row">
-  <div class="col-sm-6 col-sm-offset-3">
+  <a class ="col-sm-3 djello-board" ng-repeat="board in boards |orderBy:'-created_at'" ui-sref="lists({id: board.id})">
+    <!-- <ul>
+      <li>Name: {{board.name}} Index: {{$index}} ID: {{board.id}}</li>
+      <li><a ui-sref="lists({id: board.id})">Go to Board</a></li>
+      <li><a href="">Edit</a></li>
+      <li><a href="" ng-click="remove(board)">Delete</a></li>
+    </ul> -->
+    <div class="col-sm-1 pull-right">
+      <span class="" ng-click="remove(board)">&times</span>
+    </div>
+    <div class="col-sm-11">
+      <p>{{board.name}}</p>
+    </div>
+  </a>
+
+  <div class="col-sm-3 djello-board">
     <div class="input-group">
       <br>
       <input type="text" class="form-control" placeholder="Name" ng-model='board.name'>
@@ -9,16 +25,4 @@
       <button class="btn btn-primary" ng-click="createBoard()">Create</button>
     </div>
   </div>
-</div>
-<hr>
-<div class="row">
-<div class ="col-sm-3 djello-board" ng-repeat="board in boards |orderBy:'-created_at'">
-    <ul>
-      <li>Name: {{board.name}} Index: {{$index}} ID: {{board.id}}</li>
-      <li><a ui-sref="lists({id: board.id})">Go to Board</a></li>
-      <li><a href="#">Edit</a></li>
-      <li><a ng-click="remove(board)">Delete</a></li>
-    </ul>
-  </div>
-</table>
 </div>
