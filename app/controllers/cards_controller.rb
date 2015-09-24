@@ -20,7 +20,6 @@ class CardsController < ApplicationController
 
     @card = Card.find(params[:id])
 
-
     respond_to do |format|
 
       if @card.update(card_params)
@@ -35,7 +34,7 @@ class CardsController < ApplicationController
 
   def card_params
 
-    params.require(:card).permit(:name, :content, :list_id)
+    params.require(:card).permit(:name, :content, :list_id, :completed)
 
   end
 end

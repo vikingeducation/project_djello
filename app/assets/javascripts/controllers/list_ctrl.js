@@ -74,6 +74,40 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
     $scope.modalCard = card;
   }
 
+  $scope.completeTask = function(card){
+    var put = Restangular.one('boards', $stateParams.id).one('cards', card.id);
+    put.completed = true
+    put.put()
+
+    .then(function(response){
+      var list = $.grep($scope.lists, function(val){
+                    return val.id == response.list_id
+                  })[0]
+      var idx = list.cards.indexOf(card);
+      list.cards[idx] = response;
+    })
+    //
+    //
+    $scope.edit = false
+  }
+
+  $scope.revertCompleteTask = function(card){
+    var put = Restangular.one('boards', $stateParams.id).one('cards', card.id);
+    put.completed = false
+    put.put()
+
+    .then(function(response){
+      var list = $.grep($scope.lists, function(val){
+                    return val.id == response.list_id
+                  })[0]
+      var idx = list.cards.indexOf(card);
+      list.cards[idx] = response;
+    })
+    //
+    //
+    $scope.edit = false
+  }
+
 }])
 
 

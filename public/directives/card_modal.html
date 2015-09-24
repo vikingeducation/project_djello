@@ -19,7 +19,9 @@
 
         <button type="button" class="btn btn-danger" ng-click="cancelEdit()" ng-show="edit">Cancel</button>
 
-        <button type="button" class="btn btn-success" ng-click="completeTask()" ng-hide="edit">Complete</button>
+        <button type="button" class="btn btn-success" ng-click="completeTask(modalCard)" ng-hide="modalCard.completed" data-dismiss="modal" ng-hide="edit">Complete</button>
+
+        <button type="button" class="btn btn-danger" ng-click="revertCompleteTask(modalCard)" ng-show="modalCard.completed" data-dismiss="modal" ng-hide="edit">Not Complete</button>
 
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-show="edit" ng-click="submitEdit(editCard, modalCard)">Submit</button>
 

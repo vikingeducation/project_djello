@@ -5,11 +5,12 @@
     <article class="djello-list">
       <h3 class="text-center">{{list.name}}</h3>
       <ul style='list-style-type:none'>
-        <div class="djello-card" ng-repeat="card in list.cards | orderBy:'-updated_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
-          {{card.name}}
+        <div class="djello-card" ng-repeat="card in list.cards | orderBy:'-created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
 
-          <br>
-          &nbsp &nbsp &nbsp {{card.content}}
+          <h4>{{card.name}}</h4><p>{{card.content}}</p>
+          <hr>
+          <span ng-show="card.completed">Complete</span>
+          <span ng-hide="card.completed">Not Complete</span>
         </div>
       </ul>
       <div card-modal card="card" ></div>
