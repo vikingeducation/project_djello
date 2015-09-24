@@ -38,22 +38,26 @@ djello.controller('boardShowCtrl',
 
   // ==============all list methods===============
   var oldList = {};
+  $scope.ListEditEnabled = {};
 
   $scope.editorListTitle = function(index, input){
-    if (input == 'cancel' && $scope.ListEditEnabled) {
+    if (input == 'cancel' && $scope.ListEditEnabled[index]) {
       $scope.lists[index].title = oldList.title;
       $scope.lists[index].description = oldList.description;
     }
-    else if (input == 'saved' && $scope.ListEditEnabled){
+    else if (input == 'saved' && $scope.ListEditEnabled[index]){
       oldList = Restangular.one('lists', $scope.lists[index].id);
       oldList.title = $scope.lists[index].title;
       oldList.description = $scope.lists[index].description;
       oldList.put();
     }
+    if (Object.keys($scope.ListEditEnabled)[0] != index){
+      $scope.ListEditEnabled = {};
+    }
     oldList = { id:  $scope.lists[index].id,
       title: $scope.lists[index].title,
       description: $scope.lists[index].description};
-      $scope.ListEditEnabled=!$scope.ListEditEnabled;
+      $scope.ListEditEnabled[index]=!$scope.ListEditEnabled[index];
 
     };
 

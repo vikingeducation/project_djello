@@ -21,12 +21,12 @@
       <div class='col-sm-3' ng-repeat="list in lists">
 
 
-        <div ng-hide="ListEditEnabled" ng-click="editorListTitle($index)">
+        <div ng-hide="ListEditEnabled[$index]" ng-click="editorListTitle($index)">
           <h3>{{list.title}}</h3>
           <h4>{{list.description}}</h4>
           <a href="" ng-click ='deleteList($index)' >Delete list</a>
         </div>
-        <div ng-show="ListEditEnabled">
+        <div ng-show="ListEditEnabled[$index]">
           <input ng-model="list.title">
           <input ng-model="list.description">
           <a href="#" ng-click="editorListTitle($index,'saved')">Done editing?</a>
