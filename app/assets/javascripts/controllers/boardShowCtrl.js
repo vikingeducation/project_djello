@@ -7,7 +7,7 @@ djelloApp.controller('boardShowCtrl',
     $scope.addNewList = false;
 
     $scope.addList = function(){
-      $scope.addNewList = true;
+      $scope.addNewList = $scope.addNewList ? false : true;
     };
 
     $scope.createList = function(){

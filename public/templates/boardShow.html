@@ -1,32 +1,33 @@
 <!-- Add a list -->
 
-<h2 class="text-center">
+<h4 class="text-center">
   <a ng-click="addList()">Add a List</a>
-</h2>
+</h4>
 
-<form name='newListForm' ng-if='addNewList'>
-  <label>Title</label>
-  <input type="text" class="form-control"
-          id="inputNewListTitle" placeholder="Enter list title"
-          ng-model="newList.title">
-  <label>Description</label>
-  <input type="text" class="form-control"
-          id="inputNewListDescription" placeholder="Enter list description"
-          ng-model="newList.description">
-  <button ng-click="createList()" class="btn btn-success">
-    Create List!
-  </button>
-</form>
-
-<br><br>
+<div class="col-sm-6 col-sm-offset-3">
+  <form name='newListForm' ng-if='addNewList'>
+    <label>Title</label>
+    <input type="text" class="form-control"
+            id="inputNewListTitle" placeholder="Enter list title"
+            ng-model="newList.title"><br>
+    <label>Description</label>
+    <input type="text" class="form-control"
+            id="inputNewListDescription" placeholder="Enter list description"
+            ng-model="newList.description"><br>
+    <button ng-click="createList()" class="btn btn-success">
+      Create List!
+    </button><br><br>
+  </form>
+</div>
 
 <!-- Display all lists -->
 
 <div class="panel panel-default col-sm-4" ng-repeat="list in board.lists">
 
-    <div class="panel-heading">
-      <h3 class="panel-title">{{list.title}}</h3>
-      <p class="panel-title">{{list.description}}</p>
+    <div class="panel-body">
+      <h3 class="panel-title text-center">{{list.title}}</h3><br>
+      <p class="text-center">{{list.description}}</p>
+      <hr>
     </div>
 
     <div class="panel-body">

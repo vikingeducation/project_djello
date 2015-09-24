@@ -4,8 +4,13 @@ djelloApp.controller('boardCtrl',
 
     $scope.boards = boards;
     $scope.newBoard = {};
-    $scope.newBoard.title = "add a title";
+    $scope.newBoard.title = null;
     $scope.boardSelected = null;
+
+    // To display board title if board selected
+    $scope.selectedBoard = false;
+    // To display create new board input fields if selected
+    $scope.createNewBoard = false;
 
     state = $state;
 
@@ -13,21 +18,23 @@ djelloApp.controller('boardCtrl',
     var checkSignIn = authService.checkSignIn();
     if (!checkSignIn) { $location.path('/users/sign_in'); }
 
-    $scope.createBoard = function(){
+    $scope.createNewBoardForm = function(){
+      $scope.createNewBoard = $scope.createNewBoard ? false : true;
+    };
 
+    $scope.createBoard = function(){
       Restangular.all('boards').post(
         { board: {
           title: $scope.newBoard.title,
         }}).then(function(createdBoard){
-        console.log("board created.");
-        $scope.boards.push(createdBoard);
-         console.log(createdBoard);
-        $scope.newBoard = {};
+          $scope.boards.push(createdBoard);
+          $scope.newBoard = {};
+          $scope.createNewBoard = false;
       });
     };
 
     $scope.changeBoard = function(){
-      console.log($scope.boardSelected);
+      $scope.selectedBoard = true;
       $state.go('boards.index.show', {id: $scope.boardSelected.id});
     };
 
