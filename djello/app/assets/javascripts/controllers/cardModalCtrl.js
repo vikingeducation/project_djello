@@ -6,7 +6,7 @@ djello.controller('cardModalCtrl', [
 
   $scope.card = card;
   $scope.list = list;
-
+  $scope.editCardEnabled = {};
 
 
   //  This close function doesn't need to use jQuery or bootstrap, because
@@ -25,7 +25,8 @@ djello.controller('cardModalCtrl', [
   var setEditData = function(){
     $scope.oldCard = { id: card.id,
                     title: card.title,
-              description: card.description};
+              description: card.description,
+                  list_id: card.list_id };
   };
 
   setEditData(); // running fn when modal opens
@@ -35,24 +36,26 @@ djello.controller('cardModalCtrl', [
                                     .one('cards', card.id);
   };
 
-  $scope.editCard = function(input){
-    if (input == 'saved' && $scope.editCardEnabled){
-      updateCard();
+  $scope.editCard = function(field, save){
+    debugger;
+    if (save && $scope.editCardEnabled[field]){
+      updateCard(field);
     } else {
       setEditData();
     }
-    $scope.editCardEnabled  = !$scope.editCardEnabled;
+    debugger
+    if (Object.keys($scope.editCardEnabled)[0] != field){
+      $scope.editCardEnabled = {};
+    }
+    $scope.editCardEnabled[field]  = !$scope.editCardEnabled[field];
   };
 
-  var updateCard = function(){
+  var updateCard = function(field){
     var updatingCard = getRectangularObj();
     // set restangular obj properties with updated data
-    updatingCard.title = $scope.oldCard.title;
-    updatingCard.description = $scope.oldCard.description;
-
+    updatingCard[field] = $scope.oldCard[field];
     updatingCard.put().then( function(result){
-      $scope.card.title = result.title;
-      $scope.card.description= result.description;
+      $scope.card[field] = result[field];
     } );
   };
 

@@ -2,22 +2,25 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
+
         <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">{{card.title}}</h4>
-        <div ng-hide="editCardEnabled">
-          <h3 ng-click="editCard()">{{oldCard.title}}</h3>
-        </div>
-        <div ng-show="editCardEnabled">
+
+        <!-- <div class="modal-title" ng-hide="editCardEnabled"> -->
+          <h3 class="modal-title" ng-hide="editCardEnabled.title" ng-click="editCard('title')">{{oldCard.title}}</h3>
+<!--         </div> -->
+
+        <div class="modal-title" ng-show="editCardEnabled.title">
           <input ng-model="oldCard.title">
           <button type="button" class="btn btn-success"
-                    ng-click="editCard('saved')">
+                    ng-click="editCard('title', true)">
             Save
           </button>
           <button type="button" class="btn btn-warning"
-                    ng-click="editCard('cancel')">
+                    ng-click="editCard('title')">
             Cancel
           </button>
         </div>
+
         <div class="row">
           <p class='col-sm-6 pull left'>
             In list
@@ -32,17 +35,18 @@
       </div>
 
       <div class="modal-body">
-        <div ng-hide="editCardEnabled">
-          <p ng-click="editCard()">{{oldCard.description}}</p>
+        <div ng-hide="editCardEnabled.description">
+          <p ng-click="editCard('description')">{{oldCard.description}}</p>
         </div>
-        <div ng-show="editCardEnabled">
+
+        <div ng-show="editCardEnabled.description">
           <input ng-model="oldCard.description">
           <button type="button" class="btn btn-success"
-                    ng-click="editCard('saved')">
+                    ng-click="editCard('description', true)">
             Save
           </button>
           <button type="button" class="btn btn-warning"
-                    ng-click="editCard('cancel')">
+                    ng-click="editCard('description')">
             Cancel
           </button>
         </div>
