@@ -16,23 +16,15 @@
               <div class="row">
                 <div class="col-md-12">
 
-                  <h3 ng-hide = "editForm.hidden && editForm.fieldToEdit == 'title' && editForm.listIndex == $index" ng-click = "editField('title', $index)"> {{ list.title }} </h3>
-                  <input class="form-control" ng-show = "editForm.hidden && editForm.fieldToEdit == 'title' && editForm.listIndex == $index" type="text" ng-model = "list.title">
+                  <h3 ng-hide = "beingEdited('title', $index)" ng-click = "editField('title', $index)"> {{ list.title }} </h3>
+                  <input class="form-control" ng-show = "beingEdited('title', $index)" type="text" ng-model = "list.title">
 
-                  <div class="form-group" ng-show = "editForm.hidden && editForm.fieldToEdit == 'title' && editForm.listIndex == $index">
-                    <br>
-                    <button type="submit" class="btn btn-success btn-sm">Save</button>
-                    <a class="text-muted pull-right icon-lg" ng-click = "hideForm()"><span class = "glyphicon glyphicon-remove"></span></a>
-                  </div>
+                  <save-list-changes being-edited = "beingEdited('title', $index)" hide-form = "hideForm()"></save-list-changes>
 
-                  <h5 ng-hide = "editForm.hidden && editForm.fieldToEdit == 'description' && editForm.listIndex == $index" ng-click = "editField('description', $index)"> {{ list.description }} </h5>
-                  <textarea class="form-control" ng-show = "editForm.hidden && editForm.fieldToEdit == 'description' && editForm.listIndex == $index" ng-model = "list.description"></textarea>
+                  <h5 ng-hide = "beingEdited('description', $index)" ng-click = "editField('description', $index)"> {{ list.description }} </h5>
+                  <textarea class="form-control" ng-show = "beingEdited('description', $index)" ng-model = "list.description"></textarea>
 
-                  <div class="form-group" ng-show = "editForm.hidden && editForm.fieldToEdit == 'description' && editForm.listIndex == $index">
-                    <br>
-                    <button type="submit" class="btn btn-success btn-sm">Save</button>
-                    <a class="text-muted pull-right icon-lg" ng-click = "hideForm()"><span class = "glyphicon glyphicon-remove"></span></a>
-                  </div>
+                  <save-list-changes being-edited = "beingEdited('description', $index)" hide-form = "hideForm()"></save-list-changes>
 
                 </div>
               </div>

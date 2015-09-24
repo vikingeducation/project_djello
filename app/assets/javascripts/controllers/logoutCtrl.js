@@ -7,6 +7,8 @@ app.controller('LogoutCtrl', ['UserService', '$scope', '$location',
     }
   };
 
+  console.log("init logout ctrl")
+
   UserService.logout(config);
 
   $scope.$on('devise:logout', function(event, oldCurrentUser) {

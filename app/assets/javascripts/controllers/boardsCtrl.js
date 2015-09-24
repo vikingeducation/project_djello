@@ -23,6 +23,12 @@ app.controller("BoardsCtrl",
     $scope.editForm.listIndex = undefined;
   }
 
+  $scope.beingEdited = function (item, idx) {
+    return ($scope.editForm.hidden &&
+            $scope.editForm.fieldToEdit === item &&
+            $scope.editForm.listIndex === idx)
+  }
+
   $scope.updateList = function(list) {
 
     $scope.hideForm();
