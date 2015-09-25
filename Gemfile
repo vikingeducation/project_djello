@@ -35,6 +35,9 @@ source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
 end
 
+# Include boostrap
+gem 'bootstrap-sass'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 
 //= require angular
 
@@ -20,7 +21,8 @@
 //= require lodash.min.js
 //= require restangular.min.js
 //= require underscore.min.js
-
+//= require ui-bootstrap-0.13.2.min.js
+//= require angular-modal-service.js
 //= require angular-devise.min.js
 
 //= require_tree .

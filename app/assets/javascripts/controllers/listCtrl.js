@@ -1,10 +1,31 @@
 djelloApp.controller('listCtrl',
-  ['$scope', 'Restangular', '$location',
-  function($scope, Restangular, $location){
+  ['$scope', 'Restangular', '$location', 'ModalService', 'userService',
+  function($scope, Restangular, $location, ModalService, userService){
 
     $scope.updatedList = $scope.list;
     $scope.updateFieldForListTitle = false;
     $scope.updateFieldForListDescription = false;
+
+    // Adding a card
+    $scope.addCard = function(){
+      ModalService.showModal({
+        templateUrl: 'templates/modals/createCard.html',
+        controller: 'cardCtrl',
+        inputs: {
+          list: $scope.list
+        },
+        resolve: {
+          users: [userService.getUserListFromBackend()]
+        }
+      }).then(function(modal){
+        modal.element.modal();
+        modal.close.then(function(result){
+          console.log(result);
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+        });
+      });
+    };
 
     $scope.beginUpdatingListTitle = function(){
       $scope.updateFieldForListTitle = $scope.updateFieldForListTitle ? false : true;

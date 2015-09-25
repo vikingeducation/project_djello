@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Boards index page
+#new-board-title{
+  border: none;
+  font-size: 25px;
+  font-style: italic;
+}
+
+.spacer {
+  height: 25px;
+}
+
+input-placeholder {
+  text-transform: capitalize;
+}
+
+#board-select-dropdown {
+  width: 100%;
+  height: 25px;
+}
+
+// Sign in page
+#sign-in-sub-heading-text{
+  color: gray;
+  font-style: italic;
+}
+
+// Lists page
+#updatedListTitle {
+  border: 0;
+  outline: 0;
+  margin: 0px;
+  padding-bottom: 0px;
+  border-bottom: 2px solid gray;
+}
+
+#updatedListDescription {
+  border: 0;
+  outline: 0;
+  margin: 0px;
+  padding-bottom: 0px;
+  border-bottom: 2px solid gray;
+}
+
+// Create card page
+// a #modal-card-create-dismiss-button:hover {
+//   color: black;
+//   text-decoration: inherit;
+// }

@@ -3,6 +3,8 @@ djelloApp.controller('boardShowCtrl',
   function($scope, Restangular, board){
 
     $scope.board = board;
+
+    // Adding a list
     $scope.newList = {};
     $scope.addNewList = false;
 
@@ -18,10 +20,10 @@ djelloApp.controller('boardShowCtrl',
                   description: $scope.newList.description
                 }
         }).then(function(createdList){
-          console.log(board);
           $scope.board.lists.push(createdList);
           $scope.addNewList = false;
+          $scope.newList = {};
       });
-  };
+    };
 
 }]);

@@ -9,7 +9,8 @@ Rails Models
       - description: string
   4. cards model
       - list_id: integer
-      - taks: string
+      - title: string
+      - description: string
       - priority: string
       - completed: boolean
   5. members model
@@ -52,3 +53,7 @@ Templates
 - list.html
 - card.html
 
+
+Bug list:
+1. Epic 3: Edit tasks on spot
+- Cannot change a task, decide against it, and have it render correctly without another backend call

@@ -1,4 +1,4 @@
-djelloApp = angular.module('djelloApp', ['ui.router', 'restangular', 'Devise']);
+djelloApp = angular.module('djelloApp', ['ui.router', 'restangular', 'Devise', 'angularModalService', 'ui.bootstrap']);
 
 djelloApp.config(['RestangularProvider', function(RestangularProvider){
 

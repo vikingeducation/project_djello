@@ -1,4 +1,4 @@
-<div class="panel-body" ng-controller='listCtrl'>
+<div class="panel-body">
 
   <h3 class="panel-title text-center"
       ng-hide='updateFieldForListTitle'
@@ -70,37 +70,12 @@
     </div>
   </div>
 
-
   <hr>
-</div>
 
-<div class="panel-body">
-
-<!-- Display all lists -->
-
-<!-- 1. How do I uniquely identify the title to update?
-2. How do I create a Restangular object to update? -->
-
-<!--   {{list}} scope -->
-<!--       <h2 class="text-center">
+  <h5 class="text-center">
     <a ng-click="addCard()">Add a Card</a>
-  </h2>
+  </h5>
 
-  <form name='newCardForm' ng-if='addNewCard'>
-    <label>Title</label>
-    <input type="text" class="form-control"
-            id="inputNewCardTitle" placeholder="Enter card title"
-            ng-model="newCard.title">
-    <label>Description</label>
-    <input type="text" class="form-control"
-            id="inputNewCardDescription" placeholder="Enter card description"
-            ng-model="newCard.description">
-    <label>Members</label>
-    Dropdown
-    <label>Activity</label>
-    List of checkboxes
-    <button ng-click="createCard()" class="btn btn-success">
-      Create Card!
-    </button>
-  </form> -->
 </div>
+
+

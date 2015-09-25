@@ -1,11 +1,11 @@
 class ListsController < ApplicationController
 
   def create
-    @list = List.create(whitelist_list_params)
+    @list = List.new(whitelist_list_params)
 
     respond_to do |format|
       if @list.save
-        format.json {render json: @list}
+        format.json {render json: @list }
       else
         format.json {render status: :unprocessable_entity}
       end
