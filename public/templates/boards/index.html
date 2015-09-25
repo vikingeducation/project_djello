@@ -1,0 +1,83 @@
+<div ng-repeat="(boardsIdx, board) in boards.list | filter : { id  : boards.selectedBoard }">
+  <div class="row" ng-if="boards.selectedBoard">
+    <div class="col-xs-6">
+      <h2> {{ board.title }} </h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div ng-repeat = "list in board.list | orderBy: updated_at : true">
+      <div class="col-md-4 col-xs-12" >
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <form ng-submit="updateList(list)">
+              <div class="row">
+                <div class="col-md-12">
+
+                  <h3 ng-hide = "editForm.hidden && editForm.fieldToEdit == 'title' && editForm.listIndex == $index" ng-click = "editField('title', $index)"> {{ list.title }} </h3>
+                  <input class="form-control" ng-show = "editForm.hidden && editForm.fieldToEdit == 'title' && editForm.listIndex == $index" type="text" ng-model = "list.title">
+
+                  <div class="form-group" ng-show = "editForm.hidden && editForm.fieldToEdit == 'title' && editForm.listIndex == $index">
+                    <br>
+                    <button type="submit" class="btn btn-success btn-sm">Save</button>
+                    <a class="text-muted pull-right icon-lg" ng-click = "hideForm()"><span class = "glyphicon glyphicon-remove"></span></a>
+                  </div>
+
+                  <h5 ng-hide = "editForm.hidden && editForm.fieldToEdit == 'description' && editForm.listIndex == $index" ng-click = "editField('description', $index)"> {{ list.description }} </h5>
+                  <textarea class="form-control" ng-show = "editForm.hidden && editForm.fieldToEdit == 'description' && editForm.listIndex == $index" ng-model = "list.description"></textarea>
+
+                  <div class="form-group" ng-show = "editForm.hidden && editForm.fieldToEdit == 'description' && editForm.listIndex == $index">
+                    <br>
+                    <button type="submit" class="btn btn-success btn-sm">Save</button>
+                    <a class="text-muted pull-right icon-lg" ng-click = "hideForm()"><span class = "glyphicon glyphicon-remove"></span></a>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+
+            <hr>
+
+            <div ng-repeat = "card in list.cards">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-xs-12" ng-click="showCard(card)">
+                      <p><b> {{ card.title }} </b></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div ui-view="newCard"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row" ng-if="$index % 3 == 2"></div>
+    </div>
+
+    <div class="col-md-4 col-xs-12">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div ui-view="newList"></div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

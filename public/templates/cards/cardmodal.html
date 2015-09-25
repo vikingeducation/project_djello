@@ -1,0 +1,66 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title" ng-show="!editField">{{card.title}}</h2>
+        <input type="text" class="modal-title form-control" ng-show="editField" ng-model="card.title">
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="text-muted">In list: <b>{{ card.list.title }}</b></p>
+          </div>
+          <div class="col-xs-6 text-right">
+            <p><a href="#">Mark Completed</a></p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="modal-body">
+        <h4>Description:</h4>
+        <p ng-show="!editField" >{{ card.description }}</p>
+        <textarea ng-show="editField" ng-model="card.description" class="form-control"></textarea>
+        <!-- <p><a href="#">Edit the description</a></p> -->
+      <hr>
+        <h3> Members </h3>
+        <form class="form-inline">
+          <div class="form-group">
+            <div ng-repeat="user in card.users">
+            <p><span class = "glyphicon glyphicon-remove" ng-click="removeUser(user, card)"></span> <b>{{user.username}}</b>
+            </div>
+            <label for="memerSelect">Add a member: </label>
+            <select id="memberSelect" class='form-control' ng-model="newCardUser.user_id">
+              <option ng-repeat="user in users.users" value="{{user.id}}"> {{ user.username }} </option>
+            </select>
+          </div>
+        </form>
+        <button type="button" ng-click="addUser(newCardUser, card)" class="btn btn-success">Add</button>
+      <hr>
+        <h3> Activity </h3>
+        <div ng-repeat="activity in card.activities | orderBy: created_at : true">
+          <p><i>{{ activity.desc }}</i> on <b>{{ activity.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</b></p>
+        </div>
+      </div>
+
+    <!-- <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" placeholder="Your Name" ng-model="name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="age" class="col-sm-2 control-label">Age</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="inputPassword3" placeholder="Age" ng-model="age">
+        </div>
+      </div>
+    </form>
+ -->
+      <div class="modal-footer">
+        <button type="button" ng-show="!editField" ng-click="toggleEdit()" class="btn btn-danger">EDIT</button>
+        <button type="button" ng-show="editField" ng-click="editCard(card)" class="btn btn-success">SAVE</button>
+        <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
