@@ -1,0 +1,46 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1 ng-hide="titleEditorEnabled" ng-click="enableTitleEditor()">{{ modalCard.title }}</h1>
+        <h1 ng-show="titleEditorEnabled" ><input type="text" ng-model="titleEditableValue"></h1>
+        <h6 ng-click="complete()" data-dismiss="modal"> Completed: {{ modalCard.completed }} </h6>
+        <h4 ng-hide="descEditorEnabled" ng-click="enableDescEditor()">{{ modalCard.description || "No Description Yet..." }}</h4>
+        <h4 ng-show="descEditorEnabled"><input type="text" ng-model="descEditableValue"></h4>
+        </hr>
+        <h3> Members </h3>
+
+        <h5 ng-repeat="member in modalCard.members">
+        {{ member.username }} <a ng-show="isOwner()" ng-click="removeMember(member)">remove</a>
+        </h5>
+        <div class="dropdown" ng-show="isOwner()">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add a member!
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="user in users" ng-click="addMember(user)">{{ user.username }}</li>
+          </ul>
+        </div>
+
+        </hr>
+
+        <h3> Activity </h3>
+
+        <div ng-repeat="activity in modalCard.activities">
+          {{ activity.message }} - {{ activity.created_at | date }}
+        </div>
+
+      </div>
+      <div ng-show="titleEditorEnabled" class="modal-footer">
+          <a class="btn btn-success" ng-click="saveTitle()">Save</a>
+          <a class="btn btn-danger" ng-click="disableEditors()">Cancel</a>
+      </div>
+      <div ng-show="descEditorEnabled" class="modal-footer">
+          <a class="btn btn-success" ng-click="saveDescription()">Save</a>
+          <a class="btn btn-danger" ng-click="disableEditors()">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
