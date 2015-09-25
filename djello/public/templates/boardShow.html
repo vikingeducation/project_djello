@@ -1,0 +1,102 @@
+
+
+<!-- Board header -->
+<div class="row">
+  <div class="col-sm-12">
+    <div ng-hide="BoardTitleEnabled">
+      <h1 ng-click="editorBoardTitle()">{{board.title}}</h1>
+      <a href="" ng-click ='deleteBoard()' >Delete board</a>
+      <!-- <a href="#" ng-click="editorBoardTitle()">Edit title</a> -->
+    </div>
+    <div ng-show="BoardTitleEnabled">
+      <input ng-model="board.title">
+      <button ng-click="editorBoardTitle('saved')">Save</button>
+      <a href="#" ng-click="editorBoardTitle('cancel')">Cancel</a>
+    </div>
+
+    <!-- <p><a href="" ng-click="newList()">New List</a></p> -->
+    
+
+<!-- Lists -->
+    <div class="row">
+      <div class='col-sm-4' ng-repeat="list in lists">
+
+        <div class="col-sm-12 panel panel-default">
+
+          <div ng-hide="ListEditEnabled && ListId == list.id">
+            <div class="panel-heading">
+
+              <h3 ng-click="editorListTitle(list, $index)">{{list.title}}</h3>
+            </div>
+            <div class="panel-body">
+              <p>{{list.description}}</p>
+              <a href="" ng-click ='deleteList($index)' >Delete list</a>
+    
+            </div>
+          
+          </div>
+          <div ng-show="ListEditEnabled && ListId == list.id">
+            <div class="form-group">
+              <a class="text-muted pull-right icon-lg" style="margin: 10px" ng-click = "editorListTitle(list, $index, 'cancel')"><span class = "glyphicon glyphicon-remove"></span></a>
+              <div class="panel-heading">
+                Title:
+                <input class="form-control" ng-model="list.title">
+              </div>
+              <div class="panel-body">
+                Description:
+                <input class="form-control" ng-model="list.description">
+                <button type="submit" class="btn btn-success btn-sm" style="margin-top: 10px" ng-click = "editorListTitle(list, $index, 'saved')" >Save</button>
+              </div>
+            </div>
+          </div>
+               
+
+              
+
+
+<!-- Cards -->
+        
+
+
+          <div ng-repeat="card in list.cards | orderBy: created_at">
+            <div class=" panel panel-default" >
+              <div class="panel-heading" ng-click="editCard(card)">
+                <h5>{{card.title}}</h5>
+                <h6 style="color: grey">created {{card.created_at | date}}</h6>
+              </div>
+              <div class="panel-body">
+                <p>{{card.description}}</p>
+                <div class=" text-right">
+
+                   <a class="text-muted pull-right icon-lg" style="margin: 10px" ng-click = "completeCard(card, $index)"><span class = "glyphicon glyphicon-ok"></span> Completed</a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="row">
+            <div class="col-xs-12 text-center" style="margin-bottom: 10px">
+              <p><b><a class="text-center" href="#" ng-click="newCard(list, $index)">Add a Card</a></b></p>
+
+            </div>
+          </div>
+      
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12">
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <div class="text-center"><a href="" ng-click="newList()">Add a List</a></div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

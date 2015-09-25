@@ -1,0 +1,19 @@
+<div class="container">
+  Select board:
+
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose the board
+    <span class="caret"></span></button>
+
+    <ul class="dropdown-menu">
+      <li ng-repeat = "board in boards"><a ui-sref = "board.show({'id': board.id})">{{board.title}}</a></li>
+    </ul>
+  </div>
+
+
+  <a href="" ng-click ='createBoard()'>New board</a>
+
+
+  <div ui-view>Board is not shown</div>
+
+</div>
