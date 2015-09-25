@@ -66,6 +66,7 @@ app.directive("card", function(){
             $scope.saveTitle = function() {
               $scope.disableTitleEditor();
               var message = JSON.parse(JSON.stringify($scope.modalCard));
+              console.log(message)
               message.title = $scope.titleEditableValue;
               Cards.editCard(message, function(result){
                 $scope.modalCard.title = result.title;

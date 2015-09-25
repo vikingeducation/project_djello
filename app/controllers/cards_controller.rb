@@ -1,6 +1,7 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_author
+  before_action :require_access, only: [:update]
+  before_action :require_author, only: [:create]
   def create
     list = List.find(params[:card]['list_id'])
     @card = list.cards.create(card_whitelist_params)
@@ -33,9 +34,19 @@ class CardsController < ApplicationController
       params.require(:card).permit(:title, :description, :completed)
     end
 
+    def require_access
+      list_ids = current_user.owned_card_ids
+      unless params[:card] and (list_ids.include? params[:card]["id"].to_i or Membership.find_by(user_id: current_user.id, card_id: params[:card]["id"].to_i))
+        respond_to do |format|
+          format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
+        end
+      end
+    end
+
     def require_author
-      list_ids = Board.includes(:lists).where(user_id: current_user).reduce([]) {|acc, board| return acc + board.list_ids }
-      unless params[:card] and list_ids.include? params[:card]["list_id"]
+      list = params[:card] ? List.find_by_id(params[:card]["list_id"]) : false
+      board_id = list ? list.board_id : false
+      unless board_id and current_user.board_ids.include? board_id or current_user.can_view? board_id
         respond_to do |format|
           format.json {render json: {errors: ["You must be the owner of this content!"]}, status: 403}
         end
