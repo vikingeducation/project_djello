@@ -4,4 +4,6 @@ class List < ActiveRecord::Base
 
   has_many :cards
 
+  default_scope { includes(:cards) }
+
 end

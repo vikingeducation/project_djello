@@ -8,7 +8,8 @@ djelloApp.directive('cardDirective', function(){
     templateUrl: "templates/cardDirective.html",
     scope: {
       card: "=",
-      saveTitle: "&"
+      saveTitle: "&",
+      cards: "="
     },
     controller: ['$scope', 'ModalService', 'Restangular', function($scope, ModalService, Restangular){
 
@@ -69,6 +70,35 @@ djelloApp.directive('cardDirective', function(){
                 
                 });
 
+
+             };
+
+             $scope.taskCompleted = function(){
+              console.log("marked complete");
+
+              // Restangular.one('cards', id).remove().
+              // then(function(){
+              //   console.log("successfully deleted");
+              // });
+                
+                // $scope.close();
+                // var idx = $scope.cards.indexOf($scope.modalCard);
+                // $scope.cards.splice(idx, 1);
+
+
+             };
+
+             $scope.addMember = function(){
+              console.log("addedMember");
+                Restangular.all('memberships').post(
+                  { member:
+                            {
+                              user_id: $scope.memberSelected,
+                              card_id: modalCard.id
+                            }
+                  });
+
+              modalCard.users.push($scope.userSelected);
 
              };
 

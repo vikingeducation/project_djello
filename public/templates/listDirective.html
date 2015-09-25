@@ -10,7 +10,7 @@
   </div>
   <div ng-repeat="card in list.cards" class="panel panel-default">
     
-    <card-directive card="card" save-title="saveTitle()" class="panel panel-default"></card-directive>
+    <card-directive card="card" cards="list.cards" save-title="saveTitle()" class="panel panel-default"></card-directive>
     
   </div>
   <h2 class="text-center">

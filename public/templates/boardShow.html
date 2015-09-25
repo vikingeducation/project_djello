@@ -2,7 +2,7 @@
 <h2 class="text-center">
   <a ng-click="addList()">Add a List</a>
 </h2>
-<!-- {{board}} -->
+{{board}}
 <form name='newListForm' ng-if='addNewList'>
   <label>Title</label>
   <input type="text" class="form-control"
@@ -28,28 +28,6 @@
 
   </div>
 
-    <!-- <div class="panel-body">
-      <h2 class="text-center">
-        <a ng-click="addCard()">Add a Card</a>
-      </h2>
-
-      <form name='newCardForm' ng-if='addNewCard'>
-        <label>Title</label>
-        <input type="text" class="form-control"
-                id="inputNewCardTitle" placeholder="Enter card title"
-                ng-model="newCard.title">
-        <label>Description</label>
-        <input type="text" class="form-control"
-                id="inputNewCardDescription" placeholder="Enter card description"
-                ng-model="newCard.description">
-        <label>Members</label>
-        Dropdown
-        <label>Activity</label>
-        List of checkboxes
-        <button ng-click="createCard()" class="btn btn-success">
-          Create Card!
-        </button>
-      </form>
-    </div> -->
+    
 
 </div>

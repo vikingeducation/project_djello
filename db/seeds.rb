@@ -27,6 +27,12 @@ List.destroy_all
                 password_confirmation: '12345678'
               )
 
+  User.create(  username: "foo2",
+                email: Faker::Internet.safe_email,
+                password: '12345678',
+                password_confirmation: '12345678'
+              )
+
 
 
 end
@@ -46,6 +52,9 @@ List.create( board_id: Board.first.id,
 Card.create( list_id: List.first.id,
               title: "My first Card",
               description: "my first card descript")
+
+Membership.create( user_id: User.first.id,
+                   card_id: Card.first.id )
 
 
 

@@ -9,15 +9,14 @@ djelloApp.controller('boardShowCtrl',
     $scope.editListAttr = "hey";
     $scope.editDescription = false;
     listAttr = $scope.editListAttr;
-    // $scope.list ={title: "Sample"};
+
+
     $scope.addList = function(){
       $scope.addNewList = true;
     };
 
     $scope.createList = function(){
-      console.log("scope board")
-      console.log($scope.board)
-      console.log(board)
+
       Restangular.all('lists').post(
         { list: {
                   board_id: $scope.board.id,

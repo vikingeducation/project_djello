@@ -6,8 +6,9 @@ class BoardsController < ApplicationController
     @boards = current_user.boards
 
     respond_to do |format|
-      # format.json {render json: @boards.to_json(include: :lists)}
-      format.json {render json: @boards.to_json(include: {lists: {include: :cards}} )}
+      format.json {render json: @boards.to_json(include: :lists)}
+      # format.json {render json: @boards.to_json(include: {lists: {include: :cards} } )}
+      # format.json {render json: @boards.to_json(include: {lists: { cards: {include: :users } } } )}
     end
 
   end
@@ -33,7 +34,8 @@ class BoardsController < ApplicationController
     respond_to do |format|
       if @board
         # format.json { render json: @board.to_json(include: :lists) }
-        format.json { render json: @board.to_json(include: {lists: {include: :cards}} )}
+        # format.json { render json: @board.to_json(include: {lists: {include: :cards}} )}
+        format.json {render json: @board.to_json(include: {lists: {include: {cards: {include: :users}}}} )}
       else
         format.json { render status: :unprocessable_entity }
       end

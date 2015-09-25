@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :authentication_keys => [:username]
 
  has_many :boards
+ has_many :memberships
+ has_many :cards, through: :memberships
 end
