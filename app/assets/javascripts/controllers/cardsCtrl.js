@@ -65,6 +65,9 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
     newCardMember.card_id = $scope.card.id
 
     console.log(newCardMember)
+    for (var i = 0; i < $scope.card.members.length; i++) {
+      if ($scope.card.members[i] === $scope.newmember) return;
+    };
     $scope.card.members.push($scope.newmember)
 
     Restangular.all("card_members").post( { card_member : newCardMember} )
@@ -78,6 +81,9 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
   }
 
   $scope.removeUser = function (member) {
+
+    console.log(member)
+    console.log($scope.card.cmems)
 
     for (var i = 0; i < $scope.card.cmems.length; i++) {
       if ($scope.card.cmems[i].user_id = member.id) {
