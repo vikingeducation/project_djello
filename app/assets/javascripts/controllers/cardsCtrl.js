@@ -2,9 +2,15 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
                             function($scope, close, card, Restangular, boardIndex, BoardService, cardIndex, UserService){
 
   $scope.card = card;
-  console.log(boardIndex)
-
+  $scope.card.members = $scope.card.members || [];
+  $scope.card.cmems = $scope.card.cmems || [];
   $scope.users = UserService.users;
+
+  console.log(card.cmems)
+  // Restangular.all("card_members").getList().then(function(cmembers) {
+  //   console.log(cmembers)
+  //   $scope.cmembers = cmembers
+  // })
 
   $scope.deleteCard = function() {
 
@@ -25,7 +31,6 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
   $scope.editForm = { hidden: false }
 
   $scope.editField = function(item) {
-    console.log(item)
     $scope.editForm.hidden = true;
     $scope.editForm.fieldToEdit = item;
   }
@@ -50,6 +55,36 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
       jsoncard.put();
 
     })
+
+  }
+
+  $scope.addMember = function() {
+
+    var newCardMember = {}
+    newCardMember.user_id = $scope.newmember.id
+    newCardMember.card_id = $scope.card.id
+
+    console.log(newCardMember)
+    $scope.card.members.push($scope.newmember)
+
+    Restangular.all("card_members").post( { card_member : newCardMember} )
+      .then(function(response){
+        console.log(response)
+        $scope.card.cmems.push(response)
+      });
+
+    $scope.newmember = undefined
+
+  }
+
+  $scope.removeUser = function (member) {
+
+    for (var i = 0; i < $scope.card.cmems.length; i++) {
+      if ($scope.card.cmems[i].user_id = member.id) {
+        $scope.card.cmems[i].remove();
+        $scope.card.cmems.splice(i, 1);
+      }
+    };
 
   }
 
