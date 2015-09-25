@@ -6,9 +6,11 @@ app.controller("BoardsCtrl",
   };
 
   $scope.boards = BoardService.boards;
+  $scope.users = BoardService.users;
   // $scope.boards.selectedBoard = BoardService.boards.selectedBoard
 
   $scope.editForm = { hidden: false }
+
 
   $scope.editField = function(item, idx) {
     console.log(item + " | " + idx)
@@ -58,13 +60,39 @@ app.controller("BoardsCtrl",
 
     list.board_id = $scope.boards.selectedBoard;
 
-    Restangular.all('lists').post( { list : list} )
+    Restangular.all('lists').post( { list : list } )
       .then(function(response){
         for (var i = 0; i < $scope.boards.list.length; i++) {
           if ($scope.boards.list[i].id === $scope.boards.selectedBoard) {
-            console.log("found board")
+
+            console.log($scope.boards.list[i].lists)
             BoardService.boards.list[i].lists.push(response)
             $location.path("/boards")
+          }
+        };
+      });
+
+  }
+
+  $scope.createCard = function(card, list) {
+
+    if (!list || !card) return;
+
+    card.list_id = list.id;
+
+    Restangular.all('cards').post( { card : card } )
+      .then(function(response){
+        console.log("success")
+        for (var i = 0; i < $scope.boards.list.length; i++) {
+          if ($scope.boards.list[i].id == $scope.boards.selectedBoard) {
+            console.log("found board")
+            for (var j = 0; j < $scope.boards.list[i].lists.length; j++) {
+              if ($scope.boards.list[i].lists[j] === list) {
+                console.log("found list")
+                BoardService.boards.list[i].lists[j].cards.push(response)
+                $location.path("/boards")
+              }
+            }
           }
         };
       });

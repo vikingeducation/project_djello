@@ -46,7 +46,36 @@ def generate_card(list)
   card.description = Faker::Lorem.sentence
   card.completed = false
   card.save
+  user = User.offset(rand(User.count)).first
+  card_member = CardMember.new
+  card_member.user_id = user.id
+  card_member.card_id = card.id
+  card_member.save
+  activity = Activity.new
+  activity.card_id = card.id
+  activity.user_id = user.id
+  activity.desc = "#{user.username} created #{card.title}"
+  activity.save
   card
+end
+
+def generate_membership
+  card_member = CardMember.new
+  card_member.user_id = User.offset(rand(User.count)).first.id
+  card_member.card_id = Card.offset(rand(Card.count)).first.id
+  card_member.save
+  card_member
+end
+
+def generate_activity
+  Card.all.each do |c|
+    activity = Activity.new
+    user = User.offset(rand(User.count)).first
+    activity.user_id = user.id
+    activity.card_id = c.id
+    activity.desc = "#{user.username} created #{c.title}"
+    activity.save
+  end
 end
 
 u = User.create(email: "test@test.com", username: "test", password: "password", password_confirmation: "password")
@@ -63,13 +92,13 @@ end
 
 MULTIPLIER.times do
   user = generate_user
-  (MULTIPLIER / 5).times do
-    board = generate_board(user)
-    (MULTIPLIER / 5).times do
-      list = generate_list(board)
-      (MULTIPLIER / 5).times do
-        card = generate_card(list)
-      end
-    end
-  end
+end
+(MULTIPLIER / 5).times do
+  board = generate_board(User.offset(rand(User.count)).first)
+end
+(MULTIPLIER / 5).times do
+  list = generate_list(Board.offset(rand(Board.count)).first)
+end
+(MULTIPLIER / 5).times do
+  card = generate_card(List.offset(rand(List.count)).first)
 end

@@ -58,7 +58,7 @@ class CardsController < ApplicationController
     @list = List.find(params[:list_id])
   end
 
-  def whitelist_list_params
+  def whitelist_card_params
     params.require(:card).permit(:list_id, :id, :title, :description, :completed)
   end
 end

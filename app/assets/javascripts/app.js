@@ -89,6 +89,9 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularM
           },
           "newList@app.boards": {
             templateUrl: 'templates/lists/new.html',
+          },
+          "newCard@app.boards": {
+            templateUrl: 'templates/cards/new.html',
           }
         }
       })
@@ -98,6 +101,15 @@ var app = angular.module('app', ['ui.router', 'restangular', 'Devise', 'angularM
         views: {
           "newList@app.boards": {
             templateUrl: 'templates/lists/form.html',
+          }
+        }
+      })
+
+      .state('app.boards.newCard', {
+        url: "/card/new",
+        views: {
+          "newCard@app.boards": {
+            templateUrl: 'templates/cards/form.html',
           }
         }
       })
