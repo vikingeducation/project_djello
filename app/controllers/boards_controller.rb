@@ -1,15 +1,14 @@
 class BoardsController < ApplicationController
 
   def index
-    respond_to do |format|
-      if current_user
-        @boards = current_user.boards
-        format.json { render json: @boards.to_json( include: [:user, lists: { include: [cards:{ include: :list }] } ] ) }
-      else
+    if current_user
+      @boards = current_user.boards
+      # format.json { render json: @boards.to_json( include: [:user, lists: { include: [cards:{ include: :list }] } ] ) }
+    else
+      respond_to do |format|
         format.json { render :status => 401, :json => { :success => false,
-                                                        :info => "Login Credentials Failed" } }
+                                                      :info => "Login Credentials Failed" } }
       end
-
     end
   end
 

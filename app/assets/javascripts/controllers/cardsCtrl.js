@@ -2,6 +2,7 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
                             function($scope, close, card, Restangular, boardIndex, BoardService, cardIndex, UserService){
 
   $scope.card = card;
+  console.log($scope.card)
   $scope.card.members = $scope.card.members || [];
   $scope.card.cmems = $scope.card.cmems || [];
   $scope.users = UserService.users;
@@ -60,14 +61,17 @@ app.controller("CardsCtrl", ["$scope", "close", "card", 'Restangular', 'boardInd
 
   $scope.addMember = function() {
 
-    var newCardMember = {}
-    newCardMember.user_id = $scope.newmember.id
-    newCardMember.card_id = $scope.card.id
+    if(!$scope.newmember) return;
 
     console.log(newCardMember)
     for (var i = 0; i < $scope.card.members.length; i++) {
       if ($scope.card.members[i] === $scope.newmember) return;
     };
+
+    var newCardMember = {}
+    newCardMember.user_id = $scope.newmember.id
+    newCardMember.card_id = $scope.card.id
+
     $scope.card.members.push($scope.newmember)
 
     Restangular.all("card_members").post( { card_member : newCardMember} )
