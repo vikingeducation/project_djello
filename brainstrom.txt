@@ -1,0 +1,54 @@
+Rails Models
+  1. user model
+  2. boards model
+      - user_id: int
+      - title: string
+  3. lists model
+      - board_id: integer
+      - title: string
+      - description: string
+  4. cards model
+      - list_id: integer
+      - taks: string
+      - priority: string
+      - completed: boolean
+  5. members model
+      - user_id
+      - card_id
+  6. activity model
+      - card_id
+      - description: string
+      - date: date
+      - user_id: integer
+
+Rails Controllers
+User (devise)
+  get login
+    after success login -> route to boards.index page
+  get logout
+
+Main (serve primary page)
+
+Angular
+
+Routes
+- Board
+  - List   (board.list)
+    - Card  (list.card)
+
+Controllers
+- boardCtrl
+- listCtrl
+- cardCtrl
+
+Services
+- authService
+- board
+- list
+- card
+
+Templates
+- board.html
+- list.html
+- card.html
+

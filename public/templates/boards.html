@@ -1,0 +1,31 @@
+<h2>Create a new board</h2>
+<div class="container">
+
+  <div class="row">
+    <div class="pull-right">
+      <div class="row">
+        <select ng-model="boardSelected" ng-change='changeBoard()' ng-options='board.title for board in boards'>
+        </select>
+      </div>
+
+      <div class="row">
+        <ul class="list-inline">
+          <li>
+            <a class=""ng-click="deleteBoard()">Delete Board</a>
+          </li>
+          <li>
+            <a ng-click='createBoard()'>New Board</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <input type="text" ng-model="newBoard.title">
+
+
+<!-- BOARD SHOW PAGE -->
+  <ui-view></ui-view>
+</div>
+
