@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :lists, only: [:create, :update, :destroy] do
           resources :cards, except: [:new, :edit]
       end
-
+      resources :card_memberships, only: [:create, :destroy]
 
     end
   end

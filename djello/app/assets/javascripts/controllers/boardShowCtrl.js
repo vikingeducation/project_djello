@@ -1,6 +1,6 @@
 djello.controller('boardShowCtrl',
-  ['$scope', '$location', '$stateParams','$document','loginService', 'showresponse', 'Restangular', 'dataService', 'ModalService',
-   function($scope, $location, $stateParams, $document, loginService, showresponse, Restangular, dataService, ModalService){
+  ['$scope', '$location', '$stateParams','$document','loginService', 'showresponse', 'Restangular', 'dataService', 'ModalService', 'users',
+   function($scope, $location, $stateParams, $document, loginService, showresponse, Restangular, dataService, ModalService, users){
 
   // ==============initial variable settings ===============
 
@@ -9,7 +9,7 @@ djello.controller('boardShowCtrl',
 
   $scope.board = JSON.parse(showresponse.board);
   $scope.lists = JSON.parse(showresponse.lists);
-
+  $scope.users = users;
   // ==============all board methods===============
 
   $scope.deleteBoard = function(){
@@ -114,7 +114,8 @@ djello.controller('boardShowCtrl',
       inputs: {
         card: card,
         list: list,
-        idxInList: idxInList
+        idxInList: idxInList,
+        users: $scope.users
       }
     }).then(function(modal) {
       //it's a bootstrap element, use 'modal' to show it

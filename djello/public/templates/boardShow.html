@@ -1,7 +1,5 @@
 <div class="row">
 
-
-
   <div class="col-sm-10">
     <div ng-hide="BoardTitleEnabled">
       <h1 ng-click="editorBoardTitle()">{{board.title}}</h1>
@@ -36,7 +34,6 @@
         </div>
 
         <div ng-repeat="card in list.cards">
-
           <p>{{card.title}}</p>
           <p>{{card.description}}</p>
           <a href="" ng-click="editCard(card, $index)" >Edit Card</a>

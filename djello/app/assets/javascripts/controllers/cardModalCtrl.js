@@ -1,7 +1,7 @@
 
 djello.controller('cardModalCtrl', [
-  '$scope', '$element', 'Restangular', 'card', 'list', 'idxInList', 'close',
-  function($scope, $element, Restangular, card, list, idxInList, close) {
+  '$scope', '$element', 'Restangular', 'card', 'list', 'users', 'idxInList', 'close',
+  function($scope, $element, Restangular, card, list, users, idxInList, close) {
 
 
   $scope.card = card;
@@ -9,9 +9,11 @@ djello.controller('cardModalCtrl', [
   $scope.editCardEnabled = {};
 
   //get users for adding members
-  Restangular.all('users').getList().then(function(result){
-    $scope.users = result;
-  });
+  // Restangular.all('users').getList().then(function(result){
+  //   console.log(result);
+  //   $scope.users = result;
+  // });
+  $scope.users = users;
 
 
   //  This close function doesn't need to use jQuery or bootstrap, because
@@ -81,5 +83,28 @@ djello.controller('cardModalCtrl', [
     $scope.cancel();
   };
 
+  //=============member methods=============
+  $scope.addMember = function(){
+    var userId = $scope.memberID;
+    var idx;
+    for(var i =0; i<$scope.users.length; i++){
+      if($scope.users[i].id == userId) return idx = i;
+    }
+    $scope.card.members.push($scope.users[idx]);
+
+    //also use restangular to add into db
+  };
+
+  var findMemberIdx= function(userId){
+    for(var i =0; i<$scope.card.members.length; i++){
+      if($scope.card.members[i].id == userId) return i;
+    }
+  };
+
+  $scope.removeMember = function(index){
+    // Restangular.one('card_memberships', ).remove().then(function(){
+    //   $scope.card.members.splice(idx, 1);
+    // });
+  }
 
 }]);

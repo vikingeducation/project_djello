@@ -54,9 +54,12 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       format.json {render json:
-                      {:board => @board.to_json(:include => :lists),
-                      :lists => @lists.to_json(:include => :cards)}
-                   }
+                {:board => @board.to_json(:include => :lists),
+                :lists => @lists.to_json(include: [cards: {
+                                        include: :members} ]) }
+                }
+
+  format.json { render json: @boards.to_json( include: [:user, lists: { include: [cards:{ include: :list }] } ] ) }
 
       # {render json: @board.to_json(:include => {:lists => :cards)}
 

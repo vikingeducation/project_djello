@@ -4,7 +4,7 @@ class Card < ActiveRecord::Base
   delegate :board, to: :list
   delegate :owner, to: :board
 
-  has_many :card_memberships
+  has_many :card_memberships, :dependent: :destroy
   has_many :members, through: :card_memberships, source: :user
 
 end

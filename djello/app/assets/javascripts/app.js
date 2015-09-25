@@ -73,18 +73,13 @@ djello.config(['$urlRouterProvider', '$stateProvider',
               $location.path('/#/');    //redirect login
               alert("You don't have access to this board");
             }
-
-          }
+          },
+          'users': ['Restangular', function(Restangular){
+                return Restangular.all('users').getList();
+              }]
         }
         //server request to validate board owner ok
-      })
-
-      // .state('board.new', {
-      //   url: '/new',
-      //   templateUrl: 'templates/newBoard.html',
-      //   controller: 'board'
-      // })
-      ;
+      });
 
 
   }]);

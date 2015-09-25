@@ -54,13 +54,17 @@
         <div>
           <h4>Members</h4>
           <ul>
-            <li ng-repeat="member in members">{{member.name}}</li>
+            <li ng-repeat="member in card.members">
+              {{member.username}}
+              <a href="" class="pull-right" ng-click="removeMember($index)">
+                Remove
+              </a>
+            </li>
           </ul>
-
-          <form ng-model="newMember">
-            <select>
-              <option ng-repeat="user in users" value="user.id">
-                {{user.name}}
+          <form ng-submit="addMember()">
+            <select ng-model="memberID">
+              <option ng-repeat="user in users" value="{{user.id}}">
+                {{user.username}}
               </option>
             </select>
 
