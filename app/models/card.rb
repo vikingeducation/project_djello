@@ -11,4 +11,8 @@ class Card < ActiveRecord::Base
   def board
     self.list.board
   end
+
+  def not_members
+    User.all - self.members
+  end
 end

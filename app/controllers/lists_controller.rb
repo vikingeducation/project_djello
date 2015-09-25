@@ -10,7 +10,7 @@ class ListsController < ApplicationController
         @lists = board.lists
         format.json do
                       render json: @lists.to_json(include: { cards:
-                                                 {include: :members } })
+                                                 {include: [:members, :not_members] } })
                     end
       else
         format.json { render nothing: true, status: 403 }

@@ -5,7 +5,7 @@
     <article class="djello-list">
       <h3 class="text-center">{{list.name}}</h3>
       <ul style='list-style-type:none'>
-        <div class="djello-card" ng-repeat="card in list.cards | orderBy:'-created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
+        <div class="djello-card" ng-repeat="card in list.cards | orderBy:'-created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card);setList(list)">
 
           <h4>{{card.name}}</h4><p>{{card.content}}</p>
           <hr>
@@ -13,7 +13,7 @@
           <div ng-repeat="member in card.members">
             {{member.email}}
           </div>
-          <span ng-if="card.users.length == 0">None</span>
+          <span ng-if="card.members.length == 0">None</span>
           <hr>
           <span ng-show="card.completed">Complete</span>
           <span ng-hide="card.completed">Not Complete</span>

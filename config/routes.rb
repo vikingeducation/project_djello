@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
 
 
+
+  get 'members', to: 'members#members'
+
+  get 'not_members', to: 'members#not_members'
+
+  post 'members', to: 'members#add'
+
+  delete 'members', to: 'members#remove'
+
   # scope :api do
     # scope :v1 do
       devise_for :users, controllers: { sessions: "users/sessions" }
@@ -8,7 +17,7 @@ Rails.application.routes.draw do
   # end
 
   resources :boards do
-    resources :lists 
+    resources :lists
     resources :cards
   end
 
@@ -18,7 +27,6 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'djello#index'
 
-  get 'current_user', to: 'application#me'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

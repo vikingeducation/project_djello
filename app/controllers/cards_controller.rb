@@ -9,7 +9,7 @@ class CardsController < ApplicationController
     respond_to do |format|
 
       if @card.save
-        format.json { render json: @card }
+        format.json { render json: @card.to_json({include: [:members, :not_members] }) }
       else
         format.json { render nothing: true }
       end
@@ -23,7 +23,7 @@ class CardsController < ApplicationController
     respond_to do |format|
 
       if @card.update(card_params)
-        format.json { render json: @card }
+        format.json { render json: @card.to_json({include: [:members, :not_members] }) }
       else
         format.json { render nothing: true }
       end

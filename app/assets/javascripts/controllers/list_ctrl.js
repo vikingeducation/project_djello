@@ -1,9 +1,7 @@
-djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
- function($scope, lists, Restangular, $stateParams) {
+djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams', '$state',
+ function($scope, lists, Restangular, $stateParams, $state) {
   $scope.lists = lists;
-  $scope.edit = false
-
-  debugger
+  $scope.edit = false;
 
 
   $scope.createList = function(newName){
@@ -29,6 +27,34 @@ djello.controller('listCtrl', ['$scope', 'lists', 'Restangular', '$stateParams',
   $scope.cancelEdit = function(){
     $scope.edit = false
 
+  }
+
+  $scope.addMember = function(member, list, card){
+    Restangular.all('members').post({
+      user_id: member.id,
+      card_id: card.id
+    })
+
+    .then(function(newCard){
+      var listIdx = $scope.lists.indexOf(list)
+      var cardIdx = list.cards.indexOf(card)
+      $scope.lists[listIdx].cards[cardIdx] = newCard
+      $scope.modalCard = newCard
+    })
+  }
+
+  $scope.removeMember = function(member, list, card){
+      params = {user_id: member.id, card_id: card.id}
+    Restangular.all('members').remove(params)
+
+
+    .then(function(newCard){
+
+      var listIdx = $scope.lists.indexOf(list)
+      var cardIdx = list.cards.indexOf(card)
+      $scope.lists[listIdx].cards[cardIdx] = newCard
+      $scope.modalCard = newCard
+    })
   }
 
 
