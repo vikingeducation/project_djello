@@ -1,7 +1,33 @@
-Form is here:
+<!-- Form is here:
 
 <form ng-model="loginFormData">
 <input type="string" ng-model="loginFormData.username" placeholder="Please enter username">
 <input type="password" value = "foobar_1234" ng-model="loginFormData.password" placeholder="Please enter password">
 <button ng-click="signInUser()">Submit</button>
-</form>
+</form> -->
+
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h1> Welcome to Djello. </h1>
+    
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-offset-2 col-xs-8">
+    <form ng-submit="signInUser()">
+      <div class="form-group">
+        <label >Username</label>
+        <input type="text" class="form-control"  placeholder="Username" ng-model="loginFormData.username">
+      </div>
+      <div class="form-group">
+        <label >Password</label>
+        <input type="password" class="form-control" placeholder="Password" ng-model="loginFormData.password">
+      </div>
+      <button class="col-xs-12 text-center btn btn-success" type="submit" >Submit</button>
+    </form>
+  </div>
+</div>
+
+{{ credentials.username }}<br>
+{{ credentials.password }}<br>
+{{ currentUser.user }}<br>

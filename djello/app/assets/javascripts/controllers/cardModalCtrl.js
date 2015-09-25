@@ -1,15 +1,83 @@
 
 djello.controller('cardModalCtrl', [
-  '$scope', '$element', 'card', 'close', 'Restangular',
-  function($scope, $element, card, close, Restangular) {
+  '$scope', '$element', 'card', 'close', 'users', 'Restangular', 'dataService',
+  function($scope, $element, card, close, users, Restangular, dataService) {
 
-  // $scope.name = null;
-  // $scope.age = null;
-  // console.log("Modal ctrl has card", card)
+  $scope.users = users;
+  $scope.card = card;
+
+  var existingMember = function(id){
+    console.log("checking existing members")
+    for(var i=0; i<$scope.cardModal.members.length; i++){
+      if($scope.cardModal.members[i].id==id){
+        console.log("found member")
+        return true
+      }
+    }
+    return false
+  };
+
+  $scope.warning = "";
 
 
-  //  This close function doesn't need to use jQuery or bootstrap, because
-  //  the button has the 'data-dismiss' attribute.
+  $scope.addMember = function(card, user){
+    var member = JSON.parse(user);
+    console.log("remove", member.id);
+  
+    if(existingMember(member.id)){
+      $scope.warning = "Card already have this user";
+    }
+    else{
+      $scope.warning = "";
+      Restangular.all('memberships').post(
+            { membership: { user_id: member.id ,
+                            card_id: card.id }})
+              .then(function(createdMembership){
+                
+                  $scope.cardModal.members.push(member);
+                    });
+    }
+  };
+
+  var checkMemberships = function(member){
+    Restangular.one('cards', $scope.card.id).all('memberships').getList(function(memberships){
+      console.log(memberships);
+      console.log(memberships.length);
+      for(var i=0; i<memberships.length; i++){
+        if(memberships[i].user_id==member.id){
+          var id = card.memberships[i].id;
+          return id;
+        }
+      }
+      return false;
+
+    });
+  };
+
+  $scope.removeMember = function(member){
+    
+    console.log("remove", member.id);
+    var id = checkMemberships(member);
+    console.log("membership", id);
+    if(id){
+     Restangular.one('memberships', id).remove();
+     console.log(id);
+      for(var j=0; j < $scope.cardModal.members.length; j++){
+          console.log($scope.cardModal.members[j]);
+
+          if ($scope.cardModal.members[j].user_id == member.id) {
+            $scope.cardModal.members.splice(j,1);
+            break;
+          
+        }
+      }
+    } else {
+      $scope.warning = "No membership was found for this member";
+    }
+    
+    
+  };
+
   $scope.close = function() {
     close({
       name: $scope.name,
@@ -18,8 +86,6 @@ djello.controller('cardModalCtrl', [
     console.log('close method ran');
   };
 
-  //  This cancel function must use the bootstrap, 'modal' function because
-  //  the doesn't have the 'data-dismiss' attribute.
   $scope.cancel = function() {
 
     //  Manually hide the modal.
@@ -33,7 +99,13 @@ djello.controller('cardModalCtrl', [
 
   $scope.cardModal = { id: card.id,
                   title: card.title,
-                  description: card.description};
+                  description: card.description,
+                  members: card.members,
+                  
+                };
+
+  //===Adding members to cardModal====//
+  
 
   $scope.editCard = function(input){
     if (input == 'cancel' && $scope.editCardEnabled) {
@@ -46,8 +118,7 @@ djello.controller('cardModalCtrl', [
       updatedCard.title = $scope.cardModal.title;
       updatedCard.description = $scope.cardModal.description;
       updatedCard.put().then( function(){
-        console.log("changed");
-        //$scope.card = $scope.oldCard;
+
       }
       );
 

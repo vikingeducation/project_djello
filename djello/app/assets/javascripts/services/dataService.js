@@ -5,6 +5,11 @@ djello.service('dataService',['Restangular', 'loginService',
 
     obj.boards = {};
 
+    obj.users = {}
+    Restangular.all('users').getList().then(
+      function(result){
+        obj.users.allUsers = result;
+      })
 
     Restangular.all('boards').getList().then(
       function(result){

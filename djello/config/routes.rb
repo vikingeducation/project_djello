@@ -6,10 +6,15 @@ Rails.application.routes.draw do
     scope 'v1' do
       devise_for :users, :controllers => {sessions: 'sessions'}
       resources :boards
-
+      resources :users
       resources :lists do
           resources :cards
       end
+      resources :cards do
+        resources :memberships, only: [:index]
+      end
+
+      resources :memberships, only: [:create, :destroy]
 
 
     end

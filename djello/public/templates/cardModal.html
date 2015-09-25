@@ -3,34 +3,99 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        
+        
+          
+  <!--           <p class="text-muted">In list: <b>{{ card.list.title }}</b></p> -->
             <!-- Title -->
-      <div ng-hide="editCardEnabled">
-        <h4 class="modal-title">{{cardModal.title}}<a href="#" ng-click="editCard()">Edit title</a></h4>
-        
-      </div>
-      <div ng-show="editCardEnabled">
-        <input ng-model="cardModal.title">
-        <br>
-        <button class = "btn btn-success" ng-click="editCard('saved')">Save</button>
-        <button class = "btn btn-default" ng-click="editCard('cancel')">Cancel</button>
-      </div>
-            <!-- Description -->
-      <div ng-hide="editCardEnabled">
-        <h5>{{cardModal.description}}<a href="#" ng-click="editCard()">Edit Description</a></h5>
-        
-      </div>
-      <div ng-show="editCardEnabled">
-        <input ng-model="cardModal.description">
-        <br>
-        <button class = "btn btn-success" ng-click="editCard('saved')">Save</button>
-        <button class = "btn btn-default" ng-click="editCard('cancel')">Cancel</button>
-      </div>
+          <!-- <div class="col-xs-6"> -->
+              <div ng-hide="editCardEnabled">
+                
+                <h2 class="modal-title" ng-click="editCard()">{{cardModal.title}}
+                  
+                </h2>
+                
+              </div>
+              <div ng-show="editCardEnabled">
+                <!-- <input ng-model="cardModal.title"> -->
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label for="title" class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="title"  ng-model="cardModal.title">
+                    </div>
+                  </div>
+                </form>
 
+                <br>
+                <button class = "btn btn-success" ng-click="editCard('saved')">Save</button>
+                <button class = "btn btn-default" ng-click="editCard('cancel')">Cancel</button>
+              </div>
+            
+        
+
+     
+        
       </div>
+      
       <div class="modal-body">
+                    <!-- Description -->
+        <div ng-hide="editCardEnabled">
+          <h5 ng-click="editCard()">{{cardModal.description}}
+            </h5>
+          
+        </div>
+        <div ng-show="editCardEnabled">
+          <!-- <input ng-model="cardModal.description"> -->
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="description" class="col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+              <input type="number" class="form-control" id="description" ng-model="cardModal.desciption">
+            </div>     
+          </form>
+          <br>
+          <button class = "btn btn-success" ng-click="editCard('saved')">Save</button>
+          <button class = "btn btn-default" ng-click="editCard('cancel')">Cancel</button>
+        </div>
+
+      </div>
 
 
-<!--     <form class="form-horizontal" role="form">
+        <!-- <p>{{ card.description }}</p>
+        <p><a href="#">Edit the description</a></p> -->
+
+
+
+      <hr>
+        <h3> Members </h3>
+        
+          <ul>
+            <li ng-repeat = "member in card.members">
+              {{member.username}} 
+              <a ng-click="removeMember(member)">Remove</a>
+            </li>
+          </ul>
+       
+     
+          
+          <div class="form-group">
+            <select class="form-control" ng-model="newMember">
+              <option value="{{member}}" ng-repeat = "member in users">{{member.username}}</option>
+            </select>
+          </div>
+
+          {{warning}}
+   
+        
+        <p><a href="#" ng-click="addMember(cardModal, newMember)">Add member</a></p>
+        
+      <hr>
+        <h3> Activity </h3>
+        CARD {{card}}
+      </div>
+
+    <!-- <form class="form-horizontal" role="form">
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
@@ -43,16 +108,11 @@
           <input type="number" class="form-control" id="inputPassword3" placeholder="Age" ng-model="age">
         </div>
       </div>
-    </form> -->
-
+    </form>
+ -->
+      <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-success" data-dismiss="modal">Save</button>
       </div>
-     
-
-      <div><h4>Members</h4></div>
-
-<!--       <div class="modal-footer">
-        <h3>Activity</h3>
-      </div> -->
     </div>
   </div>
 </div>

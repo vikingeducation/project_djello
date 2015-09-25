@@ -37,22 +37,25 @@ djello.controller('boardShowCtrl',
   // ==============all list methods===============
   var oldList = {};
 
-  $scope.editorListTitle = function(index, input){
+  $scope.editorListTitle = function(list, index, input){
     if (input == 'cancel' && $scope.ListEditEnabled) {
         $scope.lists[index].title = oldList.title;
         $scope.lists[index].description = oldList.description;
+
       }
-      else if (input == 'saved' && $scope.ListEditEnabled){
+      else if (input == 'saved' && $scope.ListEditEnabled && $scope.ListId == list.id){
         oldList = Restangular.one('lists', $scope.lists[index].id);
         oldList.title = $scope.lists[index].title;
         oldList.description = $scope.lists[index].description;
         oldList.put();
+        
+        
       }
       oldList = { id:  $scope.lists[index].id,
                   title: $scope.lists[index].title,
                   description: $scope.lists[index].description};
       $scope.ListEditEnabled=!$scope.ListEditEnabled;
-
+      $scope.ListId = list.id;
   };
 
   $scope.deleteList= function(index){
@@ -64,7 +67,7 @@ djello.controller('boardShowCtrl',
     console.log('list create');
     Restangular.all('lists').post(
           { list: {  title: 'Blank List' ,
-                    description: 'insert description here',
+                    description: 'Add list description here',
                     board_id: $scope.board.id }})
               .then(function(createdList){
                 createdList.cards = [];
@@ -73,14 +76,27 @@ djello.controller('boardShowCtrl',
   };
 
   console.log("lists", $scope.lists);
-  // ==============all card methods===============
 
-  $scope.newCard = function(index){
-    var listId = $scope.lists[index].id;
-    Restangular.one('lists', listId).all('cards').post(
+  // ==============all card methods===============
+  $scope.completeCard = function(card, index){
+   
+    Restangular.one('lists', card.list_id).one('cards', card.id).remove();
+    for(var j=0; j < $scope.lists.length; j++){
+      for(var i=0; i < $scope.lists[j].cards.length; i++){
+        if ($scope.lists[j].cards[i].id == card.id) {
+          $scope.lists[j].cards.splice(i,1);
+          break;
+        }
+      }
+    }
+  };
+
+  $scope.newCard = function(list, index){
+    
+    Restangular.one('lists', list.id).all('cards').post(
           { card: {  title: 'Blank Card' ,
-                    description: 'card task details here',
-                    list_id: listId }})
+                    description: 'Add card description here',
+                    list_id: list.id }})
             .then(function(createdCard){
                 $scope.lists[index].cards.push(createdCard);
                   });
@@ -92,7 +108,8 @@ djello.controller('boardShowCtrl',
       templateUrl: "/templates/cardModal.html",
       controller: "cardModalCtrl",
       inputs: {
-        card: card
+        card: card,
+        users: dataService.users.allUsers
       }
     }).then(function(modal) {
 
@@ -103,7 +120,7 @@ djello.controller('boardShowCtrl',
       });
     });
 
-  }
+  };
 
 }]);
 
