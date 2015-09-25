@@ -1,0 +1,45 @@
+<div class='spacer'></div>
+<div class="container">
+
+  <div class="row">
+
+    <div class='col-sm-7'>
+      <div ng-if='createNewBoard'>
+        <input type="text" ng-model="newBoard.title"
+              placeholder='Add a title...' id='new-board-title'>
+        <button ng-click="createBoard()" class="btn btn-success">
+          Create Board
+        </button>
+      </div>
+
+      <div ng-if='selectedBoard'>
+        <p id='new-board-title'> {{boardSelected.title}} </p>
+      </div>
+    </div>
+
+    <div class='col-sm-5'>
+      <div class="pull-right">
+
+        <div class="row">
+          <select ng-model="boardSelected" ng-change='changeBoard()'
+                  ng-options='board.title for board in boards' id='board-select-dropdown'>
+          </select>
+        </div>
+
+        <div class="row">
+          <ul class="list-inline">
+            <li><a ng-click="deleteBoard()">Delete Board</a></li>
+            <li><a ng-click='createNewBoardForm()'>New Board</a></li>
+          </ul>
+        </div>
+
+      </div> <!-- end pull-right -->
+    </div> <!-- end col-sm-5 -->
+  </div> <!-- end row -->
+
+
+<!-- BOARD SHOW PAGE -->
+  <ui-view></ui-view>
+
+</div> <!-- end container -->
+

@@ -1,0 +1,53 @@
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header text-right">
+        <a  type="button"
+            class="glyphicon glyphicon-remove"
+            ng-click="dismiss('Cancel')"
+            data-dismiss="modal"
+            aria-hidden="true"
+            id='modal-card-create-dismiss-button'>
+        </a>
+      </div>
+
+      <div class="modal-body">
+
+        <form name='newCardForm'>
+
+          <label>Title</label>
+          <input  type="text" class="form-control"
+                  id="inputNewCardTitle"
+                  placeholder="Enter card title"
+                  ng-model="newCard.title"><br>
+
+          <label>Description</label>
+          <input  type="text" class="form-control"
+                  id="inputNewCardDescription"
+                  placeholder="Enter card description"
+                  ng-model="newCard.description"><br>
+
+          <label>Members</label>
+          <select ng-model="userSelected" ng-change='selectUser()'
+                  ng-options='user.username for user in users' id='user-select-dropdown'>
+          </select>
+          <br>
+
+          <label>Activity</label>
+          List of checkboxes <br>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+        <button ng-click="createCard()" class="btn btn-success">
+          Create Card!
+        </button><br>
+      </div>
+
+    </div> <!-- end modal content -->
+  </div> <!-- end modal dialog -->
+</div> <!-- end modal fade -->

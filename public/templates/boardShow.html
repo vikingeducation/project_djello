@@ -1,0 +1,25 @@
+<!-- Add a list -->
+
+<h4 class="text-center">
+  <a ng-click="addList()">Add a List</a>
+</h4>
+
+<div class="col-sm-6 col-sm-offset-3">
+  <form name='newListForm' ng-if='addNewList'>
+    <label>Title</label>
+    <input type="text" class="form-control"
+            id="inputNewListTitle" placeholder="Enter list title"
+            ng-model="newList.title"><br>
+    <label>Description</label>
+    <input type="text" class="form-control"
+            id="inputNewListDescription" placeholder="Enter list description"
+            ng-model="newList.description"><br>
+    <button ng-click="createList()" class="btn btn-success">
+      Create List!
+    </button><br><br>
+  </form>
+</div>
+
+<div board-list class="panel panel-default col-sm-4" ng-repeat="list in board.lists">
+
+</div>
