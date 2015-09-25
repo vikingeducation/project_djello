@@ -59,9 +59,21 @@ djello.controller('listCtrl',
 
   $scope.submitEdit = function(editCard, card){
     board.one('cards', card.id).get().then(function(card){
+      if (card.name != editCard.name) {
+        var nameMsg = currentUser.email + " changes the title to " + editCard.name;
+      };
+      if (card.content != editCard.content) {
+        var contentMsg = currentUser.email + " changes the content to " + editCard.content;
+      };
       card.name = editCard.name;
       card.content = editCard.content;
-      card.put();
+      card.put().then(function(){
+        if (nameMsg) {
+          addActivity(card, nameMsg);
+        } else if (contentMsg) {
+          addActivity(card, contentMsg);
+        }
+      });
     });
 
     $scope.edit = false
@@ -76,10 +88,12 @@ djello.controller('listCtrl',
         list_id: list.id
       }
     })
-    .then(function(response){
+    .then(function(newCard){
       list.cards = list.cards || [];
-      list.cards.push(response);
+      list.cards.push(newCard);
       $scope.card = {};
+      var content = currentUser.email + " added this card to the " + list.name;
+      addActivity(newCard, content);
     })
   }
 
@@ -117,6 +131,18 @@ djello.controller('listCtrl',
     .then(function() {
       var index = $scope.board.members.indexOf(member);
       $scope.board.members.splice(index, 1);
+    })
+  }
+
+  function addActivity(card, content) {
+    board.all("activities").post({
+      activity: {      
+        card_id: card.id,
+        content: content
+      }
+    })
+    .then(function(newActivity){
+      card.activities.push(newActivity);
     })
   }
 

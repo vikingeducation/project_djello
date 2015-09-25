@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :authorized_user?
+  # before_action :authorized_user?
 
   def create
 
@@ -8,7 +8,7 @@ class CardsController < ApplicationController
     respond_to do |format|
 
       if card.save
-        format.json { render json: card }
+        format.json { render json: card.to_json(:include => [:activities]) }
       else
         format.json { render nothing: true, status: 400 }
       end
@@ -17,11 +17,11 @@ class CardsController < ApplicationController
 
   def show
 
-    # card = Card.find_by_id(params[:id])
+    card = Card.find_by_id(params[:id])
 
     respond_to do |format|
       if card
-        format.json { render json: card }
+        format.json { render json: card.to_json(:include => [:activities]) }
       else
         format.json { render nothing: true, status: 404 }
       end
@@ -31,14 +31,14 @@ class CardsController < ApplicationController
 
   def update
 
-    # card = Card.find_by_id(params[:id])
+    card = Card.find_by_id(params[:id])
 
     respond_to do |format|
 
       if !card
         format.json { render nothing: true, status: 404 }
       elsif card.update(card_params)
-        format.json { render json: card }
+        format.json { render json: card.to_json(:include => [:activities]) }
       else
         format.json { render nothing: true, status: 400 }
       end
@@ -47,7 +47,7 @@ class CardsController < ApplicationController
 
   def destroy
 
-    # card = Card.find_by_id(params[:id])
+    card = Card.find_by_id(params[:id])
 
     respond_to do |format|
 

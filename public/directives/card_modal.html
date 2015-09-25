@@ -50,7 +50,9 @@
           <table class="table table-responsive table-hover">
             <p>Acticities</p>
             <tr ng-repeat="activity in modalCard.activities">
-              <td style="border-top: none !important;">{{activity.content}}</td>
+              <td style="border-top: none !important;">
+                {{activity.content}} &nbsp on &nbsp {{activity.created_at | date}}
+              </td>
             </tr>
           </table>
         </div>
