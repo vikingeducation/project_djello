@@ -1,23 +1,21 @@
 Rails.application.routes.draw do
 
+  devise_for :users, controllers: { sessions: "users/sessions" }
 
-  # scope :api do
-    # scope :v1 do
-      devise_for :users, controllers: { sessions: "users/sessions" }
-  #   end
-  # end
+  scope :api do
+    scope :v1 do
+      resources :users, only: [:index]
+      resources :user_boards
+      delete "/user_boards(.:format)", to: "user_boards#destroy"
 
-  resources :users, only: [:index]
-  resources :user_boards
+      resources :boards do
+        resources :lists 
+        resources :cards
+        resources :activities
+      end
 
-  delete "/user_boards(.:format)", to: "user_boards#destroy"
-
-  resources :boards do
-    resources :lists 
-    resources :cards
-    resources :activities
+    end
   end
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

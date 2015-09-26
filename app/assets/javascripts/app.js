@@ -1,10 +1,9 @@
-
 var djello = angular.module("djello", ['ui.router', 'Devise', 'restangular'])
 
 .config(['RestangularProvider', function(RestangularProvider){
 
-// RestangularProvider.setBaseUrl('/api/v1/')
-RestangularProvider.setRequestSuffix('.json')
+RestangularProvider.setBaseUrl('/api/v1/');
+RestangularProvider.setRequestSuffix('.json');
 
 }])
 
@@ -13,33 +12,18 @@ RestangularProvider.setRequestSuffix('.json')
   // AuthProvider.registerPath('api/v1/users.json');
 })
 
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-
-  $urlRouterProvider.otherwise("/")
+.config(['$stateProvider', '$urlRouterProvider', 
+  function($stateProvider, $urlRouterProvider){
+    $urlRouterProvider.otherwise("/")
 
   $stateProvider
     .state('loggedOut', {
       url: "/",
-      // templateUrl: 'templates/index.html',
-      // controller: function(){},
-      views: {
-
-        "": {
-          templateUrl: "templates/welcome.html",
-          // TODO: add ctrl to redirect to state: boards
-          // if logged in already
-
-        },
-
-
-      }
+      templateUrl: "templates/welcome.html"
     })
     .state('boards', {
       url: "/boards",
-      // templateUrl: 'templates/index.html',
-      // controller: function(){},
       views: {
-
         "": {
           templateUrl: "templates/board.html",
           controller: 'boardCtrl',
@@ -51,7 +35,7 @@ RestangularProvider.setRequestSuffix('.json')
               return Auth.currentUser();
             }]
           }
-        },
+        }
 
       }
     })
@@ -81,14 +65,8 @@ RestangularProvider.setRequestSuffix('.json')
     })
     .state('sign-up', {
       url: "/sign-up",
-      views: {
-        "": {
-          templateUrl: "templates/sign_up.html",
-          controller: "signUp"
-        },
-
-
-      }
+      templateUrl: "templates/sign_up.html",
+      controller: "signUp"
     })
 
 }])
