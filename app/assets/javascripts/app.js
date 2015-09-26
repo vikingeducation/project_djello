@@ -14,44 +14,35 @@ RestangularProvider.setRequestSuffix('.json');
 
 .config(['$stateProvider', '$urlRouterProvider', 
   function($stateProvider, $urlRouterProvider){
-    // $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/#/welcome");
 
   $stateProvider
-    .state('loggedOut', {
-      url: "/",
+    .state('home', {
+      url: "",
       views: {
         "navbar": {
-          templateUrl: "templates/navbar.html",
+          templateUrl: "templates/_navbar.html",
           controller: 'navbarCtrl'
         },
-        "": {
-          templateUrl: "templates/layout.html"
+        "main": {
+          templateUrl: "templates/_main.html"
         }
       }
     })
-    .state('loggedOut.welcome', {
-      url: '/welcome',
-      templateUrl: 'templates/welcome.html'
-    })
-    .state('loggedOut.boards', {
+    .state('home.boards', {
       url: "/boards",
-      views: {
-        "": {
-          templateUrl: "templates/board.html",
-          controller: 'boardCtrl',
-          resolve: {
-            boards: ['Restangular', function(Restangular) {
-              return Restangular.all('boards').getList()
-            }]
-          }
-        }
-
+      templateUrl: "templates/boards.html",
+      controller: 'boardCtrl',
+      resolve: {
+        boards: ['Restangular', function(Restangular) {
+          return Restangular.all('boards').getList()
+        }]
       }
     })
 
-    .state('lists', {
+    .state('home.lists', {
       url: "/boards/:id",
-      templateUrl: 'templates/list.html',
+      templateUrl: 'templates/lists.html',
       controller: 'listCtrl',
       resolve: {
         board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
