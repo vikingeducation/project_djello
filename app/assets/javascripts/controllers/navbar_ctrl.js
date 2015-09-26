@@ -1,41 +1,29 @@
-djello.controller('navbarCtrl', ['$scope', '$state', 'userService', '$location', 'Auth',
-  function($scope, $state, userService, $location, Auth) {
-
+djello.controller('navbarCtrl', ['$scope', 'sessionService',
+  function($scope, sessionService) {
     console.log("setting up navbarCtrl")
 
-
-    $scope.signOut = function(){
-      var config = {
-          headers: {
-              'X-HTTP-Method-Override': 'DELETE'
-          }
-      };
-      console.log("signing out!")
-      userService.signOut(config);
-
-    }
+    $scope.currentUser = sessionService.currentUser;
+    $scope.authenticated = sessionService.authenticated;
 
     $scope.signIn = function(credentials){
-      var config = {
-          headers: {
-              'X-HTTP-Method-Override': 'POST'
-          }
-      };
-
-      userService.signIn(credentials, config)
-
+      console.log("sign in:", credentials);
+      sessionService.signIn(credentials);                                               
     }
 
-    $scope.$on('devise:logout', function(event, oldCurrentUser) {
+    $scope.signOut = function(){
+      sessionService.signOut();
+    }
 
-      $scope.currentUser = null;
-      $location.path('/');
-    });
-    $scope.$on('devise:login', function(event, currentUser) {
-      console.log("propagation", currentUser);
-      $scope.currentUser = currentUser;
-      $location.path('/boards');
-    });
+    // $scope.$on('devise:logout', function(event, oldCurrentUser) {
+
+    //   $scope.currentUser = null;
+    //   $location.path('/');
+    // });
+    // $scope.$on('devise:login', function(event, currentUser) {
+    //   console.log("propagation", currentUser);
+    //   $scope.currentUser = currentUser;
+    //   $location.path('/boards');
+    // });
 
 
 }])

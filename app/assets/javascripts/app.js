@@ -14,14 +14,26 @@ RestangularProvider.setRequestSuffix('.json');
 
 .config(['$stateProvider', '$urlRouterProvider', 
   function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise("/")
+    // $urlRouterProvider.otherwise("/");
 
   $stateProvider
     .state('loggedOut', {
       url: "/",
-      templateUrl: "templates/welcome.html"
+      views: {
+        "navbar": {
+          templateUrl: "templates/navbar.html",
+          controller: 'navbarCtrl'
+        },
+        "": {
+          templateUrl: "templates/layout.html"
+        }
+      }
     })
-    .state('boards', {
+    .state('loggedOut.welcome', {
+      url: '/welcome',
+      templateUrl: 'templates/welcome.html'
+    })
+    .state('loggedOut.boards', {
       url: "/boards",
       views: {
         "": {
@@ -30,9 +42,6 @@ RestangularProvider.setRequestSuffix('.json');
           resolve: {
             boards: ['Restangular', function(Restangular) {
               return Restangular.all('boards').getList()
-            }],
-            currentUser: ['Auth', function(Auth) {
-              return Auth.currentUser();
             }]
           }
         }
@@ -56,9 +65,6 @@ RestangularProvider.setRequestSuffix('.json');
         }],
         users: ['Restangular', function(Restangular) {
           return Restangular.all('users').getList()
-        }],
-        currentUser: ['Auth', function(Auth) {
-          return Auth.currentUser();
         }]
       }
 
