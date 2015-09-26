@@ -1,5 +1,5 @@
-djello.controller('signUp',['$scope', 'Auth', '$state',
-  function($scope, Auth, $state){
+djello.controller('signUp',['$scope', 'Auth', '$location',
+  function($scope, Auth, $location){
   $scope.credentials = {};
 
   $scope.registerUser = function(){
@@ -11,7 +11,7 @@ djello.controller('signUp',['$scope', 'Auth', '$state',
     console.log("Reistering User!")
     Auth.register($scope.credentials, config).then(function(registeredUser) {
       console.log(registeredUser);
-      // $state.go('index');
+      $location.path('/boards');
     }, function(error) {
       // Registration failed...
     });
