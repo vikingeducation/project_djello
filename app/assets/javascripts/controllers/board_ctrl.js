@@ -13,7 +13,9 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boardService', 'curren
     boardService.createBoard($scope.boardForm);
   }
 
-  $scope.removeBoard = function(board){
+  $scope.removeBoard = function(board, $event){
+    $event.preventDefault();
+    $event.stopPropagation();
     boardService.removeBoard(board);
   }
 
