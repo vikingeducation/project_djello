@@ -1,6 +1,6 @@
 djello.factory('sessionService', ['Auth', '$location',
   function(Auth, $location) {
-    var currentUser = {  };
+    var currentUser = { user: Auth.currentUser() };
     var authenticated = { status: Auth.isAuthenticated() };
 
     function signIn(credentials) {

@@ -1,39 +1,20 @@
-djello.controller('boardCtrl', ['$scope', 'Restangular', 'boards', 'currentUser',
-  function($scope, Restangular, boards, currentUser){
-  $scope.boards = boards;
-  console.log("current User", currentUser);
+djello.controller('boardCtrl', ['$scope', 'Restangular', 'boardService', 'currentUser',
+  function($scope, Restangular, boardService, currentUser){
   $scope.currentUser = currentUser;
+  $scope.boards = boardService.boards;
+
+  // To populate the boardList in boardService
+  boardService.getBoards();
+
+  console.log("current User", $scope.currentUser);
 
   $scope.createBoard = function() {
-    var post = Restangular.all('boards').post({
-      board: {
-        name: $scope.board.name,
-        user_id: currentUser.id
-      }
-    })
-
-    post.then(function(response){
-      $scope.boards.push(response);
-      $scope.board = {};
-    })
+    $scope.boardForm.user_id = currentUser.id;
+    boardService.createBoard($scope.boardForm);
   }
 
-  $scope.remove = function(board){
-    board.remove().then(function(){
-      $scope.boards.splice($scope.boards.indexOf(board), 1)
-    })
+  $scope.removeBoard = function(board){
+    boardService.removeBoard(board);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-  //
 }])

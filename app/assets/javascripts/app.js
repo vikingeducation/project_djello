@@ -14,7 +14,7 @@ RestangularProvider.setRequestSuffix('.json');
 
 .config(['$stateProvider', '$urlRouterProvider', 
   function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise("/#/welcome");
+    $urlRouterProvider.otherwise("");
 
   $stateProvider
     .state('home', {
@@ -22,7 +22,12 @@ RestangularProvider.setRequestSuffix('.json');
       views: {
         "navbar": {
           templateUrl: "templates/_navbar.html",
-          controller: 'navbarCtrl'
+          controller: 'navbarCtrl',
+          resolve: {
+            currentUser: ['Auth', function(Auth) {
+              return Auth.currentUser()
+            }]
+          }
         },
         "main": {
           templateUrl: "templates/_main.html"
@@ -36,6 +41,9 @@ RestangularProvider.setRequestSuffix('.json');
       resolve: {
         boards: ['Restangular', function(Restangular) {
           return Restangular.all('boards').getList()
+        }],
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser()
         }]
       }
     })
@@ -56,6 +64,9 @@ RestangularProvider.setRequestSuffix('.json');
         }],
         users: ['Restangular', function(Restangular) {
           return Restangular.all('users').getList()
+        }],
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser()
         }]
       }
 

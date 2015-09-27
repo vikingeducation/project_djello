@@ -1,8 +1,11 @@
-djello.controller('navbarCtrl', ['$scope', 'sessionService',
-  function($scope, sessionService) {
+djello.controller('navbarCtrl', ['$scope', 'sessionService', 'currentUser',
+  function($scope, sessionService, currentUser) {
     console.log("setting up navbarCtrl")
-
     $scope.currentUser = sessionService.currentUser;
+    if (!$scope.currentUser.user || !$scope.currentUser.user.length) {
+      $scope.currentUser.user = currentUser;
+    }
+
     $scope.authenticated = sessionService.authenticated;
 
     $scope.signIn = function(credentials){
