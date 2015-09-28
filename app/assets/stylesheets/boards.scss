@@ -1,0 +1,36 @@
+// Place all the styles related to the boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+a, form h2, form h3, form h5, .card-panel, .remove-member {
+  cursor: pointer;
+}
+
+.icon-lg {
+  font-size: 1.5em;
+
+  &:hover {
+    color: #333;
+  }
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  padding-top: 10px;
+  margin-top: 20px;
+  background-color: #f5f5f5;
+}

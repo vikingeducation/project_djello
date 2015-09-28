@@ -1,0 +1,113 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <form ng-submit="updateCard(card)">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <h2 class="modal-title"
+              ng-hide = "beingEdited('title')"
+              ng-click = "editField('title')">
+              {{ card.title }}
+          </h2>
+          <input  class="form-control" placeholder = "Write a card title"
+                  ng-show = "beingEdited('title')"
+                  type="text"
+                  ng-model = "card.title">
+
+          <save-list-changes being-edited = "beingEdited('title')" hide-form = "hideForm()"></save-list-changes>
+
+          <div class="row">
+
+            <div class="col-xs-12" ng-show = "card.completed">
+              <div class="alert alert-success alert-dismissible fade-in" role="alert">
+                <button class="close" data-dismiss="alert">
+                  <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <strong>Card was completed!</strong>
+              </div>
+            </div>
+
+            <div class="col-xs-6">
+              <p class="text-muted">In list: <b>{{ card.list.title }}</b></p>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p><a ng-click = "deleteCard()">Mark Completed</a></p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal-body">
+          <h5 ng-hide = "beingEdited('description')"
+              ng-click = "editField('description')">
+            {{ card.description }}
+          </h5>
+          <textarea class="form-control" placeholder = "Write a description..."
+                    ng-show = "beingEdited('description')"
+                    ng-model = "card.description"></textarea>
+
+          <save-list-changes being-edited = "beingEdited('description')" hide-form = "hideForm()"></save-list-changes>
+          <p><a ng-click = "editField('description')">Edit the description</a></p>
+
+
+        <hr>
+
+
+          <h3> Members </h3>
+
+          <div ng-repeat = "member in card.members">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="glyphicon glyphicon-remove text-danger remove-member" ng-click = "removeUser(member)"></i>
+                {{ member.username }}
+              </div>
+            </div>
+          </div>
+          <p><a ng-click = "editField('member')">Add member</a></p>
+
+
+          <div ng-show = "beingEdited('member')" class="row">
+            <div class="col-xs-4">
+              <input  type="text"
+                    name = "newmember"
+                    typeahead="user as user.username for user in users.list | filter: {username: $viewValue} | limitTo: 8"
+                    typeahead-no-results="noResults"
+                    placeholder = "Little Johnny"
+                    ng-model = "newmember"
+                    class = "form-control">
+
+              <div ng-show="noResults">
+                <i class="glyphicon glyphicon-remove"></i> No Results Found
+              </div>
+            </div>
+          </div>
+
+          <div class="row" ng-show = "beingEdited('member')">
+            <div class="col-xs-4">
+              <div class="form-group">
+                <br>
+                <button ng-click = "addMember()" class="btn btn-success btn-sm">Add</button>
+                <a class="text-muted pull-right icon-lg" ng-click = "hideForm()"><span class = "glyphicon glyphicon-remove"></span></a>
+              </div>
+            </div>
+          </div>
+
+
+        <hr>
+
+
+        <h3> Activity </h3>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
