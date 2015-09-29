@@ -1,7 +1,7 @@
-djello.factory('sessionService', ['Auth', '$location',
-  function(Auth, $location) {
-    var currentUser = { user: Auth.currentUser() };
+djello.factory('sessionService', ['Auth', '$state',
+  function(Auth, $state) {
     var authenticated = { status: Auth.isAuthenticated() };
+    var currentUser = { user: Auth.currentUser() };
 
     function signIn(credentials) {
       var config = {
@@ -14,7 +14,7 @@ djello.factory('sessionService', ['Auth', '$location',
         console.log('Signed In');
         currentUser.user = user;
         authenticated.status = true;
-        $location.path('/boards');
+        $state.go('home.boards');
       }, function(error){
         console.log('Sign In Failed:', error);
         authenticated.status = false;
@@ -33,7 +33,7 @@ djello.factory('sessionService', ['Auth', '$location',
         console.log('Signed Out');
         currentUser.user = null;
         authenticated.status = false;
-        $location.path('/');
+        $state.go('home');
       }, function(error){
         console.log('Sign Out Failed:', error);
       })

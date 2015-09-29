@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   root 'djello#index'
 
-  devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
 
   scope :api do
     scope :v1 do

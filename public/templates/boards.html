@@ -13,7 +13,9 @@
     </div>
   </div>
   <div class="panel-body">
+
     <div class="row">
+      <!-- board list -->
       <a class ="col-sm-3 djello-board" 
          ng-repeat="board in boards.boardList |orderBy:'-created_at'" 
          ui-sref="home.lists({id: board.id})">
@@ -24,13 +26,12 @@
           <p>{{board.name}}</p>
         </div>
       </a>
+      <!-- board list -->
 
       <div class="col-sm-3 djello-board">
-        <div class="input-group">
-          <br>
-          <input type="text" class="form-control" placeholder="Name" ng-model='boardForm.name'>
-          <br>
-          <button class="btn btn-primary" ng-click="createBoard()">Create</button>
+        <div class="input-group text-center">
+          <input type="text" class="form-control" placeholder="Enter Board Name" ng-model='boardForm.name'>
+          <button class="btn btn-primary" ng-click="createBoard()">Add New Board</button>
         </div>
       </div>
     </div>

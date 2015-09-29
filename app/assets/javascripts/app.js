@@ -14,20 +14,29 @@ RestangularProvider.setRequestSuffix('.json');
 
 .config(['$stateProvider', '$urlRouterProvider', 
   function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise("");
+    $urlRouterProvider.otherwise('/home');
 
   $stateProvider
+    // .state('site', {
+    //   'abstract': true,
+    //   resolve: {
+    //     authorize: ['authorization', function(authorization){
+    //       console.log('$q: ', authorization.authorize());
+    //       return authorization.authorize();
+    //     }]
+    //   }
+    // })
     .state('home', {
-      url: "",
+      url: "/home",
       views: {
         "navbar": {
           templateUrl: "templates/_navbar.html",
           controller: 'navbarCtrl',
-          resolve: {
-            currentUser: ['Auth', function(Auth) {
-              return Auth.currentUser()
-            }]
-          }
+          // resolve: {
+          //   currentUser: ['Auth', function(Auth) {
+          //     return Auth.currentUser()
+          //   }]
+          // }
         },
         "main": {
           templateUrl: "templates/_main.html"
@@ -38,14 +47,11 @@ RestangularProvider.setRequestSuffix('.json');
       url: "/boards",
       templateUrl: "templates/boards.html",
       controller: 'boardCtrl',
-      resolve: {
-        boards: ['Restangular', function(Restangular) {
-          return Restangular.all('boards').getList()
-        }],
-        currentUser: ['Auth', function(Auth) {
-          return Auth.currentUser()
-        }]
-      }
+      // resolve: {
+      //   currentUser: ['Auth', function(Auth) {
+      //     return Auth.currentUser()
+      //   }]
+      // }
     })
 
     .state('home.lists', {
@@ -65,14 +71,14 @@ RestangularProvider.setRequestSuffix('.json');
         users: ['Restangular', function(Restangular) {
           return Restangular.all('users').getList()
         }],
-        currentUser: ['Auth', function(Auth) {
-          return Auth.currentUser()
-        }]
+        // currentUser: ['Auth', function(Auth) {
+        //   return Auth.currentUser()
+        // }]
       }
 
     })
-    .state('sign-up', {
-      url: "/sign-up",
+    .state('home.signup', {
+      url: "/signup",
       templateUrl: "templates/sign_up.html",
       controller: "signUp"
     })

@@ -1,15 +1,15 @@
-djello.controller('boardCtrl', ['$scope', 'Restangular', 'boardService', 'currentUser',
-  function($scope, Restangular, boardService, currentUser){
-  $scope.currentUser = currentUser;
+djello.controller('boardCtrl', ['$scope', 'Restangular', 'boardService', 'sessionService',
+  function($scope, Restangular, boardService, sessionService){
+  $scope.currentUser = sessionService.currentUser;
   $scope.boards = boardService.boards;
 
   // To populate the boardList in boardService
   boardService.getBoards();
 
-  console.log("current User", $scope.currentUser);
+  console.log("current User", $scope.currentUser.user);
 
   $scope.createBoard = function() {
-    $scope.boardForm.user_id = currentUser.id;
+    $scope.boardForm.user_id = currentUser.user.id;
     boardService.createBoard($scope.boardForm);
   }
 

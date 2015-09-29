@@ -1,10 +1,14 @@
-djello.controller('navbarCtrl', ['$scope', 'sessionService', 'currentUser',
-  function($scope, sessionService, currentUser) {
+djello.controller('navbarCtrl', ['$scope', 'sessionService', '$state',
+  function($scope, sessionService, $state) {
     console.log("setting up navbarCtrl")
     $scope.currentUser = sessionService.currentUser;
-    if (!$scope.currentUser.user || !$scope.currentUser.user.length) {
-      $scope.currentUser.user = currentUser;
-    }
+    // if (!$scope.currentUser.user || !$scope.currentUser.user.length) {
+    //   Auth.currentUser().then(function(user){
+    //     $scope.currentUser.user = currentUser;
+    //   }, function(error){
+    //     $state.go('');
+    //   })
+    // }
 
     $scope.authenticated = sessionService.authenticated;
 
@@ -17,16 +21,20 @@ djello.controller('navbarCtrl', ['$scope', 'sessionService', 'currentUser',
       sessionService.signOut();
     }
 
-    // $scope.$on('devise:logout', function(event, oldCurrentUser) {
+    $scope.$on('devise:login', function(event, currentUser) {
+      // console.log("propagation", currentUser);
+      $scope.currentUser.user = currentUser;
+      // $state.path('/boards');
+      $state.go('home.boards');
+    });
 
-    //   $scope.currentUser = null;
-    //   $location.path('/');
-    // });
-    // $scope.$on('devise:login', function(event, currentUser) {
-    //   console.log("propagation", currentUser);
-    //   $scope.currentUser = currentUser;
-    //   $location.path('/boards');
-    // });
+    $scope.$on('devise:logout', function(event, oldCurrentUser) {
+      $scope.currentUser.user = null;
+      $state.go('home');
+    });
 
+    $scope.$on('devise:unauthorized', function() {
+      $state.go('home');
+    })
 
 }])
