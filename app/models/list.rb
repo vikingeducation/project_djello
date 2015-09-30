@@ -7,8 +7,8 @@ class List < ActiveRecord::Base
     self.board.user
   end
 
-  def members
-    self.board.members
-  end
+  # def members
+  #   self.board.members
+  # end
 
 end

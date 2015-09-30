@@ -1,6 +1,8 @@
-djello.controller('signUp',['$scope', 'Auth', '$state',
-  function($scope, Auth, $state){
+djello.controller('signUp', ['$scope', 'Auth', '$state', 'sessionService',
+  function($scope, Auth, $state, sessionService){
   $scope.credentials = {};
+  $scope.currentUser = sessionService.currentUser;
+  $scope.authenticated = sessionService.authenticated;
 
   $scope.registerUser = function(){
     var config = {
@@ -18,7 +20,8 @@ djello.controller('signUp',['$scope', 'Auth', '$state',
   }
 
   $scope.$on('devise:new-registration', function(event, registeredUser) {
-    $scope.currentUser = registeredUser;
+    $scope.currentUser.user = registeredUser;
+    $scope.authenticated.status = true;
             // ...
   });
 

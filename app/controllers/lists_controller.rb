@@ -7,7 +7,7 @@ class ListsController < ApplicationController
 
       if !board
         format.json { render nothing: true, status: 404 }
-      elsif board.members.include?(current_user)
+      elsif board.user == current_user || board.members.include?(current_user)
         lists = board.lists
         # format.json { render json: lists.to_json(:include => [:cards]) }
         format.json { render json: lists.to_json(:include => { :cards => { :include => [:activities] } }) }

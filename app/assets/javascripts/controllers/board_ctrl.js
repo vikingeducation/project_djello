@@ -9,7 +9,7 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boardService', 'sessio
   console.log("current User", $scope.currentUser.user);
 
   $scope.createBoard = function() {
-    $scope.boardForm.user_id = currentUser.user.id;
+    $scope.boardForm.user_id = $scope.currentUser.user.id;
     boardService.createBoard($scope.boardForm);
   }
 

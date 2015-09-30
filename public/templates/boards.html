@@ -6,7 +6,7 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li ng-repeat="board in boards |orderBy:'-created_at'">
+        <li ng-repeat="board in boards.boardList |orderBy:'-created_at'">
           <a ui-sref="lists({id: board.id})">{{board.name}}</a>
         </li>
       </ul>

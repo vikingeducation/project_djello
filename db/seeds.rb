@@ -13,7 +13,7 @@
                      password: "11111111")
 
   board = user.boards.create(name: "board#{i}")
-  board.members << user
+  # board.members << user
 
   list = board.lists.create(name: "list#{i}")
 

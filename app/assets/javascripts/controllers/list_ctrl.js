@@ -1,21 +1,21 @@
 djello.controller('listCtrl', 
   ['$scope', 
-   'board',
-   'boards',
-   'lists', 
-   'Restangular', 
-   '$stateParams', 
-   'currentUser',
-   'users',
- function($scope, board, boards, lists, Restangular, $stateParams, currentUser, users) {
-  $scope.board = board;
-  $scope.boards = boards;
-  $scope.lists = lists;
-  $scope.currentUser = currentUser;
-  $scope.users = users;
+   'boardService',
+   'listService',
+   'sessionService', 
+   'userService',
+   '$stateParams',
+ function($scope, boardService, listService, sessionService, userService, $stateParams) {
+  $scope.boards = boardService.boards;
+  $scope.lists = listService.lists;
+  $scope.currentUser = sessionService.currentUser;
+  $scope.users = userService.users;
   $scope.edit = false;
   $scope.listForm = {};
   $scope.showEditListForm = {};
+
+  // Populate all the lists of current board
+  listService.getLists($stateParams.id);
 
   $scope.updateBoard = function() {
     board.put();

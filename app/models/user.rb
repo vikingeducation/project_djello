@@ -5,7 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :boards,
             dependent: :destroy
-  has_many :user_boards, foreign_key: :user_id,
+
+  has_many :user_cards, foreign_key: :user_id,
             dependent: :destroy
-  has_many :assigned_boards, through: :user_boards, source: :assigned_board
+  has_many :assigned_cards, through: :user_cards, source: :assigned_card
+
+  has_many :assigned_lists, through: :assigned_cards, source: :list
+
+  has_many :assigned_boards, through: :assigned_lists, source: :board
 end
