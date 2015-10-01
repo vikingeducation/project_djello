@@ -11,8 +11,8 @@ djello.factory('boardService', ['Restangular', function(Restangular){
   }
 
   function getBoard(board_id) {
-    Restangular.one('boards', board_id).get().then(function(board){
-      currentBoard.data = board;
+    Restangular.one('boards', board_id).get().then(function(data){
+      currentBoard.data = data;
     }, function(error){
       alert('Fail to get this board: ' + error);
     })
@@ -29,6 +29,10 @@ djello.factory('boardService', ['Restangular', function(Restangular){
     })
   }
 
+  function updateBoard(board) {
+    board.data.put();
+  }
+
   function removeBoard(board) {
     board.remove().then(function(){
       boards.boardList.splice(boards.boardList.indexOf(board), 1)
@@ -42,7 +46,8 @@ djello.factory('boardService', ['Restangular', function(Restangular){
     currentBoard: currentBoard,
     getBoards: getBoards,
     getBoard, getBoard,
-    createBoard: createBoard,
+    createBoard: createBoard,    
+    updateBoard: updateBoard,
     removeBoard: removeBoard
   } 
 }])

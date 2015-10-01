@@ -23,32 +23,18 @@ djello.controller('listCtrl',
   listService.getLists($stateParams.id);
 
   $scope.updateBoard = function() {
-    board.put();
+    boardService.updateBoard($scope.board)
     $scope.showBoardForm = false;
   }
 
   $scope.createList = function(){
-    board.all('lists').post({
-      list: {
-        name: $scope.listForm.name,
-        board_id: $stateParams.id
-      }
-    })
-    .then(function(newList){
-      $scope.lists.push(newList);
-      $scope.listForm.name = "";
-      $scope.showListForm = false;
-    })
+    listService.createList($scope.listForm, $scope.board);
+    $scope.showListForm = false;
   }
 
   $scope.updateList = function(list) {
-    // board.one('lists', list.id).({
-    //   list: {
-    //     name: $scope.listForm.name,
-    //     board_id: $stateParams.id
-    //   }
-    // })
-    list.put();
+    // list.put();
+    listService.updateList(list);
     $scope.showEditListForm[list.id] = false;
   }
 
@@ -86,7 +72,7 @@ djello.controller('listCtrl',
 
   $scope.createCard = function(cardForm, list){
 
-    board.all('cards').post({
+    $scope.board.data.all('cards').post({
       card: {
         name: cardForm.name,
         content: cardForm.content,
@@ -103,7 +89,7 @@ djello.controller('listCtrl',
   }
 
   $scope.completeCard = function(card, list) {
-    board.one('cards', card.id).remove().then(function(deletedCard){
+    $scope.board.data.one('cards', card.id).remove().then(function(deletedCard){
       list.cards.splice(list.cards.indexOf(card), 1);
     })
   }

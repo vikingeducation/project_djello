@@ -8,6 +8,7 @@ class CardsController < ApplicationController
     respond_to do |format|
 
       if card.save
+        card.members << current_user
         format.json { render json: card.to_json(:include => [:activities]) }
       else
         format.json { render nothing: true, status: 400 }

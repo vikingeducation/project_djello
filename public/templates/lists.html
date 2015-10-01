@@ -16,14 +16,14 @@
   <div ng-if="showBoardForm" class="col-sm-3 panel-body form-group board-form">
     <p>Rename Board</p>
     <hr>
-    <input type="text" ng-model="board.name" class="form-control">
+    <input type="text" ng-model="board.data.name" class="form-control">
     <br>
     <button class="btn btn-info"
           ng-click="updateBoard()">Save</button>
   </div>
   <div class="panel-body djello-lists">
     <div class="row">
-      <div class="col-sm-3" ng-repeat="list in lists.listList | orderBy: 'created_at'">
+      <div class="col-sm-3" ng-repeat="list in lists.data | orderBy: 'created_at'">
 
         <!-- list area -->
         <div class="panel panel-default djello-list">
@@ -42,7 +42,6 @@
           <div class="panel-body djello-cards">
             <p class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
               {{card.name}}
-              &nbsp &nbsp &nbsp {{card.content}}
             </p>
 
             <div card-modal card="card" ></div>
@@ -50,7 +49,7 @@
 
           <div class="panel-body">
 
-            <a type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#newCard" ng-click="setList(list)">Add a new card</a>
+            <a type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#newCard" ng-click="setList(list)">New Card</a>
             <!-- Modal -->
             <div class="modal fade" id="newCard" role="dialog">
               {{curList.name}}
