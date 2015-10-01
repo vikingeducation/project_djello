@@ -37,7 +37,7 @@
         <!-- drop down user list -->
         <div class="panel-body">
           <select ng-model="selectedUserID">
-            <option ng-repeat="user in users" ng-value="user.id">
+            <option ng-repeat="user in users.userList" ng-value="user.id">
               {{user.email}}
             </option>
           </select>

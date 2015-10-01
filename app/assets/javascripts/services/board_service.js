@@ -1,11 +1,20 @@
 djello.factory('boardService', ['Restangular', function(Restangular){
   var boards = {};
+  var currentBoard = {};
 
   function getBoards() {
     Restangular.all('boards').getList().then(function(boardList){
       boards.boardList = boardList;
     }, function(error){
       console.log('Fail to get boards: ', error);
+    })
+  }
+
+  function getBoard(board_id) {
+    Restangular.one('boards', board_id).get().then(function(board){
+      currentBoard.data = board;
+    }, function(error){
+      alert('Fail to get this board: ' + error);
     })
   }
 
@@ -30,7 +39,9 @@ djello.factory('boardService', ['Restangular', function(Restangular){
 
   return {
     boards: boards,
+    currentBoard: currentBoard,
     getBoards: getBoards,
+    getBoard, getBoard,
     createBoard: createBoard,
     removeBoard: removeBoard
   } 

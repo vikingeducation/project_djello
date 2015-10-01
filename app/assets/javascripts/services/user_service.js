@@ -1,10 +1,16 @@
-djello.factory('userService', ['$http', 'Auth', function($http, Auth){
-  var obj = {};
+djello.factory('userService', ['Restangular', function(Restangular){
+  var users = {};
 
+  function getUsers() {
+    Restangular.all('users').getList().then(function(userList){
+      users.userList = userList;
+    }, function(error){
+      alert('Cannot get users: ' + error);
+    })
+  }
 
-  obj.signOut = Auth.logout;
-
-  obj.signIn = Auth.login
-
-  return obj;
+  return {
+    users: users,
+    getUsers: getUsers
+  }
 }])

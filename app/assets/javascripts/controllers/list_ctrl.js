@@ -14,6 +14,11 @@ djello.controller('listCtrl',
   $scope.listForm = {};
   $scope.showEditListForm = {};
 
+  $scope.board = boardService.currentBoard;
+
+  // Find the current board
+  boardService.getBoard($stateParams.id)
+
   // Populate all the lists of current board
   listService.getLists($stateParams.id);
 

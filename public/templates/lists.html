@@ -1,5 +1,3 @@
-<nav navbar-main user="currentUser"></nav>
-
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     BOARDS
@@ -7,13 +5,13 @@
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <li ng-repeat="board in boards.boardList |orderBy:'-created_at'">
-      <a ui-sref="lists({id: board.id})">{{board.name}}</a>
+      <a ui-sref="home.lists({id: board.id})">{{board.name}}</a>
     </li>
   </ul>
 </div>
 <div class="panel">
   <div class="panel-heading">
-      <h1 ng-click="showBoardForm = !showBoardForm">{{board.name}}</h1>
+      <h1 ng-click="showBoardForm = !showBoardForm">{{board.data.name}}</h1>
   </div>
   <div ng-if="showBoardForm" class="col-sm-3 panel-body form-group board-form">
     <p>Rename Board</p>
