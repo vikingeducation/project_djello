@@ -37,9 +37,13 @@ djello.controller('cardModalCtrl',
     }
 
     $scope.completeCard = function(card, list) {
-      $scope.board.data.one('cards', card.id).remove().then(function(deletedCard){
-        list.cards.splice(list.cards.indexOf(card), 1);
-      })
+      var proceed = confirm('Complete this Card will remove this card from the list. Do you want to proceed?');
+      if (proceed) {      
+        $scope.board.data.one('cards', card.id).remove().then(function(deletedCard){
+          list.cards.splice(list.cards.indexOf(card), 1);
+          $scope.closeModal();
+        })
+      }
     }
 
     $scope.addMember = function(card_id, member_id) {

@@ -16,7 +16,10 @@ djello.controller('boardCtrl', ['$scope', 'Restangular', 'boardService', 'sessio
   $scope.removeBoard = function(board, $event){
     $event.preventDefault();
     $event.stopPropagation();
-    boardService.removeBoard(board);
+    var proceed = confirm('Are you sure you want to delete this board?');
+    if (proceed) {
+      boardService.removeBoard(board);
+    }
   }
 
 }])
