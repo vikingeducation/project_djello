@@ -22,5 +22,6 @@
 //= require devise
 //= require restangular
 //= require ui-router
+//= require node_modules/angular-modal-service/dst/angular-modal-service.min
 
 //= require_tree .

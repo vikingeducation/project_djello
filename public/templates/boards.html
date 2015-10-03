@@ -6,7 +6,7 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li ng-repeat="board in boards.boardList |orderBy:'-created_at'">
+        <li ng-repeat="board in boards.data |orderBy:'-created_at'">
           <a ui-sref="home.lists({id: board.id})">{{board.name}}</a>
         </li>
       </ul>
@@ -17,7 +17,7 @@
     <div class="row">
       <!-- board list -->
       <a class ="col-sm-3 djello-board" 
-         ng-repeat="board in boards.boardList |orderBy:'-created_at'" 
+         ng-repeat="board in boards.data |orderBy:'-created_at'" 
          ui-sref="home.lists({id: board.id})">
         <div class="col-sm-1 pull-right">
           <span class="" ng-click="removeBoard(board, $event)">&times</span>

@@ -6,21 +6,34 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.destroy_all
+Board.destroy_all
+List.destroy_all
+Card.destroy_all
+Activity.destroy_all
+UserBoard.destroy_all
+UserCard.destroy_all
 
 
 3.times do |i|
   user = User.create(email: "#{i}@email.com",
                      password: "11111111")
+end
 
-  board = user.boards.create(name: "board#{i}")
-  # board.members << user
+
+5.times do |i|
+  uid = 1+rand(3)
+  board = Board.create(name: "board#{i}")
+  UserBoard.create(user_id: uid, board_id: i+1, role: 'creater')
 
   list = board.lists.create(name: "list#{i}")
 
-    5.times do |num|
-      card = list.cards.create(name: "CARD #{num}",
+    3.times do |num|
+      card = list.cards.create(name: "CARD #{5*i+num}",
                                content: "Lorem Ipsum")
-      card.activities.create(content: "activity #{num}")
+      card.activities.create(content: "activity #{5*i+num}")
+      UserCard.create(user_id: uid, card_id: 5*i+num, role: 'creater')
     end
 
 end
+

@@ -3,24 +3,30 @@ djello.factory('boardService', ['Restangular', function(Restangular){
   var currentBoard = {};
 
   function getBoards() {
-    Restangular.all('boards').getList().then(function(boardList){
-      boards.boardList = boardList;
+    Restangular.all('boards').getList().then(function(data){
+      boards.data = data;
     }, function(error){
       console.log('Fail to get boards: ', error);
     })
   }
 
   function getBoard(board_id) {
-    Restangular.one('boards', board_id).get().then(function(data){
-      currentBoard.data = data;
-    }, function(error){
-      alert('Fail to get this board: ' + error);
+    // Restangular.one('boards', board_id).get().then(function(data){
+    //   currentBoard.data = data;
+    // }, function(error){
+    //   alert('Fail to get this board: ' + error);
+    // })
+    boards.data.forEach(function(ele){
+      console.log(ele);
+      if (ele.id == board_id) {
+        currentBoard.data = ele;
+      }
     })
   }
 
   function createBoard(boardForm) {
     Restangular.all('boards').post(boardForm).then(function(board){
-      boards.boardList.push(board);
+      boards.data.push(board);
       for (var key in boardForm) {
         boardForm[key] = null;
       }
@@ -35,7 +41,7 @@ djello.factory('boardService', ['Restangular', function(Restangular){
 
   function removeBoard(board) {
     board.remove().then(function(){
-      boards.boardList.splice(boards.boardList.indexOf(board), 1)
+      boards.data.splice(boards.data.indexOf(board), 1)
     }, function(error){
       console.log('Fail to remove board: ', error);
     })

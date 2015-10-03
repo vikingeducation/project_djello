@@ -1,14 +1,14 @@
 class UserCardsController < ApplicationController
 
   def create
-    card = Card.find_by_id(params[:card_id])
     member = User.find_by_id(params[:user_id])
+    user_card = UserCard.new(card_id: user_card_params[:card_id],
+                             user_id: user_card_params[:user_id],
+                             role: 'participator')
 
     respond_to do |format|
 
-      if !card || !member
-        format.json { render nothing: true, status: 404 }
-      elsif card.members << member
+      if user_card.save
         format.json { render json: member }
       else
         format.json { render nothing: true, status: 400 }
@@ -19,14 +19,14 @@ class UserCardsController < ApplicationController
   end
 
   def destroy
-    card = Card.find_by_id(params[:card_id])
-    member = User.find_by_id(params[:user_id])
+    member = User.find_by_id(user_card_params[:user_id])
+    user_card = UserCard.where("user_id = ? AND card_id = ?", 
+                                user_card_params[:user_id],
+                                user_card_params[:card_id])[0]
 
     respond_to do |format|
 
-      if !card || !member
-        format.json { render nothing: true, status: 404 }
-      elsif card.members.delete(member)
+      if user_card && user_card.destroy
         format.json { render json: member }
       else
         format.json { render nothing: true, status: 400 }
@@ -34,6 +34,12 @@ class UserCardsController < ApplicationController
 
     end
 
+  end
+
+  private
+
+  def user_card_params
+    params.permit(:user_id, :card_id)
   end
 
 end

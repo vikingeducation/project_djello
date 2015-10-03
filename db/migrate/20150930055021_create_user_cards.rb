@@ -3,6 +3,7 @@ class CreateUserCards < ActiveRecord::Migration
     create_table :user_cards do |t|
       t.integer :user_id, null: false
       t.integer :card_id, null: false
+      t.string :role, null: false
       
       t.timestamps null: false
     end

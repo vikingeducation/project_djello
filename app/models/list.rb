@@ -3,12 +3,4 @@ class List < ActiveRecord::Base
   has_many :cards,
             dependent: :destroy
 
-  def user
-    self.board.user
-  end
-
-  # def members
-  #   self.board.members
-  # end
-
 end

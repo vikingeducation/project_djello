@@ -3,8 +3,7 @@ class BoardsController < ApplicationController
   def index
 
     if current_user
-      boards = current_user.boards
-      boards += current_user.assigned_boards
+      boards = current_user.assigned_boards
     else
       boards = []
     end

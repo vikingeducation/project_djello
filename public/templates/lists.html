@@ -1,23 +1,29 @@
+<!-- drop down nav menu -->
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     BOARDS
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li ng-repeat="board in boards.boardList |orderBy:'-created_at'">
+    <li ng-repeat="board in boards.data |orderBy:'-created_at'">
       <a ui-sref="home.lists({id: board.id})">{{board.name}}</a>
     </li>
   </ul>
 </div>
+<!-- drop down nav menu -->
+
+
 <div class="panel">
   <div class="panel-heading">
-      <h1 ng-click="showBoardForm = !showBoardForm">{{board.data.name}}</h1>
+      <h1 ng-click="showBoardForm.status = !showBoardForm.status">{{board.data.name}}</h1>
   </div>
-  <div ng-if="showBoardForm" class="col-sm-3 panel-body form-group board-form">
-    <p>Rename Board</p>
-    <hr>
-    <input type="text" ng-model="board.data.name" class="form-control">
-    <br>
+  <div ng-if="showBoardForm.status" class="col-sm-3 panel-body form-group board-form">
+    <label>
+      Rename Board
+      <button type="button" class="close" ng-click="showBoardForm.status = false">&times;</button>
+      <br>
+      <input type="text" ng-model="board.data.name" class="form-control">
+    </label>
     <button class="btn btn-info"
           ng-click="updateBoard()">Save</button>
   </div>
@@ -28,11 +34,12 @@
         <!-- list area -->
         <div class="panel panel-default djello-list">
           <div class="panel-heading">
-            <h5 class="text-center" ng-click="showEditListForm[list.id] = !showEditListForm[list.id]">{{list.name}}</h5>
+            <h5 class="text-center" ng-click="showEditListForm.status[list.id] = !showEditListForm.status[list.id]">{{list.name}}</h5>
           </div>
 
-          <div class="panel-body" ng-if="showEditListForm[list.id]">
+          <div class="panel-body" ng-if="showEditListForm.status[list.id]">
             <label>Rename List
+              <button type="button" class="close" ng-click="showEditListForm.status[list.id] = false">&times;</button>
               <input type="text" ng-model="list.name" class="form-control">
             </label>
             <button class="btn btn-info"
@@ -40,42 +47,18 @@
           </div>
 
           <div class="panel-body djello-cards">
-            <p class="djello-card" ng-repeat="card in list.cards | orderBy: 'created_at'" data-toggle="modal" data-target="#card-modal" ng-click="setCard(card)">
+
+            <p class="djello-card" 
+               ng-repeat="card in list.cards | orderBy: 'created_at'" 
+               ng-click="showCardModal(card, list)">
               {{card.name}}
             </p>
 
-            <div card-modal card="card" ></div>
           </div>
 
           <div class="panel-body">
 
-            <a type="button" class="btn btn-info list-button" data-toggle="modal" data-target="#newCard" ng-click="setList(list)">New Card</a>
-            <!-- Modal -->
-            <div class="modal fade" id="newCard" role="dialog">
-              {{curList.name}}
-              <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-body form-group">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <label>Name: 
-                      <input type="text" ng-model="card.name" class="form-control">
-                    </label>
-                    <br>
-                    <label>Content:
-                      <input type="text" ng-model="card.content" class="form-control">
-                    </label>
-                  </div>
-                  <div class="modal-footer">
-                    {{curList.name}}
-                    <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="createCard(card, curList)">Save</button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <!-- Modal -->
+            <a type="button" class="btn btn-info col-sm-10 col-sm-offset-1" ng-click="showCreateCardModal(list)">New Card</a>
 
           </div>
         </div>
@@ -84,13 +67,15 @@
       <div class="col-sm-3">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h5 class="text-center" ng-click="showListForm = !showListForm">Add a new List</h5>
+            <h5 class="text-center" ng-click="showListForm.status = !showListForm.status">Add a new List</h5>
           </div>
-          <div class="panel-body" ng-if="showListForm">
-            <input ng-model="listForm.name" type="text" placeholder="New List Name" style="margin-left:10%;width:80%;margin-bottom: 10px;"/>
-            <br>
+          <div class="panel-body form-group" ng-if="showListForm.status">
+            <label> New List
+              <button type="button" class="close" ng-click="showListForm.status = false">&times;</button>
+              <input ng-model="listForm.name" type="text" placeholder="New List Name" class="form-control"/>
+            </label>
             <button class="btn btn-info list-button"
-            ng-click="createList()">Create List</button>
+            ng-click="createList()">Create</button>
           </div>
         </div>
       </div>

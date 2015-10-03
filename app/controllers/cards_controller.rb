@@ -8,8 +8,9 @@ class CardsController < ApplicationController
     respond_to do |format|
 
       if card.save
-        card.members << current_user
-        format.json { render json: card.to_json(:include => [:activities]) }
+        # card.members << current_user
+        card.user_cards.create(user_id: current_user.id, role: 'creater')
+        format.json { render json: card.to_json(:include => [:activities, :members]) }
       else
         format.json { render nothing: true, status: 400 }
       end
@@ -22,7 +23,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if card
-        format.json { render json: card.to_json(:include => [:activities]) }
+        format.json { render json: card.to_json(:include => [:activities, :members]) }
       else
         format.json { render nothing: true, status: 404 }
       end
@@ -39,7 +40,7 @@ class CardsController < ApplicationController
       if !card
         format.json { render nothing: true, status: 404 }
       elsif card.update(card_params)
-        format.json { render json: card.to_json(:include => [:activities]) }
+        format.json { render json: card.to_json(:include => [:activities, :members]) }
       else
         format.json { render nothing: true, status: 400 }
       end

@@ -1,0 +1,82 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <!-- edit card form -->
+        <div class="panel-body">
+          <button type="button" class="close" ng-click="closeModal()">&times;</button>
+
+          <div class="col-xs-12 form-group">
+            <div ng-click="showForm.status = !showForm.status" ng-show="!showForm.status">
+              Name: <p class="form-control" style="border: 0;">{{card.name}}</p>
+              Content: <p class="form-control" style="border: 0;">{{card.content}}</p>
+            </div>
+            <div ng-show="showForm.status">
+              Name: <input class="form-control" type="text" ng-model='cardForm.name'>
+              Content: <input class="form-control" type="text" ng-model='cardForm.content'>
+              <button ng-click="showForm.status = false" class="btn btn-danger col-sm-3 col-sm-offset-2">Cancel</button>
+              <button ng-click="updateCard()" class="btn btn-info col-sm-3 col-sm-offset-2">Save</button>
+            </div>
+          </div>
+
+        </div>
+        <!-- edit card form -->
+
+      </div>
+      <div class="modal-body">
+      <div class="panel">
+
+        <!-- Member List -->
+        <div class="panel-body">
+
+          <p>Members</p>
+          <table class="table table-responsive table-hover">
+            <tr ng-repeat="member in card.members">
+              <td style="border-top: none !important;">{{member.email}}</td>
+              <td style="border-top: none !important;" 
+                  ng-click="removeMember(card.id, member)"
+                  ng-if="member.id !== currentUser.user.id"><a href="">&#9447</a></td>
+            </tr>
+          </table>
+        </div>
+        <!-- Member List -->
+
+        <!-- drop down user list -->
+        <div class="panel-body form-group">
+          <select ng-model="selectedUserID" class="form-control">
+            <option ng-repeat="user in users.data" ng-value="user.id">
+              {{user.email}}
+            </option>
+          </select>
+          <button ng-click="addMember(card.id, selectedUserID)" class="btn btn-info col-sm-4 col-sm-offset-4">Add Member</button>
+        </div>
+        <!-- drop down user list -->
+
+        <!-- activities list -->
+        <div class="panel-body">
+          <table class="table table-responsive table-hover">
+            <p>Acticities</p>
+            <tr ng-repeat="activity in card.activities">
+              <td style="border-top: none !important;">
+                {{activity.content}} &nbsp on &nbsp {{activity.created_at | date}}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- activities list -->
+
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" 
+                ng-click="completeCard(card, list); closeModal()">Complete</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal -->

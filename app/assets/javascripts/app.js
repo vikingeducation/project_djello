@@ -1,4 +1,4 @@
-var djello = angular.module("djello", ['ui.router', 'Devise', 'restangular'])
+var djello = angular.module("djello", ['ui.router', 'Devise', 'restangular', 'angularModalService'])
 
 .config(['RestangularProvider', function(RestangularProvider){
 
@@ -31,12 +31,7 @@ RestangularProvider.setRequestSuffix('.json');
       views: {
         "navbar": {
           templateUrl: "templates/_navbar.html",
-          controller: 'navbarCtrl',
-          // resolve: {
-          //   currentUser: ['Auth', function(Auth) {
-          //     return Auth.currentUser()
-          //   }]
-          // }
+          controller: 'navbarCtrl'
         },
         "main": {
           templateUrl: "templates/_main.html"
@@ -46,12 +41,7 @@ RestangularProvider.setRequestSuffix('.json');
     .state('home.boards', {
       url: "/boards",
       templateUrl: "templates/boards.html",
-      controller: 'boardCtrl',
-      // resolve: {
-      //   currentUser: ['Auth', function(Auth) {
-      //     return Auth.currentUser()
-      //   }]
-      // }
+      controller: 'boardCtrl'
     })
 
     .state('home.lists', {

@@ -1,0 +1,23 @@
+<div class="modal fade" id="newCard" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body form-group">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <label>Name: 
+          <input type="text" ng-model="cardForm.name" class="form-control">
+        </label>
+        <br>
+        <label>Content:
+          <input type="text" ng-model="cardForm.content" class="form-control">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="createCard()">Save</button>
+      </div>
+    </div>
+    <!-- Modal content-->
+    
+  </div>
+</div>
