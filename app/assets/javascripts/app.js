@@ -17,15 +17,6 @@ RestangularProvider.setRequestSuffix('.json');
     $urlRouterProvider.otherwise('/home');
 
   $stateProvider
-    // .state('site', {
-    //   'abstract': true,
-    //   resolve: {
-    //     authorize: ['authorization', function(authorization){
-    //       console.log('$q: ', authorization.authorize());
-    //       return authorization.authorize();
-    //     }]
-    //   }
-    // })
     .state('home', {
       url: "/home",
       views: {
@@ -47,24 +38,7 @@ RestangularProvider.setRequestSuffix('.json');
     .state('home.lists', {
       url: "/boards/:id",
       templateUrl: 'templates/lists.html',
-      controller: 'listCtrl',
-      // resolve: {
-      //   board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
-      //     return Restangular.one('boards', $stateParams.id).get()
-      //   }],
-      //   boards: ['Restangular', function(Restangular) {
-      //         return Restangular.all('boards').getList()
-      //   }],
-      //   lists: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
-      //     return Restangular.one('boards', $stateParams.id).all('lists').getList()
-      //   }],
-      //   users: ['Restangular', function(Restangular) {
-      //     return Restangular.all('users').getList()
-      //   }],
-      //   currentUser: ['Auth', function(Auth) {
-      //     return Auth.currentUser()
-      //   }]
-      // }
+      controller: 'listCtrl'
 
     })
     .state('home.signup', {

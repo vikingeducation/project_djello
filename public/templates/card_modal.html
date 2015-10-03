@@ -15,8 +15,14 @@
               Content: <p class="form-control" style="border: 0;">{{card.content}}</p>
             </div>
             <div ng-show="showForm.status">
-              Name: <input class="form-control" type="text" ng-model='cardForm.name'>
-              Content: <input class="form-control" type="text" ng-model='cardForm.content'>
+              Name: <input class="form-control" 
+                           type="text" 
+                           ng-model='cardForm.name' 
+                           required ng-minlength="1" ng-maxlength="20">
+              Content: <input class="form-control" 
+                              type="text" 
+                              ng-model='cardForm.content' 
+                              required ng-minlength="1" ng-maxlength="100">
               <button ng-click="showForm.status = false" class="btn btn-danger col-sm-3 col-sm-offset-2">Cancel</button>
               <button ng-click="updateCard()" class="btn btn-info col-sm-3 col-sm-offset-2">Save</button>
             </div>

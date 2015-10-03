@@ -22,7 +22,10 @@
       Rename Board
       <button type="button" class="close" ng-click="showBoardForm.status = false">&times;</button>
       <br>
-      <input type="text" ng-model="board.data.name" class="form-control">
+      <input type="text" 
+             ng-model="board.data.name" 
+             class="form-control" 
+             required ng-minlength="1" ng-maxlength="20">
     </label>
     <button class="btn btn-info"
           ng-click="updateBoard()">Save</button>
@@ -40,7 +43,10 @@
           <div class="panel-body" ng-if="showEditListForm.status[list.id]">
             <label>Rename List
               <button type="button" class="close" ng-click="showEditListForm.status[list.id] = false">&times;</button>
-              <input type="text" ng-model="list.name" class="form-control">
+              <input type="text" 
+                     ng-model="list.name" 
+                     class="form-control" 
+                     required ng-minlength="1" ng-maxlength="20">
             </label>
             <button class="btn btn-info"
                   ng-click="updateList(list)">Save</button>
@@ -72,7 +78,11 @@
           <div class="panel-body form-group" ng-if="showListForm.status">
             <label> New List
               <button type="button" class="close" ng-click="showListForm.status = false">&times;</button>
-              <input ng-model="listForm.name" type="text" placeholder="New List Name" class="form-control"/>
+              <input ng-model="listForm.name" 
+                     type="text" 
+                     placeholder="New List Name" 
+                     class="form-control" 
+                     required ng-minlength="1" ng-maxlength="20">
             </label>
             <button class="btn btn-info list-button"
             ng-click="createList()">Create</button>

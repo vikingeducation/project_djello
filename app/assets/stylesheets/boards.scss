@@ -31,3 +31,13 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+input.ng-valid{
+    /* green */
+    border: 2px solid green !important;
+}
+
+input.ng-invalid{
+    /* red */
+    border: 2px solid red !important;
+}

@@ -8,7 +8,6 @@ class CardsController < ApplicationController
     respond_to do |format|
 
       if card.save
-        # card.members << current_user
         card.user_cards.create(user_id: current_user.id, role: 'creater')
         format.json { render json: card.to_json(:include => [:activities, :members]) }
       else

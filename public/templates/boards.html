@@ -30,7 +30,11 @@
 
       <div class="col-sm-3 djello-board">
         <div class="input-group text-center">
-          <input type="text" class="form-control" placeholder="Enter Board Name" ng-model='boardForm.name'>
+          <input type="text" 
+                 class="form-control" 
+                 placeholder="Enter Board Name" 
+                 ng-model='boardForm.name'
+                 required ng-minlength="1" ng-maxlength="20">
           <button class="btn btn-primary" ng-click="createBoard()">Add New Board</button>
         </div>
       </div>

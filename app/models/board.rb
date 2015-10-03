@@ -10,4 +10,5 @@ class Board < ActiveRecord::Base
             through: :user_boards,
             source: :member
 
+  validates :name, length: { in: 1..20 }
 end

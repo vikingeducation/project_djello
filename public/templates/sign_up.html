@@ -2,9 +2,22 @@
 
 <div class="col-sm-6 col-sm-offset-3">
   <div class="form-group sign-up-form">
-    <input type="text" class="form-control" placeholder="Email" ng-model='credentials.email'>
-    <input type="password" class="form-control" placeholder="Password" ng-model='credentials.password'>
-    <input type="password" class="form-control" placeholder="Password Confirmation" ng-model='credentials.password_confirmation'>
+    <input type="text" 
+           class="form-control" 
+           placeholder="Email" 
+           ng-model='credentials.email' 
+           required 
+           ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i">
+    <input type="password" 
+           class="form-control" 
+           placeholder="Password" 
+           ng-model='credentials.password' 
+           required ng-minlength="8" ng-maxlength="20">
+    <input type="password" 
+           class="form-control" 
+           placeholder="Password Confirmation" 
+           ng-model='credentials.password_confirmation' 
+           required compare-to="credentials.password">
     <button class="btn btn-block btn-primary" ng-click="registerUser()">Register</button>
   </div>
 </div>

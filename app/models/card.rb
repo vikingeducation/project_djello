@@ -11,16 +11,12 @@ class Card < ActiveRecord::Base
             through: :user_cards, 
             source: :member
 
-  # def owner
-  #   self.list.user
-  # end
+  validates :name, :content, :list_id, presence: true
+  validates :name, length: { in: 1..20 }
+  validates :content, length: { in: 1..100 }
 
   def board
     list.board
   end
-
-  # def members
-  #   self.board.members
-  # end
 
 end

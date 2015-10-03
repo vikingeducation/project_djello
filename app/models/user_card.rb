@@ -9,6 +9,9 @@ class UserCard < ActiveRecord::Base
 
   before_create :create_user_board
 
+  validates :user_id, :card_id, :role, presence: true
+  validates :role, inclusion: { in: %w(creater participator) }
+
   def board
     assigned_card.board
   end
