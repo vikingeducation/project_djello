@@ -7,8 +7,9 @@ djello.controller('cardModalCtrl',
    'sessionService', 
    'cardService', 
    'close',
+   '$filter', 
    'Restangular', 
-   function($scope, card, board, list, users, sessionService, cardService, close, Restangular){
+   function($scope, card, board, list, users, sessionService, cardService, close, $filter, Restangular){
     $scope.card = card;
     $scope.board = board;
     $scope.list = list;
