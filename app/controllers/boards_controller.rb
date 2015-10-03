@@ -13,11 +13,12 @@ class BoardsController < ApplicationController
 
   def create
     board = Board.new(board_params)
-
+    # binding.pry
     respond_to do |format|
 
       if board.save
         # board.members << User.find_by_id(board_params[:user_id])
+        board.user_boards.create(user_id: params[:user_id], role: 'creater')
         format.json { render json: board }
       else
         format.json { render nothing: true, status: 400 }
