@@ -37,8 +37,7 @@
             <tr ng-repeat="member in card.members">
               <td style="border-top: none !important;">{{member.email}}</td>
               <td style="border-top: none !important;" 
-                  ng-click="removeMember(card.id, member)"
-                  ng-if="member.id !== currentUser.user.id"><a href="">&#9447</a></td>
+                  ng-click="removeMember(card.id, member)"><a href="">&#9447</a></td>
             </tr>
           </table>
         </div>
@@ -59,7 +58,7 @@
         <div class="panel-body">
           <table class="table table-responsive table-hover">
             <p>Acticities</p>
-            <tr ng-repeat="activity in card.activities">
+            <tr ng-repeat="activity in card.activities | orderBy: '-created_at' | limitTo : 10">
               <td style="border-top: none !important;">
                 {{activity.content}} &nbsp on &nbsp {{activity.created_at | date}}
               </td>

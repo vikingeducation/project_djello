@@ -16,7 +16,7 @@ class Card < ActiveRecord::Base
   # end
 
   def board
-    self.list.board
+    list.board
   end
 
   # def members

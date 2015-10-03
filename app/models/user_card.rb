@@ -13,7 +13,6 @@ class UserCard < ActiveRecord::Base
     assigned_card.board
   end
 
-
   def create_user_board
     unless board.members.include?(member)
       UserBoard.create(user_id: member.id, board_id: board.id, role: 'participator')

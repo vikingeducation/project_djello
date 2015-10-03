@@ -29,10 +29,10 @@ end
   list = board.lists.create(name: "list#{i}")
 
     3.times do |num|
-      card = list.cards.create(name: "CARD #{5*i+num}",
+      card = list.cards.create(name: "CARD #{3*i+num+1}",
                                content: "Lorem Ipsum")
-      card.activities.create(content: "activity #{5*i+num}")
-      UserCard.create(user_id: uid, card_id: 5*i+num, role: 'creater')
+      card.activities.create(content: "activity #{3*i+num+1}")
+      UserCard.create(user_id: uid, card_id: 3*i+num+1, role: 'creater')
     end
 
 end

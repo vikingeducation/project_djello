@@ -3,10 +3,12 @@ djello.controller('createCardModalCtrl',
    'board', 
    'list',
    'cardService', 
-  function($scope, board, list, cardService) {
+   'sessionService', 
+  function($scope, board, list, cardService, sessionService) {
+    $scope.currentUser = sessionService.currentUser
 
     $scope.createCard = function(){
-      cardService.createCard(board, list, $scope.cardForm);
+      cardService.createCard(board, list, $scope.cardForm, $scope.currentUser);
     }
     
 }])

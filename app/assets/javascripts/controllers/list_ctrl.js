@@ -147,18 +147,18 @@ djello.controller('listCtrl',
   //   })
   // }
 
-  $scope.removeMember = function(card_id, member) {
-    console.log("member:", member)
-    console.log("id:", member.id)
-    Restangular.all("user_boards").remove({
-      card_id: card_id,
-      user_id: member.id
-    })
-    .then(function() {
-      var index = $scope.board.members.indexOf(member);
-      $scope.board.members.splice(index, 1);
-    })
-  }
+  // $scope.removeMember = function(card_id, member) {
+  //   console.log("member:", member)
+  //   console.log("id:", member.id)
+  //   Restangular.all("user_boards").remove({
+  //     card_id: card_id,
+  //     user_id: member.id
+  //   })
+  //   .then(function() {
+  //     var index = $scope.board.members.indexOf(member);
+  //     $scope.board.members.splice(index, 1);
+  //   })
+  // }
 
   function addActivity(card, content) {
     board.all("activities").post({
