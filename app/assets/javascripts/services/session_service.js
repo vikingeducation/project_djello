@@ -16,7 +16,8 @@ djello.factory('sessionService', ['Auth', '$state',
         authenticated.status = true;
         $state.go('home.boards');
       }, function(error){
-        console.log('Sign In Failed:', error);
+        // console.log('Sign In Failed:', error);
+        alert('Sorry, cannot sign you in, please check you sign in info and try again!');
         authenticated.status = false;
       })
 
@@ -30,12 +31,13 @@ djello.factory('sessionService', ['Auth', '$state',
       };
 
       Auth.logout(config).then(function(){
-        console.log('Signed Out');
+        // console.log('Signed Out');
         currentUser.user = null;
         authenticated.status = false;
         $state.go('home');
       }, function(error){
-        console.log('Sign Out Failed:', error);
+        // console.log('Sign Out Failed:', error);
+        alert('Sorry, cannot sign you out!');
       })
     }
 

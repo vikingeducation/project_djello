@@ -32,12 +32,12 @@
   margin-bottom: 10px;
 }
 
-input.ng-valid{
+input.ng-dirty.ng-valid{
     /* green */
     border: 2px solid green !important;
 }
 
-input.ng-invalid{
+input.ng-dirty.ng-invalid{
     /* red */
     border: 2px solid red !important;
 }

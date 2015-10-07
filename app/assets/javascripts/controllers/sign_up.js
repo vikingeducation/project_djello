@@ -4,7 +4,7 @@ djello.controller('signUp', ['$scope', 'Auth', '$state', 'sessionService',
   $scope.currentUser = sessionService.currentUser;
   $scope.authenticated = sessionService.authenticated;
 
-  $scope.registerUser = function(){
+  function registerUser(){
     var config = {
       headers: {
           'X-HTTP-Method-Override': 'POST'
@@ -12,11 +12,19 @@ djello.controller('signUp', ['$scope', 'Auth', '$state', 'sessionService',
     };
     console.log("Reistering User!")
     Auth.register($scope.credentials, config).then(function(registeredUser) {
-      console.log(registeredUser);
+      // console.log(registeredUser);
       $state.go('home.boards');
     }, function(error) {
-      // Registration failed...
+      alert('Sorry, cannot register new user!');
     });
+  }
+
+  $scope.processForm = function(isValidForm) {
+    if (isValidForm) {
+      registerUser();
+    } else {
+      alert("Please fill in all the required information!");
+    }
   }
 
   $scope.$on('devise:new-registration', function(event, registeredUser) {

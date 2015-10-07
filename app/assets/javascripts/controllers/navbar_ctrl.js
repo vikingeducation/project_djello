@@ -3,11 +3,20 @@ djello.controller('navbarCtrl', ['$scope', 'sessionService', '$state',
     console.log("setting up navbarCtrl")
     $scope.currentUser = sessionService.currentUser;
     $scope.authenticated = sessionService.authenticated;
+    $scope.credentials = {};
 
-    $scope.signIn = function(credentials){
-      console.log("sign in:", credentials);
-      sessionService.signIn(credentials);                                               
+    function signIn(){
+      console.log("sign in:", $scope.credentials);
+      sessionService.signIn($scope.credentials);                                               
     }
+
+    $scope.processForm = function(isValidForm) {
+    if (isValidForm) {
+      signIn();
+    } else {
+      alert("Please fill in your sign in information!");
+    }
+  }
 
     $scope.signOut = function(){
       sessionService.signOut();
