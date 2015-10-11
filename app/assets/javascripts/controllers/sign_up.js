@@ -15,9 +15,19 @@ djello.controller('signUp', ['$scope', 'Auth', '$state', 'sessionService',
       // console.log(registeredUser);
       $state.go('home.boards');
     }, function(error) {
-      alert('Sorry, cannot register new user!');
+      alert('Sorry, registration error!\n' + errorMsgs(error.data.errors));
     });
   }
+
+  function errorMsgs(errors){
+    var result = '';
+    for(var field in errors) {
+      errors[field].forEach(function(error){
+        result += (field.toUpperCase() + ': ' + error + '\n');
+      });
+    }
+    return result;
+  } 
 
   $scope.processForm = function(isValidForm) {
     if (isValidForm) {

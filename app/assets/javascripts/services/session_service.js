@@ -17,7 +17,7 @@ djello.factory('sessionService', ['Auth', '$state',
         $state.go('home.boards');
       }, function(error){
         // console.log('Sign In Failed:', error);
-        alert('Sorry, cannot sign you in, please check you sign in info and try again!');
+        alert('Sorry, cannot sign you in! ' + error.data.error);
         authenticated.status = false;
       })
 
