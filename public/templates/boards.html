@@ -1,0 +1,43 @@
+<div class="panel">
+  <div class="panel-heading">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        BOARDS
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li ng-repeat="board in boards.data |orderBy:'-created_at'">
+          <a ui-sref="home.lists({id: board.id})">{{board.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel-body">
+
+    <div class="row">
+      <!-- board list -->
+      <a class ="col-sm-3 djello-board" 
+         ng-repeat="board in boards.data |orderBy:'-created_at'" 
+         ui-sref="home.lists({id: board.id})">
+        <div class="col-sm-1 pull-right">
+          <span class="" ng-click="removeBoard(board, $event)">&times</span>
+        </div>
+        <div class="col-sm-11">
+          <p>{{board.name}}</p>
+        </div>
+      </a>
+      <!-- board list -->
+
+      <div class="col-sm-3 djello-board">
+        <div class="input-group text-center">
+          <input type="text" 
+                 class="form-control" 
+                 placeholder="Enter Board Name" 
+                 ng-model='boardForm.name'
+                 required ng-minlength="1" ng-maxlength="20">
+          <button class="btn btn-primary" ng-click="createBoard()">Add New Board</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+// Place all the styles related to the Boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.djello-board {
+  color: #fff;
+  font-size: 1.5em;
+  height: 100px;
+  background-color: #0066A5;
+  margin: 0 10px 10px 10px;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.djello-board p {
+  word-wrap: break-word;
+}
+
+.djello-board:hover {
+  color: #000;
+  background-color: #6692AD;
+  text-decoration: none;
+}
+
+.djello-board input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+input.ng-dirty.ng-valid{
+    /* green */
+    border: 2px solid green !important;
+}
+
+input.ng-dirty.ng-invalid{
+    /* red */
+    border: 2px solid red !important;
+}

@@ -1,0 +1,43 @@
+// Place all the styles related to the lists controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.djello-list {
+  background-color: #E2E4E6;
+  margin-bottom: 25px;
+  border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.djello-list .panel-heading {
+  height: 50px;
+  h5 {
+    word-wrap: break-word;
+    overflow: auto;
+  }
+}
+
+.djello-cards {
+  height: 250px;
+  overflow: auto;
+}
+
+.djello-card {
+  margin: 0 10px 25px 10px;
+  padding: 0 5px 0 5px;
+  background-color: #fff;
+  border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  word-wrap: break-word;
+}
+
+.board-form {
+  float: left;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #B4B4B4;
+  z-index: 100;
+  border-radius: 5px;
+}
