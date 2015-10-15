@@ -39,10 +39,15 @@ gem 'angular_rails_csrf'
 
 gem 'binding_of_caller'
 
+gem 'devise'
+
+gem 'twitter-bootstrap-rails'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'byebug'
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -53,8 +58,13 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
 end
 
 group :development do
   gem 'better_errors'
+end
+
+group :production do
+  gem "rails_12factor"
 end
