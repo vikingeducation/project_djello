@@ -1,6 +1,8 @@
 class AngularController < ApplicationController
 
-  # test that Angular is working with this app
+  before_action :authenticate_user!
+
+  # Landing page to kick off Angular single-page app
   def index
   end
 
