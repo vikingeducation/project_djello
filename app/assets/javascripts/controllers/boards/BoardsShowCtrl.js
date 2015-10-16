@@ -13,4 +13,11 @@ djello.controller('BoardsShowCtrl',
         } );
     }
 
+
+    $scope.destroy = function(board) {
+      board.remove().then( function() {
+        console.log('deleted')
+      })
+    }
+
 }]);

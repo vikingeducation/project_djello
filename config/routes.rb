@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root 'angular#index'
 
   scope 'api' do
-    resources :boards, :only => [:show, :create]
+    resources :boards, :only => [:show, :create, :destroy]
   end
 
   # Example of regular route:
