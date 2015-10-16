@@ -34,12 +34,12 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
     .state('boards.show', {
       url:'/:id',
       templateUrl: '/templates/boards/show.html',
-      controller: 'BoardsShowCtrl'/*,
+      controller: 'BoardsShowCtrl',
       resolve: {
-        pin: ['Restangular', '$stateParams', function(Restangular, $stateParams){
-          return Restangular.one('boards', $stateParams.id),get();
+        board: ['Restangular', '$stateParams', function(Restangular, $stateParams){
+          return Restangular.one('boards', $stateParams.id).get();
         }]
-      }*/
+      }
     })
 
 }])

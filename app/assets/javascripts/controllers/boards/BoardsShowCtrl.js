@@ -1,16 +1,16 @@
 djello.controller('BoardsShowCtrl',
-  [ '$scope', 'Restangular',
-  function($scope, Restangular) {
+  [ '$scope', 'board', 'Restangular', '$state',
+  function($scope, board, Restangular, $state) {
 
-    $scope.board = {
-      id: 5,
-      title: 'Board Title'
-    };
+    $scope.board = board;
 
-    $scope.newBoard = { title: 'New Board', owner_id: 1};
+    $scope.newBoard = { title: 'New Board' };
     $scope.createBoard = function() {
       Restangular.all('boards').post($scope.newBoard)
-        .then( function() { console.log('created!') } );
+        .then( function(response) {
+          // what happens if this fails to create new board?
+          $state.go('boards.show', ({id: response.id}) )
+        } );
     }
 
 }]);
