@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
   # :recoverable,
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable
+
+  has_many :boards, :foreign_key => 'owner_id', :dependent => :nullify
 end
