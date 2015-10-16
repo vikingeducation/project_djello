@@ -13,16 +13,33 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
 
 
   // Routing
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/boards");
 
   $stateProvider
-
+/*
     .state('angularTest', {
       url: '',
       templateUrl: '/templates/angular.html',
       controller: function($scope) {
         $scope.testValue = "She works!";
       }
+    })
+
+*/
+    .state('boards', {
+      url: '/boards',
+      templateUrl: '/templates/boards/layout.html'
+    })
+
+    .state('boards.show', {
+      url:'/:id',
+      templateUrl: '/templates/boards/show.html',
+      controller: 'BoardsShowCtrl'/*,
+      resolve: {
+        pin: ['Restangular', '$stateParams', function(Restangular, $stateParams){
+          return Restangular.one('boards', $stateParams.id),get();
+        }]
+      }*/
     })
 
 }])
