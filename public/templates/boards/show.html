@@ -1,2 +1,34 @@
-<h3>Boards Show</h3>
-<p>{{ board.id }}</p>
+<div class='row'>
+
+  <div class='col-sm-6'>
+    <h2>{{ board.title }}</h2>
+  </div>
+
+  <div class='col-sm-6 text-right'>
+
+
+    <form class='form-inline'>
+      <div class='form-group'>
+
+        <label for='board-select'>Select Board:</label>
+
+        <select class='form-control'>
+          <option>Board 1</option>
+          <option>Board 2</option>
+        </select>
+
+      </div>
+    </form>
+
+
+    <div class='row'>
+      <div class='col-xs-12'>
+        <a href>Delete Board</a>
+        <a href>New Board</a>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
