@@ -9,9 +9,9 @@ djello.factory('boardService',
 
     boardService.getBoards = function() {
       Restangular.all('boards').get()
-        .then( function(response) {
-          boardService.boards = response;
-        }); // index
+        //.then( function(response) {
+        //  boardService.boards = response;
+        //}); // index
     };
 
 

@@ -1,6 +1,15 @@
 class BoardsController < ApplicationController
 
 
+  def index
+    @boards = Board.all
+
+    respond_to do |format|
+      format.json { render json: @boards.to_json, :status => 200 }
+    end
+  end
+
+
   def show
     @board = Board.find_by_id(params[:id])
 
