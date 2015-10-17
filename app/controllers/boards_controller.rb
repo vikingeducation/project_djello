@@ -1,8 +1,10 @@
 class BoardsController < ApplicationController
 
+  before_action :require_current_user, :except => [:index]
+
 
   def index
-    @boards = Board.all
+    @boards = current_user.boards.all
 
     respond_to do |format|
       format.json { render json: @boards.to_json, :status => 200 }
@@ -62,6 +64,16 @@ class BoardsController < ApplicationController
 
     def board_params
       params.require(:board).permit(:title)
+    end
+
+    def require_current_user
+      board = Board.find_by_id(params[:id])
+      unless board.owner == current_user
+        flash[:danger] = "You're not authorized to do this!"
+        respond_to do |format|
+          format.json { render :nothing => :true, :status => 401 }
+        end
+      end
     end
 
 end
