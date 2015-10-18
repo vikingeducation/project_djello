@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
 
     if @board
       respond_to do |format|
-        format.json { render json: @board.to_json, :status => 201 }
+        format.json { render json: @board.to_json, :status => 200 }
       end
     else
       flash.now[:danger] = 'Board #{params[:id]} not found.'
@@ -49,7 +49,7 @@ class BoardsController < ApplicationController
   def destroy
     @board = Board.find_by_id(params[:id])
 
-    if @board.destroy
+    if @board && @board.destroy
       respond_to do |format|
         format.json { render :nothing => :true, :status => 204 }
       end
@@ -69,7 +69,7 @@ class BoardsController < ApplicationController
 
     def require_current_user
       board = Board.find_by_id(params[:id])
-      unless board.owner == current_user
+      unless board.nil? || board.owner == current_user
         flash[:danger] = "You're not authorized to do this!"
         respond_to do |format|
           format.json { render :nothing => :true, :status => 401 }
