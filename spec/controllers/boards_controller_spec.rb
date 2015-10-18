@@ -5,9 +5,16 @@ RSpec.describe BoardsController, type: :controller do
 
   describe 'GET #index' do
 
+    let(:user) { create(:user) }
+    before do
+      sign_in user
+      get :index, format: :json
+    end
+
     it 'should return a collection of boards'
     it "should return all of a user's boards"
     it "should not include another user's board"
+    it { should respond_with(200) }
 
   end
 
@@ -15,6 +22,7 @@ RSpec.describe BoardsController, type: :controller do
   describe 'GET #show' do
 
     context 'for an existing board' do
+      xit { should use_before_action(:require_current_user) }
       it 'should return status OK'
       it 'should return the right pin id'
       it 'should return the right pin item_name'
