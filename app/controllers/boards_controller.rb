@@ -50,10 +50,12 @@ class BoardsController < ApplicationController
     @board = Board.find_by_id(params[:id])
 
     if @board && @board.destroy
+      flash.now[:success] = 'Board deleted!'
       respond_to do |format|
         format.json { render :nothing => :true, :status => 204 }
       end
     else
+      flash.now[:danger] = 'Sorry, there was an error. Please try again.'
       respond_to do |format|
         format.json { render :nothing => :true, :status => 422 }
       end
@@ -70,7 +72,7 @@ class BoardsController < ApplicationController
     def require_current_user
       board = Board.find_by_id(params[:id])
       unless board.nil? || board.owner == current_user
-        flash[:danger] = "You're not authorized to do this!"
+        flash.now[:danger] = "You're not authorized to do this!"
         respond_to do |format|
           format.json { render :nothing => :true, :status => 401 }
         end
