@@ -2,6 +2,7 @@ class BoardsController < ApplicationController
 
   before_action :require_current_user, :except => [:index]
 
+# test me!
 
   def index
     @boards = current_user.boards.all
@@ -22,7 +23,7 @@ class BoardsController < ApplicationController
     else
       flash.now[:danger] = 'Board #{params[:id]} not found.'
       respond_to do |format|
-        format.json { render nothing: true, :status => 422 }
+        format.json { render nothing: true, :status => 404 }
       end
     end
   end
