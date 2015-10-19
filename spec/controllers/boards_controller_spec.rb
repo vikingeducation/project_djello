@@ -26,10 +26,11 @@ RSpec.describe BoardsController, type: :controller do
       expect(json.count).to eq(user.boards.count)
     end
 
-    xit "should not include another user's board" do
-      expect(json).to include(board)
-      # expect(json).not_to include(other_board)
-    end
+    # need to think of a better way to test this
+    # it "should not include another user's board" do
+    #   expect(json).to include(board)
+    #   expect(json).not_to include(other_board)
+    # end
 
     it { should respond_with(200) }
 
@@ -102,7 +103,7 @@ RSpec.describe BoardsController, type: :controller do
       it 'should raise error' do
         expect{
           post :create, :format => :json, :board => attributes_for(:board, :title => nil)
-        }.to raise_error
+        }.to raise_error(ActiveRecord::StatementInvalid)
       end
       # it 'should not save to the database'
       # it { should respond_with(422) }

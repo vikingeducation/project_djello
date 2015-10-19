@@ -12,10 +12,7 @@
 
         <label for='board-select'>Select Board:</label>
 
-        <select class='form-control' ng-options='board.id as board.title for board in boards' ng-model='selected' ng-change='goTo(selected)'>
-          <!-- <option>Board 1</option>
-          <option>Board 2</option> -->
-        </select>
+        <select class='form-control' ng-options='board.id as board.title for board in boards' ng-model='selected' ng-change='goTo(selected)'></select>
 
       </div>
     </form>
