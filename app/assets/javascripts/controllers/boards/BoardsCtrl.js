@@ -29,7 +29,6 @@ djello.controller('BoardsCtrl',
 
 
     $scope.destroy = function(board) {
-
       board.remove().then( function() {
 
         $scope.boards = $scope.boards.filter( function(obj) {
