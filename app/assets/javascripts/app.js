@@ -29,13 +29,14 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
     .state('boards', {
       url: '/boards',
       templateUrl: '/templates/boards/layout.html',
+      controller: 'BoardsCtrl',
       resolve: {
         boards: ['Restangular', function(Restangular){
           return Restangular.all('boards').getList();
         }]
       }
     })
-
+/*
     .state('boards.show', {
       url:'/:id',
       templateUrl: '/templates/boards/show.html',
@@ -45,7 +46,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
           return Restangular.one('boards', $stateParams.id).get();
         }]
       }
-    })
+    })*/
 
 }])
 

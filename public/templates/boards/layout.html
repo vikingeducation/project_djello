@@ -3,6 +3,37 @@
 
 <div class='container'>
 
+  <div class='row'>
+
+    <div class='col-sm-6'>
+      <h2>{{ board.title }}</h2>
+    </div>
+
+    <div class='col-sm-6 text-right'>
+
+
+      <form class='form-inline'>
+        <div class='form-group'>
+
+          <label for='board-select'>Select Board:</label>
+
+          <select class='form-control' ng-options='board.id as board.title for board in boards' ng-model='selected' ng-change='goTo(selected)'></select>
+
+        </div>
+      </form>
+
+
+      <div class='row'>
+        <div class='col-xs-12'>
+          <a href ng-click='destroy(board)'>Delete Board</a>
+          <a href ng-click='createBoard()'>New Board</a>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
 <!-- can i move the dropdown here so the default /boards works? -->
 
   <div ui-view></div>
