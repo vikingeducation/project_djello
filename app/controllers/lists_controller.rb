@@ -19,7 +19,7 @@ class ListsController < ApplicationController
     end
   end
 
-
+  # needs to be tested
   def update
     @list = List.find_by_id(params[:id])
 
@@ -28,6 +28,23 @@ class ListsController < ApplicationController
         format.json { render :nothing => :true, :status => 200 }
       end
     else
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 422 }
+      end
+    end
+  end
+
+  # needs to be tested
+  def destroy
+    @list = List.find_by_id(params[:id])
+
+    if @list && @list.destroy
+      flash.now[:success] = 'List deleted!'
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 204 }
+      end
+    else
+      flash.now[:danger] = 'Sorry, there was an error. Please try again.'
       respond_to do |format|
         format.json { render :nothing => :true, :status => 422 }
       end

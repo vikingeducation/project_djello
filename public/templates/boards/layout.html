@@ -43,7 +43,7 @@
   <div class='row'>
 
     <div class='col-sm-4' ng-repeat="list in lists | orderBy: '-id'">
-      <list list='list'></list>
+      <list list='list' delete-list='deleteList(list)'></list>
     </div>
 
     <div class='col-sm-4'>
