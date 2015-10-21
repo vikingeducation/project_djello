@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable
 
   has_many :boards, :foreign_key => 'owner_id', :dependent => :nullify
+  has_many :lists, :through => :boards
 end

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   scope 'api' do
     resources :boards, :only => [:index, :show, :create, :destroy]
+    resources :lists, :only => [:create]
   end
 
   # Example of regular route:

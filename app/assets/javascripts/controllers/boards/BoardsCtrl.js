@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl',
-  [ '$scope', 'boards', 'Restangular', '$state', '$stateParams', 'boardService',
-  function($scope, boards, Restangular, $state, $stateParams, boardService) {
+  [ '$scope', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService',
+  function($scope, boards, Restangular, $state, $stateParams, boardService, listService) {
 
     boardService.setBoards(boards);
 
@@ -44,6 +44,11 @@ djello.controller('BoardsCtrl',
     $scope.goTo = function(selected) {
       $scope.board = boardService.findByID($scope.selected);
     };
+
+
+    $scope.createList = function() {
+      listService.create();
+    }
 
 
     $scope.setVariables();
