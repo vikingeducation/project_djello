@@ -85,7 +85,7 @@ RSpec.describe BoardsController, type: :controller do
     context 'without any params' do
 
       before do
-        post :create, :format => :json, :board => attributes_for(:board)
+        post :create, :format => :json
       end
 
 
