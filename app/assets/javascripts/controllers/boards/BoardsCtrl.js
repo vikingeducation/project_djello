@@ -14,6 +14,8 @@ djello.controller('BoardsCtrl',
         $scope.board = boardService.first();
       };
 
+      $scope.lists = listService.getLists($scope.board);
+
       $scope.selected = $scope.board.id;
     };
 
@@ -42,7 +44,7 @@ djello.controller('BoardsCtrl',
 
 
     $scope.goTo = function(selected) {
-      $scope.board = boardService.findByID($scope.selected);
+      $scope.setVariables( boardService.findByID($scope.selected) );
     };
 
 

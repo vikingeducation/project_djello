@@ -2,13 +2,12 @@ class BoardsController < ApplicationController
 
   before_action :require_current_user, :except => [:index]
 
-# test me!
 
   def index
     @boards = current_user.boards.all
 
     respond_to do |format|
-      format.json { render json: @boards.to_json, :status => 200 }
+      format.json { render json: @boards.to_json(:include => :lists), :status => 200 }
     end
   end
 

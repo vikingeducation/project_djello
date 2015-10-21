@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BoardsController, type: :controller do
 
-  let(:board) { create(:board) }
+  let!(:board) { create(:board) }
+  let!(:lists) { create_list(:list, 3, board: board) }
+  let!(:other_board) { create(:board) }
   let(:user) { board.owner }
-  let(:other_board) { create(:board) }
   let(:json) { JSON.parse(response.body) }
 
 
@@ -33,6 +34,10 @@ RSpec.describe BoardsController, type: :controller do
     # end
 
     it { should respond_with(200) }
+
+    it "should include the boards' lists" do
+      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json))
+    end
 
   end
 
@@ -124,7 +129,7 @@ RSpec.describe BoardsController, type: :controller do
 
 
       it 'should remove the board from the database' do
-        expect{ Board.find(board.id) }.to raise_error;
+        expect{ Board.find(board.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it { should respond_with(204) }
@@ -141,8 +146,8 @@ RSpec.describe BoardsController, type: :controller do
 
 
       it 'should not remove any boards from the database' do
-        expect{ Board.find(board.id) }.not_to raise_error;
-        expect{ Board.find(other_board.id) }.not_to raise_error;
+        expect{ Board.find(board.id) }.not_to raise_error
+        expect{ Board.find(other_board.id) }.not_to raise_error
       end
 
       it { should respond_with(401) }
