@@ -2,7 +2,7 @@ class CardsController < ApplicationController
 
   before_action :require_current_user
 
-
+  # I'm afraid that someone can build a card onto a Board/List they don't own
   def create
     @card = Card.all.build(card_params)
 
