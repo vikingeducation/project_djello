@@ -1,6 +1,26 @@
 <div class='panel panel-default'>
+  <div class='panel-body'>
 
-  <p>{{ list.title }}</p>
+    <div class='list-header'>
+      <!-- on click, change to input field -->
+        <!-- on enter, send patch request -->
+        <!-- on escape or click away, revert to original text and hide input -->
 
+      <h2 class='text-center'>
+        <div click-to-edit="list.title"></div>
+      </h2>
+      <p class='text-muted'>
+        <div click-to-edit="list.description"></div>
+      </p>
 
+      <!-- add delete list X box with confirm here -->
+    </div>
+
+    <!-- cards here -->
+
+    <div class='text-center'>
+      <a href>Add a Card</a>
+    </div>
+
+  </div>
 </div>

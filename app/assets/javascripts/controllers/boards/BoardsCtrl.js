@@ -17,6 +17,7 @@ djello.controller('BoardsCtrl',
       $scope.lists = listService.getLists($scope.board);
 
       $scope.selected = $scope.board.id;
+      $scope.editorEnabled = false;
     };
 
 
@@ -50,6 +51,18 @@ djello.controller('BoardsCtrl',
 
     $scope.createList = function() {
       listService.create($scope.board);
+    }
+
+
+    $scope.enableEditor = function() {
+      $scope.editorEnabled = true;
+      console.log('enable')
+    }
+
+
+    $scope.saveEditor = function() {
+      $scope.editorEnabled = false;
+      console.log('save')
     }
 
 
