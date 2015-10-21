@@ -1,15 +1,17 @@
-class ListsController < ApplicationController
+class CardsController < ApplicationController
 
   before_action :require_current_user
 
 
   def create
-    @list = current_user.lists.build
+    # needs to be built off of the active board/list
+    binding.pry
+    @card = current_user.cards.build
 
-    if @list.save
-      flash.now[:success] = 'New list created!'
+    if @card.save
+      flash.now[:success] = 'New card created!'
       respond_to do |format|
-        format.json { render json: @list.to_json, :status => 201 }
+        format.json { render json: @card.to_json, :status => 201 }
       end
     else
       flash.now[:danger] = 'Sorry, there was an error. Please try again.'
@@ -21,9 +23,9 @@ class ListsController < ApplicationController
 
 
   def update
-    @list = List.find_by_id(params[:id])
+    @card = Card.find_by_id(params[:id])
 
-    if @list.update(list_params)
+    if @card.update(card_params)
       respond_to do |format|
         format.json { render :nothing => :true, :status => 200 }
       end
@@ -36,10 +38,10 @@ class ListsController < ApplicationController
 
 
   def destroy
-    @list = List.find_by_id(params[:id])
+    @card = Card.find_by_id(params[:id])
 
-    if @list && @list.destroy
-      flash.now[:success] = 'List deleted!'
+    if @card && @card.destroy
+      flash.now[:success] = 'Card deleted!'
       respond_to do |format|
         format.json { render :nothing => :true, :status => 204 }
       end
@@ -54,13 +56,13 @@ class ListsController < ApplicationController
 
   private
 
-    def list_params
-      params.require(:list).permit(:title, :description, :board_id)
+    def card_params
+      params.require(:card).permit(:title, :description, :list_id)
     end
 
     def require_current_user
-      list = List.find_by_id(params[:id])
-      unless list.nil? || list.board.owner == current_user
+      card = Card.find_by_id(params[:id])
+      unless card.nil? || card.list.board.owner == current_user
         flash.now[:danger] = "You're not authorized to do this!"
         respond_to do |format|
           format.json { render :nothing => :true, :status => 401 }
