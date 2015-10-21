@@ -6,7 +6,6 @@ djello.factory('listService',
 
 
     listService.getLists = function(board) {
-      console.log(board.lists);
       return board.lists;
     };
 

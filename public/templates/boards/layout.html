@@ -19,7 +19,7 @@
 
           <label for='board-select'>Select Board:</label>
 
-          <select class='form-control' ng-options='board.id as board.title for board in boards' ng-model='selected' ng-change='goTo(selected)'></select>
+          <select class='form-control' ng-options="board.id as board.title for board in boards | orderBy: 'id'" ng-model='selected' ng-change='goTo(selected)'></select>
 
         </div>
       </form>
@@ -42,7 +42,7 @@
 
   <div class='row'>
 
-    <div class='col-sm-4' ng-repeat='list in lists'>
+    <div class='col-sm-4' ng-repeat="list in lists | orderBy: '-id'">
       <list list='list'></list>
     </div>
 

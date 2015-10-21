@@ -55,13 +55,11 @@ djello.controller('BoardsCtrl',
 
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
-      console.log('enable')
     }
 
 
     $scope.saveEditor = function() {
       $scope.editorEnabled = false;
-      console.log('save')
     }
 
 
