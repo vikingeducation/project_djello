@@ -44,7 +44,7 @@ class BoardsController < ApplicationController
     end
   end
 
-  # needs to be tested
+
   def update
     @board = Board.find_by_id(params[:id])
 
