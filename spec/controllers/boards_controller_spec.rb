@@ -82,7 +82,7 @@ RSpec.describe BoardsController, type: :controller do
   describe 'POST #create' do
 
 
-    context 'with valid params' do
+    context 'without any params' do
 
       before do
         post :create, :format => :json, :board => attributes_for(:board)
@@ -97,19 +97,34 @@ RSpec.describe BoardsController, type: :controller do
         expect(Board.find(board.id).owner).to eq(user)
       end
 
+      it 'should set the title to default' do
+        expect(Board.find(board.id).title).to eq("New Board")
+      end
+
       it { should respond_with(:created) }
       it { should set_flash.now[:success].to(/created/) }
 
     end
 
 
-    context 'with invalid params' do
+    context 'with params (should not be permitted)' do
 
-      it 'should raise error' do
-        expect{
-          post :create, :format => :json, :board => attributes_for(:board, :title => nil)
-        }.to raise_error(ActiveRecord::StatementInvalid)
+      before do
+        post :create, :format => :json, :board => attributes_for(:board, :title => "Custom Title")
       end
+
+      it 'should save to the database' do
+        expect(Board.find(board.id)).to eq(board)
+      end
+
+      it 'should set the owner to the current user' do
+        expect(Board.find(board.id).owner).to eq(user)
+      end
+
+      it 'should set the title to default' do
+        expect(Board.find(board.id).title).to eq("New Board")
+      end
+
       # it 'should not save to the database'
       # it { should respond_with(422) }
       # it 'should set error flash'

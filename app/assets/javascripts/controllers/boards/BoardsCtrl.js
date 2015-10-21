@@ -22,11 +22,10 @@ djello.controller('BoardsCtrl',
 
 
     $scope.createBoard = function() {
-      Restangular.all('boards').post($scope.newBoard)
+      Restangular.all('boards').post()
         .then( function(response) {
           boardService.add(response);
           $scope.setVariables(response);
-          $scope.newBoard = boardService.newBoard();
       });
     };
 
@@ -67,6 +66,5 @@ djello.controller('BoardsCtrl',
 
 
     $scope.setVariables();
-    $scope.newBoard = boardService.newBoard();
 
 }]);

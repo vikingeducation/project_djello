@@ -29,7 +29,7 @@ class BoardsController < ApplicationController
 
 
   def create
-    @board = current_user.boards.build(board_params)
+    @board = current_user.boards.build
 
     if @board.save
       flash.now[:success] = 'New board created!'
@@ -40,6 +40,21 @@ class BoardsController < ApplicationController
       flash.now[:danger] = 'Sorry, there was an error. Please try again.'
       respond_to do |format|
         format.json { render nothing: true, :status => 422 }
+      end
+    end
+  end
+
+  # needs to be tested
+  def update
+    @board = Board.find_by_id(params[:id])
+
+    if @board.update(board_params)
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 200 }
+      end
+    else
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 422 }
       end
     end
   end

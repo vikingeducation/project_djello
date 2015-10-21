@@ -17,6 +17,14 @@ djello.factory('listService',
     };
 
 
+    listService.update = function() {
+      /*if (valid) {
+        Restangular.one('pins', $stateParams.id).patch($scope.editPin)
+          .then( $scope.redirectToShow );
+      };*/
+    }
+
+
     return listService;
 
 }]);

@@ -6,9 +6,12 @@ djello.directive("clickToEdit", function() {
 
     scope: {
       value: "=clickToEdit",
+      id: '=',
+      model: '@',
+      attribute: '@'
     },
 
-    controller: function($scope) {
+    controller: ['$scope', 'Restangular', function($scope, Restangular) {
       $scope.view = {
         editableValue: $scope.value,
         editorEnabled: false
@@ -26,7 +29,15 @@ djello.directive("clickToEdit", function() {
       $scope.save = function() {
         $scope.value = $scope.view.editableValue;
         $scope.disableEditor();
+
+        var obj = {};
+        obj[$scope.attribute] = $scope.value;
+        Restangular.one($scope.model, $scope.id).patch( obj );
       };
-    }
+
+      $scope.cancel = function() {
+        $scope.disableEditor();
+      };
+    }]
   }
 })

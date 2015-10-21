@@ -20,15 +20,30 @@ class ListsController < ApplicationController
   end
 
 
+  def update
+    @list = List.find_by_id(params[:id])
+
+    if @list.update(list_params)
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 200 }
+      end
+    else
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 422 }
+      end
+    end
+  end
+
+
   private
 
     def list_params
-      params.require(:list).permit(:title, :board_id)
+      params.require(:list).permit(:title, :description, :board_id)
     end
 
     def require_current_user
       list = List.find_by_id(params[:id])
-      unless list.nil? || list.owner == current_user
+      unless list.nil? || list.board.owner == current_user
         flash.now[:danger] = "You're not authorized to do this!"
         respond_to do |format|
           format.json { render :nothing => :true, :status => 401 }

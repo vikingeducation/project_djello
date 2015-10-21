@@ -17,11 +17,6 @@ djello.factory('boardService',
     };
 
 
-    boardService.newBoard = function() {
-      return { title: 'New Board ' + Math.floor(Math.random() * 1000) };
-    };
-
-
     boardService.findByID = function(id) {
       return this.boards.filter( function(board) {
         return (board.id === Number(id))
