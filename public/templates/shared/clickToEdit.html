@@ -1,10 +1,12 @@
 <div class="click-to-edit">
-  <div ng-hide="view.editorEnabled">
+  <div ng-hide="view.editorEnabled" ng-click="enableEditor()">
     {{value}}
-    <a ng-click="enableEditor()">Edit</a>
+    <!-- <a ng-click="enableEditor()">Edit</a> -->
   </div>
   <div ng-show="view.editorEnabled">
-    <input ng-model="view.editableValue">
-    <a href="#" ng-click="save()">Save</a>
+    <form name='listEditForm' ng-submit="save()">
+        <input ng-model="view.editableValue">
+    </form>
+    <!-- <a href="#" ng-click="save()">Save</a> -->
   </div>
 </div>

@@ -15,17 +15,17 @@ djello.directive("clickToEdit", function() {
       };
 
       $scope.enableEditor = function() {
-          $scope.view.editorEnabled = true;
-          $scope.view.editableValue = $scope.value;
+        $scope.view.editorEnabled = true;
+        $scope.view.editableValue = $scope.value;
       };
 
       $scope.disableEditor = function() {
-          $scope.view.editorEnabled = false;
+        $scope.view.editorEnabled = false;
       };
 
       $scope.save = function() {
-          $scope.value = $scope.view.editableValue;
-          $scope.disableEditor();
+        $scope.value = $scope.view.editableValue;
+        $scope.disableEditor();
       };
     }
   }
