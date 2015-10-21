@@ -36,6 +36,12 @@ djello.factory('boardService',
     };
 
 
+    boardService.addList = function(list) {
+      var board = boardService.findByID(list.board_id);
+      board.lists.push(list);
+    };
+
+
     return boardService;
 
 }]);
