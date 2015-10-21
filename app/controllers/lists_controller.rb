@@ -4,7 +4,7 @@ class ListsController < ApplicationController
 
 
   def create
-    @list = current_user.listss.build(list_params)
+    @list = current_user.lists.build(list_params)
 
     if @list.save
       flash.now[:success] = 'New list created!'

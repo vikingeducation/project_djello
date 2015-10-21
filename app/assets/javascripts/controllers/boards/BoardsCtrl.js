@@ -47,7 +47,7 @@ djello.controller('BoardsCtrl',
 
 
     $scope.createList = function() {
-      listService.create();
+      listService.create($scope.board);
     }
 
 
