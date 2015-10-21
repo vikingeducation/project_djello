@@ -13,52 +13,25 @@ RSpec.describe ListsController, type: :controller do
 
   describe 'POST #create' do
 
-
-    context 'without any params' do
-
-      before do
-        post :create, :format => :json
-      end
-
-
-      it 'should save to the database' do
-        expect(List.find(list.id)).to eq(list)
-      end
-
-      it 'should set the title to default' do
-        expect(List.find(list.id).title).to eq("New List")
-      end
-
-      it 'should set the description to default' do
-        expect(List.find(list.id).description).to eq("Add a description...")
-      end
-
-      it { should respond_with(:created) }
-      it { should set_flash.now[:success].to(/created/) }
-
+    before do
+      post :create, :format => :json, :list => attributes_for(:list)
     end
 
 
-    context 'with params (should not be permitted)' do
-
-      before do
-        post :create, :format => :json, :list => attributes_for(:list, :title => "Custom Title")
-      end
-
-      it 'should save to the database' do
-        expect(List.find(list.id)).to eq(list)
-      end
-
-      it 'should set the title to default' do
-        expect(List.find(list.id).title).to eq("New List")
-      end
-
-      it 'should set the description to default' do
-        expect(List.find(list.id).description).to eq("Add a description...")
-      end
-
+    it 'should save to the database' do
+      expect(List.find(list.id)).to eq(list)
     end
 
+    it 'should set the title to default' do
+      expect(List.find(list.id).title).to eq("New List")
+    end
+
+    it 'should set the description to default' do
+      expect(List.find(list.id).description).to eq("Add a description...")
+    end
+
+    it { should respond_with(:created) }
+    it { should set_flash.now[:success].to(/created/) }
 
   end
 

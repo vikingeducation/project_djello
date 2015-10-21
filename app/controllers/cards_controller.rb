@@ -4,9 +4,7 @@ class CardsController < ApplicationController
 
 
   def create
-    # needs to be built off of the active board/list
-    binding.pry
-    @card = current_user.cards.build
+    @card = Card.all.build(card_params)
 
     if @card.save
       flash.now[:success] = 'New card created!'
@@ -57,7 +55,7 @@ class CardsController < ApplicationController
   private
 
     def card_params
-      params.require(:card).permit(:title, :description, :list_id)
+      params.require(:card).permit(:title, :description, :completed, :list_id)
     end
 
     def require_current_user

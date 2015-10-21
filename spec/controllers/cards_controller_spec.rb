@@ -14,62 +14,33 @@ RSpec.describe CardsController, type: :controller do
 
   describe 'POST #create' do
 
-
-    context 'without any params' do
-
-      before do
-        post :create, :format => :json
-      end
-
-
-      it 'should save to the database' do
-        expect(Card.find(card.id)).to eq(card)
-      end
-
-      it 'should set the title to default' do
-        expect(Card.find(card.id).title).to eq("New Card")
-      end
-
-      it 'should set the description to default' do
-        expect(Card.find(card.id).description).to eq("Add a description...")
-      end
-
-      it 'should set the completed? to false' do
-        expect(Card.find(card.id).completed).to be false
-      end
-
-      it { should respond_with(:created) }
-      it { should set_flash.now[:success].to(/created/) }
-
+    before do
+      post :create, :format => :json, :card => attributes_for(:card)
     end
 
 
-    context 'with params (should not be permitted)' do
-
-      before do
-        post :create, :format => :json, :card => attributes_for(:card, :title => "Custom Title", :description => "Custom description", :completed => true)
-      end
-
-      it 'should save to the database' do
-        expect(Card.find(card.id)).to eq(card)
-      end
-
-      it 'should set the title to default' do
-        expect(Card.find(card.id).title).to eq("New Card")
-      end
-
-      it 'should set the description to default' do
-        expect(Card.find(card.id).description).to eq("Add a description...")
-      end
-
-      it 'should set the completed? to false' do
-        expect(Card.find(card.id).completed).to be false
-      end
-
+    it 'should save to the database' do
+      expect(Card.find(card.id)).to eq(card)
     end
 
+    it 'should set the title to default' do
+      expect(Card.find(card.id).title).to eq("New Card")
+    end
+
+    it 'should set the description to default' do
+      expect(Card.find(card.id).description).to eq("Add a description...")
+    end
+
+    it 'should set the completed? to false' do
+      expect(Card.find(card.id).completed).to be false
+    end
+
+    it { should respond_with(:created) }
+    it { should set_flash.now[:success].to(/created/) }
 
   end
+
+
 
   describe 'PATCH #update' do
 
@@ -136,19 +107,17 @@ RSpec.describe CardsController, type: :controller do
 
 
 
-=begin
-
   describe 'DELETE #destroy' do
 
     context 'with a valid id' do
 
       before do
-        delete :destroy, format: :json, :id => list.id
+        delete :destroy, format: :json, :id => card.id
       end
 
 
-      it 'should remove the list from the database' do
-        expect{ List.find(list.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      it 'should remove the card from the database' do
+        expect{ Card.find(card.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it { should respond_with(204) }
@@ -157,18 +126,18 @@ RSpec.describe CardsController, type: :controller do
     end
 
 
-    context "with another user's list" do
+    context "with another user's card" do
 
-      let(:other_list) { create(:list) }
+      let(:other_card) { create(:card) }
 
       before do
-        delete :destroy, format: :json, :id => other_list.id
+        delete :destroy, format: :json, :id => other_card.id
       end
 
 
-      it 'should not remove any lists from the database' do
-        expect{ List.find(list.id) }.not_to raise_error
-        expect{ List.find(other_list.id) }.not_to raise_error
+      it 'should not remove any cards from the database' do
+        expect{ Card.find(card.id) }.not_to raise_error
+        expect{ Card.find(other_card.id) }.not_to raise_error
       end
 
       it { should respond_with(401) }
@@ -191,5 +160,5 @@ RSpec.describe CardsController, type: :controller do
 
   end
 
-=end
+
 end
