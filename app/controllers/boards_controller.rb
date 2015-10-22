@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
     @boards = current_user.boards.all
 
     respond_to do |format|
-      format.json { render json: @boards.to_json(:include => :lists), :status => 200 }
+      format.json { render json: @boards.to_json(:include => { :lists => { :include => :cards } } ), :status => 200 }
     end
   end
 

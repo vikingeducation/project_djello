@@ -4,6 +4,7 @@ RSpec.describe BoardsController, type: :controller do
 
   let!(:board) { create(:board) }
   let!(:lists) { create_list(:list, 3, board: board) }
+  let!(:cards) { create_list(:card, 3, list: lists.first) }
   let!(:other_board) { create(:board) }
   let(:user) { board.owner }
   let(:json) { JSON.parse(response.body) }
@@ -36,7 +37,11 @@ RSpec.describe BoardsController, type: :controller do
     it { should respond_with(200) }
 
     it "should include the boards' lists" do
-      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json))
+      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => :cards)))
+    end
+
+    it "should include related cards" do
+      expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json))
     end
 
   end
