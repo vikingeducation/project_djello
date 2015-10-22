@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl',
-  [ '$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService',
-  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService) {
+  [ '$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService', 'cardService',
+  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService, cardService) {
 
     boardService.setBoards(boards);
 
@@ -14,7 +14,7 @@ djello.controller('BoardsCtrl',
         $scope.board = boardService.first();
       };
 
-      $scope.lists = listService.getLists($scope.board);
+      //$scope.lists = listService.getLists($scope.board);
 
       $scope.selected = $scope.board.id;
       $scope.editorEnabled = false;
@@ -63,6 +63,14 @@ djello.controller('BoardsCtrl',
             $scope.lists = boardService.removeList(list);
         })
       };
+    }
+
+
+    $scope.createCard = function(list) {
+      cardService.create(list)
+        .then( function(response) {
+          boardService.addCard(response, $scope.board.id);
+      });
     }
 
 

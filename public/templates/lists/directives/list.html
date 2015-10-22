@@ -18,13 +18,13 @@
     </div>
 
 
-
-    <card ng-repeat='card in list.cards' card='card'></card>
-
+    <div class='cards-wrapper'>
+      <card ng-repeat="card in list['cards']" card='card'></card>
+    </div>
 
 
     <div class='text-center'>
-      <a href>Add a Card</a>
+      <a href ng-click='createCard(list)'>Add a Card</a>
     </div>
 
   </div>

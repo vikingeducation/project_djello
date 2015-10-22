@@ -1,6 +1,6 @@
 djello.factory('boardService',
-  ['Restangular',
-  function(Restangular) {
+  ['Restangular', 'listService',
+  function(Restangular, listService) {
 
     var boardService = {};
 
@@ -38,6 +38,7 @@ djello.factory('boardService',
 
     boardService.addList = function(list) {
       var board = boardService.findByID(list.board_id);
+      board['lists'] = board.lists || [];
       board.lists.push(list);
     };
 
@@ -48,6 +49,14 @@ djello.factory('boardService',
         return obj.id !== list.id
       });
       return board.lists;
+    };
+
+
+    boardService.addCard = function(card, board_id) {
+      var board = boardService.findByID(board_id);
+      var list = listService.findByID(board, card.list_id);
+      list['cards'] = list.cards || [];
+      list.cards.push(card);
     };
 
 

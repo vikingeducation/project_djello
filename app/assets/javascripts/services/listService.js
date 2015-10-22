@@ -15,6 +15,13 @@ djello.factory('listService',
     };
 
 
+    listService.findByID = function(board, id) {
+      return board.lists.filter( function(list) {
+        return (list.id === Number(id))
+      })[0];
+    }
+
+
     return listService;
 
 }]);
