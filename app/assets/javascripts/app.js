@@ -1,4 +1,4 @@
-var djello = angular.module('djello', ['ui.router', 'restangular'])
+var djello = angular.module('djello', ['ui.router', 'angularModalService', 'restangular'])
 
 .config( ['$stateProvider', '$urlRouterProvider', 'RestangularProvider',
   function($stateProvider, $urlRouterProvider, RestangularProvider) {

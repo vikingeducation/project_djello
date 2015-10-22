@@ -16,6 +16,7 @@
 
 //= require angular
 //= require angular-ui-router
+//= require angular-modal-service
 
 //= require underscore
 //= require restangular

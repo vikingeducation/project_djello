@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl',
-  [ '$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService', 'cardService',
-  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService, cardService) {
+  [ '$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService', 'cardService', 'ModalService',
+  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService, cardService, ModalService) {
 
     boardService.setBoards(boards);
 
@@ -72,6 +72,21 @@ djello.controller('BoardsCtrl',
           boardService.addCard(response, $scope.board.id);
       });
     }
+
+
+    $scope.openModal = function() {
+      ModalService.showModal({
+        templateUrl: "templates/cards/cardModal.html",
+        controller: "ModalController"
+      }).then(function(modal) {
+
+        //it's a bootstrap element, use 'modal' to show it
+        modal.element.modal();
+        modal.close.then(function(result) {
+          console.log(result);
+        });
+      });
+    };
 
 
     $scope.enableEditor = function() {
