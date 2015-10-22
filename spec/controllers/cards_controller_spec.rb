@@ -14,29 +14,47 @@ RSpec.describe CardsController, type: :controller do
 
   describe 'POST #create' do
 
-    before do
-      post :create, :format => :json, :card => attributes_for(:card)
+    context 'with valid params' do
+
+      before do
+        post :create, :format => :json, :card => attributes_for(:card, :list_id => card.list.id)
+      end
+
+
+      it 'should save to the database' do
+        expect(Card.find(card.id)).to eq(card)
+      end
+
+      it 'should set the title to default' do
+        expect(Card.find(card.id).title).to eq("New Card")
+      end
+
+      it 'should set the description to default' do
+        expect(Card.find(card.id).description).to eq("Add a description...")
+      end
+
+      it 'should set the completed? to false' do
+        expect(Card.find(card.id).completed).to be false
+      end
+
+      it { should respond_with(:created) }
+      it { should set_flash.now[:success].to(/created/) }
+
     end
 
 
-    it 'should save to the database' do
-      expect(Card.find(card.id)).to eq(card)
-    end
+    context 'when not the list owner' do
 
-    it 'should set the title to default' do
-      expect(Card.find(card.id).title).to eq("New Card")
-    end
+      let!(:other_list) { create(:list) }
 
-    it 'should set the description to default' do
-      expect(Card.find(card.id).description).to eq("Add a description...")
-    end
+      before do
+        post :create, :format => :json, :card => attributes_for(:card, :list_id => other_list.id)
+      end
 
-    it 'should set the completed? to false' do
-      expect(Card.find(card.id).completed).to be false
-    end
+      it { should respond_with(401) }
+      it { should set_flash.now[:danger].to(/not authorized/) }
 
-    it { should respond_with(:created) }
-    it { should set_flash.now[:success].to(/created/) }
+    end
 
   end
 
