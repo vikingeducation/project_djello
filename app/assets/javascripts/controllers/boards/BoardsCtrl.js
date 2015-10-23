@@ -14,8 +14,6 @@ djello.controller('BoardsCtrl',
         $scope.board = boardService.first();
       };
 
-      //$scope.lists = listService.getLists($scope.board);
-
       $scope.selected = $scope.board.id;
       $scope.editorEnabled = false;
     };
@@ -73,11 +71,14 @@ djello.controller('BoardsCtrl',
       });
     }
 
-
-    $scope.openModal = function() {
+/*
+    $scope.openModal = function(card) {
       ModalService.showModal({
         templateUrl: "templates/cards/cardModal.html",
-        controller: "ModalController"
+        controller: "ModalController",
+        inputs: {
+          card: card
+        }
       }).then(function(modal) {
 
         //it's a bootstrap element, use 'modal' to show it
@@ -87,7 +88,7 @@ djello.controller('BoardsCtrl',
         });
       });
     };
-
+*/
 
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;

@@ -19,7 +19,7 @@ djello.factory('listService',
       return board.lists.filter( function(list) {
         return (list.id === Number(id))
       })[0];
-    }
+    };
 
 
     return listService;
