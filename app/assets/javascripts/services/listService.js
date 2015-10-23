@@ -4,6 +4,16 @@ djello.factory('listService',
 
     var listService = {};
 
+    listService.lists = [];
+
+
+    listService.setLists = function(boards) {
+      boards.forEach( function(board) {
+        listService.lists = listService.lists.concat(board.lists);
+      });
+      return listService.lists;
+    }
+
 
     listService.getLists = function(board) {
       return board.lists;
@@ -20,6 +30,13 @@ djello.factory('listService',
         return (list.id === Number(id))
       })[0];
     };
+
+
+    listService.findByID2 = function(id) {
+      return listService.lists.filter( function(list) {
+        return (list.id === Number(id))
+      })[0];
+    }
 
 
     return listService;

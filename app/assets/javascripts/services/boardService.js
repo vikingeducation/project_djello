@@ -9,6 +9,8 @@ djello.factory('boardService',
 
     boardService.setBoards = function(boards) {
       this.boards = boards;
+      var lists = listService.setLists(boards);
+      cardService.setCards(lists);
     };
 
 
@@ -59,13 +61,15 @@ djello.factory('boardService',
       list.cards.push(card);
     };
 
+
 // this guy needs to be fixed
     boardService.removeCard = function(card, board_id) {
-      var board = boardService.findByID(board_id);
-      var list = listService.findByID(board, card.list_id);
+      //var board = boardService.findByID(board_id);
+      var list = listService.findByID2(card.list_id);
       list.cards = list.cards.filter( function(obj) {
         return obj.id !== card.id
       });
+      return list
     };
 
 

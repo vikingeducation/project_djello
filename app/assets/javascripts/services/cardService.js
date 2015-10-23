@@ -4,6 +4,16 @@ djello.factory('cardService',
 
     var cardService = {};
 
+    cardService.cards = [];
+
+
+    cardService.setCards = function(lists) {
+      lists.forEach( function(list) {
+        cardService.cards = cardService.cards.concat(list.cards);
+      });
+      return cardService.cards;
+    };
+
 
     cardService.getCards = function(list) {
       return list.cards;
@@ -15,10 +25,17 @@ djello.factory('cardService',
     };
 
 
-    cardService.findByID = function(list, id) {
-      return list.cards.filter( function(card) {
+    cardService.findByID = function(id) {
+      return cardService.cards.filter( function(card) {
         return (card.id === Number(id))
       })[0];
+    };
+
+
+    cardService.removeCard = function(card) {
+      cardService.cards = cardService.cards.filter( function(obj) {
+        return obj.id !== card.id
+      });
     };
 
 
