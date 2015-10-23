@@ -1,6 +1,6 @@
 djello.factory('boardService',
-  ['Restangular', 'listService',
-  function(Restangular, listService) {
+  ['Restangular', 'listService', 'cardService',
+  function(Restangular, listService, cardService) {
 
     var boardService = {};
 
@@ -57,6 +57,15 @@ djello.factory('boardService',
       var list = listService.findByID(board, card.list_id);
       list['cards'] = list.cards || [];
       list.cards.push(card);
+    };
+
+// this guy needs to be fixed
+    boardService.removeCard = function(card, board_id) {
+      var board = boardService.findByID(board_id);
+      var list = listService.findByID(board, card.list_id);
+      list.cards = list.cards.filter( function(obj) {
+        return obj.id !== card.id
+      });
     };
 
 

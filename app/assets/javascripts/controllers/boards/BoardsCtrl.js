@@ -71,24 +71,6 @@ djello.controller('BoardsCtrl',
       });
     }
 
-/*
-    $scope.openModal = function(card) {
-      ModalService.showModal({
-        templateUrl: "templates/cards/cardModal.html",
-        controller: "ModalController",
-        inputs: {
-          card: card
-        }
-      }).then(function(modal) {
-
-        //it's a bootstrap element, use 'modal' to show it
-        modal.element.modal();
-        modal.close.then(function(result) {
-          console.log(result);
-        });
-      });
-    };
-*/
 
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;

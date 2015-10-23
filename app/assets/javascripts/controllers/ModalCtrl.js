@@ -1,11 +1,16 @@
 djello.controller('ModalController',
-  ['$scope', 'card', 'close',
-  function($scope, card, close) {
+  ['$scope', '$window', 'card', 'close', 'cardService',
+  function($scope, $window, card, close, cardService) {
 
   $scope.card = card;
 
   $scope.close = function(result) {
-    close(result, 500); // close, but give 500ms for bootstrap to animate
+    if (result === 'Completed' &&
+      $window.confirm("Mark this card completed and remove it from the list?")) {
+        cardService.markCompleted($scope.card);
+    };
+
+    close(result, 500);
   };
 
 }]);

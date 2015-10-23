@@ -1,8 +1,13 @@
 djello.factory('cardService',
-  ['Restangular', 'listService',
-  function(Restangular, listService) {
+  ['Restangular',
+  function(Restangular) {
 
     var cardService = {};
+
+
+    cardService.getCards = function(list) {
+      return list.cards;
+    };
 
 
     cardService.create = function(list) {
@@ -14,6 +19,14 @@ djello.factory('cardService',
       return list.cards.filter( function(card) {
         return (card.id === Number(id))
       })[0];
+    };
+
+
+    cardService.markCompleted = function(card) {
+      Restangular.one('cards', card.id).remove()
+        .then( function() {
+          boardService.removeCard(card);
+      })
     };
 
 
