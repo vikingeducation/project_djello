@@ -16,6 +16,7 @@ djello.factory('boardService',
 
     boardService.setSelected = function(board_id) {
       this.active = this.findByID(board_id);
+      return board_id;
     };
 
 
@@ -66,7 +67,7 @@ djello.factory('boardService',
       list.cards.push(card);
     };
 
-// this guy needs to be fixed
+
     boardService.removeCard = function(card) {
       var board = boardService.active;
       var list = listService.findByID(board, card.list_id);

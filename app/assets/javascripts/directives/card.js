@@ -14,7 +14,7 @@ djello.directive('card',
       }).then(function(modal) {
         modal.element.modal();
         modal.close.then(function(result) {
-          console.log(result);
+          //console.log(result);
         });
       });
     };
@@ -26,8 +26,7 @@ djello.directive('card',
     restrict: 'E',
     controller: cardCtrl,
     scope: {
-      card: '=',
-      list: '='
+      card: '='
     }
   };
 

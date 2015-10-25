@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl',
-  [ '$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService', 'cardService', 'ModalService',
-  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService, cardService, ModalService) {
+  [ '$scope', '$window', 'boards', 'Restangular', 'boardService', 'listService', 'cardService',
+  function($scope, $window, boards, Restangular, boardService, listService, cardService) {
 
     boardService.setBoards(boards);
 
@@ -85,7 +85,7 @@ djello.controller('BoardsCtrl',
 
 
     $scope.dataService = boardService;
-    $scope.$watch('dataService.needsRefresh', $scope.setVariables );
+    $scope.$watch('dataService.needsRefresh', $scope.setVariables($scope.board) );
 
 
     $scope.setVariables();
