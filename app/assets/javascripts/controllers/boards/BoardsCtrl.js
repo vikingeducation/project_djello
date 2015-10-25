@@ -14,8 +14,9 @@ djello.controller('BoardsCtrl',
         $scope.board = boardService.first();
       };
 
-      $scope.selected = $scope.board.id;
+      $scope.selected = boardService.setSelected($scope.board.id);
       $scope.editorEnabled = false;
+      boardService.needsRefresh = false;
     };
 
 
@@ -72,6 +73,7 @@ djello.controller('BoardsCtrl',
     }
 
 
+
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
     }
@@ -80,6 +82,10 @@ djello.controller('BoardsCtrl',
     $scope.saveEditor = function() {
       $scope.editorEnabled = false;
     }
+
+
+    $scope.dataService = boardService;
+    $scope.$watch('dataService.needsRefresh', $scope.setVariables );
 
 
     $scope.setVariables();

@@ -1,6 +1,6 @@
 djello.factory('cardService',
-  ['Restangular',
-  function(Restangular) {
+  ['Restangular', 'boardService',
+  function(Restangular, boardService) {
 
     var cardService = {};
 

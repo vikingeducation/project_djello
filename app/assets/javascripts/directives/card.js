@@ -26,7 +26,8 @@ djello.directive('card',
     restrict: 'E',
     controller: cardCtrl,
     scope: {
-      card: '='
+      card: '=',
+      list: '='
     }
   };
 
