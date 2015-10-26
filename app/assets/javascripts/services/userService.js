@@ -25,9 +25,9 @@ djello.factory('userService',
     };
 
 
-    userService.remove = function(card, user) {
-      var card_member = { card_id: card.id, member_id: user.id }
-      return Restangular.all('card_members').remove(card_member)
+    userService.removeMember = function(card_member) {
+      //var card_member = { card_id: card.id, member_id: user.id }
+      return Restangular.one('card_members', card_member.id).remove()
     }
 
 

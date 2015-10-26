@@ -19,7 +19,7 @@
           <div ng-repeat='card_member in card_members'>
             <div class='row'>
               <p class='col-xs-8'>{{ card_member.member.email }}</p>
-              <a href class='col-xs-4 text-right' ng-click='removeMember(card, card_member.member)'>remove</a>
+              <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
             </div>
           </div>
 

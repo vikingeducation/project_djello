@@ -21,7 +21,7 @@ class CardMembersController < ApplicationController
 
 
   def destroy
-    @card_member = CardMember.where(card_member_params)
+    @card_member = CardMember.find(params[:id])
 
     if @card_member.destroy
       flash.now[:success] = 'Member removed!'
@@ -45,7 +45,14 @@ class CardMembersController < ApplicationController
     end
 
     def require_list_owner
-      card = Card.find_by_id(params[:card_member][:card_id])
+      card_member = CardMember.find_by_id(params[:id])
+
+      if card_member
+        card = card_member.card
+      else
+        card = Card.find_by_id(params[:card_id])
+      end
+
       list = card.list
       unless list.board.owner == current_user
         flash.now[:danger] = "You're not authorized to do this!"

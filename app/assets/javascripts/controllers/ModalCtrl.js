@@ -19,8 +19,8 @@ djello.controller('ModalController',
   };
 
 
-  $scope.removeMember = function(card, member) {
-    userService.remove(card, member)
+  $scope.removeMember = function(card_member) {
+    userService.removeMember(card_member)
       .then( function() {
         console.log('removed');
       });
