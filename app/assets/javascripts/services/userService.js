@@ -12,7 +12,7 @@ djello.factory('userService',
 
 
     userService.excluding = function(excludedUsers) {
-      var ids = excludedUsers.map( function(user) { return user.id } )
+      var ids = excludedUsers.map( function(cardMember) { return cardMember.member.id } )
       var output = this.users.filter( function(u) {
         return ids.indexOf(u.id) < 0;
       });

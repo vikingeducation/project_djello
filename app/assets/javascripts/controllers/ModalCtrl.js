@@ -3,8 +3,8 @@ djello.controller('ModalController',
   function($scope, $window, card, close, cardService, userService, boardService) {
 
   $scope.card = card;
-  $scope.members = card.members || [];
-  $scope.users = userService.excluding($scope.members);
+  $scope.card_members = card.card_members || [];
+  $scope.users = userService.excluding($scope.card_members);
 
 
   $scope.addMember = function() {
@@ -12,8 +12,8 @@ djello.controller('ModalController',
     userService.create($scope.newMember)
       .then( function(response) {
         boardService.addMember(response)
-        $scope.members.push(response.member);
-        $scope.users = userService.excluding($scope.members);
+        $scope.card_members.push(response);
+        $scope.users = userService.excluding($scope.card_members);
       })
     $scope.newMember = {};
   };

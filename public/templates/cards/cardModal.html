@@ -16,10 +16,10 @@
         <div>
 
           <h4>Members</h4>
-          <div ng-repeat='member in members'>
+          <div ng-repeat='card_member in card_members'>
             <div class='row'>
-              <p class='col-xs-8'>{{ member.email }}</p>
-              <a href class='col-xs-4 text-right' ng-click='removeMember(card, member)'>remove</a>
+              <p class='col-xs-8'>{{ card_member.member.email }}</p>
+              <a href class='col-xs-4 text-right' ng-click='removeMember(card, card_member.member)'>remove</a>
             </div>
           </div>
 
