@@ -1,8 +1,9 @@
 djello.controller('BoardsCtrl',
-  [ '$scope', '$window', 'boards', 'Restangular', 'boardService', 'listService', 'cardService',
-  function($scope, $window, boards, Restangular, boardService, listService, cardService) {
+  [ '$scope', '$window', 'boards', 'users', 'Restangular', 'boardService', 'listService', 'cardService', 'userService',
+  function($scope, $window, boards, users, Restangular, boardService, listService, cardService, userService) {
 
     boardService.setBoards(boards);
+    userService.setUsers(users);
 
 
     $scope.setVariables = function(board) {

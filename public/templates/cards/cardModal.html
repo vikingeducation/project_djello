@@ -14,7 +14,20 @@
           </p>
         </div>
         <div>
+
           <h4>Members</h4>
+          <div ng-repeat='member in members'>
+            {{ member.email }}
+          </div>
+
+          <!-- dropdown for users -->
+          <form class='form-inline'>
+            <div class='form-group'>
+              <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember' ng-change=''></select>
+            </div>
+          </form>
+
+
         </div>
         <div>
           <h4>Activity</h4>

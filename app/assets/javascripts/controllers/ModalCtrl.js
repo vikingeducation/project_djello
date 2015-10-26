@@ -1,8 +1,10 @@
 djello.controller('ModalController',
-  ['$scope', '$window', 'card', 'close', 'cardService',
-  function($scope, $window, card, close, cardService) {
+  ['$scope', '$window', 'card', 'close', 'cardService', 'userService',
+  function($scope, $window, card, close, cardService, userService) {
 
   $scope.card = card;
+  $scope.members = card.members;
+  $scope.users = userService.excluding($scope.members);
 
   $scope.close = function(result) {
     if (result === 'Completed' &&
