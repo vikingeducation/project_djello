@@ -4,6 +4,8 @@ djello.controller('ModalController',
 
   $scope.card = card;
   $scope.members = card.members;
+  console.log($scope.members);
+  // need id's to exclude
   $scope.users = userService.excluding($scope.members);
 
   $scope.close = function(result) {

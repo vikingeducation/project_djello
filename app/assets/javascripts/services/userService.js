@@ -9,9 +9,11 @@ djello.factory('userService', function() {
 
 
     userService.excluding = function(excludedUsers) {
-      return this.users.filter( function(u) {
-        return excludedUsers.indexOf(u) < 0;
+      var ids = excludedUsers.map( function(user) { return user.id } )
+      var output = this.users.filter( function(u) {
+        return ids.indexOf(u.id) < 0;
       });
+      return output;
     };
 
 
