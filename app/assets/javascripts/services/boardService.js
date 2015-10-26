@@ -78,6 +78,14 @@ djello.factory('boardService',
     };
 
 
+    boardService.addMember = function(response) {
+      var board = boardService.active;
+      var list = listService.findByID(board, response.card.list_id);
+      list['members'] = list.members || [];
+      list.members.push(response.member);
+    }
+
+
     return boardService;
 
 }]);

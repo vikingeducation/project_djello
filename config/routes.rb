@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :boards, :only => [:index, :show, :create, :update, :destroy]
     resources :lists, :only => [:create, :update, :destroy]
     resources :cards, :only => [:create, :update, :destroy]
-    resources :card_members, :only => [:create]
+    resources :card_members, :only => [:create, :destroy]
   end
 
   # Example of regular route:
