@@ -21,9 +21,9 @@
           </div>
 
           <!-- dropdown for users -->
-          <form class='form-inline'>
+          <form name='newMemberForm' class='form-inline' ng-submit='addMember()'>
             <div class='form-group'>
-              <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember' ng-change=''></select>
+              <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember.member_id'></select>
               <input type='submit' value='Add' class='btn btn-primary'>
             </div>
           </form>

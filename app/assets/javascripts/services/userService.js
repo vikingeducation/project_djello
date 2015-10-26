@@ -1,4 +1,6 @@
-djello.factory('userService', function() {
+djello.factory('userService',
+  ['Restangular',
+  function(Restangular) {
 
     var userService = {};
     userService.users = [];
@@ -17,6 +19,11 @@ djello.factory('userService', function() {
     };
 
 
+    userService.create = function(card_member) {
+      return Restangular.all('card_members').post( card_member )
+    };
+
+
     return userService;
 
-})
+}])
