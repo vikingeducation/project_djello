@@ -97,7 +97,7 @@ djello.factory('boardService',
       card.card_members = card.card_members.filter( function(obj) {
         return obj.id !== card_member.id
       });
-      // needs refresh for modal
+
       // may need refresh for main screen
     }
 
