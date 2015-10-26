@@ -21,10 +21,21 @@ djello.controller('ModalController',
 
   $scope.removeMember = function(card_member) {
     userService.removeMember(card_member)
-      .then( function() {
-        console.log('removed');
+      .then( function(response) {
+        // includes card and member in response
+        boardService.removeMember(response);
+
+        $scope.dropScopeMember(response.id);
       });
-  }
+  };
+
+
+  $scope.dropScopeMember = function(id) {
+    $scope.card_members = $scope.card_members.filter( function(member) {
+      return (member.id !== Number(id))
+    });
+    $scope.users = userService.excluding($scope.card_members);
+  };
 
 
   $scope.close = function(result) {

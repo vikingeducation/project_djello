@@ -26,7 +26,7 @@ class CardMembersController < ApplicationController
     if @card_member.destroy
       flash.now[:success] = 'Member removed!'
       respond_to do |format|
-        format.json { render :nothing => :true, :status => 204 }
+        format.json { render json: @card_member.to_json(:include => [:card, :member]), :status => 200 }
       end
     else
       flash.now[:danger] = 'Sorry, there was an error. Please try again.'
@@ -50,7 +50,7 @@ class CardMembersController < ApplicationController
       if card_member
         card = card_member.card
       else
-        card = Card.find_by_id(params[:card_id])
+        card = Card.find_by_id(params[:card_member][:card_id])
       end
 
       list = card.list
