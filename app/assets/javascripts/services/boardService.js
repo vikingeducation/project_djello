@@ -81,10 +81,11 @@ djello.factory('boardService',
     boardService.addMember = function(response) {
       var board = boardService.active;
       var list = listService.findByID(board, response.card.list_id);
-      // i think this isn't working - card_members not members
-      // probably still works if empty, but not if currently have card_members
-      list['members'] = list.members || [];
-      list.members.push(response.member);
+      var card = boardService.findCardByID(list, response.card.id);
+
+      card['card_members'] = card.card_members || [];
+      card.card_members.push(response);
+
       // may need refresh for main screen
     };
 

@@ -12,7 +12,7 @@ djello.controller('ModalController',
     userService.create($scope.newMember)
       .then( function(response) {
         boardService.addMember(response)
-        $scope.card_members.push(response);
+        $scope.card_members = card.card_members;
         $scope.users = userService.excluding($scope.card_members);
       })
     $scope.newMember = {};
