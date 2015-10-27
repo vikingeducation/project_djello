@@ -6,4 +6,21 @@ class Card < ActiveRecord::Base
 
   validates :title, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
+
+  after_create :log_card_created
+  after_update :log_card_updated
+  # after_update, save card_activity with modification...
+  # ...(title: 'New title')
+  # ...(description: 'New description')
+  # ...(completed: true)
+
+
+  protected
+
+    def log_card_created
+    end
+
+    def log_card_updated
+    end
+
 end
