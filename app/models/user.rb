@@ -11,4 +11,6 @@ class User < ActiveRecord::Base
 
   has_many :card_members, :foreign_key => :member_id
   has_many :assigned_cards, :through => :card_members, :source => :card
+  has_many :assigned_lists, :through => :assigned_cards, :source => :list
+  has_many :assigned_boards, :through => :assigned_lists, :source => :board
 end

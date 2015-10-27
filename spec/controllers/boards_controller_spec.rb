@@ -15,19 +15,55 @@ RSpec.describe BoardsController, type: :controller do
     sign_in user
   end
 
+
   describe 'GET #index' do
 
-    before do
-      get :index, format: :json
+    context "with only user owned boards" do
+
+      before do
+        get :index, format: :json
+      end
+
+      it 'should return a collection of boards' do
+        expect(json).to be_an(Array)
+      end
+
+      it "should return all of a user's boards" do
+        expect(json.count).to eq(user.boards.count)
+      end
+
+      it { should respond_with(200) }
+
+      it "should include the boards' lists" do
+        expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => {:include => { :card_members => {:include => :member } } } } )))
+      end
+
+      it "should include related cards" do
+        expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => { :card_members => {:include => :member } }) ))
+      end
+
+      it "should include members assigned to cards" do
+        expect(json[0]["lists"][0]["cards"][0]["card_members"]).to eq(JSON.parse(members.to_json(:include => :member)))
+      end
+
     end
 
-    it 'should return a collection of boards' do
-      expect(json).to be_an(Array)
+
+    context "with assigned board from another user" do
+
+      let!(:assigned_card) { create(:card) }
+
+      before do
+        user.assigned_cards.push(assigned_card)
+        get :index, format: :json
+      end
+
+      it "should include assigned boards even if there's another owner" do
+        expect(json.count).to eq(user.boards.count + user.assigned_boards.count)
+      end
+
     end
 
-    it "should return all of a user's boards" do
-      expect(json.count).to eq(user.boards.count)
-    end
 
     # need to think of a better way to test this
     # it "should not include another user's board" do
@@ -35,21 +71,8 @@ RSpec.describe BoardsController, type: :controller do
     #   expect(json).not_to include(other_board)
     # end
 
-    it { should respond_with(200) }
-
-    it "should include the boards' lists" do
-      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => {:include => { :card_members => {:include => :member } } } } )))
-    end
-
-    it "should include related cards" do
-      expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => { :card_members => {:include => :member } }) ))
-    end
-
-    it "should include members assigned to cards" do
-      expect(json[0]["lists"][0]["cards"][0]["card_members"]).to eq(JSON.parse(members.to_json(:include => :member)))
-    end
-
   end
+
 
 
   describe 'GET #show' do

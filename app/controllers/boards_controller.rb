@@ -5,6 +5,7 @@ class BoardsController < ApplicationController
 
   def index
     @boards = current_user.boards.all
+    @boards.concat(current_user.assigned_boards)
 
     respond_to do |format|
       format.json { render json: @boards.to_json(

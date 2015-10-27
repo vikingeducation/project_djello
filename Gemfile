@@ -62,6 +62,7 @@ end
 
 
 group :development do
+  gem 'faker'
   gem 'better_errors'
   gem 'guard-rspec', require: false
 end
