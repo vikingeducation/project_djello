@@ -4,7 +4,7 @@ class CardActivity < ActiveRecord::Base
 
 
   def message
-    
+    self.user.username + self.action
   end
 
 end
