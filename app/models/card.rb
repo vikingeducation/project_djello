@@ -26,7 +26,17 @@ class Card < ActiveRecord::Base
 
     def log_card_updated
       user = self.list.board.owner
-      self.card_activities.create(user_id: user.id, action: 'card updated')
+
+      if self.title_changed?
+        action = 'title updated'
+      elsif self.description_changed?
+        action = 'description updated'
+      elsif self.completed_changed?
+        action = "completed updated to #{self.completed}"
+      end
+
+      self.card_activities.create(user_id: user.id, action: action)
+
     end
 
 end

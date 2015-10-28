@@ -39,11 +39,11 @@ RSpec.describe BoardsController, type: :controller do
       end
 
       it "should include the boards' lists" do
-        expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => {:include => [:card_activities, { :card_members => {:include => :member } }] } } )))
+        expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => {:include => [{:card_activities => {:methods => :message}}, { :card_members => {:include => :member } }] } } )))
       end
 
       it "should include related cards" do
-        expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => [:card_activities, { :card_members => {:include => :member } }]) ))
+        expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => [{:card_activities => {:methods => :message}}, { :card_members => {:include => :member } }]) ))
       end
 
       it "should include members assigned to cards" do
@@ -51,7 +51,7 @@ RSpec.describe BoardsController, type: :controller do
       end
 
       it "should include activity on cards" do
-        expect(json[0]["lists"][0]["cards"][0]["card_activities"]).to eq(JSON.parse(cards.first.card_activities.to_json))
+        expect(json[0]["lists"][0]["cards"][0]["card_activities"]).to eq(JSON.parse(cards.first.card_activities.to_json(:methods => :message)))
       end
 
     end

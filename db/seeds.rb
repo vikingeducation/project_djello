@@ -31,14 +31,14 @@ end
 
 User.all.each do |user|
   rand(4).times do
-    user.boards.create(:title => Faker::Lorem.sentence(2, true, 3))
+    user.boards.create(:title => Faker::Lorem.sentence(2, true, 3).chomp('.'))
   end
 end
 
 
 Board.all.each do |board|
   (rand(2) + 1).times do
-    board.lists.create( :title => Faker::Lorem.sentence(2, true, 3),
+    board.lists.create( :title => Faker::Lorem.sentence(2, true, 3).chomp('.'),
                         :description => Faker::Lorem.sentence(3, true, 6))
   end
 end
@@ -46,7 +46,7 @@ end
 
 List.all.each do |list|
   (rand(4) + 2).times do
-    c = list.cards.create(:title => Faker::Lorem.sentence(3, true, 5),
+    c = list.cards.create(:title => Faker::Lorem.sentence(3, true, 5).chomp('.'),
                           :description => Faker::Lorem.sentence(3, true, 7))
     c.members = User.all.sample(rand(3))
   end
