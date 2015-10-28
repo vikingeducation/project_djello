@@ -1,45 +1,61 @@
 <div class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
+
       <div class="modal-header">
+
         <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+
         <h3 class="modal-title">
           <div click-to-edit="card.title" id='card.id' model="cards" attribute="title"></div>
         </h3>
+
       </div>
+
+
       <div class="modal-body">
+
         <div class="modal-body-section">
           <p>
             <div click-to-edit="card.description" id='card.id' model="cards" attribute="description"></div>
           </p>
         </div>
-        <div>
 
-          <h4>Members</h4>
-          <div ng-repeat='card_member in card_members'>
-            <div class='row'>
-              <p class='col-xs-8'>{{ card_member.member.email }}</p>
-              <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
-            </div>
+
+        <h4>Members</h4>
+        <div ng-repeat='card_member in card_members'>
+          <div class='row'>
+            <p class='col-xs-8'>{{ card_member.member.email }}</p>
+            <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
           </div>
-
-          <!-- dropdown for users -->
-          <form name='newMemberForm' class='form-inline' ng-submit='addMember()'>
-            <div class='form-group'>
-              <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember.member_id'></select>
-              <input type='submit' value='Add' class='btn btn-primary'>
-            </div>
-          </form>
-
-
         </div>
-        <div>
-          <h4>Activity</h4>
+
+        <!-- dropdown for users -->
+        <form name='newMemberForm' class='form-inline' ng-submit='addMember()'>
+          <div class='form-group'>
+            <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember.member_id'></select>
+            <input type='submit' value='Add' class='btn btn-primary'>
+          </div>
+        </form>
+
+
+        <h4>Activity</h4>
+        <div ng-repeat='card_activity in card.card_activities'>
+          <div class='row'>
+            <p class='col-xs-8'>{{ card_member.member.email }}</p>
+            <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
+          </div>
         </div>
+
+
+
       </div>
+
+
       <div class="modal-footer">
         <button type="button" ng-click="close('Completed')" class="btn btn-primary" data-dismiss="modal">Mark Completed</button>
       </div>
+
     </div>
   </div>
 </div>

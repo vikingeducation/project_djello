@@ -34,16 +34,24 @@ RSpec.describe BoardsController, type: :controller do
 
       it { should respond_with(200) }
 
+      it "should include the boards' owners" do
+        expect(json[0]["owner"]).to eq(JSON.parse(user.to_json))
+      end
+
       it "should include the boards' lists" do
-        expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => {:include => { :card_members => {:include => :member } } } } )))
+        expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => {:include => [:card_activities, { :card_members => {:include => :member } }] } } )))
       end
 
       it "should include related cards" do
-        expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => { :card_members => {:include => :member } }) ))
+        expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => [:card_activities, { :card_members => {:include => :member } }]) ))
       end
 
       it "should include members assigned to cards" do
         expect(json[0]["lists"][0]["cards"][0]["card_members"]).to eq(JSON.parse(members.to_json(:include => :member)))
+      end
+
+      it "should include activity on cards" do
+        expect(json[0]["lists"][0]["cards"][0]["card_activities"]).to eq(JSON.parse(cards.first.card_activities.to_json))
       end
 
     end

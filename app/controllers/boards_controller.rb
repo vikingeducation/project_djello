@@ -9,11 +9,18 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @boards.to_json(
-        :include => {:lists => {
-          :include => {:cards => {
-            :include => {:card_members => {
-              :include => :member
-            } } } } } } ), :status => 200 }
+        :include => [:owner,
+                      {:lists => {
+                        :include => {:cards => {
+                          :include => [:card_activities,
+                                      {:card_members => {
+                                        :include => :member
+                                      }}
+                          ]
+                        }}
+                      }}
+                    ]
+        ), :status => 200 }
     end
   end
 
