@@ -2,7 +2,7 @@ djello.directive('card',
   ['ModalService',
   function(ModalService) {
 
-  var cardCtrl = function($scope) {
+  var cardCtrl = ['$scope', function($scope) {
 
     $scope.openModal = function(card) {
       ModalService.showModal({
@@ -19,7 +19,7 @@ djello.directive('card',
       });
     };
 
-  }
+  }];
 
   return {
     templateUrl: '/templates/cards/directives/card.html',
