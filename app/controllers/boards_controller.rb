@@ -12,7 +12,9 @@ class BoardsController < ApplicationController
         :include => [:owner,
                       {:lists => {
                         :include => {:cards => {
-                          :include => [:card_activities,
+                          :include => [{:card_activities => {
+                                        :methods => :message
+                                      }},
                                       {:card_members => {
                                         :include => :member
                                       }}

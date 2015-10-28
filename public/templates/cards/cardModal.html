@@ -42,8 +42,7 @@
         <h4>Activity</h4>
         <div ng-repeat='card_activity in card.card_activities'>
           <div class='row'>
-            <p class='col-xs-8'>{{ card_member.member.email }}</p>
-            <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
+            <p class='col-xs-12'>{{ card_activity.action }}</p>
           </div>
         </div>
 

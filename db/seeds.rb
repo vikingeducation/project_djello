@@ -8,8 +8,9 @@
 
 
 
-Card.delete_all
 CardMember.delete_all
+CardActivity.delete_all
+Card.delete_all
 List.delete_all
 Board.delete_all
 User.delete_all
@@ -17,12 +18,14 @@ User.delete_all
 
 User.create(:email => 'foobar@foo.com',
             :password => 'password',
-            :password_confirmation => 'password')
+            :password_confirmation => 'password',
+            :username => 'foobar')
 
 5.times do
   User.create(:email => Faker::Internet.email,
               :password => 'password',
-              :password_confirmation => 'password')
+              :password_confirmation => 'password',
+              :username => Faker::Internet.user_name)
 end
 
 
