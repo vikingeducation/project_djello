@@ -4,7 +4,11 @@ class CardActivity < ActiveRecord::Base
 
 
   def message
-    user.username + " " + write_action
+    actor = user
+    if action.include?('member')
+      actor = card.list.board.owner
+    end
+    "#{actor.username} " + write_action
   end
 
 

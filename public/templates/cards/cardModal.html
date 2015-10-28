@@ -40,9 +40,11 @@
 
 
         <h4>Activity</h4>
-        <div ng-repeat='card_activity in card.card_activities'>
+        <div ng-repeat="card_activity in card.card_activities | orderBy:'card_activity.created_at':reverse">
           <div class='row'>
-            <p class='col-xs-12'>{{ card_activity.message }}</p>
+            <p class='col-xs-12'>
+              {{ card_activity.message }} <span class='text-muted'>on {{ card_activity.created_at | date:'yyyy-MM-dd HH:mm:ss Z' }}</span>
+            </p>
           </div>
         </div>
 

@@ -16,6 +16,7 @@ djello.controller('ModalController',
         $scope.users = userService.excluding($scope.card_members);
       })
     $scope.newMember = {};
+    // need to dynamically update Activity
   };
 
 
