@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -37,6 +38,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 
+gem 'faker'
 gem 'binding_of_caller'
 
 gem 'devise'
@@ -62,7 +64,6 @@ end
 
 
 group :development do
-  gem 'faker'
   gem 'better_errors'
   gem 'guard-rspec', require: false
 end
