@@ -14,7 +14,7 @@ class CardMember < ActiveRecord::Base
     end
 
     def log_member_removed
-      user = self.log_member_removed
+      user = self.member
       self.card.card_activities.create(user_id: user.id, action: 'member removed')
     end
 

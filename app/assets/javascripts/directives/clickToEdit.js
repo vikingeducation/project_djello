@@ -20,6 +20,9 @@ djello.directive("clickToEdit", function() {
       $scope.enableEditor = function() {
         $scope.view.editorEnabled = true;
         $scope.view.editableValue = $scope.value;
+        // focus on div_class='click-to-edit' >> input
+        //console.log($('.click-to-edit input:visible')[0]);
+        //$('.click-to-edit input:visible').focus();
       };
 
       $scope.disableEditor = function() {
