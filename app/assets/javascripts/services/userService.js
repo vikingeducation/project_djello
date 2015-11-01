@@ -4,10 +4,12 @@ djello.factory('userService',
 
     var userService = {};
     userService.users = [];
+    userService.current_user = {};
 
 
     userService.setUsers = function(users) {
       this.users = users;
+      this.current_user = users[0];
     };
 
 

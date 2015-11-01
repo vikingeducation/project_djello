@@ -25,7 +25,7 @@
 
       <div class='row'>
         <div class='col-xs-12'>
-          <a href ng-click='destroy(board)'>Delete Board</a>
+          <a href ng-if='boardOwner()' ng-click='destroy(board)'>Delete Board</a>
           <a href ng-click='createBoard()'>New Board</a>
         </div>
       </div>

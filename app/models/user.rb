@@ -19,4 +19,9 @@ class User < ActiveRecord::Base
     self.boards.all.concat(self.assigned_boards).uniq
   end
 
+
+  def self.all_other_users(current_user)
+    User.where('id <> ?', current_user.id)
+  end
+
 end

@@ -21,6 +21,11 @@ djello.controller('BoardsCtrl',
     };
 
 
+    $scope.boardOwner = function() {
+      return (userService.current_user.id === $scope.board.owner.id)
+    }
+
+
     $scope.createBoard = function() {
       Restangular.all('boards').post()
         .then( function(response) {
