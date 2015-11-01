@@ -4,4 +4,5 @@ class Board < ActiveRecord::Base
   has_many :cards, :through => :lists
 
   validates :title, presence: true, allow_blank: false
+
 end

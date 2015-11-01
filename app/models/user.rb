@@ -13,4 +13,10 @@ class User < ActiveRecord::Base
   has_many :assigned_cards, :through => :card_members, :source => :card
   has_many :assigned_lists, :through => :assigned_cards, :source => :list
   has_many :assigned_boards, :through => :assigned_lists, :source => :board
+
+
+  def all_active_boards
+    self.boards.all.concat(self.assigned_boards).uniq
+  end
+
 end
