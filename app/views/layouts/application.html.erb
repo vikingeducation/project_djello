@@ -18,7 +18,8 @@
 
     <% if current_user %>
       <%= menu_group :pull => :right do %>
-        <%= menu_text "Welcome, #{current_user.username}!" %>
+        <%= menu_item "Welcome, #{current_user.username}!" %>
+        <li><%= image_tag('profile_photo_default.png', size: "50", class: "img img-thumbnail") %></li>
         <%= menu_item "logout", destroy_user_session_path, :method => :delete %>
       <% end %>
     <% end %>

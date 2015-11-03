@@ -40,7 +40,7 @@
 
 
         <h4>Activity</h4>
-        <div ng-repeat="card_activity in card.card_activities | enableSort | orderBy:'-created_at'">
+        <div ng-repeat="card_activity in card.card_activities | orderBy:'-created_at'">
           <div class='row'>
             <p class='col-xs-12'>
               {{ card_activity.message }} <span class='text-muted'>on {{ card_activity.created_at | date }}</span>

@@ -40,6 +40,7 @@
 
   <div class='row'>
 
+    <!-- don't need enableSort??? -->
     <div class='col-sm-4' ng-repeat="list in board['lists'] | enableSort | orderBy:'id'">
       <list list='list' delete-list='deleteList(list)' create-card='createCard(list)'></list>
     </div>

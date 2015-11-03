@@ -65,6 +65,7 @@ djello.controller('BoardsCtrl',
       if ($window.confirm("Delete this list?")) {
         Restangular.one('lists', list.id).remove()
           .then( function() {
+            // should be able to get rid of this
             $scope.lists = boardService.removeList(list);
         })
       };
