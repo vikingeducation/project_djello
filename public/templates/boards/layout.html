@@ -6,7 +6,17 @@
       <h1>
         <div click-to-edit="board.title" id='board.id' model="boards" attribute="title"></div>
       </h1>
-      <p><em>Board owner: {{ board.owner.username }}</em></p>
+
+      <div class='row'>
+        <div class='col-xs-2'>
+          <p><em>Board Owner:</em></p>
+        </div>
+        <div class='col-xs-10'>
+          <img ng-src="/profile_photo_default.png" class='img img-thumbnail' width='42'>
+          <p>{{ board.owner.username }}</p>
+        </div>
+      </div>
+
     </div>
 
     <div class='col-sm-6 text-right'>
