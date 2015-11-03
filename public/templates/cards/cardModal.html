@@ -25,7 +25,11 @@
         <h4>Members</h4>
         <div ng-repeat='card_member in card_members'>
           <div class='row'>
-            <p class='col-xs-8'>{{ card_member.member.username }}</p>
+            <div class='col-xs-8'>
+              <img ng-src="/profile_photo_default.png" class='img img-thumbnail pull-left' width='42'>
+              <p>{{ card_member.member.username }}</p>
+            </div>
+
             <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
           </div>
         </div>
