@@ -5,18 +5,8 @@
     <div class='col-sm-6'>
       <h1>
         <div click-to-edit="board.title" id='board.id' model="boards" attribute="title"></div>
+        <small>Owner: {{ board.owner.username }}</small>
       </h1>
-
-      <div class='row'>
-        <div class='col-xs-2'>
-          <p><em>Board Owner:</em></p>
-        </div>
-        <div class='col-xs-10'>
-          <img ng-src="/profile_photo_default.png" class='img img-thumbnail' width='42'>
-          <p>{{ board.owner.username }}</p>
-        </div>
-      </div>
-
     </div>
 
     <div class='col-sm-6 text-right'>
@@ -35,8 +25,10 @@
 
       <div class='row'>
         <div class='col-xs-12'>
-          <a href ng-if='boardOwner()' ng-click='destroy(board)'>Delete Board</a>
-          <a href ng-click='createBoard()'>New Board</a>
+          <ul class='list-inline'>
+            <li><a href ng-if='boardOwner()' ng-click='destroy(board)'>Delete Board</a></li>
+            <li><a href ng-click='createBoard()'>New Board</a></li>
+          </ul>
         </div>
       </div>
 
