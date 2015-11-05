@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+SEED_MULTIPLIER = 3
 
 
 CardMember.delete_all
@@ -21,37 +22,50 @@ User.create(:email => 'foobar@foo.com',
             :password_confirmation => 'password',
             :username => 'foobar')
 
-5.times do
+(5 * SEED_MULTIPLIER).times do
   User.create(:email => Faker::Internet.email,
               :password => 'password',
               :password_confirmation => 'password',
-              :username => Faker::Internet.user_name)
+              :username => Faker::Internet.user_name,
+              :created_at => rand(20160).minutes.ago)
 end
 
 
 User.all.each do |user|
   rand(4).times do
-    sleep(1)
-    user.boards.create(:title => Faker::Lorem.sentence(2, true, 3).chomp('.'))
+    user.boards.create( :title => Faker::Lorem.sentence(2, true, 3).chomp('.'),
+                        :created_at => rand(Time.now - user.created_at).seconds.ago)
   end
 end
 
 
 Board.all.each do |board|
   (rand(2) + 1).times do
-    sleep(1)
     board.lists.create( :title => Faker::Lorem.sentence(2, true, 3).chomp('.'),
-                        :description => Faker::Lorem.sentence(3, true, 6))
+                        :description => Faker::Lorem.sentence(3, true, 6),
+                        :created_at => rand(Time.now - board.created_at).seconds.ago)
   end
 end
 
 
 List.all.each do |list|
-  sleep(1)
   (rand(4) + 2).times do
-    c = list.cards.create(:title => Faker::Lorem.sentence(3, true, 5).chomp('.'),
-                          :description => Faker::Lorem.sentence(3, true, 7))
-    sleep(1)
-    c.members = User.all.sample(rand(3))
+    list.cards.create(:title => Faker::Lorem.sentence(3, true, 5).chomp('.'),
+                      :description => Faker::Lorem.sentence(3, true, 7),
+                      :created_at => rand(Time.now - list.created_at).seconds.ago)
+  end
+end
+
+
+Card.all.each do |card|
+  (rand(2) + 1).times do
+    u = User.all.sample
+    action_time = rand(Time.now - [u.created_at, card.created_at].max).seconds.ago
+
+    card.card_members.create( :member_id => u.id,
+                              :created_at => action_time)
+    activity = card.card_activities.last
+    activity.created_at = action_time
+    activity.save!
   end
 end
