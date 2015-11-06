@@ -20,15 +20,21 @@ User.delete_all
 User.create(:email => 'foobar@foo.com',
             :password => 'password',
             :password_confirmation => 'password',
-            :username => 'foobar')
+            :username => 'foobar',
+            :created_at => 30.days.ago)
 
 (5 * SEED_MULTIPLIER).times do
   User.create(:email => Faker::Internet.email,
               :password => 'password',
               :password_confirmation => 'password',
               :username => Faker::Internet.user_name,
-              :created_at => rand(20160).minutes.ago)
+              :created_at => rand(30).days.ago)
 end
+
+
+# guarantees that foobar has at least 1 board
+User.first.boards.create( :title => Faker::Lorem.sentence(2, true, 3).chomp('.'),
+                          :created_at => rand(Time.now - User.first.created_at).seconds.ago)
 
 
 User.all.each do |user|
