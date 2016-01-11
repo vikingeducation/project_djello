@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular.min
+//= require angular-ui-router.min
+//= require underscore
+//= require restangular
+//= require bootstrap.min
 //= require_tree .
