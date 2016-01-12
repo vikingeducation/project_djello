@@ -1,0 +1,20 @@
+$color1: #583f35; //rgba(88, 63, 53, 100)
+$color2: #6b4953; //rgba(107, 73, 83, 100)
+$color3: #7e7688; //rgba(126, 118, 136, 100)
+$color4: #8386b5; //rgba(131, 134, 181, 100)
+$color5: #9ee3f6; //rgba(158, 227, 246, 100)
+
+.board {
+	background-color: $color5;
+	height: 100px;
+	border-radius: 3px;
+
+	h3 {
+		text-align: center;
+		padding: 10px 0 0;
+	}
+
+	a {
+		color: $color1;
+	}
+}

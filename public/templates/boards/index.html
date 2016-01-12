@@ -1,0 +1,11 @@
+<h2>Boards Index!</h2>
+
+<div class="row">
+	<section id="boards-wrapper" class="col-sm-12">
+		<div class="board-wrapper col-sm-3" ng-repeat="board in boards">
+			<div class="board">
+				<h3><a ui-sref="boards.show({ id: {{ board.id }} })">{{ board.name }}</a></h3>
+			</div>
+		</div>
+	</section>
+</div>
