@@ -32,11 +32,43 @@ var app = angular.module('djello', ['ui.router', 'restangular'])
 				board: ['Restangular', '$stateParams',
 					function(Restangular, $stateParams){
 						return Restangular.one('boards', $stateParams.id).get();
+				}],
+				lists: ['Restangular', '$stateParams',
+					function(Restangular, $stateParams){
+						return Restangular.all('lists').getList({board_id: $stateParams.id});
+				}],
+				cards: ['Restangular', '$stateParams',
+					function(Restangular, $stateParams){
+						return Restangular.all('cards').getList({board_id: $stateParams.id});
 				}]
 			}
 		})
 
-	$urlRouterProvider.otherwise('/boards');
+		.state('boards.list',{
+			url: '/show/:id/list',
+			templateUrl: 'templates/lists/layout.html',
+			controller: 'ListsCtrl',
+		})
+
+		.state('boards.list.new',{
+			url: '/new',
+			templateUrl: 'templates/lists/_new.html',
+			controller: 'ListsNewCtrl',
+		})
+
+		.state('boards.card',{
+			url: '/show/:id/list/:list_id/card',
+			templateUrl: 'templates/cards/layout.html',
+			controller: 'CardCtrl'
+		})
+
+		.state('boards.card.new',{
+			url: '/new',
+			templateUrl: 'templates/cards/new.html',
+			controller: 'CardNewCtrl'
+		})
+
+	$urlRouterProvider.otherwise('/boards/index');
 }])
 
 .run(function($rootScope){

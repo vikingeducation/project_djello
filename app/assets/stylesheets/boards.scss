@@ -18,3 +18,25 @@ $color5: #9ee3f6; //rgba(158, 227, 246, 100)
 		color: $color1;
 	}
 }
+
+#board-name {
+	font-size: 25px;
+	color: #888888;
+	border: 1px solid rgba(0,0,0,.2);
+	margin: 10px 0px;
+	padding: 0 10px;
+}
+
+a.add-new-button{
+	background-color: #ffffff;
+	border-radius: 5px;
+	color: #888888;
+	padding: 5px;
+	border: 1px dashed #ACACAC;
+	transition: background-color .75s;
+}
+
+a.add-new-button:hover{
+	background-color: #E8E8E8;
+	text-decoration: none;
+}
