@@ -17,4 +17,7 @@
 //= require underscore
 //= require restangular
 //= require bootstrap.min
+//= require textAngular-sanitize
+//= require textAngular-rangy.min
+//= require textAngular.min
 //= require_tree .

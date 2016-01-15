@@ -1,4 +1,4 @@
-var app = angular.module('djello', ['ui.router', 'restangular'])
+var app = angular.module('djello', ['ui.router', 'restangular', 'textAngular'])
 
 .config(['RestangularProvider', function(RestangularProvider){
 	RestangularProvider.setBaseUrl('/api/v1');
