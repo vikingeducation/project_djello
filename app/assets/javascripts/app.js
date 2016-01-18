@@ -68,6 +68,26 @@ var app = angular.module('djello', ['ui.router', 'restangular', 'textAngular'])
 			controller: 'CardNewCtrl'
 		})
 
+		.state('boards.card.show',{
+			url: '/show/:card_id',
+			templateUrl: 'templates/cards/show.html',
+			controller: 'CardShowCtrl',
+			resolve: {
+				board: ['Restangular', '$stateParams',
+					function(Restangular, $stateParams){
+						return Restangular.one('boards', $stateParams.id).get();
+				}],
+				list: ['Restangular', '$stateParams',
+					function(Restangular, $stateParams){
+						return Restangular.one('lists', $stateParams.list_id).get();
+				}],
+				card: ['Restangular', '$stateParams',
+					function(Restangular, $stateParams){
+						return Restangular.one('cards', $stateParams.card_id).get();
+				}]
+			}
+		})
+
 	$urlRouterProvider.otherwise('/boards/index');
 }])
 

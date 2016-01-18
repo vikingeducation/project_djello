@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-	<section class="list-wrapper col-sm-2 text-center" ng-repeat="list in lists">
+	<section class="list-wrapper col-sm-3 text-center" ng-repeat="list in lists">
 		<div class="list">
 			<h2>{{ list.title }}</h2>
 			<p><em>{{ list.description }}</em></p>
@@ -16,9 +16,11 @@
 			<!-- Show Cards -->
 			<div class="row">
 				<section class="card-wrapper col-sm-12" ng-repeat="card in cards | filter: { list_id: list.id }">
-					<div class="card">
-						<p ng-bind-html="card.content"></p>
-					</div>
+					<a ui-sref="boards.card.show({ id: {{ board.id }}, list_id: {{ list.id }}, card_id: {{ card.id }} })">
+						<div class="card">
+							<p ng-bind-html="card.content"></p>
+						</div>
+					</a>
 				</section>
 			</div>
 			

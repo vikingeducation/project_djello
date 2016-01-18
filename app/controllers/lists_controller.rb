@@ -23,6 +23,15 @@ class ListsController < ApplicationController
 	end
 
 
+	def show
+		@list = List.find(params[:id])
+
+		respond_to do |format|
+			format.json { render json: @list.to_json(:include => {:board => { :include => :user } } ) }
+		end
+	end
+
+
 private
 
 	def list_params
