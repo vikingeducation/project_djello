@@ -32,6 +32,19 @@ class ListsController < ApplicationController
 	end
 
 
+	def destroy
+		@list = List.find(params[:id])
+
+		respond_to do |format|
+			if @list.destroy
+				format.json { render nothing: true }
+			else
+				format.json { render status: :unprocessable_entity }
+			end
+		end	
+	end
+
+
 private
 
 	def list_params

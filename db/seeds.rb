@@ -21,8 +21,11 @@ list_ids = List.all.pluck(:id)
 
 Card.destroy_all
 20.times do
+	u = User.last
+	l = List.find(list_ids.sample)
 	c = Card.new
-	c.list_id = list_ids.sample
+	c.list_id = l.id
 	c.content = Faker::Lorem.paragraph
+	c.activity = ["#{u.username} added this card to the #{l.title} list on <span class=\"card-date\">#{Time.now.strftime("%b %d, %Y")}</span>"].to_json
 	c.save!
 end

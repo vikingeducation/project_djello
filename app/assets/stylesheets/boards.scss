@@ -40,3 +40,19 @@ a.add-new-button:hover{
 	background-color: #E8E8E8;
 	text-decoration: none;
 }
+
+.remove-list-x {
+	position: absolute;
+	top: 5px;
+	right: 25px;
+}
+
+.remove-list-x a {
+	color: white;
+	transition: color .75s;
+}
+
+.remove-list-x a:hover {
+	text-decoration: none;
+	color: #333;
+}

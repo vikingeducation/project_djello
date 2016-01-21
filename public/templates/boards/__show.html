@@ -3,13 +3,18 @@
 		<input id="board-name" type="text" value="{{ board.name }}" ng-model="board.name" >
 	</div>
 	<div class="col-sm-12">
-		<a ui-sref="boards.list.new({ id: {{ board.id }} })">+Add New List</a>
+		<a ui-sref="boards.delete({ id: {{ board.id }} })"><i class="fa fa-minus-circle"></i> Delete Board</a>
 	</div>
 </div>
 
 <div class="row">
 	<section class="list-wrapper col-sm-3 text-center" ng-repeat="list in lists">
 		<div class="list">
+			
+			<div class="remove-list-x">
+				<a href="" ng-click="removeList(list.id)">&#10006;</a>
+			</div>
+
 			<h2>{{ list.title }}</h2>
 			<p><em>{{ list.description }}</em></p>
 			
@@ -31,4 +36,10 @@
 		</div>
 
 	</section>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<a ui-sref="boards.list.new({ id: {{ board.id }} })">+Add New List</a>
+	</div>
 </div>

@@ -23,13 +23,38 @@ class BoardsController < ApplicationController
 
 		respond_to do |format|
 			if @board.update(board_params)
-				# QUESTION: Ok now I'm getting a missing template error for my
-				# UPDATE, how is this happening?
 				format.json { render nothing: true }
 			else
 				format.json { render status: :unprocessable_entity }
 			end
 		end
+	end
+
+
+	def create
+		@board = Board.new(board_params)
+		@board.user_id = current_user.id
+
+		respond_to do |format|
+			if @board.save
+				format.json { render json: @board }
+			else
+				format.json { render status: :unprocessable_entity }
+			end
+		end	
+	end
+
+
+	def destroy
+		@board = Board.find(params[:id])
+
+		respond_to do |format|
+			if @board.destroy
+				format.json { render nothing: true }
+			else
+				format.json { render status: :unprocessable_entity }
+			end
+		end	
 	end
 
 

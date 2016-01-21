@@ -13,9 +13,20 @@ var app = angular.module('djello', ['ui.router', 'restangular', 'textAngular'])
 			templateUrl: '/templates/boards/layout.html',
 		})
 
+		.state('boards.new',{
+			url: '/new',
+			controller: 'BoardsNewCtrl',
+			templateUrl: '/templates/boards/new.html'
+		})
+
+		.state('boards.delete',{
+			url: '/delete/:id',
+			controller: 'BoardsDeleteCtrl'
+		})
+
 		.state('boards.index',{
 			url: '/index',
-			templateUrl: 'templates/boards/index.html',
+			templateUrl: 'templates/boards/_index.html',
 			controller: 'BoardsIndexCtrl',
 			resolve: {
 				boards: ['Restangular', function(Restangular){
@@ -26,7 +37,7 @@ var app = angular.module('djello', ['ui.router', 'restangular', 'textAngular'])
 
 		.state('boards.show',{
 			url: '/show/:id',
-			templateUrl: 'templates/boards/show.html',
+			templateUrl: 'templates/boards/__show.html',
 			controller: 'BoardsShowCtrl',
 			resolve: {
 				board: ['Restangular', '$stateParams',
@@ -68,9 +79,14 @@ var app = angular.module('djello', ['ui.router', 'restangular', 'textAngular'])
 			controller: 'CardNewCtrl'
 		})
 
+		.state('boards.card.delete',{
+			url: '/delete/:card_id',
+			controller: 'CardDeleteCtrl'
+		})
+
 		.state('boards.card.show',{
 			url: '/show/:card_id',
-			templateUrl: 'templates/cards/show.html',
+			templateUrl: 'templates/cards/__show.html',
 			controller: 'CardShowCtrl',
 			resolve: {
 				board: ['Restangular', '$stateParams',

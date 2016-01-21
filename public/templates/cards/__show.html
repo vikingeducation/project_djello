@@ -1,0 +1,29 @@
+<div class="row">
+	<section class="card-wrapper col-sm-8 col-sm-offset-2">
+		<h2 ng-bind-html="card.content | shortExcerpt"></h2>
+		<p class="meta">In List: <a ui-sref="boards.show({ id: {{ board.id }} })">{{ list.title }}</a> <a ui-sref="boards.card.delete({card_id: {{ card.id }} })" class="pull-right">Mark as Complete</a></p>
+		<hr>
+		<h3>Card Content:</h3>
+		<!-- Elements to show content and/or edit card -->
+		<p class="content" ng-if="!edit" ng-bind-html="card.content"></p>
+		<a href="" ng-click="edit = true" ng-show="!edit" >+ Edit card content</a>
+
+		<!-- Elements to show when editing card -->
+		<textarea name="content" class="form-control" ng-if="edit" ng-model="formData.content"></textarea>
+		<button class="btn btn-primary" ng-click="editCard()" ng-if="edit">Edit Card</button>
+			
+		<hr>
+		<h3>Members:</h3>
+		<p class="members"> Created by: {{ card.list.board.user.username }}</p>
+		<hr>
+		<h3>Activity ({{ activity.length }} items):</h3>
+		<ul class="activity-list" ng-repeat="item in activity track by $index">
+			<li ng-bind-html="item"></li>
+		</ul>
+		<!-- Debugging stuff.
+		<pre>{{ board }}</pre>
+		<pre>{{ list }}</pre>
+		<pre>{{ card }}</pre> -->
+	</section>
+</div>
+
