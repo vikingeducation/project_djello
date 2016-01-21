@@ -1,0 +1,58 @@
+$color1: #583f35; //rgba(88, 63, 53, 100)
+$color2: #6b4953; //rgba(107, 73, 83, 100)
+$color3: #7e7688; //rgba(126, 118, 136, 100)
+$color4: #8386b5; //rgba(131, 134, 181, 100)
+$color5: #9ee3f6; //rgba(158, 227, 246, 100)
+
+.board {
+	background-color: $color5;
+	height: 100px;
+	border-radius: 3px;
+
+	h3 {
+		text-align: center;
+		padding: 10px 0 0;
+	}
+
+	a {
+		color: $color1;
+	}
+}
+
+#board-name {
+	font-size: 25px;
+	color: #888888;
+	border: 1px solid rgba(0,0,0,.2);
+	margin: 10px 0px;
+	padding: 0 10px;
+}
+
+a.add-new-button{
+	background-color: #ffffff;
+	border-radius: 5px;
+	color: #888888;
+	padding: 5px;
+	border: 1px dashed #ACACAC;
+	transition: background-color .75s;
+}
+
+a.add-new-button:hover{
+	background-color: #E8E8E8;
+	text-decoration: none;
+}
+
+.remove-list-x {
+	position: absolute;
+	top: 5px;
+	right: 25px;
+}
+
+.remove-list-x a {
+	color: white;
+	transition: color .75s;
+}
+
+.remove-list-x a:hover {
+	text-decoration: none;
+	color: #333;
+}
