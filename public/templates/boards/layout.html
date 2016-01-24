@@ -1,0 +1,56 @@
+<div class='container'>
+
+  <div class='row'>
+
+    <div class='col-sm-6'>
+      <h1>
+        <div click-to-edit="board.title" id='board.id' model="boards" attribute="title"></div>
+        <small>Owner: {{ board.owner.username }}</small>
+      </h1>
+    </div>
+
+    <div class='col-sm-6 text-right'>
+
+
+      <form class='form-inline'>
+        <div class='form-group'>
+
+          <label for='board-select'>Select Board:</label>
+
+          <select class='form-control' ng-options="board.id as board.title for board in boards | orderBy: 'board.id'" ng-model='selected' ng-change='goTo(selected)'></select>
+
+        </div>
+      </form>
+
+
+      <div class='row'>
+        <div class='col-xs-12'>
+          <ul class='list-inline'>
+            <li><a href ng-if='boardOwner()' ng-click='destroy(board)'>Delete Board</a></li>
+            <li><a href ng-click='createBoard()'>New Board</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <!-- <div ui-view></div> -->
+
+
+  <div class='row'>
+
+    <!-- don't need enableSort??? -->
+    <div class='col-sm-4' ng-repeat="list in board['lists'] | enableSort | orderBy:'id'">
+      <list list='list' delete-list='deleteList(list)' create-card='createCard(list)'></list>
+    </div>
+
+    <div class='col-sm-4'>
+      <h3 class='text-center'><a href ng-click="createList()">Add a list</a></h3>
+    </div>
+
+  </div>
+
+</div>

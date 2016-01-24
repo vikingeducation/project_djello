@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Project Djello</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+
+
+<body ng-app='djello'>
+
+  <%= bootstrap_flash %>
+
+  <%= nav_bar :fixed => :top, :responsive => :true,
+              :brand => "Djello", :brand_link => root_path do %>
+
+    <% if current_user %>
+      <%= menu_group :pull => :right do %>
+        <%= menu_item "Welcome, #{current_user.username}!" %>
+        <li><%= image_tag('profile_photo_default.png', size: "50", class: "img img-thumbnail") %></li>
+        <%= menu_item "logout", destroy_user_session_path, :method => :delete %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+  <!-- need a spacer -->
+
+
+  <%= yield %>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h3 class="modal-title">
+          <div click-to-edit="card.title" id='card.id' model="cards" attribute="title"></div>
+        </h3>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <div class="modal-body-section">
+          <p>
+            <div click-to-edit="card.description" id='card.id' model="cards" attribute="description"></div>
+          </p>
+        </div>
+
+
+        <h4>Members</h4>
+        <div ng-repeat='card_member in card_members'>
+          <div class='row'>
+            <div class='col-xs-8'>
+              <img ng-src="/profile_photo_default.png" class='img img-thumbnail pull-left' width='42'>
+              <p>{{ card_member.member.username }}</p>
+            </div>
+
+            <a href class='col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
+          </div>
+        </div>
+
+        <!-- dropdown for users -->
+        <form name='newMemberForm' class='form-inline' ng-submit='addMember()'>
+          <div class='form-group'>
+            <select class='form-control' ng-options="user.id as user.username for user in users | orderBy: 'username'" ng-model='newMember.member_id'></select>
+            <input type='submit' value='Add' class='btn btn-primary'>
+          </div>
+        </form>
+
+
+        <h4>Activity</h4>
+        <div ng-repeat="card_activity in card.card_activities | orderBy:'-created_at'">
+          <div class='row'>
+            <p class='col-xs-12'>
+              {{ card_activity.message }} <span class='text-muted'>on {{ card_activity.created_at | date }}</span>
+            </p>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" ng-click="close('Completed')" class="btn btn-primary" data-dismiss="modal">Mark Completed</button>
+      </div>
+
+    </div>
+  </div>
+</div>

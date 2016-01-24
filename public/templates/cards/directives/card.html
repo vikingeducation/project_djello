@@ -1,0 +1,11 @@
+<div class='panel panel-default' ng-click="openModal(card)">
+  <div class='panel-body'>
+    <p>{{ card.title }}</p>
+
+    <!-- I want to replace this with thumbnails and a user name on hover -->
+    <div ng-repeat='card_member in card.card_members'>
+      <img ng-src="/profile_photo_default.png" class='img img-thumbnail pull-right' width='42'>
+      <p class='text-right'>{{ card_member.member.username }}</p>
+    </div>
+  </div>
+</div>
