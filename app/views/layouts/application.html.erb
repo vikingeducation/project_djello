@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="djello">
+<head>
+  <title>ProjectDjello</title>
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= bootstrap_flash %>
+
+<%= yield %>
+
+</body>
+</html>
