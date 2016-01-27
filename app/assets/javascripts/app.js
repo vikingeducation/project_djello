@@ -11,15 +11,31 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
   });
 
   // Routing
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/boards");
 
   $stateProvider
 
-    .state('angularTest', {
-      url: '',
-      templateUrl: '/templates/angular.html',
-      controller: function($scope) {
-        $scope.test = "hello, world!";
+    // .state('angularTest', {
+    //   url: '',
+    //   templateUrl: '/templates/angular.html',
+    //   controller: function($scope) {
+    //     $scope.test = "hello, world!";
+    //   }
+    // })
+
+    .state('boards', {
+      url: '/boards',
+      templateUrl: '/templates/boards/layout.html'
+    })
+
+    .state('boards.show', {
+      url: '/:id',
+      templateUrl: '/templates/boards/show.html',
+      controller: 'BoardsShowCtrl',
+      resolve: {
+        board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
+          return Restangular.one('boards', $stateParams.id).get();
+        }]
       }
     })
 
