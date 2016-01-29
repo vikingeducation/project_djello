@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BoardsController, type: :controller do
 
-  let(:board) { create(:board) }
+  let!(:board) { create(:board) }
+  let!(:lists) { create_list(:list, 3, board: board) }
   let(:user) { board.owner }
-  let(:other_board) { create(:board) }
+  let!(:other_board) { create(:board) }
   let(:json) { JSON.parse(response.body) }
 
   before do
@@ -26,6 +27,10 @@ RSpec.describe BoardsController, type: :controller do
     end
 
     it { should respond_with(200) }
+
+    it 'should include all lists associated with the board' do
+      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json))
+    end
 
   end
 
@@ -64,7 +69,7 @@ RSpec.describe BoardsController, type: :controller do
 
   describe 'POST #create' do
 
-    context 'with valid params' do
+    context 'without any params' do
 
       before do
         post :create, :format => :json, :board => attributes_for(:board)
@@ -78,16 +83,30 @@ RSpec.describe BoardsController, type: :controller do
         expect(Board.find(board.id).owner).to eq(user)
       end
 
+      it 'should set the title to default' do
+        expect(Board.find(board.id).title).to eq("New Board")
+      end
+
       it { should respond_with(:created) }
       it { should set_flash.now[:success].to(/created/) }
     end
 
-    context 'with invalid params' do
+    context 'with params' do
 
-      it 'should raise error' do
-        expect {
-          post :create, :format => :json, :board => attributes_for(:board, :title => nil)
-        }.to raise_error
+      before do
+        post :create, :format => :json, :board => attributes_for(:board, :title => "Custom Title")
+      end
+
+      it 'should save to the database' do
+        expect(Board.find(board.id)).to eq(board)
+      end
+
+      it 'should set the current user as owner' do
+        expect(Board.find(board.id).owner).to eq(user)
+      end
+
+      it 'should set the title to default' do
+        expect(Board.find(board.id).title).to eq("New Board")
       end
 
     end
@@ -104,7 +123,7 @@ RSpec.describe BoardsController, type: :controller do
       end
 
       it 'should remove the board from the database' do
-        expect{ Board.find(board.id) }.to raise_error;
+        expect{ Board.find(board.id) }.to raise_error(ActiveRecord::RecordNotFound);
       end
 
       it { should respond_with(204) }
@@ -120,8 +139,8 @@ RSpec.describe BoardsController, type: :controller do
       end
 
       it 'should not remove any boards from the database' do
-        expect{ Board.find(board.id) }.not_to raise_error;
-        expect{ Board.find(other_board.id) }.not_to raise_error;
+        expect{ Board.find(board.id) }.not_to raise_error
+        expect{ Board.find(other_board.id) }.not_to raise_error
       end
 
       it { should respond_with(401) }

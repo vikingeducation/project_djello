@@ -1,5 +1,44 @@
 <h1>Boards Layout</h1>
 
 <div class='container'>
-  <div ui-view></div>
+
+  <div class='row'>
+    <div class='col-xs-6'>
+      <div click-to-edit='board.title' id='board.id' model='boards' attribute='title'></div>
+    </div>
+
+    <div class='col-xs-6 text-right'>
+
+      <form class='form-inline'>
+        <div class='form-group'>
+
+          <label for='board-select'>Select Board:</label>
+
+          <select class='form-control' ng-options='board.id as board.title for board in boards' ng-model='selected' ng-change='findBoard(selected)'></select>
+
+        </div>
+      </form>
+
+      <div class='row'>
+        <div class='col-xs-12'>
+          <a class='pointer' ng-click='destroy(board)'>Delete Board</a>
+          <a class='pointer' ng-click='createBoard()'>New Board</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <div class='row'>
+
+    <div class='col-xs-4' ng-repeat='list in lists'>
+      <list list='list'></list>
+    </div>
+
+    <div class='col-xs-4'>
+      <h3 class='text-center'><a class='pointer' ng-click='createList()'>Add a list</a></h3>
+    </div>
+    
+  </div>
+
 </div>

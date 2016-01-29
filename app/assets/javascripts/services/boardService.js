@@ -6,15 +6,28 @@ djello.factory('boardService',
 
     boardService.boards = [];
 
-    boardService.getBoards = function() {
-      Restangular.all('boards').get()
-        // .then( function(response) {
-        //   boardService.boards = response;
-        // });
+    boardService.setBoards = function(boards) {
+      this.boards = boards;
     };
 
-    boardService.findById = function(id) {
+    boardService.first = function() {
+      return this.boards[0];
+    };
 
+    boardService.findByID = function(id) {
+      return this.boards.filter( function(board) {
+        return (board.id === Number(id))
+      })[0];
+    };
+
+    boardService.add = function(board) {
+      this.boards.push(board);
+    };
+
+    boardService.remove = function(toRemove) {
+      this.boards = this.boards.filter( function(board) {
+        return board.id !== toRemove.id
+      });
     };
 
     return boardService;

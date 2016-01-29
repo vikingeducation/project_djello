@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   root 'angular#index'
 
   scope 'api' do
-    resources :boards, :only => [:index, :show, :create, :destroy]
+    resources :boards, :only => [:index, :show, :create, :update, :destroy]
+    resources :lists, :only => [:create, :update]
   end
 
 end

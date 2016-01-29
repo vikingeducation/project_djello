@@ -26,6 +26,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
     .state('boards', {
       url: '/boards',
       templateUrl: '/templates/boards/layout.html',
+      controller: 'BoardsCtrl',
       resolve: {
         boards: ['Restangular', function(Restangular) {
           return Restangular.all('boards').getList();
@@ -33,16 +34,16 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
       }
     })
 
-    .state('boards.show', {
-      url: '/:id',
-      templateUrl: '/templates/boards/show.html',
-      controller: 'BoardsShowCtrl',
-      resolve: {
-        board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
-          return Restangular.one('boards', $stateParams.id).get();
-        }]
-      }
-    })
+    // .state('boards.show', {
+    //   url: '/:id',
+    //   templateUrl: '/templates/boards/show.html',
+    //   controller: 'BoardsCtrl',
+    //   resolve: {
+    //     board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
+    //       return Restangular.one('boards', $stateParams.id).get();
+    //     }]
+    //   }
+    // })
 
 }])
 

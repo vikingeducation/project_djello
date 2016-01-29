@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
     @boards = current_user.boards.all
 
     respond_to do |format|
-      format.json { render json: @boards.to_json, :status => 200 }
+      format.json { render json: @boards.to_json(:include => :lists), :status => 200 }
     end
 
   end
@@ -31,7 +31,7 @@ class BoardsController < ApplicationController
 
   def create
 
-    @board = current_user.boards.build(board_params)
+    @board = current_user.boards.build
 
     if @board.save
       flash.now[:success] = 'New board created successfully!'
@@ -42,6 +42,22 @@ class BoardsController < ApplicationController
       flash.now[:danger] = 'Board failed to be created'
       respond_to do |format|
         format.json { render nothing: true, :status => 422 }
+      end
+    end
+
+  end
+
+  def update
+
+    @board = Board.find_by_id(params[:id])
+
+    if @board.update(board_params)
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 200 }
+      end
+    else
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 422 }
       end
     end
 
