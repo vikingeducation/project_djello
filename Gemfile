@@ -38,9 +38,7 @@ gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 
 gem 'binding_of_caller'
-
 gem 'devise'
-
 gem 'twitter-bootstrap-rails'
 
 
@@ -49,23 +47,17 @@ group :development, :test do
   # gem 'byebug'
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
-  
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
-  
   gem 'factory_girl_rails'
-  
-  
 end
 
 group :development do
   gem 'better_errors'
   gem 'guard-rspec', require: false
   gem 'web-console', '~> 2.0'
+  gem 'faker'
 end
 
 group :production do
@@ -75,4 +67,5 @@ end
 group :test do 
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.0'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end

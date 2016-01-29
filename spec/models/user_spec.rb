@@ -7,5 +7,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:cards) }
   it { should have_many(:card_members).with_foreign_key('member_id') }
   it { should have_many(:assigned_cards).through(:card_members) }
+  it { should have_many(:assigned_lists).through(:assigned_cards) }
+  it { should have_many(:assigned_boards).through(:assigned_lists) }
   
 end

@@ -32,6 +32,8 @@ djello.controller('BoardsCtrl',
         $scope.boards = $scope.boards.filter( function(obj) {
           return obj.id !== board.id;
         });
+        boardService.remove(board);
+        $scope.initVariables();
       });
     };
 

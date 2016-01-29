@@ -15,14 +15,6 @@ var djello = angular.module('djello', ['ui.router', 'angularModalService', 'rest
 
   $stateProvider
 
-    // .state('angularTest', {
-    //   url: '',
-    //   templateUrl: '/templates/angular.html',
-    //   controller: function($scope) {
-    //     $scope.test = "hello, world!";
-    //   }
-    // })
-
     .state('boards', {
       url: '/boards',
       templateUrl: '/templates/boards/layout.html',
@@ -36,17 +28,6 @@ var djello = angular.module('djello', ['ui.router', 'angularModalService', 'rest
         }]
       }
     })
-
-    // .state('boards.show', {
-    //   url: '/:id',
-    //   templateUrl: '/templates/boards/show.html',
-    //   controller: 'BoardsCtrl',
-    //   resolve: {
-    //     board: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
-    //       return Restangular.one('boards', $stateParams.id).get();
-    //     }]
-    //   }
-    // })
 
 }])
 

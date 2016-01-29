@@ -70,8 +70,25 @@ djello.factory('boardService',
     boardService.addMember = function(response) {
       var board = boardService.active;
       var list = listService.findByID(board, response.card.list_id);
-      list['members'] = list.members || [];
-      list.members.push(response.member);
+      var card = boardService.findCardByID(list, response.card.id);
+
+      card['card_members'] = card.card_members || [];
+      card.card_members.push(response);
+    };
+
+    boardService.removeMember = function(card_member) {
+      var board = boardService.active;
+      var list = listService.findByID(board, card_member.card.list_id);
+      var card = boardService.findCardByID(list, card_member.card.id);
+      card.card_members = card.card_members.filter( function(obj) {
+        return obj.id !== card_member.id
+      });
+    };
+
+    boardService.findCardByID = function(list, card_id) {
+      return list.cards.filter( function(card) {
+        return (card.id === Number(card_id))
+      })[0];
     };
 
     return boardService;
