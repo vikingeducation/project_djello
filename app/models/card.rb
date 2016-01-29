@@ -1,7 +1,6 @@
-class List < ActiveRecord::Base
+class Card < ActiveRecord::Base
 
-  belongs_to :board
-  has_many :cards
+  belongs_to :list
 
   validates :title, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false

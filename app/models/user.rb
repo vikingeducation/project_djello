@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
 
   has_many :boards, :foreign_key => 'owner_id', :dependent => :nullify
   has_many :lists, :through => :boards
+  has_many :cards, :through => :lists
 
 end

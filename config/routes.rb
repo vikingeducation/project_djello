@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
   scope 'api' do
     resources :boards, :only => [:index, :show, :create, :update, :destroy]
-    resources :lists, :only => [:create, :update]
+    resources :lists, :only => [:create, :update, :destroy]
+    resources :cards, :only => [:create, :update, :destroy]
   end
 
 end

@@ -160,4 +160,50 @@ RSpec.describe BoardsController, type: :controller do
 
   end
 
+  describe 'PATCH #update' do
+
+    context 'with valid changes' do
+
+      let(:updated_title) { 'Updated Title' }
+
+      before do
+        patch :update, format: :json, :id => board.id, :board => attributes_for(:board, :title => updated_title)
+      end
+
+      it 'should change the board in the database' do
+        expect(Board.find(board.id).title).to eq(updated_title)
+      end
+
+      it 'should return status OK' do
+        expect(response).to have_http_status(:ok)
+      end
+
+    end
+
+    context 'with invalid changes' do
+
+      let(:bad_title) { '' }
+
+      before do
+        patch :update, format: :json, :id => board.id, :board => attributes_for(:board, :title => bad_title)
+      end
+
+      it 'should raise an error' do
+        expect {
+          patch :update, format: :json, :id => board.id, :board => attributes_for(:board, :title => bad_title)
+        }.not_to raise_error
+      end
+
+      it 'should return error status' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'should not change the board in the database' do
+        expect(Board.find(board.id).title).not_to eq(bad_title)
+      end
+
+    end
+
+  end
+
 end

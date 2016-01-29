@@ -10,7 +10,14 @@
 
 <%= bootstrap_flash %>
 
-<%= link_to 'Sign Out', destroy_user_session_path, :method => :delete if user_signed_in? %>
+<%= nav_bar :fixed => :top, :responsive => :true, :brand => "Djello", :brand_link => root_path do %>
+  
+  <%= menu_group :pull => :right do %>
+    <%= menu_text "Welcome, #{current_user.email}" %>
+    <%= menu_item "logout", destroy_user_session_path, :method => :delete %>
+  <% end %>
+
+<% end %>
 
 <%= yield %>
 

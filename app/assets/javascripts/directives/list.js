@@ -3,7 +3,8 @@ djello.directive('list', function() {
     templateUrl: '/templates/lists/directives/list.html',
     restrict: 'E',
     scope: {
-      list: '='
+      list: '=',
+      deleteList: '&'
     }
   };
 });

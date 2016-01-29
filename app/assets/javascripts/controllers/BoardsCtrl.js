@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl',
-  ['$scope', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService',
-  function($scope, boards, Restangular, $state, $stateParams, boardService, listService) {
+  ['$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService',
+  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService) {
 
     boardService.setBoards(boards);
 
@@ -40,17 +40,27 @@ djello.controller('BoardsCtrl',
     };
 
     $scope.createList = function() {
-      listService.create($scope.board);
+      listService.create($scope.board)
+        .then( function(response) {
+          boardService.addList(response);
+        });
     };
 
     $scope.enableEditor = function() {
       $scope.editorEnabled = true;
-      console.log('editor enabled');
     };
 
     $scope.saveEditor = function() {
       $scope.editorEnabled = false;
-      console.log('save')
+    };
+
+    $scope.deleteList = function(list) {
+      if ($window.confirm('Do you want to delete this list?')) {
+        Restangular.one('lists', list.id).remove()
+          .then( function() {
+            $scope.lists = boardService.removeList(list);
+          });
+      };
     };
 
     $scope.initVariables();

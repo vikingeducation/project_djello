@@ -36,6 +36,24 @@ class ListsController < ApplicationController
 
   end
 
+  def destroy
+
+    @list = List.find_by_id(params[:id])
+
+    if @list && @list.destroy
+      flash.now[:success] = 'List successfully deleted!'
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 204 }
+      end
+    else
+      flash.now[:danger] = 'List failed to be deleted'
+      respond_to do |format|
+        format.json { render :nothing => :true, :status => 422 }
+      end
+    end
+
+  end
+
   private
 
   def list_params

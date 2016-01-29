@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :list do
 
-    title 'List Title'
-    description 'list description'
+    title 'New List'
+    description 'Add a description'
     association :board
     
   end

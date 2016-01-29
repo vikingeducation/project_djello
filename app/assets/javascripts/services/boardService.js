@@ -30,6 +30,19 @@ djello.factory('boardService',
       });
     };
 
+    boardService.addList = function(list) {
+      var board = boardService.findByID(list.board_id);
+      board.lists.push(list);
+    };
+
+    boardService.removeList = function(list) {
+      var board = boardService.findByID(list.board.id);
+      board.lists = board.lists.filter( function(obj) {
+        return obj.id !== list.id
+      });
+      return board.lists;
+    };
+
     return boardService;
 
   }]);
