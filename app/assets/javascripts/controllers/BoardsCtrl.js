@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl',
-  ['$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'listService',
-  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, listService) {
+  ['$scope', '$window', 'boards', 'Restangular', '$state', '$stateParams', 'boardService', 'cardService', 'listService', 'ModalService',
+  function($scope, $window, boards, Restangular, $state, $stateParams, boardService, cardService, listService, ModalService) {
 
     boardService.setBoards(boards);
 
@@ -13,10 +13,9 @@ djello.controller('BoardsCtrl',
         $scope.board = boardService.first();
       };
 
-      $scope.lists = listService.getLists($scope.board);
-
-      $scope.selected = $scope.board.id;
+      $scope.selected = boardService.setSelected($scope.board.id);
       $scope.editorEnabled = false;
+      boardService.needsRefresh = false;
     };
 
     $scope.createBoard = function() {
@@ -62,6 +61,16 @@ djello.controller('BoardsCtrl',
           });
       };
     };
+
+    $scope.createCard = function(list) {
+      cardService.create(list)
+        .then( function(response) {
+          boardService.addCard(response, $scope.board.id);
+        });
+    };
+
+    $scope.dataService = boardService;
+    $scope.$watch('dataService.needsRefresh', $scope.setVariables($scope.board));
 
     $scope.initVariables();
 

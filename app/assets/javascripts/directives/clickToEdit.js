@@ -1,6 +1,7 @@
 djello.directive('clickToEdit', function() {
   return {
     restrict: "A",
+    // replace element with editor
     replace: true,
     templateUrl: '/templates/shared/clickToEdit.html',
 
@@ -30,11 +31,14 @@ djello.directive('clickToEdit', function() {
         $scope.value = $scope.view.editableValue;
         $scope.disableEditor();
 
+        // able to grab different models and patch the chosen attribute
+        // save on submit
         var obj = {};
         obj[$scope.attribute] = $scope.value;
         Restangular.one($scope.model, $scope.id).patch( obj );
       };
 
+      // cancel on blur
       $scope.cancel = function() {
         $scope.disableEditor();
       };

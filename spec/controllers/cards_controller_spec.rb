@@ -15,7 +15,7 @@ RSpec.describe CardsController, type: :controller do
     context 'without any parameters' do
 
       before do
-        post :create, :format => :json, :card => attributes_for(:card)
+        post :create, :format => :json, :card => attributes_for(:card, :list_id => card.list.id)
       end
 
       it 'should save to the database' do
@@ -42,7 +42,7 @@ RSpec.describe CardsController, type: :controller do
     context 'with parameters (should not be permitted)' do
 
       before do
-        post :create, :format => :json, :card => attributes_for(:card, :title => "Test Title", :description => "Test description", :completed => true)
+        post :create, :format => :json, :card => attributes_for(:card, :title => "Test Title", :description => "Test description", :completed => true, :list_id => card.list.id)
       end
 
       it 'should save to the database' do
@@ -60,6 +60,19 @@ RSpec.describe CardsController, type: :controller do
       it 'should default completed? to false' do
         expect(Card.find(card.id).completed).to be false
       end
+
+    end
+
+    context 'when not user is not the list owner' do
+
+      let!(:other_list) { create(:list) }
+
+      before do
+        post :create, :format => :json, :card => attributes_for(:card, :list_id => other_list.id)
+      end
+
+      it { should respond_with(401) }
+      it { should set_flash.now[:danger].to(/Unauthorized/) }
 
     end
 
