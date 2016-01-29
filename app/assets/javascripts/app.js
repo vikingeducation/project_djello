@@ -25,7 +25,12 @@ var djello = angular.module('djello', ['ui.router', 'restangular'])
 
     .state('boards', {
       url: '/boards',
-      templateUrl: '/templates/boards/layout.html'
+      templateUrl: '/templates/boards/layout.html',
+      resolve: {
+        boards: ['Restangular', function(Restangular) {
+          return Restangular.all('boards').getList();
+        }]
+      }
     })
 
     .state('boards.show', {

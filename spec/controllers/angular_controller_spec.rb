@@ -15,6 +15,7 @@ RSpec.describe AngularController, type: :controller do
         get :index
       end
 
+      it { should use_before_action(:authenticate_user!) }
       it { should redirect_to(new_user_session_path) }
 
     end
@@ -28,6 +29,7 @@ RSpec.describe AngularController, type: :controller do
         get :index
       end
 
+      it { should use_before_action(:authenticate_user!) }
       it { should render_template('index') }
 
     end
