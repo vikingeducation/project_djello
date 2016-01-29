@@ -31,15 +31,15 @@ RSpec.describe BoardsController, type: :controller do
     it { should respond_with(200) }
 
     it 'should include all lists associated with the board' do
-      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => { :include => :members } })))
+      expect(json[0]["lists"]).to eq(JSON.parse(lists.to_json(:include => { :cards => { :include => { :card_members => { :include => :member } } } })))
     end
 
     it 'should include all cards associated with a list' do
-      expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => :members) ))
+      expect(json[0]["lists"][0]["cards"]).to eq(JSON.parse(cards.to_json(:include => { :card_members => { :include => :member } })))
     end
 
     it 'should include all members associated with a card' do
-      expect(json[0]["lists"][0]["cards"][0]["members"]).to eq(JSON.parse(cards.first.members.to_json))
+      expect(json[0]["lists"][0]["cards"][0]["card_members"]).to eq(JSON.parse(members.to_json(:include => :member)))
     end
 
   end

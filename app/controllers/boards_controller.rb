@@ -10,8 +10,9 @@ class BoardsController < ApplicationController
       format.json { render json: @boards.to_json(
         :include => { :lists => { 
           :include => { :cards => {
-            :include => :members
-            } } } } ), :status => 200 }
+            :include => { :card_members => {
+              :include => :member
+              } } } } } } ), :status => 200 }
     end
 
   end

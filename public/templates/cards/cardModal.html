@@ -12,9 +12,25 @@
         <p>
           <div click-to-edit='card.description' id='card.id' model='cards' attribute='description'></div>
         </p>
+
         <div>
           <h4>Members</h4>
+          <div ng-repeat='member in members'>
+            <div class='row'>
+              <p class='col-xs-8'>{{ member.email }}</p>
+              <a class='pointer col-xs-4 text-right' ng-click='removeMember(card, member)'>remove</a>
+            </div>
+          </div>
+
+          <!-- user dropdown -->
+          <form class='form-inline' name='newMemberForm' ng-submit='addMember()'>
+            <div class='form-group'>
+              <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember' ng-change=''></select>
+              <input type='submit' value='Add' class='btn btn-primary'>
+            </div>
+          </form>
         </div>
+
         <div>
           <h4>Activity</h4>
         </div>

@@ -1,8 +1,10 @@
 djello.controller('ModalCtrl',
-  ['$scope', '$window', 'card', 'close', 'cardService',
-  function($scope, $window, card, close, cardService) {
+  ['$scope', '$window', 'card', 'close', 'cardService', 'userService', 'boardService',
+  function($scope, $window, card, close, cardService, userService, boardService) {
 
     $scope.card = card;
+    $scope.card_members = card.card_members || [];
+    $scope.users = userService.excluding($scope.members);
 
     $scope.close = function(result) {
       if (result === 'Completed' &&
@@ -11,6 +13,24 @@ djello.controller('ModalCtrl',
       };
 
       close(result, 500);
+    };
+
+    $scope.addMember = function() {
+      $scope.newMember['card_id'] = $scope.card.id;
+      userService.create($scope.newMember)
+        .then( function(response) {
+          boardService.addMember(response);
+          $scope.card_members.push(response.member);
+          $scope.users = userService.excluding($scope.card_members);
+        });
+        $scope.newMember = {};
+    };
+
+    $scope.removeMember = function(card, member) {
+      userService.remove(card, member)
+        .then( function() {
+          console.log('removed member');
+        });
     };
 
 }]);

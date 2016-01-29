@@ -30,6 +30,9 @@ var djello = angular.module('djello', ['ui.router', 'angularModalService', 'rest
       resolve: {
         boards: ['Restangular', function(Restangular) {
           return Restangular.all('boards').getList();
+        }],
+        users: ['Restangular', function(Restangular) {
+          return Restangular.all('users').getList();
         }]
       }
     })
