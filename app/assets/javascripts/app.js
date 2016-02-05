@@ -31,6 +31,6 @@ var djello = angular.module('djello', ['ui.router', 'angularModalService', 'rest
 
 }])
 
-djello.run([$rootScope, function($rootScope){
+djello.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
 }]);
