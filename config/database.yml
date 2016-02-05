@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: project_djello_production
-  username: project_djello
+  username: dustin
   password: <%= ENV['PROJECT_DJELLO_DATABASE_PASSWORD'] %>
