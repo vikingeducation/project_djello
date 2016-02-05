@@ -3,6 +3,16 @@ class CardsController < ApplicationController
   before_action :require_current_user, :execpt => [:create]
   before_action :require_list_owner, :only => [:create]
 
+  def show
+
+    @card = Card.find_by_id(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @card.to_json(:include => [{:card_activities => {:methods => :message}}]), :status => 200 }
+    end
+
+  end
+
   def create
 
     @card = Card.all.build(card_params)
@@ -64,7 +74,7 @@ class CardsController < ApplicationController
     def require_current_user
 
       card = Card.find_by_id(params[:id])
-      unless card.nil? || card.list.board.owner === current_user
+      unless card.nil? || card.list.board.owner === current_user || card.members.include?(current_user)
         flash.now[:danger] = 'Unauthorized Access!'
         respond_to do |format|
           format.json { render :nothing => :true, :status => 401 }

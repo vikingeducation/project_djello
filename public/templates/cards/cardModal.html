@@ -8,6 +8,10 @@
         </h4>
       </div>
 
+      <div class='alert alert-{{ flash[0] }} custom-fade in' ng-if='showFlash()'>
+        {{ flash[1] }}
+      </div>
+
       <div class='modal-body'>
         <p>
           <div click-to-edit='card.description' id='card.id' model='cards' attribute='description'></div>
@@ -15,9 +19,9 @@
 
         <div>
           <h4>Members</h4>
-          <div ng-repeat='member in members'>
+          <div ng-repeat='card_member in card_members'>
             <div class='row'>
-              <p class='col-xs-8'>{{ member.email }}</p>
+              <p class='col-xs-8'>{{ card_member.member.username }}</p>
               <a class='pointer col-xs-4 text-right' ng-click='removeMember(card_member)'>remove</a>
             </div>
           </div>
@@ -25,7 +29,7 @@
           <!-- user dropdown -->
           <form class='form-inline' name='newMemberForm' ng-submit='addMember()'>
             <div class='form-group'>
-              <select class='form-control' ng-options="user.id as user.email for user in users | orderBy: 'email'" ng-model='newMember' ng-change=''></select>
+              <select class='form-control' ng-model='newMember.member_id' ng-options="user.id as user.username for user in users | orderBy: 'username'"></select>
               <input type='submit' value='Add' class='btn btn-primary'>
             </div>
           </form>
@@ -33,12 +37,18 @@
 
         <div>
           <h4>Activity</h4>
+          <card-activities></card-activities>
+          <div ng-repeat="card_activity in card_activities | enableSort | orderBy: '-created_at'">
+            <div class='row'>
+              <p class='col-xs-12'>{{ card_activity.message }} <span class='text-muted'>on {{ card_activity.created_at | date }}</span></p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class='modal-footer'>
-        <button type='button' ng-click="close('Completed')" class='btn btn-primary' data-dismiss='modal'>Mark Completed</button>
+        <div class='modal-footer'>
+          <button type='button' ng-click="close('Completed')" class='btn btn-primary' data-dismiss='modal'>Mark Completed</button>
+        </div>
       </div>
     </div>
   </div>
-<?
+</div>

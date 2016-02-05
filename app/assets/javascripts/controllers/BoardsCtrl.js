@@ -1,9 +1,10 @@
 djello.controller('BoardsCtrl',
-  ['$scope', '$window', 'boards', 'users', 'Restangular', '$state', '$stateParams', 'boardService', 'cardService', 'listService', 'ModalService', 'userService',
-  function($scope, $window, boards, users, Restangular, $state, $stateParams, boardService, cardService, listService, ModalService, userService) {
+  ['$scope', '$window', 'boards', 'users', 'Restangular', '$state', '$stateParams', '$timeout', 'boardService', 'cardService', 'flashService', 'listService', 'ModalService', 'userService',
+  function($scope, $window, boards, users, Restangular, $state, $stateParams, $timeout, boardService, cardService, flashService, listService, ModalService, userService) {
 
     boardService.setBoards(boards);
     userService.setUsers(users);
+    $scope.flash = '';
 
     $scope.initVariables = function(board) {
       $scope.boards = boardService.boards;
@@ -22,8 +23,9 @@ djello.controller('BoardsCtrl',
     $scope.createBoard = function() {
       Restangular.all('boards').post()
         .then( function(response) {
-          boardService.add(response);
-          $scope.initVariables(response);
+          boardService.add(response);          
+          $scope.initVariables(boardService.findByID(response.id));
+          $scope.setFlash('Board', 'create', true);
         });
     };
 
@@ -34,7 +36,8 @@ djello.controller('BoardsCtrl',
         });
         boardService.remove(board);
         $scope.initVariables();
-      });
+        $scope.setFlash('Board', 'destroy', true);
+      }, $scope.setFlash('Board', 'destroy', false) );
     };
 
     $scope.findBoard = function(selected) {
@@ -45,7 +48,8 @@ djello.controller('BoardsCtrl',
       listService.create($scope.board)
         .then( function(response) {
           boardService.addList(response);
-        });
+          $scope.setFlash('List', 'create', true);
+        }, $scope.setFlash('List', 'create', false) );
     };
 
     $scope.enableEditor = function() {
@@ -61,7 +65,8 @@ djello.controller('BoardsCtrl',
         Restangular.one('lists', list.id).remove()
           .then( function() {
             $scope.lists = boardService.removeList(list);
-          });
+            $scope.setFlash('List', 'destroy', true);
+          }, $scope.setFlash('List', 'destroy', false) );
       };
     };
 
@@ -69,7 +74,23 @@ djello.controller('BoardsCtrl',
       cardService.create(list)
         .then( function(response) {
           boardService.addCard(response, $scope.board.id);
-        });
+          $scope.setFlash('Card', 'create', true);
+        }, $scope.setFlash('Card', 'create', false) );
+    };
+
+    $scope.boardOwner = function() {
+      return (userService.current_user.id === $scope.board.owner_id)
+    };
+
+    $scope.setFlash = function(obj, actionType, bool) {
+      $scope.flash = flashService.updateFlash(obj, actionType, bool);
+      $timeout(function() {
+        $scope.flash = '';
+      }, 3500, true);
+    };
+
+    $scope.showFlash = function() {
+      return !!($scope.flash);
     };
 
     $scope.dataService = boardService;

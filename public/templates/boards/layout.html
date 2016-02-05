@@ -1,11 +1,16 @@
-<h1>Boards Layout</h1>
+<h1>Boards</h1>
 
 <div class='container'>
+
+  <div class='alert alert-{{ flash[0] }} custom-fade in' ng-if='showFlash()'>
+    {{ flash[1] }}
+  </div>
 
   <div class='row'>
     <div class='col-xs-6'>
       <h1>
         <div click-to-edit='board.title' id='board.id' model='boards' attribute='title'></div>
+        <small>Owner: {{ board.owner.username }}</small>
       </h1>
     </div>
 
@@ -16,15 +21,16 @@
 
           <label for='board-select'>Select Board:</label>
 
-          <select class='form-control' ng-options="board.id as board.title for board in boards | orderBy: 'id'" ng-model='selected' ng-change='findBoard(selected)'></select>
+          <select class='form-control' ng-options="board.id as board.title for board in boards | orderBy: 'board.id'" ng-model='selected' ng-change='findBoard(selected)'></select>
 
         </div>
-      </form>
+      </form><br />
 
       <div class='row'>
         <div class='col-xs-12'>
-          <a class='pointer' ng-click='destroy(board)'>Delete Board</a>
-          <a class='pointer' ng-click='createBoard()'>New Board</a>
+          <ul class='list-inline'>
+            <li><a class='pointer' ng-if='boardOwner()' ng-click='destroy(board)'>Delete Board</a></li>
+            <li><a class='pointer' ng-click='createBoard()'>New Board</a></li>
         </div>
       </div>
     </div>
@@ -33,7 +39,7 @@
   
   <div class='row'>
 
-    <div class='col-xs-4' ng-repeat="list in board['lists'] | orderBy: '-id'">
+    <div class='col-xs-4' ng-repeat="list in board['lists'] | enableSort | orderBy: 'id'">
       <list list='list' delete-list='deleteList(list)' create-card='createCard(list)'></list>
     </div>
 

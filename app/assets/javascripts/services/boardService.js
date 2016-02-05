@@ -80,6 +80,7 @@ djello.factory('boardService',
       var board = boardService.active;
       var list = listService.findByID(board, card_member.card.list_id);
       var card = boardService.findCardByID(list, card_member.card.id);
+
       card.card_members = card.card_members.filter( function(obj) {
         return obj.id !== card_member.id
       });

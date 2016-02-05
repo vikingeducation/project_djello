@@ -25,6 +25,10 @@ djello.factory('cardService',
         });
     };
 
+    cardService.getCardActivities = function(card) {
+      return Restangular.one('cards', card.id).get();
+    };
+
     return cardService;
 
   }]);

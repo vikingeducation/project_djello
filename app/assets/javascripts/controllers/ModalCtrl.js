@@ -1,10 +1,18 @@
 djello.controller('ModalCtrl',
-  ['$scope', '$window', 'card', 'close', 'cardService', 'userService', 'boardService',
-  function($scope, $window, card, close, cardService, userService, boardService) {
+  ['$scope', '$window', '$timeout', 'card', 'close', 'cardService', 'flashService', 'userService', 'boardService',
+  function($scope, $window, $timeout, card, close, cardService, flashService, userService, boardService) {
 
     $scope.card = card;
     $scope.card_members = card.card_members || [];
     $scope.users = userService.excluding($scope.card_members);
+    $scope.flash = '';
+
+    $scope.initCardActivities = function() {
+      cardService.getCardActivities(card)
+        .then(function(response) {
+          $scope.card_activities = response.card_activities;
+        });
+    };
 
     $scope.close = function(result) {
       if (result === 'Completed' &&
@@ -20,9 +28,10 @@ djello.controller('ModalCtrl',
       userService.create($scope.newMember)
         .then( function(response) {
           boardService.addMember(response);
-          $scope.card_members = card.card_members;
+          $scope.card_activities = response.card.card_activities;
           $scope.users = userService.excluding($scope.card_members);
-        });
+          $scope.setFlash('Member', 'add', true);
+        }, $scope.setFlash('Member', 'add', false) );
         $scope.newMember = {};
     };
 
@@ -30,9 +39,10 @@ djello.controller('ModalCtrl',
       userService.remove(card_member)
         .then( function(response) {
           boardService.removeMember(response);
-
+          $scope.card_activities = response.card.card_activities;
           $scope.dropScopeMember(response.id);
-        });
+          $scope.setFlash('Member', 'remove', true);
+        }, $scope.setFlash('Member', 'remove', false) );
     };
 
     $scope.dropScopeMember = function(id) {
@@ -41,5 +51,18 @@ djello.controller('ModalCtrl',
       });
       $scope.users = userService.excluding($scope.card_members);
     };
+
+    $scope.setFlash = function(obj, actionType, bool) {
+      $scope.flash = flashService.updateFlash(obj, actionType, bool);
+      $timeout(function() {
+        $scope.flash = '';
+      }, 3500, true);
+    };
+
+    $scope.showFlash = function() {
+      return !!($scope.flash);
+    };
+
+    $scope.initCardActivities();
 
 }]);

@@ -8,13 +8,11 @@
 </head>
 <body>
 
-<%= bootstrap_flash %>
-
 <%= nav_bar :fixed => :top, :responsive => :true, :brand => "Djello", :brand_link => root_path do %>
   
   <% if current_user %>
     <%= menu_group :pull => :right do %>
-      <%= menu_text "Welcome, #{current_user.email}" %>
+      <%= menu_text "Welcome, #{current_user.username}" %>
       <%= menu_item "logout", destroy_user_session_path, :method => :delete %>
     <% end %>
   <% end %>

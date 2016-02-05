@@ -4,16 +4,21 @@ class BoardsController < ApplicationController
 
   def index
 
-    @boards = current_user.boards.all
-    @boards.concat(current_user.assigned_boards)
+    @boards = current_user.all_active_boards
 
     respond_to do |format|
       format.json { render json: @boards.to_json(
-        :include => { :lists => { 
-          :include => { :cards => {
-            :include => { :card_members => {
-              :include => :member
-              } } } } } } ), :status => 200 }
+        :include => [:owner,
+                      {:lists => {
+                        :include => {:cards => {
+                          :include => [{:card_activities => {
+                                        :methods => :message}},
+                                      {:card_members => {
+                                        :include => :member
+                                        }}]
+                          }}
+                        }}]
+        ), :status => 200 }
     end
 
   end

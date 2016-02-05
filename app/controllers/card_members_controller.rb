@@ -1,6 +1,6 @@
 class CardMembersController < ApplicationController
 
-  before_action :require_list_owner
+  before_action :require_card_member
 
   def create
 
@@ -9,7 +9,7 @@ class CardMembersController < ApplicationController
     if @card_member.save
       flash.now[:success] = 'New member successfully created!'
       respond_to do |format|
-        format.json { render json: @card_member.to_json(:include => [:card, :member]), :status => 201 }
+        format.json { render json: @card_member.to_json(:include => [:member, {:card => {:include => [{:card_activities => {:methods => :message}}]}}]), :status => 201 }
       end
     else
       flash.now[:danger] = 'New member failed to be created'
@@ -27,7 +27,7 @@ class CardMembersController < ApplicationController
     if @card_member.destroy
       flash.now[:success] = 'Member successfully deleted!'
       respond_to do |format|
-        format.json { render json: @card_member.to_json(:include => [:card, :member]), :status => 200 }
+        format.json { render json: @card_member.to_json(:include => [:member, {:card => {:include => [{:card_activities => {:methods => :message}}]}}]), :status => 200 }
       end
     else
       flash.now[:danger] = 'Member failed to be deleted'
@@ -44,7 +44,7 @@ class CardMembersController < ApplicationController
     params.require(:card_member).permit(:card_id, :member_id)
   end
 
-  def require_list_owner
+  def require_card_member
 
     card_member = CardMember.find_by_id(params[:id])
 
@@ -55,7 +55,9 @@ class CardMembersController < ApplicationController
     end
     
     list = card.list
-    unless list.board.owner == current_user
+
+    # requires current_user to either be a member of the card or the owner of the card
+    unless card.members.include?(current_user) || list.board.owner == current_user
       flash.now[:danger] = 'Unauthorized Access!'
       respond_to do |format|
         format.json { render :nothing => :true, :status => 401 }
