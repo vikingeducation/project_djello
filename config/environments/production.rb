@@ -1,4 +1,10 @@
 Rails.application.configure do
+
+  class NoCompression
+    def compress(string)
+      string
+    end
+  end
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
