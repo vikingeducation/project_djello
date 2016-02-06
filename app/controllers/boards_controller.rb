@@ -47,7 +47,7 @@ class BoardsController < ApplicationController
     if @board.save
       flash.now[:success] = 'New board created successfully!'
       respond_to do |format|
-        format.json { render json: @board.to_json, :status => 201 }
+        format.json { render json: @board.to_json(:include => :owner), :status => 201 }
       end
     else
       flash.now[:danger] = 'Board failed to be created'

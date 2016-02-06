@@ -6,7 +6,7 @@ djello.factory('boardService',
 
     boardService.boards = [];
     boardService.active = null;
-    boardService.needsRefresh = false;
+    // boardService.needsRefresh = false;
 
     boardService.setBoards = function(boards) {
       this.boards = boards;
@@ -64,7 +64,7 @@ djello.factory('boardService',
       list.cards = list.cards.filter( function(obj) {
         return obj.id !== card.id
       });
-      boardService.needsRefresh = true;
+      // boardService.needsRefresh = true;
     };
 
     boardService.addMember = function(response) {

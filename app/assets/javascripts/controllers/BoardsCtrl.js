@@ -10,35 +10,40 @@ djello.controller('BoardsCtrl',
       $scope.boards = boardService.boards;
       var firstBoard = boardService.first();
 
-      if (board) {
-        $scope.board = board;
-      } else if (firstBoard) {
-        $scope.board = boardService.first();
+      if (!!board) {
+        $scope.setSelected(board);
+      } else if (!!firstBoard) {
+        $scope.board = firstBoard;
+        $scope.setSelected(firstBoard);
       } else {
         $scope.createBoard();
       };
+    };
 
-      $scope.selected = boardService.setSelected($scope.board.id);
+    $scope.setSelected = function(board) {
+      $scope.board = board;
+      $scope.selected = boardService.setSelected(board.id);
       $scope.editorEnabled = false;
-      boardService.needsRefresh = false;
     };
 
     $scope.createBoard = function() {
       Restangular.all('boards').post()
         .then( function(response) {
-          boardService.add(response);          
-          $scope.initVariables(boardService.findByID(response.id));
+          boardService.add(response);
+          $scope.boards = boardService.boards;
+          $scope.setSelected(boardService.findByID(response.id));
           $scope.setFlash('Board', 'create', true);
         });
     };
 
     $scope.destroy = function(board) {
       board.remove().then( function() {
-        $scope.boards = $scope.boards.filter( function(obj) {
-          return obj.id !== board.id;
-        });
         boardService.remove(board);
-        $scope.initVariables();
+        if (!!boardService.first()) {
+          $scope.initVariables();
+        } else {
+          $scope.createBoard();
+        };
         $scope.setFlash('Board', 'destroy', true);
       }, $scope.setFlash('Board', 'destroy', false) );
     };
@@ -82,7 +87,9 @@ djello.controller('BoardsCtrl',
     };
 
     $scope.boardOwner = function() {
-      return (userService.current_user.id === $scope.board.owner_id)
+      if (!!$scope.board) {
+        return (userService.current_user.id === $scope.board.owner_id)
+      };
     };
 
     $scope.setFlash = function(obj, actionType, bool) {
@@ -95,9 +102,6 @@ djello.controller('BoardsCtrl',
     $scope.showFlash = function() {
       return !!($scope.flash);
     };
-
-    $scope.dataService = boardService;
-    $scope.$watch('dataService.needsRefresh', $scope.initVariables($scope.board));
 
     $scope.initVariables();
 
