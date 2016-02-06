@@ -8,11 +8,14 @@ djello.controller('BoardsCtrl',
 
     $scope.initVariables = function(board) {
       $scope.boards = boardService.boards;
+      var firstBoard = boardService.first();
 
       if (board) {
         $scope.board = board;
-      } else {
+      } else if (firstBoard) {
         $scope.board = boardService.first();
+      } else {
+        $scope.createBoard();
       };
 
       $scope.selected = boardService.setSelected($scope.board.id);
