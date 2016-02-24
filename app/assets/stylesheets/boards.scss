@@ -1,0 +1,29 @@
+// Place all the styles related to the boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pointer {
+  cursor: pointer;
+}
+
+.custom-fade {
+  font-size: 16px;
+}
+
+.custom-fade.ng-enter {
+  transition: 1s linear all;
+  opacity: 0;
+}
+
+.custom-fade.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.custom-fade.ng-leave {
+  transition: 1s linear all;
+  opacity: 1;
+}
+
+.custom-fade.ng-leave.ng-leave-active {
+  opacity: 0;
+}

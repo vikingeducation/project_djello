@@ -1,0 +1,6 @@
+<div class='panel panel-default' ng-click='openModal(card)'>
+  <div class='panel-body'>
+    <p class='pointer'>{{ card.title }}</p>
+    <p ng-repeat='card_member in card.card_members' class='text-right'>{{ card_member.member.username }}</p>
+  </div>
+</div>

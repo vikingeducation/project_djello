@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="djello">
+<head>
+  <title>ProjectDjello</title>
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= nav_bar :fixed => :top, :responsive => :true, :brand => "Djello", :brand_link => root_path do %>
+  
+  <% if current_user %>
+    <%= menu_group :pull => :right do %>
+      <%= menu_text "Welcome, #{current_user.username}" %>
+      <%= menu_item "logout", destroy_user_session_path, :method => :delete %>
+    <% end %>
+  <% end %>
+
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

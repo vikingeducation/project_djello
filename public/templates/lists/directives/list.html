@@ -1,0 +1,31 @@
+<div class='panel panel-default'>
+
+  <div class='panel-body'>
+  
+    <div class='close-list' ng-show='boardOwner()'>
+      <a class='pointer' ng-click='deleteList(list)'>X</a>
+    </div>
+
+    <div class='list-header'>
+
+      <h3 class='text-center'>
+        <div click-to-edit='list.title' id='list.id' model='lists' attribute='title'></div>
+      </h3>
+
+      <p class='text-muted'>
+        <div click-to-edit='list.description' id='list.id' model='lists' attribute='description'></div>
+      </p>
+
+    </div>
+
+    <div class='cards-wrapper'>
+      <card ng-repeat="card in list['cards']" card='card' list='list'></card>
+    </div>
+
+    <div class='text-center'>
+      <a class='pointer' ng-click='createCard(list)'>Add a card</a>
+    </div>
+
+  </div>
+
+</div>

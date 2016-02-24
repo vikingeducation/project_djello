@@ -1,0 +1,15 @@
+<div class='click-to-edit'>
+  <div class='alert alert-{{ flash[0] }} custom-fade in' ng-if='showFlash()'>
+    {{ flash[1] }}
+  </div>
+  
+  <div ng-hide='view.editorEnabled' ng-click='enableEditor($event)'>
+    {{ value }}
+  </div>
+
+  <div ng-show='view.editorEnabled'>
+    <form name='listEditForm' ng-submit='save()'>
+      <input class='form-control' ng-model='view.editableValue' ng-blur='cancel()' show-focus='view.editorEnabled'>
+    </form>
+  </div>
+</div>
