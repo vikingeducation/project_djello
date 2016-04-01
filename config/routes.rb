@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {
+        sessions: 'users/sessions'
+      }
 
-
+  root 'static_pages#index'
   # devise_for :users
 
   devise_scope :user do
-    root to: "devise/registrations#new"
     get "sign_up", to: 'devise/registrations#new'
     get "sign_in", to: "devise/sessions#new"
     get "login", :to => "devise/sessions#new"
@@ -14,11 +15,12 @@ Rails.application.routes.draw do
     delete "logout", :to => "devise/sessions#destroy"
   end  
 
+  authenticate :user do
+    resources :static_pages, only: [:index]
+  end
+
   # root :to => 'registrations#new'
 
-  devise_scope :user do
-    
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
