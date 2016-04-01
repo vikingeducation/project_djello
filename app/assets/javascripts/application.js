@@ -15,8 +15,9 @@
 //= require bootstrap-sprockets
 
 //= require underscore-min.js
-//= require angular-devise
+
 //= require angular
+//= require angular-devise
 //= require angular-ui-router.min.js
 //= require restangular.min.js
 

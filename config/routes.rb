@@ -1,23 +1,48 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: {
+  root 'static_pages#index'
+
+  scope :api do
+    scope :v1 do
+
+      resources :boards
+
+
+      devise_for :users, controllers: {
         sessions: 'users/sessions'
       }
+      devise_scope :user do
+        get "sign_up", to: 'devise/registrations#new'
+        get "sign_in", to: "devise/sessions#new"
+        get "login", :to => "devise/sessions#new"
+        delete "sign_out", :to => "devise/sessions#destroy"
+        delete "logout", :to => "devise/sessions#destroy"
+      end  
 
-  root 'static_pages#index'
-  # devise_for :users
-
-  devise_scope :user do
-    get "sign_up", to: 'devise/registrations#new'
-    get "sign_in", to: "devise/sessions#new"
-    get "login", :to => "devise/sessions#new"
-    delete "sign_out", :to => "devise/sessions#destroy"
-    delete "logout", :to => "devise/sessions#destroy"
-  end  
-
-  authenticate :user do
-    resources :static_pages, only: [:index]
+      authenticate :user do
+        resources :static_pages, only: [:index]
+      end
+    end
   end
+
+  # devise_for :users, controllers: {
+  #       sessions: 'users/sessions'
+  #     }
+
+  # root 'static_pages#index'
+  # # devise_for :users
+
+  # devise_scope :user do
+  #   get "sign_up", to: 'devise/registrations#new'
+  #   get "sign_in", to: "devise/sessions#new"
+  #   get "login", :to => "devise/sessions#new"
+  #   delete "sign_out", :to => "devise/sessions#destroy"
+  #   delete "logout", :to => "devise/sessions#destroy"
+  # end  
+
+  # authenticate :user do
+  #   resources :static_pages, only: [:index]
+  # end
 
   # root :to => 'registrations#new'
 

@@ -1,1 +1,23 @@
-<h1> Made it! </h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" class="text-center">Djello</a>
+      <div class="pull-right">
+        <p class="navbar-text navbar-right">
+          Signed in as <a href="#" class="navbar-link"><%= current_user.username %></a>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        </p>
+      </div>
+    </div>
+    </div>
+  </div>
+</nav>
+
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+  <h3>Current user test: {{ current_user }}</h3>
+
+
+  <ui-view></ui-view>
