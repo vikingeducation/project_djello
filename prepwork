@@ -1,0 +1,93 @@
+TIPS:
+- write tests for each piece of functionality
+- keep seeds.rb updated
+- refactor after each epic
+
+
+
+=========================
+STATES:
+
+boards (acts as index?)
+boards/show/:id
+cards (acts as index?)
+cards/show/:id
+
+=========================
+HOW TO CHANGE STATE WITH A DROPDOWN MENU:
+
+// controller
+.controller('CoursesTrackCtrl', function ($scope, $stateParams, $http, $log, $state) {
+    $scope.changeState = function (course) {
+        $state.go('courses.track.materials', { courseCode: course.CourseCode });
+    }
+});
+
+// html
+<select style="padding:3px 1px; width:100%;" data-ng-model="course" data-ng-options="course.Title for course in courses" data-ng-change="changeState(course)">
+    <option value="">-- Select a Course --</option>
+</select>
+
+=========================
+VIEWS:
+
+- login screen is a separate page from the SPA
+
+// layouts/application.html.erb
+<%= render partial: 'header' %>
+<%= yield %>
+<%= render partial: 'footer' %>
+
+// views/static_pages/home.html.erb
+<ui-view></ui-view>
+
+
+
+=========================
+LISTS:
+
+should do cards | orderBy '-priority'
+can drag/drop to change priority of a card
+
+
+=========================
+CARD TEMPLATEs:
+new
+show (as a modal), same as edit 
+
+
+=========================
+EDITING A CARD:
+
+clicking on a field makes it edit-able, can only click on one field at a time, if you click away from the field the edits are ignored
+
+
+=========================
+ASSOCIATIONS:
+card has_many :users
+user has_many :cards (many to many, need join table)
+
+card has_many :activities
+activity belongs_to :card
+
+board belongs_to :user
+user has_many :boards
+
+board has_many :lists
+list belongs_to :board
+
+user has_many :lists, through :boards
+list belongs_to :user, through :boards
+
+
+
+
+=========================
+ACTIVITY FEED
+
+- all activity on a Card is recorded as part of that card's "Activity feed"
+- polymorphic relationship? every time you edit a field, add a member, etc. it gets added to 'activities' for that card
+
+
+
+=========================
