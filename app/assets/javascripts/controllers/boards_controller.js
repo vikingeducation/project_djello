@@ -1,15 +1,19 @@
 djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUser', function($scope, $state, BoardsService, currentUser) {
 
   $scope.formData = {};
-  $scope.lists = [];
+  $scope.allLists = [];
+
+  // $scope.boardLists = [all lists for 58, all lists for 59]
 
   BoardsService.getBoardsForUser(currentUser).then(
     function(data) {
       $scope.boards = data.boards;
 
-      for(var i=0; i < $scope.boards.length; i++){
-        $scope.lists.push($scope.boards[i].list)
-      }
+      // for(var i=0; i < $scope.boards.length; i++){
+      //   $scope.lists.push($scope.boards[i].list)
+      // }
+      $scope.allLists = data.lists;
+      console.log($scope.allLists)
     });
 
 

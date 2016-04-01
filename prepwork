@@ -91,3 +91,38 @@ ACTIVITY FEED
 
 
 =========================
+
+
+user: {
+  boards: {
+    ...
+    lists: {
+    ...
+      cards: {
+      ...
+      }
+    }
+  }
+}
+
+
+user: {
+  boards: {
+    ...
+
+  }
+}
+
+lists (by user_id) {
+  list1: {},
+  list2: {}
+}
+
+
+
+
+list: {
+  card1: {}
+  card2: {}
+  card3: {}
+}

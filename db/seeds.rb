@@ -10,6 +10,7 @@
 p "deleting everything....."
 User.destroy_all
 Board.destroy_all
+List.destroy_all
 
 
 p 'creating users.....'
@@ -47,9 +48,17 @@ end
 
 
 
+p "creating lists..."
 
+def create_list(board_id)
+  List.create(title: Faker::Hipster.word, description: Faker::Hipster.sentence, board_id: board_id)
+end
 
-
+Board.all.each do |board|
+  3.times do
+    create_list(board.id)
+  end
+end
 
 
 
