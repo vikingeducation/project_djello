@@ -14,11 +14,16 @@ djello.factory('BoardsService', ['Restangular', 'Auth', function(Restangular, Au
   //   return Restangular.one('boards', id).get();
   // }
 
+  var deleteBoard = function(board){
+    return Restangular.one('boards', board.id).remove();
+  }
+
 
 
   return {
     getBoardsForUser: getBoardsForUser,
     createBoard: createBoard,
+    deleteBoard: deleteBoard
     // updateBoard: updateBoard
   }
 
