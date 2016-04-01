@@ -25,12 +25,20 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
     .state("boards", {
       url: "/boards",
       templateUrl: "templates/boards_index.html",
-      controller: "BoardsCtrl"
+      controller: "BoardsCtrl",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      }
     })
     .state("boards.show", {
       url: "/:id",
       templateUrl: "templates/show_board.html"
-      // TODO: resolve to get board from API
+    })
+    .state("boards.new", {
+      url: "/new",
+      templateUrl: "templates/new_board.html"
     })
 
 

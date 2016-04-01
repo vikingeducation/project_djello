@@ -1,0 +1,9 @@
+<h3>New board stuff</h3>
+
+<form name="newBoard">
+
+  <input type="text" name="title" ng-model="formData.title" placeholder="Add Board Title..."><br/><br/>
+  <textarea rows="4" cols="50" name="description" ng-model="formData.description" placeholder="Add Board Description..."></textarea>
+  <input type="submit" value="Save" ng-click="createBoard(newBoard.$valid)">
+
+</form>
