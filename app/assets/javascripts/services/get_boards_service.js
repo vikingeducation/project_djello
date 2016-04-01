@@ -1,7 +1,10 @@
-djello.factory('GetBoardsService', ['Restangular', function(Restangular) {
+djello.factory('GetBoardsService', ['Restangular', 'Auth',function(Restangular, Auth) {
 
-  var getBoards = function() {
-    return Restangular.all('boards').getList().$object;
+  var getBoardsForUser = function() {
+    var boards = Auth.currentUser().then(
+        function(user){ 
+        return Restangular.one('users', user.id).getList('boards')})
+    return boards;
   };
 
   // var createBoard = function(boardObj) {
@@ -15,7 +18,7 @@ djello.factory('GetBoardsService', ['Restangular', function(Restangular) {
 
 
   return {
-    getBoards: getBoards
+    getBoardsForUser: getBoardsForUser
     // ,
     // createBoard: createBoard,
     // updateBoard: updateBoard

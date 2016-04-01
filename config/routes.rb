@@ -2,13 +2,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
 
-  scope :api do
-    scope :v1 do
-
-      resources :boards
-
-
-      devise_for :users, controllers: {
+  devise_for :users, controllers: {
         sessions: 'users/sessions'
       }
       devise_scope :user do
@@ -17,11 +11,16 @@ Rails.application.routes.draw do
         get "login", :to => "devise/sessions#new"
         delete "sign_out", :to => "devise/sessions#destroy"
         delete "logout", :to => "devise/sessions#destroy"
-      end  
+      end 
 
-      authenticate :user do
-        resources :static_pages, only: [:index]
-      end
+  authenticate :user do
+    resources :static_pages, only: [:index]
+  end
+
+  scope :api do
+    scope :v1 do
+      resources :boards
+      resources :users
     end
   end
 

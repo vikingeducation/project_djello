@@ -1,6 +1,6 @@
 djello.controller('BoardsCtrl', ['$scope', '$state', 'GetBoardsService', function($scope, $state, GetBoardsService) {
 
-  $scope.boards = GetBoardsService.getBoards();
+  $scope.boards = GetBoardsService.getBoardsForUser();
 
 
   $scope.changeState = function(board) {

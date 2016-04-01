@@ -9,22 +9,26 @@ djello.config(['RestangularProvider', function(RestangularProvider) {
   RestangularProvider.setDefaultHttpFields({
     "content-type": "application/json"
   });
-}])
+}]);
 
 
+djello.config(function(AuthProvider){
+  //AuthProvider.baseUrl('http://localhost:3000/api/v1');
+});
 
-djello.config(['$urlRouterProvider', '$stateProvider', 'AuthProvider', function($urlRouterProvider, $stateProvider, AuthProvider) {
 
-  $urlRouterProvider.otherwise('/');
+djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
+
+  $urlRouterProvider.otherwise('boards');
 
   $stateProvider
     .state("boards", {
-      url: "/",
+      url: "/boards",
       templateUrl: "templates/boards_index.html",
       controller: "BoardsCtrl"
     })
     .state("boards.show", {
-      url: "boards/:id",
+      url: "/:id",
       templateUrl: "templates/show_board.html"
       // TODO: resolve to get board from API
     })
