@@ -22,9 +22,12 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
   $scope.createBoard = function(formIsValid) {
     if (formIsValid) {
       $scope.formData["user_id"] = currentUser.id;
-      var board = BoardsService.createBoard($scope.formData).$object;
-      $scope.boards.unshift(board);
-      $scope.formData = {};
+      BoardsService.createBoard($scope.formData).then(function(board){
+        $scope.boards.unshift(board);
+        $state.go("boards.show", {id: board.id})
+        $scope.formData = {};
+      });
+      
     }
   }
 
