@@ -1,10 +1,12 @@
 class BoardsController < ApplicationController
 
   def index
-    @boards = Board.all
+    # @boards = Board.all
+    # @boards = Board.where()
+    @boards = current_user.boards
 
     respond_to do |format|
-      format.json { render json: @boards.to_json }
+      format.json { render json: @boards.to_json(include: :lists) }
     end
 
   end
@@ -12,6 +14,9 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
+
+
+    current_user.boards.build()
 
     respond_to do |format|
       if @board.save
@@ -23,6 +28,7 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    # TODO: make this more narrow for just the current_user
     @board = Board.find(params[:id])
 
     

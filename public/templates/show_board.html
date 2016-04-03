@@ -1,12 +1,8 @@
 <h1>Hi this is show_board</h1>
 
+<h4>Current board: {{ currentBoard }}</h4>
+<p>{{ board.description }}</p>
+
+<div>{{board.lists}}</div>
+
 <a ng-click="deleteBoard(board)">Delete Board</a>
-
-{{ board.id }}
-
-
-<div ng-repeat="list in lists">
-  <p>{{ list.title }}</p>
-
-
-</div>
