@@ -2,9 +2,6 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
 
 
   $scope.formData = {};
-  $scope.currentBoardId;
-
-
 
 
   BoardsService.getBoardsForUser(currentUser).then(
@@ -13,28 +10,23 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
     });
 
 
-  var findCurrentBoard = function() {
-    console.log($scope.currentBoardId)
-    console.log(_.filter($scope.boards, {id: $scope.currentBoardId}))
-    return _.filter($scope.boards, {id: $scope.currentBoardId});
-    // return $filter('filter')($scope.boards, {id: id})[0];
+
+  var setCurrentBoard = function() {
+    $scope.currentBoard = _.filter($scope.boards, {id: $scope.currentBoardId});
   }
 
-  // $scope.currentBoard = findCurrentBoard($stateParams.id)
-
-  $scope.currentBoard = findCurrentBoard(); 
-  // _.filter($scope.boards, {"id": 59});
 
 
   $scope.changeState = function(board) {
     if (board) {
       $state.go('boards.show', { id: board.id })
       $scope.currentBoardId = board.id
-      // console.log("currentBoardId: " + $scope.currentBoardId)
-      // console.log($scope.boards)
-      // console.log(_.filter($scope.boards, {id: $scope.currentBoardId}))
+      setCurrentBoard();
+      $scope.currentLists = $scope.currentBoard[0].lists
+      console.log($scope.currentLists)
     } 
   }
+
 
 
   $scope.createBoard = function(formIsValid) {
