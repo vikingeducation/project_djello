@@ -54,7 +54,10 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
         'cards@boards.show': {
           templateUrl: "templates/show_cards.html",
           controller: "CardsCtrl"
-        }
+        } //,
+        // 'newcard@boards.show': {
+        //   templateUrl: "templates/new_card.html"
+        // }
       }
     })
     .state('boards.show.newlist', {
@@ -62,8 +65,18 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
       templateUrl: "templates/new_list.html",
       controller: "ListsCtrl"
     })
+    .state('boards.show.newcard', {
+      url: "/card/new",
+      templateUrl: "templates/new_card.html",
+      controller: "CardsCtrl"
+    })
 
 
 
 
 }]);
+
+
+djello.run(function($rootScope){
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
+});

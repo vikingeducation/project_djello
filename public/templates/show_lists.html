@@ -1,11 +1,11 @@
 <div ng-repeat="list in currentLists">
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="panel-title text-center">
 
         <a editable-text="list.title" ui-sref="#" onbeforesave="updateList($data, list, 'title')">{{ list.title || "empty" }}</a>
-        </div><br/>
+        </div><hr/>
         <p editable-text="list.description" onbeforesave="updateList($data, list, 'description')">{{ list.description || "empty"}}</p>
       </div>
       <div class="panel-body">

@@ -1,1 +1,11 @@
-show_cards.html
+
+<div ng-repeat="card in list.cards">
+  <div class="well">
+    {{ card.title }}
+  </div>
+</div>
+
+
+<div class="well">
+  <a ui-sref="boards.show.newcard">Add a Card</a>
+</div>
