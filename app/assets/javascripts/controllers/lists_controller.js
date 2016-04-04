@@ -1,4 +1,4 @@
-djello.controller('ListsCtrl', ['$scope', 'ListsService', 'BoardsService', function($scope, ListsService, BoardsService) {
+djello.controller('ListsCtrl', ['$scope', 'ListsService', 'BoardsService','$state', function($scope, ListsService, BoardsService, $state) {
 
 
   $scope.listData = {};
@@ -11,6 +11,7 @@ djello.controller('ListsCtrl', ['$scope', 'ListsService', 'BoardsService', funct
       $scope.listData["board_id"] = $scope.currentBoardId;
       ListsService.createList($scope.listData)
       $scope.listData = {};
+      $state.go('boards.show', { id: $scope.currentBoardId })
     }
   };
 

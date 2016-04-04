@@ -40,7 +40,6 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
       BoardsService.createBoard($scope.formData).then(function(board){
         $scope.boards.unshift(board);
         setCurrentBoard(board);
-        console.log(BoardsService.currentBoardId)
         $scope.formData = {};
         $state.go("boards.show", {id: board.id})
       });
