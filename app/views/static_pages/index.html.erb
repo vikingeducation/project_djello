@@ -2,22 +2,36 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#" class="text-center">Djello</a>
-      <div class="pull-right">
-        <p class="navbar-text navbar-right">
-          Signed in as <a href="#" class="navbar-link"><%= current_user.username %></a>
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-        </p>
       </div>
-    </div>
+      <div class="nav navbar-nav navbar-right">
+        <p class="navbar-text">Signed in as: <a href="#" class="navbar-link"><%= current_user.username %></a></p>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-default navbar-btn" %>
+      </div>
     </div>
   </div>
 </nav>
 
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if flash[:notice] %>
+   <div class="alert alert-success">
+     <button type="button" class="close" data-dismiss="alert">&times;</button>
+     <%= flash[:notice] %>
+   </div>
 
-  <h3>Current user id: <%= current_user.id %></h3>
+   <% elsif flash[:error] %>
+     <div class="alert alert-danger">
+       <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <%= flash[:error] %>
+     </div>
+
+   <% elsif flash[:alert] %>
+     <div class="alert alert-warning">
+       <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <%= flash[:alert] %>
+     </div>
+   <% end %>
 
 
+<div class="container">
   <ui-view></ui-view>
+</div>

@@ -13,6 +13,7 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
 
   var setCurrentBoard = function(board) {
     var currentBoard = _.filter($scope.boards, {id: board.id})[0];
+    $scope.board = currentBoard;
     BoardsService.currentBoardId = currentBoard["id"];
 
     // also reset the current lists
@@ -39,9 +40,9 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
       BoardsService.createBoard($scope.formData).then(function(board){
         $scope.boards.unshift(board);
         setCurrentBoard(board);
-        $state.go("boards.show", {id: board.id})
+        console.log(BoardsService.currentBoardId)
         $scope.formData = {};
-        console.log(ListsService.currentLists)
+        $state.go("boards.show", {id: board.id})
       });
       
     }
