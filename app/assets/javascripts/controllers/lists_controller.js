@@ -15,5 +15,10 @@ djello.controller('ListsCtrl', ['$scope', 'ListsService', 'BoardsService', funct
   };
 
 
+  $scope.updateList = function(list) {
+    ListsService.updateList(list)
+  }
+
+
 
 }]);

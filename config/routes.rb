@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :boards, only: [:index, :create, :destroy]
       resources :users, only: [:show]
-      resources :lists
+      resources :lists, only: [:create, :update, :destroy]
     end
   end
 
