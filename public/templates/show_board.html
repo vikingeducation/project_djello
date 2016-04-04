@@ -9,7 +9,9 @@
       <div class="col-xs-2">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title text-center"><b>{{ list.title }}</b>  </h3><br/>
+            <div class="panel-title text-center">
+            <a editable-text="list.title" ui-sref="#">{{ list.title || "empty" }}</a>
+            </div><br/>
             <p>{{ list.description }}</p>
           </div>
           <div class="panel-body">

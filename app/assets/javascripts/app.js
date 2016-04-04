@@ -1,9 +1,18 @@
-var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
+var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'xeditable'])
+
+
+// djello.value('editableOptions', {
+//   theme: 'default' // bs3
+// })
+
+
+djello.run(function(editableOptions) {
+  editableOptions.theme = 'default';
+});
 
 
 
 djello.config(['RestangularProvider', function(RestangularProvider) {
-
   RestangularProvider.setBaseUrl('/api/v1');
   RestangularProvider.setRequestSuffix('.json');
   RestangularProvider.setDefaultHttpFields({
@@ -11,10 +20,6 @@ djello.config(['RestangularProvider', function(RestangularProvider) {
   });
 }]);
 
-
-djello.config(function(AuthProvider){
-  //AuthProvider.baseUrl('http://localhost:3000/api/v1');
-});
 
 
 djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {

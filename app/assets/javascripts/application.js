@@ -20,5 +20,7 @@
 //= require angular-devise
 //= require angular-ui-router.min.js
 //= require restangular.min.js
+//= require xeditable.min.js
+
 
 //= require_tree .
