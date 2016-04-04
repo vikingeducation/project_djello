@@ -61,15 +61,6 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
   }
 
 
-  $scope.deleteList = function(list) {
-    ListsService.deleteList(list);
-  }
-
-
-  $scope.updateList = function(list) {
-    ListsService.updateList(list)
-  }
-
 
 
 }]);

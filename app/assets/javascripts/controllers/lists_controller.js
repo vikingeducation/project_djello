@@ -15,9 +15,20 @@ djello.controller('ListsCtrl', ['$scope', 'ListsService', 'BoardsService', funct
   };
 
 
-  $scope.updateList = function(list) {
+  $scope.updateList = function($data, list, type) {
+    if (type === 'title') {
+      list.title = $data;
+    } else if (type === 'description') {
+      list.description = $data;
+    }
     ListsService.updateList(list)
   }
+
+
+  $scope.deleteList = function(list) {
+    ListsService.deleteList(list);
+  }
+
 
 
 

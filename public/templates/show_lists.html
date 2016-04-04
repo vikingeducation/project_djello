@@ -1,0 +1,23 @@
+<div ng-repeat="list in currentLists">
+  <div class="col-xs-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title text-center">
+
+        <a editable-text="list.title" ui-sref="#" onbeforesave="updateList($data, list, 'title')">{{ list.title || "empty" }}</a>
+        </div><br/>
+        <p editable-text="list.description" onbeforesave="updateList($data, list, 'description')">{{ list.description || "empty"}}</p>
+      </div>
+      <div class="panel-body">
+        Cards go here...
+      </div>
+      <div class="panel-footer"><a ng-really-click="deleteList(list)" ng-really-message="Are you sure you want to delete this list?">Delete List</a></div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- new list form -->
+<div ui-view></div>
+<a ui-sref="boards.show.newlist" class="btn btn-info">Add a List</a>

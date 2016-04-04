@@ -2,31 +2,7 @@
 <h5><b>Board Description:</b> {{ board.description }}</h5>
 <a ng-really-click="deleteBoard(board)" ng-really-message="Are you sure you want to delete this board?">Delete Board</a>
 
-<!-- TODO: move this to different template!!! -->
+<!-- render lists here -->
 <div class="row">
-
-  <div ng-repeat="list in currentLists">
-    <div class="col-xs-2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="panel-title text-center">
-
-          <a editable-text="list.title" ui-sref="#" onbeforesave='updateList(list)'>{{ list.title || "empty" }}</a>
-          </div><br/>
-          <p>{{ list.description }}</p>
-        </div>
-        <div class="panel-body">
-          Cards go here...
-        </div>
-        <div class="panel-footer"><a ng-really-click="deleteList(list)" ng-really-message="Are you sure you want to delete this list?">Delete List</a></div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- new list form -->
-  <div ui-view></div>
-  <a ui-sref="boards.show.newlist" class="btn btn-info">Add a List</a>
-
-
+  <div ui-view="lists"></div>
 </div>

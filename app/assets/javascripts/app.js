@@ -43,7 +43,15 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
     })
     .state("boards.show", {
       url: "/:id",
-      templateUrl: "templates/show_board.html"
+      views: {
+        '': {
+          templateUrl: "templates/show_board.html"
+        },
+        'lists@boards.show': {
+          templateUrl: "templates/show_lists.html",
+          controller: "ListsCtrl"
+        }
+      }
     })
     .state('boards.show.newlist', {
       url: "/lists/new",

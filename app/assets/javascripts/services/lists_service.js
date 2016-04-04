@@ -32,7 +32,7 @@ djello.factory('ListsService', ['Restangular', function(Restangular) {
 
 
   obj.updateList = function(list) {
-    Restangular.one('lists', list.id).put().then(
+    Restangular.one('lists', list.id).patch(list).then(
       function(updatedList) {
         for (var i = 0; i < obj.currentLists.length; i++) {
           if (updatedList.id == obj.currentLists[i].id) {
