@@ -1,8 +1,6 @@
 class BoardsController < ApplicationController
 
   def index
-    # @boards = Board.all
-    # @boards = Board.where()
     @boards = current_user.boards
 
     respond_to do |format|
@@ -15,8 +13,8 @@ class BoardsController < ApplicationController
   def create
     @board = Board.new(board_params)
 
-
-    current_user.boards.build()
+    # TODO:
+    # current_user.boards.build()
 
     respond_to do |format|
       if @board.save
@@ -26,6 +24,7 @@ class BoardsController < ApplicationController
       end
     end
   end
+
 
   def destroy
     # TODO: make this more narrow for just the current_user

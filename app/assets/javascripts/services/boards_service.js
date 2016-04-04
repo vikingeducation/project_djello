@@ -1,4 +1,4 @@
-djello.factory('BoardsService', ['Restangular', 'Auth', function(Restangular, Auth) {
+djello.factory('BoardsService', ['Restangular', function(Restangular) {
 
 
   var getBoardsForUser = function(user) {
@@ -19,11 +19,15 @@ djello.factory('BoardsService', ['Restangular', 'Auth', function(Restangular, Au
   }
 
 
+  var currentBoardId;
+
+
 
   return {
     getBoardsForUser: getBoardsForUser,
     createBoard: createBoard,
-    deleteBoard: deleteBoard
+    deleteBoard: deleteBoard,
+    currentBoardId: currentBoardId
     // updateBoard: updateBoard
   }
 

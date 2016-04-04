@@ -1,0 +1,22 @@
+<div class="col-sm-2">
+  <div class="panel panel-default">
+
+
+    <form name="newList" class="">
+      <div class="panel-heading">
+      
+        <h3 class="panel-title text-center">
+  
+          <input type="text" name="title" ng-model="listData.title" placeholder="Add List Title..." class="form-control">
+
+        </h3><br/>
+        <textarea name="description" cols="50" rows="4" ng-model="listData.description" class="form-control"></textarea><br/>
+      </div>
+      <div class="panel-body">
+        <input type="submit" value="Save" ng-click="createList(newList.$valid)">
+      </div>
+    </form>
+
+
+  </div>
+</div>

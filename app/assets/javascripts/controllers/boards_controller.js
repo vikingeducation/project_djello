@@ -11,7 +11,11 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
 
 
   var setCurrentBoard = function() {
-    $scope.currentBoard = _.filter($scope.boards, {id: $scope.currentBoardId});
+    var currentBoard = _.filter($scope.boards, {id: $scope.currentBoardId});
+    $scope.currentBoard = currentBoard;
+    BoardsService.currentBoardId = currentBoard[0]["id"];
+    // console.log($scope.currentBoard);
+    // console.log(BoardsService.currentBoard[0]["id"])
   }
 
 

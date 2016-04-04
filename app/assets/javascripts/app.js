@@ -40,9 +40,9 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
       url: "/:id",
       templateUrl: "templates/show_board.html"
     })
-    .state('boards.show.lists', {
-      url: "/lists",
-      templateUrl: "templates.lists.html",
+    .state('boards.show.newlist', {
+      url: "/lists/new",
+      templateUrl: "templates/new_list.html",
       controller: "ListsCtrl"
     })
 
