@@ -9,7 +9,7 @@
         <p editable-text="list.description" onbeforesave="updateList($data, list, 'description')">{{ list.description || "empty"}}</p>
       </div>
       <div class="panel-body">
-        Cards go here...
+        <div ui-view="cards"></div>
       </div>
       <div class="panel-footer"><a ng-really-click="deleteList(list)" ng-really-message="Are you sure you want to delete this list?">Delete List</a></div>
     </div>

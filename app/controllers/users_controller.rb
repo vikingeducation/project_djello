@@ -4,7 +4,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      format.json { render json: @user.to_json(:include=> {:boards => {:include => :lists}}) }
+      format.json { render json: @user.to_json(
+        :include => 
+          {:boards => {:include => 
+              {:lists => {:include => :cards}}
+          }
+        }
+      )}
     end
   end
 

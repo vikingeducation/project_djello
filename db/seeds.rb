@@ -62,6 +62,18 @@ end
 
 
 
+p "creating cards..."
+
+def create_card(list_id)
+  Card.create(title: Faker::Hipster.word, description: Faker::Hipster.sentence, list_id: list_id, completed: false)
+end
+
+List.all.each do |list|
+  3.times do 
+    create_card(list.id)
+  end
+end
+
 
 
 

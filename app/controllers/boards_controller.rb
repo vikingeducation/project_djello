@@ -23,6 +23,9 @@ class BoardsController < ApplicationController
   end
 
 
+  # TODO: add update action
+
+
   def destroy
     # TODO: make this more narrow for just the current_user
     @board = Board.find(params[:id])

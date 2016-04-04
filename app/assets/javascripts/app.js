@@ -50,6 +50,10 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
         'lists@boards.show': {
           templateUrl: "templates/show_lists.html",
           controller: "ListsCtrl"
+        },
+        'cards@boards.show': {
+          templateUrl: "templates/show_cards.html",
+          controller: "CardsCtrl"
         }
       }
     })

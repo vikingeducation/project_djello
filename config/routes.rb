@@ -13,17 +13,13 @@ Rails.application.routes.draw do
         delete "logout", :to => "devise/sessions#destroy"
       end 
 
-  # authenticate :user do
-  #   resources :static_pages, only: [:index]
-  # end
 
-
-  # TODO: restrict to only the actions being used
   scope :api do
     scope :v1 do
       resources :boards, only: [:index, :create, :destroy]
       resources :users, only: [:show]
       resources :lists, only: [:create, :update, :destroy]
+      resources :cards, only: [:create, :update, :destroy]
     end
   end
 
