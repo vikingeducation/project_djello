@@ -11,10 +11,7 @@ class BoardsController < ApplicationController
 
 
   def create
-    @board = Board.new(board_params)
-
-    # TODO:
-    # current_user.boards.build()
+    @board = current_user.boards.build(board_params)
 
     respond_to do |format|
       if @board.save
@@ -30,7 +27,6 @@ class BoardsController < ApplicationController
     # TODO: make this more narrow for just the current_user
     @board = Board.find(params[:id])
 
-    
     respond_to do |format|
       @board.destroy
       format.json{ render json: @board.to_json }

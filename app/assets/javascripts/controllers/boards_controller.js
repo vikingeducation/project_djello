@@ -1,4 +1,4 @@
-djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUser', '$stateParams', function($scope, $state, BoardsService, currentUser, $stateParams) {
+djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUser', '$stateParams', 'ListsService', function($scope, $state, BoardsService, currentUser, $stateParams, ListsService) {
 
 
   $scope.formData = {};
@@ -10,21 +10,19 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
     });
 
 
-  var setCurrentBoard = function() {
-    var currentBoard = _.filter($scope.boards, {id: $scope.currentBoardId});
+  var setCurrentBoard = function(board) {
+    var currentBoard = _.filter($scope.boards, {id: board.id})[0];
     $scope.currentBoard = currentBoard;
-    BoardsService.currentBoardId = currentBoard[0]["id"];
-    // console.log($scope.currentBoard);
-    // console.log(BoardsService.currentBoard[0]["id"])
+    BoardsService.currentBoardId = currentBoard["id"];
+    // also set the current lists
+    ListsService.currentLists = currentBoard["lists"] || [];
   }
 
 
   $scope.changeState = function(board) {
     if (board) {
-      $state.go('boards.show', { id: board.id })
-      $scope.currentBoardId = board.id
-      setCurrentBoard();
-      $scope.currentLists = $scope.currentBoard[0].lists
+      setCurrentBoard(board);
+      $state.go('boards.show', { id: board.id });
     } 
   }
 
@@ -34,6 +32,7 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
       $scope.formData["user_id"] = currentUser.id;
       BoardsService.createBoard($scope.formData).then(function(board){
         $scope.boards.unshift(board);
+        setCurrentBoard(board);
         $state.go("boards.show", {id: board.id})
         $scope.formData = {};
       });
@@ -52,6 +51,11 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
       }
       $state.go("boards");
     })
+  }
+
+
+  $scope.deleteList = function(list) {
+    ListsService.deleteList(list);
   }
 
 
