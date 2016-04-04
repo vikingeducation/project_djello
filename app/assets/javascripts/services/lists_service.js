@@ -3,11 +3,18 @@ djello.factory('ListsService', ['Restangular', function(Restangular) {
 
   var obj = {};
 
-  obj.currentLists;
+  obj.currentLists = [];
 
 
   obj.createList = function(listObj) {
-    return Restangular.all('lists').post(listObj);
+    Restangular.all('lists').post(listObj).then(
+      function(newList) {
+        console.log("newList: ")
+        console.log(newList)
+        obj.currentLists.push(newList);
+        console.log(obj.currentLists)
+      }
+    );
   }
 
 
