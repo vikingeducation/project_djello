@@ -39,11 +39,11 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
     .state("boards.show", {
       url: "/:id",
       templateUrl: "templates/show_board.html"
-      // resolve: {
-      //   currentBoard: ['$stateParams', function($stateParams) {
-      //     return _.filter($scope.boards, {id: $stateParams.id})[0];
-      //   }]
-      // }
+    })
+    .state('boards.show.lists', {
+      url: "/lists",
+      templateUrl: "templates.lists.html",
+      controller: "ListsCtrl"
     })
 
 

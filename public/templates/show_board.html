@@ -1,11 +1,25 @@
-<h1>New show_board template:</h1>
-
-<h4>Current board: {{ currentBoard }}</h4>
-<p>{{ board.title }}</p>
-<p>{{ board.description }}</p>
-
-<div ng-repeat="list in currentLists">
-  {{ list.title }}
-</div>
-
+<h3><b>Board Title:</b> {{ board.title }}</h3>
+<h5><b>Board Description:</b> {{ board.description }}</h5>
 <a ng-click="deleteBoard(board)">Delete Board</a>
+
+<!-- <div class="container"> -->
+  <div class="row">
+
+    <div ng-repeat="list in currentLists">
+      <div class="col-xs-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center"><b>{{ list.title }}</b>  </h3><br/>
+            <p>{{ list.description }}</p>
+          </div>
+          <div class="panel-body">
+            Cards go here...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a ui-sref="">Add a List</a>
+
+  </div>
+<!-- </div> -->

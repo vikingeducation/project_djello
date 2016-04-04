@@ -10,11 +10,9 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
     });
 
 
-
   var setCurrentBoard = function() {
     $scope.currentBoard = _.filter($scope.boards, {id: $scope.currentBoardId});
   }
-
 
 
   $scope.changeState = function(board) {
@@ -23,10 +21,8 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
       $scope.currentBoardId = board.id
       setCurrentBoard();
       $scope.currentLists = $scope.currentBoard[0].lists
-      console.log($scope.currentLists)
     } 
   }
-
 
 
   $scope.createBoard = function(formIsValid) {
