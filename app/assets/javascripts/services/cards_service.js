@@ -25,6 +25,11 @@ djello.factory('CardsService', ['Restangular', 'ListsService', function(Restangu
     var id = cardObj["id"]
     console.log(cardObj)
     return Restangular.one('cards', cardObj.id).patch(cardObj)
+  };
+
+
+  obj.deleteCard = function(cardObj) {
+    return Restangular.one('cards', cardObj.id).remove();
   }
 
 

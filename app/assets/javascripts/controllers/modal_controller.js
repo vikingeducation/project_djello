@@ -49,24 +49,20 @@ djello.controller('ModalCtrl', ['$scope', 'ModalService', 'CardsService', 'Lists
 
 
   $scope.updateCard = function($data, card, type) {
-    
-    console.log($data)
     if (type === "title") {
       card.title = $data;
     } else if (type === "description") {
       card.description = $data;
     }
-    console.log(card)
     CardsService.updateCard(card).then(
       function(updatedCard) {
         for (var i = 0; i < $scope.currentList.length; i++) {
-          if (updatedList.id == $scope.currentList[i].id) {
+          if (updatedCard.id == $scope.currentList[i].id) {
             $scope.currentList.splice(i, 1, updatedCard)
           }
         }        
       })
   }
-
 
 
 }])
@@ -77,5 +73,19 @@ djello.controller('ModalController', ['$scope', 'close', function($scope, close)
 
   $scope.close = function(result) {
     close(result, 500);
+  }
+
+
+  $scope.deleteCard = function(card) {
+    // close();
+    CardsService.deleteCard(card).then(
+      function(deletedCard) {
+        for (var i = 0; i < $scope.currentList.cards.length; i++) {
+          if (deletedCard.id == $scope.currentList.cards[i].id) {
+            $scope.currentList.cards.splice(i, 1);
+          }
+        }
+        close();
+      })
   }
 }])

@@ -10,9 +10,12 @@ djello.factory('BoardsService', ['Restangular', function(Restangular) {
     return Restangular.all('boards').post(boardObj);
   };
 
+
+  // TODO: finish update board functionality
   // var updateBoard = function(id) {
   //   return Restangular.one('boards', id).get();
   // }
+
 
   var deleteBoard = function(board){
     return Restangular.one('boards', board.id).remove();
