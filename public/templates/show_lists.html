@@ -4,10 +4,11 @@
       <div class="panel-heading">
         <div class="panel-title text-center">
 
-        <a editable-text="list.title" ui-sref="#" onbeforesave="updateList($data, list, 'title')">{{ list.title || "empty" }}</a>
+        <a editable-text="list.title" ui-sref="#" onbeforesave="updateList($data, list, 'title')">{{ list.title }}</a>
         </div><hr/>
-        <p editable-text="list.description" onbeforesave="updateList($data, list, 'description')">{{ list.description || "empty"}}</p>
+        <p editable-text="list.description" onbeforesave="updateList($data, list, 'description')">{{ list.description }}</p>
       </div>
+      <!-- cards go here: -->
       <div class="panel-body">
         <div ui-view="cards"></div>
       </div>

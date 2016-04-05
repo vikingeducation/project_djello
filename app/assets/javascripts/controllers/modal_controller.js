@@ -2,42 +2,17 @@ djello.controller('ModalCtrl', ['$scope', 'ModalService', 'CardsService', 'Lists
 
 
   $scope.allLists = ListsService.currentLists;
-  // $scope.currentList = {};
-  // $scope.currentCard = {};
-  // $scope.title = "HI"
+  $scope.cardData = {};
+  $scope.isCardFormOpen = false;
 
 
   $scope.show = function(event) {
-
-    var listId = Number($(event.target).attr("list-id"));
-    var cardId = Number($(event.target).attr("card-id"))
-    // console.log("got into show?")
-    // console.log($(event.target).attr("list-id"))
-    // console.log(typeof $(event.target).attr("list-id"))
-    // console.log($(event.target).attr("card-id"))
-    // console.log($scope.allLists)
-    // console.log(_.filter($scope.allLists, {id: "215"}))
-    console.log(listId)
-    console.log(cardId)
-
-    $scope.currentList = CardsService.getCurrentList($scope.allLists, listId);
-    // $scope.allCards = $scope.currentList.cards;
-    $scope.currentCard = CardsService.getCurrentCard($scope.currentList.cards, cardId)
-
-    console.log($scope.currentCard)
+    $scope.setCurrentVars(event);
 
     ModalService.showModal({
       templateUrl: 'templates/card_modal.html',
       scope: $scope, // This was the key!!!!
-      controller: "ModalController" //,
-      // resolve: {
-      //   list: function() {
-      //     return scope.currentList;
-      //   },
-      //   card: function() {
-      //     return scope.currentCard;
-      //   }
-      // }
+      controller: "ModalController"
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(result) {
@@ -45,6 +20,32 @@ djello.controller('ModalCtrl', ['$scope', 'ModalService', 'CardsService', 'Lists
       })
     })
   };
+
+
+  $scope.setCurrentVars = function(event) {
+    var listId = Number($(event.target).attr("list-id"));
+    var cardId = Number($(event.target).attr("card-id"))
+
+    $scope.currentList = CardsService.getCurrentList($scope.allLists, listId);
+    $scope.currentCard = CardsService.getCurrentCard($scope.currentList.cards, cardId)
+
+    console.log($scope.currentList)
+    console.log($scope.currentCard)
+  };
+
+
+  $scope.createCard = function(formIsValid) {
+    if (formIsValid) {
+      $scope.cardData["list_id"] = $scope.currentList.id;
+      $scope.cardData["completed"] = false;
+      CardsService.createCard($scope.cardData).then(
+        function(newCard) {
+          $scope.currentList.cards.push(newCard);
+          $scope.cardData = {};
+          $scope.isCardFormOpen = false;
+        })
+    }
+  }
 
 
 
