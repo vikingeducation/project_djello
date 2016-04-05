@@ -28,9 +28,6 @@ djello.controller('ModalCtrl', ['$scope', 'ModalService', 'CardsService', 'Lists
 
     $scope.currentList = CardsService.getCurrentList($scope.allLists, listId);
     $scope.currentCard = CardsService.getCurrentCard($scope.currentList.cards, cardId)
-
-    // console.log($scope.currentList)
-    // console.log($scope.currentCard)
   };
 
 
