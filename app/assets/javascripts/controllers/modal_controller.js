@@ -65,19 +65,7 @@ djello.controller('ModalCtrl', ['$scope', 'ModalService', 'CardsService', 'Lists
   }
 
 
-}])
-
-
-
-djello.controller('ModalController', ['$scope', 'close', function($scope, close) {
-
-  $scope.close = function(result) {
-    close(result, 500);
-  }
-
-
   $scope.deleteCard = function(card) {
-    // close();
     CardsService.deleteCard(card).then(
       function(deletedCard) {
         for (var i = 0; i < $scope.currentList.cards.length; i++) {
@@ -85,7 +73,20 @@ djello.controller('ModalController', ['$scope', 'close', function($scope, close)
             $scope.currentList.cards.splice(i, 1);
           }
         }
-        close();
       })
   }
+
+
+
+}])
+
+
+
+djello.controller('ModalController', ['$scope', 'close', function($scope, close) {
+
+  $scope.dismissModal = function(result) {
+    close(result, 500);
+  }
+
+
 }])

@@ -20,7 +20,7 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.update(list_params)
-        format.json { render json: @list.to_json }
+        format.json { render json: @list.to_json(:include => :cards) }
       else
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end

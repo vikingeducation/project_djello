@@ -15,6 +15,7 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
     var currentBoard = _.filter($scope.boards, {id: board.id})[0];
     $scope.board = currentBoard;
     BoardsService.currentBoardId = currentBoard["id"];
+    console.log(BoardsService.currentBoardId)
 
     // also reset the current lists
     if (currentBoard["lists"]) {

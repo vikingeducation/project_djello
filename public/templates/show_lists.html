@@ -20,5 +20,32 @@
 
 
 <!-- new list form -->
-<div ui-view></div>
-<a ui-sref="boards.show.newlist" class="btn btn-info">Add a List</a>
+<!-- <div ui-view></div>
+<a ui-sref="boards.show.newlist" class="btn btn-info">Add a List</a> -->
+
+<a class="btn btn-info" ng-click="isNewListOpen =! isNewListOpen">Add a List</a>
+
+
+<div class="col-sm-2" ng-show='isNewListOpen'>
+  <div class="panel panel-default">
+
+
+    <form name="newList" novalidate>
+      <div class="panel-heading">
+      
+        <h3 class="panel-title text-center">
+  
+          <input type="text" name="title" ng-model="listData.title" placeholder="Add List Title..." class="form-control" required>
+
+        </h3><br/>
+        <textarea name="description" cols="50" rows="4" ng-model="listData.description" class="form-control" required placeholder="Add List Description..."></textarea><br/>
+      </div>
+      <div class="panel-body">
+        <input type="submit" value="Save" ng-click="createList(newList.$valid)" class="btn btn-default">
+        <input type="submit" value="Cancel" class="btn btn-default">
+      </div>
+    </form>
+
+
+  </div>
+</div>

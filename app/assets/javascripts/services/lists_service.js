@@ -31,6 +31,7 @@ djello.factory('ListsService', ['Restangular', function(Restangular) {
   obj.updateList = function(list) {
     Restangular.one('lists', list.id).patch(list).then(
       function(updatedList) {
+        console.log(updatedList)
         for (var i = 0; i < obj.currentLists.length; i++) {
           if (updatedList.id == obj.currentLists[i].id) {
             obj.currentLists.splice(i, 1, updatedList)

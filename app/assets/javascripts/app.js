@@ -62,13 +62,6 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
       templateUrl: "templates/new_list.html",
       controller: "ListsCtrl"
     })
-    // .state('boards.show.newcard', {
-    //   url: "/card/new",
-    //   templateUrl: "templates/card_modal.html",
-    //   controller: "ModalCtrl"
-    // })
-
-
 
 
 }]);

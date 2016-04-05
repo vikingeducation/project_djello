@@ -4,14 +4,19 @@ djello.controller('ListsCtrl', ['$scope', 'ListsService', 'BoardsService','$stat
   $scope.listData = {};
   $scope.currentBoardId = BoardsService.currentBoardId;
   $scope.currentLists = ListsService.currentLists;
+  $scope.isNewListOpen = false;
 
 
   $scope.createList = function(formIsValid) {
     if (formIsValid) {
+      console.log($scope.currentBoardId)
       $scope.listData["board_id"] = $scope.currentBoardId;
+      console.log($scope.listData)
+
       ListsService.createList($scope.listData)
+      $scope.isNewListOpen = false;
       $scope.listData = {};
-      $state.go('boards.show', { id: $scope.currentBoardId })
+      // $state.go('boards.show', { id: $scope.currentBoardId })
     }
   };
 
