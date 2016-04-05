@@ -4,7 +4,7 @@ class BoardsController < ApplicationController
     @boards = current_user.boards
 
     respond_to do |format|
-      format.json { render json: @boards.to_json(include: :lists) }
+      format.json { render json: @boards.to_json(:include => :lists) }
     end
 
   end
@@ -24,11 +24,11 @@ class BoardsController < ApplicationController
 
 
   def update
-    @board = board.find(params[:id])
+    @board = Board.find(params[:id])
 
     respond_to do |format|
       if @board.update(board_params)
-        format.json { render json: @board.to_json}
+        format.json { render json: @board.to_json(:include => {:lists => {:include => :cards}} )}
       else
         format.json { render status: :unprocessable_entity}
       end

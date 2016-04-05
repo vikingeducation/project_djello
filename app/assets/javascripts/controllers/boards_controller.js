@@ -47,6 +47,23 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
       });
       
     }
+  };
+
+
+  $scope.updateBoard = function($data, board, type) {
+    if (type === 'title') {
+      board.title = $data;
+    } else if (type === 'description') {
+      board.description = $data;
+    }
+    BoardsService.updateBoard(board).then(
+      function(board) {
+        for (var i = 0; i < $scope.boards.length; i++) {
+          if (board.id == $scope.boards[i].id) {
+            $scope.boards.splice(i, 1, board)
+          }
+        }        
+      })
   }
 
 

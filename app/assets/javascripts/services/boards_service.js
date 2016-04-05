@@ -11,10 +11,9 @@ djello.factory('BoardsService', ['Restangular', function(Restangular) {
   };
 
 
-  // TODO: finish update board functionality
-  // var updateBoard = function(id) {
-  //   return Restangular.one('boards', id).get();
-  // }
+  var updateBoard = function(boardObj) {
+    return Restangular.one('boards', boardObj.id).patch(boardObj);
+  }
 
 
   var deleteBoard = function(board){
@@ -30,8 +29,8 @@ djello.factory('BoardsService', ['Restangular', function(Restangular) {
     getBoardsForUser: getBoardsForUser,
     createBoard: createBoard,
     deleteBoard: deleteBoard,
-    currentBoardId: currentBoardId
-    // updateBoard: updateBoard
+    currentBoardId: currentBoardId,
+    updateBoard: updateBoard
   }
 
 
