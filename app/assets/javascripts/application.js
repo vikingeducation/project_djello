@@ -22,5 +22,7 @@
 //= require restangular.min.js
 //= require xeditable.min.js
 
+//= require angular-modal-service.min.js
+
 
 //= require_tree .
