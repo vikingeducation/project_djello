@@ -40,6 +40,8 @@ djello.controller('ModalCtrl', ['$scope', 'ModalService', 'CardsService', 'Lists
       $scope.cardData["completed"] = false;
       CardsService.createCard($scope.cardData).then(
         function(newCard) {
+          console.log("$scope.currentList.cards: ")
+          console.log($scope.currentList.cards)
           $scope.currentList.cards.push(newCard);
           $scope.cardData = {};
           $scope.isCardFormOpen = false;

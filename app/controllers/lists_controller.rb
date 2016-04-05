@@ -6,7 +6,7 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
-        format.json { render json: @list.to_json }
+        format.json { render json: @list.to_json(:include => :cards) }
       else
         format.json { render status: :unprocessable_entity}
       end

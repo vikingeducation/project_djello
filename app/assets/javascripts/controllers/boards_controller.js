@@ -8,6 +8,8 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
   BoardsService.getBoardsForUser(currentUser).then(
     function(data) {
       $scope.boards = data.boards;
+      BoardsService.currentBoardId = $scope.boards[0]["id"];
+      // console.log(BoardsService.currentBoardId)
     });
 
 
@@ -15,11 +17,11 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
     var currentBoard = _.filter($scope.boards, {id: board.id})[0];
     $scope.board = currentBoard;
     BoardsService.currentBoardId = currentBoard["id"];
-    console.log(BoardsService.currentBoardId)
+    // console.log(BoardsService.currentBoardId)
 
     // also reset the current lists
+    ListsService.currentLists.length = 0;
     if (currentBoard["lists"]) {
-      ListsService.currentLists.length = 0;
       for (var i = 0; i < currentBoard["lists"].length; i++) {
         ListsService.currentLists.push(currentBoard["lists"][i]);
       }

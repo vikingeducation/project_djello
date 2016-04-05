@@ -1,11 +1,6 @@
 var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'xeditable', 'angularModalService'])
 
 
-// djello.value('editableOptions', {
-//   theme: 'default' // bs3
-// })
-
-
 djello.run(function(editableOptions) {
   editableOptions.theme = 'default';
 });
@@ -56,11 +51,6 @@ djello.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
           controller: "CardsCtrl"
         }
       }
-    })
-    .state('boards.show.newlist', {
-      url: "/lists/new",
-      templateUrl: "templates/new_list.html",
-      controller: "ListsCtrl"
     })
 
 

@@ -9,6 +9,8 @@ djello.factory('ListsService', ['Restangular', function(Restangular) {
   obj.createList = function(listObj) {
     Restangular.all('lists').post(listObj).then(
       function(newList) {
+        console.log("new list item:")
+        console.log(newList)
         obj.currentLists.push(newList);
       }
     );

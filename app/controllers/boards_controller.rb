@@ -31,6 +31,7 @@ class BoardsController < ApplicationController
         format.json { render json: @board.to_json}
       else
         format.json { render status: :unprocessable_entity}
+      end
     end
   end
 
