@@ -24,7 +24,7 @@ class CardsController < ApplicationController
 
 
   def update
-    @card = List.find(params[:id])
+    @card = Card.find(params[:id])
 
     respond_to do |format|
       if @card.update(card_params)
@@ -38,7 +38,7 @@ class CardsController < ApplicationController
 
 
   def destroy 
-    @card = List.find(params[:id])
+    @card = Card.find(params[:id])
 
     respond_to do |format|
       @card.destroy
