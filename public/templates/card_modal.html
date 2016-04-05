@@ -6,8 +6,7 @@
         <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
 
 
-      <form name="newCard">
-        <h4 class="modal-title">{{ currentCard.title }}</h4>
+        <h4 class="modal-title" editable-text="card.title" ui-sref="#" onbeforesave="updateCard($data, currentCard, 'title')">{{ currentCard.title }}</h4>
         <h5>In list <a>{{ currentList.title }}</a><div class="pull-right"><a>Mark Completed</a></div></h5>
       </div>
 
@@ -15,8 +14,6 @@
       <div class="modal-body">
         <p>{{ currentCard.description }}</p><hr/>
       </div>
-
-      </form>
 
       <div class="modal-body">
         <p>Members:</p>
