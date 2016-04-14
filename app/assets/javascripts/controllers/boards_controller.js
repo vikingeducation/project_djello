@@ -63,6 +63,7 @@ djello.controller('BoardsCtrl', ['$scope', '$state', 'BoardsService', 'currentUs
             $scope.boards.splice(i, 1, board)
           }
         }        
+      setCurrentBoard(board)
       })
   }
 
