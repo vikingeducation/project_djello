@@ -12,7 +12,7 @@
       <div class="panel-body">
         <div ui-view="cards"></div>
       </div>
-      <div class="panel-footer"><a ng-really-click="deleteList(list)" ng-really-message="Are you sure you want to delete this list?">Delete List</a></div>
+      <div class="panel-footer delete" ><a ng-really-click="deleteList(list)" ng-really-message="Are you sure you want to delete this list?">Delete List</a></div>
     </div>
   </div>
 </div>
@@ -37,7 +37,7 @@
       </div>
       <div class="panel-body">
         <input type="submit" value="Save" ng-click="createList(newList.$valid)" class="btn btn-default">
-        <input type="submit" value="Cancel" class="btn btn-default">
+        <input type="submit" value="Cancel" class="btn btn-default" ng-click="isNewListOpen =! isNewListOpen">
       </div>
     </form>
 

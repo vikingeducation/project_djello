@@ -14,6 +14,67 @@
  *= require_self
  */
 
+$dark-gray: #666;
+$turquoise: #6ed3cf;
+$light-turquoise: #c0f1ef;
+$purple: #9068be;
+$light-purple: #cdb5e8;
+$red: #e62739;
+
+
+nav.navbar-default {
+  background-color: #666;
+  .navbar-brand, .navbar-text {
+    color: white;
+  }
+}
+
+.boards a, .modal-header a {
+  color: $purple;
+  cursor: pointer;
+}
+
+
+a.btn-info, input.btn-info {
+  background-color: $turquoise;
+  border-color: $turquoise;
+  color: white;
+}
+
+a.btn-info:hover, a.btn-info:focus, 
+a.btn-info:active, a.btn-info.active,
+input.btn-info:hover, input.btn-info:focus, 
+input.btn-info:active, input.btn-info.active {
+  background-color: $turquoise;
+  border-color: $turquoise;
+  color: white;
+  &:hover {
+    background-color: $turquoise;
+  }
+}
+
+.delete > a {
+  color: $red;
+  cursor: pointer;
+}
+
+.turquoise {
+  padding: 30px;
+  background-color: turquoise;
+  color: white;
+  border-radius: 40px;
+}
+
+div.alert.alert-success {
+  background-color: $light-purple;
+  color: white;
+}
+
+div.alert.alert-warning {
+  background-color: $light-turquoise;
+}
+
+
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
