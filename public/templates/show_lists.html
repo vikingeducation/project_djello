@@ -1,0 +1,46 @@
+<div ng-repeat="list in currentLists">
+  <div class="col-xs-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title text-center">
+
+        <a editable-text="list.title" ui-sref="#" onbeforesave="updateList($data, list, 'title')">{{ list.title }}</a>
+        </div><hr/>
+        <p editable-text="list.description" onbeforesave="updateList($data, list, 'description')">{{ list.description }}</p>
+      </div>
+      <!-- cards go here: -->
+      <div class="panel-body">
+        <div ui-view="cards"></div>
+      </div>
+      <div class="panel-footer delete" ><a ng-really-click="deleteList(list)" ng-really-message="Are you sure you want to delete this list?">Delete List</a></div>
+    </div>
+  </div>
+</div>
+
+
+<a class="btn btn-info" ng-click="isNewListOpen =! isNewListOpen">Add a List</a>
+
+
+<div class="col-sm-3" ng-show='isNewListOpen'>
+  <div class="panel panel-default">
+
+
+    <form name="newList" novalidate>
+      <div class="panel-heading">
+      
+        <h3 class="panel-title text-center">
+  
+          <input type="text" name="title" ng-model="listData.title" placeholder="Add List Title..." class="form-control" required>
+
+        </h3><br/>
+        <textarea name="description" cols="50" rows="4" ng-model="listData.description" class="form-control" required placeholder="Add List Description..."></textarea><br/>
+      </div>
+      <div class="panel-body">
+        <input type="submit" value="Save" ng-click="createList(newList.$valid)" class="btn btn-default">
+        <input type="submit" value="Cancel" class="btn btn-default" ng-click="isNewListOpen =! isNewListOpen">
+      </div>
+    </form>
+
+
+  </div>
+</div>

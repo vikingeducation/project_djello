@@ -1,0 +1,36 @@
+<div ng-controller="ModalCtrl">
+
+
+  <div ng-repeat="card in list.cards">
+    <div class="well" card-id="{{ card.id }}" ng-click="show($event)" list-id="{{ list.id }}">
+      {{ card.title }}
+    </div>
+  </div>
+
+
+
+  <!-- new card form: -->
+  <div class="well">
+    <a ng-click="isCardFormOpen =! isCardFormOpen; setCurrentVars($event)" list-id="{{ list.id }}">Add a Card</a>
+
+
+    <form name="newCard" ng-show="isCardFormOpen">
+      <div class="panel-heading">
+      
+        <h3 class="panel-title text-center">
+
+          <input type="text" name="title" ng-model="cardData.title" placeholder="Add Card Title..." class="form-control" required>
+
+        </h3><br/>
+        <textarea name="description" cols="50" rows="4" ng-model="cardData.description" class="form-control" required placeholder="Add Card Description..."></textarea><br/>
+      </div>
+      <div class="panel-body">
+        <input type="submit" value="Save" ng-click="createCard(newCard.$valid)" class="btn btn-default">
+        <input type="submit" value="Cancel" class="btn btn-default" ng-click="isCardFormOpen =! isCardFormOpen">
+      </div>
+    </form>
+
+
+  </div>
+
+</div>
