@@ -1,0 +1,83 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <h3 class="modal-title" ng-hide="editCardEnabled.title" ng-click="editCard('title')">{{oldCard.title}}</h3>
+
+        <div class="modal-title" ng-show="editCardEnabled.title">
+          <input ng-model="oldCard.title">
+          <button type="button" class="btn btn-success"
+                    ng-click="editCard('title', true)">
+            Save
+          </button>
+          <button type="button" class="btn btn-warning"
+                    ng-click="editCard('title')">
+            Cancel
+          </button>
+        </div>
+
+        <div class="row">
+          <p class='col-sm-6 pull left'>
+            In list
+            <a href="" aria-hidden="true" ng-click="close()" data-dismiss="modal">
+              {{list.title}}
+            </a>
+          </p>
+          <p class='col-sm-6 pull right'>
+            <a href="" ng-click="cardComplete()">Mark Completed</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div ng-hide="editCardEnabled.description">
+          <p ng-click="editCard('description')">{{oldCard.description}}</p>
+        </div>
+
+        <div ng-show="editCardEnabled.description">
+          <input ng-model="oldCard.description">
+          <button type="button" class="btn btn-success"
+                    ng-click="editCard('description', true)">
+            Save
+          </button>
+          <button type="button" class="btn btn-warning"
+                    ng-click="editCard('description')">
+            Cancel
+          </button>
+        </div>
+
+        <hr>
+
+        <div>
+          <h4>Members</h4>
+          <ul>
+            <li ng-repeat="member in card.members">
+              {{member.username}}
+              <a href="" class="pull-right" ng-click="removeMember($index)">
+                Remove
+              </a>
+            </li>
+          </ul>
+          <form ng-submit="addMember()">
+            <select ng-model="memberID">
+              <option ng-repeat="user in users" value="{{user.id}}">
+                {{user.username}}
+              </option>
+            </select>
+
+            <input type="submit" value="Add Member" class="btn btn-success">
+
+          </form>
+        </div>
+
+        <hr>
+        <div>
+          <h4>Activity</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
