@@ -13,7 +13,8 @@ app.config(
   function($stateProvider, $urlRouterProvider, RestangularProvider) {
 
     // Restangular
-    // RestangularProvider.setBaseUrl('https://api.github.com/users/cjvirtucio87');
+    RestangularProvider.setBaseUrl('/api/v1');
+    RestangularProvider.setRequestSuffix('.json');
 
     $urlRouterProvider.otherwise('/');
 
@@ -28,12 +29,11 @@ app.config(
             templateUrl: 'templates/boards/index.html',
             controller: 'BoardsIndexCtrl'
           }
+        },
+        resolve: {
+          boards: ['BoardService', function(BoardService){
+            return BoardService.all();
+          }]
         }
-        // },
-        // resolve: {
-        //   boards: ['BoardService', function(BoardService){
-        //     return BoardService.all();
-        //   }]
-        // }
       });
 }]);

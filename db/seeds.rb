@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+puts "Destroying boards.."
+Board.destroy_all
+puts "Done!"
+
+puts "Creating boards.."
+10.times do |n|
+  Board.create!({
+      title: Faker::App.name,
+      description: Faker::Lorem.paragraph(1)
+    })
+end
+puts "Done!"

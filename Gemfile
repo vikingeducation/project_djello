@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'faker'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'devise'
