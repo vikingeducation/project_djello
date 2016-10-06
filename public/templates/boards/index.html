@@ -1,0 +1,16 @@
+<div class="container">
+<h3>Boards</h3>
+<div class="col-sm-3 board" ng-repeat="board in boards">
+  <h4 class='board-title'>{{board.title}}<h4>
+</div>
+<div class="col-sm-3 board text-center">
+  <div class="new-board">
+  <button type="button" name="button" ng-click="newBoard=true" ng-hide=newBoard>New</button>
+  <form ng-if="newBoard">
+    <input type="text" name="title" value="" ng-model="board.title">
+    <input type="button" name="submit" value="Make Board" ng-click='createBoard(board)'>
+  </form>
+</div>
+</div>
+
+</div>

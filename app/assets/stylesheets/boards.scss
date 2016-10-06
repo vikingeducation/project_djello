@@ -1,0 +1,17 @@
+// Place all the styles related to the boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.board {
+  height: 200px;
+  border: solid darkgrey 1px;
+  border-radius: 5px;
+}
+
+.board-title{
+  font-weight: bold;
+}
+
+.new-board {
+  margin-top: 20px;
+}
