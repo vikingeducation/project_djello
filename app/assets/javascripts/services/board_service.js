@@ -34,11 +34,7 @@ app.factory('BoardService',
 
   BoardService.one = function (id) {
     if (_.isEmpty(_boards)) {
-      return _cacheBoards()
-        .then(function(response) {
-          return _.find(_boards, {id: id});
-        })
-        .catch(_logError);
+      return Restangular.one('boards', id);
     } else {
       return _.find(_boards, {id: id});
     }
