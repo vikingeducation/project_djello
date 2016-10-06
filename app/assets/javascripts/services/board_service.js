@@ -3,6 +3,7 @@ app.factory('BoardService',
 
   var BoardService = {};
   var _boards = [];
+  var _board = {};
 
   function _logError (reason) {
     console.log('ERROR!!! Reason: ');
@@ -13,10 +14,21 @@ app.factory('BoardService',
     return angular.copy(response, _boards);
   }
 
+  function _storeBoard (response) {
+    return angular.copy(response, _board);
+  }
+
   function _cacheBoards () {
     return Restangular.all('boards')
       .getList()
       .then(_storeBoards)
+      .catch(_logError);
+  }
+
+  function _cacheBoard(id) {
+    return Restangular.one('boards', id)
+      .get()
+      .then(_storeBoard)
       .catch(_logError);
   }
 
@@ -33,10 +45,10 @@ app.factory('BoardService',
   };
 
   BoardService.one = function (id) {
-    if (_.isEmpty(_boards)) {
-      return Restangular.one('boards', id);
+    if (_.isEmpty(_board)) {
+      return _cacheBoard(id);
     } else {
-      return _.find(_boards, {id: id});
+      return _board;
     }
   };
 

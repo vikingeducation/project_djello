@@ -8,6 +8,13 @@ class BoardsController < ApplicationController
     end
   end
 
+  def show
+    @board = Board.find_by_id(params[:id].to_i)
+    respond_to do |format|
+      format.json { render json: @board.to_json(include: :user), status: 200 }
+    end
+  end
+
   def create
     @board = current_user.boards.build(board_params)
     if @board.save
@@ -21,7 +28,7 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    @board = Board.find_by_id(params[:id])
+    @board = Board.find_by_id(params[:id].to_i)
     if @board.destroy
       respond_to do |format|
         format.json { head :no_content }
