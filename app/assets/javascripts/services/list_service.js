@@ -29,7 +29,8 @@ app.factory('ListService',
   ListService.create = function (listParams) {
     return Restangular.all('lists')
       .post({list: listParams})
-      .then(_addList);
+      .then(_addList)
+      .catch(_logError);
   };
 
 }]);
