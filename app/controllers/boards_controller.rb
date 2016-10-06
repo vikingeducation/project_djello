@@ -20,6 +20,19 @@ class BoardsController < ApplicationController
     end
   end
 
+  def destroy
+    @board = current_user.boards.where("id = ?", params[:id])
+    if board = @board.destroy 
+      respond_to do |format|
+        format.json { render json: board, status: 200 }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @board.errors }
+      end
+    end
+  end
+
 
   private
 

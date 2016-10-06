@@ -1,12 +1,11 @@
 <a ui-sref="newBoard">New Board</a>
 
-
 {{message}}
 
 <div ng-repeat="board in boards" id="boards">
-  <div class="col-xs-4 panel panel-primary">
+  <a ui-sref="boardShow({id: board.id})"><div class="col-xs-4 panel panel-primary">
     <div class="board-title">{{board.title}}</div>
     <div class="board-description">{{board.description}}</div>
-  </div>
+  </div></a>
 
 </div>

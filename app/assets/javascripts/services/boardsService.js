@@ -2,8 +2,13 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
 
   var boardsService = {}
 
+  var _boards = []
+
   boardsService.all = function() {
-    return Restangular.all('boards').getList()
+    return Restangular.all('boards').getList().then(function(response) {
+      console.log(response)
+      return angular.copy(response, _boards)
+    })
   }
 
   var _createBoard = function(params) {
@@ -14,17 +19,30 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
       }
     }).then(function(response) {
       console.log(response)
+      _boards.unshift(response)
       return _boards
     })
   }
 
   Restangular.extendCollection('boards', function(collection) {
-    collection.create = _createBoard
+    collection.create = _createBoard;
     return collection
   })
 
   boardsService.create = function(params) {
     return _createBoard(params)
+  }
+
+  boardsService.find = function(id) {
+    console.log("finding board...")
+    console.log(_boards.length)
+    for (var i = 0; i < _boards.length; i++) {
+      var _thisBoard = _boards[i]
+      console.log(_thisBoard)
+      if (_thisBoard.id == id) {
+        return _thisBoard
+      }
+    }  
   }
     
   return boardsService

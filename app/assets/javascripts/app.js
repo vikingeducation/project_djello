@@ -6,8 +6,8 @@ app.config(function($urlRouterProvider, $stateProvider) {
 
   $stateProvider
 
-    .state("main", {
-      url: "/",
+    .state("boardsIndex", {
+      url: "/boards",
       views: {
         "@": {
           templateUrl: "/templates/boards/index.html",
@@ -17,11 +17,21 @@ app.config(function($urlRouterProvider, $stateProvider) {
     })
 
     .state("newBoard", {
-      url: "/",
+      url: "/boards/new",
       views: {
         "@": {
           templateUrl: "/templates/boards/new.html",
           controller: "NewBoardCtrl"
+        }
+      }
+    })
+
+    .state("boardShow", {
+      url: "/boards/:id",
+      views: {
+        "@": {
+          templateUrl: "/templates/boards/show.html",
+          controller: "BoardShowCtrl"
         }
       }
     })
