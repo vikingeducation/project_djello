@@ -30,6 +30,12 @@ app.factory('BoardService',
     }
   };
 
+  BoardService.create = function (formParams) {
+    return Restangular.all('board').post({
+      board: formParams
+    });
+  };
+
   return BoardService;
 
 }]);

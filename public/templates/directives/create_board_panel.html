@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class='text-muted'>Create Board</h4>
+  </div>
+  <div class="card-block">
+    <form class="form-group" ng-submit="submitForm()">
+      <h5>Title</h5>
+      <label>
+        Title<br>
+        <input
+        class="form-control"
+        ng-model='boardForm.title'
+        type='text'
+        placeholder="Like 'Vacation Planning' for example...">
+      </label><br>
+
+      <label>
+        Description<br>
+        <input
+        class="form-control"
+        ng-model='boardForm.description'
+        type='text'
+        placeholder="What's this all about?">
+      </label><br>
+
+      <button
+      type='submit'
+      class='btn btn-outline-primary'>
+      Submit
+      </button>
+    </form>
+</div>

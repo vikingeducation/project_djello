@@ -3,4 +3,8 @@ app.controller('BoardsIndexCtrl',
 
   $scope.boards = boards;
 
+  $scope.$on('board.create', function(response) {
+    console.log(response);
+  });
+
 }]);
