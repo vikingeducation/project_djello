@@ -1,2 +1,12 @@
 {{message}}
-{{board}}
+
+<h1>{{board.title}}</h1>
+<p>{{board.description}}</p>
+
+<button class="btn btn-danger" ng-click="deleteBoard()" ng-confirm-click="Are you sure you want to delete this board?">
+  Delete
+</button>
+
+    <!-- show members -->
+    <!-- show ng-repeat of lists -->
+ 

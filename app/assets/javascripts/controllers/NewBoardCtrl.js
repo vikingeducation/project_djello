@@ -8,8 +8,6 @@ app.controller("NewBoardCtrl", ["$scope", "boardsService", "$state", function($s
     $state.go("boardsIndex")
   }
 
-  $scope.createBoard = function() {
-    $scope.boards.create($scope.board)
-  }
+  
 
 }])
