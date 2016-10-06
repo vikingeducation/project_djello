@@ -32,6 +32,9 @@ app.config(
   function(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api/v1')
     RestangularProvider.setRequestSuffix('.json')
+    RestangularProvider.setDefaultHttpFields({
+      "content-type": "application/json"
+    })
 }])
 
 // ERROR HANDLING

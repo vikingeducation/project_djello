@@ -7,4 +7,24 @@ class BoardsController < ApplicationController
     end
   end
 
+  def create
+    @board = current_user.boards.new(board_params)
+    if @board.save
+      respond_to do |format|
+        format.json { render json: @board, status: 200 }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @board.errors }
+      end
+    end
+  end
+
+
+  private
+
+  def board_params
+    params.require(:board).permit(:title, :description)
+  end
+
 end

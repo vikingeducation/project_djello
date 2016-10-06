@@ -6,18 +6,14 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
     return Restangular.all('boards').getList()
   }
 
-  var _boards
-
   var _createBoard = function(params) {
     return Restangular.all('boards').post({
-      post: {
+      board: {
         title: params.title,
-        description: params.description,
-        members: params.members
+        description: params.description
       }
     }).then(function(response) {
       console.log(response)
-      _boards.unshift(response)
       return _boards
     })
   }
@@ -26,6 +22,10 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
     collection.create = _createBoard
     return collection
   })
+
+  boardsService.create = function(params) {
+    return _createBoard(params)
+  }
     
   return boardsService
   
