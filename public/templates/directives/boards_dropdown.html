@@ -1,5 +1,4 @@
-<select ng-model="selectedBoard">
-  <option ng-repeat="board in boards" ng-value="board">
-    {{ board.title }}
-  </option>
-</select>
+<select
+ng-options="board as board.title for board in boards track by board.id"
+ng-model="selectedBoard"
+ng-change="changeShowBoard()"></select>

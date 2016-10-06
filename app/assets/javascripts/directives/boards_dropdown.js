@@ -6,6 +6,9 @@ app.directive('boardsDropdown',
     restrict: 'E',
     link: function(scope) {
       scope.boards = BoardService.currentUserBoards();
+      scope.changeShowBoard = function () {
+        scope.$emit('boards.changeSelected', scope.selectedBoard);
+      };
     }
   };
 
