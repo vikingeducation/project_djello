@@ -4,6 +4,7 @@ app.directive('boardsDropdown',
   return {
     templateUrl: 'templates/directives/boards_dropdown.html',
     restrict: 'E',
+    scope: {},
     link: function(scope) {
       scope.boards = BoardService.currentUserBoards();
       scope.changeShowBoard = function () {
