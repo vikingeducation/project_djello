@@ -25,8 +25,6 @@ puts "Creating users.."
 end
 puts "Done!"
 
-user_ids = (1..10).to_a
-
 puts "Creating boards.."
 10.times do |n|
   user = User.all.sample
@@ -34,5 +32,15 @@ puts "Creating boards.."
       title: Faker::App.name,
       description: Faker::Lorem.paragraph(1)
     })
+end
+puts "Done!"
+
+puts "Creating Lists..."
+10.times do |n|
+  board = Board.all.sample
+  board.lists.create!({
+    title: Faker::App.name,
+    description: Faker::Lorem.paragraph(1)
+  })
 end
 puts "Done!"
