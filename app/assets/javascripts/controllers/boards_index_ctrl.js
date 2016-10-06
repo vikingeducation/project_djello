@@ -20,7 +20,9 @@ function($scope, boards, BoardService) {
   });
 
   $scope.$on('board.destroy', function(response) {
-    console.log(response);
+    BoardService.refreshCache()
+      .then($scope.refreshBoards)
+      .catch($scope.logError);
   });
 
 }]);
