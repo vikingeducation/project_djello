@@ -1,12 +1,22 @@
-djello.factory('ListService', ['Restangular', '$state', function(Restangular, $state) {
+djello.factory('ListService', ['Restangular', 'CardService', '$state', function(Restangular, CardService, $state) {
   
   var listService = {};
 
-  listService.createList = function(board_id){
+  listService.createList = function(boardId){
     return Restangular.all('lists').post({
-      board_id: board_id
+      boardId: boardId
     })
   }
+
+  Restangular.extendModel('lists', function(model){
+    model.createCard = function(boardId){
+      return CardService.createCard(model.id, boardId)
+      .then(function(response){
+        model.cards.push(response);
+      });
+    };
+    return model;
+  })
 
 
 

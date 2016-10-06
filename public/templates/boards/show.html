@@ -1,4 +1,5 @@
 <div class="pull-right">
+  <a id="all-boards" ui-sref="boards.index" class="btn btn-primary">See all boards</a><br>
   Select Board: 
   <select ng-options="board as board.title for board in boards" 
    ng-model="selectedBoard" ng-change="changeBoard()"></select>
@@ -8,21 +9,35 @@
    <button class="btn btn-warning btn-xs" ng-click="createBoard()">Create Board</button>
 </div>
 
-<p><a ui-sref="boards.index">All boards</a></p>
-<h1 ng-hide="titleEditing" ng-click="editTitle()">{{board.title}}</h1>
+
+<h1 ng-hide="titleEditing" class="board-title" ng-click="editTitle()">{{board.title}}</h1>
 <input type="text" ng-model="board.title" ng-blur="updateTitle()" ng-show="titleEditing" id="titleEdit">
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12 text-center">
     <button ng-click="createList()" class="btn btn-xl btn-info" id="addList">Add a List</button>
   </div>
 </div>
 
-<div class="row">
+<div class="row all-lists-container">
 
-  <div class="col-sm-4 list-container" ng-repeat='list in board.lists'>
-    <p>{{list.title}}</p>
-    <p>{{list.description}}</p>
+  <div class="col-sm-4" ng-repeat='list in board.lists'>
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1 list-container">
+        <h3 ng-hide="list.titleEditing" ng-click="editListTitle(list)">{{list.title}}</h3>
+        <input type="text" ng-show="list.titleEditing" ng-model="list.title" ng-blur="updateListTitle(list)" class="form-control edit-list-title"list-title-id="{{list.id}}">
+        <p ng-hide="list.descEditing" ng-click="editListDesc(list)">{{list.description}}</p>
+        <textarea ng-show="list.descEditing" ng-model="list.description" ng-blur="updateListDesc(list)" list-desc-id="{{list.id}}" class="form-control"></textarea>
+        <hr>
+        <div ng-repeat="card in list.cards">
+          <p>{{card.title}}</p>
+          <p>{{card.description}}</p>
+          <hr>
+        </div>
+        <h4 id="add-card"><a ng-click="createCard(list)">Add a Card</a></h4>
+        <button class="btn btn-danger btn-xs pull-right delete-list" ng-click="deleteList(list)">Delete List</button>
+      </div>
+    </div>
   </div>
 
 </div>

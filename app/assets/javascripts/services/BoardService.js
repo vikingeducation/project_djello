@@ -19,8 +19,14 @@ djello.factory('BoardService', ['Restangular', 'ListService', '$state', function
           })
   };
 
+  
+
   boardService.findBoard = function(id){
     return Restangular.one('boards', id).get()
+          .then(function(response){
+            Restangular.restangularizeCollection(null, response.lists, 'lists');
+            return response;
+          })
   };
 
   Restangular.extendModel('boards', function(model){

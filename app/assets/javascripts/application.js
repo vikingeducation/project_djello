@@ -17,6 +17,7 @@
 
 //= require angular
 //= require angular-ui-router.min
+//= require angular-modal-service.min
 //= require restangular.min
 //= require angular-devise
 

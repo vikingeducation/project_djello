@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :boards
       resources :lists, only: [:create, :update, :destroy]
+      resources :cards, only: [:create, :update, :destroy]
     end
   end
 end

@@ -9,12 +9,17 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board.new(title: "Add Title...")
+    @board = Board.new(title: "Click to add title")
     @board.user = current_user
 
     if @board.save
       respond_to do |format|
-        format.json { render json: @board.to_json( include: :lists ), status: 201 }
+        format.json { render json: @board.to_json( include: {
+                                  :lists => {
+                                    include: :cards
+                                    } 
+                                  }), 
+                                  status: 201 }
       end
     end
   end
@@ -23,7 +28,12 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
 
     respond_to do |format|
-      format.json {render json: @board.to_json( include: :lists ), status: 200}
+      format.json { render json: @board.to_json( include: {
+                                  :lists => {
+                                    include: :cards
+                                    } 
+                                  }), 
+                                  status: 201 }
     end
   end
 
@@ -32,7 +42,12 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     if @board.update(board_params)
       respond_to do |format|
-        format.json {render json: @board.to_json( include: :lists ), status: 200}
+        format.json { render json: @board.to_json( include: {
+                                  :lists => {
+                                    include: :cards
+                                    } 
+                                  }), 
+                                  status: 201 }
       end
     end
   end

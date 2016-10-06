@@ -1,6 +1,9 @@
 <button class="btn btn-xl btn-primary" ng-show="noBoards()" style="margin: 0" ng-click="createBoard()">Create your first board</button>
 
+
+
 <div ng-hide="noBoards()">
+  <button class="btn btn-xl btn-primary" style="margin: 0" ng-click="createBoard()">Create a new board</button>
   <h3>Select a Board</h3>
   <div ng-repeat="board in boards">
     <a ui-sref="boards.show({id: board.id})">{{board.title}}</a>
