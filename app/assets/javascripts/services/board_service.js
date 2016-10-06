@@ -18,6 +18,13 @@ app.factory('BoardService',
       .catch(_logError);
   }
 
+  Restangular.extendModel('boards', function(model) {
+    model.destroy = function() {
+      console.log("i'm being destroyed!!!");
+    };
+    return model;
+  });
+
   BoardService.refreshCache = function () {
     return _cacheBoards();
   };
