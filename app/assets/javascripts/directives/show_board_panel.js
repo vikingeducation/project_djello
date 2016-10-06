@@ -1,5 +1,6 @@
 app.directive('showBoardPanel',
-['BoardService', function(BoardService) {
+['BoardService', 'ListService',
+function(BoardService, ListService) {
   return {
     templateUrl: 'templates/directives/show_board_panel.html',
     restrict: 'E',

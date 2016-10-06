@@ -1,5 +1,5 @@
 <div class="card-group">
-  <div ng-repeat="board in boards">
+  <div ng-repeat="board in boards | orderBy:'-created_at'">
     <board-panel board="board"></board-panel>
   </div>
   <create-board-panel></create-board-panel>

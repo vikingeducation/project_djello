@@ -33,4 +33,6 @@ app.factory('ListService',
       .catch(_logError);
   };
 
+  return ListService;
+
 }]);
