@@ -19,4 +19,8 @@ function($scope, boards, BoardService) {
       .catch($scope.logError);
   });
 
+  $scope.$on('board.destroy', function(response) {
+    console.log(response);
+  });
+
 }]);

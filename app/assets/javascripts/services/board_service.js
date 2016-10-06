@@ -9,21 +9,16 @@ app.factory('BoardService',
     console.log(reason);
   }
 
+  function _storeBoards (response) {
+    return angular.copy(response, _boards);
+  }
+
   function _cacheBoards () {
     return Restangular.all('boards')
       .getList()
-      .then(function(response) {
-        return angular.copy(response, _boards);
-      })
+      .then(_storeBoards)
       .catch(_logError);
   }
-
-  Restangular.extendModel('boards', function(model) {
-    model.destroy = function() {
-      console.log("i'm being destroyed!!!");
-    };
-    return model;
-  });
 
   BoardService.refreshCache = function () {
     return _cacheBoards();
@@ -38,9 +33,8 @@ app.factory('BoardService',
   };
 
   BoardService.create = function (formParams) {
-    return Restangular.all('boards').post({
-      board: formParams
-    });
+    return Restangular.all('boards')
+      .post({board: formParams });
   };
 
   return BoardService;
