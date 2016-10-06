@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       resources :boards
+      resources :lists, only: [:create, :update, :destroy]
     end
   end
 end

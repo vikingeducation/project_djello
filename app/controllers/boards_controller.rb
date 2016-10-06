@@ -1,10 +1,10 @@
 class BoardsController < ApplicationController
 
   def index
-    @boards = Board.all
+    @boards = current_user.boards
 
     respond_to do |format|
-      format.json {render json: @boards, status: 200}
+      format.json {render json: @boards.to_json( include: :lists ), status: 200}
     end
   end
 
@@ -14,7 +14,7 @@ class BoardsController < ApplicationController
 
     if @board.save
       respond_to do |format|
-        format.json { render json: @board, status: 201 }
+        format.json { render json: @board.to_json( include: :lists ), status: 201 }
       end
     end
   end
@@ -23,7 +23,7 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
 
     respond_to do |format|
-      format.json {render json: @board, status: 200}
+      format.json {render json: @board.to_json( include: :lists ), status: 200}
     end
   end
 
@@ -32,7 +32,7 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     if @board.update(board_params)
       respond_to do |format|
-        format.json {render json: @board, status: 200}
+        format.json {render json: @board.to_json( include: :lists ), status: 200}
       end
     end
   end

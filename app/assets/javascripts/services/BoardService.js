@@ -1,4 +1,4 @@
-djello.factory('BoardService', ['Restangular', '$state', function(Restangular, $state) {
+djello.factory('BoardService', ['Restangular', 'ListService', '$state', function(Restangular, ListService, $state) {
   var _boards = [];
 
   var boardService = {};
@@ -21,13 +21,17 @@ djello.factory('BoardService', ['Restangular', '$state', function(Restangular, $
 
   boardService.findBoard = function(id){
     return Restangular.one('boards', id).get()
-  }
+  };
 
-  // boardService.editBoard = function(board){
-  //   return Restangular.
-  // }
-
-  boardService.update
+  Restangular.extendModel('boards', function(model){
+    model.createList = function(){
+      return ListService.createList(model.id)
+      .then(function(response){
+        model.lists.push(response);
+      });
+    };
+    return model;
+  })
 
   return boardService;
 

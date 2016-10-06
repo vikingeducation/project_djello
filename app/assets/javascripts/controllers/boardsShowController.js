@@ -31,7 +31,7 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
     $scope.toggleTitleEditing();
     $timeout(function(){
       $('#titleEdit').focus();
-    }, 500);
+    }, 200);
   }
 
 
@@ -40,6 +40,10 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
     .then(function(response){
       $state.go('boards.show', {id: response.id})
     })
+  }
+
+  $scope.createList = function(){
+    $scope.board.createList();
   }
 
   

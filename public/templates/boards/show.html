@@ -3,10 +3,26 @@
   <select ng-options="board as board.title for board in boards" 
    ng-model="selectedBoard" ng-change="changeBoard()"></select>
    <br>
+   <br>
    <button class="btn btn-danger btn-xs" ng-click="deleteBoard()">Delete Board</button> | 
    <button class="btn btn-warning btn-xs" ng-click="createBoard()">Create Board</button>
-
-
 </div>
+
+<p><a ui-sref="boards.index">All boards</a></p>
 <h1 ng-hide="titleEditing" ng-click="editTitle()">{{board.title}}</h1>
 <input type="text" ng-model="board.title" ng-blur="updateTitle()" ng-show="titleEditing" id="titleEdit">
+
+<div class="row">
+  <div class="col-xs-12">
+    <button ng-click="createList()" class="btn btn-xl btn-info" id="addList">Add a List</button>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-sm-4 list-container" ng-repeat='list in board.lists'>
+    <p>{{list.title}}</p>
+    <p>{{list.description}}</p>
+  </div>
+
+</div>
