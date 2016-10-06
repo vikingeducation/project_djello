@@ -15,7 +15,17 @@ app.config(function($urlRouterProvider, $stateProvider) {
       views: {
         "@": {
           templateUrl: "/templates/boards/index.html",
-          controller: "BoardsCtrl"
+          controller: "BoardsIndexCtrl"
+        }
+      }
+    })
+
+    .state("newBoard", {
+      url: "/",
+      views: {
+        "@": {
+          templateUrl: "/templates/boards/new.html",
+          controller: "NewBoardCtrl"
         }
       }
     })
@@ -23,8 +33,13 @@ app.config(function($urlRouterProvider, $stateProvider) {
 })
 
 
-app.controller("BoardsCtrl", ["$scope", function($scope) {
-  $scope.message = "Hello world"
+app.controller("BoardsIndexCtrl", ["$scope", function($scope) {
+  $scope.message = "Index page"
+}])
+
+
+app.controller("NewBoardCtrl", ["$scope", function($scope) {
+  $scope.message = "New board page"
 }])
 
 
