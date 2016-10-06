@@ -10,23 +10,28 @@ app.directive('createBoardPanel',
         description: ''
       };
 
-      scope.resetForm = function() {
+      scope.resetForm = function(response) {
         scope.boardForm = {
           title: '',
           description: ''
         };
+        return response;
+      };
+
+      scope.notifyCtrlCreate = function(response) {
+        return scope.$emit('board.create', response);
+      };
+
+      scope.logError = function(reason) {
+        console.log('ERROR!! Reason:');
+        console.log(reason);
       };
 
       scope.submitForm = function() {
         BoardService.create(scope.boardForm)
-          .then(function(response) {
-            scope.resetForm();
-            scope.$emit('board.create', response);
-          })
-          .catch(function(reason) {
-            console.log('ERROR!! Reason:');
-            console.log(reason);
-          });
+          .then(scope.resetForm)
+          .then(scope.notifyCtrlCreate)
+          .catch(scope.logError);
       };
     }
   };
