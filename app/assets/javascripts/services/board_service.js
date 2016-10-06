@@ -32,6 +32,18 @@ app.factory('BoardService',
     }
   };
 
+  BoardService.one = function (id) {
+    if (_.isEmpty(_boards)) {
+      return _cacheBoards()
+        .then(function(response) {
+          return _.find(_boards, {id: id});
+        })
+        .catch(_logError);
+    } else {
+      return _.find(_boards, {id: id});
+    }
+  };
+
   BoardService.create = function (formParams) {
     return Restangular.all('boards')
       .post({board: formParams });

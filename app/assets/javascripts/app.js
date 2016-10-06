@@ -35,5 +35,20 @@ app.config(
             return BoardService.all();
           }]
         }
+      })
+      .state('boards.show', {
+        url: '/:id',
+        views: {
+          'show@': {
+            templateUrl: 'templates/boards/show.html',
+            controller: 'BoardShowCtrl'
+          }
+        },
+        resolve: {
+          currentBoard:
+          ['BoardService', '$stateParams', function(BoardService, $stateParams) {
+            return BoardService.one($stateParams.id);
+          }]
+        }
       });
 }]);
