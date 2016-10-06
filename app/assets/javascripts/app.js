@@ -12,10 +12,23 @@ app.config(function($urlRouterProvider, $stateProvider) {
 
     .state("main", {
       url: "/",
-      template: "<ui-view>To be replaced...</ui-view>",
-      controller: function() {
-        console.log("controller")
+      views: {
+        "@": {
+          templateUrl: "/templates/boards/index.html",
+          controller: "BoardsCtrl"
+        }
       }
     })
 
 })
+
+
+app.controller("BoardsCtrl", ["$scope", function($scope) {
+  $scope.message = "Hello world"
+}])
+
+
+// ERROR HANDLING
+app.run(function($rootScope){
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
+});
