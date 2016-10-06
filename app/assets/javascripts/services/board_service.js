@@ -4,6 +4,7 @@ app.factory('BoardService',
   var BoardService = {};
   var _boards = [];
   var _board = {};
+  var _currentUserBoards = [];
 
   function _logError (reason) {
     console.log('ERROR!!! Reason: ');
@@ -18,6 +19,10 @@ app.factory('BoardService',
     return angular.copy(response, _board);
   }
 
+  function _storeCurrentUserBoards (response) {
+    return angular.copy(response, _currentUserBoards);
+  }
+
   function _cacheBoards () {
     return Restangular.all('boards')
       .getList()
@@ -29,6 +34,13 @@ app.factory('BoardService',
     return Restangular.one('boards', id)
       .get()
       .then(_storeBoard)
+      .catch(_logError);
+  }
+
+  function _cacheCurrentUserBoards() {
+    return Restangular.all('boards')
+      .getList({currentUser: true})
+      .then(_storeCurrentUserBoards)
       .catch(_logError);
   }
 
@@ -55,6 +67,14 @@ app.factory('BoardService',
   BoardService.create = function (formParams) {
     return Restangular.all('boards')
       .post({board: formParams });
+  };
+
+  BoardService.currentUserBoards = function () {
+    if (_.isEmpty(_currentUserBoards)) {
+      return _cacheCurrentUserBoards();
+    } else {
+      return _currentUserBoards;
+    }
   };
 
   return BoardService;

@@ -48,7 +48,11 @@ app.config(
           currentBoard:
           ['BoardService', '$stateParams', function(BoardService, $stateParams) {
             return BoardService.one($stateParams.id);
-          }]
+          }],
+          boards:
+          ['BoardService', '$stateParams', function(BoardService, $stateParams) {
+            return BoardService.currentUserBoards();
+          }],
         }
       });
 }]);
