@@ -20,8 +20,8 @@ app.directive('createBoardPanel',
       scope.submitForm = function() {
         BoardService.create(scope.boardForm)
           .then(function(response) {
-            $scope.resetForm();
-            $scope.$emit('board.create', response);
+            scope.resetForm();
+            scope.$emit('board.create', response);
           })
           .catch(function(reason) {
             console.log('ERROR!! Reason:');

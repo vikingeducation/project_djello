@@ -19,7 +19,7 @@ app.factory('BoardService',
   }
 
   BoardService.refreshCache = function () {
-    _cacheBoards();
+    return _cacheBoards();
   };
 
   BoardService.all = function () {
@@ -31,7 +31,7 @@ app.factory('BoardService',
   };
 
   BoardService.create = function (formParams) {
-    return Restangular.all('board').post({
+    return Restangular.all('boards').post({
       board: formParams
     });
   };
