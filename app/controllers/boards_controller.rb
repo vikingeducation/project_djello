@@ -1,6 +1,7 @@
 class BoardsController < ApplicationController
 
   def index
+    # Will eventually change this to current_user's boards only.
     @boards = Board.all
     respond_to do |format|
       format.json { render json: @boards.to_json(include: :user), status: 200 }
