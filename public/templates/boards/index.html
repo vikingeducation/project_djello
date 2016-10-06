@@ -3,8 +3,10 @@
 
 {{message}}
 
+<div ng-repeat="board in boards" id="boards">
+  <div class="col-xs-4 panel panel-primary">
+    <div class="board-title">{{board.title}}</div>
+    <div class="board-description">{{board.description}}</div>
+  </div>
 
-<div ng-repeat="board in boards">
-  board no. {{$index}}
-  {{board}}
 </div>
