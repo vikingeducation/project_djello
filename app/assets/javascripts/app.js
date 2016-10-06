@@ -28,11 +28,32 @@ djello.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
     .state('boards', {
       url: '/',
       abstract: true,
-      template: '<div ui-view></div>'
+      template: '<div ui-view></div>',
+      resolve: {
+        boards: ['BoardService', function(BoardService){
+          return BoardService.getBoards();
+        }]
+      }
     })
     .state('boards.index', {
       url: '',
-      templateUrl: '/templates/boards/index.html.erb'
+      templateUrl: '/templates/boards/index.html',
+      controller: 'BoardsCtrl'
     })
+    .state('boards.show', {
+      url: ':id',
+      templateUrl: '/templates/boards/show.html',
+      controller: 'BoardsShowCtrl',
+      resolve: {
+        board: ['$stateParams', 'BoardService', function($stateParams, BoardService){
+          return BoardService.findBoard($stateParams.id)
+              .then(function(response){
+                return response;
+              })
+          ;
+        }]
+      }
+    })  
+
 }]);
     

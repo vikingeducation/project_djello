@@ -1,0 +1,13 @@
+<div class="pull-right">
+  Select Board: 
+  <select ng-options="board as board.title for board in boards" 
+   ng-model="selectedBoard" ng-change="changeBoard()"></select>
+   <br>
+   <button class="btn btn-danger btn-xs" ng-click="deleteBoard()">Delete Board</button> | 
+   <button class="btn btn-warning btn-xs" ng-click="createBoard()">Create Board</button>
+
+
+</div>
+<h1 ng-hide="titleEditing" ng-click="toggleTitleEditing()">{{board.title}}</h1>
+<input type="text" ng-model="board.title" ng-blur="updateTitle()" ng-show="titleEditing" id="titleEdit">
+<!-- <input type="submit" ng-click="updateTitle()" ng-show="titleEditing"class="btn btn-primary" value="Update Title"> -->
