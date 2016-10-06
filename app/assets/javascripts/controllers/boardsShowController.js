@@ -1,4 +1,4 @@
-djello.controller('BoardsShowCtrl', ['$scope', 'board', 'BoardService', '$stateParams', 'boards', '$state', function($scope, board, BoardService, $stateParams, boards, $state){
+djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', function($scope, $timeout, board, BoardService, $stateParams, boards, $state){
 
   $scope.board = board;
   $scope.boards = boards;
@@ -24,6 +24,14 @@ djello.controller('BoardsShowCtrl', ['$scope', 'board', 'BoardService', '$stateP
       BoardService.getBoards();
       $state.go('boards.index');
     })
+  }
+
+  $scope.editTitle = function(){
+    console.log("Firing edit title");
+    $scope.toggleTitleEditing();
+    $timeout(function(){
+      $('#titleEdit').focus();
+    }, 500);
   }
 
 
