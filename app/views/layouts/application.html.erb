@@ -18,6 +18,10 @@
 </head>
 <body <%= content_for :angular_controller %> >
 
+  <% flash.each do |type, message| %>
+    <div class="alert alert-<%=type%>"><%= message %></div>
+  <% end %>
+
   <%= yield %>
 
 </body>
