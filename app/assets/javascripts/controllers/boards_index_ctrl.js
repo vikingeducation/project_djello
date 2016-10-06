@@ -13,7 +13,7 @@ function($scope, boards, BoardService) {
     console.log(reason);
   };
 
-  $scope.$on('board.create', function(response) {
+  $scope.$on('board.create', function(ev, response) {
     BoardService.refreshCache()
       .then($scope.refreshBoards)
       .catch($scope.logError);

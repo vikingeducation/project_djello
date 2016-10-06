@@ -32,6 +32,10 @@ app.factory('BoardService',
       .catch(_logError);
   }
 
+  function _addBoard(response) {
+    return _boards.push(response);
+  }
+
   BoardService.refreshCache = function () {
     return _cacheBoards();
   };
@@ -57,7 +61,14 @@ app.factory('BoardService',
 
   BoardService.create = function (formParams) {
     return Restangular.all('boards')
-      .post({board: formParams });
+      .post({board: formParams })
+      .then(_addBoard);
+  };
+
+  BoardService.destroy = function(board) {
+    return function (response) {
+      return _.remove(_boards,{id: board.id});
+    };
   };
 
   BoardService.currentUserBoards = function () {

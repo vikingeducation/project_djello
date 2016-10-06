@@ -12,7 +12,11 @@ app.directive('boardPanel', ['BoardService', function(BoardService) {
       };
       scope.removeBoard = function() {
         scope.board.remove()
-          .then(scope.notifyCtrlRemove);
+          .then(BoardService.destroy(scope.board))
+          .catch(function(reason) {
+            console.log(reason);
+          });
+          // .then(scope.notifyCtrlRemove);
       };
     }
   };
