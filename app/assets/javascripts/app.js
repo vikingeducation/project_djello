@@ -1,9 +1,5 @@
 var app = angular.module("djello", ['ui.router', 'restangular']);
 
-app.factory("_", ["$window", function() {
-  return $window._
-}]);
-
 app.config(function($urlRouterProvider, $stateProvider) {
 
   $urlRouterProvider.otherwise("/")
@@ -29,19 +25,14 @@ app.config(function($urlRouterProvider, $stateProvider) {
         }
       }
     })
-
 })
 
-
-app.controller("BoardsIndexCtrl", ["$scope", function($scope) {
-  $scope.message = "Index page"
+app.config(
+  ['RestangularProvider', 
+  function(RestangularProvider) {
+    RestangularProvider.setBaseUrl('/api/v1')
+    RestangularProvider.setRequestSuffix('.json')
 }])
-
-
-app.controller("NewBoardCtrl", ["$scope", function($scope) {
-  $scope.message = "New board page"
-}])
-
 
 // ERROR HANDLING
 app.run(function($rootScope){

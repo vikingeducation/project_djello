@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Board.destroy_all
+
+MULTIPLIER = 3
+
+user = User.find_by_email("matthew.hinea@gmail.com")
+
+MULTIPLIER.times do |idx|
+  user.boards.create(title: "Board no. #{idx}", description: Faker::Lorem.sentence(2))
+end
