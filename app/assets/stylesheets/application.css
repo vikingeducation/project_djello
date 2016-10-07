@@ -9,7 +9,24 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- *
+ *= require xeditable.min
  *= require_tree .
  *= require_self
  */
+ textarea {
+   width: 100%;
+ }
+ .boxsizingBorder {
+     -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+             box-sizing: border-box;
+ }
+
+ a.editable-click {
+     color: darkgreen;
+     border-bottom: none;
+ }
+ a.editable-click:hover {
+     color: #47a447;
+     border-bottom-color: #47a447;
+ }

@@ -17,4 +17,5 @@
 // =require restangular
 //= require jquery
 //= require jquery_ujs
+//= require xeditable.min
 //= require_tree .

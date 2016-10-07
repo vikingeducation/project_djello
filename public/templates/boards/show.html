@@ -1,0 +1,28 @@
+<div class="col-sm-12">
+
+<h2><a href="" editable-text="board.title" onbeforesave="changeBoard($data)">{{board.title || ""}}</a>
+</h2>
+
+<div class="dropdown pull-right">
+  <button class='btn btn-danger btn-sm' ng-click="deleteBoard()">Delete Board</button>
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{board.title}}
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li ng-repeat="board in boards"><a href="" ui-sref="main.board({id:{{board.id}}})">{{board.title}}</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-sm-3" ui-view="lists" ng-repeat="list in board.lists"></div>
+<div class ='col-sm-3'>
+  <div class="new-list" ng-click="newList=true" ng-hide="newList">
+    <a><h4>Add a new list...</h4></a>
+  </div>
+  <div class="new-list-form" ng-show="newList">
+    <input type="text" name="title" ng-model="form.list.title"></input>
+    <button type="button" name="button" class='btn btn-success' ng-click="addList(form)">Add</button>
+    <a href='' ng-click="newList=false">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </a>
+  </div>
+</div>

@@ -22,13 +22,22 @@ Djello.factory('BoardService', [
       return Restangular.one('boards', id).get();
     };
 
+    var changeBoard = function(board, title) {
+      var data = {
+        board: {
+          title: title
+        }
+      }
+      return board.patch(data);
+    }
+
     var deleteBoard = function(board) {
       board.remove().then(function(response) {
-        _boards = _.without(_boards, board)
+        _boards = _.without(_boards, response)
       })
     }
 
-    return {getAllBoards: getAllBoards, createBoard: createBoard, getBoard: getBoard, deleteBoard: deleteBoard};
+    return {getAllBoards: getAllBoards, createBoard: createBoard, getBoard: getBoard, deleteBoard: deleteBoard, changeBoard: changeBoard};
 
   }
 ])

@@ -6,6 +6,11 @@ Djello.controller('BoardsCtrl', ['$scope', 'BoardService', function($scope, Boar
     $scope.boards = response;
   })
 
-
+  $scope.createBoard = function(board) {
+    BoardService.createBoard(board).then(function(response) {
+      debugger
+      $scope.boards.push(response.plain)
+    })
+  }
 
 }])

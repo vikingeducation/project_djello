@@ -1,4 +1,4 @@
-var Djello = angular.module('Djello', ['ui.router', 'restangular', 'Devise']);
+var Djello = angular.module('Djello', ['ui.router', 'restangular', 'Devise', 'xeditable']);
 
 //enable lodash
 Djello.factory('_', [
@@ -43,8 +43,7 @@ Djello.config([
           controller: 'UsersCtrl'
         }
       }
-    })
-    .state('main.boards', {
+    }).state('main.boards', {
       url: '/boards',
       views: {
         'main@': {
@@ -52,8 +51,25 @@ Djello.config([
           controller: 'BoardsCtrl'
         }
       }
+    }).state('main.board', {
+      url: '/board/:id',
+      views: {
+        'main@': {
+          templateUrl: '/templates/boards/show.html',
+          controller: 'ShowBoardCtrl'
+        },
+        'lists@main.board': {
+          templateUrl: '/templates/lists/show.html',
+          controller: 'ShowListCtrl'
+        }
+      }
     })
 
   }
 
 ])
+
+Djello.run(function(editableOptions, editableThemes) {
+  editableThemes.bs3.buttonsClass = 'btn-sm';
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});

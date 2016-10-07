@@ -10,15 +10,16 @@ class BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
     respond_to do |format|
-      format.json { render json: @board }
+      format.json { render json:
+        @board.to_json(include:{ lists:{include: :cards }})}
     end
   end
 
   def create
-    @board = Board.build(board_params)
+    @board = Board.new(board_params)
     respond_to do |format|
       if @board.save
-        format.json { head :no_content }
+        format.json { render json: @board }
       else
         format.json { render status: :unprocessable_entity }
       end
@@ -40,7 +41,7 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     respond_to do |format|
       if @board.destroy
-        format.json { head :no_content }
+        format.json { render json: @board }
       else
         format.json { render status: :unprocessable_entity }
       end
