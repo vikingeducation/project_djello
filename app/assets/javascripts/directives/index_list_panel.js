@@ -6,6 +6,7 @@ app.directive('indexListPanel', ['ListService', function (ListService) {
     link: function(scope) {
       scope.testingUpdate = function (list) {
         ListService.update({
+          id: list.id,
           title: 'testing',
           board_id: 121
         });
