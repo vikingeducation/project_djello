@@ -17,7 +17,12 @@ app.directive('createCardPanel',
         scope.editState = true;
       };
       scope.submitForm = function() {
-        CardService.create(newCard);
+        CardService.create(scope.newCard)
+          .then(scope.cancel);
+      };
+      scope.cancel = function() {
+        scope.editState = false;
+        scope.resetForm();
       };
       scope.resetForm = function () {
         scope.newCard = {

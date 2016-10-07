@@ -7,9 +7,14 @@ class='text-muted'>Add a card</a>
 <textarea
 class='form-control'
 ng-show='editState'
+ng-model='card.description'
 rows='2'>
 </textarea>
-<button ng-show='editState' class='btn btn-success' ng-click='submitForm()'>Add</button>
+
+<button
+ng-show='editState'
+class='btn btn-success'
+ng-click='submitForm()'>Add</button>
 <i
 ng-show='editState'
 class='fa fa-times'
