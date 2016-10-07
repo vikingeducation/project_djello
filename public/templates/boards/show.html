@@ -11,8 +11,48 @@
 <p>{{board.description}}</p>
 
 <div ng-repeat="list in lists" class="col-sm-4 list panel panel-success">
-  <div>{{list.title}}</div><br>
-  <div>{{list.description}}</div>
+
+  <div ng-hide="editingTitle[list.id]" ng-click="editTitle(list)">
+    {{list.title}}
+  </div>
+  <input ng-show="editingTitle[list.id]" 
+         type="text" 
+         name="edit-title" 
+         ng-model="listTitle[list.id]"
+         value="{{list.title}}" >
+
+  <input class="btn btn-warning" 
+         ng-show="editingTitle[list.id]" 
+         type="submit" 
+         name="edit-title-submit" 
+         value="Submit" 
+         ng-click="submitTitleEdits(list)">
+  <button class="btn btn-info" 
+         ng-show="editingTitle[list.id]" 
+          ng-click="cancelEditTitle(list)">
+            Cancel
+  </button>
+
+  <br>
+  <div ng-hide="editingDescription[list.id]" ng-click="editDescription(list)">
+    {{list.description}}
+  </div>
+  <textarea ng-show="editingDescription[list.id]" 
+         ng-model="listDescription[list.id]"
+         name="edit-description" 
+         >{{list.description}}</textarea>
+  <input class="btn btn-warning" 
+         ng-show="editingDescription[list.id]" 
+         type="submit" 
+         name="edit-description-submit" 
+         value="Submit" 
+         ng-click="editDescription(list)"
+         >
+  <button class="btn btn-info" 
+         ng-show="editingDescription[list.id]" 
+          ng-click="cancelEditDescription(list)">
+            Cancel
+  </button>
 </div>
 
 <div ng-show="showNewList" class="col-sm-4 list panel panel-success">
