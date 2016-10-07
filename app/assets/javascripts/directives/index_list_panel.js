@@ -4,12 +4,10 @@ app.directive('indexListPanel', ['ListService', function (ListService) {
     templateUrl: 'templates/directives/index_list_panel.html',
     restrict: 'E',
     link: function(scope) {
-      scope.testingUpdate = function (list) {
-        ListService.update({
-          id: list.id,
-          title: 'testing',
-          board_id: 121
-        });
+      scope.editListForm = {
+        id: scope.list.id,
+        title: scope.list.title,
+        board_id: scope.currentBoard.id
       };
     }
   };

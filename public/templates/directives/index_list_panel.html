@@ -1,8 +1,15 @@
 <div class='card-header'>
-  <h4>{{ list.title }}</h4>
-  <p class='text-muted'>{{ list.description }}</p>
-  <p>{{ list.id }}</p>
-  <div ng-click='testingUpdate(list)'>CLICK ME!!</div>
+  <input
+  ng-model='list.title'
+  class='btn btn-outline-secondary btn-block'
+  type='text'
+  placeholder='{{ list.title }}'><br>
+  <input
+  ng-model='list.description'
+  class='btn btn-outline-secondary btn-block'
+  type='text'
+  placeholder='{{ list.description }}'><br>
+  <p>ID (for testing): {{ list.id }}</p>
 </div>
 
 <div class='card-block'>
