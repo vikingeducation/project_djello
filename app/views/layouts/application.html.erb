@@ -17,7 +17,8 @@
 </head>
 <body <%= content_for :angular_controller %> >
 
-  <nav class="navbar navbar-inverse"><span class="nav-brand white">Logged in as <%=current_user.email%></span></nav>
+
+  <nav class="navbar navbar-inverse"><span class="nav-brand white">Logged in as <%=current_user.email%></span><span class="btn btn-default"><%= link_to "Log out", destroy_user_session_path, method: "DELETE" %> </span> </nav>
 
   <main class="container">
     <div class="row">
