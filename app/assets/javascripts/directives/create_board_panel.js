@@ -18,10 +18,6 @@ app.directive('createBoardPanel',
         return response;
       };
 
-      // scope.notifyCtrlCreate = function(response) {
-      //   return scope.$emit('board.create', response);
-      // };
-
       scope.logError = function(reason) {
         console.log('ERROR!! Reason:');
         console.log(reason);
@@ -30,7 +26,6 @@ app.directive('createBoardPanel',
       scope.submitForm = function() {
         BoardService.create(scope.boardForm)
           .then(scope.resetForm)
-          // .then(scope.notifyCtrlCreate)
           .catch(scope.logError);
       };
     }

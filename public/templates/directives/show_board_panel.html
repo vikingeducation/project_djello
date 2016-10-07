@@ -4,7 +4,7 @@
     <div class='card-deck-wrapper'>
       <index-list-panel
       class='card'
-      ng-repeat="list in lists | orderBy:'-created_at'">
+      ng-repeat="list in listsInfo[currentBoard.id] | orderBy:'-created_at'">
       </index-list-panel>
     </div>
   </div>

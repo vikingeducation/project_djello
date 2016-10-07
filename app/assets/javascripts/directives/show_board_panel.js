@@ -5,10 +5,8 @@ function(BoardService, ListService) {
     templateUrl: 'templates/directives/show_board_panel.html',
     restrict: 'E',
     scope: {
+      listsInfo: '=',
       currentBoard: '='
-    },
-    link: function (scope) {
-      scope.lists = ListService.all(scope.currentBoard.id);
     }
   };
 

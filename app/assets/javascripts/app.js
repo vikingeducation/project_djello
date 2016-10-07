@@ -54,7 +54,7 @@ app.config(
           ['BoardService', '$stateParams', function(BoardService, $stateParams) {
             return BoardService.currentUserBoards();
           }],
-          lists:
+          listsInfo:
           ['ListService', 'currentBoard', function(ListService, currentBoard) {
             return ListService.all(currentBoard.id);
           }]
