@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'cards/index'
+
+  get 'cards/create'
+
+  get 'cards/update'
+
+  get 'cards/destroy'
+
   devise_for :users
 
   root to: "static_pages#index"

@@ -1,8 +1,14 @@
-app.directive('indexListPanel', ['ListService', function (ListService) {
+app.directive('indexListPanel',
+['ListService', 'CardService',
+function (ListService, CardService) {
 
   return {
     templateUrl: 'templates/directives/index_list_panel.html',
     restrict: 'E',
+    scope: {
+      list: '=',
+      currentBoard: '='
+    },
     link: function(scope) {
       scope.submitEditForm = function () {
         ListService.update({

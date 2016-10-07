@@ -77,11 +77,9 @@ app.factory('ListService',
   // Public interface for board's lists.
   ListService.all = function (board_id) {
     if (_.isEmpty(_boardLists[board_id])) {
-      // return _cacheLists(board_id);
       return _cacheLists(board_id);
     } else {
       return Promise.resolve(_boardLists);
-      // return Promise.resolve(_boardLists[board_id]);
     }
   };
 

@@ -2,13 +2,11 @@
   <div class="card-deck">
     <board-panel
     class="card"
-    style="width:300px"
     ng-repeat="board in boards | orderBy:'+created_at'"
     board="board">
     </board-panel>
     <create-board-panel
     class="card"
-    style="width:200px"
     ></create-board-panel>
   </div>
 </div>

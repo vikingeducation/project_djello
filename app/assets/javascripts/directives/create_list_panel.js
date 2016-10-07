@@ -4,6 +4,9 @@ app.directive('createListPanel',
   return {
     templateUrl: 'templates/directives/create_list_panel.html',
     restrict: 'E',
+    scope: {
+      currentBoard: '='
+    },
     link: function(scope) {
       scope.listForm = {
         title: '',

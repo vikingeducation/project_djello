@@ -5,8 +5,10 @@
     <index-list-panel
     class='card'
     style='width:300px'
+    current-board='currentBoard'
+    list='list'
     ng-repeat="list in listsInfo[currentBoard.id] | orderBy:'-created_at'">
     </index-list-panel>
-    <create-list-panel></create-list-panel>
+    <create-list-panel current-board='currentBoard' list='list'></create-list-panel>
   </div>
 </div>
