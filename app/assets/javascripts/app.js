@@ -1,4 +1,5 @@
-var app = angular.module('djelloApp', ['ui.router', 'restangular', 'Devise']);
+var app = angular.module('djelloApp',
+['ui.router', 'restangular', 'Devise', 'angularSlideables']);
 
 app.run(function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));

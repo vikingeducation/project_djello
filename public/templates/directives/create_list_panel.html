@@ -1,17 +1,17 @@
-<button
+<input
+type='text'
+class='btn btn-outline-primary btn-block'
+slide-toggle='#form-buttons'
+ng-model='listForm.title'
+placeholder='Add a list..'><br>
+<div class="slideable" id='form-buttons' duration='0.2s'>
+  <button id='submit-button' type='submit' class='btn btn-success'>Submit</button>
+</div>
+
+<!-- <button
 ng-hide='editState'
 value='Add a list..'
 ng-click='toggleEditState()'
-class='btn btn-outline-primary'>
+class='btn btn-primary btn-block'>
 Add a list..
-</button>
-
-<div class="card">
-  <div class="card-block">
-    <input
-    ng-show='editState'
-    type='text'
-    ng-model='listForm.title'
-    placeholder='Add a list..'>
-  </div>
-</div>
+</button> -->
