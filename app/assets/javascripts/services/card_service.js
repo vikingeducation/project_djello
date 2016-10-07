@@ -23,6 +23,17 @@ app.factory('CardService',
     };
   }
 
+  // Make sure Rails API sends back the list object after creation.
+  function _addCard (response) {
+    if (!_.isEmpty(_listCards[response.list_id])) {
+      _listCards[response.list_id].push(response);
+    } else {
+      _listCards[response.list_id] = [];
+      _listCards[response.list_id].push(response);
+    }
+    return _listCards[response.list_id];
+  }
+
   function _cacheCards (list_id) {
     return Restangular.all('cards')
         .getList({list_id: list_id})
@@ -37,6 +48,13 @@ app.factory('CardService',
     } else {
       return Promise.resolve(_listCards);
     }
+  };
+
+  CardService.create = function (formData) {
+    return Restangular.all('cards')
+      .post({card: formData})
+      .then(_addCard)
+      .catch(_logError);
   };
 
   return CardService;

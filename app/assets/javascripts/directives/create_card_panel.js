@@ -12,6 +12,7 @@ app.directive('createCardPanel',
         title: '',
         body: '',
         completed: false,
+        list_id: scope.list.id
       };
       scope.revealForm = function () {
         scope.editState = true;
@@ -29,6 +30,7 @@ app.directive('createCardPanel',
           title: '',
           body: '',
           completed: false,
+          list_id: scope.list.id
         };
       };
     }

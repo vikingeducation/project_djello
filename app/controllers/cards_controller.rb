@@ -8,6 +8,12 @@ class CardsController < ApplicationController
   end
 
   def create
+    @card = Card.new(card_params)
+    if @card.save
+      respond_to do |format|
+        format.json { render json: @card, status: 200 }
+      end
+    end
   end
 
   def update
@@ -19,6 +25,11 @@ class CardsController < ApplicationController
   private
 
     def card_params
-      params.require(:card).permit(:title,:body,:completed,:members,:activities)
+      params.require(:card).permit(:title,
+                                   :body,
+                                   :completed,
+                                   :members,
+                                   :activities,
+                                   :list_id)
     end
 end
