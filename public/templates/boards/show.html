@@ -37,22 +37,25 @@
   <div ng-hide="editingDescription[list.id]" ng-click="editDescription(list)">
     {{list.description}}
   </div>
-  <textarea ng-show="editingDescription[list.id]" 
-         ng-model="listDescription[list.id]"
-         name="edit-description" 
-         >{{list.description}}</textarea>
-  <input class="btn btn-warning" 
-         ng-show="editingDescription[list.id]" 
-         type="submit" 
-         name="edit-description-submit" 
-         value="Submit" 
-         ng-click="submitDescriptionEdits(list)"
-         >
-  <button class="btn btn-info" 
-         ng-show="editingDescription[list.id]" 
-          ng-click="cancelEditDescription(list)">
-            Cancel
-  </button>
+
+  <div ng-show="editingDescription[list.id]">
+    <textarea ng-model="listDescription[list.id]"
+           name="edit-description" 
+           >{{list.description}}</textarea>
+    <input class="btn btn-warning" 
+           type="submit" 
+           name="edit-description-submit" 
+           value="Submit" 
+           ng-click="submitDescriptionEdits(list)"
+           >
+    <button class="btn btn-info" 
+            ng-click="cancelEditDescription(list)">
+              Cancel
+    </button>
+  </div>
+
+  <button class="btn btn-sm btn-danger" ng-click="deleteList(list)">Delete list</button>
+
 </div>
 
 <div ng-show="showNewList" class="col-sm-4 list panel panel-success">

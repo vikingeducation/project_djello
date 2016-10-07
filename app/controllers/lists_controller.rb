@@ -27,7 +27,16 @@ class ListsController < ApplicationController
         format.json { render json: @list, status: 200 }
       end
     end
+  end
 
+  def destroy
+    @list = List.find_by_id(params[:id])
+    list = @list.destroy!
+    if @list
+      respond_to do |format|
+        format.json { render json: @list, status: 200 }
+      end
+    end
   end
 
 

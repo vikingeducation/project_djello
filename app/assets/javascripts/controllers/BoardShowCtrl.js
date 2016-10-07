@@ -92,4 +92,12 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     })
   }
 
+  $scope.deleteList = function(list) {
+    list.remove();
+    listsService.all($scope.board).then(function(response) {
+      $scope.lists = response
+      _setList();
+    })
+  }
+
 }])
