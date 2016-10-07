@@ -11,7 +11,7 @@
 
 
 <h1 ng-hide="titleEditing" class="board-title" ng-click="editTitle()">{{board.title}}</h1>
-<input type="text" ng-model="board.title" ng-blur="updateTitle()" ng-show="titleEditing" id="titleEdit">
+<input type="text" ng-model="board.title" ng-blur="updateTitle()" ng-show="titleEditing" id="cardTitleEdit">
 
 <div class="row">
   <div class="col-xs-12 text-center">
@@ -29,7 +29,7 @@
         <p ng-hide="list.descEditing" ng-click="editListDesc(list)">{{list.description}}</p>
         <textarea ng-show="list.descEditing" ng-model="list.description" ng-blur="updateListDesc(list)" list-desc-id="{{list.id}}" class="form-control"></textarea>
         <hr>
-        <div ng-repeat="card in list.cards" ng-click="show(card)">
+        <div ng-repeat="card in list.cards" ng-click="rectCard(list, card)">
           <p>{{card.title}}</p>
           <p>{{card.description}}</p>
           <hr>

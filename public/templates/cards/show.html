@@ -4,10 +4,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close pull-right" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" ng-model="card.title">{{card.title}}</h4>
+          <h4 class="modal-title" ng-hide="titleEditing" ng-model="card.title" ng-click="editCardTitle()">{{card.title}}</h4>
+          <input type="text" ng-model="card.title" ng-blur="updateCardTitle()" ng-show="titleEditing" id="cardTitleEdit">
         </div>
         <div class="modal-body">
-          <p>{{card.description}}</p>
+          <p ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</p>
+          <textarea ng-show="card.descEditing" ng-model="card.description" ng-blur="updateCardDesc(card)" card-desc-id="{{card.id}}" class="form-control"></textarea>
         </div>
         <div class="modal-body">
 

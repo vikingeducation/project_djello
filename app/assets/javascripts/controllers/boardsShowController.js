@@ -1,5 +1,5 @@
-djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService',
-  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService){
+djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular',
+  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular){
 
   $scope.board = board;
   $scope.boards = boards;
@@ -89,9 +89,14 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   $scope.createCard = function(list) {
     list.createCard($scope.board.id).then(
       function(response){
-        console.log(response);
+        Restangular.restangularizeElement(null, response, 'cards' );
         $scope.show(response);
       })
+  }
+
+  $scope.rectCard = function(list, card) {
+    Restangular.restangularizeElement(null, card, 'cards' );
+    $scope.show(card)
   }
 
   // Modal for Card
