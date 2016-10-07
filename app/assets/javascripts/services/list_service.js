@@ -9,24 +9,29 @@ app.factory('ListService',
     console.log(reason);
   }
 
-  function _storeLists (response) {
-    if (!_boardLists[response[0].board_id]) {
-      _boardLists[response[0].board_id] = [];
-    }
-    return angular.copy(
-      response,
-      _boardLists[response[0].board_id]
-    );
+  function _storeLists (board_id) {
+    return function (response) {
+      if (!_boardLists[board_id]) {
+        _boardLists[board_id] = [];
+      }
+      return angular.copy(
+        response,
+        _boardLists[board_id]
+      );
+    };
   }
 
   // Make sure Rails API sends back the list object after creation.
   function _addList (response) {
     if (_boardLists[response.board_id]) {
+      console.log('currentBoard already has lists.');
       _boardLists[response.board_id].push(response);
     } else {
+      console.log('currentBoard does not have lists yet.');
       _boardLists[response.board_id] = [];
       _boardLists[response.board_id].push(response);
     }
+    return _boardLists[response.board_id];
   }
 
   function _updateList (response) {
@@ -44,7 +49,7 @@ app.factory('ListService',
   function _cacheLists (id) {
     return Restangular.all('lists')
       .getList({board_id: id})
-      .then(_storeLists)
+      .then(_storeLists(id))
       .catch(_logError);
   }
 
@@ -65,7 +70,7 @@ app.factory('ListService',
 
   ListService.all = function (board_id) {
     if (_.isEmpty(_boardLists[board_id])) {
-      return _cacheLists(board_id);
+      return _cacheLists(board_id)[board_id];
     } else {
       return _boardLists[board_id];
     }
