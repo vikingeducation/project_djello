@@ -12,10 +12,7 @@
   placeholder='{{ list.description }}'
   ng-blur='submitEditForm()'><br>
   <p>ID (for testing): {{ list.id }}</p>
-</div>
 
-
-<div class='card-block'>
   <p>Cards will go here</p>
   <index-card-panel
   ng-repeat='card in cardsInfo[list.id]'
@@ -23,6 +20,7 @@
   list='list'>
   </index-card-panel>
 </div>
+
 
 <div class='card-footer'>
   <button ng-click="removeList()" class="btn btn-outline-danger">Remove</button>

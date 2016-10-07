@@ -1,18 +1,15 @@
 <!-- Clicking on a card should open a modal for editing. -->
+<input
+ng-model='card.title'
+class='btn btn-outline-secondary btn-block'
+type='text'
+placeholder='{{ card.title }}'><br>
 
-<div class='card-header'>
-  <input
-  ng-model='card.title'
-  class='btn btn-outline-secondary btn-block'
-  type='text'
-  placeholder='{{ card.title }}'><br>
+<input
+ng-model='card.description'
+class='btn btn-outline-secondary btn-block'
+type='text'
+placeholder='{{ card.description }}'><br>
+<p>ID (for testing): {{ card.id }}</p>
 
-  <input
-  ng-model='card.description'
-  class='btn btn-outline-secondary btn-block'
-  type='text'
-  placeholder='{{ card.description }}'><br>
-  <p>ID (for testing): {{ card.id }}</p>
-
-  <create-card-panel list='list'></create-card-panel>
-</div>
+<create-card-panel list='list'></create-card-panel>

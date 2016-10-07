@@ -9,23 +9,10 @@ class='form-control'
 ng-show='editState'
 rows='2'>
 </textarea>
-
-<!-- <form class="form-group card-block" ng-submit="submitForm()">
-  <input
-  class="form-control"
-  ng-model='boardForm.title'
-  type='text'
-  placeholder="Like 'Vacation Planning' for example..."><br>
-
-  <input
-  class="form-control"
-  ng-model='boardForm.description'
-  type='text'
-  placeholder="What's this all about?">
-
-  <button
-  type='submit'
-  class='btn btn-outline-primary'>
-  Submit
-  </button>
-</form> -->
+<button ng-show='editState' class='btn btn-success' ng-click='submitForm()'>Add</button>
+<i
+ng-show='editState'
+class='fa fa-times'
+style='cursor:pointer;font-size:24px'
+ng-click='cancel'></i>
+<br><br>
