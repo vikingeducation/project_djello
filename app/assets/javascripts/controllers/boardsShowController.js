@@ -52,10 +52,7 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   };
 
   $scope.deleteList = function(list){
-    console.log(list);
     list.remove().then(function(response){
-      console.log("Hello from callback?")
-      console.log(response);
       var index = _.indexOf($scope.board.lists, response)
       $scope.board.lists.splice(index, 1);
     })
@@ -89,12 +86,13 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   $scope.createCard = function(list) {
     list.createCard($scope.board.id).then(
       function(response){
+        console.log("Hello!!!");
         Restangular.restangularizeElement(null, response, 'cards' );
         $scope.show(response);
       })
   }
 
-  $scope.rectCard = function(list, card) {
+  $scope.rectCard = function(card) {
     Restangular.restangularizeElement(null, card, 'cards' );
     $scope.show(card)
   }

@@ -31,7 +31,6 @@ djello.factory('BoardService', ['Restangular', 'ListService', '$state', function
 
   Restangular.extendModel('boards', function(model){
     model.createList = function(){
-      console.log(model);
       return ListService.createList(model.id)
       .then(function(response){
         model.lists.push(response);

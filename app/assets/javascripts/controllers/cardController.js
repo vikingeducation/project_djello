@@ -16,7 +16,6 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', '$timeout', function($
   };
 
   $scope.editCardTitle = function(){
-    console.log("editing title...")
     $scope.toggleTitleEditing();
     $timeout(function(){
       $('#cardTitleEdit').focus();
