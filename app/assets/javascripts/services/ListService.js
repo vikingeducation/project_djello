@@ -16,6 +16,7 @@ djello.factory('ListService', ['Restangular', 'CardService', '$state', function(
         return response;
       });
     };
+    return model;
   })
 
 

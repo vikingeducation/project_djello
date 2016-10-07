@@ -52,9 +52,10 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   };
 
   $scope.deleteList = function(list){
-    console.log("Delete!!!")
     console.log(list);
     list.remove().then(function(response){
+      console.log("Hello from callback?")
+      console.log(response);
       var index = _.indexOf($scope.board.lists, response)
       $scope.board.lists.splice(index, 1);
     })
