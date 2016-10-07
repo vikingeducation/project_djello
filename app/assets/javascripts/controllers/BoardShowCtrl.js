@@ -19,4 +19,18 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     console.log("going to board " + $scope.selectedBoard.title)
     return $state.go("boardShow", {id: $scope.selectedBoard.id})
   }
+  $scope.showNewList = false; 
+
+  $scope.newList = function() {
+    $scope.showNewList = true
+    $scope.newList = {}
+  }
+
+
+  $scope.makeNewList = function() {
+    // submit newList object as params to listsService.create
+    // reset newList to blank object
+    listsService.create($scope.board, $scope.newList)
+    $scope.newList = {}
+  }
 }])

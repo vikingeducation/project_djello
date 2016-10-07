@@ -37,8 +37,6 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
     console.log("finding board...")
     for (var i = 0; i < _boards.length; i++) {
       var _thisBoard = _boards[i]
-      console.log(_thisBoard.id, id)
-      // console.log(id)
       if (_thisBoard.id === parseInt(id)) {
         return _thisBoard
       }
