@@ -1,6 +1,8 @@
-djello.controller('CardCtrl', ['$scope', 'close', 'card', '$timeout', function($scope, close, card, $timeout) {
+djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', function($scope, close, card, list, $timeout) {
 
  $scope.card = card;
+ $scope.list = list;
+ console.log($scope.list);
   
  $scope.close = function(result) {
     close(result, 500);

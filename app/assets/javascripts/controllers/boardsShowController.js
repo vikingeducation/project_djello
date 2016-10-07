@@ -88,23 +88,24 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
       function(response){
         console.log("Hello!!!");
         Restangular.restangularizeElement(null, response, 'cards' );
-        $scope.show(response);
+        $scope.show(list, response);
       })
   }
 
-  $scope.rectCard = function(card) {
+  $scope.rectCard = function(card, list) {
     Restangular.restangularizeElement(null, card, 'cards' );
-    $scope.show(card)
+    $scope.show(list, card)
   }
 
   // Modal for Card
 
-  $scope.show = function(card) {
+  $scope.show = function(list, card) {
         ModalService.showModal({
             templateUrl: '/templates/cards/show.html',
             controller: "CardCtrl",
             inputs: {
-              card: card
+              card: card,
+              list: list
             }
         }).then(function(modal) {
             modal.element.modal();
