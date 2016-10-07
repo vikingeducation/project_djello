@@ -1,6 +1,14 @@
+<button
+ng-hide='editState'
+value='Add a list..'
+ng-click='toggleEditState()'
+class='btn btn-outline-primary'>
+</button>
+
 <div class="card">
   <div class="card-block">
     <input
+    ng-show='editState'
     type='text'
     ng-model='listForm.title'
     placeholder='Add a list..'>

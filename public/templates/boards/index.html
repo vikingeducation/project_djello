@@ -1,6 +1,11 @@
-<div class="card-group">
-  <div ng-repeat="board in boards | orderBy:'-created_at'">
-    <board-panel board="board"></board-panel>
+<div class="card-deck-wrapper">
+  <div class="card-deck">
+    <board-panel
+    class="card"
+    style="width:300px"
+    ng-repeat="board in boards"
+    board="board">
+    </board-panel>
+    <create-board-panel></create-board-panel>
   </div>
-  <create-board-panel></create-board-panel>
 </div>
