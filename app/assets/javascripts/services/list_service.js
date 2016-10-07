@@ -84,7 +84,14 @@ app.factory('ListService',
       // return Promise.resolve(_boardLists[board_id]);
     }
   };
-// boardLists = { '1': [], '2': []}
+
+  ListService.destroy = function(list, board_id) {
+    return function (response) {
+      var lists = _boardLists[board_id];
+      return _.remove(lists,{id: list.id});
+    };
+  };
+
   return ListService;
 
 }]);

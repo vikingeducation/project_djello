@@ -16,7 +16,6 @@ app.directive('boardPanel', ['BoardService', function(BoardService) {
           .catch(function(reason) {
             console.log(reason);
           });
-          // .then(scope.notifyCtrlRemove);
       };
     }
   };

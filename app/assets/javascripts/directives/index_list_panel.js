@@ -11,6 +11,16 @@ app.directive('indexListPanel', ['ListService', function (ListService) {
           description: scope.list.description
         });
       };
+      scope.removeList = function() {
+        scope.list.remove()
+          .then(ListService.destroy(
+            scope.list,
+            scope.currentBoard.id)
+          )
+          .catch(function(reason) {
+            console.log(reason);
+          });
+      };
     }
   };
 
