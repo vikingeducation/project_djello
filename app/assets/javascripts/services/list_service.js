@@ -26,11 +26,8 @@ app.factory('ListService',
   // Make sure Rails API sends back the list object after creation.
   function _addList (response) {
     if (!_.isEmpty(_boardLists[response.board_id])) {
-      console.log('currentBoard already has lists.');
       _boardLists[response.board_id].push(response);
-      console.log(_boardLists[response.board_id]);
     } else {
-      console.log('currentBoard does not have lists yet.');
       _boardLists[response.board_id] = [];
       _boardLists[response.board_id].push(response);
     }
@@ -39,7 +36,6 @@ app.factory('ListService',
 
   function _updateList (response) {
     var lists = _boardLists[response.board_id];
-    console.log(response);
     angular.copy(response,_.find(lists, {id: response.id}));
   }
 
