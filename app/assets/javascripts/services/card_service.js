@@ -20,7 +20,18 @@ Djello.factory('CardService', [
       return Restangular.one("lists", list_id).post('cards', data)
     };
 
-    return {getAllCards: getAllCards, createCard: createCard}
+    var changeCard = function(card_id, edit) {
+      var data = {}
+      data['card'] = edit;
+      return Restangular.one('cards', card_id).patch(data)
+    }
+
+    var deleteCard = function(card_id) {
+      return Restangular.one('cards', card_id).remove();
+    }
+
+
+    return {getAllCards: getAllCards, createCard: createCard, changeCard: changeCard, deleteCard: deleteCard}
 
   }
 ])

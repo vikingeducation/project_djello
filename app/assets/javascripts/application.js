@@ -10,12 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// =require angular
-// =require angular-devise
-// =require angular-ui-router
-// =require lodash
-// =require restangular
 //= require jquery
 //= require jquery_ujs
+//= require angular
+//= require angular-devise
+//= require angular-ui-router
+//= require angular-modal-service
+//= require lodash
+//= require restangular
 //= require xeditable.min
+
 //= require_tree .

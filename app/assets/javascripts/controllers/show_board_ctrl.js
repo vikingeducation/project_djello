@@ -29,16 +29,14 @@ Djello.controller('ShowBoardCtrl', [
 
     $scope.addList = function(data) {
       ListService.createList($scope.board.id, data).then(function(response){
-        debugger
         $scope.board.lists.push(response);
         $scope.newList = false;
         $scope.list = {};
       })
     }
 
-    $scope.$on('list.deleted', function(){
-      updateBoard();
-    });
+    $scope.$on('list.deleted', function(){ updateBoard() });
+    $scope.$on('card.deleted', function(){ updateBoard() });
 
 
     updateBoard();

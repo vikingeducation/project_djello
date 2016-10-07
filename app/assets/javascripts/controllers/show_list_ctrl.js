@@ -1,23 +1,22 @@
 Djello.controller('ShowListCtrl', [
   '$scope',
-  '$state',
   'ListService',
   'CardService',
   'Restangular',
   '$rootScope',
-  function($scope, $state, ListService, CardService, Restangular, $rootScope) {
+  'ModalService',
+  function($scope, ListService, CardService, Restangular, $rootScope, ModalService) {
 
     $scope.newCard = false;
 
-
     $scope.deleteList = function() {
-      ListService.deleteList($scope.list.id).then(function(response){
+      ListService.deleteList($scope.list.id).then(function(response) {
         $rootScope.$broadcast('list.deleted');
       })
     }
 
     $scope.createCard = function(card) {
-      CardService.createCard($scope.list.id, card).then(function(response){
+      CardService.createCard($scope.list.id, card).then(function(response) {
         $scope.list.cards.push(response);
         $scope.card = {}
         $scope.newCard = false;
@@ -26,6 +25,22 @@ Djello.controller('ShowListCtrl', [
 
     $scope.changeList = function(edit) {
       ListService.changeList($scope.list.id, edit)
+    }
+
+    $scope.editCard = function(card) {
+      ModalService.showModal({
+        templateUrl: "/templates/cards/edit.html",
+        controller: "EditCardCtrl",
+        inputs: {
+          card: card
+        }
+      }).then(function(modal) {
+        //it's a bootstrap element, use 'modal' to show it
+        modal.element.modal();
+        modal.close.then(function(result) {
+          console.log(result);
+        });
+      })
     }
 
 

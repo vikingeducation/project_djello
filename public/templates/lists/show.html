@@ -1,16 +1,16 @@
 <div class='list'>
 
   <h3>
-    <a href='' ng-click="deleteList()">
-      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-    </a>
     <a href="" editable-text="list.title" buttons="no" onbeforesave="changeList({title: $data})">{{list.title}}</a>
+    <a class="pull-right delete-link" href='' ng-click="deleteList()">
+      &#9760;
+    </a>
   </h3>
 
 
   <h4><a href="" editable-text="list.description" buttons="no" onbeforesave="changeList({description: $data})">{{list.description}}</a></h4>
   <div class='card' ng-repeat='card in list.cards'>
-    {{card.title}}
+    <a href="" ng-click="editCard(card)">{{card.title}}</a>
   </div>
   <div class="add-card text-center" ng-click="newCard=true" ng-hide="newCard">
     <a>Add a card..</a>

@@ -1,4 +1,4 @@
-var Djello = angular.module('Djello', ['ui.router', 'restangular', 'Devise', 'xeditable']);
+var Djello = angular.module('Djello', ['ui.router', 'restangular', 'Devise', 'xeditable', 'angularModalService']);
 
 //enable lodash
 Djello.factory('_', [

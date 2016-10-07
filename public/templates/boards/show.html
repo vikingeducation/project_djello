@@ -5,7 +5,7 @@
 
 <div class="dropdown pull-right">
   <button class='btn btn-danger btn-sm' ng-click="deleteBoard()">Delete Board</button>
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{board.title}}
+  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{board.title}}
     <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right">
       <li ng-repeat="board in boards"><a href="" ui-sref="main.board({id:{{board.id}}})">{{board.title}}</a></li>
@@ -19,7 +19,10 @@
     <a><h4>Add a new list...</h4></a>
   </div>
   <div class="new-list-form" ng-show="newList">
+    <label for="title">Title</label>
     <input type="text" name="title" ng-model="form.list.title"></input>
+    <label for="description">Description</label>
+    <input type="text" name="description" ng-model="form.list.description"></input>
     <button type="button" name="button" class='btn btn-success' ng-click="addList(form)">Add</button>
     <a href='' ng-click="newList=false">
       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

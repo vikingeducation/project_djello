@@ -1,0 +1,18 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4><a class="modal-title" editable-text="card.title" buttons="no" onbeforesave="changeCard({title: $data})">{{card.title}}<a></h4>
+      </div>
+      <div class="modal-body">
+        <a editable-text="card.description" buttons="no" onbeforesave="changeCard({description: $data})">{{card.description}}</a>
+        <a ng-hide="card.description" editable-text="card.description" buttons="no" onbeforesave="changeCard({description: $data})">description here</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="deleteCard()" class="btn btn-danger btn-sm" data-dismiss="modal">delete</button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -19,3 +19,11 @@
 .new-card-form {
   margin-top: 10px;
 }
+
+.delete-link {
+  color: darkred;
+  &:hover{
+    color: black;
+    text-decoration: none;
+  }
+}
