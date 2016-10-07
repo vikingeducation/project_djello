@@ -1,10 +1,10 @@
-djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular',
-  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular){
+djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular', 'MemberService', 'memberships',
+  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular, MemberService, memberships){
 
   $scope.board = board;
   $scope.boards = boards;
   $scope.titleEditing = false;
-
+  $scope.memberships = memberships;
   // Board functionality
 
   $scope.toggleTitleEditing = function() {
@@ -104,7 +104,8 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
             controller: "CardCtrl",
             inputs: {
               card: card,
-              list: list
+              list: list,
+              memberships: memberships
             }
         }).then(function(modal) {
             modal.element.modal();

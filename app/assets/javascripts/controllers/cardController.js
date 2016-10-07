@@ -1,4 +1,4 @@
-djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'MemberService', 'Auth', 'Restangular', function($scope, close, card, list, $timeout, MemberService, Auth, Restangular) {
+djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'MemberService', 'Auth', 'Restangular', 'memberships', function($scope, close, card, list, $timeout, MemberService, Auth, Restangular, memberships) {
 
  Auth.currentUser()
       .then(function(user){
@@ -9,6 +9,8 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
 
  $scope.card = card;
  $scope.list = list;
+ $scope.memberships = memberships;
+ console.log($scope.memberships);
  Restangular.restangularizeCollection(null, card.members, 'members');
 
 
@@ -25,7 +27,6 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
           $scope.membersToAdd.push(member);
         }
       })
-      console.log($scope.membersToAdd);
     });
 
 
@@ -79,7 +80,24 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
     $scope.card.members.push(newMem);
     var memIndex = _.findIndex($scope.membersToAdd, newMem);
     $scope.membersToAdd.splice(memIndex, 1);
-    MemberService.addMember($scope.card.id, memID);
+    MemberService.addMember($scope.card.id, memID)
+      .then(function(response){
+        MemberService.getMemberships();
+      });
+  }
+
+  $scope.removeMember = function(memID) {
+    var memToRemove = _.find($scope.card.members, function(member){
+      return member.id == memID;
+    });
+    $scope.membersToAdd.push(memToRemove);
+    var memIndex = _.findIndex($scope.card.members, memToRemove);
+    $scope.card.members.splice(memIndex, 1);
+    console.log($scope.memberships);
+    var membership = _.find($scope.memberships, function(membership){
+      return (membership.user_id == memID && membership.card_id == $scope.card.id)
+    });
+    MemberService.removeMember(membership.id); 
   }
 
 }]);

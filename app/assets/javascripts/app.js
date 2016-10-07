@@ -49,8 +49,10 @@ djello.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
           return BoardService.findBoard($stateParams.id)
               .then(function(response){
                 return response;
-              })
-          ;
+              });
+        }],
+        memberships: ['MemberService', function(MemberService){
+          return MemberService.getMemberships();
         }]
       }
     })  

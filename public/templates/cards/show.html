@@ -25,7 +25,7 @@
             <div ng-repeat="member in card.members" class="card-member-div">
               <img src="#" class="card-member-img">
               <h5>User ID: {{member.id}} Email: {{member.email}}</h5>
-              <a class="pull-right remove-member" ng-click="removeMember(member)">remove</a>
+              <a class="pull-right remove-member" ng-click="removeMember(member.id)">remove</a>
             </div>
             <a ng-click="showMembers()" ng-hide="addingMember" class="add-member"><h5>Add Member</h5></a>
             <div ng-if="addingMember">
