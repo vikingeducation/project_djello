@@ -52,7 +52,7 @@ app.config(
           }],
           boards:
           ['BoardService', '$stateParams', function(BoardService, $stateParams) {
-            return BoardService.currentUserBoards();
+            return BoardService.all();
           }],
           listsInfo:
           ['ListService', 'currentBoard', function(ListService, currentBoard) {

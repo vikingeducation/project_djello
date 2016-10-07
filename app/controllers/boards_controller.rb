@@ -2,11 +2,7 @@ class BoardsController < ApplicationController
 
   def index
     # Boolean to check if only asking for current user's boards.
-    if params['currentUser']
-      @boards = current_user.boards
-    else
-      @boards = Board.all
-    end
+    @boards = current_user.boards
     respond_to do |format|
       format.json { render json: @boards.to_json(include: :user), status: 200 }
     end
