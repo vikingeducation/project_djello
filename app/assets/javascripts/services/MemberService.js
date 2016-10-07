@@ -11,10 +11,10 @@ djello.factory('MemberService', ['Restangular', function(Restangular){
       })
   }
 
-  memberService.addMember = function(cardID, memberID){
+  memberService.addMember = function(cardID, userID){
     return Restangular.all('memberships').post({
       cardID: cardID,
-      memberID: memberID
+      userID: userID
     })
 
   }
