@@ -13,6 +13,7 @@ function($scope, boards, BoardService) {
     console.log(reason);
   };
 
+  // Might not need these listeners anymore.
   $scope.$on('board.create', function(ev, response) {
     BoardService.refreshCache()
       .then($scope.refreshBoards)
