@@ -10,8 +10,16 @@
 <h1>{{board.title}}</h1>
 <p>{{board.description}}</p>
 
+<div ng-repeat="list in lists" class="col-sm-4 list panel panel-success">
+  <div>{{list.title}}</div><br>
+  <div>{{list.description}}</div>
+</div>
+<div class="col-sm-4">
+  <button class="btn btn-primary"></button>
+</div>
+
 <button class="btn btn-danger" ng-confirm-click="Are you sure you want to delete this board?" ng-click="deleteBoard()">
-  Delete
+  Delete Board
 </button>
 
     <!-- show members -->

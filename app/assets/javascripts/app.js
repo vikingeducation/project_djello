@@ -2,7 +2,7 @@ var app = angular.module("djello", ['ui.router', 'restangular']);
 
 app.config(function($urlRouterProvider, $stateProvider) {
 
-  $urlRouterProvider.otherwise("/")
+  $urlRouterProvider.otherwise("/boards")
 
   $stateProvider
 

@@ -17,11 +17,14 @@
 </head>
 <body <%= content_for :angular_controller %> >
 
+  <nav class="navbar navbar-inverse"><span class="nav-brand white">Logged in as <%=current_user.email%></span></nav>
+
   <main class="container">
     <div class="row">
       <% flash.each do |type, message| %>
         <div class="alert alert-info"><%= message %></div>
       <% end %>
+
 
       <%= yield %>
     </div>
