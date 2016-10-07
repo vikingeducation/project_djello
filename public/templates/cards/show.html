@@ -6,7 +6,7 @@
           <button type="button" class="close pull-right" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
           <div class="row">
             <div class="col-xs-12">
-              <h4 class="modal-title" ng-hide="titleEditing" ng-model="card.title" ng-click="editCardTitle()">{{card.title}}</h4>
+              <h3 class="modal-title" ng-hide="titleEditing" ng-model="card.title" ng-click="editCardTitle()">{{card.title}}</h3>
               <input type="text" ng-model="card.title" ng-blur="updateCardTitle()" ng-show="titleEditing" id="cardTitleEdit">
             </div>
           </div>
@@ -18,13 +18,25 @@
           <p ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</p>
           <textarea ng-show="card.descEditing" ng-model="card.description" ng-blur="updateCardDesc(card)" card-desc-id="{{card.id}}" class="form-control"></textarea>
           <a ng-click="editCardDesc(card)" ng-hide="card.descEditing">Edit the description</a>
-        </div>
-        <div class="modal-body">
-          <h3>Members</h3>
           <hr>
         </div>
         <div class="modal-body">
-          <h3>Activity</h3>
+          <h4>Members</h4>
+            <div ng-repeat="member in card.members" class="card-member-div">
+              <img src="#" class="card-member-img">
+              <h5>User ID: {{member.id}} Email: {{member.email}}</h5>
+              <a class="pull-right remove-member" ng-click="removeMember(member)">remove</a>
+            </div>
+            <a ng-click="showMembers()" ng-hide="addingMember" class="add-member"><h5>Add Member</h5></a>
+            <div ng-if="addingMember">
+              <select ng-model="newMemID">
+                <option  ng-repeat="memToAdd in membersToAdd" value="{{memToAdd.id}}">{{memToAdd.id}}: {{memToAdd.email}}</option>
+              </select>
+              <button class="btn btn-primary btn-sm" ng-click="addMember(newMemID)">Add Member</button>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <h4>Activity</h4>
           <hr>
         </div>
         <div class="modal-footer">

@@ -7,4 +7,6 @@ class User < ApplicationRecord
   has_many :boards
   has_many :lists
   has_many :cards
+  has_many :memberships
+  has_many :member_cards, :through => :memberships, :class_name => "Card", :source => :card
 end

@@ -6,7 +6,11 @@ class ListsController < ApplicationController
     @list.board = Board.find(params[:boardId])
     if @list.save
       respond_to do |format|
-        format.json { render json: @list.to_json( include: :cards ), status: 201 }
+        format.json { render json: @list.to_json( include: 
+                                      {:cards => {
+                                        include: :members
+                                        }
+                                      }), status: 201 }
       end
     end
   end
@@ -15,7 +19,11 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     if @list.update(list_params)
       respond_to do |format|
-        format.json {render json: @list, status: 200}
+        format.json { render json: @list.to_json( include: 
+                                      {:cards => {
+                                        include: :members
+                                        }
+                                      }), status: 201 }
       end
     end
 

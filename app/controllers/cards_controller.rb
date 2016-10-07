@@ -7,7 +7,7 @@ class CardsController < ApplicationController
     @card.list = List.find(params[:listId])
     if @card.save
       respond_to do |format|
-        format.json { render json: @card, status: 200}
+        format.json { render json: @card.to_json( include: :members) , status: 200}
       end
     end
 
@@ -17,7 +17,7 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
     if @card.update(card_params)
       respond_to do |format|
-        format.json {render json: @card, status: 200}
+        format.json {render json: @card.to_json( include: :members) , status: 200}
       end
     end
 
@@ -27,7 +27,7 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
     if @card.destroy
       respond_to do |format|
-        format.json {render json: @card, status: 200}
+        format.json {render json: @card.to_json( include: :members) , status: 200}
       end
     end
 

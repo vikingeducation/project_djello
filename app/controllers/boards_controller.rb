@@ -16,8 +16,11 @@ class BoardsController < ApplicationController
       respond_to do |format|
         format.json { render json: @board.to_json( include: {
                                   :lists => {
-                                    include: :cards
+                                    include: { :cards => {
+                                      include: :members
+                                      }
                                     } 
+                                  }
                                   }), 
                                   status: 201 }
       end
@@ -30,8 +33,11 @@ class BoardsController < ApplicationController
     respond_to do |format|
       format.json { render json: @board.to_json( include: {
                                   :lists => {
-                                    include: :cards
+                                    include: { :cards => {
+                                      include: :members
+                                      }
                                     } 
+                                  }
                                   }), 
                                   status: 201 }
     end
@@ -44,8 +50,11 @@ class BoardsController < ApplicationController
       respond_to do |format|
         format.json { render json: @board.to_json( include: {
                                   :lists => {
-                                    include: :cards
+                                    include: { :cards => {
+                                      include: :members
+                                      }
                                     } 
+                                  }
                                   }), 
                                   status: 201 }
       end
