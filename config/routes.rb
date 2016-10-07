@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'lists/create'
-
-  get 'lists/index'
-
-  get 'lists/update'
-
-  get 'lists/destroy'
 
   devise_for :users
 
@@ -14,6 +7,7 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       resources :boards
+      resources :lists
     end
   end
 end

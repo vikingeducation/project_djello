@@ -1,5 +1,5 @@
 app.factory('ListService',
-['Restangular', '_', function() {
+['Restangular', '_', function(Restangular, _) {
 
   var ListService = {};
   var _boardLists = {};

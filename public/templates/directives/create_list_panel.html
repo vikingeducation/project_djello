@@ -5,7 +5,13 @@ slide-toggle='#form-buttons'
 ng-model='listForm.title'
 placeholder='Add a list..'><br>
 <div class="slideable" id='form-buttons' duration='0.2s'>
-  <button id='submit-button' type='submit' class='btn btn-success'>Submit</button>
+  <button
+  id='submit-button'
+  type='submit'
+  class='btn btn-success'
+  ng-click='createList()'>
+    Submit
+  </button>
 </div>
 
 <!-- <button
