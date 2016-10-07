@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :boards
-  belongs_to :card
+  belongs_to :card, optional: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

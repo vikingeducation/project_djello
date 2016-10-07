@@ -18,6 +18,7 @@ app.factory('CardService',
         response,
         _listCards[list_id]
       );
+      console.log(_listCards);
       return _listCards;
     };
   }

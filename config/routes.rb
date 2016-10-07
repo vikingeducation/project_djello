@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'cards/index'
-
-  get 'cards/create'
-
-  get 'cards/update'
-
-  get 'cards/destroy'
-
   devise_for :users
 
   root to: "static_pages#index"
@@ -16,6 +8,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :boards
       resources :lists
+      resources :cards
     end
   end
 end

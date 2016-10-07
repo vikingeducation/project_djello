@@ -5,7 +5,8 @@ app.directive('indexCardPanel',
     templateUrl: 'templates/directives/index_card_panel.html',
     restrict: 'E',
     scope: {
-      card: '='
+      card: '=',
+      list: '='
     }
   };
 

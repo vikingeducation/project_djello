@@ -44,3 +44,16 @@ puts "Creating Lists..."
   })
 end
 puts "Done!"
+
+puts "Creating Cards..."
+10.times do |n|
+  # list = List.all.sample
+  List.all.each do |list|
+    list.cards.create!({
+      title: Faker::App.name,
+      body: Faker::Lorem.paragraph(1),
+      completed: [true,false].sample
+    })
+  end
+end
+puts "Done!"
