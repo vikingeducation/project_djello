@@ -6,7 +6,7 @@ class ListsController < ApplicationController
     @list.board = Board.find(params[:boardId])
     if @list.save
       respond_to do |format|
-        format.json { render json: @list, status: 201 }
+        format.json { render json: @list.to_json( include: :cards ), status: 201 }
       end
     end
   end

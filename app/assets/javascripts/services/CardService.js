@@ -6,7 +6,7 @@ djello.factory('CardService', ['Restangular', '$state', function(Restangular, $s
     return Restangular.all('cards').post({
       boardId: boardId,
       listId: listId
-    })
+    });
   }
 
 
