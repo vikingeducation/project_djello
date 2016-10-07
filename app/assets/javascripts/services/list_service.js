@@ -29,6 +29,12 @@ app.factory('ListService',
     }
   }
 
+  function _updateList (response) {
+    var lists = _boardLists[response.board_id];
+    console.log(response);
+    angular.copy(response,_.find(lists, {id: response.id}));
+  }
+
   function _removeList (response) {
     _.remove(_boardLists[respone.board_id], function(list) {
       return list.id === response.id;
@@ -47,6 +53,13 @@ app.factory('ListService',
     return Restangular.all('lists')
       .post({list: listParams})
       .then(_addList)
+      .catch(_logError);
+  };
+
+  ListService.update = function (listParams) {
+    return Restangular.one('lists',listParams.id)
+      .patch({list: listParams})
+      .then(_updateList)
       .catch(_logError);
   };
 
