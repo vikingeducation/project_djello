@@ -35,10 +35,8 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
 
   boardsService.find = function(id) {
     console.log("finding board...")
-    console.log(_boards.length)
     for (var i = 0; i < _boards.length; i++) {
       var _thisBoard = _boards[i]
-      console.log(_thisBoard)
       if (_thisBoard.id == id) {
         return _thisBoard
       }

@@ -33,6 +33,11 @@ app.config(function($urlRouterProvider, $stateProvider) {
           templateUrl: "/templates/boards/show.html",
           controller: "BoardShowCtrl"
         }
+      },
+      resolve: {
+        "boards": ["boardsService", function(boardsService) {
+          return boardsService.all()
+        }]
       }
     })
 })

@@ -1,9 +1,16 @@
 {{message}}
 
+<select ng-options="board as board.title for board in boards" 
+        ng-model="selectedBoard" 
+        ng-change="switchBoards()"
+        >
+  
+</select>
+
 <h1>{{board.title}}</h1>
 <p>{{board.description}}</p>
 
-<button class="btn btn-danger" ng-click="deleteBoard()" ng-confirm-click="Are you sure you want to delete this board?">
+<button class="btn btn-danger" ng-confirm-click="Are you sure you want to delete this board?" ng-click="deleteBoard()">
   Delete
 </button>
 
