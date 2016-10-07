@@ -50,10 +50,10 @@ app.config(
           ['BoardService', '$stateParams', function(BoardService, $stateParams) {
             return BoardService.one($stateParams.id);
           }],
-          boards:
-          ['BoardService', '$stateParams', function(BoardService, $stateParams) {
-            return BoardService.all();
-          }],
+          // boards:
+          // ['BoardService', '$stateParams', function(BoardService, $stateParams) {
+          //   return BoardService.all();
+          // }],
           listsInfo:
           ['ListService', 'currentBoard', function(ListService, currentBoard) {
             return ListService.all(currentBoard.id);

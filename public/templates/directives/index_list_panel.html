@@ -13,12 +13,13 @@
   ng-blur='submitEditForm()'><br>
   <p>ID (for testing): {{ list.id }}</p>
 
-  <p>Cards will go here</p>
   <index-card-panel
   ng-repeat='card in cardsInfo[list.id]'
   card='card'
   list='list'>
   </index-card-panel>
+
+  <create-card-panel list='list'></create-card-panel>
 </div>
 
 
