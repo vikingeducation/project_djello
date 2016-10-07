@@ -4,6 +4,7 @@ gem 'faker'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'devise'
+gem 'awesome_print'
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
 end

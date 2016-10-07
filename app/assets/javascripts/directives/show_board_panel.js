@@ -6,6 +6,9 @@ function(BoardService, ListService) {
     restrict: 'E',
     scope: {
       currentBoard: '='
+    },
+    link: function (scope) {
+      scope.lists = ListService.all(scope.currentBoard.id);
     }
   };
 

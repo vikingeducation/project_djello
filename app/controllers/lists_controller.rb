@@ -10,7 +10,7 @@ class ListsController < ApplicationController
 
   def index
     # We're only interested in a specific board's set of lists.
-    board = Board.find_by_id(params[:board_id])
+    board = Board.find_by_id(params[:board_id].to_i)
     @lists = board.lists
     respond_to do |format|
       format.json { render json: @lists, status: 200 }

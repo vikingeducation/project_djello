@@ -6,7 +6,6 @@ app.directive('createListPanel',
     restrict: 'E',
     link: function(scope) {
       scope.createList = function () {
-        console.log('this is firing');
         ListService.create({
           board_id: scope.currentBoard.id,
           title: scope.listForm.title
