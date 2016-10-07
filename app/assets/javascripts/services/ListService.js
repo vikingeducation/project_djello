@@ -13,9 +13,9 @@ djello.factory('ListService', ['Restangular', 'CardService', '$state', function(
       return CardService.createCard(model.id, boardId)
       .then(function(response){
         model.cards.push(response);
+        return response;
       });
     };
-    return model;
   })
 
 

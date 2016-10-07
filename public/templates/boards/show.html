@@ -29,7 +29,7 @@
         <p ng-hide="list.descEditing" ng-click="editListDesc(list)">{{list.description}}</p>
         <textarea ng-show="list.descEditing" ng-model="list.description" ng-blur="updateListDesc(list)" list-desc-id="{{list.id}}" class="form-control"></textarea>
         <hr>
-        <div ng-repeat="card in list.cards">
+        <div ng-repeat="card in list.cards" ng-click="show(card)">
           <p>{{card.title}}</p>
           <p>{{card.description}}</p>
           <hr>

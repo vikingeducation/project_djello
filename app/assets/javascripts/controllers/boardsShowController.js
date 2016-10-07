@@ -1,5 +1,5 @@
 djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService',
-  function($scope, $timeout, board, BoardService, $stateParams, boards, $state){
+  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService){
 
   $scope.board = board;
   $scope.boards = boards;
@@ -86,26 +86,31 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   }
 
   $scope.createCard = function(list) {
-    list.createCard($scope.board.id)
+    list.createCard($scope.board.id).then(
+      function(response){
+        console.log(response);
+        $scope.show(response);
+      })
   }
 
   // Modal for Card
 
-  $scope.show = function() {
+  $scope.show = function(card) {
         ModalService.showModal({
             templateUrl: '/templates/cards/show.html',
-            controller: "BoardsShowCtrl"
+            controller: "CardCtrl",
+            inputs: {
+              card: card
+            }
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(result) {
-                $scope.message = "You said " + result;
+                console.log("You said " + result);
             });
         });
     };
 
-  $scope.close = function(result) {
-    close(result, 500); // close, but give 500ms for bootstrap to animate
-  };
+
 
   
 }])
