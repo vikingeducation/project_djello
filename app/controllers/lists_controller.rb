@@ -18,8 +18,11 @@ class ListsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      format.json { render json: { hello: 'HELLO FROM RAILS API' }, status: 200 }
+    @list = List.find_by_id(params[:id])
+    if @list.update(list_params)
+      respond_to do |format|
+        format.json { render json: @list, status: 200 }
+      end
     end
   end
 

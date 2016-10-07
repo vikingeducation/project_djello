@@ -3,12 +3,14 @@
   ng-model='list.title'
   class='btn btn-outline-secondary btn-block'
   type='text'
-  placeholder='{{ list.title }}'><br>
+  placeholder='{{ list.title }}'
+  ng-blur='submitEditForm()'><br>
   <input
   ng-model='list.description'
   class='btn btn-outline-secondary btn-block'
   type='text'
-  placeholder='{{ list.description }}'><br>
+  placeholder='{{ list.description }}'
+  ng-blur='submitEditForm()'><br>
   <p>ID (for testing): {{ list.id }}</p>
 </div>
 
