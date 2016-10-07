@@ -3,7 +3,7 @@
     <board-panel
     class="card"
     style="width:300px"
-    ng-repeat="board in boards"
+    ng-repeat="board in boards | orderBy:'+created_at'"
     board="board">
     </board-panel>
     <create-board-panel
