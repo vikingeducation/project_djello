@@ -27,7 +27,6 @@ app.factory('ListService',
       _boardLists[response.board_id] = [];
       _boardLists[response.board_id].push(response);
     }
-    console.log(_boardLists);
   }
 
   function _removeList (response) {
