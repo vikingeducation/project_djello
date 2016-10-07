@@ -2,7 +2,7 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', fu
 
  $scope.card = card;
  $scope.list = list;
- console.log($scope.list);
+
   
  $scope.close = function(result) {
     close(result, 500);
@@ -34,6 +34,12 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', fu
   $scope.updateCardDesc = function(card) {
     card.descEditing = false;
     card.patch();
+  }
+
+  $scope.deleteCard = function(){
+    var index = _.indexOf($scope.list.cards, $scope.card)
+    $scope.list.cards.splice(index, 1);
+    $scope.card.remove()
   }
 
 }]);
