@@ -1,19 +1,12 @@
-<div class="row">
-  <div class="col-md-4">
-    <h1>{{ currentBoard.title }}</h1>
-    <div class='card-deck-wrapper'>
-      <index-list-panel
-      class='card'
-      ng-repeat="list in listsInfo[currentBoard.id] | orderBy:'-created_at'">
-      </index-list-panel>
-    </div>
-  </div>
-
-  <div class="col-md-4">
+<h1>{{ currentBoard.title }}</h1>
+<boards-dropdown></boards-dropdown>
+<div class='card-deck-wrapper'>
+  <div class='card-deck'>
+    <index-list-panel
+    class='card'
+    style='width:300px'
+    ng-repeat="list in listsInfo[currentBoard.id] | orderBy:'-created_at'">
+    </index-list-panel>
     <create-list-panel></create-list-panel>
-  </div>
-
-  <div class="col-md-4">
-    <boards-dropdown></boards-dropdown>
   </div>
 </div>
