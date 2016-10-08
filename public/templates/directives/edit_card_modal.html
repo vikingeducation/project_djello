@@ -7,14 +7,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
 
+        <!-- Model in parent panel must be sole source of truth. -->
+        <!-- Just use save changes button to submit form data. -->
+
         <input
         class="btn btn-secondary"
         id="myModalLabel"
         type='text'
-        ng-model='card.title'
-        ng-blur='submitEditForm()'
-        placeholder='{{ card.title }}'>
-      </div>
+        placeholder="{{ formData }}">
+        </div>
+
       <div class="modal-body">
         ...
       </div>

@@ -8,12 +8,12 @@ app.directive('createListPanel',
       currentBoard: '='
     },
     link: function(scope) {
-      scope.listParams = {
+      scope.listForm = {
         title: '',
         board_id: scope.currentBoard.id
       };
       scope.createList = function () {
-        ListService.create(scope.listParams);
+        ListService.create(scope.listForm);
       };
     }
   };

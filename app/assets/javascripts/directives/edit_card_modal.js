@@ -5,16 +5,17 @@ app.directive('editCardModal',
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
     scope: {
-      card: '='
+      card: '@'
     },
     link: function(scope) {
+      scope.cardForm = {
+        id: scope.card.id,
+        title: scope.card.title,
+        body: scope.card.body
+      };
       scope.submitEditForm = function () {
         console.log('this is firing');
-        CardService.update({
-          id: scope.card.id,
-          title: scope.card.title,
-          body: scope.card.body
-        });
+        CardService.update(scope.cardForm);
       };
     }
   };

@@ -8,7 +8,7 @@ app.directive('createCardPanel',
       list: '=',
     },
     link: function(scope) {
-      scope.newCard = {
+      scope.cardForm = {
         title: '',
         body: '',
         completed: false,
@@ -18,7 +18,7 @@ app.directive('createCardPanel',
         scope.editState = true;
       };
       scope.submitForm = function() {
-        CardService.create(scope.newCard)
+        CardService.create(scope.cardForm)
           .then(scope.cancel);
       };
       scope.cancel = function() {
@@ -26,7 +26,7 @@ app.directive('createCardPanel',
         scope.resetForm();
       };
       scope.resetForm = function () {
-        scope.newCard = {
+        scope.cardForm = {
           title: '',
           body: '',
           completed: false,
