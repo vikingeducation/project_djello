@@ -17,6 +17,12 @@ class CardsController < ApplicationController
   end
 
   def update
+    @card = Card.find_by_id(card_params['id'])
+    if @card.update(card_params)
+      respond_to do |format|
+        format.json { render json: @card, status: 200 }
+      end
+    end
   end
 
   def destroy
@@ -25,7 +31,8 @@ class CardsController < ApplicationController
   private
 
     def card_params
-      params.require(:card).permit(:title,
+      params.require(:card).permit(:id,
+                                   :title,
                                    :body,
                                    :completed,
                                    :members,

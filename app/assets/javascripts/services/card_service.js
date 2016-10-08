@@ -33,6 +33,14 @@ app.factory('CardService',
     return _listCardsCache;
   }
 
+  function _updateCard (response) {
+    var cards = _listCardsCache[response.list_id];
+    var found = _.find(cards, {id: response.id});
+    if (!found) throw new Error ('Nothing to update!');
+    angular.copy(response, found);
+    return found;
+  }
+
   function _cacheCards (list_id) {
     return Restangular.all('cards')
         .getList({list_id: list_id})
@@ -49,10 +57,17 @@ app.factory('CardService',
     }
   };
 
-  CardService.create = function (formData) {
+  CardService.create = function (cardParams) {
     return Restangular.all('cards')
-      .post({card: formData})
+      .post({card: cardParams})
       .then(_addCard)
+      .catch(_logError);
+  };
+
+  CardService.update = function (cardParams) {
+    return Restangular.one('cards', cardParams.id)
+      .patch({card: cardParams})
+      .then(_updateCard)
       .catch(_logError);
   };
 
