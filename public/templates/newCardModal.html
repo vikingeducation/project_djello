@@ -1,0 +1,25 @@
+<!-- <script type="text/ng-template" id="modal.html"> -->
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">New Card</h4>
+        <h6>In list {{list.title}}</h6>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label>Title</label>
+          <input class="form-control" type="text" name="title" ng-model="newCard.title" placeholder="Some task...">
+          <label>Text</label>
+          <textarea class="form-control" type="text" name="text" ng-model="newCard.text" placeholder="Some more details..."></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" ng-click="handleNewCardForm()" class="btn btn-primary" data-dismiss="modal">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </script> -->

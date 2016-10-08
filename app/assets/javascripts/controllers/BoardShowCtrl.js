@@ -95,20 +95,32 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     })
   }
 
-  $scope.showModal = function() {
+  $scope.showNewCardModal = function(list) {
     ModalService.showModal({
-      templateUrl: "templates/modal-window.html",
-      controller: "ModalController"
+      templateUrl: "templates/newCardModal.html",
+      controller: ["$scope", "cardService", "close", function($scope, cardService, close) {
+
+        $scope.list = list
+        $scope.newCard = {}
+
+        $scope.handleNewCardForm = function() {
+          cardService.create(list, $scope.newCard).then(function(response) {
+          })
+          $scope.close(null, 200);
+        }
+
+        $scope.close = function(result) {
+          close(result, 200); 
+        };
+      }]
     }).then(function(modal) {
-      console.log(modal)
       modal.element.modal();
-      modal.close.then(function(result) {
-        console.log("closing modal")
-        $scope.message = "You said " + result;
+      modal.close.then(function(response) {
+        console.log(response)
         $('.modal-backdrop').remove()
-      })
     })
-  }
+  })
+}
 
 
 }])
