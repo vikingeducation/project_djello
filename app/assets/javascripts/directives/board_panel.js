@@ -7,15 +7,8 @@ app.directive('boardPanel',
       board: '='
     },
     link: function(scope) {
-      scope.notifyCtrlRemove = function(response) {
-        scope.$emit('board.destroy', response);
-      };
       scope.removeBoard = function() {
-        scope.board.remove()
-          .then(BoardService.destroy(scope.board))
-          .catch(function(reason) {
-            console.log(reason);
-          });
+        BoardService.destroy(scope.board);
       };
     }
   };

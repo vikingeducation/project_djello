@@ -32,7 +32,7 @@ app.config(
           }
         },
         resolve: {
-          boards: ['BoardService', function(BoardService){
+          boardsCache: ['BoardService', function(BoardService){
             return BoardService.all();
           }]
         }
@@ -46,15 +46,16 @@ app.config(
           }
         },
         resolve: {
+          // Always pass down the cached array/object to bind the data in memory.
           currentBoard:
           ['BoardService', '$stateParams', function(BoardService, $stateParams) {
             return BoardService.one($stateParams.id);
           }],
-          boards:
+          boardsCache:
           ['BoardService', function(BoardService) {
             return BoardService.all();
           }],
-          listsInfo:
+          listsCache:
           ['ListService', 'currentBoard', function(ListService, currentBoard) {
             return ListService.all(currentBoard.id);
           }]

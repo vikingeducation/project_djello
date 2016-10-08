@@ -53,9 +53,9 @@ app.factory('ListService',
       .catch(_logError);
   }
 
-  ListService.refreshListsInfo = function (listsInfo, id) {
+  ListService.refreshlistsCache = function (listsCache, id) {
     return function () {
-      listsInfo[id].lists = _boardLists[id];
+      listsCache[id].lists = _boardLists[id];
     };
   };
 

@@ -10,6 +10,11 @@ function (ListService, CardService) {
       currentBoard: '='
     },
     link: function(scope) {
+      CardService.all(scope.list.id)
+        .then(function(data) {
+          scope.cardsInfo = data;
+        });
+
       scope.submitEditForm = function () {
         ListService.update({
           id: scope.list.id,
@@ -17,6 +22,7 @@ function (ListService, CardService) {
           description: scope.list.description
         });
       };
+      
       scope.removeList = function() {
         scope.list.remove()
           .then(ListService.destroy(
@@ -27,10 +33,6 @@ function (ListService, CardService) {
             console.log(reason);
           });
       };
-      CardService.all(scope.list.id)
-        .then(function(data) {
-          scope.cardsInfo = data;
-        });
     }
   };
 

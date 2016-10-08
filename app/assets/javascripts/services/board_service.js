@@ -2,8 +2,9 @@ app.factory('BoardService',
 ['Restangular', '_', function(Restangular,_) {
 
   var BoardService = {};
-  var _boards = [];
-  var _currentUserBoards = [];
+  // Call it the 'cache' to be more explicit about the intent.
+  var _boardsCache = [];
+
 
   function _logError (reason) {
     console.log('ERROR!!! Reason: ');
@@ -11,11 +12,7 @@ app.factory('BoardService',
   }
 
   function _storeBoards (response) {
-    return angular.copy(response, _boards);
-  }
-
-  function _storeCurrentUserBoards (response) {
-    return angular.copy(response, _currentUserBoards);
+    return angular.copy(response, _boardsCache);
   }
 
   function _cacheBoards () {
@@ -25,16 +22,26 @@ app.factory('BoardService',
       .catch(_logError);
   }
 
-  function _cacheCurrentUserBoards() {
-    return Restangular.all('boards')
-      .getList({currentUser: true})
-      .then(_storeCurrentUserBoards)
-      .catch(_logError);
+  function _addBoard(response) {
+    _boardsCache.push(response);
+    return response;
   }
 
-  function _addBoard(response) {
-    _boards.push(response);
-    return response;
+  function _removeBoard (board_id) {
+    return function (response) {
+      var found = _.find(_boardsCache, {id: parseInt(board_id)});
+      if (!found) throw new Error('Nothing to remove!!');
+      return _.remove(_boardsCache,{id: board_id});
+    };
+  }
+
+  function _findBoard(searchKey) {
+    return function(response) {
+      var found = _.find(_boardsCache, {id: parseInt(searchKey)});
+      // Throw an error for your bad path!
+      if (!found) throw new Error('Board not cached!!');
+      return found;
+    };
   }
 
   BoardService.refreshCache = function () {
@@ -42,24 +49,15 @@ app.factory('BoardService',
   };
 
   BoardService.all = function () {
-    if (_.isEmpty(_boards)) {
+    if (_.isEmpty(_boardsCache)) {
       return _cacheBoards();
     } else {
-      return Promise.resolve(_boards);
+      return Promise.resolve(_boardsCache);
     }
   };
 
-  function _findBoard(searchKey) {
-    return function(response) {
-      var found = _.find(_boards, {id: parseInt(searchKey)});
-      // Throw an error for your bad path!
-      if (!found) throw new Error('Board not cached!!');
-      return found;
-    };
-  }
-
   BoardService.one = function (searchId) {
-    if (_.isEmpty(_boards)) {
+    if (_.isEmpty(_boardsCache)) {
       return _cacheBoards()
         .then(_findBoard(searchId));
     } else {
@@ -71,13 +69,14 @@ app.factory('BoardService',
   BoardService.create = function (formParams) {
     return Restangular.all('boards')
       .post({board: formParams })
-      .then(_addBoard);
+      .then(_addBoard)
+      .catch(_logError);
   };
 
   BoardService.destroy = function(board) {
-    return function (response) {
-      return _.remove(_boards,{id: board.id});
-    };
+    return board.remove()
+      .then(_removeBoard(board.id))
+      .catch(_logError);
   };
 
   return BoardService;

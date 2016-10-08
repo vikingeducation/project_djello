@@ -1,6 +1,6 @@
 <h1>{{ currentBoard.title }}</h1>
 
-<boards-dropdown boards='boards'></boards-dropdown>
+<boards-dropdown boards-cache='boardsCache'></boards-dropdown>
 
 <div class='card-deck-wrapper'>
   <div class='card-deck'>
@@ -11,7 +11,7 @@
     style='width:300px'
     current-board='currentBoard'
     list='list'
-    ng-repeat="list in listsInfo[currentBoard.id] | orderBy:'-created_at'">
+    ng-repeat="list in listsCache[currentBoard.id] | orderBy:'-created_at'">
     </index-list-panel>
 
     <!-- Create a list. -->

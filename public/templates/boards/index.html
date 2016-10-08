@@ -2,7 +2,7 @@
   <div class="card-deck">
     <board-panel
     class="card"
-    ng-repeat="board in boards | orderBy:'+created_at'"
+    ng-repeat="board in boardsCache | orderBy:'+created_at'"
     board="board">
     </board-panel>
     <create-board-panel
