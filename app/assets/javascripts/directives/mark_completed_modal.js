@@ -3,7 +3,7 @@ app.directive('markCompletedModal',
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/mark_completed_modal.html',
-    link: function(scope) {
+    link: function(scope, element) {
       scope.setCompleted = function() {
         scope.cardForm.completed = true;
         return scope.cardForm;
@@ -12,8 +12,7 @@ app.directive('markCompletedModal',
         return $timeout(scope.setCompleted, 700);
       };
       scope.markCompleted = function () {
-        console.log('this is firing');
-        // element.children('#myModal').modal('hide');
+        $('#myModal').modal('hide');
         return Promise.try(scope.delayedSetCompleted)
           .then(scope.submitEditForm)
           .catch(function(reason) {
