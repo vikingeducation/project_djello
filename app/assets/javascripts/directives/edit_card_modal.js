@@ -10,13 +10,18 @@ app.directive('editCardModal',
       scope.cardForm = {
         id: scope.card.id,
         title: scope.card.title,
-        body: scope.card.body
+        body: scope.card.body,
+        completed: scope.card.completed
       };
       // See edit-card-body directive.
       scope.bodyEditState = false;
       scope.submitEditForm = function () {
         CardService.update(scope.cardForm);
         scope.bodyEditState = false;
+      };
+      scope.markCompleted = function () {
+        scope.cardForm.completed = true;
+        scope.submitEditForm();
       };
     }
   };

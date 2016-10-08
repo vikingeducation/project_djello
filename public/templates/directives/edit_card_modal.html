@@ -21,8 +21,15 @@
         <div class="modal-body">
           <edit-card-body></edit-card-body>
         </div>
-        
+
       <div class="modal-footer">
+        <button
+        ng-model='cardForm.completed'
+        ng-click='markCompleted()'
+        type='button'
+        class='btn btn-primary btn-block'>
+          Mark completed
+        </button>
       </div>
     </div>
   </div>
