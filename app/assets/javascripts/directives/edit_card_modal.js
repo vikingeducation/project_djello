@@ -1,6 +1,5 @@
 app.directive('editCardModal',
-['CardService', '$timeout', function(CardService, $timeout) {
-
+['CardService', function(CardService) {
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
@@ -18,23 +17,6 @@ app.directive('editCardModal',
       scope.submitEditForm = function () {
         CardService.update(scope.cardForm);
         scope.bodyEditState = false;
-      };
-
-      // Mark completed logic.
-      scope.setCompleted = function() {
-        scope.cardForm.completed = true;
-        return scope.cardForm;
-      };
-      scope.delayedSetCompleted = function() {
-        return $timeout(scope.setCompleted, 700);
-      };
-      scope.markCompleted = function () {
-        element.children('#myModal').modal('hide');
-        return Promise.try(scope.delayedSetCompleted)
-          .then(scope.submitEditForm)
-          .catch(function(reason) {
-            console.log(reason);
-          });
       };
     }
   };
