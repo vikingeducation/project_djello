@@ -17,5 +17,6 @@
 //= require angular
 //= require angular-ui-router.min
 //= require restangular.min
+//= require modal.min
 
 //= require_tree .

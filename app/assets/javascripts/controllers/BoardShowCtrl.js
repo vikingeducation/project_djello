@@ -1,15 +1,15 @@
-app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "boardsService", "boards", "listsService", function($stateParams, $state, $scope, _, boardsService, boards, listsService) {
+app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "boardsService", "boards", "listsService", "ModalService",
+ function($stateParams, $state, $scope, _, boardsService, boards, listsService, ModalService) {
+
   $scope.message = "Board Show"
+
 
   $scope.editingTitle = {}
   $scope.editingDescription = {}
   $scope.listTitle = {}
   $scope.listDescription = {}
-
+  
   var _setList = function() {
-    // iterate over $scope.lists array
-    // for each item, set listTitle[thatItem.id] to thatItem.title
-    // for each item, set listDescription[thatItem.id] to thatItem.description
     for (var i = 0; i < $scope.lists.length; i++) {
       var thisList = $scope.lists[i]
       $scope.listTitle[thisList.id] = thisList.title
@@ -18,7 +18,10 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   }
 
   $scope.boards = boards
+  $scope.showNewList = false; 
   $scope.board = boardsService.find($stateParams.id)
+
+  $scope.selectedBoard = $scope.selectedBoard || $scope.board
   console.log($scope.board)
 
   listsService.all($scope.board).then(function(response) {
@@ -26,7 +29,6 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     _setList();
   })
 
-  $scope.selectedBoard = $scope.selectedBoard || $scope.board
 
   $scope.deleteBoard = function() {
     $scope.board.remove();
@@ -36,16 +38,11 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     console.log("going to board " + $scope.selectedBoard.title)
     return $state.go("boardShow", {id: $scope.selectedBoard.id})
   }
-  $scope.showNewList = false; 
 
   $scope.newList = function() {
     $scope.showNewList = true
     $scope.newList = {}
-  }
-
-  
-
-  
+  }  
 
   $scope.editTitle = function(list) {
     console.log("editing title")
@@ -60,8 +57,6 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   }
 
   $scope.makeNewList = function() {
-    // submit newList object as params to listsService.create
-    // reset newList to blank object
     listsService.create($scope.board, $scope.newList)
     $scope.newList = {}
   }
@@ -99,5 +94,21 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
       _setList();
     })
   }
+
+  $scope.showModal = function() {
+    ModalService.showModal({
+      templateUrl: "templates/modal-window.html",
+      controller: "ModalController"
+    }).then(function(modal) {
+      console.log(modal)
+      modal.element.modal();
+      modal.close.then(function(result) {
+        console.log("closing modal")
+        $scope.message = "You said " + result;
+        $('.modal-backdrop').remove()
+      })
+    })
+  }
+
 
 }])
