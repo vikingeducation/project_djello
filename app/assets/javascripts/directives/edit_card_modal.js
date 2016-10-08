@@ -19,6 +19,8 @@ app.directive('editCardModal',
         CardService.update(scope.cardForm);
         scope.bodyEditState = false;
       };
+
+      // Mark completed logic.
       scope.setCompleted = function() {
         scope.cardForm.completed = true;
         return scope.cardForm;
