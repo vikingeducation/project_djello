@@ -3,19 +3,20 @@
 
 
 <div ng-hide="noBoards()">
-  <button class="btn btn-xl btn-primary" style="margin: 0" ng-click="createBoard()">Create a new board</button>
+  <button class="btn btn-xl btn-primary" style="margin: 0" ng-click="displayBoardCreate()">Create a new board</button>
+  <input type="text" ng-if="creatingBoard" placeholder="Title..." ng-model="newBoard.title" id="create-board-input">
+  <button ng-if="creatingBoard" class="btn btn-danger" ng-click="createBoard()">Create Board</button>
   <h2>Your Boards</h2>
   <div class="row row-horizon">
     <div class="col-sm-4" ng-repeat="board in currentUser.boards">
       <div class="row">
         <a ui-sref="boards.show({id: board.id})">
-          <div class="col-xs-10 col-xs-offset-1 single-board-container">
+          <div class="col-xs-11 col-xs-offset-1 single-board-container">
             <h1>{{board.title}}</h1>
             <h3>Lists:</h3>
             <ul>
               <div ng-repeat="list in board.lists">
                 {{list.title}}
-                
               </div>
             </ul>
           </div>

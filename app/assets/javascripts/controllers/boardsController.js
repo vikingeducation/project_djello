@@ -8,19 +8,21 @@ djello.controller('BoardsCtrl', [
   Restangular.restangularizeCollection(null, $scope.currentUser.boards, 'boards');
 
 
-  console.log($scope.currentUser);
-
-
   $scope.noBoards = function(){
     return $scope.boards.length < 1
-  }
+  };
 
   $scope.createBoard = function(){
-    BoardService.createBoard()
+    $scope.creatingBoard = !$scope.creatingBoard
+    BoardService.createBoard($scope.)
     .then(function(response){
       $scope.currentUser.boards.push(response);
       $state.go('boards.show', {id: response.id})
     })
+  };
+
+  $scope.displayBoardCreate = function(){
+    $scope.creatingBoard = !$scope.creatingBoard
   }
   
 }])
