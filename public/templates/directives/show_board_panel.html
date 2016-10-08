@@ -1,7 +1,11 @@
 <h1>{{ currentBoard.title }}</h1>
-<boards-dropdown></boards-dropdown>
+
+<boards-dropdown boards='boards'></boards-dropdown>
+
 <div class='card-deck-wrapper'>
   <div class='card-deck'>
+
+    <!-- Show all the lists of a board. -->
     <index-list-panel
     class='card'
     style='width:300px'
@@ -9,8 +13,14 @@
     list='list'
     ng-repeat="list in listsInfo[currentBoard.id] | orderBy:'-created_at'">
     </index-list-panel>
-    <create-list-panel current-board='currentBoard' list='list'></create-list-panel>
+
+    <!-- Create a list. -->
+    <create-list-panel
+    current-board='currentBoard'
+    list='list'>
+    </create-list-panel>
   </div>
 </div>
 
+<!-- Edit a card. -->
 <edit-card-modal></edit-card-modal>

@@ -27,9 +27,10 @@ function (ListService, CardService) {
             console.log(reason);
           });
       };
-      CardService.all(scope.list.id).then(function(data) {
-        scope.cardsInfo = data;
-      });
+      CardService.all(scope.list.id)
+        .then(function(data) {
+          scope.cardsInfo = data;
+        });
     }
   };
 
