@@ -15,7 +15,6 @@ app.directive('editCardModal',
       // See edit-card-body directive.
       scope.bodyEditState = false;
       scope.submitEditForm = function () {
-        console.log('this is firing');
         CardService.update(scope.cardForm);
         scope.bodyEditState = false;
       };
