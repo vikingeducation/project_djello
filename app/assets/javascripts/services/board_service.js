@@ -49,11 +49,8 @@ app.factory('BoardService',
   };
 
   BoardService.all = function () {
-    if (_.isEmpty(_boardsCache)) {
-      return _cacheBoards();
-    } else {
-      return Promise.resolve(_boardsCache);
-    }
+    if (_.isEmpty(_boardsCache)) return _cacheBoards();
+    return Promise.resolve(_boardsCache);
   };
 
   BoardService.one = function (searchId) {

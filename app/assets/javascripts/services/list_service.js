@@ -39,10 +39,13 @@ app.factory('ListService',
     angular.copy(response,_.find(lists, {id: response.id}));
   }
 
-  function _removeList (response) {
-    _.remove(_boardLists[respone.board_id], function(list) {
-      return list.id === response.id;
-    });
+  function _removeList (list, board_id) {
+    return function (response) {
+      var found = _.find(_boardsLists[board_id], {id: list.id});
+      if (!found) throw new Error('Nothing to remove!!');
+      _.remove(_boardLists[board_id], {id: list.id});
+      return list;
+    };
   }
 
   // Make get request to Rails API
@@ -74,7 +77,7 @@ app.factory('ListService',
       .catch(_logError);
   };
 
-  // Public interface for board's lists.
+  // Public interface for a board's lists.
   ListService.all = function (board_id) {
     if (_.isEmpty(_boardLists[board_id])) {
       return _cacheLists(board_id);
@@ -84,10 +87,9 @@ app.factory('ListService',
   };
 
   ListService.destroy = function(list, board_id) {
-    return function (response) {
-      var lists = _boardLists[board_id];
-      return _.remove(lists,{id: list.id});
-    };
+    return list.remove()
+      .then(_removeList(list, board_id))
+      .catch(_logError);
   };
 
   return ListService;
