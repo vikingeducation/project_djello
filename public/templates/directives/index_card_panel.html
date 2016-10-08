@@ -1,6 +1,10 @@
 <!-- Clicking on a card should open a modal for editing. -->
-<input
-ng-model='card.title'
+<button
 class='btn btn-default btn-block'
-type='text'
-placeholder='{{ card.title }}'><br>
+data-toggle='modal'
+data-target='#myModal'>
+&nbsp{{ card.title }}
+</button><br>
+
+<!-- Edit a card. -->
+<edit-card-modal></edit-card-modal>
