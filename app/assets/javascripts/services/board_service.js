@@ -33,7 +33,8 @@ app.factory('BoardService',
   }
 
   function _addBoard(response) {
-    return _boards.push(response);
+    _boards.push(response);
+    return response;
   }
 
   BoardService.refreshCache = function () {
@@ -78,14 +79,6 @@ app.factory('BoardService',
       return _.remove(_boards,{id: board.id});
     };
   };
-
-  // BoardService.currentUserBoards = function () {
-  //   if (_.isEmpty(_currentUserBoards)) {
-  //     return _cacheCurrentUserBoards();
-  //   } else {
-  //     return Promise.try_currentUserBoards;
-  //   }
-  // };
 
   return BoardService;
 

@@ -18,7 +18,6 @@ app.factory('CardService',
         response,
         _listCards[list_id]
       );
-      console.log(_listCards);
       return _listCards;
     };
   }
@@ -31,7 +30,7 @@ app.factory('CardService',
       _listCards[response.list_id] = [];
       _listCards[response.list_id].push(response);
     }
-    return _listCards[response.list_id];
+    return _listCards;
   }
 
   function _cacheCards (list_id) {
