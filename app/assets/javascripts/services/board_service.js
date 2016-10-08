@@ -44,18 +44,26 @@ app.factory('BoardService',
     if (_.isEmpty(_boards)) {
       return _cacheBoards();
     } else {
-      return Promise.try(_boards);
+      return Promise.resolve(_boards);
     }
   };
+
+  function _findBoard(searchKey) {
+    return function(response) {
+      var found = _.find(_boards, {id: parseInt(searchKey)});
+      // Throw an error for your bad path!
+      if (!found) throw new Error('Board not cached!!');
+      return found;
+    };
+  }
 
   BoardService.one = function (searchId) {
     if (_.isEmpty(_boards)) {
       return _cacheBoards()
-        .then(function(response) {
-          return _.find(_boards, {id: parseInt(searchId)});
-        });
+        .then(_findBoard(searchId));
     } else {
-      return _.find(_boards, {id: parseInt(searchId)});
+      // Use try to start your promise chain.
+      return Promise.try(_findBoard(searchId));
     }
   };
 
