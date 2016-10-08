@@ -2,6 +2,7 @@ djello.factory('MemberService', ['Restangular', function(Restangular){
   var memberService = {};
   var _members = [];
   var _memberships = [];
+  var _user = {};
 
   memberService.getMembers = function(){
     return Restangular.all('users').getList()
@@ -10,6 +11,13 @@ djello.factory('MemberService', ['Restangular', function(Restangular){
         return _members;
       })
   };
+
+  memberService.getUser = function(id){
+    return Restangular.one('users', id).get().then(function(response){
+      angular.copy(response, _user)
+      return _user
+    })
+  }
 
   memberService.getMemberships = function(){
     return Restangular.all('memberships').getList()

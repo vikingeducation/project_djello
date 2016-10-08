@@ -1,10 +1,12 @@
-djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular', 'MemberService', 'memberships',
-  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular, MemberService, memberships){
+djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular', 'MemberService', 'memberships', 'currentUser',
+  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular, MemberService, memberships, currentUser){
 
   $scope.board = board;
   $scope.boards = boards;
   $scope.titleEditing = false;
   $scope.memberships = memberships;
+  $scope.currentUser = currentUser
+  console.log($scope.currentUser)
   // Board functionality
 
   $scope.toggleTitleEditing = function() {
@@ -14,7 +16,7 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   $scope.updateTitle = function(){
     $scope.titleEditing = false;
     $scope.board.save().then(function(response){
-      BoardService.getBoards();
+      MemberService.getUser($scope.currentUser.id);
     });
   };
 
@@ -24,7 +26,8 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
 
   $scope.deleteBoard = function(){
     $scope.board.remove().then(function(response){
-      BoardService.getBoards();
+      var index = _.indexOf($scope.currentUser.boards, response)
+      $scope.currentUser.boards.splice(index, 1);
       $state.go('boards.index');
     })
   };
@@ -67,7 +70,9 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
 
   $scope.updateListTitle = function(list) {
     list.titleEditing = false;
-    list.patch();
+    list.patch().then(function(response){
+      MemberService.getUser($scope.currentUser.id);
+    });
   };
 
   $scope.editListDesc = function(list) {
@@ -79,7 +84,9 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
 
   $scope.updateListDesc = function(list) {
     list.descEditing = false;
-    list.patch();
+    list.patch().then(function(response){
+      MemberService.getUser($scope.currentUser.id);
+    });
   }
 
   $scope.createCard = function(list) {

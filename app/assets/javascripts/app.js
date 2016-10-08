@@ -32,6 +32,18 @@ djello.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
       resolve: {
         boards: ['BoardService', function(BoardService){
           return BoardService.getBoards();
+        }],
+        user: ['Auth', function(Auth){
+          return Auth.currentUser()
+            .then(function(user){
+              return user;
+            }
+        )}],
+        currentUser: ['user', 'MemberService', function(user, MemberService){
+          return MemberService.getUser(user.id)
+            .then(function(response){
+              return response;
+            })
         }]
       }
     })
