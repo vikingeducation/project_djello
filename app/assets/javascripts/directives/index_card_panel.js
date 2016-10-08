@@ -6,7 +6,8 @@ app.directive('indexCardPanel',
     restrict: 'E',
     scope: {
       card: '=',
-      list: '='
+      list: '=',
+      usersCache: '='
     }
   };
 

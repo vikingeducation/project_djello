@@ -7,7 +7,8 @@ function (ListService, CardService) {
     restrict: 'E',
     scope: {
       list: '=',
-      currentBoard: '='
+      currentBoard: '=',
+      usersCache: '='
     },
     link: function(scope) {
       CardService.all(scope.list.id)

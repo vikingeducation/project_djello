@@ -4,7 +4,8 @@
     class="card"
     style="width:300px"
     ng-repeat="board in boardsCache | orderBy:'+created_at'"
-    board="board">
+    board="board"
+    users-cache='usersCache'>
     </board-panel>
 
     <div style='width:300px'>

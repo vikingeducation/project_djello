@@ -11,7 +11,8 @@
     style='width:300px'
     current-board='currentBoard'
     list='list'
-    ng-repeat="list in listsCache[currentBoard.id] | orderBy:'+created_at'">
+    ng-repeat="list in listsCache[currentBoard.id] | orderBy:'+created_at'"
+    users-cache='usersCache'>
     </index-list-panel>
 
     <!-- Create a list. -->

@@ -5,7 +5,8 @@ function(BoardService, ListService) {
     restrict: 'E',
     templateUrl: 'templates/directives/board_panel.html',
     scope: {
-      board: '='
+      board: '=',
+      usersCache: '='
     },
     link: function(scope) {
       scope.storeBoardLists = function(data) {

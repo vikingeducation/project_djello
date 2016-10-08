@@ -6,7 +6,8 @@ function() {
     scope: {
       listsCache: '=',
       currentBoard: '=',
-      boardsCache: '='
+      boardsCache: '=',
+      usersCache: '='
     }
   };
 });
