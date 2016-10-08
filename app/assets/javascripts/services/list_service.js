@@ -44,7 +44,7 @@ app.factory('ListService',
 
   function _removeList (list, board_id) {
     return function (response) {
-      var found = _.find(_boardsLists[board_id], {id: list.id});
+      var found = _.find(_boardListsCache[board_id], {id: list.id});
       if (!found) throw new Error('Nothing to remove!!');
       _.remove(_boardListsCache[board_id], {id: list.id});
       return list;
