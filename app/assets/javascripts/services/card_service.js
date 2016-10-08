@@ -2,7 +2,7 @@ app.factory('CardService',
 ['Restangular', '_', function(Restangular,_) {
 
   var CardService = {};
-  var _listCards = {};
+  var _listCardsCache = {};
 
   function _logError (reason) {
     console.log('ERROR!!! Reason: ');
@@ -11,26 +11,26 @@ app.factory('CardService',
 
   function _storeCards (list_id) {
     return function (response) {
-      if (!_listCards[list_id]) {
-        _listCards[list_id] = [];
+      if (!_listCardsCache[list_id]) {
+        _listCardsCache[list_id] = [];
       }
       angular.copy(
         response,
-        _listCards[list_id]
+        _listCardsCache[list_id]
       );
-      return _listCards;
+      return _listCardsCache;
     };
   }
 
   // Make sure Rails API sends back the list object after creation.
   function _addCard (response) {
-    if (!_.isEmpty(_listCards[response.list_id])) {
-      _listCards[response.list_id].push(response);
+    if (!_.isEmpty(_listCardsCache[response.list_id])) {
+      _listCardsCache[response.list_id].push(response);
     } else {
-      _listCards[response.list_id] = [];
-      _listCards[response.list_id].push(response);
+      _listCardsCache[response.list_id] = [];
+      _listCardsCache[response.list_id].push(response);
     }
-    return _listCards;
+    return _listCardsCache;
   }
 
   function _cacheCards (list_id) {
@@ -42,10 +42,10 @@ app.factory('CardService',
 
   // Public interface for board's lists.
   CardService.all = function (list_id) {
-    if (_.isEmpty(_listCards[list_id])) {
+    if (_.isEmpty(_listCardsCache[list_id])) {
       return _cacheCards(list_id);
     } else {
-      return Promise.resolve(_listCards);
+      return Promise.resolve(_listCardsCache);
     }
   };
 

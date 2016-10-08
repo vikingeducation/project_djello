@@ -12,7 +12,7 @@ function (ListService, CardService) {
     link: function(scope) {
       CardService.all(scope.list.id)
         .then(function(data) {
-          scope.cardsInfo = data;
+          scope.cardsCache = data;
         });
 
       scope.submitEditForm = function () {
