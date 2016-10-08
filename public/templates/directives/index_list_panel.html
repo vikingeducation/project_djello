@@ -14,7 +14,7 @@
   <p>ID (for testing): {{ list.id }}</p>
 
   <index-card-panel
-  ng-repeat='card in cardsCache[list.id]'
+  ng-repeat='card in cardsCache[list.id] | filter:{completed: false}'
   card='card'
   list='list'>
   </index-card-panel>
