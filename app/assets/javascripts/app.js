@@ -17,14 +17,14 @@ app.config(
     RestangularProvider.setBaseUrl('/api/v1');
     RestangularProvider.setRequestSuffix('.json');
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/boards');
 
     $stateProvider
       .state('boards', {
         abstract: true,
       })
       .state('boards.index', {
-        url: '/',
+        url: '/boards',
         views: {
           'index@': {
             templateUrl: 'templates/boards/index.html',
@@ -38,7 +38,7 @@ app.config(
         }
       })
       .state('boards.show', {
-        url: '/:id',
+        url: '/boards/lists/:id',
         views: {
           'show@': {
             templateUrl: 'templates/boards/show.html',
@@ -58,6 +58,10 @@ app.config(
           listsCache:
           ['ListService', 'currentBoard', function(ListService, currentBoard) {
             return ListService.all(currentBoard.id);
+          }],
+          usersCache:
+          ['UserService', function(UserService) {
+            return UserService.all();
           }]
         }
       });
