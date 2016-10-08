@@ -44,7 +44,7 @@ app.factory('BoardService',
     if (_.isEmpty(_boards)) {
       return _cacheBoards();
     } else {
-      return _boards;
+      return Promise.try(_boards);
     }
   };
 
@@ -71,13 +71,13 @@ app.factory('BoardService',
     };
   };
 
-  BoardService.currentUserBoards = function () {
-    if (_.isEmpty(_currentUserBoards)) {
-      return _cacheCurrentUserBoards();
-    } else {
-      return _currentUserBoards;
-    }
-  };
+  // BoardService.currentUserBoards = function () {
+  //   if (_.isEmpty(_currentUserBoards)) {
+  //     return _cacheCurrentUserBoards();
+  //   } else {
+  //     return Promise.try_currentUserBoards;
+  //   }
+  // };
 
   return BoardService;
 

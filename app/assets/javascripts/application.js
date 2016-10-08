@@ -19,5 +19,6 @@
 //= require angular-devise
 //= require lodash.min
 //= require restangular
+//= require bluebird.min
 //= require angularSlideables
 //= require_tree .
