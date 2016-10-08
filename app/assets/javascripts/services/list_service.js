@@ -31,7 +31,7 @@ app.factory('ListService',
       _boardListsCache[response.board_id] = [];
       _boardListsCache[response.board_id].push(response);
     }
-    return _boardListsCache[response.board_id];
+    return _boardListsCache;
   }
 
   function _updateList (response) {
