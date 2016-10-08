@@ -2,7 +2,7 @@ app.factory('ListService',
 ['Restangular', '_', function(Restangular, _) {
 
   var ListService = {};
-  var _boardLists = {};
+  var _boardListsCache = {};
 
   function _logError (reason) {
     console.log('ERROR!!! Reason: ');
@@ -12,38 +12,41 @@ app.factory('ListService',
   // Actually store lists array in noSQL db
   function _storeLists (board_id) {
     return function (response) {
-      if (!_boardLists[board_id]) {
-        _boardLists[board_id] = [];
+      if (!_boardListsCache[board_id]) {
+        _boardListsCache[board_id] = [];
       }
       angular.copy(
         response,
-        _boardLists[board_id]
+        _boardListsCache[board_id]
       );
-      return _boardLists;
+      return _boardListsCache;
     };
   }
 
   // Make sure Rails API sends back the list object after creation.
   function _addList (response) {
-    if (!_.isEmpty(_boardLists[response.board_id])) {
-      _boardLists[response.board_id].push(response);
+    if (!_.isEmpty(_boardListsCache[response.board_id])) {
+      _boardListsCache[response.board_id].push(response);
     } else {
-      _boardLists[response.board_id] = [];
-      _boardLists[response.board_id].push(response);
+      _boardListsCache[response.board_id] = [];
+      _boardListsCache[response.board_id].push(response);
     }
-    return _boardLists[response.board_id];
+    return _boardListsCache[response.board_id];
   }
 
   function _updateList (response) {
-    var lists = _boardLists[response.board_id];
-    angular.copy(response,_.find(lists, {id: response.id}));
+    var lists = _boardListsCache[response.board_id];
+    var found = _.find(lists, {id: response.id});
+    if (!found) throw new Error ('Nothing to update!!');
+    angular.copy(response,found);
+    return found;
   }
 
   function _removeList (list, board_id) {
     return function (response) {
       var found = _.find(_boardsLists[board_id], {id: list.id});
       if (!found) throw new Error('Nothing to remove!!');
-      _.remove(_boardLists[board_id], {id: list.id});
+      _.remove(_boardListsCache[board_id], {id: list.id});
       return list;
     };
   }
@@ -55,12 +58,6 @@ app.factory('ListService',
       .then(_storeLists(id))
       .catch(_logError);
   }
-
-  ListService.refreshlistsCache = function (listsCache, id) {
-    return function () {
-      listsCache[id].lists = _boardLists[id];
-    };
-  };
 
   // Have a ListService take care of grabbing lists for a board.
   ListService.create = function (listParams) {
@@ -79,10 +76,10 @@ app.factory('ListService',
 
   // Public interface for a board's lists.
   ListService.all = function (board_id) {
-    if (_.isEmpty(_boardLists[board_id])) {
+    if (_.isEmpty(_boardListsCache[board_id])) {
       return _cacheLists(board_id);
     } else {
-      return Promise.resolve(_boardLists);
+      return Promise.resolve(_boardListsCache);
     }
   };
 

@@ -24,7 +24,10 @@ function (ListService, CardService) {
       };
 
       scope.removeList = function() {
-        ListService.destroy(scope.list,scope.currentBoard.id);
+        ListService.destroy(
+          scope.list,
+          scope.currentBoard.id
+        );
       };
     }
   };
