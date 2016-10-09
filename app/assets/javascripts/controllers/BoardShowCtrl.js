@@ -127,5 +127,23 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     })
   }
 
+  $scope.showCard = function(card) {
+    ModalService.showModal({
+      templateUrl: "templates/cardShowModal.html", 
+      controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
+
+        $scope.card = card
+        $scope.close = function(result) {
+          close(result, 200)
+        }
+      }]
+    }).then(function(modal) {
+      modal.element.modal();
+      modal.close.then(function(response) {
+        $('.modal-backdrop').remove()
+      })
+    })
+  }
+
 
 }])
