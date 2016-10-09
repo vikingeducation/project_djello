@@ -6,7 +6,11 @@ djello.controller('BoardsCtrl', [
   $scope.boards = boards;
   $scope.currentUser = currentUser;
   Restangular.restangularizeCollection(null, $scope.currentUser.boards, 'boards');
+  Restangular.restangularizeCollection(null, $scope.currentUser.assigned_boards, 'boards');
+  console.log($scope.currentUser.assigned_boards);
   $scope.newBoard = {};
+
+
 
 
   $scope.noBoards = function(){

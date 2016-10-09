@@ -9,12 +9,11 @@
         <a ui-sref="boards.show({id: board.id})">
           <div class="col-xs-11 col-xs-offset-1 single-board-container">
             <h1>{{board.title}}</h1>
-            <h3>Lists:</h3>
-            <ul>
-              <div ng-repeat="list in board.lists">
-                {{list.title}}
+              <div class="row" ng-repeat="list in board.lists | orderBy: 'created_at' ">
+                <div class="col-xs-10 col-xs-offset-1 task-card">
+                  <h5>{{list.title}}</h5>
+                </div>
               </div>
-            </ul>
           </div>
         </a>
       </div>
@@ -24,18 +23,17 @@
 
 <div ng-show="currentUser.assigned_boards">
   <h2>Boards You're a Member Of</h2>
-  <div class="row">
+  <div class="row row-horizon">
     <div class="col-sm-4" ng-repeat="board in currentUser.assigned_boards">
       <div class="row">
         <a ui-sref="boards.show({id: board.id})">
           <div class="col-xs-10 col-xs-offset-1 single-board-container">
             <h1>{{board.title}}</h1>
-            <h3>Lists:</h3>
-            <ul>
-              <div ng-repeat="list in board.lists">
-                {{list.title}}
+            <div class="row" ng-repeat="list in board.lists | orderBy: 'created_at' ">
+              <div class="col-xs-10 col-xs-offset-1 task-card">
+                <h5>{{list.title}}</h5>
               </div>
-            </ul>
+            </div>
           </div>
         </a>
       </div>

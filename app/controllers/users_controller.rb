@@ -18,7 +18,9 @@ class UsersController < ApplicationController
                                   }
                                 }}
                               }}
-                            }, :assigned_boards ]), status: 200}
+                            }, :assigned_boards => {
+                              include: :lists
+                              } ]), status: 200}
     end
   end
 

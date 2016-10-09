@@ -1,4 +1,4 @@
-djello.factory('BoardService', ['Restangular', 'ListService', '$state', function(Restangular, ListService, $state) {
+djello.factory('BoardService', ['Restangular', 'ListService', '$state', 'MemberService', function(Restangular, ListService, $state, MemberService) {
   var _boards = [];
 
   var boardService = {};
@@ -36,6 +36,7 @@ djello.factory('BoardService', ['Restangular', 'ListService', '$state', function
       return ListService.createList(params)
       .then(function(response){
         model.lists.push(response);
+        MemberService.getUser(model.user_id);
       });
     };
     return model;
