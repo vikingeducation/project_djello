@@ -21,7 +21,15 @@
         <div class="modal-body">
           <edit-card-body></edit-card-body><br>
 
-          <users-searchbar></users-searchbar>
+          <input
+          users-searchbar
+          class='typeahead form-control'
+          type='text'
+          ng-model='userName'>
+
+          <a style='cursor:pointer' ng-click='addMember()'>
+            add member
+          </a>
         </div>
 
         <div class="modal-footer">
