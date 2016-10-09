@@ -1,10 +1,10 @@
 class BoardsController < ApplicationController
 
   def index
-    # Boolean to check if only asking for current user's boards.
-    @boards = current_user.boards
+    # Return boards of which current_user is author or member.
+    @boards = current_user.authored_and_member
     respond_to do |format|
-      format.json { render json: @boards.to_json(include: :user), status: 200 }
+      format.json { render json: @boards, status: 200 }
     end
   end
 
