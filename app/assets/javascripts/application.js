@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require tether
 //= require bootstrap-sprockets
+//= require bootstrap3-typeahead.min
+//= require bloodhound.min
+//= require typeahead.bundle.min
+//= require typeahead.jquery.min
 //= require angular
 //= require angular-ui-router
 //= require angular-devise
