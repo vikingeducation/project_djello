@@ -1,12 +1,13 @@
 app.directive('editCardModal',
-['CardService', 'CardMemberService', function(CardService, CardMemberService) {
+['CardService', 'MemberService', function(CardService, MemberService) {
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
     link: function (scope, element) {
-      CardMemberService.all(scope.card.id)
+      scope.parentType = 'card';
+      MemberService.all(scope.card.id, scope.parentType)
         .then(function(data) {
-          scope.cardMembers = data;
+          scope.membersCache = data;
         });
       // Have to separate form data from model so as not to have two-way
       // binding.
@@ -22,6 +23,8 @@ app.directive('editCardModal',
         CardService.update(scope.cardForm);
         scope.bodyEditState = false;
       };
+
+      // Need to think about how you would pass down usersCache as a promise.
     }
   };
 

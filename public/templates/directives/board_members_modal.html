@@ -7,33 +7,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
 
-        <!-- Model in parent panel must be sole source of truth. -->
-        <!-- Just use save changes button to submit form data. -->
-        <input
-        class="btn btn-secondary"
-        id="myModalLabel"
-        type='text'
-        ng-model='cardForm.title'
-        ng-blur='submitEditForm()'
-        placeholder="{{ card.title }}">
-        </div>
-
         <div class="modal-body">
           <h5>Members</h5>
-          <ul style="list-style: none;" ng-repeat="member in membersCache['card'][card.id]">
+          <ul style='list-style: none;' ng-repeat='member in board.members'>
             <li>{{ member.username }}</li>
           </ul>
-
-          <h5>Description</h5>
-          <edit-card-body></edit-card-body><br>
 
           <input
           users-searchbar
           class='typeahead form-control'
           type='text'
-          collection='cardMemberNames'
-          parent='card'
-          parent-type='parentType'
           ng-model='userName'>
 
           <a style='cursor:pointer' ng-click='addMember()'>
@@ -42,7 +25,6 @@
         </div>
 
         <div class="modal-footer">
-          <mark-completed-modal></mark-completed-modal>
         </div>
       </div>
     </div>

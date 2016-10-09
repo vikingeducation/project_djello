@@ -1,23 +1,25 @@
 app.directive('usersSearchbar',
-['UserService', 'CardMemberService', function(UserService, CardMemberService) {
+['UserService', 'MemberService', function(UserService, MemberService) {
   return {
     restrict: 'A',
+    scope: {
+      collection: '=',
+      parent: '=',
+      parentType: '='
+    },
     // templateUrl: 'templates/directives/users_searchbar.html',
     link: function(scope, element) {
-      scope.userNames = scope.usersCache.map(function(user) {
-        return user.username;
-      });
-
       // Setup typeahead and configure bloodhound.
       // Need to pass element in this directive. Apparently there are duplicates
       // all over the app...?
-      UserService.ttSetup(scope.userNames, element);
+      UserService.ttSetup(scope.collection, element);
 
       scope.addMember = function () {
-        CardMemberService.create({
-          card_id: scope.card.id,
+        MemberService.create({
+          parent_id: scope.parent.id,
+          parent_type: scope.parentType,
           username: scope.userName
-        }, scope.card.id);
+        });
       };
 
       // Clicking on a suggestion.
