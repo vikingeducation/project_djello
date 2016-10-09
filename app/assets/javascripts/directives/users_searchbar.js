@@ -8,6 +8,12 @@ app.directive('usersSearchbar',
         return user.username;
       });
       UserService.ttSetup(scope.userNames);
+      scope.addMember = function () {
+        UserService.addMember({
+          card_id: card.id,
+          memberName: userName
+        }, card.id);
+      };
     }
   };
 }]);
