@@ -4,6 +4,28 @@ app.factory('UserService',
   var UserService = {};
   var _usersCache = [];
 
+  var _typeaheadOptions = {
+    hint: true,
+    highlight: true,
+    minLength: 1
+  };
+
+  function _ttDataset (collection) {
+    return {
+      name: 'users-dataset',
+      source: collection
+    };
+  }
+
+  // Initializing Bloodhound instance.
+  function _buildEngine (collection) {
+    return new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: collection
+    });
+  }
+
   function _logError (reason) {
     console.log('ERROR!! Reason: ');
     console.log(reason);
@@ -26,6 +48,14 @@ app.factory('UserService',
     } else {
       return Promise.resolve(_usersCache);
     }
+  };
+
+  // Setting up typeahead.
+  UserService.ttSetup = function (collection) {
+    return $('.typeahead').typeahead(
+      _typeaheadOptions,
+      _ttDataset(_buildEngine(collection))
+    );
   };
 
   return UserService;

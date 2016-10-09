@@ -15,18 +15,26 @@ puts "Destroying users.."
 User.destroy_all
 puts "Done!"
 
+puts "Destroying lists.."
+List.destroy_all
+puts "Done"
+
+puts "Destroying Cards.."
+Card.destroy_all
+puts "Done"
+
 puts "Creating users.."
-10.times do |n|
+100.times do |n|
   User.create!({
-    username: Faker::Internet.user_name,
-    email: Faker::Internet.safe_email,
+    username: Faker::Internet.user_name + "#{n}",
+    email: Faker::Internet.email,
     password: '1234567891011'
   })
 end
 puts "Done!"
 
 puts "Creating boards.."
-10.times do |n|
+1000.times do |n|
   user = User.all.sample
   user.boards.create!({
       title: Faker::App.name,
@@ -36,7 +44,7 @@ end
 puts "Done!"
 
 puts "Creating Lists..."
-10.times do |n|
+100.times do |n|
   board = Board.all.sample
   board.lists.create!({
     title: Faker::App.name,
@@ -46,7 +54,7 @@ end
 puts "Done!"
 
 puts "Creating Cards..."
-10.times do |n|
+100.times do |n|
   # list = List.all.sample
   List.all.each do |list|
     list.cards.create!({
