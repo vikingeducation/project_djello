@@ -40,7 +40,7 @@ app.factory('MemberService',
 
   MemberService.create = function (memberParams, card_id) {
     return Restangular.all('members')
-      .post(memberParams)
+      .post({member: memberParams})
       .then(_addMember(card_id))
       .catch(_logError);
   };

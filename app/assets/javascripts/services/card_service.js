@@ -1,6 +1,6 @@
 app.factory('CardService',
 ['Restangular', '_', function(Restangular,_) {
-
+    
   var CardService = {};
   var _listCardsCache = {};
 
