@@ -10,54 +10,62 @@
 <h1>{{board.title}}</h1>
 <p>{{board.description}}</p>
 
-<div ng-repeat="list in lists" class="col-sm-4 list panel panel-success">
+<div ng-repeat="list in lists" class="col-sm-4">
+  <div class=" list panel panel-success">
+    <div ng-hide="editingTitle[list.id]" ng-click="editTitle(list)">
+      {{list.title}}
+    </div>
+    <input ng-show="editingTitle[list.id]" 
+           type="text" 
+           name="edit-title" 
+           ng-model="listTitle[list.id]"
+           value="{{list.title}}" >
 
-  <div ng-hide="editingTitle[list.id]" ng-click="editTitle(list)">
-    {{list.title}}
-  </div>
-  <input ng-show="editingTitle[list.id]" 
-         type="text" 
-         name="edit-title" 
-         ng-model="listTitle[list.id]"
-         value="{{list.title}}" >
-
-  <input class="btn btn-warning" 
-         ng-show="editingTitle[list.id]" 
-         type="submit" 
-         name="edit-title-submit" 
-         value="Submit" 
-         ng-click="submitTitleEdits(list)">
-  <button class="btn btn-info" 
-         ng-show="editingTitle[list.id]" 
-          ng-click="cancelEditTitle(list)">
-            Cancel
-  </button>
-
-  <br>
-  <div ng-hide="editingDescription[list.id]" ng-click="editDescription(list)">
-    {{list.description}}
-  </div>
-
-  <div ng-show="editingDescription[list.id]">
-    <textarea ng-model="listDescription[list.id]"
-           name="edit-description" 
-           >{{list.description}}</textarea>
     <input class="btn btn-warning" 
+           ng-show="editingTitle[list.id]" 
            type="submit" 
-           name="edit-description-submit" 
+           name="edit-title-submit" 
            value="Submit" 
-           ng-click="submitDescriptionEdits(list)"
-           >
+           ng-click="submitTitleEdits(list)">
     <button class="btn btn-info" 
-            ng-click="cancelEditDescription(list)">
+           ng-show="editingTitle[list.id]" 
+            ng-click="cancelEditTitle(list)">
               Cancel
     </button>
+
+    <br>
+    <div ng-hide="editingDescription[list.id]" ng-click="editDescription(list)">
+      {{list.description}}
+    </div>
+
+    <div ng-show="editingDescription[list.id]">
+      <textarea ng-model="listDescription[list.id]"
+             name="edit-description" 
+             >{{list.description}}</textarea>
+      <input class="btn btn-warning" 
+             type="submit" 
+             name="edit-description-submit" 
+             value="Submit" 
+             ng-click="submitDescriptionEdits(list)"
+             >
+      <button class="btn btn-info" 
+              ng-click="cancelEditDescription(list)">
+                Cancel
+      </button>
+    </div>
+
+    <!-- cards index for this list -->
+    <div ng-repeat="card in list.cards" class="card panel panel-success">
+      <span class="card-title">{{card.title}}</span><br>
+      <span class="crad-text">{{card.text}}</span>
+    </div>
+
+    <div class="content-center">
+      <button class="btn btn-sm btn-danger" ng-click="deleteList(list)">Delete list</button>
+
+      <button class="btn btm-sm btn-default" ng-click="showNewCardModal(list)">Add Card</button>
+    </div>
   </div>
-
-  <button class="btn btn-sm btn-danger" ng-click="deleteList(list)">Delete list</button>
-
-  <button class="btn btm-sm btn-default" ng-click="showNewCardModal(list)">Add Card</button>
-
 </div>
 
 <div ng-show="showNewList" class="col-sm-4 list panel panel-success">
@@ -70,14 +78,14 @@
   </form>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-4 content-center">
   <button class="btn btn-primary" ng-click="newList()">New List</button>
 </div>
 
-<button class="btn btn-danger" ng-confirm-click="Are you sure you want to delete this board?" ng-click="deleteBoard()">
-  Delete Board
-</button>
+<div class="col-xs-12">
 
-    <!-- show members -->
-    <!-- show ng-repeat of lists -->
- 
+  <button class="float-right btn btn-xs btn-danger" ng-confirm-click="Are you sure you want to delete this board?" ng-click="deleteBoard()">
+    Delete Board
+  </button>
+
+</div> 
