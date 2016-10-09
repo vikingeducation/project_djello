@@ -23,6 +23,14 @@ puts "Destroying Cards.."
 Card.destroy_all
 puts "Done"
 
+puts "Creating main user.."
+User.create!({
+  username: 'foobar',
+  email: 'foobar@barbaz.com',
+  password: 'foobar'
+  })
+puts "Done!"
+
 puts "Creating users.."
 10.times do |n|
   User.create!({
@@ -67,7 +75,7 @@ end
 puts "Done!"
 
 puts "Creating board memberships.."
-10.times do |n|
+30.times do |n|
   board = Board.all.sample
   member = User.all.sample
   board.members << member

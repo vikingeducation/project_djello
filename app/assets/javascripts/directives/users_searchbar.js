@@ -1,5 +1,5 @@
 app.directive('usersSearchbar',
-['UserService', 'MemberService', function(UserService, MemberService) {
+['UserService', 'CardMemberService', function(UserService, CardMemberService) {
   return {
     restrict: 'A',
     // templateUrl: 'templates/directives/users_searchbar.html',
@@ -9,10 +9,12 @@ app.directive('usersSearchbar',
       });
 
       // Setup typeahead and configure bloodhound.
-      UserService.ttSetup(scope.userNames);
+      // Need to pass element in this directive. Apparently there are duplicates
+      // all over the app...?
+      UserService.ttSetup(scope.userNames, element);
 
       scope.addMember = function () {
-        MemberService.create({
+        CardMemberService.create({
           card_id: scope.card.id,
           username: scope.userName
         }, scope.card.id);

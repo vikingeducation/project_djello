@@ -1,7 +1,7 @@
-app.factory('MemberService',
+app.factory('CardMemberService',
 ['Restangular', function(Restangular) {
 
-  var MemberService = {};
+  var CardMemberService = {};
   var _membersCache = {};
 
   function _logError (reason) {
@@ -38,14 +38,14 @@ app.factory('MemberService',
       .catch(_logError);
   }
 
-  MemberService.create = function (memberParams, card_id) {
+  CardMemberService.create = function (memberParams, card_id) {
     return Restangular.all('members')
       .post({member: memberParams})
       .then(_addMember(card_id))
       .catch(_logError);
   };
 
-  MemberService.all = function (card_id) {
+  CardMemberService.all = function (card_id) {
     if (_.isEmpty(_membersCache[card_id])) {
       return _cacheMembers(card_id);
     } else {
@@ -53,6 +53,6 @@ app.factory('MemberService',
     }
   };
 
-  return MemberService;
+  return CardMemberService;
 
 }]);

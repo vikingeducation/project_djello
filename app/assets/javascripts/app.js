@@ -38,7 +38,7 @@ app.config(
         }
       })
       .state('boards.show', {
-        url: '/boards/lists/:id',
+        url: '/boards/:id/lists/',
         views: {
           'show@': {
             templateUrl: 'templates/boards/show.html',

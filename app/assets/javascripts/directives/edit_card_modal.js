@@ -1,10 +1,10 @@
 app.directive('editCardModal',
-['CardService', 'MemberService', function(CardService, MemberService) {
+['CardService', 'CardMemberService', function(CardService, CardMemberService) {
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
     link: function (scope, element) {
-      MemberService.all(scope.card.id)
+      CardMemberService.all(scope.card.id)
         .then(function(data) {
           scope.cardMembers = data;
         });

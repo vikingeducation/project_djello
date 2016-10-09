@@ -51,8 +51,8 @@ app.factory('UserService',
   };
 
   // Setting up typeahead.
-  UserService.ttSetup = function (collection) {
-    return $('.typeahead').typeahead(
+  UserService.ttSetup = function (collection, element) {
+    return element.typeahead(
       _typeaheadOptions,
       _ttDataset(_buildEngine(collection))
     );

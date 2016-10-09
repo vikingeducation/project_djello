@@ -4,14 +4,14 @@ class BoardsController < ApplicationController
     # Return boards of which current_user is author or member.
     @boards = current_user.authored_and_member
     respond_to do |format|
-      format.json { render json: @boards, status: 200 }
+      format.json { render json: @boards.to_json(include: :members), status: 200 }
     end
   end
 
   def show
     @board = Board.find_by_id(params[:id].to_i)
     respond_to do |format|
-      format.json { render json: @board.to_json(include: :user), status: 200 }
+      format.json { render json: @board.to_json(include: :members), status: 200 }
     end
   end
 
