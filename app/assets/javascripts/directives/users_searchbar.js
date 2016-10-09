@@ -3,7 +3,7 @@ app.directive('usersSearchbar',
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/users_searchbar.html',
-    link: function(scope) {
+    link: function(scope, element) {
       scope.userNames = scope.usersCache.map(function(user) {
         return user.username;
       });
@@ -16,6 +16,12 @@ app.directive('usersSearchbar',
           username: scope.userName
         }, scope.card.id);
       };
+
+      scope.$watch(function() {
+        $('tt-selectable').on('click', function(ev) {
+          console.log(ev.target);
+        });
+      });
     }
   };
 }]);
