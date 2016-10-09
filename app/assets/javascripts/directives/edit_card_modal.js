@@ -1,9 +1,13 @@
 app.directive('editCardModal',
-['CardService', function(CardService) {
+['CardService', 'MemberService', function(CardService, MemberService) {
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
     link: function (scope, element) {
+      MemberService.all(scope.card.id)
+        .then(function(data) {
+          scope.cardMembers = data;
+        });
       // Have to separate form data from model so as not to have two-way
       // binding.
       scope.cardForm = {
