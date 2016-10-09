@@ -34,6 +34,9 @@ app.config(
         resolve: {
           boardsCache: ['BoardService', function(BoardService){
             return BoardService.all();
+          }],
+          usersCache: ['UserService', function(UserService) {
+            return UserService.all();
           }]
         }
       })

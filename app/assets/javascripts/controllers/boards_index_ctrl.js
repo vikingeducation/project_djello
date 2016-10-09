@@ -1,8 +1,9 @@
 app.controller('BoardsIndexCtrl',
-['$scope', 'boardsCache', 'BoardService',
-function($scope, boardsCache, BoardService) {
+['$scope', 'boardsCache', 'usersCache', 'BoardService',
+function($scope, boardsCache, usersCache, BoardService) {
 
   $scope.boardsCache = boardsCache;
+  $scope.usersCache = usersCache;
 
   $scope.refreshBoards = function(data) {
     $scope.boardsCache = data;

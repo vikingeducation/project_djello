@@ -17,9 +17,11 @@ function(BoardService, ListService) {
       scope.removeBoard = function() {
         BoardService.destroy(scope.board);
       };
+
       scope.search = {
         key: 'username'
       };
+
     }
   };
 
