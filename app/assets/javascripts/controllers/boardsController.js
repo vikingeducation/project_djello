@@ -6,6 +6,7 @@ djello.controller('BoardsCtrl', [
   $scope.boards = boards;
   $scope.currentUser = currentUser;
   Restangular.restangularizeCollection(null, $scope.currentUser.boards, 'boards');
+  $scope.newBoard = {};
 
 
   $scope.noBoards = function(){
@@ -14,12 +15,20 @@ djello.controller('BoardsCtrl', [
 
   $scope.createBoard = function(){
     $scope.creatingBoard = !$scope.creatingBoard
-    BoardService.createBoard($scope.)
+    $scope.checkForParams();
+    BoardService.createBoard($scope.newBoard.title)
     .then(function(response){
       $scope.currentUser.boards.push(response);
+      $scope.newBoard = {};
       $state.go('boards.show', {id: response.id})
     })
   };
+
+  $scope.checkForParams = function(){
+    if ($scope.newBoard.title === undefined){
+      $scope.newBoard.title = "Click to add title";
+    } 
+  }
 
   $scope.displayBoardCreate = function(){
     $scope.creatingBoard = !$scope.creatingBoard

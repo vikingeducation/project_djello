@@ -10,13 +10,28 @@
 </div>
 
 
-<h1 ng-hide="titleEditing" class="board-title" ng-click="editTitle()">{{board.title}}</h1>
-<input type="text" ng-model="board.title" ng-blur="updateTitle()" ng-show="titleEditing" id="titleEdit">
+<div class="row">
+  <div class="col-xs-8">
+    <h1 ng-mouseover="hoverIn(board)" ng-mouseleave="hoverOut(board)" ng-hide="titleEditing" class="board-title" >{{board.title}} <span ng-show="board.hoverEdit" class="animate-show">
+                <a ng-click="editTitle()">
+                    <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
+                </a>
+            </span></h1>
+    <input type="text" ng-model="board.title" ng-show="titleEditing" id="titleEdit" ng-blur="titleEditing = false">
+    <button class="btn btn-primary" id="update-title" ng-show="titleEditing" ng-click="updateTitle()">Update</button>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-xs-12 text-center">
-    <button ng-click="createList()" class="btn btn-xl btn-info" id="addList">Add a List</button>
+  <div class="col-xs-6 text-right">
+    <button ng-click="displayListCreate()" class="btn btn-xl btn-info" id="addList">Add a List</button>
   </div>
+  <div class="col-xs-3 text-center" ng-if="creatingList"> 
+    <input type="text"  placeholder="Add title..." ng-model="newList.title" id="create-list-title" class="form-control">
+    <textarea  placeholder="Add description..." ng-model="newList.description" id="create-list-description" class="form-control"></textarea>
+    <button class="btn btn-danger" ng-click="createList()" id="create-list">Create List</button>
+  </div>
+      
 </div>
 
 <div class="row all-lists-container">
@@ -24,10 +39,20 @@
   <div class="col-sm-4" ng-repeat='list in board.lists'>
     <div class="row">
       <div class="col-xs-10 col-xs-offset-1 list-container">
-        <h3 ng-hide="list.titleEditing" ng-click="editListTitle(list)">{{list.title}}</h3>
-        <input type="text" ng-show="list.titleEditing" ng-model="list.title" ng-blur="updateListTitle(list)" class="form-control edit-list-title"list-title-id="{{list.id}}">
-        <p ng-hide="list.descEditing" ng-click="editListDesc(list)">{{list.description}}</p>
-        <textarea ng-show="list.descEditing" ng-model="list.description" ng-blur="updateListDesc(list)" list-desc-id="{{list.id}}" class="form-control"></textarea>
+        <h3 ng-hide="list.titleEditing" ng-mouseover="hoverIn(list)" ng-mouseleave="hoverOut(list)">{{list.title}}<span ng-show="list.hoverEdit" class="animate-show">
+                <a ng-click="editListTitle(list)">
+                    <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
+                </a>
+            </span></h3>
+        <input type="text" ng-show="list.titleEditing" ng-model="list.title" class="form-control edit-list-title" ng-blur="list.titleEditing = false" list-title-id="{{list.id}}">
+        <button class="btn btn-primary btn-sm list-save" id="update-list-title" ng-show="list.titleEditing" ng-click="updateListTitle(list)">Save</button>
+        <p ng-hide="list.descEditing" ng-mouseover="hoverIn(list)" ng-mouseleave="hoverOut(list)">{{list.description}}<span ng-show="list.hoverEdit" class="animate-show">
+                <a ng-click="editListDesc(list)">
+                    <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
+                </a>
+            </span></p>
+        <textarea ng-show="list.descEditing" ng-model="list.description" list-desc-id="{{list.id}}" ng-blur="list.descEditing = false"class="form-control"></textarea>
+        <button class="btn btn-primary btn-sm list-save" id="update-list-title" ng-show="list.descEditing" ng-click="updateListDesc(list)">Save</button>
         <hr>
         <div ng-repeat="card in list.cards" ng-click="rectCard(card, list)">
           <p>{{card.title}}</p>

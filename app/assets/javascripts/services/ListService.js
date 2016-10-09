@@ -2,9 +2,11 @@ djello.factory('ListService', ['Restangular', 'CardService', '$state', function(
   
   var listService = {};
 
-  listService.createList = function(boardId){
+  listService.createList = function(params){
     return Restangular.all('lists').post({
-      boardId: boardId
+      boardId: params.boardId,
+      title: params.title,
+      description: params.description
     });
   }
 

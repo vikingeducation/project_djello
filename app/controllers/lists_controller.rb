@@ -1,7 +1,7 @@
 class ListsController < ApplicationController
 
   def create
-    @list = List.new(title: "Click to add title", description: "Click to add description")
+    @list = List.new(list_params)
     @list.user = current_user
     @list.board = Board.find(params[:boardId])
     if @list.save

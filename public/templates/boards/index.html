@@ -1,9 +1,5 @@
-<button class="btn btn-xl btn-primary" ng-show="noBoards()" style="margin: 0" ng-click="createBoard()">Create your first board</button>
-
-
-
+<button class="btn btn-xl btn-primary" style="margin: 0" ng-click="displayBoardCreate()">Create a new board</button>
 <div ng-hide="noBoards()">
-  <button class="btn btn-xl btn-primary" style="margin: 0" ng-click="displayBoardCreate()">Create a new board</button>
   <input type="text" ng-if="creatingBoard" placeholder="Title..." ng-model="newBoard.title" id="create-board-input">
   <button ng-if="creatingBoard" class="btn btn-danger" ng-click="createBoard()">Create Board</button>
   <h2>Your Boards</h2>

@@ -11,8 +11,10 @@ djello.factory('BoardService', ['Restangular', 'ListService', '$state', function
   };
 
 
-  boardService.createBoard = function(){
-    return Restangular.all('boards').post()
+  boardService.createBoard = function(title){
+    return Restangular.all('boards').post({
+      title: title
+    })
           .then(function(response){
             _boards.push(response);
             return response
@@ -30,8 +32,8 @@ djello.factory('BoardService', ['Restangular', 'ListService', '$state', function
   };
 
   Restangular.extendModel('boards', function(model){
-    model.createList = function(){
-      return ListService.createList(model.id)
+    model.createList = function(params){
+      return ListService.createList(params)
       .then(function(response){
         model.lists.push(response);
       });

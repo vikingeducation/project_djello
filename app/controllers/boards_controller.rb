@@ -9,7 +9,7 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board.new(title: "Click to add title")
+    @board = Board.new(board_params)
     @board.user = current_user
 
     if @board.save
