@@ -18,12 +18,13 @@
         placeholder="{{ card.title }}">
         </div>
 
-        <h5>Members</h5>
-        <ul style='list-style: none;' ng-repeat='member in cardMembers[card.id]'>
-          <li>{{ member.username }}</li>
-        </ul>
-
         <div class="modal-body">
+          <h5>Members</h5>
+          <ul style='list-style: none;' ng-repeat='member in cardMembers[card.id]'>
+            <li>{{ member.username }}</li>
+          </ul>
+
+          <h5>Description</h5>
           <edit-card-body></edit-card-body><br>
 
           <input
