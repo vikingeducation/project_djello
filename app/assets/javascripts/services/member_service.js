@@ -4,6 +4,11 @@ app.factory('MemberService',
   var MemberService = {};
   var _membersCache = {};
 
+  function _logError (reason) {
+    console.log('ERROR!! Reason: ');
+    console.log(reason);
+  }
+
   function _storeMembers (card_id) {
     return function (response) {
       if (!_membersCache[card_id]) {
@@ -33,7 +38,7 @@ app.factory('MemberService',
       .catch(_logError);
   }
 
-  MemberService.addMember = function (memberParams, card_id) {
+  MemberService.create = function (memberParams, card_id) {
     return Restangular.all('members')
       .post(memberParams)
       .then(_addMember(card_id))
