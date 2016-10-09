@@ -35,6 +35,14 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
     close(result, 500);
  };
 
+ $scope.hoverIn = function(item){
+    item.hoverEdit = true;
+    };
+
+ $scope.hoverOut = function(item){
+    item.hoverEdit = false;
+  };
+
  $scope.toggleTitleEditing = function() {
     $scope.titleEditing = !$scope.titleEditing;
  };

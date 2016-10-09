@@ -6,8 +6,14 @@
           <button type="button" class="close pull-right" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
           <div class="row">
             <div class="col-xs-12">
-              <h3 class="modal-title" ng-hide="titleEditing" ng-model="card.title" ng-click="editCardTitle()">{{card.title}}</h3>
-              <input type="text" ng-model="card.title" ng-blur="updateCardTitle()" ng-show="titleEditing" id="cardTitleEdit">
+                <h3 class="modal-title" ng-mouseover="hoverIn(card)" ng-mouseleave="hoverOut(card)" ng-hide="titleEditing" ng-hide="titleEditing" ng-model="card.title" >{{card.title}}<span ng-show="card.hoverEdit" class="animate-show">
+                  <a ng-click="editCardTitle()">
+                      <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
+                  </a>
+                </span>
+              </h3>
+              <input type="text" ng-model="card.title" ng-blur="toggleTitleEditing()" ng-show="titleEditing" id="cardTitleEdit">
+              <button class="btn btn-primary" id="update-card-title" ng-show="titleEditing" ng-click="updateCardTitle()">Update</button>
             </div>
           </div>
           <br>
@@ -16,8 +22,9 @@
         </div>
         <div class="modal-body">
           <p ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</p>
-          <textarea ng-show="card.descEditing" ng-model="card.description" ng-blur="updateCardDesc(card)" card-desc-id="{{card.id}}" class="form-control"></textarea>
+          <textarea ng-show="card.descEditing" ng-model="card.description" ng-blur="card.descEditing = false" card-desc-id="{{card.id}}" class="form-control"></textarea>
           <a ng-click="editCardDesc(card)" ng-hide="card.descEditing">Edit the description</a>
+          <button class="btn btn-primary btn-sm list-save" ng-show="card.descEditing" ng-click="updateCardDesc(card)">Save</button>
           <hr>
         </div>
         <div class="modal-body">
