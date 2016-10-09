@@ -15,3 +15,24 @@
  */
 
 @import 'bootstrap';
+
+.card.ng-enter {
+  transition:0.3s linear all;
+  // We start the animation with this opacity.
+  opacity:0;
+}
+
+.card.ng-enter.ng-enter-active {
+  // We finish here.
+  opacity:1;
+}
+
+.card.ng-leave {
+  // Same principle for ng-leave, but the opposite.
+  transition:0.3s linear all;
+  opacity:1;
+}
+
+.card.ng-leave.ng-leave-active {
+  opacity: 0;
+}

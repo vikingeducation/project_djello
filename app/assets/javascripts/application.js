@@ -21,6 +21,7 @@
 //= require angular
 //= require angular-ui-router
 //= require angular-devise
+//= require angular-animate.min
 //= require lodash.min
 //= require restangular
 //= require bluebird.min
