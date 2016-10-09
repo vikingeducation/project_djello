@@ -1,13 +1,19 @@
-<a ui-sref="boards.show({id: board.id})">
-  <div class="card-header">
-    <h4>{{ board.title }}</h4>
-    <p class='text-muted'>{{ board.description }}</p>
-    <p> {{board.id}}</p>
-  </div>
-</a>
+<div class="card-header">
+  <a ui-sref="boards.show({id: board.id})">
+  <h4>{{ board.title }}</h4>
+  <p class='text-muted'>{{ board.description }}</p>
+  <p> {{board.id}}</p>
+  </a>
+  <button class='btn btn-outline-primary btn-sm pull-right'>
+    members
+  </button>
+</div>
+
+
 <div class="card-block">
 
   <!-- Listing this particular board's set of lists. -->
+  <p class='text-muted'>Lists</p>
   <board-list-panel
   ng-repeat='boardList in boardListsCache[board.id]'
   board-list='boardList'>

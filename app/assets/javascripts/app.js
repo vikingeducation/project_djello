@@ -59,6 +59,7 @@ app.config(
           ['ListService', 'currentBoard', function(ListService, currentBoard) {
             return ListService.all(currentBoard.id);
           }],
+          // Database for the Bloodhound engine.
           usersCache:
           ['UserService', function(UserService) {
             return UserService.all();
