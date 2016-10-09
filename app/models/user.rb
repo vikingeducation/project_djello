@@ -1,5 +1,14 @@
 class User < ApplicationRecord
   has_many :boards
+
+  # Membership in a board.
+  has_many :board_memberships
+  has_many :boards_through_membership,
+            through: :board_memberships,
+            class_name: 'Board',
+            foreign_key: :user_id,
+            source: :board
+
   belongs_to :card, optional: true
 
   # Include default devise modules. Others available are:

@@ -24,7 +24,7 @@ Card.destroy_all
 puts "Done"
 
 puts "Creating users.."
-100.times do |n|
+10.times do |n|
   User.create!({
     username: Faker::Internet.user_name + "#{n}",
     email: Faker::Internet.email,
@@ -33,8 +33,8 @@ puts "Creating users.."
 end
 puts "Done!"
 
-puts "Creating boards.."
-1000.times do |n|
+puts "Creating authored boards.."
+10.times do |n|
   user = User.all.sample
   user.boards.create!({
       title: Faker::App.name,
@@ -43,8 +43,8 @@ puts "Creating boards.."
 end
 puts "Done!"
 
-puts "Creating Lists..."
-100.times do |n|
+puts "Creating lists..."
+10.times do |n|
   board = Board.all.sample
   board.lists.create!({
     title: Faker::App.name,
@@ -53,8 +53,8 @@ puts "Creating Lists..."
 end
 puts "Done!"
 
-puts "Creating Cards..."
-100.times do |n|
+puts "Creating cards..."
+10.times do |n|
   # list = List.all.sample
   List.all.each do |list|
     list.cards.create!({
@@ -63,5 +63,13 @@ puts "Creating Cards..."
       completed: [true,false].sample
     })
   end
+end
+puts "Done!"
+
+puts "Creating board memberships.."
+10.times do |n|
+  board = Board.all.sample
+  member = User.all.sample
+  board.members << member
 end
 puts "Done!"
