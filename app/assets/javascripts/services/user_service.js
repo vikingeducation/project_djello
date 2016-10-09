@@ -13,7 +13,7 @@ app.factory('UserService',
   function _ttDataset (collection) {
     return {
       name: 'users-dataset',
-      source: collection
+      source: collection,
     };
   }
 
