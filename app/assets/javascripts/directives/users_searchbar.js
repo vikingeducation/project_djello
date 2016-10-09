@@ -3,6 +3,9 @@ app.directive('usersSearchbar', function() {
     restrict: 'E',
     templateUrl: 'templates/directives/users_searchbar.html',
     link: function(scope, element) {
+      scope.userNames = scope.usersCache.map(function(user) {
+        return user.username;
+      });
       scope.matchQuery = function (collection) {
         return function (query, syncCB) {
           var regex = new RegExp(query,'i');
@@ -10,11 +13,9 @@ app.directive('usersSearchbar', function() {
             collection,
             function (item) {
               // Typeahead is working. Algo just needs work.
-              console.log(item);
-              return String.prototype.match(item.username,regex);
+              return regex.test(item);
             }
           );
-          console.log(matches);
           return syncCB(matches);
         };
       };
@@ -26,7 +27,10 @@ app.directive('usersSearchbar', function() {
       },
       {
         name: 'users-dataset',
-        source: scope.matchQuery(scope.usersCache)
+        source: scope.matchQuery(scope.userNames),
+        templates: {
+          pending: '<p></p>'
+        }
       });
     }
   };
