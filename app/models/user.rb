@@ -35,5 +35,11 @@ class User < ApplicationRecord
    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
      where(conditions.to_hash).first
    end
- end
+  end
+
+  # Returns the union between boards authored and boards to which he belongs
+  # as a member.
+  def authored_and_member
+   boards.union(boards_through_membership)
+  end
 end

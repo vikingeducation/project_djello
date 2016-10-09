@@ -25,6 +25,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_record_union (1.2.0)
+      activerecord (>= 4.0)
     activejob (5.0.0.1)
       activesupport (= 5.0.0.1)
       globalid (>= 0.3.6)
@@ -78,6 +80,7 @@ GEM
     ffi (1.9.14)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hirb (0.7.3)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -190,6 +193,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_union
   angular_rails_csrf
   angularjs-rails
   awesome_print
@@ -198,6 +202,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   faker
+  hirb
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
