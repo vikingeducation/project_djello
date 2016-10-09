@@ -1,8 +1,8 @@
 class MembersController < ApplicationController
   def create
     @card = Card.find_by_id(member_params[:card_id])
-    @member = @card.members.build(member_params)
-    if @member.save
+    @member = User.find_by_username(member_params[:username])
+    if @card.members << @member
       respond_to do |format|
         format.json { render json: @member, status:200 }
       end
