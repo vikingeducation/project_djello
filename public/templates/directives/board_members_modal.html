@@ -17,6 +17,10 @@
           users-searchbar
           class='typeahead form-control'
           type='text'
+          collection='board.members'
+          parent='board'
+          parent-type='parentType'
+          search='search'
           ng-model='userName'>
 
           <a style='cursor:pointer' ng-click='addMember()'>

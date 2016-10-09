@@ -4,9 +4,14 @@
   <p class='text-muted'>{{ board.description }}</p>
   <p> {{board.id}}</p>
   </a>
-  <button class='btn btn-outline-primary btn-sm pull-right'>
+  <button
+  class='btn btn-outline-primary btn-sm pull-right'
+  data-toggle='modal'
+  data-target='#myModal'>
     members
   </button>
+
+  <board-members-modal></board-members-modal>
 </div>
 
 
