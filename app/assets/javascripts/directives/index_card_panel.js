@@ -8,6 +8,11 @@ app.directive('indexCardPanel',
       card: '=',
       list: '=',
       usersCache: '='
+    },
+    link: function(scope) {
+      scope.search = {
+        key: 'username'
+      };
     }
   };
 

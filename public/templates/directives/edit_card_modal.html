@@ -31,7 +31,8 @@
           users-searchbar
           class='typeahead form-control'
           type='text'
-          collection='cardMemberNames'
+          collection='usersCache'
+          search='{key: search.key}'
           parent='card'
           parent-type='parentType'
           ng-model='userName'>

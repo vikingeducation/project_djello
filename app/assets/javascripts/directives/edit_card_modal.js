@@ -3,6 +3,7 @@ app.directive('editCardModal',
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
+    scope: true,
     link: function (scope, element) {
       scope.parentType = 'card';
       MemberService.all(scope.card.id, scope.parentType)
@@ -23,8 +24,6 @@ app.directive('editCardModal',
         CardService.update(scope.cardForm);
         scope.bodyEditState = false;
       };
-
-      // Need to think about how you would pass down usersCache as a promise.
     }
   };
 

@@ -18,11 +18,15 @@ app.factory('UserService',
   }
 
   // Initializing Bloodhound instance.
-  function _buildEngine (collection) {
+  function _buildEngine (collection, searchKey) {
+    // Scrub the data collection.
+    var db = _.map(collection, function(item) {
+      return item[searchKey];
+    });
     return new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      local: collection
+      local: db
     });
   }
 
@@ -51,10 +55,10 @@ app.factory('UserService',
   };
 
   // Setting up typeahead.
-  UserService.ttSetup = function (collection, element) {
+  UserService.ttSetup = function (collection, element, searchKey) {
     return element.typeahead(
       _typeaheadOptions,
-      _ttDataset(_buildEngine(collection))
+      _ttDataset(_buildEngine(collection, searchKey))
     );
   };
 
