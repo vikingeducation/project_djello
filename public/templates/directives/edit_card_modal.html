@@ -41,6 +41,11 @@
           <a style='cursor:pointer' ng-click='addMember()'>
             add member
           </a>
+
+          <h5>Activity</h5>
+          <ul style='list-style: none;' ng-repeat="activity in card.activities | orderBy:'-created_at'">
+            <li>{{ activity }}</li>
+          </ul>
         </div>
 
         <div class="modal-footer">

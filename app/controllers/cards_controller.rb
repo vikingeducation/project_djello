@@ -5,7 +5,9 @@ class CardsController < ApplicationController
                 .cards_authored_and_member
                 .where(list_id: list.id)
     respond_to do |format|
-      format.json { render json: @cards, status: 200 }
+      format.json {
+        # You can nest another hash in the association to call each instance's methods.
+        render json: @cards.to_json({include: {activities: {methods: :owner }}}), status: 200 }
     end
   end
 
