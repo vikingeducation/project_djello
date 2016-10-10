@@ -177,6 +177,19 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
         $scope.close = function(result) {
           close(result, 200)
         }
+
+        $scope.completeCard = function() {
+          cardService.completeCard(card, list).then(function(response) {
+            console.log(response)
+            angular.copy(response, $scope.card)
+          })
+        }
+        $scope.uncompleteCard = function() {
+          cardService.uncompleteCard(card, list).then(function(response) {
+            console.log(response)
+            angular.copy(response, $scope.card)
+          })
+        }
       }]
     }).then(function(modal) {
       modal.element.modal();

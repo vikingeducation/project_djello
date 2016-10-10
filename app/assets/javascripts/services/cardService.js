@@ -37,5 +37,13 @@ app.factory("cardService", ["Restangular", function(Restangular) {
     return card.patch({card: {text: newText}})
   }
 
+  cardService.completeCard = function(card, list) {
+    Restangular.restangularizeElement(list, card, 'cards')
+    return card.patch({card: {completed: true}})
+  }
+  cardService.uncompleteCard = function(card, list) {
+    Restangular.restangularizeElement(list, card, 'cards')
+    return card.patch({card: {completed: false}})
+  }
   return cardService
 }])

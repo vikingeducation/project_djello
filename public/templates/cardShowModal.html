@@ -24,6 +24,9 @@
         Cancel
       </button>
 
+      <a class="mark-completion" ng-hide="card.completed" ng-click="completeCard()" >Mark Completed</a>
+      <a class="mark-completion" ng-show="card.completed" ng-click="uncompleteCard()" >Mark Incomplete</a>
+
       </div>
       <div class="modal-body">    
 
