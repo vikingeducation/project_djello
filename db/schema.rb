@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161010034743) do
+ActiveRecord::Schema.define(version: 20161010040113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 20161010034743) do
     t.index ["user_id"], name: "index_boards_on_user_id", using: :btree
   end
 
+  create_table "card_memberships", force: :cascade do |t|
+    t.integer  "card_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_memberships_on_card_id", using: :btree
+    t.index ["user_id"], name: "index_card_memberships_on_user_id", using: :btree
+  end
+
   create_table "cards", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -40,7 +49,9 @@ ActiveRecord::Schema.define(version: 20161010034743) do
     t.integer  "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
     t.index ["list_id"], name: "index_cards_on_list_id", using: :btree
+    t.index ["user_id"], name: "index_cards_on_user_id", using: :btree
   end
 
   create_table "lists", force: :cascade do |t|
@@ -68,8 +79,6 @@ ActiveRecord::Schema.define(version: 20161010034743) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "card_id"
-    t.index ["card_id"], name: "index_users_on_card_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree

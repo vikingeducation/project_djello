@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :boards
+  has_many :lists
+  has_many :cards
 
   # Membership in a board.
   has_many :board_memberships
@@ -9,7 +11,13 @@ class User < ApplicationRecord
             foreign_key: :user_id,
             source: :board
 
-  belongs_to :card, optional: true
+  # Membership in a card.
+  has_many :card_memberships
+  has_many :cards_through_membership,
+           through: :card_memberships,
+           class_name: 'Card',
+           foreign_key: :user_id,
+           source: :card
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -40,9 +48,10 @@ class User < ApplicationRecord
   # Returns the union between boards authored and boards to which he belongs
   # as a member.
   def boards_authored_and_member
-   boards.union(boards_through_membership)
+    boards.union(boards_through_membership)
   end
 
   def cards_authored_and_member
+    cards.union(cards_through_membership)
   end
 end

@@ -51,7 +51,7 @@ puts "Creating authored boards.."
 end
 puts "Done!"
 
-puts "Creating lists..."
+puts "Creating authored lists..."
 10.times do |n|
   board = Board.all.sample
   user = User.all.sample
@@ -63,16 +63,16 @@ puts "Creating lists..."
 end
 puts "Done!"
 
-puts "Creating cards..."
+puts "Creating authored cards..."
 10.times do |n|
-  # list = List.all.sample
-  List.all.each do |list|
-    list.cards.create!({
-      title: Faker::App.name,
-      body: Faker::Lorem.paragraph(1),
-      completed: [true,false].sample
-    })
-  end
+  list = List.all.sample
+  user = User.all.sample
+  list.cards.create!({
+    author: user,
+    title: Faker::App.name,
+    body: Faker::Lorem.paragraph(1),
+    completed: [true,false].sample
+  })
 end
 puts "Done!"
 
@@ -83,3 +83,10 @@ puts "Creating board memberships.."
   board.members << member
 end
 puts "Done!"
+
+puts "Creating card memberships.."
+30.times do |n|
+  card = Card.all.sample
+  member = User.all.sample
+  card.members << member
+end
