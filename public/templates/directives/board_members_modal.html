@@ -9,23 +9,24 @@
 
         <div class="modal-body">
           <h5>Members</h5>
-          <ul style='list-style: none;' ng-repeat='member in board.members'>
+          <ul style="list-style: none;" ng-repeat="member in membersCache['board'][board.id]">
             <li>{{ member.username }}</li>
           </ul>
 
-          <!-- <input
+          <!-- Use the ng-if trick to make your directive wait for async data. -->
+          <input
+          ng-if='searchDependencies'
           users-searchbar
           class='typeahead form-control'
           type='text'
-          collection='usersCache'
-          parent='board'
-          parent-type='parentType'
-          search='search'
-          ng-model='userName'>
+          collection='searchDependencies.collection'
+          parent='searchDependencies.parent'
+          parent-type='searchDependencies.parentType'
+          search-key='searchDependencies.searchKey'>
 
           <a style='cursor:pointer' ng-click='addMember()'>
             add member
-          </a> -->
+          </a>
         </div>
 
         <div class="modal-footer">

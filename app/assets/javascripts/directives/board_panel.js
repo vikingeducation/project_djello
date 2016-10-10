@@ -1,6 +1,6 @@
 app.directive('boardPanel',
-['BoardService', 'ListService',
-function(BoardService, ListService) {
+['BoardService', 'ListService', 'MemberService', 'UserService',
+function(BoardService, ListService, MemberService, UserService) {
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/board_panel.html',
@@ -9,19 +9,37 @@ function(BoardService, ListService) {
       usersCache: '='
     },
     link: function(scope) {
+      scope.searchDependencies = {
+        parent: scope.board,
+        parentType: 'board',
+        collection: scope.usersCache,
+        searchKey: 'username'
+      };
+
+      // Cache members.
+      MemberService.all(scope.board.id, scope.searchDependencies.parentType)
+        .then(function(data) {
+          scope.membersCache = data;
+        });
+
+      //  Cache board lists.
       scope.storeBoardLists = function(data) {
         scope.boardListsCache = data;
       };
+
       ListService.all(scope.board.id)
         .then(scope.storeBoardLists);
       scope.removeBoard = function() {
         BoardService.destroy(scope.board);
       };
 
-      scope.search = {
-        key: 'username'
+      scope.addMember = function () {
+        MemberService.create({
+          parent_id: scope.board.id,
+          parent_type: 'board',
+          username: UserService.getSuggestion()
+        });
       };
-
     }
   };
 
