@@ -6,6 +6,9 @@ app.directive('boardMembersModal', function () {
     scope: true,
     link: function (scope, element) {
       scope.parentType = 'board';
+      scope.search = {
+        key: 'username'
+      };
     }
   };
 

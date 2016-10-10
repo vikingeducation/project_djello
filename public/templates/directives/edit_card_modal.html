@@ -27,14 +27,16 @@
           <h5>Description</h5>
           <edit-card-body></edit-card-body><br>
 
+          <!-- Use the ng-if trick to make your directive wait for async data. -->
           <input
+          ng-if='searchDependencies'
           users-searchbar
           class='typeahead form-control'
           type='text'
-          collection='usersCache'
-          search='{key: search.key}'
-          parent='card'
-          parent-type='parentType'
+          collection='searchDependencies.collection'
+          parent='searchDependencies.parent'
+          parent-type='searchDependencies.parentType'
+          search-key='searchDependencies.searchKey'
           ng-model='userName'>
 
           <a style='cursor:pointer' ng-click='addMember()'>
