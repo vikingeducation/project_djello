@@ -1,4 +1,4 @@
-var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'angularModalService']);
+var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'angularModalService', 'ngDragDrop']);
 
 djello.factory('_', ['$window', function($window){
   return $window._;
