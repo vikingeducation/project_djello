@@ -136,10 +136,28 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     })
   }
 
-  $scope.showCard = function(card, list) {
+  $scope.showCard = function(card, list, team) {
     ModalService.showModal({
       templateUrl: "templates/cardShowModal.html", 
-      controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
+      controller: ["$scope", "cardService", "listsService", "membersService", "close", function($scope, cardService, listsService, membersService, close) {
+
+        $scope.teamMembers = []
+        angular.copy(team.users, $scope.teamMembers)
+
+        membersService.getMembersByCard(card).then(function(response) {
+          var _selectedMembers = response
+          // iterate through teammembers
+          $scope.selectedMembers = []
+          // for (var i = 0; i < $scope.teamMembers.length; i++) {
+          //   var thisTeamMember = $scope.teamMembers[i]
+          //   for (var j = 0; j < _selectedMembers; j++) {
+          //     var thisSelectedMember = _selectedMembers[j]
+          //     if (thisTeamMember.email === thisSelectedMember.email) {
+          //       $scope.selectedMembers.push(thisSelectedMember)
+          //     }
+          //   }
+          // }
+        })
 
         $scope.list = list
         $scope.editingText = false
