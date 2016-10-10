@@ -1,4 +1,4 @@
-var app = angular.module("djello", ['ui.router', 'restangular', 'angularModalService']);
+var app = angular.module("djello", ['ui.router', 'restangular', 'angularModalService', 'Devise']);
 
 app.config(function($urlRouterProvider, $stateProvider) {
 

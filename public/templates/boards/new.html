@@ -6,8 +6,9 @@
   <label>Description</label>
   <input class="form-control" type="text" name="description" ng-model="board.description">
   <label>Members</label>
-  <select class="form-control" ng-model="board.members">
-    <!-- <option ng-repeat="user in users" value="{{user}}">{{user}}</option> -->
+  <select class="form-control" ng-model="board.team_id">
+    <option ng-repeat="team in teams" value="{{team.id}}">{{team.name}}</option>
   </select>
   <input class="btn btn-success" type="submit" name="submit" value="Create" ng-click="handleForm()">
 </form>
+

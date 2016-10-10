@@ -1,5 +1,5 @@
-app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "boardsService", "boards", "listsService", "ModalService",
- function($stateParams, $state, $scope, _, boardsService, boards, listsService, ModalService) {
+app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "boardsService", "boards", "listsService", "ModalService", "teamsService",
+ function($stateParams, $state, $scope, _, boardsService, boards, listsService, ModalService, teamsService) {
 
   $scope.message = "Board Show"
 
@@ -20,6 +20,11 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.boards = boards
   $scope.showNewList = false; 
   $scope.board = boardsService.find($stateParams.id)
+  teamsService.getTeamByBoard($scope.board).then(function(response) {
+    console.log("response in board show ctrl")
+    console.log(response)
+    $scope.team = response
+  })
 
   $scope.selectedBoard = $scope.selectedBoard || $scope.board
   console.log($scope.board)

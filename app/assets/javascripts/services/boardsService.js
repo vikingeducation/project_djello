@@ -15,7 +15,8 @@ app.factory("boardsService", ["Restangular", function(Restangular) {
     return Restangular.all('boards').post({
       board: {
         title: params.title,
-        description: params.description
+        description: params.description,
+        team_id: params.team_id
       }
     }).then(function(response) {
       console.log(response)

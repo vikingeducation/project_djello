@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
+
 gem 'devise'
 gem 'faker'
 

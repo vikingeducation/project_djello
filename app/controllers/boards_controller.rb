@@ -8,6 +8,7 @@ class BoardsController < ApplicationController
   end
 
   def create
+    puts params
     @board = current_user.boards.new(board_params)
     if @board.save
       respond_to do |format|
@@ -39,7 +40,7 @@ class BoardsController < ApplicationController
   private
 
   def board_params
-    params.require(:board).permit(:title, :description)
+    params.require(:board).permit(:title, :description, :team_id)
   end
 
 end

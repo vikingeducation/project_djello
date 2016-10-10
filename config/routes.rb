@@ -9,12 +9,17 @@ Rails.application.routes.draw do
         resources :lists, only: [:index, :create, :update, :destroy] do 
           resources :cards, only: [:update]
         end
+        resources :teams, only: [:show]
       end
       resources :lists, only: [:show] do 
         resources :cards, only: [:index, :show, :create, :update]
       end
+      resources :users, only: [:index] do 
+        resources :teams, only: [:index, :show]
+      end
     end
   end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
