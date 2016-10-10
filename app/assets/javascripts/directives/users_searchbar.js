@@ -9,10 +9,14 @@ app.directive('usersSearchbar',
       searchKey: '='
     },
     link: function(scope, element) {
+      // Need to pass element in this directive. Duplication issue because of
+      // ng-repeat.
+      // Need to pass copy of collection for data set, not actual object
+      // in memory.
+
+
       // Setup typeahead and configure bloodhound.
-      // Need to pass element in this directive. Apparently there are duplicates
-      // all over the app...?
-      UserService.ttSetup(scope.collection,
+      UserService.ttSetup(scope.collection.cache,
                           element,
                           scope.searchKey);
 

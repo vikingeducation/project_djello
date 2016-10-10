@@ -2,7 +2,11 @@ app.factory('UserService',
 ['Restangular', function (Restangular) {
 
   var UserService = {};
-  var _usersCache = [];
+  var _usersData = {
+    cache: [],
+    status: 'success',
+    type: 'users'
+  };
   var _suggestion = {
     data: ''
   };
@@ -14,6 +18,7 @@ app.factory('UserService',
   };
 
   function _ttDataset (collection) {
+    console.log(collection);
     return {
       name: 'users-dataset',
       source: collection,
@@ -38,22 +43,32 @@ app.factory('UserService',
     console.log(reason);
   }
 
+  function _errorStatus (response) {
+    switch (response.status) {
+      case -1:
+        _data.status = 'timeout';
+        break;
+    }
+    return _data;
+  }
+
   function _storeUsers (response) {
-    return angular.copy(response,_usersCache);
+    angular.copy(response,_usersData.cache);
+    return _usersData;
   }
 
   function _cacheUsers () {
     return Restangular.all('users')
       .getList()
-      .then(_storeUsers)
-      .catch(_logError);
+      .catch(_logError)
+      .then(_storeUsers,_errorStatus);
   }
 
   UserService.all = function() {
-    if (_.isEmpty(_usersCache)) {
+    if (_.isEmpty(_usersData.cache)) {
       return _cacheUsers();
     } else {
-      return Promise.resolve(_usersCache);
+      return Promise.resolve(_usersData);
     }
   };
 

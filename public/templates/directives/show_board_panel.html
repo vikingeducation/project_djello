@@ -2,7 +2,7 @@
 
 <!-- {{ currentBoard.members }} -->
 
-<boards-dropdown boards-cache='boardsCache'></boards-dropdown>
+<boards-dropdown boards-data='boardsData'></boards-dropdown>
 
 <div class='card-deck-wrapper'>
   <div class='card-deck'>
@@ -14,7 +14,7 @@
     current-board='currentBoard'
     list='list'
     ng-repeat="list in listsCache[currentBoard.id] | orderBy:'+created_at'"
-    users-cache='usersCache'>
+    users-data='usersData'>
     </index-list-panel>
 
     <!-- Create a list. -->

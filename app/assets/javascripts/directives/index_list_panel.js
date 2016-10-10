@@ -8,7 +8,7 @@ function (ListService, CardService) {
     scope: {
       list: '=',
       currentBoard: '=',
-      usersCache: '='
+      usersData: '='
     },
     link: function(scope) {
       CardService.all(scope.list.id)

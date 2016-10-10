@@ -4,21 +4,21 @@ app.controller('BoardShowCtrl',
 'currentBoard',
 '$state',
 'listsCache',
-'boardsCache',
-'usersCache',
+'boardsData',
+'usersData',
 function(
   BoardService,
   $scope,
   currentBoard,
   $state,
   listsCache,
-  boardsCache,
-  usersCache) {
+  boardsData,
+  usersData) {
 
   $scope.currentBoard = currentBoard;
   $scope.listsCache = listsCache;
-  $scope.boardsCache = boardsCache;
-  $scope.usersCache = usersCache;
+  $scope.boardsData = boardsData;
+  $scope.usersData = usersData;
 
   $scope.$on('boards.changeSelected', function(ev, newSelected) {
     $state.go('boards.show', {id: newSelected.id});

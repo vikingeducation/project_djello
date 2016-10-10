@@ -32,7 +32,6 @@ app.factory('BoardService',
 
   function _cacheBoards () {
     return Restangular.all('boards')
-      .withHttpConfig({timeout: 10})
       .getList()
       .catch(_logError)
       .then(_storeBoards,_errorStatus);

@@ -16,6 +16,7 @@ app.config(
     // Restangular
     RestangularProvider.setBaseUrl('/api/v1');
     RestangularProvider.setRequestSuffix('.json');
+    RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
     $urlRouterProvider.otherwise('/boards');
 
@@ -35,7 +36,7 @@ app.config(
           boardsData: ['BoardService', function(BoardService){
             return BoardService.all();
           }],
-          usersCache: ['UserService', function(UserService) {
+          usersData: ['UserService', function(UserService) {
             return UserService.all();
           }]
         }
@@ -54,7 +55,7 @@ app.config(
           ['BoardService', '$stateParams', function(BoardService, $stateParams) {
             return BoardService.one($stateParams.id);
           }],
-          boardsCache:
+          boardsData:
           ['BoardService', function(BoardService) {
             return BoardService.all();
           }],
@@ -63,7 +64,7 @@ app.config(
             return ListService.all(currentBoard.id);
           }],
           // Database for the Bloodhound engine.
-          usersCache:
+          usersData:
           ['UserService', function(UserService) {
             return UserService.all();
           }]

@@ -4,7 +4,7 @@ app.directive('boardsDropdown', function() {
     templateUrl: 'templates/directives/boards_dropdown.html',
     restrict: 'E',
     scope: {
-      boardsCache: '='
+      boardsData: '='
     },
     link: function(scope) {
       scope.changeShowBoard = function () {

@@ -1,4 +1,4 @@
 <select
-ng-options="board as board.title for board in boardsCache track by board.id"
+ng-options="board as board.title for board in boardsData.cache track by board.id"
 ng-model="selectedBoard"
 ng-change="changeShowBoard()"></select>

@@ -6,13 +6,13 @@ function(BoardService, ListService, MemberService, UserService) {
     templateUrl: 'templates/directives/board_panel.html',
     scope: {
       board: '=',
-      usersCache: '='
+      usersData: '='
     },
     link: function(scope) {
       scope.searchDependencies = {
         parent: scope.board,
         parentType: 'board',
-        collection: scope.usersCache,
+        collection: scope.usersData,
         searchKey: 'username'
       };
 

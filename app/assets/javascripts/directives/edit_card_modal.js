@@ -8,14 +8,14 @@ function(CardService, MemberService, UserService) {
     templateUrl: 'templates/directives/edit_card_modal.html',
     scope: {
       card: '=',
-      usersCache: '='
+      usersData: '='
     },
     link: function (scope, element) {
       // Dependencies for user search.
       scope.searchDependencies = {
         parent: scope.card,
         parentType: 'card',
-        collection: scope.usersCache,
+        collection: scope.usersData,
         searchKey: 'username'
       };
 

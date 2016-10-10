@@ -7,7 +7,7 @@ app.directive('indexCardPanel',
     scope: {
       card: '=',
       list: '=',
-      usersCache: '='
+      usersData: '='
     }
   };
 
