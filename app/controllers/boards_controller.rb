@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
 
   def index
     # Return boards of which current_user is author or member.
-    @boards = current_user.authored_and_member
+    @boards = current_user.boards_authored_and_member
     respond_to do |format|
       format.json { render json: @boards.to_json(include: :members), status: 200 }
     end

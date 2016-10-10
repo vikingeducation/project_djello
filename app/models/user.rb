@@ -39,7 +39,7 @@ class User < ApplicationRecord
 
   # Returns the union between boards authored and boards to which he belongs
   # as a member.
-  def authored_and_member
+  def boards_authored_and_member
    boards.union(boards_through_membership)
   end
 end
