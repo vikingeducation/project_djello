@@ -22,6 +22,13 @@ djello.factory('ListService', ['Restangular', 'CardService', '$state', function(
   })
 
 
+  listService.changeBoard = function(list_id, boardId) {
+    return Restangular.one('lists', list_id).patch({
+      board_id: boardId
+    })
+  }
+
+
 
   return listService;
 

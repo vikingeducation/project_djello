@@ -17,6 +17,7 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
+    @list.board_id = params[:board_id]
     if @list.update(list_params)
       respond_to do |format|
         format.json { render json: @list.to_json( include: 

@@ -1,24 +1,30 @@
 djello.controller('BoardsCtrl', [
-  '$scope', 'boards', 'BoardService', '$state', 'Auth', 'MemberService', 'user', 'currentUser', 'Restangular',
-  function($scope, boards, BoardService, $state, Auth, MemberService, user, currentUser, Restangular){
+  '$scope', 'boards', 'BoardService', '$state', 'Auth', 'MemberService', 'user', 'currentUser', 'Restangular', 'ListService',
+  function($scope, boards, BoardService, $state, Auth, MemberService, user, currentUser, Restangular, ListService){
 
 
   $scope.boards = boards;
   $scope.currentUser = currentUser;
   Restangular.restangularizeCollection(null, $scope.currentUser.boards, 'boards');
   Restangular.restangularizeCollection(null, $scope.currentUser.assigned_boards, 'boards');
-  console.log($scope.currentUser.assigned_boards);
   $scope.newBoard = {};
 
   $scope.changeBoard =function(event, ui, board){
     board.lists.push($scope.draggedList);
     var index = _.indexOf($scope.oldBoard, $scope.draggedList)
-    $scope.oldBoard.lists.splice(index, 1);  
+    $scope.oldBoard.lists.splice(index, 1);
+    ListService.changeBoard($scope.draggedList.id, board.id)
+    .then(function(response){
+      MemberService.getUser($scope.currentUser.id);
+    })
+    console.log(board);
   }
 
   $scope.setDragParams = function(event, ui, list, board) {
     $scope.draggedList = list;
     $scope.oldBoard = board;
+    console.log($scope.draggedList.title)
+    console.log($scope.oldBoard.title)
   }
 
 
