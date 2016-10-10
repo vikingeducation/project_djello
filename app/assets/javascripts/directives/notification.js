@@ -10,6 +10,12 @@ app.directive('notification', function () {
         case 'success':
           element.text('Success!!');
           break;
+        case 'failure':
+          element.text('Failed..');
+          break;
+        case 'timeout':
+          element.text('Timed out.');
+          break;
       }
     }
   };

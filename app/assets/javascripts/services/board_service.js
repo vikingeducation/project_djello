@@ -12,6 +12,16 @@ app.factory('BoardService',
   function _logError (reason) {
     console.log('ERROR!!! Reason: ');
     console.log(reason);
+    return Promise.reject(reason);
+  }
+
+  function _errorStatus (response) {
+    switch (response.status) {
+      case -1:
+        _data.status = 'timeout';
+        break;
+    }
+    return _data;
   }
 
   function _storeBoards (response) {
@@ -21,9 +31,10 @@ app.factory('BoardService',
 
   function _cacheBoards () {
     return Restangular.all('boards')
+      .withHttpConfig({timeout: 10})
       .getList()
-      .then(_storeBoards)
-      .catch(_logError);
+      .catch(_logError)
+      .then(_storeBoards,_errorStatus);
   }
 
   function _addBoard(response) {
