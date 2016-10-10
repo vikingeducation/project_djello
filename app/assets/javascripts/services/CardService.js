@@ -9,6 +9,12 @@ djello.factory('CardService', ['Restangular', '$state', function(Restangular, $s
     });
   }
 
+  cardService.changeList = function(cardId, listId) {
+    return Restangular.one('cards', cardId).patch({
+      list_id: listId
+    })
+  }
+
 
 
   return cardService;

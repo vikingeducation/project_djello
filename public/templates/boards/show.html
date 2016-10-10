@@ -40,7 +40,7 @@
 
   <div class="col-sm-4" ng-repeat="list in board.lists | orderBy: 'created_at'">
     <div class="row">
-      <div class="col-xs-10 col-xs-offset-1 list-container">
+      <div data-drop="true" ng-model="list" jqyoui-droppable="{onDrop: 'changeList(list)', multiple:true}" class="col-xs-10 col-xs-offset-1 list-container">
         <h3 ng-hide="list.titleEditing" ng-mouseover="hoverIn(list)" ng-mouseleave="hoverOut(list)">{{list.title}}<span ng-show="list.hoverEdit" class="animate-show">
                 <a ng-click="editListTitle(list)">
                     <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
@@ -59,7 +59,7 @@
         <button class="btn btn-danger btn-sm list-save" id="update-list-title" ng-show="list.descEditing" ng-click="list.descEditing = false">Cancel</button>
         <hr>
         <div class="row" ng-repeat="card in list.cards | orderBy: 'created_at' " ng-click="rectCard(card, list)">
-          <div class="col-xs-10 col-xs-offset-1 task-card">
+          <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{placeholder: true, animate: true, onStart:'setDragParams(card, list)'}"class="col-xs-10 col-xs-offset-1 task-card">
             <h4>{{card.title}}</h4>
           </div>
         </div>

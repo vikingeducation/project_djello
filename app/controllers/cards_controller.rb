@@ -17,6 +17,7 @@ class CardsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
+    @card.list_id = card_params[:list_id]
     activity_params = {}
     if @card.title != card_params[:title]
       activity_params["title"] = card_params[:title]
@@ -25,7 +26,9 @@ class CardsController < ApplicationController
       activity_params["description"] = card_params[:description]
     end
     if @card.update(card_params)
-      create_activity(@card, activity_params)
+      if activity_params
+        create_activity(@card, activity_params)
+      end
       respond_to do |format|
         format.json {render json: @card.to_json( include: [:members, :activities]) , status: 200}
       end
@@ -46,7 +49,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:title, :description)
+    params.require(:card).permit(:title, :description, :list_id)
   end
 
   def create_activity(card, params)

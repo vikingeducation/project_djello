@@ -28,12 +28,12 @@
   <div class="row row-horizon">
     <div class="col-sm-4" ng-repeat="board in currentUser.assigned_boards">
       <div class="row">
-        <div data-drop="true" jqyoui-droppable class="col-xs-11 col-xs-offset-1 single-board-container" ng-model="board.lists">
+        <div data-drop="true" ng-model="board.lists" jqyoui-droppable="{onDrop: 'changeBoard(board, list_id)', multiple:true}" class="col-xs-11 col-xs-offset-1 single-board-container" ng-model="board.lists">
           <a ui-sref="boards.show({id: board.id})">
             <h1>{{board.title}}</h1>
 ``        </a>
           <div class="row" ng-repeat="list in board.lists | orderBy: 'created_at' ">
-            <div data-drag="true" jqyoui-draggable class="col-xs-10 col-xs-offset-1 task-card">
+            <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{placeholder: true, animate: true, onStart:'setDragParams(list, board)'}" class="col-xs-10 col-xs-offset-1 task-card">
               <h4>{{list.title}}</h>
             </div>
           </div>

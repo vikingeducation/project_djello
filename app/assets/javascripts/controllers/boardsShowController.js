@@ -1,5 +1,5 @@
-djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular', 'MemberService', 'memberships', 'currentUser',
-  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular, MemberService, memberships, currentUser){
+djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardService', '$stateParams', 'boards', '$state', 'ModalService', 'Restangular', 'MemberService', 'memberships', 'currentUser', 'CardService',
+  function($scope, $timeout, board, BoardService, $stateParams, boards, $state, ModalService, Restangular, MemberService, memberships, currentUser, CardService){
 
   $scope.board = board;
   $scope.boards = boards;
@@ -13,6 +13,23 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   $scope.toggleTitleEditing = function() {
     $scope.titleEditing = !$scope.titleEditing;
   };
+
+  $scope.changeList =function(event, ui, list){
+    list.cards.push($scope.draggedCard);
+    var index = _.indexOf($scope.oldList, $scope.draggedCard)
+    $scope.oldList.cards.splice(index, 1);
+    CardService.changeList($scope.draggedCard.id, list.id)
+    .then(function(response){
+      MemberService.getUser($scope.currentUser.id);
+    })
+  }
+
+  $scope.setDragParams = function(event, ui, card, list) {
+    $scope.draggedCard = card;
+    $scope.oldList = list;
+    console.log($scope.draggedCard.title)
+    console.log($scope.oldList.title)
+  }
 
   $scope.hoverIn = function(item){
     item.hoverEdit = true;
