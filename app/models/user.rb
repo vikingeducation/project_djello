@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
          :rememberable
 
   has_many :boards
+
+  has_many :team_users
+  has_many :teams, through: :team_users
 end
