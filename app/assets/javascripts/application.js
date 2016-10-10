@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui.min
 //= require jquery_ujs
 
 //= require lodash
@@ -18,7 +19,7 @@
 //= require angular
 //= require angular-ui-router.min
 //= require angular-modal-service.min
-//= require angular-dragdrop.min
+//= require angular-dragdrop
 //= require restangular.min
 //= require angular-devise
 

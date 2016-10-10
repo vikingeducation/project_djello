@@ -49,18 +49,18 @@
         <input type="text" ng-show="list.titleEditing" ng-model="list.title" class="form-control edit-list-title" list-title-id="{{list.id}}">
         <button class="btn btn-primary btn-sm list-save" id="update-list-title" ng-show="list.titleEditing" ng-click="updateListTitle(list)">Save</button>
         <button class="btn btn-danger btn-sm list-save" id="update-list-title" ng-show="list.titleEditing" ng-click="list.titleEditing = false">Cancel</button>
-        <p ng-hide="list.descEditing" ng-mouseover="hoverIn(list)" ng-mouseleave="hoverOut(list)">{{list.description}}<span ng-show="list.hoverEdit" class="animate-show">
+        <h4 ng-hide="list.descEditing" ng-mouseover="hoverIn(list)" ng-mouseleave="hoverOut(list)">{{list.description}}<span ng-show="list.hoverEdit" class="animate-show">
                 <a ng-click="editListDesc(list)">
                     <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
                 </a>
-            </span></p>
+            </span></h4>
         <textarea ng-show="list.descEditing" ng-model="list.description" list-desc-id="{{list.id}}" class="form-control"></textarea>
         <button class="btn btn-primary btn-sm list-save" id="update-list-title" ng-show="list.descEditing" ng-click="updateListDesc(list)">Save</button>
         <button class="btn btn-danger btn-sm list-save" id="update-list-title" ng-show="list.descEditing" ng-click="list.descEditing = false">Cancel</button>
         <hr>
         <div class="row" ng-repeat="card in list.cards | orderBy: 'created_at' " ng-click="rectCard(card, list)">
           <div class="col-xs-10 col-xs-offset-1 task-card">
-            <h5>{{card.title}}</h5>
+            <h4>{{card.title}}</h4>
           </div>
         </div>
         <h4 id="add-card"><a ng-click="createCard(list)">Add a Card</a></h4>

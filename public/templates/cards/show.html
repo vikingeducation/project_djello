@@ -19,10 +19,10 @@
           </div>
           <br>
           <a ng-click="deleteCard()" data-dismiss="modal" class="pull-right">Mark Completed</a>
-          <p>In list: <a ng-click="close()" data-dismiss="modal">{{list.title}}</a></p>
+          <h4>In list: <a ng-click="close()" data-dismiss="modal">{{list.title}}</a></h4>
         </div>
         <div class="modal-body">
-          <p ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</p>
+          <h4 ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</h4>
           <textarea ng-show="card.descEditing" ng-model="card.description" card-desc-id="{{card.id}}" class="form-control"></textarea>
           <a ng-click="editCardDesc(card)" ng-hide="card.descEditing">Edit the description</a>
           <button class="btn btn-primary btn-sm list-save" ng-show="card.descEditing" ng-click="updateCardDesc(card)">Save</button>

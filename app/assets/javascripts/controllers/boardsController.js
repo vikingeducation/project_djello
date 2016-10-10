@@ -10,7 +10,16 @@ djello.controller('BoardsCtrl', [
   console.log($scope.currentUser.assigned_boards);
   $scope.newBoard = {};
 
+  $scope.changeBoard =function(event, ui, board){
+    board.lists.push($scope.draggedList);
+    var index = _.indexOf($scope.oldBoard, $scope.draggedList)
+    $scope.oldBoard.lists.splice(index, 1);  
+  }
 
+  $scope.setDragParams = function(event, ui, list, board) {
+    $scope.draggedList = list;
+    $scope.oldBoard = board;
+  }
 
 
   $scope.noBoards = function(){
