@@ -1,7 +1,9 @@
 class CardsController < ApplicationController
   def index
     list = List.find_by_id(params[:list_id])
-    @cards = list.cards
+    @cards = current_user
+                .cards_authored_and_member
+                .where(list_id: list.id)
     respond_to do |format|
       format.json { render json: @cards, status: 200 }
     end

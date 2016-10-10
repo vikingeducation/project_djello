@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   def create
-    @list = List.new(list_params)
+    @list = current_user.lists.build(list_params)
     if @list.save
       respond_to do |format|
         format.json { render json: @list, status: 200 }
