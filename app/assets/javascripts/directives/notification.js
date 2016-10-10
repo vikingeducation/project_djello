@@ -8,13 +8,16 @@ app.directive('notification', function () {
     link: function(scope, element) {
       switch (scope.noticeData.status) {
         case 'success':
-          element.text('Success!! ' + scope.noticeData.type);
+          element.text('Success!! (' + scope.noticeData.type + ")");
+          element.addClass('alert alert-success');
           break;
         case 'failure':
-          element.text('Failed.. ' + scope.noticeData.type);
+          element.text('Failed.. (' + scope.noticeData.type + ")");
+          element.addClass('alert alert-danger');
           break;
         case 'timeout':
-          element.text('Timed out. ' + scope.noticeData.type);
+          element.text('Timed out. (' + scope.noticeData.type + ")");
+          element.addClass('alert alert-warning');
           break;
       }
     }
