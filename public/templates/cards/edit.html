@@ -25,7 +25,7 @@
           <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Add a Member
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li ng-repeat="user in users" ><a href="" ng-click="addCardMember(user)">{{user.username}}</a></li>
+            <li ng-repeat="user in users | filterMembers:card.users" ><a href="" ng-click="addCardMember(user)">{{user.username}}</a></li>
           </ul>
         </div>
 
