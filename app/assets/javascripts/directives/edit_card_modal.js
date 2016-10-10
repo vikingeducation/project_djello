@@ -48,8 +48,6 @@ function(CardService, MemberService, UserService) {
           username: UserService.getSuggestion()
         });
       };
-
-      console.log(scope.card);
     }
   };
 
