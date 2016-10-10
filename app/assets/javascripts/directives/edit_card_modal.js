@@ -1,5 +1,8 @@
 app.directive('editCardModal',
-['CardService', 'MemberService', function(CardService, MemberService) {
+['CardService',
+'MemberService',
+'UserService',
+function(CardService, MemberService, UserService) {
   return {
     restrict: 'E',
     templateUrl: 'templates/directives/edit_card_modal.html',
@@ -42,7 +45,7 @@ app.directive('editCardModal',
         MemberService.create({
           parent_id: scope.card.id,
           parent_type: 'card',
-          username: scope.userName
+          username: UserService.getSuggestion()
         });
       };
     }

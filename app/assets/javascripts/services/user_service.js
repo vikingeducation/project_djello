@@ -3,6 +3,9 @@ app.factory('UserService',
 
   var UserService = {};
   var _usersCache = [];
+  var _suggestion = {
+    data: ''
+  };
 
   var _typeaheadOptions = {
     hint: true,
@@ -54,12 +57,20 @@ app.factory('UserService',
     }
   };
 
+  UserService.updateSuggestion = function(suggestion) {
+    _suggestion.data = suggestion;
+  };
+
   // Setting up typeahead.
   UserService.ttSetup = function (collection, element, searchKey) {
     return element.typeahead(
       _typeaheadOptions,
       _ttDataset(_buildEngine(collection, searchKey))
     );
+  };
+
+  UserService.getSuggestion = function () {
+    return _suggestion.data;
   };
 
   return UserService;
