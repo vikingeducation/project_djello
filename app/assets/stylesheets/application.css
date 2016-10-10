@@ -30,6 +30,13 @@
      color: #47a447;
      border-bottom-color: #47a447;
  }
+ h2.editable-click {
+     color: white;
+     border-bottom: none;
+ }
+ h2.editable-click:hover {
+     color: lightgrey;
+ }
  .border-form-div {
    max-width: 300px;
    padding: 19px 29px 29px;

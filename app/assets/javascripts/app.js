@@ -53,6 +53,9 @@ Djello.config([
       }
     }).state('main.board', {
       url: '/board/:id',
+      data: {
+        bodyClass: 'board-show-body'
+      },
       views: {
         'main@': {
           templateUrl: '/templates/boards/show.html',
@@ -73,3 +76,8 @@ Djello.run(function(editableOptions, editableThemes) {
   editableThemes.bs3.buttonsClass = 'btn-sm';
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
+
+Djello.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    }]);

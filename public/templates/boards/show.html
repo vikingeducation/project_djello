@@ -1,7 +1,6 @@
 <div class="col-sm-12">
 
-<h2><a href="" editable-text="board.title" onbeforesave="changeBoard($data)">{{board.title || ""}}</a>
-</h2>
+<h2 href="" editable-text="board.title" onbeforesave="changeBoard($data)">{{board.title || ""}}</h2>
 
 <div class="dropdown pull-right">
   <button class='btn btn-danger btn-sm' ng-click="deleteBoard()">Delete Board</button>
@@ -16,7 +15,7 @@
 <div class="col-sm-3" ui-view="lists" ng-repeat="list in board.lists"></div>
 <div class ='col-sm-3'>
   <div class="new-list" ng-click="newList=true" ng-hide="newList">
-    <a><h4>Add a new list...</h4></a>
+    <h4><a>Add a new list...</a></h4>
   </div>
   <div class="new-list-form" ng-show="newList">
     <label for="title">Title</label>
