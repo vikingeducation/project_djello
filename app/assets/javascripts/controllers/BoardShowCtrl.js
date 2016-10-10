@@ -127,12 +127,53 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     })
   }
 
-  $scope.showCard = function(card) {
+  $scope.showCard = function(card, list) {
     ModalService.showModal({
       templateUrl: "templates/cardShowModal.html", 
       controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
 
+        $scope.list = list
+        $scope.editingText = false
+        $scope.editingTitle = false
         $scope.card = card
+        $scope.cardTitle = card.title
+        $scope.cardText = card.text
+
+        $scope.editText = function() {
+          $scope.editingText = true
+        }
+        $scope.editTitle = function() {
+          $scope.editingTitle = true
+        }
+
+        $scope.submitTextEdits = function() {
+          cardService.editText(card, $scope.cardText, list).then(function(response) {
+            console.log(response)
+            $scope.cardText = response.text
+            // $scope.card.text = response.text
+            angular.copy(response, $scope.card)
+            $scope.editingText = false
+          })
+        }
+        $scope.submitTitleEdits = function() {
+          cardService.editTitle(card, $scope.cardTitle, list).then(function(response) {
+            console.log(response)
+            $scope.cardTitle = response.title
+            // $scope.card.title = response.title
+            angular.copy(response, $scope.card)
+            $scope.editingTitle = false
+          })
+        }
+
+        $scope.cancelEditText = function() {
+          $scope.editingText = false
+          $scope.cardText = card.text
+        }
+        $scope.cancelEditTitle = function() {
+          $scope.editingTitle = false
+          $scope.cardTitle = card.title
+        }
+
         $scope.close = function(result) {
           close(result, 200)
         }

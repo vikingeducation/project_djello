@@ -11,6 +11,21 @@ class CardsController < ApplicationController
     end
   end
 
+  def update
+    puts "updating card..."
+    @card = Card.find_by_id(params[:id])
+    if @card.update(card_params)
+      puts "card updated"
+      respond_to do |format|
+        format.json { render json: @card, status: 200 }
+      end
+    else 
+      respond_to do |format|
+        format.json { render json: @card.errors, status: 200 }
+      end
+    end
+  end
+
 
   private 
 

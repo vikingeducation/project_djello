@@ -2,15 +2,56 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-      <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">{{card.title}}</h4>
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 ng-hide="editingTitle" ng-click="editTitle()" class="modal-title">{{card.title}}</h4>
+
+        <input ng-show="editingTitle" 
+        type="text" 
+        name="edit-title" 
+        ng-model="cardTitle"
+        value="{{card.title}}" >
+
+        <input class="btn btn-warning" 
+        ng-show="editingTitle" 
+        type="submit" 
+        name="edit-title-submit" 
+        value="Submit" 
+        ng-click="submitTitleEdits()">
+
+        <button class="btn btn-info" 
+        ng-show="editingTitle" 
+        ng-click="cancelEditTitle()">
+        Cancel
+      </button>
+
       </div>
-      <div class="modal-body">
-        <p>{{card.text}}</p>
+      <div class="modal-body">    
+
+      <div ng-hide="editingText" ng-click="editText()">
+        {{card.text}}
       </div>
-      <div class="modal-footer">
-        
-      </div>
+
+      <div ng-show="editingText">
+        <textarea ng-model="cardText"
+        name="edit-text" 
+        >{{card.text}}</textarea>
+        <input class="btn btn-warning" 
+        type="submit" 
+        name="edit-text-submit" 
+        value="Submit" 
+        ng-click="submitTextEdits()"
+        >
+        <button class="btn btn-info" 
+        ng-click="cancelEditText()">
+        Cancel
+      </button>
     </div>
+
+
   </div>
+  <div class="modal-footer">
+
+  </div>
+</div>
+</div>
 </div>

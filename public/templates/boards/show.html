@@ -55,7 +55,7 @@
     </div>
 
     <!-- cards index for this list -->
-    <div ng-repeat="card in list.cards" ng-click="showCard(card)" class="card panel panel-success">
+    <div ng-repeat="card in list.cards" ng-click="showCard(card, list)" class="card panel panel-success">
       <span class="card-title">{{card.title}}</span><br>
       <span class="crad-text">{{card.text}}</span>
     </div>

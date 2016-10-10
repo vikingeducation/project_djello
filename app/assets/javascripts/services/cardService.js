@@ -25,6 +25,17 @@ app.factory("cardService", ["Restangular", function(Restangular) {
     return _createCard(list, newCard)
   }
 
+  cardService.editTitle = function(card, newTitle, list) {
+    Restangular.restangularizeElement(list, card, 'cards')
+    console.log(card)
+    return card.patch({card: {title: newTitle}})
+  }
+
+  cardService.editText = function(card, newText, list) {
+    Restangular.restangularizeElement(list, card, 'cards')
+    console.log(card)
+    return card.patch({card: {text: newText}})
+  }
 
   return cardService
 }])

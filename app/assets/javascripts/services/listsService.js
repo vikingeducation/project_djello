@@ -38,6 +38,7 @@ app.factory("listsService", ["Restangular", function(Restangular) {
 
 
   listsService.editTitle = function(list, newTitle) {
+    console.log(list)
     return list.patch({list: {title: newTitle}})
   }
 
