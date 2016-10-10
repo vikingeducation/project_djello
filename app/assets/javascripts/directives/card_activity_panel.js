@@ -17,7 +17,7 @@ app.directive('cardActivityPanel', function () {
         var owner = scope.activity.owner;
         var activity = scope.activity;
         var preposition;
-        var timestamp = scope.activity.created_at;
+        var timestamp = moment(scope.activity.created_at).format('MMMM Do YYYY, h:mm:ss a');
         var action;
 
         switch (scope.activity.key) {
@@ -35,7 +35,7 @@ app.directive('cardActivityPanel', function () {
             break;
         }
 
-        scope.content.data = owner + action + preposition + list + "at " + timestamp;
+        scope.content.data = owner.username + action + cardTitle + "' " + preposition + list + " at " + timestamp;
       };
 
       scope.getContent = function () {

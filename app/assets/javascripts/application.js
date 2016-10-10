@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require bootstrap3-typeahead.min
 //= require bloodhound.min
+//= require moment
 //= require typeahead.bundle.min
 //= require typeahead.jquery.min
 //= require angular
