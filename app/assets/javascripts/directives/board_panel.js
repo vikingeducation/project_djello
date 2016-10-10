@@ -29,6 +29,8 @@ function(BoardService, ListService, MemberService, UserService) {
 
       ListService.all(scope.board.id)
         .then(scope.storeBoardLists);
+
+      // Board removal.
       scope.removeBoard = function() {
         BoardService.destroy(scope.board);
       };
