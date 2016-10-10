@@ -44,8 +44,12 @@ Djello.factory('CardService', [
       return Restangular.all('members').post(data)
     }
 
+    var removeCardMember = function(card_id, user_id) {
+      return Restangular.all('members').remove({card_id: card_id, user_id: user_id});
+    }
 
-    return {getAllCards: getAllCards, createCard: createCard, changeCard: changeCard, deleteCard: deleteCard, addCardMember: addCardMember}
+
+    return {getAllCards: getAllCards, createCard: createCard, changeCard: changeCard, deleteCard: deleteCard, addCardMember: addCardMember, removeCardMember: removeCardMember}
 
   }
 ])

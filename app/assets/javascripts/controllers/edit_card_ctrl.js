@@ -8,6 +8,7 @@ Djello.controller('EditCardCtrl', [
   function($scope, close, card, CardService, UserService, $rootScope) {
 
     $scope.card = card
+
     $scope.close = function(response) {
     	close(response, 200);
     };
@@ -23,19 +24,21 @@ Djello.controller('EditCardCtrl', [
       })
     }
 
-    $scope.addCardMember = function(user_id) {
+    $scope.addCardMember = function(user) {
       console.log("adding member")
-      CardService.addCardMember($scope.card.id, user_id)
-        .then(function(){
-          $rootScope.$broadcast('memeber.changed')
+      CardService.addCardMember($scope.card.id, user.id)
+        .then(function(response){
+          $scope.card.users.push(response)
         })
     }
 
-    $scope.removeCardMember = function(user_id) {
-      CardService.removeCardMember($scope.card.id, user_id)
-      .then(function(){
-        $rootScope.$broadcast('member.changed')
-      })
+    $scope.removeCardMember = function(user) {
+      CardService.removeCardMember($scope.card.id, user.id)
+        .then(function(response){
+          debugger
+          var index = $scope.card.users.indexOf(user)
+          $scope.card.users.splice(index, 1)
+        })
     }
 
     UserService.getUsers()

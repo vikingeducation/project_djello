@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       resources :users
-      resources :members, only: [:create]
+      resource :members
       resources :boards do
         resources :lists, shallow: true do
           resources :cards, shallow: true

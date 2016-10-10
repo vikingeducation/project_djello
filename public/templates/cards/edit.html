@@ -11,15 +11,21 @@
           <a ng-hide="card.description" editable-text="card.description" buttons="no" onbeforesave="changeCard({description: $data})">description here</a>
         </div>
         <div class="">
+          <h4>Team Members:</h4>
           <ul>
-            <li ng-repeat="user in card.users">{{user.username}}</li>
+            <li ng-repeat="user in card.users">
+              {{user.username}}
+              <a href='' ng-click="removeCardMember(user)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </a>
+            </li>
           </ul>
         </div>
         <div class="dropdown">
           <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Add a Member
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li ng-repeat="user in users" ><a href="" ng-click="addCardMember(user.id)">{{user.username}}</a></li>
+            <li ng-repeat="user in users" ><a href="" ng-click="addCardMember(user)">{{user.username}}</a></li>
           </ul>
         </div>
 
