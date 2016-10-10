@@ -2,8 +2,11 @@ app.factory('BoardService',
 ['Restangular', '_', function(Restangular,_) {
 
   var BoardService = {};
-  // Call it the 'cache' to be more explicit about the intent.
-  var _boardsCache = [];
+  var _data = {
+    cache: [],
+    status: 'success'
+  };
+  // var _boardsCache = [];
 
 
   function _logError (reason) {
@@ -12,7 +15,8 @@ app.factory('BoardService',
   }
 
   function _storeBoards (response) {
-    return angular.copy(response, _boardsCache);
+    angular.copy(response, _data.cache);
+    return _data;
   }
 
   function _cacheBoards () {
@@ -23,21 +27,21 @@ app.factory('BoardService',
   }
 
   function _addBoard(response) {
-    _boardsCache.push(response);
+    _data.cache.push(response);
     return response;
   }
 
   function _removeBoard (board_id) {
     return function (response) {
-      var found = _.find(_boardsCache, {id: parseInt(board_id)});
+      var found = _.find(_data.cache, {id: parseInt(board_id)});
       if (!found) throw new Error('Nothing to remove!!');
-      return _.remove(_boardsCache,{id: board_id});
+      return _.remove(_data.cache,{id: board_id});
     };
   }
 
   function _findBoard(searchKey) {
     return function(response) {
-      var found = _.find(_boardsCache, {id: parseInt(searchKey)});
+      var found = _.find(_data.cache, {id: parseInt(searchKey)});
       // Throw an error for your bad path!
       if (!found) throw new Error('Board not cached!!');
       return found;
@@ -49,12 +53,12 @@ app.factory('BoardService',
   };
 
   BoardService.all = function () {
-    if (_.isEmpty(_boardsCache)) return _cacheBoards();
-    return Promise.resolve(_boardsCache);
+    if (_.isEmpty(_data.cache)) return _cacheBoards();
+    return Promise.resolve(_data);
   };
 
   BoardService.one = function (searchId) {
-    if (_.isEmpty(_boardsCache)) {
+    if (_.isEmpty(_data.cache)) {
       return _cacheBoards()
         .then(_findBoard(searchId));
     } else {

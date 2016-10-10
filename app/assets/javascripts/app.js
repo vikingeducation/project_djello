@@ -32,7 +32,7 @@ app.config(
           }
         },
         resolve: {
-          boardsCache: ['BoardService', function(BoardService){
+          boardsData: ['BoardService', function(BoardService){
             return BoardService.all();
           }],
           usersCache: ['UserService', function(UserService) {

@@ -1,12 +1,12 @@
 app.controller('BoardsIndexCtrl',
-['$scope', 'boardsCache', 'usersCache', 'BoardService',
-function($scope, boardsCache, usersCache, BoardService) {
+['$scope', 'boardsData', 'usersCache', 'BoardService',
+function($scope, boardsData, usersCache, BoardService) {
 
-  $scope.boardsCache = boardsCache;
+  $scope.boardsData = boardsData;
   $scope.usersCache = usersCache;
 
   $scope.refreshBoards = function(data) {
-    $scope.boardsCache = data;
+    $scope.boardsData = data;
   };
 
   $scope.logError = function(reason) {

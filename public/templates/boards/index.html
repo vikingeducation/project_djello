@@ -1,9 +1,11 @@
+<p boards-data='boardsData' notification></p>
+
 <div class="card-deck-wrapper">
   <div class="card-deck">
     <board-panel
     class="card"
     style="width:300px"
-    ng-repeat="board in boardsCache | orderBy:'+created_at'"
+    ng-repeat="board in boardsData.cache | orderBy:'+created_at'"
     board="board"
     users-cache='usersCache'>
     </board-panel>
