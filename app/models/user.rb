@@ -42,4 +42,7 @@ class User < ApplicationRecord
   def boards_authored_and_member
    boards.union(boards_through_membership)
   end
+
+  def cards_authored_and_member
+  end
 end

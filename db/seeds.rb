@@ -54,7 +54,9 @@ puts "Done!"
 puts "Creating lists..."
 10.times do |n|
   board = Board.all.sample
+  user = User.all.sample
   board.lists.create!({
+    author: user,
     title: Faker::App.name,
     description: Faker::Lorem.paragraph(1)
   })
