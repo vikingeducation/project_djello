@@ -1,4 +1,4 @@
-app.directive('notification', function () {
+app.directive('notification', ['$timeout', function ($timeout) {
 
   return {
     restrict: 'A',
@@ -6,6 +6,8 @@ app.directive('notification', function () {
       noticeData: '='
     },
     link: function(scope, element) {
+      element.hide();
+
       switch (scope.noticeData.status) {
         case 'success':
           element.text('Success!! (' + scope.noticeData.type + ")");
@@ -20,7 +22,13 @@ app.directive('notification', function () {
           element.addClass('alert alert-warning');
           break;
       }
+
+      element.fadeIn('slow');
+
+      $timeout(function() {
+        element.fadeOut('slow');
+      }, 2000);
     }
   };
 
-});
+}]);
