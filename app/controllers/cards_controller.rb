@@ -9,7 +9,7 @@ class CardsController < ApplicationController
       create_activity(@card, "create")
      
       respond_to do |format|
-        format.json { render json: @card.to_json( include: :members) , status: 200}
+        format.json { render json: @card.to_json( include: [:members, :activities]) , status: 200}
       end
     end
 
@@ -27,7 +27,7 @@ class CardsController < ApplicationController
     if @card.update(card_params)
       create_activity(@card, activity_params)
       respond_to do |format|
-        format.json {render json: @card.to_json( include: :members) , status: 200}
+        format.json {render json: @card.to_json( include: [:members, :activities]) , status: 200}
       end
     end
 
@@ -50,13 +50,14 @@ class CardsController < ApplicationController
   end
 
   def create_activity(card, params)
+     username = User.find(card.user_id).username
      if params == "create"
        card.activities.create({
           user_id: card.user_id,
           list_id: card.list_id,
           board_id: card.board_id,
           card_id: card.id,
-          action: "added this card to the #{@card.board.title} board"
+          action: "#{username} added this card to the #{@card.board.title} board"
           })
      else
        params.each do |key, value|
@@ -65,9 +66,12 @@ class CardsController < ApplicationController
           list_id: card.list_id,
           board_id: card.board_id,
           card_id: card.id,
-          action: "changed the #{key} of this card to #{value.to_s}"
+          action: "#{username} changed the #{key} of this card to #{value.to_s}"
           })
        end
      end
   end
+
+  
+
 end

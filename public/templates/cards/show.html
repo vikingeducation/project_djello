@@ -46,7 +46,7 @@
           <h4>Activity</h4>
           <div ng-repeat="activity in card.activities | orderBy: '-created_at' ">
           <img src="#" class="card-member-img">
-          {{activity.user_id}} {{activity.action}} on {{activity.created_at | date }}</div>
+          {{activity.action}} on {{activity.created_at | date }}</div>
           <hr>
         </div>
         <div class="modal-footer">

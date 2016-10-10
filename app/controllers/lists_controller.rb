@@ -8,7 +8,7 @@ class ListsController < ApplicationController
       respond_to do |format|
         format.json { render json: @list.to_json( include: 
                                       {:cards => {
-                                        include: :members
+                                        include: [:members, :activities]
                                         }
                                       }), status: 201 }
       end
@@ -21,7 +21,7 @@ class ListsController < ApplicationController
       respond_to do |format|
         format.json { render json: @list.to_json( include: 
                                       {:cards => {
-                                        include: :members
+                                        include: [:members, :activities]
                                         }
                                       }), status: 201 }
       end

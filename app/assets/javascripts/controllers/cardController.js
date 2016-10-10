@@ -109,8 +109,5 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
     MemberService.removeMember(membership.id); 
   }
 
-  $scope.getUserName = function(id){
-    return MemberService.getUser(id);
-  }
 
 }]);
