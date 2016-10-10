@@ -11,7 +11,7 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     respond_to do |format|
       format.json { render json:
-        @board.to_json(include:{ lists:{include: :cards }})}
+        @board.to_json(include:{ lists:{include: {cards:{include: :users}}}})}
     end
   end
 

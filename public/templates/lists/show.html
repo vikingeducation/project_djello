@@ -11,6 +11,9 @@
   <h4><a href="" editable-text="list.description" buttons="no" onbeforesave="changeList({description: $data})">{{list.description}}</a></h4>
   <div class='card' ng-repeat='card in list.cards'>
     <a href="" ng-click="editCard(card)">{{card.title}}</a>
+    <ul>
+      <li ng-repeat='user in card.users'>{{user.username}}</li>
+    </ul>
   </div>
   <div class="add-card text-center" ng-click="newCard=true" ng-hide="newCard">
     <a>Add a card..</a>

@@ -5,7 +5,7 @@ class ListsController < ApplicationController
     @list = @board.lists.build(list_params)
     respond_to do |format|
       if @list.save
-        format.json { render json: @list.to_json(include: :cards) }
+        format.json { render json: @list.to_json(include:{ cards:{include: :users}}) }
       else
         format.json { render status: :unprocessable_entity }
       end

@@ -11,7 +11,7 @@ class CardsController < ApplicationController
     @card = @list.cards.build(card_params)
     respond_to do |format|
       if @card.save
-        format.json { render json: @card }
+        format.json { render json: @card.to_json(include: :users) }
       else
         format.json { render status: :unprocessable_entity }
       end
