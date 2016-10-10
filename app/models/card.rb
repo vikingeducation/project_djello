@@ -6,8 +6,8 @@ class Card < ApplicationRecord
     title: proc { |controller, model| model.title },
     body: proc { |controller, model| model.body },
     completed: proc { |controller, model| "as completed" if model.completed },
-    list: proc { |controller, model| model.list.title },
-    board: proc { |controller, model| model.list.board.title }
+    list: proc { |controller, model| model.list.title if model.list },
+    board: proc { |controller, model| model.list.board.title if model.list }
   }
 
   belongs_to :author, foreign_key: 'user_id', class_name: 'User'

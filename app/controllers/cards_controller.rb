@@ -7,7 +7,7 @@ class CardsController < ApplicationController
     respond_to do |format|
       format.json {
         # You can nest another hash in the association to call each instance's methods.
-        render json: @cards.to_json({include: {activities: {methods: :owner }}}), status: 200 }
+        render json: @cards.to_json(card_activities), status: 200 }
     end
   end
 
@@ -15,7 +15,7 @@ class CardsController < ApplicationController
     @card = current_user.cards.build(card_params)
     if @card.save
       respond_to do |format|
-        format.json { render json: @card, status: 200 }
+        format.json { render json: @card.to_json(card_activities), status: 200 }
       end
     end
   end
@@ -24,7 +24,7 @@ class CardsController < ApplicationController
     @card = Card.find_by_id(card_params['id'])
     if @card.update(card_params)
       respond_to do |format|
-        format.json { render json: @card, status: 200 }
+        format.json { render json: @card.to_json(card_activities), status: 200 }
       end
     end
   end
@@ -42,5 +42,9 @@ class CardsController < ApplicationController
                                    :members,
                                    :activities,
                                    :list_id)
+    end
+
+    def card_activities
+      {include: {activities: {methods: :owner }}}
     end
 end
