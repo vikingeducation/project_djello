@@ -10,7 +10,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(card_params)
+    @card = current_user.cards.build(card_params)
     if @card.save
       respond_to do |format|
         format.json { render json: @card, status: 200 }
