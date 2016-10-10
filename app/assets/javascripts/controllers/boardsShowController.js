@@ -92,7 +92,8 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   $scope.checkForParams = function(){
     if ($scope.newList.title === undefined){
       $scope.newList.title = "Click to add title";
-    } else if ($scope.newList.description === undefined){
+    } 
+    if ($scope.newList.description === undefined){
       $scope.newList.description = "Click to add description";
     }
   }
