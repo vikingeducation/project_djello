@@ -4,7 +4,8 @@ app.factory('BoardService',
   var BoardService = {};
   var _data = {
     cache: [],
-    status: 'success'
+    status: 'success',
+    type: 'boards'
   };
   // var _boardsCache = [];
 

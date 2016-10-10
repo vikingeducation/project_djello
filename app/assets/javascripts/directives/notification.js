@@ -3,18 +3,18 @@ app.directive('notification', function () {
   return {
     restrict: 'A',
     scope: {
-      boardsData: '='
+      noticeData: '='
     },
     link: function(scope, element) {
-      switch (scope.boardsData.status) {
+      switch (scope.noticeData.status) {
         case 'success':
-          element.text('Success!!');
+          element.text('Success!! ' + scope.noticeData.type);
           break;
         case 'failure':
-          element.text('Failed..');
+          element.text('Failed.. ' + scope.noticeData.type);
           break;
         case 'timeout':
-          element.text('Timed out.');
+          element.text('Timed out. ' + scope.noticeData.type);
           break;
       }
     }
