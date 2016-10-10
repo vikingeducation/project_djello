@@ -12,7 +12,7 @@
                   </a>
                 </span>
               </h3>
-              <input type="text" ng-model="card.title" ng-blur="toggleTitleEditing()" ng-show="titleEditing" id="cardTitleEdit">
+              <input type="text" ng-model="card.title" ng-show="titleEditing" id="cardTitleEdit">
               <button class="btn btn-primary" id="update-card-title" ng-show="titleEditing" ng-click="updateCardTitle()">Update</button>
             </div>
           </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="modal-body">
           <p ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</p>
-          <textarea ng-show="card.descEditing" ng-model="card.description" ng-blur="card.descEditing = false" card-desc-id="{{card.id}}" class="form-control"></textarea>
+          <textarea ng-show="card.descEditing" ng-model="card.description" card-desc-id="{{card.id}}" class="form-control"></textarea>
           <a ng-click="editCardDesc(card)" ng-hide="card.descEditing">Edit the description</a>
           <button class="btn btn-primary btn-sm list-save" ng-show="card.descEditing" ng-click="updateCardDesc(card)">Save</button>
           <hr>
@@ -44,6 +44,9 @@
         </div>
         <div class="modal-body">
           <h4>Activity</h4>
+          <div ng-repeat="activity in card.activities | orderBy: '-created_at' ">
+          <img src="#" class="card-member-img">
+          {{activity.user_id}} {{activity.action}} on {{activity.created_at | date }}</div>
           <hr>
         </div>
         <div class="modal-footer">

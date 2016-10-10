@@ -23,6 +23,7 @@ djello.controller('BoardsShowCtrl', ['$scope', '$timeout', 'board', 'BoardServic
   };
 
   $scope.updateTitle = function(){
+    console.log("Hitting controller function")
     $scope.titleEditing = false;
     $scope.board.save().then(function(response){
       MemberService.getUser($scope.currentUser.id);

@@ -17,7 +17,7 @@
                     <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
                 </a>
             </span></h1>
-    <input type="text" ng-model="board.title" ng-show="titleEditing" id="titleEdit" ng-blur="titleEditing = false">
+    <input type="text" ng-model="board.title" ng-show="titleEditing" id="titleEdit" >
     <button class="btn btn-primary" id="update-title" ng-show="titleEditing" ng-click="updateTitle()">Update</button>
   </div>
 </div>
@@ -44,14 +44,14 @@
                     <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
                 </a>
             </span></h3>
-        <input type="text" ng-show="list.titleEditing" ng-model="list.title" class="form-control edit-list-title" ng-blur="list.titleEditing = false" list-title-id="{{list.id}}">
+        <input type="text" ng-show="list.titleEditing" ng-model="list.title" class="form-control edit-list-title" list-title-id="{{list.id}}">
         <button class="btn btn-primary btn-sm list-save" id="update-list-title" ng-show="list.titleEditing" ng-click="updateListTitle(list)">Save</button>
         <p ng-hide="list.descEditing" ng-mouseover="hoverIn(list)" ng-mouseleave="hoverOut(list)">{{list.description}}<span ng-show="list.hoverEdit" class="animate-show">
                 <a ng-click="editListDesc(list)">
                     <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
                 </a>
             </span></p>
-        <textarea ng-show="list.descEditing" ng-model="list.description" list-desc-id="{{list.id}}" ng-blur="list.descEditing = false"class="form-control"></textarea>
+        <textarea ng-show="list.descEditing" ng-model="list.description" list-desc-id="{{list.id}}" class="form-control"></textarea>
         <button class="btn btn-primary btn-sm list-save" id="update-list-title" ng-show="list.descEditing" ng-click="updateListDesc(list)">Save</button>
         <hr>
         <div class="row" ng-repeat="card in list.cards | orderBy: 'created_at' " ng-click="rectCard(card, list)">

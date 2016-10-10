@@ -6,6 +6,8 @@ class CardsController < ApplicationController
     @card.board = Board.find(params[:boardId])
     @card.list = List.find(params[:listId])
     if @card.save
+      create_activity(@card, "create")
+     
       respond_to do |format|
         format.json { render json: @card.to_json( include: :members) , status: 200}
       end
@@ -15,7 +17,15 @@ class CardsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
+    activity_params = {}
+    if @card.title != card_params[:title]
+      activity_params["title"] = card_params[:title]
+    end
+    if @card.description != card_params[:description]
+      activity_params["description"] = card_params[:description]
+    end
     if @card.update(card_params)
+      create_activity(@card, activity_params)
       respond_to do |format|
         format.json {render json: @card.to_json( include: :members) , status: 200}
       end
@@ -39,4 +49,25 @@ class CardsController < ApplicationController
     params.require(:card).permit(:title, :description)
   end
 
+  def create_activity(card, params)
+     if params == "create"
+       card.activities.create({
+          user_id: card.user_id,
+          list_id: card.list_id,
+          board_id: card.board_id,
+          card_id: card.id,
+          action: "added this card to the #{@card.board.title} board"
+          })
+     else
+       params.each do |key, value|
+         card.activities.create({
+          user_id: card.user_id,
+          list_id: card.list_id,
+          board_id: card.board_id,
+          card_id: card.id,
+          action: "changed the #{key} of this card to #{value.to_s}"
+          })
+       end
+     end
+  end
 end

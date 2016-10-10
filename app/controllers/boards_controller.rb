@@ -34,7 +34,7 @@ class BoardsController < ApplicationController
       format.json { render json: @board.to_json( include: {
                                   :lists => {
                                     include: { :cards => {
-                                      include: :members
+                                      include: [:members, :activities]
                                       }
                                     } 
                                   }

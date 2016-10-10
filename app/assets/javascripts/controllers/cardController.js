@@ -8,10 +8,11 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
       }); 
 
  $scope.card = card;
+ console.log($scope.card)
  $scope.list = list;
  $scope.memberships = memberships;
- console.log($scope.memberships);
- Restangular.restangularizeCollection(null, card.members, 'members');
+ Restangular.restangularizeCollection(null, $scope.card.members, 'members');
+ Restangular.restangularizeCollection(null, $scope.card.activities, 'activities');
 
 
 // populate list of members to potentially add
@@ -106,6 +107,10 @@ djello.controller('CardCtrl', ['$scope', 'close', 'card', 'list', '$timeout', 'M
       return (membership.user_id == memID && membership.card_id == $scope.card.id)
     });
     MemberService.removeMember(membership.id); 
+  }
+
+  $scope.getUserName = function(id){
+    return MemberService.getUser(id);
   }
 
 }]);
