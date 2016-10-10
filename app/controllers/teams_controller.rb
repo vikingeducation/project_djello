@@ -20,7 +20,7 @@ class TeamsController < ApplicationController
       @board = Board.find_by_id(params[:board_id])
       if @board && @board.team
         respond_to do |format|
-          format.json { render json: @board.team, status: 200 }
+          format.json { render json: @board.team.to_json(include: :users), status: 200 }
         end
       end
     end

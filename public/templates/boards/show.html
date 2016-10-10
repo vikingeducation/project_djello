@@ -9,7 +9,7 @@
 
 {{board.team_id}}
 
-{{team.name}}
+<span class="float-right large">Team: {{team.name}}</span>
 
 <h1>{{board.title}}</h1>
 <p>{{board.description}}</p>
@@ -67,7 +67,7 @@
     <div class="content-center">
       <button class="btn btn-sm btn-danger" ng-click="deleteList(list)">Delete list</button>
 
-      <button class="btn btm-sm btn-default" ng-click="showNewCardModal(list)">Add Card</button>
+      <button class="btn btm-sm btn-default" ng-click="showNewCardModal(list, team)">Add Card</button>
     </div>
   </div>
 </div>

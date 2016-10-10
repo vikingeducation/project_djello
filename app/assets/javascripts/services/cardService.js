@@ -3,14 +3,23 @@ app.factory("cardService", ["Restangular", function(Restangular) {
 
   var _cards = []
 
-  var _createCard = function(list, newCard) {
+  var _createCard = function(list, newCard, teamMembers) {
+    var selectedMembers = []
+    if (newCard.members.length) {
+      for (var i = 0; i < newCard.members.length; i++) {
+        var thisMember = newCard.members[i]
+        if (thisMember) {
+          selectedMembers.push(teamMembers[i])
+        }
+      }
+    }
     return Restangular.one("lists", list.id).all('cards').post({
       card: {
         title: newCard.title,
-        text: newCard.text
+        text: newCard.text, 
+        members: selectedMembers
       }
     }).then(function(response) {
-      console.log(response)
       _cards.push(response)
       return _cards
     })
@@ -21,8 +30,8 @@ app.factory("cardService", ["Restangular", function(Restangular) {
     return collection
   })
 
-  cardService.create = function(list, newCard) {
-    return _createCard(list, newCard)
+  cardService.create = function(list, newCard, teamMembers) {
+    return _createCard(list, newCard, teamMembers)
   }
 
   cardService.editTitle = function(card, newTitle, list) {

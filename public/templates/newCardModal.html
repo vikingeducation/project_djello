@@ -13,6 +13,12 @@
           <input class="form-control" type="text" name="title" ng-model="newCard.title" placeholder="Some task...">
           <label>Text</label>
           <textarea class="form-control" type="text" name="text" ng-model="newCard.text" placeholder="Some more details..."></textarea>
+          <label>Assign Members</label>
+          <div ng-repeat="member in teamMembers">
+            <input type="checkbox" ng-model="newCard.members[$index]">
+              {{member.email}} 
+            </div>
+
         </form>
       </div>
       <div class="modal-footer">

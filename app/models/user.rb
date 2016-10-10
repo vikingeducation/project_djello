@@ -8,4 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :team_users
   has_many :teams, through: :team_users
+
+  has_many :card_users
+  has_many :cards, through: :card_users
 end

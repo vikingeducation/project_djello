@@ -100,16 +100,20 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     })
   }
 
-  $scope.showNewCardModal = function(list) {
+  $scope.showNewCardModal = function(list, team) {
     ModalService.showModal({
       templateUrl: "templates/newCardModal.html",
       controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
 
         $scope.list = list
         $scope.newCard = {}
+        $scope.newCard.members = []
+        $scope.teamMembers = []
+
+        angular.copy(team.users, $scope.teamMembers)
 
         $scope.handleNewCardForm = function() {
-          cardService.create(list, $scope.newCard).then(function(response) {
+          cardService.create(list, $scope.newCard, $scope.teamMembers).then(function(response) {
           })
           $scope.close(true, 200);
         }
