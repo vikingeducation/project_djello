@@ -14,6 +14,7 @@ gem 'sprockets'
 gem 'sprockets-es6'
 gem 'active_record_union'
 gem 'hirb'
+gem 'public_activity'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'

@@ -1,4 +1,15 @@
 class Card < ApplicationRecord
+  # Public activity gem. Track activity involving Card model.
+  include PublicActivity::Model
+  tracked owner: -> (controller,model) { controller && controller.current_user }
+  tracked params: {
+    title: proc { |controller, model| model.title },
+    body: proc { |controller, model| model.body },
+    completed: proc { |controller, model| "as completed" if model.completed },
+    list: proc { |controller, model| model.list.title },
+    board: proc { |controller, model| model.list.board.title }
+  }
+
   belongs_to :author, foreign_key: 'user_id', class_name: 'User'
   belongs_to :list
 
