@@ -19,6 +19,5 @@
 //= require restangular.min
 //= require modal.min
 //= require angular-devise
-//= require angular-route.js
 
 //= require_tree .

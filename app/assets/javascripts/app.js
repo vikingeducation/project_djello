@@ -1,8 +1,8 @@
-var app = angular.module("djello", ['ui.router', 'restangular', 'angularModalService', 'Devise', 'ngRoute']);
+var app = angular.module("djello", ['ui.router', 'restangular', 'angularModalService', 'Devise']);
 
-app.config(function($urlRouterProvider, $stateProvider) {
+app.config(function($stateProvider) {
 
-  $urlRouterProvider.otherwise("/boards")
+  // $urlRouterProvider.otherwise("/boards")
 
   $stateProvider
 
