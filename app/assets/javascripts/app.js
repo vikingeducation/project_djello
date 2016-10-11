@@ -52,7 +52,7 @@ app.config(
     })
 }])
 
-// ERROR HANDLING
-app.run(function($rootScope){
-  $rootScope.$on("$stateChangeError", console.log.bind(console));
-});
+// // ERROR HANDLING
+// app.run(function($rootScope){
+//   $rootScope.$on("$stateChangeError", console.log.bind(console));
+// });
