@@ -103,7 +103,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.showNewCardModal = function(list, team) {
     ModalService.showModal({
       templateUrl: "templates/newCardModal.html",
-      controller: ["$scope", "cardService", "listsService", "$", "close", function($scope, cardService, listsService, $, close) {
+      controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
 
         $scope.list = list
         $scope.newCard = {}
@@ -131,7 +131,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
             _setList();
           })
         }
-        $('.modal-backdrop').remove()
+        // $('.modal-backdrop').remove()
       })
     })
   }
@@ -139,7 +139,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.showCard = function(card, list, team) {
     ModalService.showModal({
       templateUrl: "templates/cardShowModal.html", 
-      controller: ["$scope", "cardService", "$", "listsService", "membersService", "close", function($scope, cardService, $, listsService, membersService, close) {
+      controller: ["$scope", "cardService", "listsService", "membersService", "close", function($scope, cardService, listsService, membersService, close) {
 
         $scope.teamMembers = []
         angular.copy(team.users, $scope.teamMembers)
@@ -221,7 +221,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(response) {
-        $('.modal-backdrop').remove()
+        // $('.modal-backdrop').remove()
       })
     })
   }
