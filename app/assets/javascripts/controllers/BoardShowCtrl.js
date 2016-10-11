@@ -103,7 +103,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.showNewCardModal = function(list, team) {
     ModalService.showModal({
       templateUrl: "templates/newCardModal.html",
-      controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
+      controller: ["$scope", "cardService", "listsService", "$", "close", function($scope, cardService, listsService, $, close) {
 
         $scope.list = list
         $scope.newCard = {}
@@ -139,7 +139,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.showCard = function(card, list, team) {
     ModalService.showModal({
       templateUrl: "templates/cardShowModal.html", 
-      controller: ["$scope", "cardService", "listsService", "membersService", "close", function($scope, cardService, listsService, membersService, close) {
+      controller: ["$scope", "cardService", "$", "listsService", "membersService", "close", function($scope, cardService, $, listsService, membersService, close) {
 
         $scope.teamMembers = []
         angular.copy(team.users, $scope.teamMembers)
