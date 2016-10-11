@@ -38,7 +38,8 @@ function ($timeout, NotificationService) {
         }, 2000);
 
       };
-
+      
+      // Restangular's setErrorInterceptor, setResponseInterceptor
     }
   };
 
