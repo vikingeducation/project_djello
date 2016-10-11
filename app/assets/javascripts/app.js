@@ -1,9 +1,9 @@
 var app = angular.module('djelloApp',
 ['ui.router', 'restangular', 'Devise', 'angularSlideables', 'ngAnimate']);
 
-app.run(function($rootScope){
+app.run([function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
-});
+}]);
 
 app.factory('_', ['$window', function($window) {
   return $window._;
