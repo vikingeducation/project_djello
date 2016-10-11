@@ -18,15 +18,14 @@ app.directive('createBoardPanel',
         return response;
       };
 
-      scope.logError = function(reason) {
-        console.log('ERROR!! Reason:');
-        console.log(reason);
+      scope.emitSuccess = function(response) {
+        scope.$emit('boards.notices', 'success');
       };
 
       scope.submitForm = function() {
         BoardService.create(scope.boardForm)
           .then(scope.resetForm)
-          .catch(scope.logError);
+          .then(scope.emitSuccess);
       };
     }
   };

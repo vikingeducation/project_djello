@@ -1,4 +1,6 @@
-app.directive('notification', ['$timeout', function ($timeout) {
+app.directive('notification',
+['$timeout', 'NotificationService',
+function ($timeout, NotificationService) {
 
   return {
     restrict: 'A',
@@ -6,28 +8,37 @@ app.directive('notification', ['$timeout', function ($timeout) {
       noticeData: '='
     },
     link: function(scope, element) {
-      element.hide();
+      // have your flash always there at the top of the screen
+      // attach an ng-if (it'll be removed based on a boolean)
+      // you want an object where each key is the notification type
+      // object will have an array of notifications of that type
 
-      switch (scope.noticeData.status) {
-        case 'success':
-          element.text('Success!! (' + scope.noticeData.type + ")");
-          element.addClass('alert alert-success');
-          break;
-        case 'failure':
-          element.text('Failed.. (' + scope.noticeData.type + ")");
-          element.addClass('alert alert-danger');
-          break;
-        case 'timeout':
-          element.text('Timed out. (' + scope.noticeData.type + ")");
-          element.addClass('alert alert-warning');
-          break;
-      }
+      scope.raiseNotice = function (data) {
+        element.hide();
 
-      element.fadeIn('slow');
+        switch (data.status) {
+          case 'success':
+            element.text('Success!! (' + data.type + ")");
+            element.addClass('alert alert-success');
+            break;
+          case 'failure':
+            element.text('Failed.. (' + data.type + ")");
+            element.addClass('alert alert-danger');
+            break;
+          case 'timeout':
+            element.text('Timed out. (' + data.type + ")");
+            element.addClass('alert alert-warning');
+            break;
+        }
 
-      $timeout(function() {
-        element.fadeOut('slow');
-      }, 2000);
+        element.fadeIn('slow');
+
+        $timeout(function() {
+          element.fadeOut('slow');
+        }, 2000);
+
+      };
+
     }
   };
 

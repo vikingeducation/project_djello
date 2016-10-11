@@ -1,12 +1,9 @@
 app.controller('BoardsIndexCtrl',
-['$scope', 'boardsData', 'usersData', 'BoardService',
-function($scope, boardsData, usersData, BoardService) {
+['$scope', 'boardsData', 'usersData', 'BoardService', 'noticeData',
+function($scope, boardsData, usersData, BoardService, noticeData) {
 
   $scope.boardsData = boardsData;
   $scope.usersData = usersData;
-
-  $scope.refreshBoards = function(data) {
-    $scope.boardsData = data;
-  };
+  $scope.noticeData = noticeData;
 
 }]);

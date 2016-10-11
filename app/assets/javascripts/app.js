@@ -38,6 +38,10 @@ app.config(
           }],
           usersData: ['UserService', function(UserService) {
             return UserService.all();
+          }],
+          noticeData:
+          ['NotificationService', function(NotificationService) {
+            return NotificationService.getNoticeData();
           }]
         }
       })
@@ -67,6 +71,10 @@ app.config(
           usersData:
           ['UserService', function(UserService) {
             return UserService.all();
+          }],
+          noticeData:
+          ['NotificationService', function(NotificationService) {
+            return NotificationService.getNoticeData();
           }]
         }
       });

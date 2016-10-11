@@ -1,5 +1,6 @@
 app.factory('BoardService',
-['Restangular', '_', function(Restangular,_) {
+['Restangular', '_', 'NotificationService',
+function(Restangular,_, NotificationService) {
 
   var BoardService = {};
   var _data = {
@@ -22,6 +23,7 @@ app.factory('BoardService',
         _data.status = 'timeout';
         break;
     }
+    NotificationService.addTimeout(_data);
     return _data;
   }
 
@@ -39,6 +41,7 @@ app.factory('BoardService',
 
   function _addBoard(response) {
     _data.cache.push(response);
+    NotificationService.addSuccess(_data);
     return response;
   }
 
@@ -81,8 +84,8 @@ app.factory('BoardService',
   BoardService.create = function (formParams) {
     return Restangular.all('boards')
       .post({board: formParams })
-      .then(_addBoard)
-      .catch(_logError);
+      .catch(_logError)
+      .then(_addBoard,_errorStatus);
   };
 
   BoardService.destroy = function(board) {
