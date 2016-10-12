@@ -29,9 +29,3 @@ app.directive('usersSearchbar',
     }
   };
 }]);
-
-
-// pts = num of points completed in a day
-// velocity = (total pts completed / days completed)
-// ptsRemain = total pts - total pts completed
-// if ((velocity * days remaining) < ptsRemain) { good }
