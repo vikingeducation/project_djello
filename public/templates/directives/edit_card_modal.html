@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="{{card.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{vm.card.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -12,14 +12,14 @@
         class="btn btn-secondary"
         id="myModalLabel"
         type='text'
-        ng-model='cardForm.title'
-        ng-blur='submitEditForm()'
-        placeholder="{{ card.title }}">
+        ng-model='vm.cardForm.title'
+        ng-blur='vm.submitEditForm()'
+        placeholder="{{ vm.card.title }}">
         </div>
 
         <div class="modal-body">
           <h5>Members</h5>
-          <ul style="list-style: none;" ng-repeat="member in membersCache['card'][card.id]">
+          <ul style="list-style: none;" ng-repeat="member in vm.membersCache['card'][vm.card.id]">
             <li>{{ member.username }}</li>
           </ul>
 
@@ -28,21 +28,21 @@
 
           <!-- Use the ng-if trick to make your directive wait for async data. -->
           <input
-          ng-if='searchDependencies'
+          ng-if='vm.searchDependencies'
           users-searchbar
           class='typeahead form-control'
           type='text'
-          collection='searchDependencies.collection'
-          parent='searchDependencies.parent'
-          parent-type='searchDependencies.parentType'
-          search-key='searchDependencies.searchKey'>
+          collection='vm.searchDependencies.collection'
+          parent='vm.searchDependencies.parent'
+          parent-type='vm.searchDependencies.parentType'
+          search-key='vm.searchDependencies.searchKey'>
 
-          <a style='cursor:pointer' ng-click='addMember()'>
+          <a style='cursor:pointer' ng-click='vm.addMember()'>
             add member
           </a><br><br>
 
           <h5>Activity</h5>
-          <ul style='list-style: none;' ng-repeat="activity in card.activities | orderBy:'-created_at'">
+          <ul style='list-style: none;' ng-repeat="activity in vm.card.activities | orderBy:'-created_at'">
             <card-activity-panel activity='activity'></card-activity-panel>
           </ul>
         </div>

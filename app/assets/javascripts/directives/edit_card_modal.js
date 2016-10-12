@@ -1,54 +1,51 @@
-app.directive('editCardModal',
-['CardService',
-'MemberService',
-'UserService',
+app.controller('editCardModalCtrl',
+['CardService', 'MemberService', 'UserService',
 function(CardService, MemberService, UserService) {
-  return {
-    restrict: 'E',
-    templateUrl: 'templates/directives/edit_card_modal.html',
-    scope: {
-      card: '=',
-      usersData: '='
-    },
-    link: function (scope, element) {
-      // Dependencies for user search.
-      scope.searchDependencies = {
-        parent: scope.card,
-        parentType: 'card',
-        collection: scope.usersData,
-        searchKey: 'username'
-      };
-
-      MemberService.all(scope.card.id, scope.searchDependencies.parentType)
-        .then(function(data) {
-          scope.membersCache = data;
-        });
-
-      // Have to separate form data from model so as not to have two-way
-      // binding.
-      scope.cardForm = {
-        id: scope.card.id,
-        title: scope.card.title,
-        body: scope.card.body,
-        completed: scope.card.completed
-      };
-
-      // See edit-card-body directive.
-      scope.bodyEditState = false;
-
-      scope.submitEditForm = function () {
-        CardService.update(scope.cardForm);
-        scope.bodyEditState = false;
-      };
-
-      scope.addMember = function () {
-        MemberService.create({
-          parent_id: scope.card.id,
-          parent_type: 'card',
-          username: UserService.getSuggestion()
-        });
-      };
-    }
+  var vm = this;
+  vm.searchDependencies = {
+    parent: vm.card,
+    parentType: 'card',
+    collection: vm.usersData,
+    searchKey: 'username'
   };
 
+  MemberService.all(vm.card.id, vm.searchDependencies.parentType)
+    .then(function(data) {
+      vm.membersCache = data;
+    });
+
+  // Have to separate form data from model so as not to have two-way
+  // binding.
+  vm.cardForm = {
+    id: vm.card.id,
+    title: vm.card.title,
+    body: vm.card.body,
+    completed: vm.card.completed
+  };
+
+  // See edit-card-body directive.
+  vm.bodyEditState = false;
+
+  vm.submitEditForm = function () {
+    CardService.update(vm.cardForm);
+    vm.bodyEditState = false;
+  };
+
+  vm.addMember = function () {
+    MemberService.create({
+      parent_id: vm.card.id,
+      parent_type: 'card',
+      username: UserService.getSuggestion()
+    });
+  };
 }]);
+
+app.component('editCardModal',{
+  controller: 'editCardModalCtrl',
+  controllerAs: 'vm',
+  bindings: {
+    card: '=',
+    usersData: '='
+  },
+  templateUrl: 'templates/directives/edit_card_modal.html',
+});

@@ -1,3 +1,6 @@
+// Directives still important to manipulate DOM.
+// Controller should never have knowledge of the DOM.
+
 app.directive('usersSearchbar',
 ['UserService', 'MemberService', function(UserService, MemberService) {
   return {
@@ -14,7 +17,6 @@ app.directive('usersSearchbar',
       // Need to pass copy of collection for data set, not actual object
       // in memory.
 
-
       // Setup typeahead and configure bloodhound.
       UserService.ttSetup(scope.collection.cache,
                           element,
@@ -27,3 +29,9 @@ app.directive('usersSearchbar',
     }
   };
 }]);
+
+
+// pts = num of points completed in a day
+// velocity = (total pts completed / days completed)
+// ptsRemain = total pts - total pts completed
+// if ((velocity * days remaining) < ptsRemain) { good }
