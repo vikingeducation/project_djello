@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   
   get 'home' => 'static_pages#index', as: :spa
+  
   devise_for :users, :controllers => { registrations: 'registrations' }
+  
+  resources :users, only: [:index, :show] do 
+    resources :boards
+  end
 
   devise_scope :user do 
     root 'devise/sessions#new'

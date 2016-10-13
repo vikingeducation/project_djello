@@ -22,6 +22,27 @@ app.config([
 
 
 
+app.config(function($stateProvider, $urlRouterProvider){
+
+  $urlRouterProvider.otherwise("/");
+
+  $stateProvider
+    .state("boards", {
+      url: "/",
+      abstract: true,
+      template: '<div ui-view></div>'
+    })
+
+
+    .state("boards.index", {
+      url: "", 
+      templateUrl: "/templates/boards/index.html",
+      controller: "BoardsCtrl"
+    })
+})
+
+
+
 
 
 
