@@ -5,3 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Board.destroy_all
+
+
+titles = ["Todo", "Foo Project", "Baz Project"]
+descriptions = ["This is our todo list project management board", "Project management for Foo project", "Manage all tasks for Baz project"]
+
+puts "creating boards"
+(0..2).each do |i|
+
+  b = Board.new(title: titles[i], description: descriptions[i], user_id: 1)
+  b.save!
+
+end

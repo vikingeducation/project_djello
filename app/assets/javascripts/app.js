@@ -39,6 +39,12 @@ app.config(function($stateProvider, $urlRouterProvider){
       templateUrl: "/templates/boards/index.html",
       controller: "BoardsCtrl"
     })
+
+    .state("boards.show", {
+      url: "/:id",
+      templateUrl: "/templates/boards/show.html",
+      controller: "BoardCtrl"
+    })
 })
 
 
