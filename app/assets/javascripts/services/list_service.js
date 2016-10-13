@@ -11,6 +11,12 @@ app.factory("listService", ['Restangular', function(Restangular){
     return Restangular.one('lists', id).remove();
   };
 
+  service.updateList = function(listData, id){
+    var list = { list: listData };
+    gooy = list;
+    return Restangular.one('lists', id).patch(list);
+  };
+
   return service;
 
 }])

@@ -54,14 +54,14 @@
 <div class="row">
   <div class="col-md-3" ng-repeat="list in lists">
     <div class="list">
-      <div class="info" ng-if="!list.editing">
-        <h1 ng-click="toggleEditList(list)">{{ list.title }}</h1>
-        <p ng-click="toggleEditList(list)">{{ list.description }}</p>
+      <div class="info" ng-hide="list.editing">
+        <h1 ng-click="toggleEditList(list, $event)">{{ list.title }}</h1>
+        <p ng-click="toggleEditList(list, $event)">{{ list.description }}</p>
       </div>
 
-      <div class="info" ng-if="list.editing">
-        <h1><input type="text" placeholder="{{ list.title }}" ng-model="inplaceForm.text" class="inplace-title"></h1>
-        <p><input type="text" placeholder="{{ list.description }}" ng-model="inplaceForm.description" class="inplace-description"></p>
+      <div class={{listFormClass(list.id)}} ng-hide="!list.editing">
+        <h1><input type="text" placeholder="{{ list.title }}" value={{list.title}} ng-model="inplaceForm.title" class="inplace-title"></h1>
+        <p><input type="text" placeholder="{{ list.description }}" value={{list.description}} ng-model="inplaceForm.description" class="inplace-description"></p>
       </div>
 
       <a ng-click="deleteList(list, $index)">Delete List</a>
