@@ -1,4 +1,4 @@
-app.controller("BoardsCtrl", ['$scope', 'boardService', function($scope, boardService){
+app.controller("BoardsCtrl", ['$scope', 'boardService', '$state', function($scope, boardService, $state){
 
 
   $scope.boards = boardService.getBoards().$object;
@@ -19,6 +19,10 @@ app.controller("BoardsCtrl", ['$scope', 'boardService', function($scope, boardSe
 
     $scope.form = {};
     $scope.creatingBoard = false;
+  };
+
+  $scope.showBoard = function(id){
+    $state.go("boards.show", { id: id });
   };
 
 
