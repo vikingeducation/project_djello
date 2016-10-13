@@ -1,0 +1,4 @@
+Select Board:
+<select ng-model="selectedId" ng-change="showBoard(selectedId)">
+  <option ng-repeat="board in boards" value={{board.id}}>{{board.title}}</option>
+</select>

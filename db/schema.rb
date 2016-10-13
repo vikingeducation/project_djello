@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013124028) do
+ActiveRecord::Schema.define(version: 20161013152152) do
 
   create_table "boards", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 20161013124028) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "lists", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "lists", ["board_id"], name: "index_lists_on_board_id"
+  add_index "lists", ["user_id"], name: "index_lists_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

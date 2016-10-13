@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   
   resources :boards
+  resources :lists
 
   devise_scope :user do 
     root 'devise/sessions#new'
