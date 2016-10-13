@@ -11,7 +11,11 @@ app.controller("BoardsCtrl", ['$scope', 'boardService', function($scope, boardSe
   };  
 
   $scope.createBoard = function(){
-    boardService.createBoard($scope.form);
+    boardService.createBoard($scope.form).then(function(response){
+      $scope.boards.push(response);
+    }, function(){
+      console.log("create board request failed");
+    });
 
     $scope.form = {};
     $scope.creatingBoard = false;
