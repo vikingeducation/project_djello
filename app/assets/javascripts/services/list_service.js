@@ -7,6 +7,10 @@ app.factory("listService", ['Restangular', function(Restangular){
     return Restangular.all("lists").post(list);
   };
 
+  service.deleteList = function(id){
+    return Restangular.one('lists', id).remove();
+  };
+
   return service;
 
 }])

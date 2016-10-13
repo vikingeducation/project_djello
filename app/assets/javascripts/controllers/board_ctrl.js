@@ -31,6 +31,17 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
     });
 
     $scope.listForm = {};
-  }
+    $scope.toggleCreatingList();
+  };
+
+  $scope.deleteList = function(list, index){
+    listService.deleteList(list.id).then(function(){
+      $scope.lists.splice(index, 1);
+    }, function(){
+      console.log("couldn't delete list");
+    });
+
+
+  };
 
 }]);
