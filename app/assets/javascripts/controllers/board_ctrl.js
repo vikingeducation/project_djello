@@ -44,4 +44,15 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
 
   };
 
+
+
+  $scope.inplaceForm = {};
+
+  $scope.toggleEditList = function(list){
+    list.editing = !list.editing;
+  }
+
+
+  //When to submit form
+
 }]);

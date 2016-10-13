@@ -54,13 +54,21 @@
 <div class="row">
   <div class="col-md-3" ng-repeat="list in lists">
     <div class="list">
-      <h1>{{ list.title }}</h1>
-      <p>{{ list.description }}</p>
+      <div class="info" ng-if="!list.editing">
+        <h1 ng-click="toggleEditList(list)">{{ list.title }}</h1>
+        <p ng-click="toggleEditList(list)">{{ list.description }}</p>
+      </div>
+
+      <div class="info" ng-if="list.editing">
+        <h1><input type="text" placeholder="{{ list.title }}" ng-model="inplaceForm.text" class="inplace-title"></h1>
+        <p><input type="text" placeholder="{{ list.description }}" ng-model="inplaceForm.description" class="inplace-description"></p>
+      </div>
 
       <a ng-click="deleteList(list, $index)">Delete List</a>
     </div>
   </div>
 
+  <!-- add a list form -->
   <div class="col-md-3">
     <a ng-click="toggleCreatingList()" ng-if="!creatingList">Add a List</a>
     <a ng-click="toggleCreatingList()" ng-if="creatingList">Hide Form</a>
