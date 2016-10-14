@@ -8,7 +8,7 @@
       <select-board></select-board>
 
 
-      
+      <!-- create board section which isn't event functional here yet -->
       <a ng-click="toggleCreating()" ng-if="!creatingBoard">New Board</a>
       <a ng-click="toggleCreating()" ng-if="creatingBoard">Hide Form</a>
 
@@ -50,13 +50,13 @@
   </div>
 </div>
 
-
+<!-- lists section could use new ctrl and directive -->
 <div class="row">
   <div class="col-md-3" ng-repeat="list in lists">
     <div class="list">
-      <div class="info" ng-hide="list.editing">
-        <h1 ng-click="toggleEditList(list, $event)">{{ list.title }}</h1>
-        <p ng-click="toggleEditList(list, $event)">{{ list.description }}</p>
+      <div class="list-info" ng-hide="list.editing">
+        <h1 ng-click="toggleEditList(list, $event)" class="text-center">{{ list.title }}</h1>
+        <p ng-click="toggleEditList(list, $event)" class="text-center">{{ list.description }}</p>
       </div>
 
       <div class={{listFormClass(list.id)}} ng-hide="!list.editing">
@@ -67,9 +67,11 @@
       <!-- use a cards directive with a cards controller with the list bound by 2 way binding -->
       <cards list="list"></cards>
 
-      <a ng-click="deleteList(list, $index)">Delete List</a>
+      <a ng-click="deleteList(list, $index)" class="text-center">Delete List</a>
     </div>
   </div>
+
+  
 
   <!-- add a list form -->
   <div class="col-md-3">

@@ -6,7 +6,7 @@ class ListsController < ApplicationController
 
     if @list.save
       respond_to do |format|
-        format.json { render json: @list }
+        format.json { render json: @list.to_json(include: :cards) }
       end
     else
       respond_to do |format|
@@ -31,7 +31,7 @@ class ListsController < ApplicationController
 
     if @list.update(list_params)
       respond_to do |format|
-        format.json { render json: @list }
+        format.json { render json: @list.to_json(include: :cards) }
       end
     else
       respond_to do |format|
