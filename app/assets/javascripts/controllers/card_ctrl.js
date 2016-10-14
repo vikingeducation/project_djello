@@ -1,6 +1,9 @@
 app.controller("CardCtrl", ['$scope', 'close', 'card', 'memberService', function($scope, close, card, memberService){
 
+  // DISPLAY ACTIVITY
+
   $scope.card = card;
+  $scope.activities = $scope.card.activities 
 
   //get all users for add membership form
   memberService.getUsers().then(function(response){
@@ -13,15 +16,27 @@ app.controller("CardCtrl", ['$scope', 'close', 'card', 'memberService', function
   $scope.editingDescription = false;
 
   $scope.updateTitle = function(){
-    // $scope.$apply(function(){
-      $scope.editingTitle = false;
-    // })
-    $scope.card.patch();
+    $scope.editingTitle = false;
+   
+    $scope.card.patch().then(function(response){
+      $scope.activities = response.activities;
+      
+      
+    }, function(){
+      console.log("could not update card");
+    });
   };
 
   $scope.updateDescription = function(){
     $scope.editingDescription = false;
-    $scope.card.patch();
+    $scope.card.patch()
+    .then(function(response){
+      $scope.activities = response.activities;
+      
+      
+    }, function(){
+      console.log("could not update card");
+    });
   };
 
   $scope.markCompleted = function(){
@@ -31,7 +46,7 @@ app.controller("CardCtrl", ['$scope', 'close', 'card', 'memberService', function
     $scope.closeCard("result");
   };
 
-  
+
 
   $scope.addMember = function(){
     var data = { card_id: $scope.card.id, user_id: $scope.selectedUserId };
