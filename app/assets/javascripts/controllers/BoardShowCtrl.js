@@ -131,7 +131,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
             _setList();
           })
         }
-        // $('.modal-backdrop').remove()
+        $('.modal-backdrop').remove()
       })
     })
   }
@@ -221,7 +221,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(response) {
-        // $('.modal-backdrop').remove()
+        $('.modal-backdrop').remove()
       })
     })
   }

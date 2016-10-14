@@ -2,7 +2,7 @@ var app = angular.module("djello", ['ui.router', 'restangular', 'angularModalSer
 
 app.config(["$urlRouterProvider", "$stateProvider", function($urlRouterProvider, $stateProvider) {
 
-  $urlRouterProvider.otherwise("/boards");
+  $urlRouterProvider.otherwise("/boards")
 
   $stateProvider
 
@@ -52,7 +52,7 @@ app.config(
     })
 }])
 
-// // ERROR HANDLING
+// ERROR HANDLING
 // app.run(function($rootScope){
 //   $rootScope.$on("$stateChangeError", console.log.bind(console));
 // });
