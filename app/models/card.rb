@@ -5,4 +5,6 @@ class Card < ActiveRecord::Base
   has_many :members, through: :card_memberships, 
                      class_name: "User", 
                      source: :user
+
+  has_many :activities
 end

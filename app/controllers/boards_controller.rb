@@ -15,16 +15,16 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @board.to_json(include: {
-                                                    lists: {
-                                                       include: {
-                                                          cards: {
-                                                            include: :members  
-                                                          }
-                                                        } 
-                                                      
-                                                      }
+                                              lists: {
+                                                 include: {
+                                                    cards: {
+                                                      include: [:members, :activities]  
                                                     }
-                                                    )}
+                                                  } 
+                                                
+                                                }
+                                              }
+                                              )}
     end
 
   end
@@ -38,7 +38,7 @@ class BoardsController < ApplicationController
                                                     lists: {
                                                        include: {
                                                           cards: {
-                                                            include: :members  
+                                                            include: [:members, :activities]  
                                                           }
                                                         } 
                                                       

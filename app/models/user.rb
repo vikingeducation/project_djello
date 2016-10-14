@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   has_many :lists
 
   has_many :card_memberships
+  has_many :activities
 end
