@@ -1,4 +1,4 @@
-app.controller("CardsCtrl", ['$scope', '$state', 'cardService', function($scope, $state, cardService){
+app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 'Restangular', function($scope, $state, cardService, ModalService, Restangular){
 
   
   $scope.cards = $scope.list.cards;
@@ -19,6 +19,31 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', function($scope,
       $scope.creatingCard = false;
       $scope.cardForm = {};
     })
+  };
+
+  $scope.showCard = function(card) {
+    Restangular.restangularizeElement(null, card, 'cards');
+    // Just provide a template url, a controller and call 'showModal'.
+    ModalService.showModal({
+      templateUrl: "/templates/cards/card.html",
+      controller: "CardCtrl",
+      inputs: {
+        card: card
+      }
+    }).then(function(modal) {
+      // The modal object has the element built, if this is a bootstrap modal
+      // you can call 'modal' to show it, if it's a custom modal just show or hide
+      // it as you need to.
+      
+
+      //not showing the modal
+      // $(modal.element).show();
+      modal.element.modal();
+      modal.close.then(function(result) {
+        console.log("modal closed");
+      });
+    });
+
   };
 
 }]);

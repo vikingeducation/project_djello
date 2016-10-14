@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'restangular']);
+var app = angular.module('app', ['ui.router', 'restangular', 'angularModalService']);
 
 
 
