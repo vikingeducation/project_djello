@@ -2,7 +2,7 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
 
 
   
-
+  //get the board and its lists to start things off
   boardService.getBoard($stateParams.id).then(function(response){
     $scope.board = response;
 
@@ -57,15 +57,13 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
   $scope.toggleEditList = function(list, event){
     // its not selecting because using ng-if makes it not available yet
     event.stopPropagation();
-    console.log(list.id);
     var query = ".list-edit-" + list.id;
-    console.log(query);
     var $ignore = $(query);
-    rocketbooster = $ignore;
+    
 
     if(list.editing){
       list.editing = false;
-      console.log("listeners off");
+      //turn listeners off
       $ignore.off('click');
       $(document).off('click');
 
@@ -79,8 +77,6 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
 
           var editListIndex;
           $scope.lists.forEach(function(l, index){
-            fooy = l;
-            loy = index;
             if($scope.lists[index].id === list.id){
               editListIndex = index;
             }
@@ -121,6 +117,9 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
     }
     
   }//end toggle list
+
+
+  
 
 
   //When to submit form

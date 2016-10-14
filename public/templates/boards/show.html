@@ -64,6 +64,9 @@
         <p><input type="text" placeholder="{{ list.description }}" value={{list.description}} ng-model="inplaceForm.description" class="inplace-description"></p>
       </div>
 
+      <!-- use a cards directive with a cards controller with the list bound by 2 way binding -->
+      <cards list="list"></cards>
+
       <a ng-click="deleteList(list, $index)">Delete List</a>
     </div>
   </div>
