@@ -38,7 +38,9 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
       //not showing the modal
       // $(modal.element).show();
-      modal.element.modal();
+      foofy = modal.element;
+      // modal.element.modal();
+      $(".modal").modal();
       modal.close.then(function(result) {
         console.log("modal closed");
       });

@@ -13,18 +13,23 @@ app.controller("CardCtrl", ['$scope', 'close', 'card', function($scope, close, c
   };
 
   $scope.updateDescription = function(){
-    // $scope.$apply(function(){
-      $scope.editingDescription = false;
-    // })
+    $scope.editingDescription = false;
     $scope.card.patch();
   };
 
-  // $scope.form = {};
-  // $scope.form.title = $scope.card.title;
-  // $scope.form.description = $scope.card.description;
+  $scope.markCompleted = function(){
+    $scope.card.completed = true;
+    $scope.card.patch();
+
+    $scope.closeCard("result");
+  }
+
+  
 
   $scope.closeCard = function(result){
-    close(result, 300);
+    close(result, 1);
+    //get rid of persistent modal backdrop
+    $(".modal-backdrop").remove();
   };
 
   // handling inplace editing

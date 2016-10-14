@@ -1,5 +1,5 @@
 <div class="cards">
-  <div class="row" ng-repeat="card in cards">
+  <div class="row" ng-repeat="card in cards | filter:{completed: false}">
     <div class="col-xs-12">
       <div class="card">
         <h3 ng-click="showCard(card)">{{ card.title }}</h3>

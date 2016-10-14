@@ -1,12 +1,12 @@
-<div id="cardModal" class="modal fade" role="dialog">
+<div class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
+    
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" ng-show="!editingTitle === true" ng-click="toggleTitle($event)">{{ card.title }}</h4>
-        <!-- inplace title form -->
+        
         <div class="edit-title" ng-show="editingTitle === true">
           <h4 class="modal-title"><input type="text" ng-model="card.title" value={{card.title}}></h4>
 
@@ -25,6 +25,11 @@
 
       <div class="modal-header">
         <h5>Members</h5>
+      </div>
+
+
+      <div class="modal-body">
+        <a ng-click="markCompleted()">Mark Completed</a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
