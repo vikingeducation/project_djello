@@ -1,4 +1,4 @@
-app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listService', function($scope, boardService, $stateParams, listService){
+app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listService', '_', function($scope, boardService, $stateParams, listService, _){
 
 
   
@@ -45,7 +45,7 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
   };
 
 
-
+  //this is the form for an inplace list
   $scope.inplaceForm = {};
 
   $scope.listFormClass = function(id){
@@ -55,71 +55,74 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
 
   //this enables/disables listeners for inplace editing and toggles editing attribute
   $scope.toggleEditList = function(list, event){
-    // its not selecting because using ng-if makes it not available yet
-    event.stopPropagation();
-    var query = ".list-edit-" + list.id;
-    var $ignore = $(query);
-    
-
-    if(list.editing){
-      list.editing = false;
-      //turn listeners off
-      $ignore.off('click');
-      $(document).off('click');
-
-    } else {
-      list.editing = true;
-      console.log("set listeners");
+    //only do this if the count of lists with editing === true is 0
+    if(_.findIndex($scope.lists, { editing: true }) === -1){
+      event.stopPropagation();
+      var query = ".list-edit-" + list.id;
+      var $ignore = $(query);
       
-      $(document).on('click', function(event) {
-        boot = $scope.inplaceForm;
-        listService.updateList($scope.inplaceForm, list.id).then(function(response){
 
-          var editListIndex;
-          $scope.lists.forEach(function(l, index){
-            if($scope.lists[index].id === list.id){
-              editListIndex = index;
-            }
+      if(list.editing){
+        list.editing = false;
+        //turn listeners off
+        $ignore.off('click');
+        $(document).off('click');
+
+      } else {
+        list.editing = true;
+        console.log("set listeners");
+        
+        $(document).on('click', function(event) {
+          
+          listService.updateList($scope.inplaceForm, list.id).then(function(response){
+
+            var editListIndex;
+            $scope.lists.forEach(function(l, index){
+              if($scope.lists[index].id === list.id){
+                editListIndex = index;
+              }
+            });
+            $scope.inplaceForm = {};
+            //make the state of list not editing
+            list.editing = false;
+
+            //disable the listeners 
+            $ignore.off('click');
+            $(document).off('click');
+
+           //set the state of the new list editing to false
+           //update the list
+            response.editing = false;
+            $scope.lists.splice(editListIndex, 1, response);
+
+            console.log("successfully updated list");
+
+
+          }, function(){
+            $scope.inplaceForm = {};
+            //make the state of list not editing
+            list.editing = false;
+
+            //disable the listeners 
+            $ignore.off('click');
+            $(document).off('click');
+            console.log('could not update list');
           });
-          $scope.inplaceForm = {};
-          //make the state of list not editing
-          list.editing = false;
-
-          //disable the listeners 
-          $ignore.off('click');
-          $(document).off('click');
-
-         //set the state of the new list editing to false
-         //update the list
-          response.editing = false;
-          $scope.lists.splice(editListIndex, 1, response);
-
-          console.log("successfully updated list");
-
-
-        }, function(){
-          $scope.inplaceForm = {};
-          //make the state of list not editing
-          list.editing = false;
-
-          //disable the listeners 
-          $ignore.off('click');
-          $(document).off('click');
-          console.log('could not update list');
         });
-      });
 
-      //don't let the event bubble to the document
-      $ignore.on('click', function(event) {
-        event.stopPropagation();
-      });
+        //don't let the event bubble to the document
+        $ignore.on('click', function(event) {
+          event.stopPropagation();
+        });
 
+      }
     }
+    
     
   }//end toggle list
 
 
-  
+
 
 
   //When to submit form
