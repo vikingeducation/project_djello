@@ -1,6 +1,13 @@
-app.controller("CardCtrl", ['$scope', 'close', 'card', function($scope, close, card){
+app.controller("CardCtrl", ['$scope', 'close', 'card', 'memberService', function($scope, close, card, memberService){
 
   $scope.card = card;
+
+  //get all users for add membership form
+  memberService.getUsers().then(function(response){
+    $scope.users = response;
+  }, function(){
+    console.log("could not get all users");
+  });
 
   $scope.editingTitle = false;
   $scope.editingDescription = false;
@@ -22,7 +29,22 @@ app.controller("CardCtrl", ['$scope', 'close', 'card', function($scope, close, c
     $scope.card.patch();
 
     $scope.closeCard("result");
-  }
+  };
+
+  
+
+  $scope.addMember = function(){
+    var data = { card_id: $scope.card.id, user_id: $scope.selectedUserId };
+    memberService.createMembership(data).then(function(response){
+      $scope.card.members.push(response);
+    }, function(){
+      console.log("couldn't create membership");
+    });
+  };
+
+  $scope.removeMember = function(member){
+
+  };
 
   
 

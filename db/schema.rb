@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014112414) do
+ActiveRecord::Schema.define(version: 20161014200232) do
 
   create_table "boards", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20161014112414) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "card_memberships", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "card_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "card_memberships", ["card_id"], name: "index_card_memberships_on_card_id"
+  add_index "card_memberships", ["user_id"], name: "index_card_memberships_on_user_id"
 
   create_table "cards", force: :cascade do |t|
     t.text     "description"

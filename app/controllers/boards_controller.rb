@@ -4,12 +4,7 @@ class BoardsController < ApplicationController
     @boards = current_user.boards
 
     respond_to do |format|
-      format.json { render json: @boards.to_json(include: {
-                                                          lists: { 
-                                                            include: :cards
-                                                            }
-                                                          }
-                                                          )}
+      format.json { render json: @boards.to_json(include: :lists)}
     end
 
   end
@@ -20,11 +15,16 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @board.to_json(include: {
-                                                          lists: { 
-                                                            include: :cards
-                                                            }
+                                                    lists: {
+                                                       include: {
+                                                          cards: {
+                                                            include: :members  
                                                           }
-                                                          )}
+                                                        } 
+                                                      
+                                                      }
+                                                    }
+                                                    )}
     end
 
   end
@@ -35,11 +35,16 @@ class BoardsController < ApplicationController
 
       respond_to do |format|
         format.json { render json: @board.to_json(include: {
-                                                          lists: { 
-                                                            include: :cards
-                                                            }
+                                                    lists: {
+                                                       include: {
+                                                          cards: {
+                                                            include: :members  
                                                           }
-                                                          )}
+                                                        } 
+                                                      
+                                                      }
+                                                    }
+                                                    )}
       end
     else 
       respond_to do |format|

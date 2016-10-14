@@ -23,8 +23,32 @@
         </div>
       </div>
 
+      <!-- MEMBER STUFF -->
       <div class="modal-header">
         <h5>Members</h5>
+      </div>
+
+      <div class="modal-body">
+      <!-- show members -->
+        <div class="row" ng-repeat="member in card.members">
+          <div class="col-xs-3">
+            <h7>{{ member.username }}</h7>
+          </div>
+
+          <div class="col-xs-9 col-xs-pull-right">
+            <a ng-click="removeMember(member)">remove</a>  
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <select ng-model="selectedUserId">
+              <option ng-repeat="user in users" value={{user.id}}>{{ user.username }}</option>
+            </select>
+
+            <button ng-click="addMember()">Add</button>
+          </div>
+        </div>
       </div>
 
 

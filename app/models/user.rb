@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
 
   has_many :boards
   has_many :lists
+
+  has_many :card_memberships
 end
