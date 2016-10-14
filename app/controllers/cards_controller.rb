@@ -7,6 +7,7 @@ class CardsController < ApplicationController
     title = @card.list.title
     activity[:action] = "#{current_user.username} created card for list #{title} titled #{@card.title}"
 
+
     if @card.save
       activity[:card_id] = @card.id
       create_activity(activity)
@@ -24,9 +25,9 @@ class CardsController < ApplicationController
   def update
     @card = Card.find(params[:id])
     activity = {}
-    board_name = @card.list.board.title
+    list_name = @card.list.title
     activity[:user_id] = current_user.id
-    activity[:action] = "#{current_user.username} updated card for #{board_name}"
+    activity[:action] = "#{current_user.username} updated card for list #{list_name}"
     activity[:card_id] = @card.id
 
 
