@@ -3,15 +3,18 @@
 <div class="card-deck-wrapper">
   <div class="card-deck">
     <board-panel
+    ng-repeat="board in boardsData.cache"
+    board="board"
+    users-data='usersData'
     data-drag='true'
     data-drop='true'
-    jqyoui-draggable='{index: {{$index}}}'
-    jqyoui-droppable='{index: {{$index}}}'
+    ng-model='boardsData.cache'
+    jqyoui-draggable="{index: {{$index}}, insertInline: true, direction:'jqyouiDirection'}"
+    data-jqyoui-options="{revert: 'invalid'}"
+    data-direction="{{board.jqyouiDirection}}"
+    jqyoui-droppable="{index: {{$index}}}"
     class="card"
-    style="width:300px"
-    ng-repeat="board in boardsData.cache | orderBy:'+created_at'"
-    board="board"
-    users-data='usersData'>
+    style="width:300px">
     </board-panel>
 
     <div style='width:300px'>
