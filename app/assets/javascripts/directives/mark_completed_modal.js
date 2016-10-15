@@ -4,18 +4,19 @@ app.directive('markCompletedModal',
     restrict: 'E',
     templateUrl: 'templates/directives/mark_completed_modal.html',
     scope: {
-      onComplete: '&'
+      onComplete: '&',
+      onSubmit: '&'
     },
     link: function(scope, element, attrs) {
-
       // Need to access parent directive's controller somehow.
       scope.delayedSetCompleted = function() {
-        return $timeout(scope.onComplete, 700);
+        return $timeout(scope.onComplete, 450);
       };
+
       scope.markCompleted = function () {
         $('#myModal').modal('hide');
         return Promise.try(scope.delayedSetCompleted)
-          .then(scope.submitEditForm)
+          .then(scope.onSubmit)
           .catch(function(reason) {
             console.log(reason);
           });

@@ -48,7 +48,11 @@
         </div>
 
         <div class="modal-footer">
-          <mark-completed-modal on-complete='vm.setCompleted()'></mark-completed-modal>
+          <mark-completed-modal
+          data-dismiss='modal'
+          on-submit='vm.submitEditForm()'
+          on-complete='vm.setCompleted()'>
+          </mark-completed-modal>
         </div>
       </div>
     </div>

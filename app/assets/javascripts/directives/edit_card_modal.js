@@ -1,5 +1,5 @@
 app.component('editCardModal',{
-  controller: 'editCardModalCtrl',
+  controller: 'EditCardModalCtrl',
   controllerAs: 'vm',
   bindings: {
     card: '=',

@@ -1,4 +1,4 @@
-app.controller('editCardModalCtrl',
+app.controller('EditCardModalCtrl',
 ['CardService', 'MemberService', 'UserService',
 function(CardService, MemberService, UserService) {
   var vm = this;
@@ -24,6 +24,7 @@ function(CardService, MemberService, UserService) {
   };
 
   vm.setCompleted = function() {
+    console.log('this is firing');
     vm.cardForm.completed = true;
     return vm.cardForm;
   };
