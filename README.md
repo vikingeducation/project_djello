@@ -15,4 +15,5 @@ Djello is a project management tool that emulates Trello. On a high-level, the a
 * lodash
 * angularSlideables
 * ui-router
+* angular drag n drop
 * Restangular
