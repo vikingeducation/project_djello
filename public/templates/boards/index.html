@@ -3,6 +3,8 @@
 <div class="card-deck-wrapper">
   <div class="card-deck">
     <board-panel
+    data-drag='true'
+    jqyoui-draggable
     class="card"
     style="width:300px"
     ng-repeat="board in boardsData.cache | orderBy:'+created_at'"

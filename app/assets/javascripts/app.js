@@ -1,5 +1,10 @@
 var app = angular.module('djelloApp',
-['ui.router', 'restangular', 'Devise', 'angularSlideables', 'ngAnimate']);
+['ui.router',
+'restangular',
+'Devise',
+'angularSlideables',
+'ngAnimate',
+'ngDragDrop']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
