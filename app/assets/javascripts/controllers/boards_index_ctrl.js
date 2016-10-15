@@ -6,23 +6,23 @@ function($scope, boardsData, usersData, BoardService, noticeData) {
   $scope.usersData = usersData;
   $scope.noticeData = noticeData;
 
-  $scope.shiftLeft = function (index) {
-    for (var i = 0; i < index; i++) {
-      $scope.boardsData.cache[i] = $scope.boardsData.cache[i+1];
-    }
-  };
-
-  // Undo shift to the left
-  $scope.reset = function (index) {
-    for (var i = 0; i < index; i++) {
-      $scope.boarsData.cache[i+1] = $scope.boardsData.cache[i];
-    }
-  };
-
-  // Insert the board into the boards cache at this index.
-  $scope.insert = function (board, index) {
-    $scope.boardsData.cache[index] = board;
-  };
+  // $scope.shiftLeft = function (index) {
+  //   for (var i = 0; i < index; i++) {
+  //     $scope.boardsData.cache[i] = $scope.boardsData.cache[i+1];
+  //   }
+  // };
+  //
+  // // Undo shift to the left
+  // $scope.reset = function (index) {
+  //   for (var i = 0; i < index; i++) {
+  //     $scope.boarsData.cache[i+1] = $scope.boardsData.cache[i];
+  //   }
+  // };
+  //
+  // // Insert the board into the boards cache at this index.
+  // $scope.insert = function (board, index) {
+  //   $scope.boardsData.cache[index] = board;
+  // };
 
 }]);
 

@@ -19,11 +19,11 @@
 //= require moment
 //= require typeahead.bundle.min
 //= require typeahead.jquery.min
+//= require jquery-ui.min
 //= require angular
 //= require angular-ui-router
 //= require angular-devise
 //= require angular-animate.min
-//= require jquery-ui.min
 //= require angular-dragdrop.min
 //= require ui-bootstrap-tpls-2.1.4.min
 //= require lodash.min
