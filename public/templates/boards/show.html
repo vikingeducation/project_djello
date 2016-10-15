@@ -51,7 +51,7 @@
 </div>
 
 <!-- lists section could use new ctrl and directive -->
-<div class="row">
+<div class="row" sv-root sv-on-sort="cardMoved($item, $partTo)">
   <div class="col-md-3" ng-repeat="list in lists">
     <div class="list">
       <div class="list-info" ng-hide="list.editing">
@@ -64,14 +64,14 @@
         <p><input type="text" placeholder="{{ list.description }}" value={{list.description}} ng-model="inplaceForm.description" class="inplace-description"></p>
       </div>
 
-      <!-- use a cards directive with a cards controller with the list bound by 2 way binding -->
+      <!-- CARDS -->
       <cards list="list"></cards>
 
       <a ng-click="deleteList(list, $index)" class="text-center">Delete List</a>
     </div>
   </div>
 
-  
+
 
   <!-- add a list form -->
   <div class="col-md-3">

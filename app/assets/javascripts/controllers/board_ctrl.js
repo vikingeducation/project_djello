@@ -1,4 +1,4 @@
-app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listService', '_', function($scope, boardService, $stateParams, listService, _){
+app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listService', '_', 'Restangular', function($scope, boardService, $stateParams, listService, _, Restangular){
 
 
   
@@ -10,6 +10,25 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
   }, function(){
     console.log("couldn't get all boards");
   })
+
+  $scope.cardMoved = function(movedCard, targetCards){
+    //get list info out of targetPart
+    //and update the card
+    console.log("movedCard id is  " + movedCard.id);
+    var listId;
+    targetCards.forEach(function(card){
+      if(card.id === "listInfo"){
+        listId = card.list_id;
+      }
+    });
+    foofied = movedCard;
+    Restangular.restangularizeElement(null, movedCard, 'cards');
+
+    movedCard.list_id = listId;
+    //now change the postition
+    
+    movedCard.patch();
+  };
   
   
   $scope.listForm = {};

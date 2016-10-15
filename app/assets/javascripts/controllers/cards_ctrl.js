@@ -2,8 +2,15 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
   
   $scope.cards = $scope.list.cards;
+  //put list info into the cards array since the drag/drop plugin has scope issues
+  var listInfo = { list_id: $scope.list.id, id: "listInfo"};
+  $scope.cards.unshift(listInfo);
+
+
   $scope.cardForm = {};
   $scope.cardForm.list_id = $scope.list.id;
+
+
 
   $scope.creatingCard = false;
 
@@ -23,7 +30,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
   $scope.showCard = function(card) {
     Restangular.restangularizeElement(null, card, 'cards');
-    // Just provide a template url, a controller and call 'showModal'.
+    
     ModalService.showModal({
       templateUrl: "/templates/cards/card.html",
       controller: "CardCtrl",
@@ -31,13 +38,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
         card: card
       }
     }).then(function(modal) {
-      // The modal object has the element built, if this is a bootstrap modal
-      // you can call 'modal' to show it, if it's a custom modal just show or hide
-      // it as you need to.
-      
-
-      
-      // modal.element.modal();
+    
       $(".modal").modal();
       modal.close.then(function(result) {
         console.log("modal closed");
@@ -45,5 +46,8 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     });
 
   };
+
+
+
 
 }]);

@@ -1,12 +1,19 @@
-<div class="cards">
-  <div class="row" ng-repeat="card in cards | filter:{completed: false}">
-    <div class="col-xs-12">
-      <div class="card">
-        <h3 ng-click="showCard(card)">{{ card.title }}</h3>
+<div class="cards-section">
+  <!-- how to tell which list a card came from since the $part is just an array -->
 
+  <!-- just ask the card in the new cards for its list id -->
+
+  <!-- that is flawed bc the the array could be empty -->
+  <div class="cards-container" sv-part="cards">
+    <div class="row" ng-repeat="card in cards | filter:{completed: false} | filter:{id: '!listInfo'}" sv-element>
+      <div class="col-xs-12">
+        <div class="card">
+          <h3 ng-click="showCard(card)">{{ card.title }}</h3>
+
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
 
   <div class="row">
