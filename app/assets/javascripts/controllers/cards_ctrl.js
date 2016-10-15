@@ -25,6 +25,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
       $scope.creatingCard = false;
       $scope.cardForm = {};
+      $scope.cardForm.list_id = $scope.list.id;
     })
   };
 

@@ -4,8 +4,8 @@
   <!-- just ask the card in the new cards for its list id -->
 
   <!-- that is flawed bc the the array could be empty -->
-  <div class="cards-container" sv-part="cards">
-    <div class="row" ng-repeat="card in cards | filter:{completed: false} | filter:{id: '!listInfo'}" sv-element>
+  <div class="cards-container">
+    <div class="row" ng-repeat="card in cards | filter:{completed: false} | filter:{id: '!listInfo'}">
       <div class="col-xs-12">
         <div class="card">
           <h3 ng-click="showCard(card)">{{ card.title }}</h3>
