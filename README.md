@@ -6,12 +6,12 @@ Djello is a project management tool that emulates Trello. On a high-level, the a
 
 ##### Technologies used.
 
-1. GEMS
+GEMS
 * devise
 * active_record_union
 * public_activity
 
-2. LIBRARIES AND PLUGINS
+LIBRARIES AND PLUGINS
 * lodash
 * angularSlideables
 * ui-router
