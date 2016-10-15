@@ -40,7 +40,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
       }
     }).then(function(modal) {
     
-      $(".modal").modal();
+      modal.element.modal();
       modal.close.then(function(result) {
         console.log("modal closed");
       });
