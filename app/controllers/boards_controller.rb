@@ -1,7 +1,8 @@
 class BoardsController < ApplicationController
 
   def index
-    @boards = current_user.boards
+    user_teams = current_user.teams.map{|team|team.id}.join(', ') 
+    @boards = Board.where("user_id = ? OR team_id IN (#{user_teams})", current_user.id)
     respond_to do |format|
       format.json { render json: @boards, status: 200 }
     end
