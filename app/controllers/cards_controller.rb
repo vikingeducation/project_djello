@@ -14,18 +14,33 @@ class CardsController < ApplicationController
   end
 
   def update
-    puts "updating card..."
-    @card = Card.find_by_id(params[:id])
-    if @card.update(card_params)
-      puts "card updated"
-      respond_to do |format|
-        format.json { render json: @card, status: 200 }
+    puts params
+    if params[:members]
+      @card = Card.find_by_id(params[:id])
+      @card.users = get_users_by_emails(params[:members])
+      if @card.save 
+        respond_to do |format|
+          format.json { render json: @card, status: 200 }
+        end
+      else
+        puts "ERROR: Card couldn't be saved"
       end
-    else 
-      respond_to do |format|
-        format.json { render json: @card.errors, status: 200 }
-      end
+
+    else
+      puts "updating card..."
+      @card = Card.find_by_id(params[:id])
+      if @card.update(card_params)
+        puts "card updated"
+        respond_to do |format|
+          format.json { render json: @card, status: 200 }
+        end
+      else 
+        respond_to do |format|
+          format.json { render json: @card.errors, status: 200 }
+        end
+      end    
     end
+
   end
 
 
@@ -43,6 +58,15 @@ class CardsController < ApplicationController
         card.save
       end
     end
+  end
+
+  def get_users_by_emails(emails)
+    users = []
+    emails.each do |email|
+      user = User.find_by_email(email)
+      users.push(user) if user
+    end
+    users
   end
   
 end

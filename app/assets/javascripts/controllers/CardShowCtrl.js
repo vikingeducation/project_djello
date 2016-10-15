@@ -5,18 +5,19 @@ app.controller("CardShowCtrl", ["$scope", "cardService", "listsService", "member
 
   membersService.getMembersByCard(card).then(function(response) {
     var _selectedMembers = response
-          // iterate through teammembers
-          $scope.selectedMembers = []
-          // for (var i = 0; i < $scope.teamMembers.length; i++) {
-          //   var thisTeamMember = $scope.teamMembers[i]
-          //   for (var j = 0; j < _selectedMembers; j++) {
-          //     var thisSelectedMember = _selectedMembers[j]
-          //     if (thisTeamMember.email === thisSelectedMember.email) {
-          //       $scope.selectedMembers.push(thisSelectedMember)
-          //     }
-          //   }
-          // }
-        })
+    $scope.selectedMembers = {}
+    for (var i = 0; i < $scope.teamMembers.length; i++) {
+      var thisTeamMember = $scope.teamMembers[i]
+      console.log("checking " + thisTeamMember.email)
+      for (var j = 0; j < _selectedMembers.length; j++) {
+        var thisSelectedMember = _selectedMembers[j]
+        console.log("checking " + thisSelectedMember.email)
+        if (thisTeamMember.email === thisSelectedMember.email) {
+          $scope.selectedMembers[thisTeamMember.email] = true
+        }
+      }
+    }
+  })
 
   $scope.list = list
   $scope.editingText = false
@@ -75,5 +76,15 @@ app.controller("CardShowCtrl", ["$scope", "cardService", "listsService", "member
       console.log(response)
       angular.copy(response, $scope.card)
     })
+  }
+  $scope.updateCardMembers = function(card) {
+    var updatedMembers = []
+    for (var email in $scope.selectedMembers) {
+      if ($scope.selectedMembers[email]) {
+        updatedMembers.push(email)
+      }
+    }
+    console.log(card)
+    cardService.updateCardMembers(card, updatedMembers)
   }
 }]);

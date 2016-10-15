@@ -36,13 +36,11 @@ app.factory("cardService", ["Restangular", function(Restangular) {
 
   cardService.editTitle = function(card, newTitle, list) {
     Restangular.restangularizeElement(list, card, 'cards')
-    console.log(card)
     return card.patch({card: {title: newTitle}})
   }
 
   cardService.editText = function(card, newText, list) {
     Restangular.restangularizeElement(list, card, 'cards')
-    console.log(card)
     return card.patch({card: {text: newText}})
   }
 
@@ -54,5 +52,12 @@ app.factory("cardService", ["Restangular", function(Restangular) {
     Restangular.restangularizeElement(list, card, 'cards')
     return card.patch({card: {completed: false}})
   }
+
+  cardService.updateCardMembers = function(card, updatedMembers) {
+    Restangular.restangularizeElement(null, card, 'cards');
+    console.log(card)
+    return card.patch({members: updatedMembers})
+  }
+
   return cardService
 }])

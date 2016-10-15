@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index] do 
         resources :teams, only: [:index, :show]
       end
-      resources :cards, only: [:show] do 
+      resources :cards, only: [:show, :update] do 
         resources :users, only: [:index]
       end
     end

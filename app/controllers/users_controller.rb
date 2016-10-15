@@ -9,4 +9,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @card = Card.find_by_id(params[:card_id])
+    @card.members = params[:members]
+    if @card.save
+      respond_to do |format|
+        format.json { render json: @card, status: 200 }
+      end
+    end
+  end
+
 end

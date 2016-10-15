@@ -51,13 +51,12 @@
     </div>
 
     <div ng-repeat="member in teamMembers">
-            <input type="checkbox" >
+            <input type="checkbox" ng-model="selectedMembers[member.email]">
               {{member.email}} 
             </div>
-
   </div>
   <div class="modal-footer">
-
+    <button class="btn btn-primary" ng-click="updateCardMembers(card)">Confirm Member Changes</button>
   </div>
 </div>
 </div>
