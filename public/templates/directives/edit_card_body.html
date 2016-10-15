@@ -1,0 +1,25 @@
+<a
+ng-click='vm.revealForm()'
+style='cursor:pointer'
+ng-hide='vm.modalCtrl.bodyEditState'
+class='text-muted'>edit</a>
+
+<textarea
+class='form-control'
+ng-show='vm.modalCtrl.bodyEditState'
+ng-model='vm.modalCtrl.cardForm.body'
+rows='5'>
+</textarea>
+
+<button
+ng-show='vm.modalCtrl.bodyEditState'
+class='btn btn-success'
+ng-click='vm.submitEditForm()'>Add</button>
+<i
+ng-show='vm.modalCtrl.bodyEditState'
+class='fa fa-times'
+style='cursor:pointer;font-size:24px'
+ng-click='vm.cancel()'></i>
+<br>
+
+<p ng-hide='vm.modalCtrl.bodyEditState'>{{ vm.modalCtrl.card.body }}</p>

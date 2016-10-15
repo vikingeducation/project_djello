@@ -1,0 +1,60 @@
+<!-- Modal -->
+<div class="modal fade" id="{{vm.card.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <!-- Model in parent panel must be sole source of truth. -->
+        <input
+        class="btn btn-secondary"
+        id="myModalLabel"
+        type='text'
+        ng-model='vm.cardForm.title'
+        ng-blur='vm.submitEditForm()'
+        placeholder="{{ vm.card.title }}">
+        </div>
+
+        <div class="modal-body">
+          <h5>Members</h5>
+          <ul style="list-style: none;" ng-repeat="member in vm.membersCache['card'][vm.card.id]">
+            <li>{{ member.username }}</li>
+          </ul>
+
+          <h5>Description</h5>
+          <edit-card-body></edit-card-body><br>
+
+          <!-- Use the ng-if trick to make your directive wait for async data. -->
+          <input
+          ng-if='vm.searchDependencies'
+          users-searchbar
+          class='typeahead form-control'
+          type='text'
+          collection='vm.searchDependencies.collection'
+          parent='vm.searchDependencies.parent'
+          parent-type='vm.searchDependencies.parentType'
+          search-key='vm.searchDependencies.searchKey'>
+
+          <a style='cursor:pointer' ng-click='vm.addMember()'>
+            add member
+          </a><br><br>
+
+          <h5>Activity</h5>
+          <ul style='list-style: none;' ng-repeat="activity in vm.card.activities | orderBy:'-created_at'">
+            <card-activity-panel activity='activity'></card-activity-panel>
+          </ul>
+        </div>
+
+        <div class="modal-footer">
+          <mark-completed-modal
+          data-dismiss='modal'
+          on-submit='vm.submitEditForm()'
+          on-complete='vm.setCompleted()'>
+          </mark-completed-modal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

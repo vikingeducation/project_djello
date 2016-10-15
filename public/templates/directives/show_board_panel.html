@@ -1,0 +1,31 @@
+<h1>{{ currentBoard.title }}</h1>
+
+<boards-dropdown boards-data='boardsData'></boards-dropdown>
+
+<div class='card-deck-wrapper'>
+  <div class='card-deck'>
+
+    <!-- Show all the lists of a board. -->
+    <index-list-panel
+    data-drag='true'
+    data-drop='true'
+    ng-model='listsCache[currentBoard.id]'
+    jqyoui-draggable="{index: {{$index}}, insertInline: true, direction:'jqyouiDirection'}"
+    data-jqyoui-options="{revert: 'invalid'}"
+    data-direction="{{list.jqyouiDirection}}"
+    jqyoui-droppable="{index: {{$index}}}"
+    class='card'
+    style='width:300px'
+    current-board='currentBoard'
+    list='list'
+    ng-repeat="list in listsCache[currentBoard.id]"
+    users-data='usersData'>
+    </index-list-panel>
+
+    <!-- Create a list. -->
+    <create-list-panel
+    current-board='currentBoard'
+    list='list'>
+    </create-list-panel>
+  </div>
+</div>

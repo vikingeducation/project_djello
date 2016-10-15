@@ -1,0 +1,13 @@
+<!-- Toggle is the bootstrap callback to fire. -->
+<!-- Target is the object you want to use the callback on. -->
+<!-- Dismiss closes the modal. -->
+<!-- Note that we had to give a unique id for each modal per model. -->
+<button
+class='btn btn-default btn-block'
+data-toggle='modal'
+data-target="div#{{card.id}}.modal">
+&nbsp{{ card.title }}
+</button><br>
+
+<!-- Edit a card. -->
+<edit-card-modal card='card' users-data='usersData'></edit-card-modal>

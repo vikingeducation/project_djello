@@ -1,0 +1,30 @@
+<div class="card-header">
+  <a ui-sref="boards.show({id: board.id})">
+  <h4>{{ board.title }}</h4>
+  <p class='text-muted'>{{ board.description }}</p>
+  <p> {{board.id}}</p>
+  </a>
+  <button
+  class='btn btn-outline-primary btn-sm pull-right'
+  data-toggle='modal'
+  data-target="div#{{board.id}}.modal">
+    members
+  </button>
+
+  <board-members-modal
+  users-data='usersData'
+  board='board'>
+  </board-members-modal>
+</div>
+
+
+<div class="card-block">
+  <!-- Listing this particular board's set of lists. -->
+  <p class='text-muted'>Lists</p>
+  <board-list-panel
+  ng-repeat='boardList in boardListsCache[board.id]'
+  board-list='boardList'>
+  </board-list-panel>
+</div>
+
+<button ng-click="removeBoard()" class="btn btn-outline-danger">Remove</button>

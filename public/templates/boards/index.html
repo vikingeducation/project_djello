@@ -1,0 +1,26 @@
+<!-- <p ng-if='noticeData' notice-data='noticeData' notification></p> -->
+
+<div class="card-deck-wrapper">
+  <div class="card-deck">
+    <board-panel
+    ng-repeat="board in boardsData.cache"
+    board="board"
+    users-data='usersData'
+    data-drag='true'
+    data-drop='true'
+    ng-model='boardsData.cache'
+    jqyoui-draggable="{index: {{$index}}, insertInline: true, direction:'jqyouiDirection'}"
+    data-jqyoui-options="{revert: 'invalid'}"
+    data-direction="{{board.jqyouiDirection}}"
+    jqyoui-droppable="{index: {{$index}}}"
+    class="card"
+    style="width:300px">
+    </board-panel>
+
+    <div style='width:300px'>
+      <create-board-panel
+      class="card">
+      </create-board-panel>
+    </div>
+  </div>
+</div>
