@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :cards, only: [:show, :update] do 
         resources :users, only: [:index]
       end
+      resources :teams, only: [:create]
     end
   end
 

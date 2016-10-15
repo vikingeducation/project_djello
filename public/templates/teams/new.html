@@ -1,0 +1,12 @@
+<form>
+
+  <label>Team Name</label>
+  <input type="text" name="name" ng-model="name">
+
+  <div ng-repeat="user in users">
+    <label>
+      <input type="checkbox" ng-model="selectedUsers[user.email]">{{user.email}}
+    </label>
+  </div>
+</form>
+  <button class="btn btn-success" ng-click="createTeam(name, selectedUsers)">Create Team</button>

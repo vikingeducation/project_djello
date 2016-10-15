@@ -60,13 +60,6 @@ class CardsController < ApplicationController
     end
   end
 
-  def get_users_by_emails(emails)
-    users = []
-    emails.each do |email|
-      user = User.find_by_email(email)
-      users.push(user) if user
-    end
-    users
-  end
+  
   
 end

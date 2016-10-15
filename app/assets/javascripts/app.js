@@ -26,6 +26,16 @@ app.config(["$urlRouterProvider", "$stateProvider", function($urlRouterProvider,
       }
     })
 
+    .state("newTeam", {
+      url: "/teams/new",
+      views: {
+        "@": {
+          templateUrl: "/templates/teams/new.html",
+          controller: "NewTeamCtrl"
+        }
+      }
+    })
+
     .state("boardShow", {
       url: "/boards/:id",
       views: {

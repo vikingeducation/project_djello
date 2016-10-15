@@ -50,10 +50,12 @@
       </button>
     </div>
 
-    <div ng-repeat="member in teamMembers">
-            <input type="checkbox" ng-model="selectedMembers[member.email]">
-              {{member.email}} 
-            </div>
+    <div class="checkbox" ng-repeat="member in teamMembers">
+      <label> 
+      <input type="checkbox" ng-model="selectedMembers[member.email]">
+        {{member.email}} 
+      </label>
+    </div>
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" ng-click="updateCardMembers(card)">Confirm Member Changes</button>

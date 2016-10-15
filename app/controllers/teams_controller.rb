@@ -26,4 +26,22 @@ class TeamsController < ApplicationController
     end
   end
 
+  def create
+    @team = Team.new(team_params)
+    members = get_users_by_emails(params[:team][:members])
+    if @team.save
+      @team.users = members
+      respond_to do |format|
+        format.json { render json: @team, status: 200 }
+      end
+    end
+  end
+
+
+  private 
+
+  def team_params
+    params.require(:team).permit(:name)
+  end
+
 end

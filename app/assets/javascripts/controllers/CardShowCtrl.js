@@ -86,5 +86,6 @@ app.controller("CardShowCtrl", ["$scope", "cardService", "listsService", "member
     }
     console.log(card)
     cardService.updateCardMembers(card, updatedMembers)
+    close(null, 200)
   }
 }]);

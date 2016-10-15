@@ -1,0 +1,57 @@
+{
+  "name": "bootstrap-horizon",
+  "version": "1.0.1",
+  "description": "Boostrap 3 rows with inline, horizontally scrolling columns",
+  "main": "bootstrap-horizon.css",
+  "scripts": {
+    "build": "npm run minify",
+    "minify": "cleancss -o dist/bootstrap-horizon.min.css src/bootstrap-horizon.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zertz/bootstrap-horizon.git"
+  },
+  "keywords": [
+    "bootstrap",
+    "horizontal",
+    "scroll",
+    "row"
+  ],
+  "author": {
+    "name": "Pier-Luc Gendreau"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zertz/bootstrap-horizon/issues"
+  },
+  "homepage": "https://github.com/Zertz/bootstrap-horizon#readme",
+  "devDependencies": {
+    "clean-css": "^3.4.20"
+  },
+  "gitHead": "8b6d31a81412f5bab083a8649b6864aecb6c2e4a",
+  "_id": "bootstrap-horizon@1.0.1",
+  "_shasum": "5511147d4ee1c1092c5ee73b3c75f3df449cf9fe",
+  "_from": "bootstrap-horizon@latest",
+  "_npmVersion": "3.10.3",
+  "_nodeVersion": "6.7.0",
+  "_npmUser": {
+    "name": "zertz",
+    "email": "pierluc@outlook.com"
+  },
+  "dist": {
+    "shasum": "5511147d4ee1c1092c5ee73b3c75f3df449cf9fe",
+    "tarball": "https://registry.npmjs.org/bootstrap-horizon/-/bootstrap-horizon-1.0.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "zertz",
+      "email": "pierluc@outlook.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/bootstrap-horizon-1.0.1.tgz_1476027592514_0.6580679067410529"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/bootstrap-horizon/-/bootstrap-horizon-1.0.1.tgz"
+}

@@ -15,5 +15,17 @@ app.factory("teamsService", ["Restangular", "Auth", function(Restangular, Auth) 
     })
   }
 
+  teamsService.createTeam = function(name, memberEmails) {
+    return Restangular.all('teams').post({
+      team: {
+        members: memberEmails,
+        name: name
+      }
+    }).then(function(response) {
+      console.log(response)
+      return response
+    })
+  }
+
   return teamsService
 }])
