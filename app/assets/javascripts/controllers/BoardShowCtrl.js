@@ -3,7 +3,6 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
 
   $scope.message = "Board Show"
 
-
   $scope.editingTitle = {}
   $scope.editingDescription = {}
   $scope.listTitle = {}
@@ -103,25 +102,11 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.showNewCardModal = function(list, team) {
     ModalService.showModal({
       templateUrl: "templates/newCardModal.html",
-      controller: ["$scope", "cardService", "listsService", "close", function($scope, cardService, listsService, close) {
-
-        $scope.list = list
-        $scope.newCard = {}
-        $scope.newCard.members = []
-        $scope.teamMembers = []
-
-        angular.copy(team.users, $scope.teamMembers)
-
-        $scope.handleNewCardForm = function() {
-          cardService.create(list, $scope.newCard, $scope.teamMembers).then(function(response) {
-          })
-          $scope.close(true, 200);
-        }
-
-        $scope.close = function(result) {
-          close(result, 200); 
-        };
-      }]
+      controller: "NewCardCtrl", 
+      inputs: {
+        list: list,
+        team: team
+      }
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(response) {
@@ -139,85 +124,12 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   $scope.showCard = function(card, list, team) {
     ModalService.showModal({
       templateUrl: "templates/cardShowModal.html", 
-      controller: ["$scope", "cardService", "listsService", "membersService", "close", function($scope, cardService, listsService, membersService, close) {
-
-        $scope.teamMembers = []
-        angular.copy(team.users, $scope.teamMembers)
-
-        membersService.getMembersByCard(card).then(function(response) {
-          var _selectedMembers = response
-          // iterate through teammembers
-          $scope.selectedMembers = []
-          // for (var i = 0; i < $scope.teamMembers.length; i++) {
-          //   var thisTeamMember = $scope.teamMembers[i]
-          //   for (var j = 0; j < _selectedMembers; j++) {
-          //     var thisSelectedMember = _selectedMembers[j]
-          //     if (thisTeamMember.email === thisSelectedMember.email) {
-          //       $scope.selectedMembers.push(thisSelectedMember)
-          //     }
-          //   }
-          // }
-        })
-
-        $scope.list = list
-        $scope.editingText = false
-        $scope.editingTitle = false
-        $scope.card = card
-        $scope.cardTitle = card.title
-        $scope.cardText = card.text
-
-        $scope.editText = function() {
-          $scope.editingText = true
-        }
-        $scope.editTitle = function() {
-          $scope.editingTitle = true
-        }
-
-        $scope.submitTextEdits = function() {
-          cardService.editText(card, $scope.cardText, list).then(function(response) {
-            console.log(response)
-            $scope.cardText = response.text
-            // $scope.card.text = response.text
-            angular.copy(response, $scope.card)
-            $scope.editingText = false
-          })
-        }
-        $scope.submitTitleEdits = function() {
-          cardService.editTitle(card, $scope.cardTitle, list).then(function(response) {
-            console.log(response)
-            $scope.cardTitle = response.title
-            // $scope.card.title = response.title
-            angular.copy(response, $scope.card)
-            $scope.editingTitle = false
-          })
-        }
-
-        $scope.cancelEditText = function() {
-          $scope.editingText = false
-          $scope.cardText = card.text
-        }
-        $scope.cancelEditTitle = function() {
-          $scope.editingTitle = false
-          $scope.cardTitle = card.title
-        }
-
-        $scope.close = function(result) {
-          close(result, 200)
-        }
-
-        $scope.completeCard = function() {
-          cardService.completeCard(card, list).then(function(response) {
-            console.log(response)
-            angular.copy(response, $scope.card)
-          })
-        }
-        $scope.uncompleteCard = function() {
-          cardService.uncompleteCard(card, list).then(function(response) {
-            console.log(response)
-            angular.copy(response, $scope.card)
-          })
-        }
-      }]
+      controller: "CardShowCtrl", 
+      inputs: {
+        card: card,
+        list: list,
+        team: team
+      } 
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(response) {
@@ -225,6 +137,5 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
       })
     })
   }
-
 
 }])
