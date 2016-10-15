@@ -5,5 +5,5 @@ app.component('editCardModal',{
     card: '=',
     usersData: '='
   },
-  templateUrl: 'templates/directives/edit_card_modal.html',
+  templateUrl: 'templates/directives/edit_card_modal.html'
 });

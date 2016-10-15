@@ -2,17 +2,15 @@ app.directive('markCompletedModal',
 ['$timeout', function ($timeout) {
   return {
     restrict: 'E',
-    require: '^editCardModal',
     templateUrl: 'templates/directives/mark_completed_modal.html',
-    link: function(scope, element, attrs, ctrl) {
+    scope: {
+      onComplete: '&'
+    },
+    link: function(scope, element, attrs) {
 
       // Need to access parent directive's controller somehow.
-      scope.setCompleted = function() {
-        ctrl.cardForm.completed = true;
-        return ctrl.cardForm;
-      };
       scope.delayedSetCompleted = function() {
-        return $timeout(scope.setCompleted, 700);
+        return $timeout(scope.onComplete, 700);
       };
       scope.markCompleted = function () {
         $('#myModal').modal('hide');

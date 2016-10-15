@@ -23,6 +23,11 @@ function(CardService, MemberService, UserService) {
     completed: vm.card.completed
   };
 
+  vm.setCompleted = function() {
+    vm.cardForm.completed = true;
+    return vm.cardForm;
+  };
+
   // See edit-card-body directive.
   vm.bodyEditState = false;
 
