@@ -1,4 +1,4 @@
-app.factory("cardService", ['Restangular', function(Restangular){
+app.factory("cardService", ['Restangular', '_', function(Restangular, _){
 
   var service = {};
 
@@ -7,6 +7,17 @@ app.factory("cardService", ['Restangular', function(Restangular){
 
     return Restangular.all("cards").post(card);
   }
+
+  service.workingCards = function(cards){
+    var working = [];
+    cards.forEach(function(card){
+      if(card.completed === false){
+        working.push(card);
+      }
+    })
+
+    return working;
+  };
 
   return service;
 

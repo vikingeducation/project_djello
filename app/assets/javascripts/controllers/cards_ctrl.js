@@ -4,7 +4,11 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   $scope.cards = $scope.list.cards;
   
   //GET CARDS THAT ARENT COMPLETE
+  $scope.getWorkingCards = function(){
+    $scope.workingCards = cardService.workingCards($scope.cards);
+  };
 
+  $scope.getWorkingCards();
 
   $scope.cardForm = {};
   $scope.cardForm.list_id = $scope.list.id;
@@ -16,6 +20,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   $scope.createCard = function(){
     cardService.createCard($scope.cardForm).then(function(response){
       $scope.cards.push(response);
+      $scope.getWorkingCards();
 
       $scope.creatingCard = false;
       $scope.cardForm = {};
