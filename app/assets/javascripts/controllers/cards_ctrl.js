@@ -22,18 +22,22 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     }
   })
 
-  $scope.triggerSort = function(card, newList){
+  // branch sv has one step back
+  $scope.triggerSort = function(card, newList, newIndex){
     //can't just do sorting activities here bc DOM isn't updated yet
     //bc of bug w sv-on-sort/sv-on-stop
     $scope.movedCard = card;
     $scope.newList = newList;
+    $scope.newIndex = newIndex;
     $scope.sorting = false;
+
   };
 
   $scope.updateSort = function(){
     
     var card = $scope.movedCard;
     var newList = $scope.newList;
+    var newIndex = $scope.newIndex;
 
     var $card = $("#card-" + card.id);
     foose = $card;
@@ -46,11 +50,33 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     //restangularize card
     Restangular.restangularizeElement(null, card, 'cards');
     card.list_id = parseInt(newListId);
+    
+    //assign position
+    var lastIndex = newList.length - 1;
+    //the one above but with a lower position # is nI - 1
+    var above = newList[newIndex - 1];
+    var below = newList[newIndex + 1]
+    
+    if(below && above ){
+      console.log("below and above");
+      var newPos = above.position + ((below.position - above.position) / 2);
+      card.position = newPos;
+      console.log("above position " + above.position)
+      console.log("below position " + below.position)
+      console.log("card position " + card.position)
 
-    //assign its new order
+    } else if(below){
+      card.position = below.position - 25;
 
+    } else if(above){
+      card.position = above.position + 25;
+    } else {
+      //assign no new position since the list was empty
+    }
+    
     card.patch();
 
+    //flip the switch to listen for a sorted card
     $scope.sorting = true;
   }
 
@@ -70,6 +96,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   $scope.creatingCard = false;
 
   $scope.createCard = function(){
+    $scope.cardForm.list_id = $scope.list.id;
     cardService.createCard($scope.cardForm).then(function(response){
       $scope.cards.push(response);
       $scope.getWorkingCards();

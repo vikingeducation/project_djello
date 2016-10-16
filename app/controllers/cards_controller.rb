@@ -9,6 +9,8 @@ class CardsController < ApplicationController
 
 
     if @card.save
+      @card.position = @card.id * 100
+      @card.save
       activity[:card_id] = @card.id
       create_activity(activity)
       respond_to do |format|
@@ -46,7 +48,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:title, :description, :list_id, :completed)
+    params.require(:card).permit(:title, :description, :list_id, :completed, :position)
   end
 
 

@@ -1,6 +1,6 @@
 <div class="cards-section">
   
-  <div class="cards-container" sv-root="allCards" sv-part="workingCards" data-list-id={{list.id}} sv-on-sort="triggerSort($item, $partTo)">
+  <div class="cards-container" sv-root="allCards" sv-part="workingCards" data-list-id={{list.id}} sv-on-sort="triggerSort($item, $partTo, $indexTo)">
     <div class="row" ng-repeat="card in workingCards"  id={{buildCardId(card.id)}} sv-element>
       <div class="col-xs-12">
         <div class="card">

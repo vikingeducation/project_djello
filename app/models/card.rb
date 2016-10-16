@@ -7,4 +7,6 @@ class Card < ActiveRecord::Base
                      source: :user
 
   has_many :activities
+
+  default_scope { order(position: "ASC") }
 end
