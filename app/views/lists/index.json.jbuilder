@@ -11,9 +11,9 @@ json.(@lists) do |list|
     json.list_id card.list_id
     json.completed card.completed
 
-    json.members card.users do |member|
-      json.email member.email
-      json.id member.id
+    json.users card.users do |user|
+      json.email user.email
+      json.id user.id
     end
   end
 

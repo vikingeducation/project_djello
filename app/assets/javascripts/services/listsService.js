@@ -4,7 +4,6 @@ app.factory("listsService", ["Restangular", function(Restangular) {
 
   var _lists = []
 
-
   var _createList = function(board, newList) {
     return Restangular.one("boards", board.id).all('lists').post({
       list: {

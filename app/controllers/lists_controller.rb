@@ -23,9 +23,9 @@ class ListsController < ApplicationController
     @list.update(list_params)
     if @list.save!
       puts "list updated"
-      respond_to do |format|
-        format.json { render json: @list, status: 200 }
-      end
+      # respond_to do |format|
+      #   format.json { render json: @list.to_json(include: :cards), status: 200 }
+      # end
     end
   end
 

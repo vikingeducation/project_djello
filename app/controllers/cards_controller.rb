@@ -21,7 +21,7 @@ class CardsController < ApplicationController
       @card.users = [] unless params[:members]
       if @card.save 
         respond_to do |format|
-          format.json { render json: @card, status: 200 }
+          format.json { render json: @card.to_json(include: :users), status: 200 }
         end
       else
         puts "ERROR: Card couldn't be saved"

@@ -86,7 +86,11 @@ app.controller("CardShowCtrl", ["$scope", "cardService", "listsService", "member
       }
     }
     console.log(card)
-    cardService.updateCardMembers(card, updatedMembers)
-    close(null, 200)
+    cardService.updateCardMembers(card, updatedMembers).then(function(response) {
+      console.log(response)
+      console.log($scope.card)
+      angular.copy(response, $scope.card)
+      close(null, 200)
+    })
   }
 }]);
