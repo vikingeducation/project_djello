@@ -10,6 +10,10 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
   $scope.getWorkingCards();
 
+  $scope.handleSort = function(){
+    console.log("the list id is   " + $scope.list.id);
+  };
+
   $scope.cardForm = {};
   $scope.cardForm.list_id = $scope.list.id;
 
