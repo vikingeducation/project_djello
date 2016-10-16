@@ -10,8 +10,56 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
   $scope.getWorkingCards();
 
-  $scope.handleSort = function(){
-    console.log("the list id is   " + $scope.list.id);
+  $scope.sorting = true;
+
+  
+  //Wait till handleSort signals so I can work w updated DOM
+  $scope.$watch(function(){
+    return $scope.sorting;
+  }, function(sorted){
+    if(sorted === false){
+      $scope.updateSort();
+    }
+  })
+
+  $scope.triggerSort = function(card, newList){
+    //can't just do sorting activities here bc DOM isn't updated yet
+    //bc of bug w sv-on-sort/sv-on-stop
+    $scope.movedCard = card;
+    $scope.newList = newList;
+    $scope.sorting = false;
+  };
+
+  $scope.updateSort = function(){
+    
+    var card = $scope.movedCard;
+    var newList = $scope.newList;
+
+    var $card = $("#card-" + card.id);
+    foose = $card;
+    var $container = $card.parent();
+    //it's getting the old parent
+    coose = $container;
+    var newListId = $container.data("list-id");
+
+
+    //restangularize card
+    Restangular.restangularizeElement(null, card, 'cards');
+    card.list_id = parseInt(newListId);
+
+    //assign its new order
+
+    card.patch();
+
+    $scope.sorting = true;
+  }
+
+  $scope.buildCardId = function(id){
+    return "card-" + id;
+  };
+
+  $scope.buildListId = function(id){
+    return "list-container-" + id;
   };
 
   $scope.cardForm = {};

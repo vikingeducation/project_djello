@@ -1,7 +1,7 @@
 <div class="cards-section">
   
-  <div class="cards-container" sv-root="allCards" sv-part="workingCards" sv-on-stop="handleSort()">
-    <div class="row" ng-repeat="card in workingCards" sv-element>
+  <div class="cards-container" sv-root="allCards" sv-part="workingCards" data-list-id={{list.id}} sv-on-sort="triggerSort($item, $partTo)">
+    <div class="row" ng-repeat="card in workingCards"  id={{buildCardId(card.id)}} sv-element>
       <div class="col-xs-12">
         <div class="card">
           <h3 ng-click="showCard(card)">{{ card.title }}</h3>
