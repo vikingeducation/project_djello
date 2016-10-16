@@ -2,9 +2,8 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
 
   
   $scope.cards = $scope.list.cards;
-  //put list info into the cards array since the drag/drop plugin has scope issues
-  var listInfo = { list_id: $scope.list.id, id: "listInfo"};
-  $scope.cards.unshift(listInfo);
+  
+  //GET CARDS THAT ARENT COMPLETE
 
 
   $scope.cardForm = {};

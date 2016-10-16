@@ -1,7 +1,7 @@
 <div class="cards-section">
   
-  <div class="cards-container">
-    <div class="row" ng-repeat="card in cards | filter:{completed: false}">
+  <div class="cards-container" sv-root sv-part="cards">
+    <div class="row" ng-repeat="card in workingCards" sv-element>
       <div class="col-xs-12">
         <div class="card">
           <h3 ng-click="showCard(card)">{{ card.title }}</h3>
