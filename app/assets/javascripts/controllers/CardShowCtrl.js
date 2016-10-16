@@ -1,5 +1,6 @@
 app.controller("CardShowCtrl", ["$scope", "cardService", "listsService", "membersService", "close", "card", "list", "team", function($scope, cardService, listsService, membersService, close, card, list, team) {
 
+  console.log(list.id)
   $scope.teamMembers = []
   angular.copy(team.users, $scope.teamMembers)
 

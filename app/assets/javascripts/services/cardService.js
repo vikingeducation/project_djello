@@ -55,7 +55,6 @@ app.factory("cardService", ["Restangular", function(Restangular) {
 
   cardService.updateCardMembers = function(card, updatedMembers) {
     Restangular.restangularizeElement(null, card, 'cards');
-    console.log(card)
     return card.patch({members: updatedMembers})
   }
 

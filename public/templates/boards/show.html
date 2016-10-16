@@ -14,7 +14,7 @@
 
 </div> <!-- kill the row from layouts/application.html.erb -->
 <div class="row row-horizon">
-  <div ng-repeat="list in lists" class="col-sm-4">
+  <div ng-repeat="list in lists" class="col-sm-5">
     <div class=" list panel panel-success">
       <div ng-hide="editingTitle[list.id]" ng-click="editTitle(list)">
         {{list.title}}
@@ -61,7 +61,9 @@
       <!-- cards index for this list -->
       <div ng-repeat="card in list.cards" ng-click="showCard(card, list, team)" ng-hide="card.completed" class="card panel panel-success">
         <span class="card-title">{{card.title}}</span><br>
-        <span class="crad-text">{{card.text}}</span>
+        <span class="card-text">{{card.text}}</span>
+        <span class="assignment">Assigned to: </span>
+        <span class="card-member" ng-repeat="member in card.members">{{member.email}}</span>
       </div>
 
       <div class="content-center">

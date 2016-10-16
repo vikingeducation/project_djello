@@ -122,6 +122,7 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
   }
 
   $scope.showCard = function(card, list, team) {
+    console.log(list.id)
     ModalService.showModal({
       templateUrl: "templates/cardShowModal.html", 
       controller: "CardShowCtrl", 

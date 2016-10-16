@@ -9,7 +9,6 @@ class BoardsController < ApplicationController
   end
 
   def create
-    puts params
     @board = current_user.boards.new(board_params)
     if @board.save
       respond_to do |format|
@@ -23,8 +22,6 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    puts 'TRYING TO DESTROY'
-    puts params[:id]
     board = @board = current_user.boards.where("id = ?", params[:id])[0]
     if @board.destroy
       respond_to do |format|

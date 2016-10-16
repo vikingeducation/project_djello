@@ -1,9 +1,9 @@
 class ListsController < ApplicationController
   def index
     @lists = List.where("board_id = ?", params[:board_id])
-    respond_to do |format|
-      format.json { render json: @lists.to_json(include: :cards), status: 200 }
-    end
+    # respond_to do |format|
+    #   format.json { render json: @lists.to_json(include: :cards), status: 200 }
+    # end
   end
 
   def create

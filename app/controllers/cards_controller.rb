@@ -15,9 +15,10 @@ class CardsController < ApplicationController
 
   def update
     puts params
-    if params[:members]
+    if params.keys.include?("members")
       @card = Card.find_by_id(params[:id])
-      @card.users = get_users_by_emails(params[:members])
+      @card.users = get_users_by_emails(params[:members]) if params[:members]
+      @card.users = [] unless params[:members]
       if @card.save 
         respond_to do |format|
           format.json { render json: @card, status: 200 }
