@@ -62,8 +62,9 @@
       <div ng-repeat="card in list.cards" ng-click="showCard(card, list, team)" ng-hide="card.completed" class="card panel panel-success">
         <span class="card-title">{{card.title}}</span><br>
         <span class="card-text">{{card.text}}</span>
-        <span class="assignment">Assigned to: </span>
-        <span class="card-member" ng-repeat="member in card.users">{{member.email}}</span>
+        <br>
+        <div class="assignment">Assigned to: </div>
+        <div class="card-member" ng-repeat="member in card.users">{{member.email}}</div>
       </div>
 
       <div class="content-center">
@@ -75,7 +76,7 @@
   </div>
 
   <div ng-show="showNewList" class="col-sm-4 list panel panel-success">
-    <form>
+    <form name="newListForm">
       <label>Title</label>
       <input class="form-control" type="text" name="title" ng-model="newList.title">
       <label>Description</label>
