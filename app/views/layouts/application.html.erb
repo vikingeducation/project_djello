@@ -18,7 +18,18 @@
 <body <%= content_for :angular_controller %> >
 
   <% if current_user %>
-    <nav class="navbar navbar-inverse"><span class="nav-brand white">Logged in as <%=current_user.email%></span><span class="btn btn-default"><%= link_to "Log out", destroy_user_session_path, method: "DELETE" %> </span> </nav>
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <span class="white">Fello: a Task Manager for Teams</span>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">
+            Logged in as <%=current_user.email%>
+          </<a href=""></a></li>
+          <li><%= link_to "Log out", destroy_user_session_path, method: "DELETE" %></li> 
+      </nav>
+    </div>
   <% end %>
 
   <main class="container">

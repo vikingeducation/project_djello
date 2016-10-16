@@ -1,11 +1,15 @@
-<a ui-sref="newBoard">New Board</a>
+<a ui-sref="newBoard" class="btn btn-primary">New Board</a>
 
-<a ui-sref="newTeam">New Team</a>
+<a ui-sref="newTeam" class="btn btn-info">New Team</a>
 
 <div ng-repeat="board in boards" id="boards">
-  <a ui-sref="boardShow({id: board.id})"><div class="col-xs-4 panel panel-primary">
-    <div class="board-title">{{board.title}}</div>
-    <div class="board-description">{{board.description}}</div>
-  </div></a>
+  <div class="col-xs-4">
+    <a ui-sref="boardShow({id: board.id})">
+      <div class="board panel panel-primary">
+        <div class="board-title">{{board.title}}</div>
+        <div class="board-description">{{board.description}}</div>
+      </div>
+    </a>
+  </div>
 
 </div>

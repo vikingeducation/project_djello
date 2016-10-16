@@ -5,8 +5,6 @@
   
 </select>
 
-{{board.team_id}}
-
 <span class="float-right large">Team: {{team.name}}</span>
 
 <h1>{{board.title}}</h1>
@@ -15,7 +13,7 @@
 </div> <!-- kill the row from layouts/application.html.erb -->
 <div class="row row-horizon">
   <div ng-repeat="list in lists" class="col-sm-5">
-    <div class=" list panel panel-success">
+    <div class=" list panel panel-primary">
       <div ng-hide="editingTitle[list.id]" ng-click="editTitle(list)">
         {{list.title}}
       </div>
