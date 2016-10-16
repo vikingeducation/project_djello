@@ -58,12 +58,8 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     var below = newList[newIndex + 1]
     
     if(below && above ){
-      console.log("below and above");
       var newPos = above.position + ((below.position - above.position) / 2);
       card.position = newPos;
-      console.log("above position " + above.position)
-      console.log("below position " + below.position)
-      console.log("card position " + card.position)
 
     } else if(below){
       card.position = below.position - 25;

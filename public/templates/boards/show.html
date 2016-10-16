@@ -7,29 +7,6 @@
     <div id="select-board" class="pull-right">
       <select-board></select-board>
 
-
-      <!-- create board section which isn't event functional here yet -->
-      <a ng-click="toggleCreating()" ng-if="!creatingBoard">New Board</a>
-      <a ng-click="toggleCreating()" ng-if="creatingBoard">Hide Form</a>
-
-      <div class="row" ng-if="creatingBoard">
-        <form>
-          <div class="form-group">
-            <label>Title</label>
-            <input ng-model="form.title" type="text">
-          </div>
-
-          <div class="form-group">
-            <label>Description</label>
-            <textarea ng-model="form.description">
-            </textarea>
-          </div>
-
-          <button class="btn-primary" ng-click="createBoard()">Create</button>
-
-        </form>
-
-      </div>
     </div>
   </div>
 
