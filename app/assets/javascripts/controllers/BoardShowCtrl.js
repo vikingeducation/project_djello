@@ -48,11 +48,6 @@ app.controller("BoardShowCtrl", ["$stateParams", "$state", "$scope", "_", "board
     angular.copy({}, $scope.newList)
   }
 
-  $scope.cancelNewList = function() {
-    $scope.showNewList = false
-    angular.copy({}, $scope.newList)
-  }  
-
   $scope.editTitle = function(list) {
     console.log("editing title")
     $scope.editingDescription[list.id] = false
