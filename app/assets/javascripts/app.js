@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'restangular', 'angularModalService', 'angular-sortable-view']);
+var app = angular.module('app', ['ui.router', 'angularModalService', 'angular-sortable-view']);
 
 
 
