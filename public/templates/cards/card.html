@@ -17,7 +17,7 @@
         <p ng-click="toggleDescription($event)" ng-show="!editingDescription === true">{{ card.description }}</p>
 
         <div class="edit-description" ng-show="editingDescription === true">
-          <p class="modal-description"><input type="text" ng-model="card.description" value={{card.description}}></p>
+          <textarea class="modal-description col-xs-12" ng-model="card.description" value={{card.description}}></textarea>
 
           <button ng-click="updateDescription()" class="btn btn-primary">Save</button>
         </div>
