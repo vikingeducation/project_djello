@@ -27,6 +27,7 @@ usernames = ["Batman", "Robin", "Joker", "Luke Cage", "Cottonmouth"]
 puts "creating users"
 
 usernames.each do |name|
+  name = name.gsub(" ", "")
   u = User.new(username: name, password: "password", password_confirmation: "password", email: "#{name}@email.com")
 
   u.save!
