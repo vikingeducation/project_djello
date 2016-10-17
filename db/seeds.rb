@@ -6,24 +6,24 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Board.destroy_all
+#Board.destroy_all
 User.destroy_all
-List.destroy_all
-Card.destroy_all
+#List.destroy_all
+#Card.destroy_all
 
 
-titles = ["Todo", "Foo Project", "Baz Project"]
-descriptions = ["This is our todo list project management board", "Project management for Foo project", "Manage all tasks for Baz project"]
+# titles = ["Todo", "Foo Project", "Baz Project"]
+# descriptions = ["This is our todo list project management board", "Project management for Foo project", "Manage all tasks for Baz project"]
 
-puts "creating boards"
-(0..2).each do |i|
+# puts "creating boards"
+# (0..2).each do |i|
 
-  b = Board.new(title: titles[i], description: descriptions[i], user_id: 1)
-  b.save!
+#   b = Board.new(title: titles[i], description: descriptions[i], user_id: 1)
+#   b.save!
 
-end
+# end
 
-usernames = ["Batman", "Robin", "IronMan", "Django", "Cottonmouth"]
+usernames = ["Batman", "Robin", "Joker", "Luke Cage", "Cottonmouth"]
 puts "creating users"
 
 usernames.each do |name|
