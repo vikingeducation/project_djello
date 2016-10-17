@@ -1,6 +1,6 @@
-var app = angular.module('app', ['ui.router', 'restangular', 'angular-sortable-view']);
+var app = angular.module('app', ['ui.router', 'restangular', 'angularModalService', 'angular-sortable-view']);
 
-//'angularModalService', 
+
 
 app.config([
   "$httpProvider",
