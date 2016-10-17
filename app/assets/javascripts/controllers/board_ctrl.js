@@ -1,7 +1,7 @@
 app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listService', '_', 'Restangular', function($scope, boardService, $stateParams, listService, _, Restangular){
 
 
-  
+  //put a loading sign
   //get the board and its lists to start things off
   boardService.getBoard($stateParams.id).then(function(response){
     $scope.board = response;
