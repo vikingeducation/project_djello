@@ -1,4 +1,5 @@
 class BoardsController < ApplicationController
+  before_action :current_user_member_of, only: [:show]
 
   def index
     
@@ -56,9 +57,22 @@ class BoardsController < ApplicationController
   end
 
 
-
-
   private
+
+  
+  def current_user_member_of
+    id = params[:id]
+    @board = Board.find(id)
+
+    boards = Board.all_with_user(current_user)
+
+    unless boards.include?(@board)
+      flash[:error] = "Not a member of this board"
+      redirect_to :back
+    end
+  end
+
+
 
   def board_params
     params.require(:board).permit(:title, :description)
