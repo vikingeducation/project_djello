@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
 
   def index
-    #@boards = current_user.boards
+    
     @boards = Board.all_with_user(current_user)
 
     respond_to do |format|
