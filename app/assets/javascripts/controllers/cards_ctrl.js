@@ -13,7 +13,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   $scope.sorting = true;
 
   
-  //Wait until sorting === false so I can work w updated DOM
+  //Make patch request until sorting === false so I can work w updated DOM
   $scope.$watch(function(){
     return $scope.sorting;
   }, function(sorted){

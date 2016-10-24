@@ -1,7 +1,7 @@
 app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listService', '_', 'Restangular', function($scope, boardService, $stateParams, listService, _, Restangular){
 
 
-  //put a loading sign
+  
   //get the board and its lists to start things off
   boardService.getBoard($stateParams.id).then(function(response){
     $scope.board = response;
@@ -63,7 +63,7 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
       var query = ".list-edit-" + list.id;
       var $ignore = $(query);
       
-
+      //don't edit the list any more
       if(list.editing){
         list.editing = false;
         //turn listeners off
@@ -71,8 +71,9 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
         $(document).off('click');
 
       } else {
+        //edit the list
         list.editing = true;
-        console.log("set listeners");
+        
         
         $(document).on('click', function(event) {
           
@@ -95,11 +96,13 @@ app.controller("BoardCtrl", ['$scope', 'boardService', '$stateParams', 'listServ
            //set the state of the new list editing to false
            //update the list
             response.editing = false;
+
+            //insert the updated list
             $scope.lists.splice(editListIndex, 1, response);
 
             console.log("successfully updated list");
 
-
+            //run this function if the patch request was not successful
           }, function(){
             $scope.inplaceForm = {};
             //make the state of list not editing

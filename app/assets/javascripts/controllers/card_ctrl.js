@@ -88,8 +88,9 @@ app.controller("CardCtrl", ['$scope', 'close', 'card', 'memberService', function
         $ignore.off('click');
       });
 
+      //make the element ignore the click event on the document
       $ignore.click(function(event){
-        console.log("ignoring");
+        
         event.stopPropagation();
       })
     } else if($scope.editingTitle){
@@ -113,6 +114,7 @@ app.controller("CardCtrl", ['$scope', 'close', 'card', 'memberService', function
         $ignore.off('click');
       });
 
+      //make the form ignore the document click event
       $ignore.click(function(event){
         event.stopPropagation();
       })
