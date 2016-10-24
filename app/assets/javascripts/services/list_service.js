@@ -13,7 +13,7 @@ app.factory("listService", ['Restangular', function(Restangular){
 
   service.updateList = function(listData, id){
     var list = { list: listData };
-    gooy = list;
+    
     return Restangular.one('lists', id).patch(list);
   };
 
