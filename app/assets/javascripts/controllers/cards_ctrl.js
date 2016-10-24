@@ -3,7 +3,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   
   $scope.cards = $scope.list.cards;
   
-  //GET CARDS THAT ARENT COMPLETE
+  //GET CARDS THAT ARE NOT COMPLETE
   $scope.getWorkingCards = function(){
     $scope.workingCards = cardService.workingCards($scope.cards);
   };
@@ -13,7 +13,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   $scope.sorting = true;
 
   
-  //Wait till handleSort signals so I can work w updated DOM
+  //Wait until sorting === false so I can work w updated DOM
   $scope.$watch(function(){
     return $scope.sorting;
   }, function(sorted){
@@ -22,7 +22,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     }
   })
 
-  // branch sv has one step back
+  
   $scope.triggerSort = function(card, newList, newIndex){
     //can't just do sorting activities here bc DOM isn't updated yet
     //bc of bug w sv-on-sort/sv-on-stop
@@ -40,10 +40,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     var newIndex = $scope.newIndex;
 
     var $card = $("#card-" + card.id);
-    foose = $card;
     var $container = $card.parent();
-    //it's getting the old parent
-    coose = $container;
     var newListId = $container.data("list-id");
 
 
@@ -108,6 +105,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     })
   };
 
+  //launch the card modal
   $scope.showCard = function(card) {
     Restangular.restangularizeElement(null, card, 'cards');
     
