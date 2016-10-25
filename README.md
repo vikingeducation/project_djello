@@ -1,2 +1,8 @@
-# assignment_djello
-Project management with that great wobbly taste.
+Djello
+
+A full stack Project Management app.
+
+Luke Schoettinger/schoetlr
+
+
+Live at https://warm-plains-38670.herokuapp.com

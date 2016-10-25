@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-6">
+    <h1>{{ board.title }}</h1>
+  </div>
+
+  <div class="col-md-6">
+    <div id="select-board" class="pull-right">
+      <select-board></select-board>
+
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="board">
+      
+      <p>{{ board.description }}</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-5">
+  </div>
+  <div class="col-xs-7">
+    <h1 ng-hide="true" id="loading">LOADING</h1>
+  </div>
+</div>
+
+<!-- lists section could use new ctrl and directive -->
+<div class="row">
+  <div class="col-md-3" ng-repeat="list in lists">
+    <div class="list">
+      <div class="list-info" ng-hide="list.editing">
+        <h1 ng-click="toggleEditList(list, $event)" class="text-center">{{ list.title }}</h1>
+        <p ng-click="toggleEditList(list, $event)" class="text-center">{{ list.description }}</p>
+      </div>
+
+      <div class={{listFormClass(list.id)}} ng-hide="!list.editing">
+        <h1><input type="text" placeholder="{{ list.title }}" value={{list.title}} ng-model="inplaceForm.title" class="inplace-title"></h1>
+        <p><input type="text" placeholder="{{ list.description }}" value={{list.description}} ng-model="inplaceForm.description" class="inplace-description"></p>
+      </div>
+
+      <!-- CARDS -->
+      <cards list="list"></cards>
+
+      <a ng-click="deleteList(list, $index)" class="text-center">Delete List</a>
+    </div>
+  </div>
+
+
+
+  <!-- add a list form -->
+  <div class="col-md-3">
+    <a ng-click="toggleCreatingList()" ng-if="!creatingList">Add a List</a>
+    <a ng-click="toggleCreatingList()" ng-if="creatingList">Hide Form</a>
+
+
+    <div class="row" ng-if="creatingList">
+      <form>
+        <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" ng-model="listForm.title" type="text">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="listForm.description">
+          </textarea>
+        </div>
+
+        <button class="btn-primary" ng-click="createList()">Create</button>
+
+      </form>
+
+    </div>
+  </div>
+
+
+  
+
+
+</div>
