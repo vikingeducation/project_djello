@@ -1,4 +1,4 @@
-app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 'Restangular', function($scope, $state, cardService, ModalService, Restangular){
+app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 'Restangular', '$timeout', function($scope, $state, cardService, ModalService, Restangular, $timeout){
 
   
   $scope.cards = $scope.list.cards;
@@ -18,7 +18,9 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     return $scope.sorting;
   }, function(sorted){
     if(sorted === false){
-      $scope.updateSort();
+      //DOM still isn't loaded so delay until it does...
+      $timeout(function(){}, 10).then($scope.updateSort);
+      
     }
   })
 
@@ -34,13 +36,14 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
   };
 
   $scope.updateSort = function(){
-    
+    var cardId = $scope.movedCard.id;
     var card = $scope.movedCard;
     var newList = $scope.newList;
     var newIndex = $scope.newIndex;
 
-    var $card = $("#card-" + card.id);
+    var $card = $("#card-" + cardId);
     var $container = $card.parent();
+
     var newListId = $container.data("list-id");
 
 
@@ -50,7 +53,7 @@ app.controller("CardsCtrl", ['$scope', '$state', 'cardService', 'ModalService', 
     
     //assign position
     var lastIndex = newList.length - 1;
-    //the one above but with a lower position # is nI - 1
+    
     var above = newList[newIndex - 1];
     var below = newList[newIndex + 1]
     
