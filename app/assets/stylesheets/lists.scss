@@ -1,0 +1,47 @@
+// Place all the styles related to the lists controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.list {
+    background: white;
+    border-radius: 5px;
+    padding: 5px 10px 10px;
+}
+
+.add-card {
+    margin: 10px -10px -10px;
+    padding: 10px;
+    border-radius: 5px;
+    &:hover {
+        background: lightgrey;
+    }
+}
+
+.new-card-form {
+    margin-top: 10px;
+}
+
+.delete-link {
+    color: darkred;
+
+    &:hover {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+h4 {
+    a {
+      color: white;
+        &:hover {
+            color: lightgrey;
+            text-decoration: none;
+        }
+    }
+}
+
+.new-list-form {
+  label {
+    color: white;
+  }
+}

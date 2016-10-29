@@ -1,0 +1,44 @@
+// Place all the styles related to the boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.board {
+  color: white;
+  height: 100px;
+  border: solid darkgrey 1px;
+  border-radius: 5px;
+  margin: 10px;
+  background: darkred;
+  a {
+    color: white;
+    &:hover {
+      color: grey;
+      text-decoration: none;
+    }
+  }
+}
+
+.board-title{
+  font-weight: bold;
+}
+
+.new-board {
+  color: black;
+  background: lightgray;
+  a {
+    margin-top: 20px;
+    font-weight: bold;
+    color: black;
+    &:hover {
+      color: grey;
+      text-decoration: none;
+    }
+  }
+  *{
+    margin-top: 10px;
+  }
+}
+
+.board-show-body {
+  background-color: darkred;
+}

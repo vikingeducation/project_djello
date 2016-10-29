@@ -1,0 +1,13 @@
+<h3>Boards</h3>
+<div class="col-sm-3 board" ng-repeat="board in boards track by $index">
+  <a ui-sref="main.board({id:{{board.id}}})"><h4 class='board-title'>{{board.title}}<h4></a>
+</div>
+<div class="col-sm-3 board new-board text-center" ng-click="newBoard=true">
+  <div>
+    <a href='' ng-hide=newBoard>Create New Board</a>
+  </div>
+  <form ng-show="newBoard">
+    <input type="text" name="title" value="" ng-model="board.title">
+    <input class="btn btn-primary" type="button" name="submit" value="Make Board" ng-click='createBoard(board)'>
+  </form>
+</div>

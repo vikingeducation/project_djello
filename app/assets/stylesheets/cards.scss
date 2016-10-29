@@ -1,0 +1,12 @@
+// Place all the styles related to the cards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.card {
+  border: solid lightgrey 1px;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 5px 0px;
+  background-color: white;
+  min-height: 60px;
+}
