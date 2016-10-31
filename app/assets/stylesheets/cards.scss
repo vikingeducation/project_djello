@@ -1,0 +1,31 @@
+// Place all the styles related to the cards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.card-member-div{
+  img{
+    height: 25px;
+    width: 25px;
+  }
+  h5 {
+    display: inline-block;
+    margin-left: 15px;
+  }
+  .remove-member{
+    margin-top: 8px;
+  }
+  .add-member{
+    martin-top: 10px;
+  }
+}
+
+#cardTitleEdit{
+  font-size: 24px;
+  height: 34px;
+  font-weight: 500;
+}
+
+#update-card-title{
+  margin-bottom: 10px;
+}

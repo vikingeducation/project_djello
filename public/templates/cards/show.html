@@ -1,0 +1,60 @@
+
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="row">
+            <div class="col-xs-12">
+                <h3 class="modal-title" ng-mouseover="hoverIn(card)" ng-mouseleave="hoverOut(card)" ng-hide="titleEditing" ng-hide="titleEditing" ng-model="card.title" >{{card.title}}<span ng-show="card.hoverEdit" class="animate-show">
+                  <a ng-click="editCardTitle()">
+                      <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519584-081_Pen-16.png" alt="">
+                  </a>
+                </span>
+              </h3>
+              <input type="text" ng-model="card.title" ng-show="titleEditing" id="cardTitleEdit">
+              <button class="btn btn-primary" id="update-card-title" ng-show="titleEditing" ng-click="updateCardTitle()">Update</button>
+              <button class="btn btn-danger" id="update-card-title" ng-show="titleEditing" ng-click="titleEditing = false">Cancel</button>
+            </div>
+          </div>
+          <br>
+          <a ng-click="deleteCard()" data-dismiss="modal" class="pull-right">Mark Completed</a>
+          <h4>In list: <a ng-click="close()" data-dismiss="modal">{{list.title}}</a></h4>
+        </div>
+        <div class="modal-body">
+          <h4 ng-hide="card.descEditing" ng-click="editCardDesc(card)">{{card.description}}</h4>
+          <textarea ng-show="card.descEditing" ng-model="card.description" card-desc-id="{{card.id}}" class="form-control"></textarea>
+          <a ng-click="editCardDesc(card)" ng-hide="card.descEditing">Edit the description</a>
+          <button class="btn btn-primary btn-sm list-save" ng-show="card.descEditing" ng-click="updateCardDesc(card)">Save</button>
+          <button class="btn btn-danger btn-sm list-save" ng-show="card.descEditing" ng-click="card.descEditing = false">Cancel</button>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <h4>Members</h4>
+            <div ng-repeat="member in card.members" class="card-member-div">
+              <img src="#" class="card-member-img">
+              <h5>User ID: {{member.id}} Email: {{member.email}}</h5>
+              <a class="pull-right remove-member" ng-click="removeMember(member.id)">remove</a>
+            </div>
+            <a ng-click="showMembers()" ng-hide="addingMember" class="add-member"><h5>Add Member</h5></a>
+            <div ng-if="addingMember">
+              <select ng-model="newMemID">
+                <option  ng-repeat="memToAdd in membersToAdd" value="{{memToAdd.id}}">{{memToAdd.id}}: {{memToAdd.email}}</option>
+              </select>
+              <button class="btn btn-primary btn-sm" ng-click="addMember(newMemID)">Add Member</button>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <h4>Activity</h4>
+          <div ng-repeat="activity in card.activities | orderBy: '-created_at' ">
+          <img src="#" class="card-member-img">
+          {{activity.action}} on {{activity.created_at | date }}</div>
+          <hr>
+        </div>
+        <div class="modal-footer">
+          <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,53 @@
+// Place all the styles related to the lists controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.list-container{
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #E4F0F4;
+  h3 {
+    text-align: center;
+  }
+  margin-bottom: 50px;
+}
+
+.all-lists-container{
+  margin-top: 20px;
+}
+
+.delete-list{
+  margin-bottom: 10px;
+}
+
+.edit-list-title{
+  font-size: 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#add-card{
+  text-align: center;
+}
+
+#create-list{
+  margin-top: 10px;
+}
+
+#update-title{
+  vertical-align: middle; 
+  margin-bottom: 25px;
+}
+
+.list-save {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.task-card {
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+}

@@ -1,2 +1,3 @@
-# assignment_djello
-Project management with that great wobbly taste.
+Djello is a team-based project management application. Users can build task lists grouped into different board, can assign cards to team members, and can remove tasks once they're completed -- all without a full-page refresh. This single-page app made with AngularJS, Ruby on Rails and PostgreSQL. The app features drag and drop functionality and in-place editing for all fields.
+
+The live app is available at [here!](https://arcane-brook-90814.herokuapp.com/#/) To log in, create an account or sign in with alex@alex.com and 'password' as the password. Once signed in, you can create boards, lists and cards, and drag and drop lists between different boards and cards between different lists. All API calls are done via Restangular, so the app never needs to do a full refresh to get data to the Rails back-end. 
