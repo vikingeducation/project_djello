@@ -14,6 +14,7 @@
 
   <body ng-app="Djello">
     <div class="container navbar navbar-default">
+      <%= link_to 'Djello', root_path, class: "navbar-brand" %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
