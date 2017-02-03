@@ -12,4 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
+//= require angular
+//= require angular-ui-router
+//= require restangular
+
+//= require static_pages
+//= require app
+//= require services/underscore_service
+//= require configs/restangular_config
+//= require configs/router_config
+
 //= require_tree .
