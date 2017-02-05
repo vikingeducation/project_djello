@@ -38,9 +38,14 @@ Djello.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
+Djello.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
+
 Djello.run(['$rootScope', function($rootScope) {
   $rootScope.$on("$stateChangeError", console.error.bind(console));
 }]);
+
 
 
 

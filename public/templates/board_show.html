@@ -8,6 +8,17 @@
           <p> {{ card.title }} </p>
         </div>
       </div>
+
+      <form id="card-form" name="cardForm">
+        <div class="form-group">
+          <input type="text" name="title" class="form-control" placeholder="Enter New card text" ng-model="cardParams.title" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Add" class="btn btn-success" ng-click="createCard(list)" ng-show="cardForm.$valid">
+        </div>
+      </form>
+
     </div>
   </div>
 </div>
+<a href="" ng-click="createList(board)">Add a List</a>

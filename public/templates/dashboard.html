@@ -12,7 +12,7 @@
   </div>
 </div>
 <div class="boardTitle row">
-  <h3>{{ currentBoard.title }}</h3>
+  <h3><a href="#" editable-text="currentBoard.title" onbeforesave="changeBoard(currentBoard, $data)">{{ currentBoard.title || "empty" }}</a></hr>
 </div>
 
 </div class="row">

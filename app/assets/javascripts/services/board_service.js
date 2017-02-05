@@ -3,8 +3,20 @@
 // ----------------------------------------
 
 Djello.factory('BoardService',
-  ['_', 'Restangular',
-  function(_, Restangular) {
+  ['_', 'Restangular', 'ListService',
+  function(_, Restangular, ListService) {
+
+  Restangular.extendModel('boards', function(model) {
+    model.createList = function(params) {
+      params.board_id = model.id;
+      return ListService.createList(params)
+        .then(function(response) {
+          model.lists.push(response);
+          return response;
+        });
+    };
+    return model;
+  });
 
 
   var _restangularizeBoardLists = function(board) {
@@ -41,11 +53,11 @@ Djello.factory('BoardService',
   };
 
 
-  // BoardService.updatePin = function(pin, formParams){
-  //   var pinData = { pin: formParams };
+  BoardService.updateBoard = function(board, formParams){
+    var boardData = { board: formParams };
 
-  //   return pin.patch(pinData);
-  // };
+    return board.patch(boardData);
+  };
 
   BoardService.deleteBoard = function(board){
     return board.remove();
