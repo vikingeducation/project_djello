@@ -18,12 +18,12 @@ MULTIPLIER.times do
 end
 
 puts "creating lists..."
-MULTIPLIER.times do
+(5 * MULTIPLIER).times do
   List.create(title: Faker::Hipster.sentence(3, true), board_id: Board.pluck(:id).sample);
 end
 
 puts "creating cards..."
-MULTIPLIER.times do
+(10 * MULTIPLIER).times do
   card = Card.create(title: Faker::Hipster.sentence(3, true), desc: Faker::Hipster.paragraph,
                      list_id: List.pluck(:id).sample);
   card.card_member_ids = User.pluck(:id)

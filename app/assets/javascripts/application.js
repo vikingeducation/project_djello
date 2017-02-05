@@ -15,6 +15,7 @@
 //= require underscore
 //= require angular
 //= require angular-ui-router
+//= require angular-devise
 //= require restangular
 
 //= require static_pages

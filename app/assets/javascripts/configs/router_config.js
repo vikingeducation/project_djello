@@ -10,7 +10,27 @@ Djello.config(['$urlRouterProvider', '$stateProvider',
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
-        template: 'Hello Angular World',
+        templateUrl: '/templates/dashboard.html',
+        controller: 'DashboardCtrl',
+        resolve: {
+          boards: ['BoardService', function(BoardService){
+            return BoardService.getBoards();
+          }]
+        }
+      })
+      .state('dashboard.show', {
+        url: '/:id',
+        views: {
+          'list@dashboard': {
+            templateUrl: '/templates/board_show.html',
+            controller: 'BoardShowCtrl',
+          }
+        },
+        resolve: {
+          board: ['BoardService', '$stateParams', function(BoardService, $stateParams){
+            return BoardService.getBoard($stateParams.id);
+          }]
+        }
       });
   }]);
 
