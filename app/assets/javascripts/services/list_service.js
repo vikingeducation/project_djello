@@ -20,9 +20,14 @@ Djello.factory('ListService',
 
   var ListService = {};
 
-  ListService.createlist = function(formData){
+  ListService.createList = function(formData){
     var list = { list: formData };
-    return Restangular.all("lists").post(list);
+    return Restangular.all('lists').post(list);
+  };
+
+  ListService.updateList = function(list, formParams){
+    var listData = { list: formParams };
+    return list.patch(listData);
   };
 
   return ListService;

@@ -1,11 +1,11 @@
 <div ng-repeat="list in lists">
   <div class="col-md-4 fixed">
     <div class="list">
-      <h4 class="text-center">{{ list.title }}</h4>
+      <h4><a href="#" editable-text="list.title" onbeforesave="changeList(list, $data)">{{ list.title || "empty" }}</a></h4>
       <hr>
       <div ng-repeat="card in list.cards">
         <div class="card">
-          <p> {{ card.title }} </p>
+          <p><a href="#" editable-text="card.title" onbeforesave="changeCard(card, $data)">{{ card.title || "empty" }}</a></p>
         </div>
       </div>
 

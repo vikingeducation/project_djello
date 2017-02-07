@@ -14,6 +14,18 @@ class CardsController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      if @card.update(card_params)
+        flash.now[:error] = 'card updated'
+        format.json { render :json => resource_to_json, :status => 200 }
+      else
+        flash.now[:error] = 'card not updated'
+        format.json { render :json => card_errors, :status => 422 }
+      end
+    end
+  end
+
   private
   def set_card
     @card = Card.find_by_id(params[:id])

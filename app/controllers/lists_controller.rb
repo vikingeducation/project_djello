@@ -14,6 +14,18 @@ class ListsController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      if @list.update(list_params)
+        flash.now[:error] = 'list updated'
+        format.json { render :json => resource_to_json, :status => 200 }
+      else
+        flash.now[:error] = 'list not updated'
+        format.json { render :json => list_errors, :status => 422 }
+      end
+    end
+  end
+
   private
   def set_list
     @list = List.find_by_id(params[:id])

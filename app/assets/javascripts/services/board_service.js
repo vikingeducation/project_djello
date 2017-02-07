@@ -18,10 +18,17 @@ Djello.factory('BoardService',
     return model;
   });
 
+  var _restangularizeListCards = function(list) {
+    list.cards = Restangular
+      .restangularizeCollection(list, list.cards, 'cards');
+  }
 
   var _restangularizeBoardLists = function(board) {
     board.lists = Restangular
         .restangularizeCollection(board, board.lists, 'lists');
+    _.each(board.lists, function(list) {
+      _restangularizeListCards(list);
+    })
   };
 
 
@@ -55,7 +62,6 @@ Djello.factory('BoardService',
 
   BoardService.updateBoard = function(board, formParams){
     var boardData = { board: formParams };
-
     return board.patch(boardData);
   };
 

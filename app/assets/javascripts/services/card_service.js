@@ -13,6 +13,11 @@ Djello.factory('CardService',
     return Restangular.all("cards").post(card);
   };
 
+  CardService.updateCard = function(card, formParams){
+    var cardData = { card: formParams };
+    return card.patch(cardData);
+  };
+
   return CardService;
 
   }]);
