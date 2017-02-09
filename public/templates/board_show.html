@@ -9,12 +9,14 @@
         </div>
       </div>
 
-      <form id="card-form" name="cardForm">
+      <h5 class="text-center" ng-hide="list.showForm"><a href="" ng-click="list.showForm=true">Add a Card</a></h5>
+      <form name="cardForm" ng-show="list.showForm" class="slide-down" ng-class="animation">
         <div class="form-group">
-          <input type="text" name="title" class="form-control" placeholder="Enter New card text" ng-model="cardParams.title" required>
+          <input type="text" name="title" id="title{{$index}}" class="form-control" placeholder="Enter New card text" ng-model="list.cardParams.title" required>
         </div>
         <div class="form-group">
-          <input type="submit" value="Add" class="btn btn-success" ng-click="createCard(list)" ng-show="cardForm.$valid">
+          <input type="submit" value="Add" class="btn btn-success" ng-click="createCard(list)" ng-disabled="cardForm.$invalid">
+          <a href="" ng-show="list.showForm" ng-click="list.showForm=false;list.cardParams.title=''">Cancel</a>
         </div>
       </form>
 

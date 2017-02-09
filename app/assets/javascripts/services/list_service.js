@@ -11,6 +11,7 @@ Djello.factory('ListService',
       params.list_id = model.id;
       return CardService.createCard(params)
         .then(function(response) {
+          Restangular.restangularizeElement(model, response, 'cards');
           model.cards.push(response);
           return response;
         });
@@ -26,7 +27,7 @@ Djello.factory('ListService',
   };
 
   ListService.updateList = function(list, formParams){
-    var listData = { list: formParams };
+    var listData = { "list": formParams };
     return list.patch(listData);
   };
 

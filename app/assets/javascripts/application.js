@@ -17,6 +17,7 @@
 //= require angular-ui-router
 //= require angular-devise
 //= require restangular
+//= require ngAnimate
 //= require xeditable.min
 
 //= require static_pages

@@ -8,7 +8,10 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
 
   $scope.board = board;
   $scope.lists = board.lists;
-  $scope.cardParams = {};
+  _.each($scope.lists, function(list) {
+    list.cardParams = {};
+    list.showForm = false;
+  })
   $scope.listParams = { title: "new list", board_id: board.id };
 
   $scope.createList = function(board) {
@@ -21,7 +24,7 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
   }
 
   $scope.createCard = function(list) {
-    list.createCard($scope.cardParams)
+    list.createCard(list.cardParams)
           .then(function(response) {
             console.log(response);
             $scope.cardParams = {};

@@ -17,6 +17,7 @@ Djello.controller('DashboardCtrl', ['$scope', 'Auth', 'boards', 'BoardService', 
                     BoardService.getBoards().then( function(boards) {
                       angular.copy(boards,$scope.boards);
                       $scope.currentBoard =  $scope.boards[0];
+                      $scope.boardChanged($scope.currentBoard);
                     })
                   })
     }
@@ -27,6 +28,7 @@ Djello.controller('DashboardCtrl', ['$scope', 'Auth', 'boards', 'BoardService', 
                     BoardService.getBoards().then( function(boards) {
                       angular.copy(boards,$scope.boards);
                       $scope.currentBoard =  $scope.boards[0];
+                      $scope.boardChanged($scope.currentBoard);
                     })
       })
     }

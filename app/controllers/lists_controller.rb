@@ -52,6 +52,6 @@ class ListsController < ApplicationController
 
   def resource_to_json
     resource = action_name == 'index' ? @lists : @list
-    resource.to_json
+    resource.to_json(:include => :cards)
   end
 end

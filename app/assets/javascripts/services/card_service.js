@@ -14,7 +14,7 @@ Djello.factory('CardService',
   };
 
   CardService.updateCard = function(card, formParams){
-    var cardData = { card: formParams };
+    var cardData = { "card": formParams };
     return card.patch(cardData);
   };
 

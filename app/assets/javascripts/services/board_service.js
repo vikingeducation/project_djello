@@ -11,6 +11,7 @@ Djello.factory('BoardService',
       params.board_id = model.id;
       return ListService.createList(params)
         .then(function(response) {
+          Restangular.restangularizeElement(model, response, 'lists');
           model.lists.push(response);
           return response;
         });
