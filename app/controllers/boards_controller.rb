@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   before_action :set_board, :except => [:index, :create]
 
   def index
-    @boards = Board.order(:created_at => :desc)
+    @boards = Board.where(user_id: current_user.id).order(:created_at => :desc)
     respond_to do |format|
       format.json { render :json => resource_to_json, :status => 200 }
     end

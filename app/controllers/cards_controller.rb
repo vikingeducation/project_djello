@@ -26,6 +26,18 @@ class CardsController < ApplicationController
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if @card.destroy
+        flash.now[:error] = 'card destroyed'
+        format.json { render :josn => @card, :status => 200 }
+      else
+        flash.now[:error] = 'card not destroyed'
+        format.json { render :json => card_errors, :status => 422 }
+      end
+    end
+  end
+
   private
   def set_card
     @card = Card.find_by_id(params[:id])

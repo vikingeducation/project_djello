@@ -41,4 +41,6 @@ Djello.controller('DashboardCtrl', ['$scope', 'Auth', 'boards', 'BoardService', 
     $scope.boardChanged = function(board) {
       $state.go('dashboard.show', {"id": board.id});
     }
+
+    $state.go('dashboard.show', {"id": boards[0].id});
 }]);

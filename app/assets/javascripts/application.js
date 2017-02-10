@@ -18,6 +18,8 @@
 //= require angular-devise
 //= require restangular
 //= require ngAnimate
+//= require bootstrap-3.3.7
+//= require angular-modal-service
 //= require xeditable.min
 
 //= require static_pages

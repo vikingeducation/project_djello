@@ -1,4 +1,4 @@
-User.destroy_all
+# User.destroy_all
 Board.destroy_all
 List.destroy_all
 Card.destroy_all
@@ -19,7 +19,8 @@ end
 
 puts "creating lists..."
 (5 * MULTIPLIER).times do
-  List.create(title: Faker::Hipster.sentence(3, true), board_id: Board.pluck(:id).sample);
+  List.create(title: Faker::Hipster.sentence(3, true), desc: Faker::Hipster.paragraph,
+              board_id: Board.pluck(:id).sample);
 end
 
 puts "creating cards..."
