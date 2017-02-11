@@ -26,6 +26,18 @@ class ListsController < ApplicationController
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if @list.destroy
+        flash.now[:error] = 'list destroyed'
+        format.json { render :json => @list, :status => 200 }
+      else
+        flash.now[:error] = 'list not destroyed'
+        format.json { render :json => list_errors, :status => 422 }
+      end
+    end
+  end
+
   private
   def set_list
     @list = List.find_by_id(params[:id])

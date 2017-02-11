@@ -11,9 +11,8 @@ Djello.controller('CardModalCtrl', ['$scope', 'close', 'cardParams', function($s
   };
 
   $scope.destroy = function(result) {
-    result.remove().then( function() {
-      close(undefined, 500);
-    })
+    result.delete = true;
+      close(result, 500);
   };
 
 }]);

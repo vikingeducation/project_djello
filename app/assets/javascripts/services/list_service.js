@@ -13,6 +13,7 @@ Djello.factory('ListService',
         .then(function(response) {
           Restangular.restangularizeElement(model, response, 'cards');
           model.cards.push(response);
+          model.cardParams = {};
           return response;
         });
     };

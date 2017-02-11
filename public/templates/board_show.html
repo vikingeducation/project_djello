@@ -2,6 +2,7 @@
   <div class="col-md-4 fixed">
     <div class="list">
       <h4><a href="#" editable-text="list.title" onbeforesave="changeList(list, $data)">{{ list.title || "empty" }}</a></h4>
+      <button class="btn btn-danger btn-sm pull-right" ng-click="deleteList(list)">Delete List</button>
       <em><a href="#" editable-text="list.desc" class="text-muted" onbeforesave="changeList(list, $data)">{{ list.desc || "empty" }}</a></em>
       <hr>
       <div ng-repeat="card in list.cards">

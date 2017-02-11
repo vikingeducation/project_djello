@@ -1,5 +1,5 @@
-Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', 'ListService', 'CardService', 'ModalService',
-  function($scope, Auth, board, BoardService, ListService, CardService, ModalService) {
+Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', 'ListService', 'CardService', 'ModalService', '$stateParams',
+  function($scope, Auth, board, BoardService, ListService, CardService, ModalService, $stateParams) {
     Auth.currentUser().then(function(user) {
         $scope.currentUser = user;
       }, function(response) {
@@ -27,7 +27,6 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
     list.createCard(list.cardParams)
           .then(function(response) {
             console.log(response);
-            $scope.cardParams = {};
           }, function(response) {
             console.error(response);
           });
@@ -43,6 +42,13 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
     CardService.updateCard(card, params);
   }
 
+  $scope.deleteList = function(list) {
+    list.remove().then( function(list) {
+      new_lists = _.reject(board.lists , function(l) { return l.id === list.id });
+      angular.copy(new_lists, $scope.lists);
+    })
+  }
+
   $scope.show = function(card) {
     ModalService.showModal({
       templateUrl: 'templates/cardModal.html',
@@ -53,7 +59,14 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(card) {
-        if (card != undefined) {
+        if (card != undefined && card.delete === true) {
+          card.remove().then( function(card) {
+            list = _.find($scope.lists, function(list) { return list.id === card.list_id });
+            new_cards = _.reject(list.cards, function(c) { return c.id === card.id });
+            angular.copy(new_cards, list.cards);
+            console.log(list.cards);
+          })
+        } else if (card != undefined) {
           CardService.updateCard(card, card);
         }
       });

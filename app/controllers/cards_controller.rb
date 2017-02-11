@@ -30,7 +30,7 @@ class CardsController < ApplicationController
     respond_to do |format|
       if @card.destroy
         flash.now[:error] = 'card destroyed'
-        format.json { render :josn => @card, :status => 200 }
+        format.json { render :json => @card, :status => 200 }
       else
         flash.now[:error] = 'card not destroyed'
         format.json { render :json => card_errors, :status => 422 }
