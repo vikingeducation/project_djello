@@ -1,9 +1,8 @@
-Djello.controller('CardModalCtrl', ['$scope', 'close', 'cardParams', function($scope, close, cardParams) {
+Djello.controller('CardModalCtrl', ['$scope', 'close', 'cardParams', 'CardService',
+  function($scope, close, cardParams, CardService) {
 
   $scope.card = cardParams;
   $scope.cardParams = cardParams;
-  // $scope.cardParams.title = cardParams.title;
-  // $scope.cardParams.desc = cardParams.desc;
 
   // when you need to close the modal, call close
   $scope.close = function(result) {
@@ -14,5 +13,13 @@ Djello.controller('CardModalCtrl', ['$scope', 'close', 'cardParams', function($s
     result.delete = true;
       close(result, 500);
   };
+
+  $scope.deleteMember = function(card, member) {
+    CardService.destroyMember(card, member).then( function(member) {
+      console.log(member[0].user_id);
+      new_members = _.reject($scope.card.card_members, function(m) { return m.id === member[0].user_id});
+      angular.copy(new_members, $scope.card.card_members);
+    })
+  }
 
 }]);

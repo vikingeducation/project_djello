@@ -38,11 +38,24 @@ class CardsController < ApplicationController
     end
   end
 
+  def destroy_member
+    member = nil
+    respond_to do |format|
+      if (member = @card.members.destroy(@card.members.where(user_id: params[:user_id])))
+        flash.now[:error] = 'card member destroyed'
+        format.json { render :json => member, :status => 200 }
+      else
+        flash.now[:error] = 'card member not destroyed'
+        format.json { render :json => card_errors, :status => 422 }
+      end
+    end
+  end
+
   private
   def set_card
     @card = Card.find_by_id(params[:id])
     unless @card
-      flash.now[:error] = 'Could not find board'
+      flash.now[:error] = 'Could not find card'
       respond_to do |format|
         format.json { render :json => card_errors , :status => 422 }
       end
@@ -64,7 +77,7 @@ class CardsController < ApplicationController
 
   def resource_to_json
     resource = action_name == 'index' ? @cards : @card
-    resource.to_json
+    resource.to_json(:include => :card_members)
   end
 
 end

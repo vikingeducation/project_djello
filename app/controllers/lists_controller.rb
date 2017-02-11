@@ -42,7 +42,7 @@ class ListsController < ApplicationController
   def set_list
     @list = List.find_by_id(params[:id])
     unless @list
-      flash.now[:error] = 'Could not find board'
+      flash.now[:error] = 'Could not find list'
       respond_to do |format|
         format.json { render :json => list_errors , :status => 422 }
       end

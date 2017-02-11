@@ -18,6 +18,10 @@ Djello.factory('CardService',
     return card.patch(cardData);
   };
 
+  CardService.destroyMember = function(card, member){
+    return card.customDELETE('destroy_member', {user_id: member.id });
+  }
+
   return CardService;
 
   }]);

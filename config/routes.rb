@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :boards do
         resources :lists, only: [:update, :destroy] do
-          resources :cards, only: [:update, :destroy]
+          resources :cards, only: [:update, :destroy] do
+            delete 'destroy_member', on: :member
+          end
         end
       end
       resources :lists, only: [:create]
