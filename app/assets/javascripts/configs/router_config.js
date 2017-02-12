@@ -29,6 +29,9 @@ Djello.config(['$urlRouterProvider', '$stateProvider',
         resolve: {
           board: ['BoardService', '$stateParams', function(BoardService, $stateParams){
             return BoardService.getBoard($stateParams.id);
+          }],
+          users: ['UserService', function(UserService){
+            return UserService.all().$object;
           }]
         }
       });

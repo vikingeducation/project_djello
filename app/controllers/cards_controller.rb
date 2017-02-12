@@ -39,13 +39,26 @@ class CardsController < ApplicationController
   end
 
   def destroy_member
-    member = nil
+    @member = User.find(params[:user_id])
     respond_to do |format|
-      if (member = @card.members.destroy(@card.members.where(user_id: params[:user_id])))
+      if @member && @card.members.destroy(@card.members.where(user_id: params[:user_id]))
         flash.now[:error] = 'card member destroyed'
-        format.json { render :json => member, :status => 200 }
+        format.json { render :json => @member, :status => 200 }
       else
         flash.now[:error] = 'card member not destroyed'
+        format.json { render :json => card_errors, :status => 422 }
+      end
+    end
+  end
+
+  def add_member
+    respond_to do |format|
+      @user = User.find(params[:user_id])
+      if @user && @card.card_members << @user
+        flash.now[:error] = 'card member added'
+        format.json { render :json => @user, :status => 200 }
+      else
+        flash.now[:error] = 'card member not added'
         format.json { render :json => card_errors, :status => 422 }
       end
     end

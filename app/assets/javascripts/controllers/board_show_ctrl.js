@@ -1,5 +1,5 @@
-Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', 'ListService', 'CardService', 'ModalService', '$stateParams',
-  function($scope, Auth, board, BoardService, ListService, CardService, ModalService, $stateParams) {
+Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', 'ListService', 'CardService', 'ModalService', '$stateParams', 'users',
+  function($scope, Auth, board, BoardService, ListService, CardService, ModalService, $stateParams, users) {
     Auth.currentUser().then(function(user) {
         $scope.currentUser = user;
       }, function(response) {
@@ -54,7 +54,8 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
       templateUrl: 'templates/cardModal.html',
       controller: "CardModalCtrl",
       inputs: {
-        cardParams: card
+        cardParams: card,
+        users: users,
       }
     }).then(function(modal) {
       modal.element.modal();
