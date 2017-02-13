@@ -26,6 +26,10 @@
         </select>
         <button class="btn btn-sm btn-success" ng-click="addMember(card,memberParam)">Add Member</button>
       <hr>
+      <h5>Activities</h5>
+      <ul ng-repeat="a in card.activities | reverse | limitTo:5">
+        <p>{{ a.user.username }} {{ a.activity }} <span class="text-muted"> on {{ a.created_at | date }}</span></p>
+      </ul>
       </div>
       <div class="modal-footer">
         <button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Cancel</button>

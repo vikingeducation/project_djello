@@ -84,7 +84,8 @@ class BoardsController < ApplicationController
 
   def resource_to_json
     resource = action_name == 'index' ? @boards : @board
-    resource.to_json(:include => {:lists => {:include => {:cards => {:include => :card_members}}}})
+    resource.to_json(:include => {:lists => {:include => {:cards =>
+                      {:include => [:card_members, :activities => {:include => :user}] }}}})
   end
 
 end

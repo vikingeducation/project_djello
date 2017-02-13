@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_many :boards
   has_many :members, dependent: :destroy
   has_many :cards, through: :members
+  has_many :activities
 end

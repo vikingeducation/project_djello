@@ -32,6 +32,16 @@ Djello.factory('ListService',
     return list.patch(listData);
   };
 
+  ListService.updateCardActivity = function(lists, list_id, card){
+    target_list = _.find(lists, function(l) { return l.id === list_id})
+    if (target_list == undefined) return;
+    target_card = _.find(target_list.cards, function(c) { return c.id === card.id})
+    if (target_card != undefined) {
+      angular.copy(card, target_card);
+    }
+    return;
+  }
+
   return ListService;
 
   }]);

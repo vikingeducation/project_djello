@@ -25,8 +25,9 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
 
   $scope.createCard = function(list) {
     list.createCard(list.cardParams)
-          .then(function(response) {
-            console.log(response);
+          .then(function(card) {
+            console.log(card);
+            ListService.updateCardActivity($scope.lists, list.id, card);
           }, function(response) {
             console.error(response);
           });
@@ -39,7 +40,10 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
 
   $scope.changeCard = function(card, title) {
     params = {title: title};
-    CardService.updateCard(card, params);
+    CardService.updateCard(card, params)
+              .then(function(card) {
+                ListService.updateCardActivity($scope.lists, card.list_id, card);
+              })
   }
 
   $scope.deleteList = function(list) {
@@ -68,7 +72,9 @@ Djello.controller('BoardShowCtrl', ['$scope', 'Auth', 'board', 'BoardService', '
             console.log(list.cards);
           })
         } else if (card != undefined) {
-          CardService.updateCard(card, card);
+          CardService.updateCard(card, card).then( function(card) {
+            ListService.updateCardActivity($scope.lists, card.list_id, card);
+          })
         }
       });
     });

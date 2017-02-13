@@ -5,6 +5,7 @@ class CardsController < ApplicationController
     @card = Card.new(card_params)
     respond_to do |format|
       if @card.save
+        card_create_activity(@card, current_user)
         flash.now[:error] = 'card created'
         format.json { render :json => resource_to_json, :status => 201 }
       else
@@ -16,7 +17,9 @@ class CardsController < ApplicationController
 
   def update
     respond_to do |format|
+      old_card  = @card.deep_dup
       if @card.update(card_params)
+        card_update_activity(old_card, @card, current_user, card_params)
         flash.now[:error] = 'card updated'
         format.json { render :json => resource_to_json, :status => 200 }
       else
@@ -79,6 +82,21 @@ class CardsController < ApplicationController
     params.require(:card).permit(:title, :desc, :list_id)
   end
 
+  def card_create_activity(card, user)
+    Activity.create(activity: "added this card to the \"#{card.list.board.title}\" board",
+                   card_id: card.id, user_id: user.id)
+  end
+
+  def card_update_activity(old_card, saved_card, user, params)
+    if (params["title"] != old_card["title"])
+      Activity.create(activity: "changed the title of the card to \"#{params["title"]}\"",
+                   card_id: saved_card.id, user_id: user.id)
+    elsif (params["desc"] != old_card["desc"])
+      Activity.create(activity: "changed the description of the card to \"#{params["desc"]}\"",
+                   card_id: saved_card.id, user_id: user.id)
+    end
+  end
+
   def card_errors
     if @card
       error = @card.errors.full_messages.to_json
@@ -90,7 +108,7 @@ class CardsController < ApplicationController
 
   def resource_to_json
     resource = action_name == 'index' ? @cards : @card
-    resource.to_json(:include => :card_members)
+    resource.to_json(:include => [:card_members, :activities => {:include => :user }])
   end
 
 end
