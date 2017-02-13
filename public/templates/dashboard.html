@@ -1,0 +1,20 @@
+<div class="pull-right text-center">
+  <div class="select-board row">
+    <label>Select Board</label>
+    <select ng-options="b as b.title for b in boards"
+            ng-model  = "currentBoard"
+            ng-change = "boardChanged(currentBoard)">
+    </select>
+  </div>
+  <div class="row">
+    <a href="" ng-click="deleteBoard(currentBoard)">Delete Board</a> |
+    <a href="" ng-click="createBoard()">New Board</a>
+  </div>
+</div>
+<div class="boardTitle row">
+  <h3><a href="#" editable-text="currentBoard.title" onbeforesave="changeBoard(currentBoard, $data)">{{ currentBoard.title || "empty" }}</a></hr>
+</div>
+
+</div class="row">
+  <div ui-view="list"></div>
+</div>

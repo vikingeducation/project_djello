@@ -1,0 +1,28 @@
+<div ng-repeat="list in lists">
+  <div class="col-md-4 fixed">
+    <div class="list">
+      <h4><a href="#" editable-text="list.title" onbeforesave="changeList(list, $data)">{{ list.title || "empty" }}</a></h4>
+      <button class="btn btn-danger btn-sm pull-right" ng-click="deleteList(list)">Delete List</button>
+      <em><a href="#" editable-text="list.desc" class="text-muted" onbeforesave="changeList(list, $data)">{{ list.desc || "empty" }}</a></em>
+      <hr>
+      <div ng-repeat="card in list.cards">
+        <div class="card" ng-click="show(card)">
+          <p>{{ card.title }}</p>
+        </div>
+      </div>
+
+      <h5 class="text-center" ng-hide="list.showForm"><a href="" ng-click="list.showForm=true">Add a Card</a></h5>
+      <form name="cardForm" ng-show="list.showForm" class="slide-down" ng-class="animation">
+        <div class="form-group">
+          <input type="text" name="title" id="title{{$index}}" class="form-control" placeholder="Enter New card text" ng-model="list.cardParams.title" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Add" class="btn btn-success" ng-click="createCard(list)" ng-disabled="cardForm.$invalid">
+          <a href="" ng-show="list.showForm" ng-click="list.showForm=false;list.cardParams.title=''">Cancel</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<a href="" ng-click="createList(board)">Add a List</a>
