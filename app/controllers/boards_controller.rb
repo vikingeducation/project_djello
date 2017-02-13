@@ -1,4 +1,5 @@
 class BoardsController < ApplicationController
+  before_action :require_login
   before_action :set_board, :except => [:index, :create]
 
   def index
@@ -73,6 +74,12 @@ class BoardsController < ApplicationController
       error = flash.now[:error]
     end
     { :errors => error }
+  end
+
+  def require_login
+    unless current_user
+      redirect_to new_user_session_path
+    end
   end
 
   def resource_to_json
