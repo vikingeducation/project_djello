@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require angular
+//= require angular-devise
 //= require angular-ui-router.min.js
 //= require lodash.min.js
 //= require restangular.min.js

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="djello">
+<html <%=content_for(:angular_app) %>>
   <head>
-    <title>ProjectDjello</title>
+    <title>Djello</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -9,6 +9,16 @@
   </head>
 
   <body>
+
+   <p class="notice"><%= notice %></p>
+   <p class="alert"><%= alert %></p>
+
+<div class="container">
+  <div class="row">
     <%= yield %>
+  </div>
+</div>
+    
+
   </body>
 </html>
