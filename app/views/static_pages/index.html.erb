@@ -1,7 +1,14 @@
 <%= content_for(:angular_app) do %>
   ng-app="djello"
-  ng-controller="usersCtrl"
 <% end %>
 
-<h1>Welcome {{ currentUser.email }}!</h1>
-<a data-method="delete" href="/users/sign_out" rel="nofollow">Logout</a>
+<div ui-view="nav"></div>
+
+<%= render "devise/shared/flash" %>
+
+<div class="container">
+  <div class="row">
+    <div ui-view="main"></div>
+  </div>
+</div>
+

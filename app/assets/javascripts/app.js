@@ -1,6 +1,14 @@
 var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
 
-djello.config(
+.config(['RestangularProvider', function(RestangularProvider) {
+  RestangularProvider.setBaseUrl('/api/v1');
+  RestangularProvider.setRequestSuffix('.json');
+  RestangularProvider.setDefaultHttpFields({
+    'content-type': 'application/json'
+  });
+}])
+
+.config(
   ["$httpProvider",
   function($httpProvider) {
     var token = $('meta[name=csrf-token]')
@@ -11,22 +19,51 @@ djello.config(
       .common['X-CSRF-Token'] = token;
   }])
 
-.controller('usersCtrl',
-  ['$scope', 'Auth',
-  function($scope, Auth) {
-
-    Auth.currentUser()
-      .then(function(user) {
-        $scope.currentUser = user;
-        console.log(user);
-      }, function(response) {
-        console.error(response);
-      });
-
-  }])
-
-
 .config( function($stateProvider, $urlRouterProvider) {
 
+  $urlRouterProvider.otherwise('/boards/index')
 
+    $stateProvider
+    .state('boards', {
+      url: '',
+      abstract: true,
+      views: {
+        'nav@': {
+          templateUrl: '/templates/nav.html',
+          controller: 'indexBoardsCtrl'
+        }
+      },
+      resolve: {
+        boards: ['Restangular',
+                function(Restangular) {
+                  return Restangular.all('boards').getList();
+        }]
+      }
+    })
+
+    .state('boards.index', {
+      url: '/boards/index',
+      views: {
+        "main@": {
+          templateUrl: '/templates/index.html',
+          controller: 'indexBoardsCtrl'
+        }
+      }
+    })
+
+    .state('boards.new', {
+      url: '/boards/new',
+      views: {
+        "main@": {
+          templateUrl: '/templates/new.html',
+          controller: 'newBoardsCtrl'
+        }
+      },
+      resolve: {
+        boards: ['Restangular',
+                function(Restangular) {
+                  return Restangular.all('boards').getList();
+        }]
+      }
+    })
 })
