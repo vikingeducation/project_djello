@@ -27,7 +27,8 @@ puts "creating boards..."
 User.all.each do |user|
   3.times do 
     user.boards.create(
-      title: Faker::Company.name
+      title: Faker::Company.name,
+      description: Faker::Hipster.paragraph
       )
   end
 end

@@ -58,12 +58,6 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
           templateUrl: '/templates/new.html',
           controller: 'newBoardsCtrl'
         }
-      },
-      resolve: {
-        boards: ['Restangular',
-                function(Restangular) {
-                  return Restangular.all('boards').getList();
-        }]
       }
     })
 })

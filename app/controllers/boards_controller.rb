@@ -9,6 +9,14 @@ class BoardsController < ApplicationController
   end
 
   def create
+    @board = current_user.boards.build(board_params)
+    respond_to do |format|
+      if @board.save
+        format.json { render json: @board }
+      else
+        format.json { render status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -17,7 +25,7 @@ class BoardsController < ApplicationController
   private
 
   def board_params
-    params.require(:board).permit(:title)
+    params.require(:board).permit(:title, :description)
   end
 
 end

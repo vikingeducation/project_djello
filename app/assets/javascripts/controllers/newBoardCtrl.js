@@ -1,7 +1,14 @@
 djello.controller('newBoardsCtrl',
-  ['$scope', 'boards',
-  function($scope, boards) {
+  ['$scope', 'boardService', '$state', '$rootScope',
+  function($scope, boardService, $state, $rootScope) {
 
-    $scope.boards = boards;
+    $scope.createBoard = function() {
+      boardService.createBoard($scope.newBoard)
+                  .then( function(response) {
+                          $scope.newBoard = {};
+                          $rootScope.$broadcast('board.created', response);
+                          $state.go('boards.index');
+                        })
+    }
 
   }])

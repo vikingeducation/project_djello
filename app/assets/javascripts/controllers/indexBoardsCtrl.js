@@ -4,4 +4,8 @@ djello.controller('indexBoardsCtrl',
 
     $scope.boards = boards;
 
+    $scope.$on('board.created', function(event, response) {
+      $scope.boards.unshift(response);
+    });
+
   }])
