@@ -60,4 +60,20 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
         }
       }
     })
+
+    .state('boards.show', {
+      url: '/boards/:id',
+      views: {
+        "main@": {
+          templateUrl: '/templates/show.html',
+          controller: 'showBoardsCtrl'
+        }
+      },
+      resolve: {
+        board: ['Restangular', '$stateParams',
+        function(Restangular, $stateParams) {
+          return Restangular.one('boards', $stateParams.id).get();
+        }]
+      }
+    })
 })
