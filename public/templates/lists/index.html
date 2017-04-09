@@ -7,7 +7,14 @@
               <h3 class="panel-title">{{list.title}}</h3>
             </div>
             <div class="panel-body">
-              <h5>{{list.description}}</h5> 
+              <h5>{{list.description}}</h5>
+            </div>
+            <div class="panel-footer clearfix">
+            <div class="btn-group pull-right" role="group">
+              <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Add Card</button> 
+              <button class=' btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete List</button>
+            </div>
+             
             </div>
           </div>               
         </div>
@@ -20,7 +27,7 @@
             <div ng-show="displayForm">
               <textarea class="form-control" ng-model="newList.description" placeholder="Add a description..."></textarea><br>
               <button class='btn btn-success' ng-click="createList()">Save</button>
-              <button class='btn btn-default' ng-click="changeDisplay()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>                  
+              <button class='btn btn-default' ng-click="changeDisplay()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>  
             </div>
           </form>        
 

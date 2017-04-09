@@ -20,6 +20,7 @@ div.list-container {
     white-space: nowrap;
     div.list {
       display: inline-block;
+      vertical-align: top;
       float: none; /* Very important */ 
       white-space: normal;
     }

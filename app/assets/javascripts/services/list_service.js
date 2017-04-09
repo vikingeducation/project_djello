@@ -15,9 +15,9 @@ djello.factory('listService',
                                          description: newList.description } } );
     }
 
-    listService.delete = function(list) {
-      return Restangular.one('lists', list.id)
-                        .remove( { id: list.id } );
+    listService.delete = function(id) {
+      return Restangular.one('lists', id)
+                        .remove( { id: id } );
     }
 
 

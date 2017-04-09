@@ -13,12 +13,22 @@ djello.controller('newListsCtrl',
     $scope.createList = function() {
       console.log('creating list')
       $scope.newList.board_id = board.id;
-      listService.createList($scope.newList) //board param id?
+      listService.createList($scope.newList)
                   .then( function(response) {
                           $scope.newList = {};
                           $scope.lists.push(response);
                           console.log('created', response)
                         })
+    }
+
+    $scope.deleteList = function(id) {
+      listService.delete(id)
+                 .then( function() {
+                    listService.getAll(board.id)
+                               .then( function(response) {
+                                angular.copy(response, $scope.lists);
+                               });
+                 })
     }
 
   }])
