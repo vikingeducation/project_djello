@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
-
+  
   root "static_pages#index"
+
+  devise_for :users
 
   scope :api do
     scope :v1 do
       resources :boards, :only => [:index, :create, :destroy, :show]
+      resources :lists, :only => [:index, :create, :destroy, :update]
     end
   end
 

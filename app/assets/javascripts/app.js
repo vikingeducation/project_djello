@@ -29,7 +29,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
       abstract: true,
       views: {
         'nav@': {
-          templateUrl: '/templates/nav.html',
+          templateUrl: '/templates/shared/nav.html',
           controller: 'indexBoardsCtrl'
         }
       },
@@ -45,7 +45,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
       url: '/boards/index',
       views: {
         "main@": {
-          templateUrl: '/templates/index.html',
+          templateUrl: '/templates/boards/index.html',
           controller: 'indexBoardsCtrl'
         }
       }
@@ -55,7 +55,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
       url: '/boards/new',
       views: {
         "main@": {
-          templateUrl: '/templates/new.html',
+          templateUrl: '/templates/boards/new.html',
           controller: 'newBoardsCtrl'
         }
       }
@@ -65,14 +65,22 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise'])
       url: '/boards/:id',
       views: {
         "main@": {
-          templateUrl: '/templates/show.html',
+          templateUrl: '/templates/boards/show.html',
           controller: 'showBoardsCtrl'
+        },
+        "lists@boards.show": {
+          templateUrl: '/templates/lists/index.html',
+          controller: 'newListsCtrl'
         }
       },
       resolve: {
         board: ['Restangular', '$stateParams',
         function(Restangular, $stateParams) {
           return Restangular.one('boards', $stateParams.id).get();
+        }],
+        lists: ['listService', 'board',
+        function(listService, board) {
+          return listService.getAll(board.id);
         }]
       }
     })

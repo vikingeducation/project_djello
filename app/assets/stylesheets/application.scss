@@ -14,3 +14,13 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+div.list-container {
+    overflow-x: scroll;
+    white-space: nowrap;
+    div.list {
+      display: inline-block;
+      float: none; /* Very important */ 
+      white-space: normal;     
+    }
+}

@@ -1,8 +1,10 @@
 djello.controller('showBoardsCtrl',
-  ['$scope', 'board', 'boardService', "$state", "$rootScope",
-  function($scope, board, boardService, $state, $rootScope) {
+  ['$scope', 'board', 'lists', 'boardService', "$state", "$rootScope",
+  function($scope, board, lists, boardService, $state, $rootScope) {
 
     $scope.board = board;
+
+    $scope.lists = lists;
 
     $scope.delete = function() {
       boardService.delete($scope.board)

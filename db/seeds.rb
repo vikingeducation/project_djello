@@ -23,13 +23,23 @@ while (counter > 0) do
 end
 puts "DONE"
 
-puts "creating boards..."
+puts "creating boards and lists..."
 User.all.each do |user|
   3.times do 
     user.boards.create(
       title: Faker::Company.name,
       description: Faker::Hipster.paragraph
       )
+  end
+
+  user.boards.each do |board|
+    5.times do 
+      user.lists.create(
+        title: Faker::Hipster.word,
+        description: Faker::Hipster.paragraph,
+        board_id: board.id
+      )
+    end
   end
 end
 puts "DONE"
