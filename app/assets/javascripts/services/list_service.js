@@ -4,13 +4,14 @@ djello.factory('listService',
 
     listService = {};
 
-    listService.getAll = function(board_id) {
-      return Restangular.all('lists').getList( {board_id: board_id} );
+    listService.getAll = function(id) {
+      return Restangular.all('lists').getList( {board_id: id} );
     }
 
     listService.createList = function(newList) {
       return Restangular.all('lists')
-                        .post( { list: { title: newList.title,
+                        .post( { list: { board_id: newList.board_id,
+                                         title: newList.title,
                                          description: newList.description } } );
     }
 
