@@ -2,13 +2,19 @@ djello.controller('newListsCtrl',
   ['$scope', 'listService', 'board', 'lists', '$state', '$rootScope',
   function($scope, listService, board, lists, $state, $rootScope) {
 
+    $scope.lists = lists;
+
     $scope.displayForm = false;
 
     $scope.changeDisplay = function() {
       $scope.displayForm = !$scope.displayForm;
     }
 
-    $scope.lists = lists;
+    // $scope.updating = false;
+
+    // $scope.changeUpdateStatus = function() {
+    //   $scope.updating = !$scope.updating;
+    // }
 
     $scope.createList = function() {
       console.log('creating list')
@@ -30,5 +36,12 @@ djello.controller('newListsCtrl',
                                });
                  })
     }
+
+    $scope.$on('lists.changed', function() {
+      listService.getAll(board.id)
+                 .then( function(response) {
+                  angular.copy(response, $scope.lists);
+                 });
+    })
 
   }])

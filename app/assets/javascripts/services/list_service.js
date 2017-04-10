@@ -1,6 +1,6 @@
 djello.factory('listService',
-  ['Restangular',
-  function(Restangular) {
+  ['Restangular', '$rootScope',
+  function(Restangular, $rootScope) {
 
     listService = {};
 
@@ -15,9 +15,18 @@ djello.factory('listService',
                                          description: newList.description } } );
     }
 
+    listService.updateList = function(list) {
+      return Restangular.one('lists', list.id)
+                        .patch( { list: { title: list.title,
+                                          description: list.description } } )
+    }
+
     listService.delete = function(id) {
       return Restangular.one('lists', id)
-                        .remove( { id: id } );
+                        .remove( { id: id } )
+                        .then( function() {
+                          $rootScope.$broadcast('lists.changed')
+                        });
     }
 
 

@@ -1,0 +1,23 @@
+<div class="list col-sm-4">
+  <div class="panel panel-info">
+
+    <div class="panel-heading">
+      <h3 ng-hide="updating" ng-click="changeUpdateStatus()" class="panel-title">{{list.title}}</h3>
+      <input ng-show="updating" ng-blur="updateList()" type="text" class="form-control" ng-model="list.title">
+    </div>
+    <div class="panel-body">
+      <p ng-hide="updating">{{list.description}}</p>
+      <textarea ng-show="updating" ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
+    </div>
+    <div class="panel-footer clearfix">
+      <div class="btn-group pull-right" role="group">
+        <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Add Card</button> 
+        <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete List</button>
+      </div>
+
+
+    </div>
+  </div>   
+</div>
+ 
+               

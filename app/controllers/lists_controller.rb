@@ -20,6 +20,14 @@ class ListsController < ApplicationController
   end
 
   def update
+    @list = List.find(params[:id])
+    respond_to do |format|
+      if current_user.lists.includes(@list) && @list.update(list_params)
+        format.json { render json: @list }
+      else
+        format.json { render status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
