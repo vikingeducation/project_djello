@@ -45,7 +45,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'an
       url: '/boards/index',
       views: {
         "main@": {
-          templateUrl: '/templates/boards/index.html',
+          templateUrl: '/templates/boards/boards_index.html',
           controller: 'indexBoardsCtrl'
         }
       }
@@ -55,7 +55,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'an
       url: '/boards/new',
       views: {
         "main@": {
-          templateUrl: '/templates/boards/new.html',
+          templateUrl: '/templates/boards/boards_new.html',
           controller: 'newBoardsCtrl'
         }
       }
@@ -65,11 +65,11 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'an
       url: '/boards/:id',
       views: {
         "main@": {
-          templateUrl: '/templates/boards/show.html',
+          templateUrl: '/templates/boards/boards_show.html',
           controller: 'showBoardsCtrl'
         },
         "lists@boards.show": {
-          templateUrl: '/templates/lists/index.html',
+          templateUrl: '/templates/lists/lists_index.html',
           controller: 'newListsCtrl'
         }
       },

@@ -30,6 +30,7 @@ djello.directive('listItem', ['listService', 'cardService', function(listService
       scope.$on(scope.list.id + ".newCard", 
         function(event, response) {
           scope.cards.push(response);
+          scope.showCardForm();
       })
     }
   }

@@ -1,22 +1,18 @@
 djello.directive('cardForm', ['cardService', function(cardService) {
   return {
-    templateUrl: '/templates/cards/new.html',
+    templateUrl: '/templates/cards/card_form.html',
     restrict: 'A',
-    scope: {
-      addingCard: "=",
-      list: "="
-    },
+    scope: true,
     controller: [
-    "$scope", "cardService", "$rootScope",
-    function($scope, cardService, $rootScope) {
+    "$scope", "cardService",
+    function($scope, cardService) {
 
       $scope.createCard = function() {
         $scope.newCard.list_id = $scope.list.id;
         cardService.createCard($scope.newCard) 
                     .then( function(response) {
-                      console.log('created', response)
                       $scope.newCard = {};
-                      $rootScope.$broadcast($scope.list.id + ".newCard", response);
+                      $scope.$emit($scope.list.id + ".newCard", response);
                     } )
       }
 
