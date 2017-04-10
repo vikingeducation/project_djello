@@ -15,6 +15,7 @@ djello.controller('indexBoardsCtrl',
                   })
     })
 
+    /// testing modal
     $scope.testingModal = function() {
       ModalService.showModal({
         templateUrl: "/templates/test_modal.html",

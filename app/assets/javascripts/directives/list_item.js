@@ -26,6 +26,12 @@ djello.directive('listItem', ['listService', 'cardService', function(listService
       scope.deleteList = function(id) {
         listService.delete(id);
       }
+
+      scope.$on(scope.list.id + ".newCard", function(event, response) {
+        console.log('notified of card creation')
+        console.log(response)
+        scope.cards.push(response)
+      })
     }
   }
 }])
