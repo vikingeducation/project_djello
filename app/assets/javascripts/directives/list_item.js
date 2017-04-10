@@ -1,21 +1,26 @@
-djello.directive('listItem', ['listService', function(listService) {
+djello.directive('listItem', ['listService', 'cardService', function(listService, cardService) {
   return {
     templateUrl: '/templates/lists/list_item.html',
     restrict: 'E',
     scope: {
       list: '=',
-      updating: "=",
       changeUpdateStatus: "&"
     },
     link: function(scope) {
+      scope.cards = cardService.getAll(scope.list.id).$object;
+
       scope.changeUpdateStatus = function() {
         scope.updating = !scope.updating;
-        console.log(scope.updating);
       };
 
       scope.updateList = function() {
         listService.updateList(scope.list);
         scope.changeUpdateStatus();
+      };
+
+      scope.showCardForm = function() {
+        scope.addingCard = !scope.addingCard;
+        console.log(scope.addingCard)
       }
 
       scope.deleteList = function(id) {

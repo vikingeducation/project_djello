@@ -6,14 +6,29 @@
       <input ng-show="updating" ng-blur="updateList()" type="text" class="form-control" ng-model="list.title">
     </div>
     <div class="panel-body">
-      <p ng-hide="updating">{{list.description}}</p>
+      <p ng-hide="updating" class="text-muted">{{list.description}}</p>
       <textarea ng-show="updating" ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
+      <hr>
+
+      <!-- cards -->
+      <div ng-repeat="card in cards" card="card" card-item>
+        
+      </div>
+<!--       <div ng-repeat="card in cards()" class=" panel panel-default">
+        <div class="panel-body">
+          Task: {{card.title}}
+        </div>
+      </div> -->
+
     </div>
     <div class="panel-footer clearfix">
       <div class="btn-group pull-right" role="group">
-        <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Add Card</button> 
+        <button class="btn btn-xs btn-default" ng-click="showCardForm()"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Add Card</button> 
         <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete List</button>
       </div>
+
+      <card-form ng-show="addingCard" list="list" addingCard="">
+      </card-form>
 
 
     </div>

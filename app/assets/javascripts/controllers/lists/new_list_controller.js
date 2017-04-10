@@ -10,12 +10,6 @@ djello.controller('newListsCtrl',
       $scope.displayForm = !$scope.displayForm;
     }
 
-    // $scope.updating = false;
-
-    // $scope.changeUpdateStatus = function() {
-    //   $scope.updating = !$scope.updating;
-    // }
-
     $scope.createList = function() {
       console.log('creating list')
       $scope.newList.board_id = board.id;
@@ -27,15 +21,15 @@ djello.controller('newListsCtrl',
                         })
     }
 
-    $scope.deleteList = function(id) {
-      listService.delete(id)
-                 .then( function() {
-                    listService.getAll(board.id)
-                               .then( function(response) {
-                                angular.copy(response, $scope.lists);
-                               });
-                 })
-    }
+    // $scope.deleteList = function(id) {
+    //   listService.delete(id)
+    //              .then( function() {
+    //                 listService.getAll(board.id)
+    //                            .then( function(response) {
+    //                             angular.copy(response, $scope.lists);
+    //                            });
+    //              })
+    // }
 
     $scope.$on('lists.changed', function() {
       listService.getAll(board.id)
