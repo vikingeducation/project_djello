@@ -20,10 +20,10 @@ djello.factory('cardService',
                                           description: updatedCard.description } } );
     }
 
-    cardService.delete = function(card) {
+    cardService.markComplete = function(card) {
       return Restangular.one('cards', card.id)
-                        .remove( { id: card.id } );
-    };
+                        .patch( { card: { completed: true } } );
+    }
 
 
     return cardService;

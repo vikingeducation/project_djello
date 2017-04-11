@@ -6,7 +6,7 @@ djello.controller('showCardsController',
 
     $scope.close = function(result) {
       close(result, 500);
-    }
+    };
 
     $scope.editMode = false;
 
@@ -17,6 +17,14 @@ djello.controller('showCardsController',
                     console.log('finished update', response);
                     $scope.editMode = false;
                  })
-    }
+    };
 
+    $scope.markComplete = function() {
+      cardService.markComplete($scope.card)
+                 .then( function(response) {
+                  console.log('complete', response);
+                  $scope.close();
+                 });
+    }
+ 
   }])
