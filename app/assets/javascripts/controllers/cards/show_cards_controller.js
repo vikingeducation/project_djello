@@ -1,14 +1,12 @@
 djello.controller('showCardsController', 
-  ['$scope', 'close', 'card', 'cardService',
-  function($scope, close, card, cardService) {
+  ['$scope', 'close', 'card', 'cardService', 'userService',
+  function($scope, close, card, cardService, userService) {
 
     $scope.card = card;
 
     $scope.close = function(result) {
       close(result, 500);
     };
-
-    $scope.editMode = false;
 
     $scope.updateCard = function() {
       console.log('updating', $scope.card.description )
@@ -25,6 +23,8 @@ djello.controller('showCardsController',
                   console.log('complete', response);
                   $scope.close();
                  });
-    }
+    };
+
+    $scope.users = userService.getAll().$object;
  
   }])
