@@ -19,10 +19,15 @@ class CardsController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def update
+    @card = Card.find(params[:id])
+    respond_to do |format|
+      if current_user.cards.includes(@card) && @card.update(card_params)
+        format.json { render json: @card }
+      else
+        format.json { render status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy

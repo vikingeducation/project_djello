@@ -2,19 +2,45 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- close modal button -->
         <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <!-- card title -->
         <h2 class="modal-title">{{card.title}}</h2>
-        <p class="text-muted">{{card.description}}</p>
-        <p><a href="">Edit Description</a></p>
+
+        <!-- card description -->
+        <div ng-hide="editMode">
+          <br>
+          <p class="text-muted" ng-click="editModeOn()">Edit Description</p>
+          <p>{{card.description}}</p>          
+        </div>
+
+        <!-- edit description form -->
+        <div ng-show="editMode">
+          <br>
+          <div class="form-group">
+            <textarea class="form-control" ng-model="card.description"></textarea>          
+          </div>
+          <div class="form-group">
+            <button ng-click="updateDescription()" class="btn btn-sm btn-success">Update Description</button>
+          </div>          
+        </div>
+
+
       </div>
       <div class="modal-body">
+        <!-- members -->
         <h4>Members</h4>
-        <p><a href="">Add Member</a></p>
+        <p class="text-muted">Add Member</p>
+
         <hr>
+
+        <!-- activity -->
         <h4>Activity</h4>
       </div>
       <div class="modal-footer">
-        <button ng-click="close(false)" data-dismiss="modal" class="btn btn-sm btn-success">
+        <!-- mark completed button -->
+        <button ng-click="close(false)" data-dismiss="modal" class="btn btn-sm btn-warning">
           <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
           Mark Completed
         </button>
