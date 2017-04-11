@@ -15,12 +15,11 @@
 
         <!-- edit card display -->
         <div ng-show="editMode">
-
           <div class="form-group">
             <input type="text" class="form-control" ng-model="card.title">
           </div>
           <div class="form-group">
-            <textarea class="form-control" ng-model="card.description"></textarea>          
+            <textarea class="form-control" ng-model="card.description" placeholder="Add a description..."></textarea>          
           </div>
           <div class="form-group">
             <button ng-click="updateCard()" class="btn btn-sm btn-success">Update</button>

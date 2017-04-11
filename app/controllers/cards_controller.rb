@@ -30,13 +30,10 @@ class CardsController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
   private
 
   def card_params
-    params.require(:card).permit(:title, :description, :list_id)
+    params.require(:card).permit(:title, :description, :list_id, :completed)
   end
 
 end

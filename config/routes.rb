@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :boards, :only => [:index, :create, :destroy, :show]
       resources :lists, :only => [:index, :create, :destroy, :update]
-      resources :cards, :only => [:index, :create, :destroy, :update]
+      resources :cards, :only => [:index, :create, :update]
+      resources :users, :only => [:index]
     end
   end
 
