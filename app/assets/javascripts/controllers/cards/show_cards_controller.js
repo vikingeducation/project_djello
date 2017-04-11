@@ -10,11 +10,7 @@ djello.controller('showCardsController',
 
     $scope.editMode = false;
 
-    $scope.editModeOn = function() {
-      $scope.editMode = true;
-    };
-
-    $scope.updateDescription = function() {
+    $scope.updateCard = function() {
       console.log('updating', $scope.card.description )
       cardService.updateCard($scope.card)
                  .then( function(response) {

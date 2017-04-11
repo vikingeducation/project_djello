@@ -5,24 +5,26 @@
         <!-- close modal button -->
         <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-        <!-- card title -->
-        <h2 class="modal-title">{{card.title}}</h2>
-
-        <!-- card description -->
+        <!-- card display -->
         <div ng-hide="editMode">
+          <h2 class="modal-title">{{card.title}}</h2>
           <br>
-          <p class="text-muted" ng-click="editModeOn()">Edit Description</p>
+          <p class="text-muted" ng-click="editMode=true">Edit Card</p>
           <p>{{card.description}}</p>          
         </div>
 
-        <!-- edit description form -->
+        <!-- edit card display -->
         <div ng-show="editMode">
-          <br>
+
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="card.title">
+          </div>
           <div class="form-group">
             <textarea class="form-control" ng-model="card.description"></textarea>          
           </div>
           <div class="form-group">
-            <button ng-click="updateDescription()" class="btn btn-sm btn-success">Update Description</button>
+            <button ng-click="updateCard()" class="btn btn-sm btn-success">Update</button>
+            <button ng-click="editMode=false" class='btn btn-sm btn-default' ng-click=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
           </div>          
         </div>
 

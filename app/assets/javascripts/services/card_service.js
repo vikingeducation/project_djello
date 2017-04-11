@@ -16,7 +16,8 @@ djello.factory('cardService',
 
     cardService.updateCard = function(updatedCard) {
       return Restangular.one('cards', updatedCard.id)
-                        .patch( { card: { description: updatedCard.description } } );
+                        .patch( { card: { title: updatedCard.title,
+                                          description: updatedCard.description } } );
     }
 
     cardService.delete = function(card) {
