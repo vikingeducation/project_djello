@@ -20,7 +20,7 @@
 
       <!-- cards -->
       <hr ng-if="cards.length">
-      <div card-item ng-repeat="card in cards" card="card"></div>
+      <div card-item ng-click="showCard()" ng-repeat="card in cards" card="card"></div>
 
     </div>
 
@@ -34,7 +34,7 @@
         <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete List</button>
       </div>
 
-      <!-- card form --> 
+      <!-- new card form --> 
       <div card-form ng-show="addingCard" list="list" addingCard="">
       </div>
     </div>

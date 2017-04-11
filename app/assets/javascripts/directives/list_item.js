@@ -1,4 +1,6 @@
-djello.directive('listItem', ['listService', 'cardService', function(listService, cardService) {
+djello.directive('listItem', 
+  ['listService', 'cardService',
+  function(listService, cardService) {
   return {
     templateUrl: '/templates/lists/list_item.html',
     restrict: 'E',

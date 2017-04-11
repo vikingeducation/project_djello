@@ -72,6 +72,7 @@ var djello = angular.module('djello', ['ui.router', 'restangular', 'Devise', 'an
           templateUrl: '/templates/lists/lists_index.html',
           controller: 'newListsCtrl'
         }
+        // add a nested view for new list form
       },
       resolve: {
         board: ['Restangular', '$stateParams',

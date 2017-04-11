@@ -13,7 +13,7 @@ djello.controller('indexBoardsCtrl',
                   .then( function(response) {
                     angular.copy(response, $scope.boards)
                   })
-    })
+    });
 
     /// testing modal
     $scope.testingModal = function() {
@@ -30,6 +30,6 @@ djello.controller('indexBoardsCtrl',
           console.log('successful thing')
         });
       });
-    }
+    };
 
   }])
