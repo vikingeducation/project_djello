@@ -1,5 +1,5 @@
 djello.controller('newCardsCtrl', 
-  ["$scope", "cardService",
+  ["$scope", "cardService", 'membershipService',
   function($scope, cardService) {
 
     $scope.createCard = function() {
@@ -7,6 +7,7 @@ djello.controller('newCardsCtrl',
       cardService.createCard($scope.newCard) 
                   .then( function(response) {
                     $scope.newCard = {};
+                    membershipService.createMembership(response);
                     $scope.$emit($scope.list.id + ".newCard", response);
                   } )
     }

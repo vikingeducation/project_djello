@@ -6,9 +6,6 @@ class User < ApplicationRecord
 
   has_many :boards
   has_many :lists
-  # has_many :authored_cards, 
-  #          foreign_key: 'user_id', 
-  #          class_name: 'Card'
   has_many :card_memberships
   has_many :cards, through: :card_memberships
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :lists, :only => [:index, :create, :destroy, :update]
       resources :cards, :only => [:index, :create, :update]
       resources :users, :only => [:index]
+      resources :card_memberships, :only => [:create, :destroy]
     end
   end
 
