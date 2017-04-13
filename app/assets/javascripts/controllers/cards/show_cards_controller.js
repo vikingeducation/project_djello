@@ -1,6 +1,6 @@
 djello.controller('showCardsController', 
-  ['$scope', 'close', 'card', 'cardService', 'userService',
-  function($scope, close, card, cardService, userService) {
+  ['$scope', 'close', 'card', 'cardService', 'userService', '$rootScope',
+  function($scope, close, card, cardService, userService, $rootScope) {
 
     $scope.card = card;
 
@@ -20,7 +20,7 @@ djello.controller('showCardsController',
     $scope.markComplete = function() {
       cardService.markComplete($scope.card)
                  .then( function(response) {
-                  console.log('complete', response);
+                  $rootScope.$broadcast('card.completed');
                   $scope.close();
                  });
     };

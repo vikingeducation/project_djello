@@ -34,6 +34,11 @@ djello.directive('listItem',
           scope.cards.push(response);
           scope.showCardForm();
       })
+
+      scope.$on('card.completed',
+        function(event) {
+          scope.cards = cardService.getAll(scope.list.id).$object;
+        })
     }
   }
 }])

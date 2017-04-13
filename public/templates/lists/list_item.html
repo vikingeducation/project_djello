@@ -20,7 +20,7 @@
 
       <!-- cards -->
       <hr ng-if="cards.length">
-      <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : !completed " card="card"></div>
+      <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : { completed : false } " card="card"></div>
 
     </div>
 
