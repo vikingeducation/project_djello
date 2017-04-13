@@ -1,8 +1,15 @@
 djello.controller('showCardsController', 
-  ['$scope', 'close', 'card', 'cardService', 'userService', '$rootScope',
-  function($scope, close, card, cardService, userService, $rootScope) {
+  ['$scope', 'close', 'card', 'cardService', 'userService', '$rootScope', 'membershipService',
+  function($scope, close, card, cardService, userService, $rootScope, membershipService) {
 
     $scope.card = card;
+
+    $scope.addMember = function() {
+      console.log('adding member')
+      membershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {
+        $scope.selectedUser = {};
+      })
+    }
 
     $scope.close = function(result) {
       close(result, 500);

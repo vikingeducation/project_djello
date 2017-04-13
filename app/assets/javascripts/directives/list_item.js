@@ -36,7 +36,7 @@ djello.directive('listItem',
       })
 
       scope.$on('card.completed',
-        function(event) {
+        function() {
           scope.cards = cardService.getAll(scope.list.id).$object;
         })
     }
