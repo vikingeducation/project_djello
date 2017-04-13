@@ -41,6 +41,10 @@
         <h4>Members</h4>
 
         <!-- display members -->
+        <p ng-repeat="member in members">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          {{member.username}}
+        </p>
         <!-- members list -->
         <p ng-click="addMember=true" ng-hide="addMember" class="text-muted">Add Member</p>
 

@@ -4,6 +4,8 @@ djello.controller('showCardsController',
 
     $scope.card = card;
 
+    $scope.members = membershipService.getMembers($scope.card).$object;
+
     $scope.addMember = function() {
       console.log('adding member')
       membershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {

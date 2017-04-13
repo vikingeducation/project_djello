@@ -4,6 +4,11 @@ djello.factory('membershipService',
 
     membershipService = {};
 
+    membershipService.getMembers = function(card) {
+      return Restangular.all('card_memberships')
+                        .getList( { card_id: card.id } );
+    }
+
     membershipService.createMembership = function(card, user) {
       var user_id = user ? user.id : card.user_id
       console.log('creating membership')

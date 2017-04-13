@@ -11,6 +11,14 @@ class CardMembershipsController < ApplicationController
     end
   end
 
+  def index
+    card = Card.find(params[:card_id])
+    @members = card.users
+    respond_to do |format|
+      format.json { render json: @members.to_json }
+    end
+  end
+
   def destroy
   end
 
