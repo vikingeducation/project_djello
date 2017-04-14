@@ -3,4 +3,5 @@ class Card < ApplicationRecord
   has_many :card_memberships
   has_many :users, 
            through: :card_memberships
+  has_many :activities
 end

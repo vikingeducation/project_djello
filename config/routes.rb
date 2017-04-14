@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :card_memberships, :only => [:index, :create]
       resources :users, :only => [:index]
+      resources :activities, :only => [:index, :create]
     end
   end
 
