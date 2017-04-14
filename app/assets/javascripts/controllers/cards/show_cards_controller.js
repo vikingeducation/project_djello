@@ -13,18 +13,18 @@ djello.controller('showCardsController',
     }
 
     $scope.addMember = function() {
-      console.log('adding member')
       membershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {
-        $scope.addActivity('added user' + $scope.selectedUser.username);
+        $scope.addActivity('added member ' + $scope.selectedUser.username);
         $scope.members = membershipService.getMembers($scope.card).$object;
         $scope.selectedUser = {};
       })
     }
 
-    $scope.removeMember = function(user_id) {
-      membershipService.removeMember(user_id, $scope.card)
+    $scope.removeMember = function(user) {
+      var username = user.username
+      membershipService.removeMember(user.id, $scope.card)
                        .then( function() {
-                          // card remove member activity
+                          $scope.addActivity('removed member ' + username)
                           $scope.members = membershipService.getMembers($scope.card).$object;
                        })
     }
@@ -36,8 +36,7 @@ djello.controller('showCardsController',
     $scope.updateCard = function() {
       cardService.updateCard($scope.card)
                  .then( function(response) {
-                    // card updated activity
-                    console.log('finished update', response);
+                    $scope.addActivity('updated card')
                     $scope.editMode = false;
                  })
     };
@@ -45,7 +44,7 @@ djello.controller('showCardsController',
     $scope.markComplete = function() {
       cardService.markComplete($scope.card)
                  .then( function(response) {
-                  // card completed activity
+                  $scope.addActivity('marked card complete')
                   $rootScope.$broadcast('card.completed');
                   $scope.close();
                  });

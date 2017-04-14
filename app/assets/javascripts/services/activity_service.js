@@ -16,6 +16,8 @@ djello.factory('activityService',
                           } } );
     }
 
+    activityService.sayHi = function() { console.log('saying hi') }
+
     return activityService;
 
   }])
