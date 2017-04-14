@@ -9,8 +9,16 @@ djello.controller('showCardsController',
     $scope.addMember = function() {
       console.log('adding member')
       membershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {
+        $scope.members = membershipService.getMembers($scope.card).$object;
         $scope.selectedUser = {};
       })
+    }
+
+    $scope.removeMember = function(user_id) {
+      membershipService.removeMember(user_id, $scope.card)
+                       .then( function() {
+                          $scope.members = membershipService.getMembers($scope.card).$object;
+                       })
     }
 
     $scope.close = function(result) {

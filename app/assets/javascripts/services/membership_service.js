@@ -19,6 +19,10 @@ djello.factory('membershipService',
                                                   } } );
     };
 
+    membershipService.removeMember = function(user_id, card) {
+      return Restangular.one('cards', card.id).customDELETE( 'destroy_member', { user_id: user_id } )
+    };
+
 
     return membershipService;
 

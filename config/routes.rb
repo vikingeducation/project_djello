@@ -8,9 +8,11 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :boards, :only => [:index, :create, :destroy, :show]
       resources :lists, :only => [:index, :create, :destroy, :update]
-      resources :cards, :only => [:index, :create, :update]
+      resources :cards, :only => [:index, :create, :update] do
+        delete 'destroy_member', on: :member
+      end
+      resources :card_memberships, :only => [:index, :create]
       resources :users, :only => [:index]
-      resources :card_memberships, :only => [:index, :create, :destroy]
     end
   end
 

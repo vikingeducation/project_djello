@@ -19,8 +19,13 @@ class CardMembershipsController < ApplicationController
     end
   end
 
-  def destroy
-  end
+  # def destroy
+  #   @membership = CardMembership.find_by(user_id: params[:user_id], card_id: params[:card_id])
+  #   @membership.destroy
+  #   respond_to do |format|
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
 

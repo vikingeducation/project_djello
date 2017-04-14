@@ -40,16 +40,22 @@
         <!-- members -->
         <h4>Members</h4>
 
-        <!-- display members -->
-        <p ng-repeat="member in members">
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          {{member.username}}
-        </p>
+        <!-- members -->
+        <div ng-repeat="member in members">
+          <h5>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            {{member.username}}
+            <button ng-click="removeMember(member.id)" class="btn btn-xs btn-default">
+              remove
+            </button>
+          </h5>
+          
+        </div>
         <!-- members list -->
-        <p ng-click="addMember=true" ng-hide="addMember" class="text-muted">Add Member</p>
+        <p ng-click="addingMember=true" ng-hide="addingMember" class="text-muted">Add Member</p>
 
         <!-- add members form -->
-        <div ng-show="addMember">
+        <div ng-show="addingMember">
 
         <div class="row">
           <div class="col-sm-4">
@@ -58,7 +64,7 @@
             </div>
             <div class="form-group">
               <button ng-click="addMember()" class="btn btn-sm btn-success">Add</button>
-              <button ng-click="addMember=false" class='btn btn-sm btn-default'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button> 
+              <button ng-click="addingMember=false" class='btn btn-sm btn-default'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button> 
             </div>         
             <br>
           </div>
