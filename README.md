@@ -1,4 +1,1 @@
-# assignment_djello
-Project management with that great wobbly taste.
-
-Tingting
+https://secret-atoll-43676.herokuapp.com
