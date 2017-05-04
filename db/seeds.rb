@@ -35,11 +35,4 @@ User.all.each do |user|
   end
 end
 
-List.all.each do |list|
-  2.times do
-    list.cards.create(
-      
-      )
-  end
-end
 puts "DONE"
