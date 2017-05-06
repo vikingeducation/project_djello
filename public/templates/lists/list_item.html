@@ -15,6 +15,21 @@
       <!-- description -->
       <p ng-hide="updating" class="text-muted">{{list.description}}</p>
 
+      <div class="clearfix">
+        <div class="btn-group pull-right" role="group">
+
+          <!-- add card button to summon form -->
+          <button class="btn btn-xs btn-default" ng-click="showCardForm()"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+
+          <!-- delete list -->
+          <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>
+        </div><br><br>
+
+        <!-- new card form --> 
+        <div card-form ng-show="addingCard" list="list">
+        </div>        
+      </div>
+
       <!-- description form -->
       <textarea ng-show="updating" ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
 
@@ -24,20 +39,7 @@
 
     </div>
 
-    <div class="panel-footer clearfix">
-      <div class="btn-group pull-right" role="group">
 
-        <!-- add card button to summon form -->
-        <button class="btn btn-xs btn-default" ng-click="showCardForm()"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Add Card</button>
-
-        <!-- delete list -->
-        <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete List</button>
-      </div>
-
-      <!-- new card form --> 
-      <div card-form ng-show="addingCard" list="list">
-      </div>
-    </div>
   </div>   
 </div>
  
