@@ -1,12 +1,12 @@
 <div class="col-sm-4" ng-repeat="board in boards | orderBy: '-created_at' ">
-  <div class="panel panel-warning">
+  <div class="panel panel-board">
     <div class="panel-heading">
       <h3 class="panel-title">
         <a ui-sref="boards.show({ id: board.id })">{{ board.title }}</a>
       </h3>
     </div>
     <div class="panel-body">
-      {{ board.description.substring(0, 70) }}
+      <p>{{ board.description.substring(0, 70) }}</p>
     </div>
   </div>  
 </div>
