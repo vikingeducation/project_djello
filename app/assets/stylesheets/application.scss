@@ -18,12 +18,14 @@
   background-color: #001C55;
   border-color: none;
   color: white;
+  height: 200px;
 }
 
 /* lists */ 
 div.list-container {
     overflow-x: scroll;
     white-space: nowrap;
+    height: 475px;
     div.list {
       display: inline-block;
       vertical-align: top;
@@ -33,14 +35,19 @@ div.list-container {
 }
 
 .panel-list {
-  border-color: #0E6BA8;
+  border-color: #918ca3;
   .panel-heading {
-      background: #0E6BA8; 
+      background: #918ca3; 
       color: #ffffff;
-      border-color: #0E6BA8;
+      border-color: #918ca3;
   }
   .panel-footer { 
       color: #ffffff;
-      border-color: #0E6BA8;    
+      border-color: #918ca3;    
   }
+}
+
+/* cards */ 
+.card {
+  background-color: rgba(234, 220, 239,.5);
 }

@@ -19,7 +19,7 @@
       <textarea ng-show="updating" ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
 
       <!-- cards -->
-      <hr ng-if="cards.length">
+      <hr ng-if="list.description.length">
       <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : { completed : false } " card="card"></div>
 
     </div>
