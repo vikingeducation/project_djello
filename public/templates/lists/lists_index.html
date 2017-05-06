@@ -5,7 +5,7 @@
         <list-item ng-repeat="list in lists | orderBy : '-created_at' : true" list="list"></list-item>           
 
         <!-- new list form -->
-        <div class="list col-sm-4">
+        <div class="list col-sm-3">
           <form name="newList"">
             <input type="text" placeholder="Add a list..." class="form-control" ng-model="newList.title" ng-focus="changeDisplay()">
             <br>
