@@ -2,42 +2,50 @@
   <div class="panel panel-list">
 
     <div class="panel-heading">
-
       <!-- title -->
       <h3 ng-hide="updating" ng-click="changeUpdateStatus()" class="panel-title">{{list.title}}</h3>
 
       <!-- title form -->
       <input ng-show="updating" ng-blur="updateList()" type="text" class="form-control" ng-model="list.title">
-
     </div>
-    <div class="panel-body">
 
+
+    <div class="panel-body">
       <!-- description -->
       <p ng-hide="updating" class="text-muted">{{list.description}}</p>
 
-      <div class="clearfix">
-        <div class="btn-group pull-right" role="group">
-
-          <!-- add card button to summon form -->
-          <button class="btn btn-xs btn-default" ng-click="showCardForm()"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-
-          <!-- delete list -->
-          <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>
-        </div><br><br>
-
-        <!-- new card form --> 
-        <div card-form ng-show="addingCard" list="list">
-        </div>        
+      <!-- description form -->
+      <div ng-show="updating">
+        <textarea ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
+        <br>      
       </div>
 
-      <!-- description form -->
-      <textarea ng-show="updating" ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
 
       <!-- cards -->
       <hr ng-if="list.description.length">
       <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : { completed : false } " card="card"></div>
 
-    </div>
+
+      <!-- button group -->
+      <div class="clearfix">
+        <div class="btn-group pull-right" role="group">
+
+            <!-- add card button to summon form -->
+            <button class="btn btn-xs btn-default" ng-click="showCardForm()">
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </button>
+
+            <!-- delete list -->
+            <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <!-- new card form --> 
+          <div card-form ng-show="addingCard" list="list"></div>
+          </div><!-- button group -->
+      </div><!-- clearfix -->
+    </div> <!-- panel body -->
 
 
   </div>   
