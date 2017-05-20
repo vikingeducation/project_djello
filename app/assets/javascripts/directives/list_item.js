@@ -22,7 +22,6 @@ djello.directive('listItem',
 
       scope.showCardForm = function() {
         scope.addingCard = !scope.addingCard;
-        console.log(scope.addingCard)
       }
 
       scope.deleteList = function(id) {

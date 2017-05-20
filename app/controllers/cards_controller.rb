@@ -1,9 +1,7 @@
 class CardsController < ApplicationController
 
   def create
-    #@card = current_user.cards.build(card_params)
     @card = Card.new(card_params)
-    @card.user_id = current_user.id
     respond_to do |format|
       if @card.save
         format.json { render json: @card }

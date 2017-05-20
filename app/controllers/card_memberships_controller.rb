@@ -2,10 +2,13 @@ class CardMembershipsController < ApplicationController
 
   def create
     @membership = CardMembership.new(membership_params)
+    @membership.user_id = params[:user_id] ? params[:user_id] : current_user.id
+    puts @membership
     respond_to do |format|
       if @membership.save
         format.json { render json: @membership.to_json }
       else
+        puts "something went wrong"
         format.json { render status: :unprocessable_entity }
       end
     end

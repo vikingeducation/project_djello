@@ -7,8 +7,8 @@ djello.controller('newCardsCtrl',
       cardService.createCard($scope.newCard) 
                   .then( function(response) {
                     activityService.createActivity(response.id, 'created card');
-                    $scope.newCard = {};
                     membershipService.createMembership(response);
+                    $scope.newCard = {};
                     $scope.$emit($scope.list.id + ".newCard", response);
                   } )
     }

@@ -1,8 +1,7 @@
 class ActivitiesController < ApplicationController
 
   def index
-    card = Card.find(params[:card_id])
-    @activities = card.activities
+    @activities = Activity.where(:card_id => params[:card_id]).all
     respond_to do |format|
       format.json { render json: @activities.to_json }
     end
