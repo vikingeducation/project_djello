@@ -23,7 +23,7 @@
 
       <!-- cards -->
       <hr ng-if="list.description.length">
-      <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : { completed : false } " card="card"></div>
+      <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : { completed : false } " card="card" board="board"></div>
 
 
       <!-- button group -->
@@ -43,7 +43,7 @@
 
           <!-- new card form --> 
           <div card-form ng-show="addingCard"></div>
-          
+
           </div><!-- button group -->
       </div><!-- clearfix -->
     </div> <!-- panel body -->

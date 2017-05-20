@@ -1,8 +1,10 @@
 djello.controller('showCardsController', 
-  ['$scope', 'close', 'card', 'cardService', 'userService', '$rootScope', 'cardMembershipService', 'activityService',
-  function($scope, close, card, cardService, userService, $rootScope, cardMembershipService, activityService) {
+  ['$scope', 'close', 'card', 'board', 'cardService', 'userService', '$rootScope', 'cardMembershipService', 'boardMembershipService', 'activityService',
+  function($scope, close, card, board, cardService, userService, $rootScope, cardMembershipService, boardMembershipService, activityService) {
 
     $scope.card = card;
+
+    console.log('card show controller has access to', board)
 
     $scope.members = cardMembershipService.getMembers($scope.card).$object;
 
@@ -14,10 +16,11 @@ djello.controller('showCardsController',
 
     $scope.addMember = function() {
       cardMembershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {
-        $scope.addActivity('added member ' + $scope.selectedUser.username);
-        $scope.members = cardMembershipService.getMembers($scope.card).$object;
-        $scope.selectedUser = {};
-      })
+                            $scope.addActivity('added member ' + $scope.selectedUser.username);
+                            boardMembershipService.createMembership(board);
+                            $scope.members = cardMembershipService.getMembers($scope.card).$object;
+                            $scope.selectedUser = {};
+                          })
     }
 
     $scope.removeMember = function(user) {

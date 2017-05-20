@@ -5,7 +5,8 @@ djello.directive('cardItem',
     templateUrl: '/templates/cards/card_item.html',
     restrict: 'A',
     scope: {
-      card: '='
+      card: '=',
+      board: '='
     },
     link: function(scope) {
       scope.showCard = function() {
@@ -13,7 +14,8 @@ djello.directive('cardItem',
           templateUrl: "/templates/cards/show_card.html",
           controller: "showCardsController",
           inputs: {
-            card: scope.card
+            card: scope.card,
+            board: scope.board
           }
         }).then( function(modal) {
           modal.element.modal();
