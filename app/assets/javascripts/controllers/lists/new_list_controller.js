@@ -4,6 +4,8 @@ djello.controller('newListsCtrl',
 
     $scope.lists = lists;
 
+    $scope.board = board;
+
     $scope.displayForm = false;
 
     $scope.changeDisplay = function() {
@@ -17,7 +19,6 @@ djello.controller('newListsCtrl',
                   .then( function(response) {
                           $scope.newList = {};
                           $scope.lists.push(response);
-                          console.log('created', response)
                         })
     }
 

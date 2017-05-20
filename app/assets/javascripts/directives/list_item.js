@@ -6,6 +6,7 @@ djello.directive('listItem',
     restrict: 'E',
     scope: {
       list: '=',
+      board: '=',
       changeUpdateStatus: "&"
     },
     link: function(scope) {

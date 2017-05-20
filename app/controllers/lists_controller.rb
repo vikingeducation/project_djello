@@ -9,7 +9,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = current_user.lists.build(list_params)
+    @list = List.new(list_params)
     respond_to do |format|
       if @list.save
         format.json { render json: @list }

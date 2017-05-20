@@ -10,7 +10,7 @@ djello.factory('boardMembershipService',
     }
 
     boardMembershipService.createMembership = function(board, user) {
-      var user_id = user ? user.id : undefined
+      var user_id = user ? user.id : undefined;
       return Restangular.all('board_memberships')
                         .post( { board_membership: { 
                                           user_id: user_id,
