@@ -3,7 +3,7 @@
 
     <div class="panel-heading">
       <!-- title -->
-      <h3 ng-hide="updating" ng-click="changeUpdateStatus()" class="panel-title">{{list.title}}</h3>
+      <h3 role="button" ng-hide="updating" ng-click="changeUpdateStatus()" class="panel-title">{{list.title}}</h3>
 
       <!-- title form -->
       <input ng-show="updating" ng-blur="updateList()" type="text" class="form-control" ng-model="list.title">
@@ -33,6 +33,7 @@
             <!-- add card button to summon form -->
             <button class="btn btn-xs btn-default" ng-click="showCardForm()">
               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              Add Card
             </button>
 
             <!-- delete list -->

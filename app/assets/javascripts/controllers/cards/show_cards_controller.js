@@ -4,19 +4,17 @@ djello.controller('showCardsController',
 
     $scope.card = card;
 
-    console.log('card show controller has access to', board)
-
     $scope.members = cardMembershipService.getMembers($scope.card).$object;
 
     $scope.activities = activityService.getActivities($scope.card.id).$object;
 
-    $scope.addActivity = function(description) {
+    _addActivity = function(description) {
       activityService.createActivity($scope.card.id, description);
     }
 
     $scope.addMember = function() {
       cardMembershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {
-                            $scope.addActivity('added member ' + $scope.selectedUser.username);
+                            _addActivity('added member ' + $scope.selectedUser.username);
                             boardMembershipService.createMembership(board);
                             $scope.members = cardMembershipService.getMembers($scope.card).$object;
                             $scope.selectedUser = {};
@@ -27,7 +25,7 @@ djello.controller('showCardsController',
       var username = user.username
       cardMembershipService.removeMember(user.id, $scope.card)
                        .then( function() {
-                          $scope.addActivity('removed member ' + username)
+                          _addActivity('removed member ' + username)
                           $scope.members = cardMembershipService.getMembers($scope.card).$object;
                        })
     }
@@ -39,7 +37,7 @@ djello.controller('showCardsController',
     $scope.updateCard = function() {
       cardService.updateCard($scope.card)
                  .then( function(response) {
-                    $scope.addActivity('updated card')
+                    _addActivity('updated card')
                     $scope.editMode = false;
                  })
     };
@@ -47,7 +45,7 @@ djello.controller('showCardsController',
     $scope.markComplete = function() {
       cardService.markComplete($scope.card)
                  .then( function(response) {
-                  $scope.addActivity('marked card complete')
+                  _addActivity('marked card complete')
                   $rootScope.$broadcast('card.completed');
                   $scope.close();
                  });
