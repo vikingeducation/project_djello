@@ -1,7 +1,7 @@
-class CardMembershipsController < ApplicationController
+class BoardMembershipsController < ApplicationController
 
   def create
-    @membership = CardMembership.new(membership_params)
+    @membership = BoardMembership.new(membership_params)
     @membership.user_id = params[:user_id] ? params[:user_id] : current_user.id
     respond_to do |format|
       if @membership.save
@@ -14,25 +14,16 @@ class CardMembershipsController < ApplicationController
   end
 
   def index
-    card = Card.find(params[:card_id])
-    @members = card.users
+    board = Board.find(params[:board_id])
+    @members = board.users
     respond_to do |format|
       format.json { render json: @members.to_json }
     end
   end
 
-  # def destroy
-  #   @membership = CardMembership.find_by(user_id: params[:user_id], card_id: params[:card_id])
-  #   @membership.destroy
-  #   respond_to do |format|
-  #     format.json { head :no_content }
-  #   end
-  # end
-
   private
 
   def membership_params
-    params.require(:card_membership).permit(:card_id, :user_id)
+    params.require(:board_membership).permit(:user_id, :board_id)
   end
-
 end

@@ -1,15 +1,15 @@
-djello.factory('membershipService',
+djello.factory('cardMembershipService',
   ['Restangular',
   function(Restangular) {
 
-    membershipService = {};
+    cardMembershipService = {};
 
-    membershipService.getMembers = function(card) {
+    cardMembershipService.getMembers = function(card) {
       return Restangular.all('card_memberships')
                         .getList( { card_id: card.id } );
     }
 
-    membershipService.createMembership = function(card, user) {
+    cardMembershipService.createMembership = function(card, user) {
       var user_id = user ? user.id : undefined
       return Restangular.all('card_memberships')
                         .post( { card_membership: { 
@@ -18,11 +18,11 @@ djello.factory('membershipService',
                                                   } } );
     };
 
-    membershipService.removeMember = function(user_id, card) {
+    cardMembershipService.removeMember = function(user_id, card) {
       return Restangular.one('cards', card.id).customDELETE( 'destroy_member', { user_id: user_id } )
     };
 
 
-    return membershipService;
+    return cardMembershipService;
 
   }])

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :cards, :only => [:index, :create, :update] do
         delete 'destroy_member', on: :member
       end
+      resources :board_memberships, :only => [:index, :create]
       resources :card_memberships, :only => [:index, :create]
       resources :users, :only => [:index]
       resources :activities, :only => [:index, :create]
