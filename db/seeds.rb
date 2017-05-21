@@ -1,17 +1,21 @@
 puts "clearing..."
-User.delete_all
+Activity.delete_all
+BoardMembership.delete_all
 Board.delete_all
+CardMembership.delete_all
+Card.delete_all
+List.delete_all
+User.delete_all
 puts "DONE"
 
+MULTIPLIER = 30
+
 puts "creating users..."
-counter = 20
-while (counter > 0) do
+MULTIPLIER.times do |i|
   User.create(
-    username: "foo#{counter}",
-    email: "foo#{counter}@bar.com",
+    username: "foo#{i}",
+    email: "foo#{i}@bar.com",
     password: "something"
     )
-  counter -= 1
 end
-
 puts "DONE"

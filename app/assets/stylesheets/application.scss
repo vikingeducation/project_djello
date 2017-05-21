@@ -102,10 +102,11 @@ ul[dnd-list] {
 
 
 /* forms */
-input[type="text"] { 
-  border: 1px solid #eee;
+.form-control { 
+  border: 0;
 }
 
-textarea.form-control {
-  border: 1px solid #eee;
+.brand {
+  font-size: 3em;
+  font-weight: 600;
 }
