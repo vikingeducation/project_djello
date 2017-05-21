@@ -32,6 +32,11 @@ djello.directive('listItem',
       scope.transfer = function(card) {
         console.log('card', card)
         console.log('parent list', scope.list)
+        cardService.updateList(card, scope.list.id)
+                   .then( function(response) {
+                    console.log(response)
+                    scope.cards.push(response)
+                   })
       }
 
       scope.$on(scope.list.id + ".newCard", 

@@ -20,6 +20,12 @@ djello.factory('cardService',
                                           description: updatedCard.description } } );
     }
 
+    cardService.updateList = function(card, list_id) {
+      console.log('updating list')
+      return Restangular.one('cards', card.id)
+                        .patch( { card: { list_id: list_id } } );
+    }
+
     cardService.markComplete = function(card) {
       return Restangular.one('cards', card.id)
                         .patch( { card: { completed: true } } );

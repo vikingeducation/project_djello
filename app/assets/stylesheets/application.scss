@@ -84,9 +84,15 @@ div.list-container {
   display: inline;
 }
 
-ul {
+.list-title {
+  margin-top: 4px;
+}
+
+ul[dnd-list] {
+  min-height: 50px;
   list-style: none;
-  display: inline;
+  padding-left: 0;
+
 }
 
 /* cards */ 

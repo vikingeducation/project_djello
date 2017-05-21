@@ -6,7 +6,7 @@
       <div role="button" 
           ng-hide="updating" 
           ng-click="changeUpdateStatus()" 
-          class="panel-title"
+          class="panel-title list-title"
           >
           {{list.title}}
       </div>
@@ -42,6 +42,7 @@
       <!-- cards -->
       <ul dnd-list="list"
           dnd-drop="transfer(item)"
+          class="drag-container"
           >
         <div card-item 
              ng-click="showCard()" 
