@@ -21,10 +21,6 @@ djello.factory('listService',
                                           description: list.description } } )
     }
 
-    listService.transferCard = function(card, list_id) {
-
-    }
-
     listService.delete = function(id) {
       return Restangular.one('lists', id)
                         .remove( { id: id } )
