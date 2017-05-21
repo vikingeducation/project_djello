@@ -46,7 +46,7 @@ djello.controller('showCardsController',
       cardService.markComplete($scope.card)
                  .then( function(response) {
                   _addActivity('marked card complete')
-                  $rootScope.$broadcast('card.completed');
+                  $rootScope.$broadcast('cards.update');
                   $scope.close();
                  });
     };

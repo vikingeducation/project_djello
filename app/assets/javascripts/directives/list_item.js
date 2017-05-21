@@ -1,6 +1,6 @@
 djello.directive('listItem', 
-  ['listService', 'cardService',
-  function(listService, cardService) {
+  ['listService', 'cardService', '$rootScope', 
+  function(listService, cardService, $rootScope) {
   return {
     templateUrl: '/templates/lists/list_item.html',
     restrict: 'A',
@@ -30,12 +30,9 @@ djello.directive('listItem',
       }
 
       scope.transfer = function(card) {
-        console.log('card', card)
-        console.log('parent list', scope.list)
         cardService.updateList(card, scope.list.id)
                    .then( function(response) {
-                    console.log(response)
-                    scope.cards.push(response)
+                    $rootScope.$broadcast('cards.update')
                    })
       }
 
@@ -45,7 +42,7 @@ djello.directive('listItem',
           scope.showCardForm();
       })
 
-      scope.$on('card.completed',
+      scope.$on('cards.update',
         function() {
           scope.cards = cardService.getAll(scope.list.id).$object;
         })
