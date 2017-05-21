@@ -3,7 +3,7 @@ djello.directive('listItem',
   function(listService, cardService) {
   return {
     templateUrl: '/templates/lists/list_item.html',
-    restrict: 'E',
+    restrict: 'A',
     scope: {
       list: '=',
       board: '=',
@@ -27,6 +27,11 @@ djello.directive('listItem',
 
       scope.deleteList = function(id) {
         listService.delete(id);
+      }
+
+      scope.transfer = function(card) {
+        console.log('card', card)
+        console.log('parent list', scope.list)
       }
 
       scope.$on(scope.list.id + ".newCard", 

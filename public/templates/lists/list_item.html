@@ -3,28 +3,55 @@
 
     <div class="panel-heading">
       <!-- title -->
-      <h3 role="button" ng-hide="updating" ng-click="changeUpdateStatus()" class="panel-title">{{list.title}}</h3>
+      <div role="button" 
+          ng-hide="updating" 
+          ng-click="changeUpdateStatus()" 
+          class="panel-title"
+          >
+          {{list.title}}
+      </div>
 
       <!-- title form -->
-      <input ng-show="updating" ng-blur="updateList()" type="text" class="form-control" ng-model="list.title">
+      <input ng-show="updating" 
+             ng-blur="updateList()" 
+             type="text" 
+             class="form-control" 
+             ng-model="list.title"
+             >
     </div>
 
 
     <div class="panel-body">
       <!-- description -->
-      <p ng-hide="updating" class="text-muted">{{list.description}}</p>
+      <p ng-hide="updating" 
+         class="text-muted"
+         >
+         {{list.description}}
+      </p>
 
       <!-- description form -->
       <div ng-show="updating">
-        <textarea ng-blur="updateList()" class="form-control" ng-model="list.description"></textarea>
+        <textarea ng-blur="updateList()" 
+                  class="form-control" 
+                  ng-model="list.description"
+                  >
+        </textarea>
         <br>      
       </div>
 
-
       <!-- cards -->
-      <hr ng-if="list.description.length">
-      <div card-item ng-click="showCard()" ng-repeat="card in cards | filter : { completed : false } " card="card" board="board"></div>
-
+      <ul dnd-list="list"
+          dnd-drop="transfer(item)"
+          >
+        <div card-item 
+             ng-click="showCard()" 
+             ng-repeat="card in cards | filter : { completed : false }"
+             card="card" 
+             board="board"
+             dnd-draggable="card"
+             >       
+        </div>        
+      </ul>
 
       <!-- button group -->
       <div class="clearfix">
@@ -37,8 +64,12 @@
             </button>
 
             <!-- delete list -->
-            <button class='btn btn-xs btn-default' ng-click="deleteList(list.id)">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <button class='btn btn-xs btn-default' 
+                    ng-click="deleteList(list.id)">
+              <span class="glyphicon glyphicon-remove" 
+                    aria-hidden="true"
+                    >
+              </span>
               Delete List
             </button>
           </div>

@@ -1,14 +1,14 @@
 <div class="col-sm-offset-3 col-sm-6 text-muted text-center" ng-hide="{{boards.length}}">
-  <h2>Thanks for joining <b>djello</b>!</h2>
+  <h2 class="text-center">Thanks for joining <b>djello</b>!</h2>
   <h3>To get started, navigate to the <b>Boards</b> dropdown menu in the navigation bar and click the <b>Create Board</b> link.</h3>
 </div>
 
 <div class="col-sm-4" ng-repeat="board in boards | orderBy: '-created_at' ">
   <div class="panel panel-board">
     <div class="panel-heading">
-      <h3 class="panel-title">
+      <div class="panel-title board-title">
         <a ui-sref="boards.show({ id: board.id })">{{ board.title }}</a>
-      </h3>
+      </div>
     </div>
     <div class="panel-body">
       <p>{{ board.description.substring(0, 70) }}</p>

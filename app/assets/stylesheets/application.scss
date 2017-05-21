@@ -36,11 +36,16 @@ body {
   }
 }
 
+.board-title {
+  font-size: 28px;
+}
+
 .panel-board {
   background-color: #001C55;
   border-color: none;
   color: white;
-  height: 200px;
+  height: 130px;
+  text-align: center;
 }
 
 input.board-submit {
@@ -73,6 +78,15 @@ div.list-container {
       color: #ffffff;
       border-color: #638CCC;    
   }
+}
+
+.list-item {
+  display: inline;
+}
+
+ul {
+  list-style: none;
+  display: inline;
 }
 
 /* cards */ 

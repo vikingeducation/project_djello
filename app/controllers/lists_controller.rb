@@ -33,7 +33,7 @@ class ListsController < ApplicationController
   def destroy
     @list = List.find(params[:id])
     respond_to do |format|
-      if current_user.lists.includes(@list) && @list.destroy
+      if @list.destroy
         format.json { head :no_content }
       end
     end
