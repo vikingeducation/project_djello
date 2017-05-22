@@ -2,7 +2,7 @@ class BoardMembershipsController < ApplicationController
 
   def create
     @membership = BoardMembership.new(membership_params)
-    @membership.user_id = params[:user_id] ? params[:user_id] : current_user.id
+    @membership.user_id = get_user_id
     respond_to do |format|
       if @membership.save
         format.json { render json: @membership.to_json }
@@ -26,4 +26,9 @@ class BoardMembershipsController < ApplicationController
   def membership_params
     params.require(:board_membership).permit(:user_id, :board_id)
   end
+
+  def get_user_id
+    params[:board_membership][:user_id] ? params[:board_membership][:user_id] : current_user.id
+  end
+
 end

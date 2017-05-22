@@ -13,9 +13,11 @@ djello.controller('showCardsController',
     }
 
     $scope.addMember = function() {
+      console.log($scope.selectedUser)
       cardMembershipService.createMembership($scope.card, $scope.selectedUser).then( function(response) {
                             _addActivity('added member ' + $scope.selectedUser.username);
-                            boardMembershipService.createMembership(board);
+                            console.log('adding board member now')
+                            boardMembershipService.createMembership(board, $scope.selectedUser);
                             $scope.members = cardMembershipService.getMembers($scope.card).$object;
                             $scope.selectedUser = {};
                           })
