@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520180118) do
+ActiveRecord::Schema.define(version: 20170522012941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170520180118) do
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["board_id", "user_id"], name: "index_board_memberships_on_board_id_and_user_id", unique: true, using: :btree
   end
 
   create_table "boards", force: :cascade do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170520180118) do
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["card_id", "user_id"], name: "index_card_memberships_on_card_id_and_user_id", unique: true, using: :btree
   end
 
   create_table "cards", force: :cascade do |t|
