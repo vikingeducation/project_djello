@@ -24,5 +24,4 @@ djello.factory('boardMembershipService',
 
 
     return boardMembershipService;
-
   }])
