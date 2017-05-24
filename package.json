@@ -1,0 +1,33 @@
+{
+  "name": "project_djello",
+  "version": "1.0.0",
+  "description": "Project management with that great wobbly taste.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
+    "c": "node repl.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eglital/project_djello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eglital/project_djello/issues"
+  },
+  "homepage": "https://github.com/eglital/project_djello#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.3",
+    "express-flash-messages": "^0.1.1",
+    "express-handlebars": "^3.0.0",
+    "morgan": "^1.8.1",
+    "pg": "^6.2.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.4"
+  }
+}
