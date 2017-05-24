@@ -19,7 +19,7 @@ password: `something`
 
 ---
 
-![Log In](https://github.com/eating247/djello/blob/master/screenshots/djello-log-in.png)
+![Log In](https://github.com/eating247/djello/blob/master/screenshots/djello-sign-up.png)
 
 - Devise Authentication
 
