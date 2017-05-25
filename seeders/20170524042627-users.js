@@ -17,12 +17,12 @@ module.exports = {
     var users = [];
     users.push({
       email: "egle@gmail.com",
-      passwordHash: bcrypt.hashSync("123456", 8)
+      password: bcrypt.hashSync("123456", 8)
     });
     ["charlie", "alex"].forEach(name => {
       users.push({
         email: `${name}@gmail.com`,
-        passwordHash: bcrypt.hashSync("123456", 8)
+        password: bcrypt.hashSync("123456", 8)
       });
     });
     return queryInterface.bulkInsert("Users", users);

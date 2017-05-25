@@ -1,10 +1,11 @@
 "use strict";
+const bcrypt = require("bcrypt");
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define(
     "User",
     {
       email: DataTypes.STRING,
-      passwordHash: DataTypes.STRING
+      password: DataTypes.STRING
     },
     {
       classMethods: {
@@ -36,5 +37,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   );
+  User.beforeCreate((user, options) => {
+    return bcrypt.hashSync(user.password, 8).then(hashedPw => {
+      user.password = hashedPw;
+    });
+  });
   return User;
 };
