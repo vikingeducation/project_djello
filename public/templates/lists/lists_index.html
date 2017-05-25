@@ -1,0 +1,45 @@
+<div class="list-container">
+    <div class="row">
+
+        <!-- lists -->
+        <div list-item
+             class="list-item"
+             ng-repeat="list in lists | orderBy : '-created_at' : true" list="list" 
+             board="board"
+             >    
+        </div>           
+
+        <!-- new list form -->
+        <div class="list col-sm-3">
+          <form name="newList"">
+            <input type="text" 
+                   placeholder="Add a list..." 
+                   class="form-control" 
+                   ng-model="newList.title" 
+                   ng-focus="changeDisplay()">
+            <br>
+
+            <!-- extended form -->
+            <div ng-show="displayForm">
+              <textarea class="form-control" 
+                        ng-model="newList.description" 
+                        placeholder="Add a description..."
+                        >
+              </textarea><br>
+              <button class='btn btn-info' 
+                      ng-click="createList()"
+                      >
+                      Save
+              </button>
+              <button class='btn btn-default' 
+                      ng-click="changeDisplay()"
+                      >
+                      Cancel
+              </button>  
+            </div>
+          </form>        
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,113 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* eliminate rounded corners */
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+body {
+  background-color: #DEFCF9;
+  font-family: Eurostile, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* nav */ 
+.navbar {
+  border: none;
+}
+
+.navbar-default {
+  background-color: rgba(204,168,233,.3);
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-size: x-large;
+}
+
+/* boards */ 
+.flex-container {
+  display: flex;
+  align-items: center;
+  .flex-end {
+    margin-left: auto;
+  }
+}
+
+.board-title {
+  font-size: 28px;
+}
+
+.panel-board {
+  background-color: #001C55;
+  border-color: none;
+  color: white;
+  height: 130px;
+  text-align: center;
+}
+
+input.board-submit {
+  background-color: #001C55;
+  color: white;
+  border: none;
+}
+
+/* lists */ 
+div.list-container {
+    overflow-x: scroll;
+    white-space: nowrap;
+    height: 475px;
+    div.list {
+      display: inline-block;
+      vertical-align: top;
+      float: none; /* Very important */ 
+      white-space: normal;
+    }
+}
+
+.panel-list {
+  border-color: #638CCC;
+  .panel-heading {
+      background: #638CCC; 
+      color: #ffffff;
+      border-color: #638CCC;
+  }
+  .panel-footer { 
+      color: #ffffff;
+      border-color: #638CCC;    
+  }
+}
+
+.list-item {
+  display: inline;
+}
+
+.list-title {
+  margin-top: 4px;
+}
+
+ul[dnd-list] {
+  min-height: 50px;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* cards */ 
+.card {
+  background-color: rgba(234, 220, 239,.5);
+  cursor: pointer;
+}
+
+
+/* forms */
+.form-control { 
+  border: 2px solid #f6f6f6;
+}
+
+.brand {
+  font-size: 3em;
+  font-weight: 600;
+  margin-top: 50px;
+}

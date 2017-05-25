@@ -1,0 +1,14 @@
+<%= content_for(:angular_app) do %>
+  ng-app="djello"
+<% end %>
+
+<div ui-view="nav"></div>
+
+<%= render "devise/shared/flash" %>
+
+<div class="container">
+  <div class="row">
+    <div ui-view="main"></div>
+  </div>
+</div>
+
