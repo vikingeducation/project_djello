@@ -18,7 +18,8 @@ function receiveLogin(user) {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    id_token: user.id_token,
+    userEmail: user.userEmail
   };
 }
 
@@ -45,22 +46,21 @@ export function loginUser(creds) {
 
     return fetch("http://localhost:3001/sessions/create", config)
       .then(response => {
-        
         if (!response.ok) {
           const error = new Error(response.statusText);
-            error.response = response;
-            console.log(error)
-            throw error;
-          
-          
+          error.response = response;
+          console.log(error);
+          throw error;
         }
         return response.json();
       })
       .then(user => {
         if (user) {
+          console.log(user);
           // If login was successful, set the token in local storage
           localStorage.setItem("id_token", user.id_token);
           localStorage.setItem("access_token", user.access_token);
+          localStorage.setItem("userEmail", user.userEmail);
           // Dispatch the success action
           dispatch(receiveLogin(user));
         }

@@ -9,6 +9,7 @@ import {
 import { withRouter } from "react-router";
 import Login from "../components/Login";
 import Main from "../components/Main";
+import Navbar from "../components/Navbar";
 import { loginUser, logoutUser } from "../actions/auth";
 
 class App extends Component {
@@ -17,24 +18,32 @@ class App extends Component {
       isAuthenticated,
       errorMessage,
       onLogoutClick,
-      onLoginClick
+      onLoginClick,
+      user
     } = this.props;
     return (
       <Router>
         <div>
+          <Navbar
+            onLogoutClick={onLogoutClick}
+            isAuthenticated={isAuthenticated}
+            user={user}
+          />
           <Route
             path="/login"
             render={() => (
               <Login
-               errorMessage={errorMessage}
+                errorMessage={errorMessage}
                 onLoginClick={onLoginClick}
+                isAuthenticated={isAuthenticated}
               />
             )}
           />
           <PrivateRoute
-            exact path="/"
+            exact
+            path="/"
             component={Main}
-            onLogoutClick={onLogoutClick}
+            isAuthenticated={isAuthenticated}
           />
         </div>
       </Router>
@@ -45,8 +54,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     path={rest.path}
     render={props => {
-      return localStorage.getItem("id_token")
-        ? <Component {...props} onLogoutClick={rest.onLogoutClick} />
+      console.log("auth", rest.isAuthenticated);
+      return rest.isAuthenticated
+        ? <Component {...props} />
         : <Redirect
             to={{
               pathname: "/login",
@@ -60,12 +70,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 // These props come from the application's
 // state when it is started
 function mapStateToProps(state) {
+  console.log(state);
   const { auth } = state;
-  const { isAuthenticated, errorMessage } = auth;
+  const { isAuthenticated, errorMessage, user } = auth;
 
   return {
     isAuthenticated,
-    errorMessage
+    errorMessage,
+    user
   };
 }
 

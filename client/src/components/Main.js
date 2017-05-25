@@ -1,12 +1,13 @@
 import React from "react";
+import { Container, Row, Col } from "reactstrap";
 import Logout from "./Logout";
 
-const Main = ({ onLogoutClick }) => {
+const Main = ({}) => {
   return (
-    <div>
+    <Container>
       <h1>Hello</h1>
-      <Logout onLogoutClick={onLogoutClick} />
-    </div>
+
+    </Container>
   );
 };
 

@@ -1,4 +1,3 @@
-
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -12,7 +11,8 @@ import {
 export default function auth(
   state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem("id_token") ? true : false
+    isAuthenticated: localStorage.getItem("id_token") ? true : false,
+    user: null
   },
   action
 ) {
@@ -27,7 +27,8 @@ export default function auth(
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        errorMessage: ""
+        errorMessage: "",
+        user: { userEmail: action.userEmail }
       });
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -37,12 +38,10 @@ export default function auth(
       });
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
-        isFetching: true,
+        isFetching: false,
         isAuthenticated: false
       });
     default:
       return state;
   }
 }
-
-

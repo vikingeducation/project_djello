@@ -1,13 +1,12 @@
-
 import { Redirect } from "react-router-dom";
-import {withRouter} from "react-router"
+import { withRouter } from "react-router";
 
-import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import React from "react";
 
- class Login extends React.Component {
-    handleClick(event) {
+import { Container, Row, Col } from "reactstrap";
 
+class Login extends React.Component {
+  handleClick = event => {
     const email = this.refs.email;
     const password = this.refs.password;
     const creds = {
@@ -15,26 +14,38 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
       password: password.value.trim()
     };
     this.props.onLoginClick(creds);
-  }
+  };
   render() {
-      const { errorMessage } = this.props;
-      if (localStorage.getItem("id_token")) {
-        return <Redirect to="/" />;
-      }
-    
+    const { errorMessage, isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      return <Redirect to="/" />;
+    }
+
     return (
-  <div>
-        <input type='text' ref='email' className="form-control" placeholder='Email'/>
-        <input type='password' ref='password' className="form-control"placeholder='Password'/>
-        <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
-          Login
-        </button>
-        {errorMessage && <p>{errorMessage}</p>}
-    </div>
+      <Container>
+        <Row>
+          <Col sm={{ size: 6, push: 2, pull: 2, offset: 1 }}>
+            <input
+              type="text"
+              ref="email"
+              className="form-control"
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              ref="password"
+              className="form-control"
+              placeholder="Password"
+            />
+            <button onClick={this.handleClick} className="btn btn-primary">
+              Login
+            </button>
+            {errorMessage && <p>{errorMessage}</p>}
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
 
-
-
-export default withRouter(Login)
+export default withRouter(Login);
