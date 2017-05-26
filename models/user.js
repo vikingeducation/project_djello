@@ -11,9 +11,9 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         associate: function(models) {
           // associations can be defined here
-          User.hasMany(models.UsersBoards, {
-            foreignKey: "userId"
-          });
+          // User.hasMany(models.UsersBoards, {
+          //   foreignKey: "userId"
+          // });
           User.belongsToMany(models.Board, {
             through: models.UsersBoards,
             as: "AddedBoard",
@@ -22,9 +22,9 @@ module.exports = function(sequelize, DataTypes) {
           User.hasMany(models.Board, {
             foreignKey: "ownerId"
           });
-          User.hasMany(models.UsersCards, {
-            foreignKey: "memberId"
-          });
+          // User.hasMany(models.UsersCards, {
+          //   foreignKey: "memberId"
+          // });
           User.belongsToMany(models.Card, {
             through: models.UsersCards,
             as: "MembersCard",
@@ -37,10 +37,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   );
-  User.beforeCreate((user, options) => {
-    return bcrypt.hashSync(user.password, 8).then(hashedPw => {
-      user.password = hashedPw;
-    });
-  });
+  // User.beforeCreate((user, options) => {
+  //   return bcrypt.hashSync(user.password, 8).then(hashedPw => {
+  //     user.password = hashedPw;
+  //   });
+  // });
   return User;
 };

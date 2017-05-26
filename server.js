@@ -32,6 +32,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(require("./user-routes"));
+app.use(require("./db-routes"));
 
 var port = process.env.PORT || 3001;
 

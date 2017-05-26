@@ -17,9 +17,9 @@ module.exports = function(sequelize, DataTypes) {
           Card.hasMany(models.Activity, {
             foreignKey: "cardId"
           });
-          Card.hasMany(models.UsersCards, {
-            foreignKey: "cardId"
-          });
+          // Card.hasMany(models.UsersCards, {
+          //   foreignKey: "cardId"
+          // });
           Card.belongsToMany(models.User, {
             through: models.UsersCards,
             as: "MemberOfCard",

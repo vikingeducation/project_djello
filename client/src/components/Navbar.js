@@ -39,7 +39,9 @@ export default class Example extends React.Component {
                   </NavItem>
                 : null}
               <NavItem>
-                <NavLink>{localStorage.getItem("userEmail")}</NavLink>
+                {this.props.isAuthenticated
+                  ? <NavLink>{localStorage.getItem("userEmail")}</NavLink>
+                  : null}
               </NavItem>
             </Nav>
           </Collapse>

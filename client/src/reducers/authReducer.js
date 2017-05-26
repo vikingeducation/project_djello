@@ -11,7 +11,7 @@ import {
 export default function auth(
   state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem("id_token") ? true : false,
+    isAuthenticated: false,
     user: null
   },
   action
@@ -28,7 +28,7 @@ export default function auth(
         isFetching: false,
         isAuthenticated: true,
         errorMessage: "",
-        user: { userEmail: action.userEmail }
+        user: { userEmail: action.userEmail, userId: action.userId }
       });
     case LOGIN_FAILURE:
       return Object.assign({}, state, {

@@ -1,11 +1,13 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import Logout from "./Logout";
+import BoardContainer from "../containers/BoardContainer";
 
-const Main = ({}) => {
+const Main = () => {
   return (
     <Container>
-      <h1>Hello</h1>
+
+      <BoardContainer />
 
     </Container>
   );

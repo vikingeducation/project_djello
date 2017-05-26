@@ -1,6 +1,5 @@
 "use strict";
 const models = require("./../models");
-const bcrypt = require("bcrypt");
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -14,17 +13,12 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    var users = [];
-    users.push(
-      {
-        id: 1,
-        email: "egle@gmail.com",
-        password: bcrypt.hashSync("123456", 8)
-      },
-      { id: 2, email: "test@gmail.com", password: bcrypt.hashSync("123456", 8) }
+    var cards = [];
+    cards.push(
+      { id: 1, listId: 1, title: "Card1", description: "This is a card 1" },
+      { id: 2, listId: 1, title: "Card2", description: "This is a card 2" }
     );
-
-    return queryInterface.bulkInsert("Users", users);
+    return queryInterface.bulkInsert("Cards", cards);
   },
 
   down: function(queryInterface, Sequelize) {
@@ -35,6 +29,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete("Users", null, {}, models.User);
+    return queryInterface.bulkDelete("Boards", null, {}, models.Card);
   }
 };

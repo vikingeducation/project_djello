@@ -54,7 +54,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     path={rest.path}
     render={props => {
-      console.log("auth", rest.isAuthenticated);
       return rest.isAuthenticated
         ? <Component {...props} />
         : <Redirect
@@ -70,7 +69,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 // These props come from the application's
 // state when it is started
 function mapStateToProps(state) {
-  console.log(state);
   const { auth } = state;
   const { isAuthenticated, errorMessage, user } = auth;
 

@@ -19,7 +19,8 @@ function receiveLogin(user) {
     isFetching: false,
     isAuthenticated: true,
     id_token: user.id_token,
-    userEmail: user.userEmail
+    userEmail: user.userEmail,
+    userId: user.userId
   };
 }
 
@@ -61,6 +62,7 @@ export function loginUser(creds) {
           localStorage.setItem("id_token", user.id_token);
           localStorage.setItem("access_token", user.access_token);
           localStorage.setItem("userEmail", user.userEmail);
+          localStorage.setItem("userId", user.userId);
           // Dispatch the success action
           dispatch(receiveLogin(user));
         }
@@ -99,6 +101,8 @@ export function logoutUser() {
     dispatch(requestLogout());
     localStorage.removeItem("id_token");
     localStorage.removeItem("access_token");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userId");
     dispatch(receiveLogout());
   };
 }
