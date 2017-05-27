@@ -45,7 +45,7 @@ export function loginUser(creds) {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds));
 
-    return fetch("http://localhost:3001/sessions/create", config)
+    return fetch("sessions/create", config)
       .then(response => {
         if (!response.ok) {
           const error = new Error(response.statusText);
@@ -59,8 +59,7 @@ export function loginUser(creds) {
         if (user) {
           console.log(user);
           // If login was successful, set the token in local storage
-          localStorage.setItem("id_token", user.id_token);
-          localStorage.setItem("access_token", user.access_token);
+          localStorage.setItem("token", user.token);
           localStorage.setItem("userEmail", user.userEmail);
           localStorage.setItem("userId", user.userId);
           // Dispatch the success action
@@ -99,8 +98,7 @@ function receiveLogout() {
 export function logoutUser() {
   return dispatch => {
     dispatch(requestLogout());
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userId");
     dispatch(receiveLogout());

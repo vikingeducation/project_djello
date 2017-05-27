@@ -1,15 +1,14 @@
-var logger = require("morgan"),
-  cors = require("cors"),
-  http = require("http"),
-  express = require("express"),
-  errorhandler = require("errorhandler"),
-  dotenv = require("dotenv"),
-  bodyParser = require("body-parser");
+var express = require("express");
 
 var app = express();
 
-dotenv.load();
+var logger = require("morgan"),
+  cors = require("cors"),
+  dotenv = require("dotenv"),
+  bodyParser = require("body-parser");
 
+dotenv.load();
+var auth = require("./auth.js")();
 // Parsers
 // old version of line
 // app.use(bodyParser.urlencoded());
@@ -32,24 +31,22 @@ app.use(function(req, res, next) {
 });
 app.use(cors());
 
-app.use(function(err, req, res, next) {
-  if (err.name === "StatusError") {
-    res.send(err.status, err.message);
-  } else {
-    next(err);
-  }
-});
+app.use(auth.initialize());
 
-if (process.env.NODE_ENV === "development") {
-  app.use(logger("dev"));
-  app.use(errorhandler());
-}
+app.get("/", function(req, res) {
+  res.json({
+    status: "My API is alive!"
+  });
+});
 
 app.use(require("./user-routes"));
+app.use("*", auth.authenticate(), function(req, res, next) {
+  next();
+});
 app.use(require("./db-routes"));
 
-var port = process.env.PORT || 3001;
-
-http.createServer(app).listen(port, function(err) {
-  console.log("listening in http://localhost:" + port);
+app.listen(3001, function() {
+  console.log("My API is running...");
 });
+
+module.exports = app;

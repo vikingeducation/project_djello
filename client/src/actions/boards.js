@@ -34,7 +34,7 @@ export function createNewBoardSuccess(data) {
 export function getBoards(userId, boardId) {
   return dispatch => {
     dispatch(getRequest());
-    fetch(`boards/${userId}`)
+    fetch(`boards/${userId}?token=${localStorage.getItem("token")}`)
       .then(checkStatus)
       .then(json => {
         dispatch(getBoardsSuccess({ json, boardId }));
@@ -60,7 +60,7 @@ export function createNewBoard(data) {
   };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`boards/new`, config)
+    fetch(`boards/new?token=${localStorage.getItem("token")}`, config)
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(data.userId, json.boardId));
@@ -82,7 +82,10 @@ export function deleteBoard(boardId) {
   let config = { method: "DELETE" };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`boards/delete/${boardId}`, config)
+    fetch(
+      `boards/delete/${boardId}?token=${localStorage.getItem("token")}`,
+      config
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(deleteBoardSuccess(json.boardId));
@@ -101,7 +104,7 @@ export function createNewList(data) {
   };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`lists/new`, config)
+    fetch(`lists/new?token=${localStorage.getItem("token")}`, config)
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
@@ -117,7 +120,10 @@ export function deleteList(data) {
   let config = { method: "DELETE" };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`lists/delete/${data.listId}`, config)
+    fetch(
+      `lists/delete/${data.listId}?token=${localStorage.getItem("token")}`,
+      config
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
@@ -133,7 +139,10 @@ export function updateList(data) {
   let config = { method: "PUT", body: `title=${data.title}` };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`lists/update/${data.listId}`, config)
+    fetch(
+      `lists/update/${data.listId}?token=${localStorage.getItem("token")}`,
+      config
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
