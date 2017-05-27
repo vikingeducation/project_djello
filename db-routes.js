@@ -106,10 +106,12 @@ app.delete("/lists/delete/:listId", (req, res) => {
 
 app.put("/lists/update/:listId", (req, res) => {
   List.update(
-    { title: req.body.title },
+    { title: req.body.title, description: req.body.description },
     { where: { id: +req.params.listId }, limit: 1 }
   )
-    .then(() => res.send({}))
+    .then(list => {
+      res.send({});
+    })
     .catch(function(err) {
       console.log(err, req.body);
     });

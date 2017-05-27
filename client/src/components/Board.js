@@ -1,47 +1,42 @@
 import React from "react";
 import Lists from "./Lists";
-import CreateListContainer from "../containers/CreateListContainer";
+import CreateList from "./CreateList";
 
-const Board = ({ boards, currentBoard, deleteList, updateList }) => {
+const Board = ({
+  boards,
+  currentBoard,
+  deleteList,
+  updateList,
+  handleSubmitList
+}) => {
   boards ? console.log("Boards", boards, currentBoard) : null;
   return (
     <div>
-      {NoBoards(boards, currentBoard, deleteList, updateList)}
+      {!boards || !boards.length
+        ? <NoBoards />
+        : <div>
+            <br />
+            <h1>{currentBoard.name}</h1><br />
+            <CreateList
+              handleSubmitList={handleSubmitList}
+              currentBoard={currentBoard}
+            />
+            <br />
+            {currentBoard.Lists.length
+              ? <Lists
+                  currentBoard={currentBoard}
+                  deleteList={deleteList}
+                  updateList={updateList}
+                />
+              : <NoLists />}
+
+          </div>}
+
     </div>
   );
 };
 
-const NoBoards = (boards, currentBoard, deleteList, updateList) => {
-  if (!boards || !boards.length) {
-    return <p>No Boards...</p>;
-  } else if (currentBoard && currentBoard.Lists) {
-    return (
-      <div>
-        <br />
-        <h1>{currentBoard.name}</h1>
-        <br />
-        <CreateListContainer />
-        <br />
-        <Lists
-          currentBoard={currentBoard}
-          deleteList={deleteList}
-          updateList={updateList}
-        />
+const NoBoards = () => <p>No Boards...</p>;
+const NoLists = () => <p> No lists...</p>;
 
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <br />
-        <h1>{currentBoard.name}</h1>
-        <br />
-        <CreateListContainer />
-        <br />
-        <p> No lists...</p>
-
-      </div>
-    );
-  }
-};
 export default Board;

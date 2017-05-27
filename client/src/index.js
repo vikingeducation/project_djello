@@ -10,7 +10,10 @@ import "./index.css";
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
-let store = createStoreWithMiddleware(djelloApp);
+let store = createStoreWithMiddleware(
+  djelloApp,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 let rootElement = document.getElementById("root");
 

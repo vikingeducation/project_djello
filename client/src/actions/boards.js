@@ -134,9 +134,13 @@ export function deleteList(data) {
   };
 }
 
-//data must have listId, boardId and title
+//data must have listId, boardId and title, description
 export function updateList(data) {
-  let config = { method: "PUT", body: `title=${data.title}` };
+  let config = {
+    method: "PUT",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `title=${data.title}&description=${data.description}`
+  };
   return dispatch => {
     dispatch(getRequest());
     fetch(

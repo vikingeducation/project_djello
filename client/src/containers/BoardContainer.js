@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Board from "../components/Board";
-import { getBoards, deleteList, updateList } from "../actions/boards";
-import BoardsManagerContainer from "./BoardsManagerContainer";
+import {
+  getBoards,
+  deleteList,
+  updateList,
+  createNewList,
+  changeCurrentBoard,
+  deleteBoard,
+  createNewBoard
+} from "../actions/boards";
+import BoardsManager from "../components/BoardsManager";
 import serialize from "form-serialize";
 
 class BoardContainer extends Component {
@@ -11,10 +19,33 @@ class BoardContainer extends Component {
   }
 
   render() {
+    const {
+      boards,
+      currentBoard,
+      changeCurrentBoard,
+      deleteBoard,
+      deleteList,
+      updateList,
+      handleSubmitList,
+      handleSubmitBoard
+    } = this.props;
+    console.log(boards);
     return (
       <div>
-        <BoardsManagerContainer />
-        <Board {...this.props} />
+        <BoardsManager
+          boards={boards}
+          currentBoard={currentBoard}
+          changeCurrentBoard={changeCurrentBoard}
+          deleteBoard={deleteBoard}
+          handleSubmitBoard={handleSubmitBoard}
+        />
+        <Board
+          boards={boards}
+          currentBoard={currentBoard}
+          deleteList={deleteList}
+          updateList={updateList}
+          handleSubmitList={handleSubmitList}
+        />
       </div>
     );
   }
@@ -32,14 +63,41 @@ const mapDispatchToProps = dispatch => {
     getBoards: userId => {
       dispatch(getBoards(userId));
     },
+    changeCurrentBoard: boards => e => {
+      const board = boards.find(board => board.name === e.target.value);
+      dispatch(changeCurrentBoard(board.id));
+    },
+    deleteBoard: boardId => e => {
+      dispatch(deleteBoard(boardId));
+    },
     deleteList: ({ boardId, listId }) => e => {
       dispatch(deleteList({ boardId, listId }));
     },
-    updateList: ({ boardId, listId }) => e => {
+    updateList: ({ boardId, listId, title, description }) => {
+      dispatch(updateList({ boardId, listId, title, description }));
+    },
+    handleSubmitList: boardId => e => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form, { hash: true });
-      dispatch(updateList({ title: data.title, boardId, listId }));
+      dispatch(
+        createNewList({
+          title: data.title,
+          boardId,
+          description: data.description
+        })
+      );
+    },
+    handleSubmitBoard: e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = serialize(form, { hash: true });
+      dispatch(
+        createNewBoard({
+          name: data.name,
+          userId: localStorage.getItem("userId")
+        })
+      );
     }
   };
 };

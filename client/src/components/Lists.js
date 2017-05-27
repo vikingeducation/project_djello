@@ -6,25 +6,53 @@ import {
   CardDeck,
   CardSubtitle,
   CardBlock,
-  CardText
+  CardText,
+  InputGroup,
+  InputGroupButton,
+  Input
 } from "reactstrap";
 import Cards from "./Cards";
 import DeleteListButton from "./DeleteListButton";
 
-const NameEdit = ({ toggle, title, onChangeTitle, updateList }) => {
+const NameEdit = ({ toggleTitle, title, onChange, onSubmit }) => {
   return (
     <div>
-      <form onSubmit={updateList}>
-        <input
-          type="text"
+      <InputGroup>
+        <Input
+          onChange={onChange}
           name="title"
           value={title}
-          onChange={onChangeTitle}
+          onKeyPress={onSubmit}
         />
-        <button type="submit" onClick={toggle}>Save</button>
+        <InputGroupButton color="secondary" onClick={toggleTitle}>
+          Cancel
+        </InputGroupButton>
+      </InputGroup>
 
-      </form>
-      <button onClick={toggle}>Cancel</button>
+    </div>
+  );
+};
+const DescriptionEdit = ({
+  onChange,
+  description,
+  onSubmit,
+  toggleDescription
+}) => {
+  return (
+    <div>
+      <InputGroup>
+        <Input
+          type="textarea"
+          onChange={onChange}
+          name="description"
+          value={description}
+          onKeyPress={onSubmit}
+        />
+        <InputGroupButton color="secondary" onClick={toggleDescription}>
+          Cancel
+        </InputGroupButton>
+      </InputGroup>
+
     </div>
   );
 };
@@ -32,19 +60,51 @@ const NameEdit = ({ toggle, title, onChangeTitle, updateList }) => {
 class List extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { edit: false, title: props.title };
-    this.toggle = this.toggle.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
+    this.state = {
+      editTitle: false,
+      editDescription: false,
+      title: props.title,
+      description: props.description
+    };
+    this.toggleTitle = this.toggleTitle.bind(this);
+    this.toggleDescription = this.toggleDescription.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
-  toggle() {
+  toggleTitle() {
     this.setState({
-      edit: !this.state.edit
+      editTitle: !this.state.editTitle,
+      title: this.props.title,
+      description: this.props.description
     });
   }
-  onChangeTitle(e) {
+
+  toggleDescription() {
     this.setState({
-      title: e.target.value
+      editDescription: !this.state.editDescription,
+      description: this.props.description,
+      title: this.props.title
     });
+  }
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  onSubmit(e) {
+    if (e.key === "Enter") {
+      this.props.updateList({
+        title: this.state.title,
+        boardId: this.props.boardId,
+        listId: this.props.listId,
+        description: this.state.description
+      });
+      if (e.target.name === "title") {
+        this.toggleTitle();
+      } else {
+        this.toggleDescription();
+      }
+    }
   }
 
   render() {
@@ -54,24 +114,19 @@ class List extends React.Component {
       cards,
       deleteList,
       listId,
-      boardId,
-      updateList
+      boardId
     } = this.props;
     return (
       <Card className="my-2">
         <CardBlock>
           <CardTitle>
-            {!this.state.edit
-              ? <span onClick={this.toggle}>{title}</span>
+            {!this.state.editTitle
+              ? <span onClick={this.toggleTitle}>{title}</span>
               : <NameEdit
-                  toggle={this.toggle}
+                  toggleTitle={this.toggleTitle}
                   title={this.state.title}
-                  onChangeTitle={this.onChangeTitle}
-                  updateList={updateList({
-                    title: this.state.title,
-                    boardId,
-                    listId
-                  })}
+                  onChange={this.onChange}
+                  onSubmit={this.onSubmit}
                 />}
             {" "}
 
@@ -79,7 +134,16 @@ class List extends React.Component {
           <CardSubtitle style={{ marginBottom: "30px" }}>
             <DeleteListButton onClick={deleteList({ listId, boardId })} />
 
-            <CardText>{description}</CardText>
+            <div>
+              {!this.state.editDescription
+                ? <span onClick={this.toggleDescription}>{description}</span>
+                : <DescriptionEdit
+                    toggleDescription={this.toggleDescription}
+                    description={this.state.description}
+                    onChange={this.onChange}
+                    onSubmit={this.onSubmit}
+                  />}
+            </div>
           </CardSubtitle>
           <Cards cards={cards} />
           <Button>Add A Card</Button>

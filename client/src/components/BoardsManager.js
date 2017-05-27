@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import CreateBoardContainer from "../containers/CreateBoardContainer";
+import CreateBoard from "./CreateBoard";
 import DeleteBoardButton from "./DeleteBoardButton";
 
 const dropBoards = (boards, changeCurrentBoard, currentBoard) => {
@@ -22,34 +22,53 @@ const dropBoards = (boards, changeCurrentBoard, currentBoard) => {
   });
 };
 
-const BoardsManager = ({
-  boards,
-  currentBoard,
-  changeCurrentBoard,
-  isOpen,
-  toggle,
-  deleteBoard
-}) => {
-  return (
-    <div style={{ display: "inline-block", marginTop: "10px" }}>
+class BoardsManager extends React.Component {
+  constructor(props) {
+    super(props);
 
-      {boards && boards.length
-        ? <ButtonDropdown isOpen={isOpen} toggle={toggle}>
-            <DropdownToggle caret>
-              {currentBoard.name}
-            </DropdownToggle>
-            <DropdownMenu>
-              {dropBoards(boards, changeCurrentBoard, currentBoard)}
-            </DropdownMenu>
-          </ButtonDropdown>
-        : null}
-      <CreateBoardContainer />
-      {boards && boards.length
-        ? <DeleteBoardButton onClick={deleteBoard(currentBoard.id)} />
-        : null}
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
 
-    </div>
-  );
-};
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+  render() {
+    const {
+      boards,
+      currentBoard,
+      changeCurrentBoard,
+      deleteBoard,
+      handleSubmitBoard
+    } = this.props;
+    return (
+      <div style={{ display: "inline-block", marginTop: "10px" }}>
+
+        {boards && boards.length
+          ? <ButtonDropdown
+              isOpen={this.state.dropdownOpen}
+              toggle={this.toggle}
+            >
+              <DropdownToggle caret>
+                {currentBoard.name}
+              </DropdownToggle>
+              <DropdownMenu>
+                {dropBoards(boards, changeCurrentBoard, currentBoard)}
+              </DropdownMenu>
+            </ButtonDropdown>
+          : null}
+        <CreateBoard handleSubmitBoard={handleSubmitBoard} />
+        {boards && boards.length
+          ? <DeleteBoardButton onClick={deleteBoard(currentBoard.id)} />
+          : null}
+
+      </div>
+    );
+  }
+}
 
 export default BoardsManager;
