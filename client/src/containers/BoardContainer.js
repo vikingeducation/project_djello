@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Board from "../components/Board";
-import { getBoards } from "../actions/boards";
-import DropDownContainer from "./DropDownContainer";
+import { getBoards, deleteList, updateList } from "../actions/boards";
+import BoardsManagerContainer from "./BoardsManagerContainer";
+import serialize from "form-serialize";
 
 class BoardContainer extends Component {
   componentDidMount() {
@@ -12,11 +13,8 @@ class BoardContainer extends Component {
   render() {
     return (
       <div>
-        <DropDownContainer />
-        <Board
-          boards={this.props.boards}
-          currentBoard={this.props.currentBoard}
-        />
+        <BoardsManagerContainer />
+        <Board {...this.props} />
       </div>
     );
   }
@@ -33,6 +31,15 @@ const mapDispatchToProps = dispatch => {
   return {
     getBoards: userId => {
       dispatch(getBoards(userId));
+    },
+    deleteList: ({ boardId, listId }) => e => {
+      dispatch(deleteList({ boardId, listId }));
+    },
+    updateList: ({ boardId, listId }) => e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = serialize(form, { hash: true });
+      dispatch(updateList({ title: data.title, boardId, listId }));
     }
   };
 };

@@ -1,6 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import Logout from "./Logout";
+import { Container } from "reactstrap";
 import BoardContainer from "../containers/BoardContainer";
 
 const Main = () => {

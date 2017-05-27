@@ -15,7 +15,8 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: "cardId"
           });
           Activity.belongsTo(models.User, {
-            foreignKey: "authorId"
+            foreignKey: "authorId",
+            as: "Author"
           });
         }
       }

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -7,6 +6,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import CreateBoardContainer from "../containers/CreateBoardContainer";
+import DeleteBoardButton from "./DeleteBoardButton";
 
 const dropBoards = (boards, changeCurrentBoard, currentBoard) => {
   return boards.filter(board => board.name !== currentBoard.name).map(board => {
@@ -22,29 +22,34 @@ const dropBoards = (boards, changeCurrentBoard, currentBoard) => {
   });
 };
 
-const DropDown = ({
+const BoardsManager = ({
   boards,
   currentBoard,
   changeCurrentBoard,
   isOpen,
-  toggle
+  toggle,
+  deleteBoard
 }) => {
   return (
-    <div style={{ display: "inline-block" }}>
+    <div style={{ display: "inline-block", marginTop: "10px" }}>
 
-      {Object.keys(boards).length
+      {boards && boards.length
         ? <ButtonDropdown isOpen={isOpen} toggle={toggle}>
             <DropdownToggle caret>
               {currentBoard.name}
             </DropdownToggle>
             <DropdownMenu>
-              {dropBoards(boards.boards, changeCurrentBoard, currentBoard)}
+              {dropBoards(boards, changeCurrentBoard, currentBoard)}
             </DropdownMenu>
           </ButtonDropdown>
         : null}
       <CreateBoardContainer />
+      {boards && boards.length
+        ? <DeleteBoardButton onClick={deleteBoard(currentBoard.id)} />
+        : null}
+
     </div>
   );
 };
 
-export default DropDown;
+export default BoardsManager;

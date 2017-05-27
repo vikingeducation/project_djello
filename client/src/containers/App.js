@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
-import { withRouter } from "react-router";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
 import Login from "../components/Login";
 import Main from "../components/Main";
 import Navbar from "../components/Navbar";

@@ -9,16 +9,14 @@ import {
   Label,
   Input
 } from "reactstrap";
-const CreateBoardModal = ({
-  handleSubmit,
-  boards,
-  currentBoard,
-  toggle,
-  modal
-}) => {
+const CreateBoardModal = ({ handleSubmit, toggle, modal }) => {
   return (
     <div style={{ display: "inline-block" }}>
-      <Button color="info" style={{ marginLeft: "10px" }} onClick={toggle}>
+      <Button
+        color="info"
+        style={{ marginLeft: "10px", marginRight: "10px" }}
+        onClick={toggle}
+      >
         New Board
       </Button>
       <Modal isOpen={modal} toggle={toggle}>

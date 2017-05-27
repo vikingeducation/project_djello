@@ -14,8 +14,8 @@ module.exports = {
     */
     var activities = [];
     activities.push(
-      { id: 1, authorId: 1, cardId: 1, description: "This is activity" },
-      { id: 2, authorId: 1, cardId: 1, description: "This is activity" }
+      { authorId: 1, cardId: 1, description: "This is activity" },
+      { authorId: 1, cardId: 1, description: "This is activity" }
     );
     return queryInterface.bulkInsert("Activities", activities);
   },

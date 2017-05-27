@@ -14,10 +14,7 @@ module.exports = {
       }], {});
     */
     var boards = [];
-    boards.push(
-      { id: 1, name: "Board1", ownerId: 1 },
-      { id: 2, name: "Board2", ownerId: 1 }
-    );
+    boards.push({ name: "Board1", ownerId: 1 }, { name: "Board2", ownerId: 1 });
     return queryInterface.bulkInsert("Boards", boards);
   },
 

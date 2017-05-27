@@ -15,8 +15,8 @@ module.exports = {
     */
     var cards = [];
     cards.push(
-      { id: 1, listId: 1, title: "Card1", description: "This is a card 1" },
-      { id: 2, listId: 1, title: "Card2", description: "This is a card 2" }
+      { listId: 1, title: "Card1", description: "This is a card 1" },
+      { listId: 1, title: "Card2", description: "This is a card 2" }
     );
     return queryInterface.bulkInsert("Cards", cards);
   },

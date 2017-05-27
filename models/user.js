@@ -11,20 +11,20 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         associate: function(models) {
           // associations can be defined here
-          // User.hasMany(models.UsersBoards, {
-          //   foreignKey: "userId"
-          // });
+          User.hasMany(models.UsersBoards, {
+            foreignKey: "userId"
+          });
           User.belongsToMany(models.Board, {
             through: models.UsersBoards,
-            as: "AddedBoard",
+            as: "BoardsBelongsTo",
             foreignKey: "userId"
           });
           User.hasMany(models.Board, {
             foreignKey: "ownerId"
           });
-          // User.hasMany(models.UsersCards, {
-          //   foreignKey: "memberId"
-          // });
+          User.hasMany(models.UsersCards, {
+            foreignKey: "memberId"
+          });
           User.belongsToMany(models.Card, {
             through: models.UsersCards,
             as: "MembersCard",

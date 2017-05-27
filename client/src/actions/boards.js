@@ -1,8 +1,9 @@
 export const GET_BOARDS_SUCCESS = "GET_BOARDS_SUCCESS";
-export const GET_BOARDS_REQUEST = "GET_BOARDS_REQUEST";
-export const GET_BOARDS_FAILURE = "GET_BOARDS_FAILURE";
+export const GET_REQUEST = "GET_REQUEST";
+export const GET_FAILURE = "GET_FAILURE";
 export const CHANGE_CURRENT_BOARD = "CHANGE_CURRENT_BOARD";
 export const CREATE_NEW_BOARD_SUCCESS = "CREATE_NEW_BOARD_SUCCESS";
+export const DELETE_BOARD_SUCCESS = "DELETE_BOARD_SUCCESS";
 
 export function getBoardsSuccess(data) {
   return {
@@ -11,15 +12,15 @@ export function getBoardsSuccess(data) {
   };
 }
 
-export function getBoardsFailure(error) {
+export function getFailure(error) {
   return {
-    type: GET_BOARDS_FAILURE,
+    type: GET_FAILURE,
     error
   };
 }
-export function getBoardsRequest() {
+export function getRequest() {
   return {
-    type: GET_BOARDS_REQUEST
+    type: GET_REQUEST
   };
 }
 
@@ -30,16 +31,16 @@ export function createNewBoardSuccess(data) {
   };
 }
 
-export function getBoards(userId) {
+export function getBoards(userId, boardId) {
   return dispatch => {
-    dispatch(getBoardsRequest());
+    dispatch(getRequest());
     fetch(`boards/${userId}`)
       .then(checkStatus)
       .then(json => {
-        dispatch(getBoardsSuccess(json));
+        dispatch(getBoardsSuccess({ json, boardId }));
       })
       .catch(error => {
-        dispatch(getBoardsFailure(error.message + error.response));
+        dispatch(getFailure(error.message + error.response));
       });
   };
 }
@@ -58,15 +59,87 @@ export function createNewBoard(data) {
     body: `name=${data.name}&ownerId=${data.userId}`
   };
   return dispatch => {
-    dispatch(getBoardsRequest());
+    dispatch(getRequest());
     fetch(`boards/new`, config)
       .then(checkStatus)
       .then(json => {
-        dispatch(getBoards(data.userId));
-        dispatch(changeCurrentBoard(json.board));
+        dispatch(getBoards(data.userId, json.boardId));
       })
       .catch(error => {
-        dispatch(getBoardsFailure(error.message + error.response));
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
+export function deleteBoardSuccess(boardId) {
+  return {
+    type: DELETE_BOARD_SUCCESS,
+    data: boardId
+  };
+}
+
+export function deleteBoard(boardId) {
+  let config = { method: "DELETE" };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(`boards/delete/${boardId}`, config)
+      .then(checkStatus)
+      .then(json => {
+        dispatch(deleteBoardSuccess(json.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
+export function createNewList(data) {
+  let config = {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `title=${data.title}&boardId=${+data.boardId}&description=${data.description}`
+  };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(`lists/new`, config)
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
+//data needs to have listId and boardId
+export function deleteList(data) {
+  let config = { method: "DELETE" };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(`lists/delete/${data.listId}`, config)
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
+//data must have listId, boardId and title
+export function updateList(data) {
+  let config = { method: "PUT", body: `title=${data.title}` };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(`lists/update/${data.listId}`, config)
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
       });
   };
 }

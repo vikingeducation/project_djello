@@ -3,11 +3,11 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import CreateBoardModal from "../components/CreateBoardModal";
-import { createNewBoard } from "../actions/boards";
+import CreateListModal from "../components/CreateListModal";
+import { createNewList } from "../actions/boards";
 import serialize from "form-serialize";
 
-class CreateBoardContainer extends React.Component {
+class CreateListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ class CreateBoardContainer extends React.Component {
 
   render() {
     return (
-      <CreateBoardModal
+      <CreateListModal
         {...this.props}
         toggle={this.toggle}
         modal={this.state.modal}
@@ -33,21 +33,29 @@ class CreateBoardContainer extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    boardId: state.boards.currentBoard.id
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleSubmit: e => {
+    handleSubmitList: boardId => e => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form, { hash: true });
       dispatch(
-        createNewBoard({
-          name: data.name,
-          userId: localStorage.getItem("userId")
+        createNewList({
+          title: data.title,
+          boardId,
+          description: data.description
         })
       );
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateBoardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  CreateListContainer
+);
