@@ -15,10 +15,11 @@ app.get("/boards/:userId", (req, res) => {
     include: [
       {
         model: UsersBoards,
-
         where: {
           userId: req.params.userId
-        }
+        },
+
+        include: { model: User, attributes: ["email"] }
       },
 
       { model: User, as: "Owner", attributes: ["email"] },
@@ -34,16 +35,14 @@ app.get("/boards/:userId", (req, res) => {
               },
               {
                 model: UsersCards,
-                include: [
-                  { model: User, as: "MemberOfCard", attributes: ["email"] }
-                ]
+                include: [{ model: User, attributes: ["email"] }]
               }
             ]
           }
         ]
       }
     ],
-    order: [["name"], [List, "createdAt"]]
+    order: [["name"], [List, "createdAt"], [List, Card, "createdAt"]]
   })
     .then(boards => {
       res.send({ boards });
@@ -65,7 +64,6 @@ app.post("/boards/new", (req, res) => {
         userId: currBoard.ownerId,
         boardId: currBoard.id
       }).then(board => {
-        console.log("CURR", currBoard);
         res.send({ boardId: currBoard.id });
       });
     })
@@ -86,7 +84,9 @@ app.post("/lists/new", (req, res) => {
   List.create({
     title: req.body.title,
     boardId: +req.body.boardId,
-    description: req.body.description
+    description: req.body.description === "undefined"
+      ? ""
+      : req.body.description
   })
     .then(list => {
       res.send({ list });
@@ -116,3 +116,61 @@ app.put("/lists/update/:listId", (req, res) => {
       console.log(err, req.body);
     });
 });
+
+app.post("/cards/new", (req, res) => {
+  Card.create({
+    title: req.body.title,
+    description: req.body.description,
+    listId: req.body.listId
+  })
+    .then(card => {
+      res.send({ card });
+    })
+    .catch(function(err) {
+      console.log(err, req.body);
+    });
+});
+
+app.put("/cards/update/:cardId", (req, res) => {
+  console.log("HIT");
+  Card.update(
+    { title: req.body.title, description: req.body.description },
+    { where: { id: +req.params.cardId }, limit: 1 }
+  )
+    .then(card => {
+      res.send({ card });
+    })
+    .catch(function(err) {
+      console.log(err, req.body);
+    });
+});
+
+app.delete("/cards/delete/:cardId", (req, res) => {
+  Card.destroy({ where: { id: +req.params.cardId }, limit: 1 })
+    .then(() => res.send({}))
+    .catch(function(err) {
+      console.log(err, req.body);
+    });
+});
+
+app.get("/users", (req, res) => {
+  User.findAll({ attributes: ["email"] })
+    .then(users => {
+      users = users.map(user => user.email);
+      res.send({ users });
+    })
+    .catch(function(err) {
+      console.log(err, req.body);
+    });
+});
+
+// app.get("/test", (req, res) => {
+//   Card.findAll({
+//     where: { listId: [1, 2] },
+//     include: [
+//       { model: UsersCards, include: [{ model: User, attributes: ["email"] }] }
+//     ]
+//   }).then(cards => {
+//     res.send({ cards });
+//   });
+// });

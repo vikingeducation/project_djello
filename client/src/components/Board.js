@@ -7,7 +7,11 @@ const Board = ({
   currentBoard,
   deleteList,
   updateList,
-  handleSubmitList
+  handleSubmitList,
+  handleSubmitCard,
+  updateCard,
+  deleteCard,
+  users
 }) => {
   boards ? console.log("Boards", boards, currentBoard) : null;
   return (
@@ -27,6 +31,10 @@ const Board = ({
                   currentBoard={currentBoard}
                   deleteList={deleteList}
                   updateList={updateList}
+                  handleSubmitCard={handleSubmitCard}
+                  updateCard={updateCard}
+                  deleteCard={deleteCard}
+                  users={users}
                 />
               : <NoLists />}
 

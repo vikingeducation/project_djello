@@ -142,6 +142,7 @@ export function updateList(data) {
     body: `title=${data.title}&description=${data.description}`
   };
   return dispatch => {
+    console.log("DISP");
     dispatch(getRequest());
     fetch(
       `lists/update/${data.listId}?token=${localStorage.getItem("token")}`,
@@ -156,6 +157,68 @@ export function updateList(data) {
       });
   };
 }
+
+export function createNewCard(data) {
+  let config = {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `title=${data.title}&description=${data.description}&listId=${data.listId}`
+  };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(`cards/new?token=${localStorage.getItem("token")}`, config)
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
+export function updateCard(data) {
+  console.log("data", data);
+  let config = {
+    method: "PUT",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `title=${data.title}&description=${data.description}`
+  };
+  console.log("config", config);
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(
+      `cards/update/${data.cardId}?token=${localStorage.getItem("token")}`,
+      config
+    )
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
+export function deleteCard(data) {
+  let config = { method: "DELETE" };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(
+      `cards/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
+      config
+    )
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+
 function checkStatus(response) {
   // If response not okay, throw an error
   if (!response.ok) {

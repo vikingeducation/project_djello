@@ -20,7 +20,8 @@ module.exports = {
         email: "egle@gmail.com",
         password: bcrypt.hashSync("123456", 8)
       },
-      { email: "test@gmail.com", password: bcrypt.hashSync("123456", 8) }
+      { email: "test@gmail.com", password: bcrypt.hashSync("123456", 8) },
+      { email: "test1@gmail.com", password: bcrypt.hashSync("123456", 8) }
     );
 
     return queryInterface.bulkInsert("Users", users);

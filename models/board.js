@@ -15,7 +15,9 @@ module.exports = function(sequelize, DataTypes) {
           });
           Board.belongsToMany(models.User, {
             through: models.UsersBoards,
+            unique: false,
             as: "MemberOfBoard",
+            constraints: false,
             foreignKey: "boardId"
           });
           Board.belongsTo(models.User, {

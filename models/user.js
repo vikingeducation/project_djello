@@ -17,6 +17,8 @@ module.exports = function(sequelize, DataTypes) {
           User.belongsToMany(models.Board, {
             through: models.UsersBoards,
             as: "BoardsBelongsTo",
+            unique: false,
+            constraints: false,
             foreignKey: "userId"
           });
           User.hasMany(models.Board, {
@@ -27,8 +29,9 @@ module.exports = function(sequelize, DataTypes) {
           });
           User.belongsToMany(models.Card, {
             through: models.UsersCards,
-            as: "MembersCard",
-            foreignKey: "memberId"
+            foreignKey: "memberId",
+            unique: false,
+            constraints: false
           });
           User.hasMany(models.Activity, {
             foreignKey: "authorId"

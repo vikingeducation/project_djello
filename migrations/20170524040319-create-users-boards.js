@@ -9,10 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: false
       },
       boardId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: false
       },
       createdAt: {
         allowNull: false,

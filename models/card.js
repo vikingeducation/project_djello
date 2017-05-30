@@ -22,8 +22,9 @@ module.exports = function(sequelize, DataTypes) {
           });
           Card.belongsToMany(models.User, {
             through: models.UsersCards,
-            as: "MemberOfCard",
-            foreignKey: "cardId"
+            foreignKey: "cardId",
+            constraints: false,
+            unique: false
           });
         }
       }

@@ -3,8 +3,12 @@ module.exports = function(sequelize, DataTypes) {
   var UsersBoards = sequelize.define(
     "UsersBoards",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+      },
       userId: DataTypes.INTEGER,
-      boardId: DataTypes.INTEGER
+      boardId: { type: DataTypes.INTEGER, unique: false }
     },
     {
       classMethods: {

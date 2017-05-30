@@ -9,10 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       memberId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: false
       },
       cardId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: false
       },
       createdAt: {
         allowNull: false,

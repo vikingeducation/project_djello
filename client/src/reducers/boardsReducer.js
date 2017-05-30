@@ -38,6 +38,7 @@ export default function boards(
       return {
         ...state,
         isFetching: false,
+        error: null,
         data: action.data.json,
         currentBoard
       };
