@@ -7,13 +7,21 @@ const cardList = ({
   updateCard,
   boardId,
   deleteCard,
-  users
+  users,
+  addMember,
+  deleteMember
 }) => {
   return cards.map(card => {
     return (
       <div
         key={card.id}
-        style={{ border: "1px solid black", padding: "10px", margin: "20px" }}
+        style={{
+          padding: "10px",
+          margin: "20px",
+          backgroundColor: "white",
+          border: "2px solid #317EAC",
+          borderRadius: "5px"
+        }}
       >
         <CardModal
           card={card}
@@ -22,6 +30,8 @@ const cardList = ({
           boardId={boardId}
           deleteCard={deleteCard}
           users={users}
+          addMember={addMember}
+          deleteMember={deleteMember}
         />
       </div>
     );
@@ -34,12 +44,23 @@ const Cards = ({
   updateCard,
   boardId,
   deleteCard,
-  users
+  users,
+  addMember,
+  deleteMember
 }) => {
   return (
     <div>
       {cards.length
-        ? cardList({ cards, listTitle, updateCard, boardId, deleteCard, users })
+        ? cardList({
+            cards,
+            listTitle,
+            updateCard,
+            boardId,
+            deleteCard,
+            users,
+            addMember,
+            deleteMember
+          })
         : <p>No cards...</p>}
     </div>
   );

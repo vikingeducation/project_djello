@@ -30,14 +30,20 @@ class Login extends React.Component {
               ref="email"
               className="form-control"
               placeholder="Email"
+              style={{ margin: "10px" }}
             />
             <input
               type="password"
               ref="password"
               className="form-control"
               placeholder="Password"
+              style={{ margin: "10px" }}
             />
-            <button onClick={this.handleClick} className="btn btn-primary">
+            <button
+              onClick={this.handleClick}
+              className="btn btn-primary"
+              style={{ margin: "30px" }}
+            >
               Login
             </button>
             {errorMessage && <p>{errorMessage}</p>}

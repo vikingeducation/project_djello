@@ -1,3 +1,4 @@
+import { getUsers } from "./users";
 export const GET_BOARDS_SUCCESS = "GET_BOARDS_SUCCESS";
 export const GET_REQUEST = "GET_REQUEST";
 export const GET_FAILURE = "GET_FAILURE";
@@ -178,13 +179,12 @@ export function createNewCard(data) {
 }
 
 export function updateCard(data) {
-  console.log("data", data);
+  console.log(data.name);
   let config = {
     method: "PUT",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `title=${data.title}&description=${data.description}`
+    body: `title=${data.title}&description=${data.description}&name=${data.name}`
   };
-  console.log("config", config);
   return dispatch => {
     dispatch(getRequest());
     fetch(
@@ -207,6 +207,48 @@ export function deleteCard(data) {
     dispatch(getRequest());
     fetch(
       `cards/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
+      config
+    )
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+export function addMember(data) {
+  let config = {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `email=${data.email}&boardId=${data.boardId}`
+  };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(
+      `cards/member/add/${data.cardId}?token=${localStorage.getItem("token")}`,
+      config
+    )
+      .then(checkStatus)
+      .then(json => {
+        dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
+      })
+      .catch(error => {
+        dispatch(getFailure(error.message + error.response));
+      });
+  };
+}
+export function deleteMember(data) {
+  let config = {
+    method: "DELETE",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `email=${data.email}`
+  };
+  return dispatch => {
+    dispatch(getRequest());
+    fetch(
+      `cards/member/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)

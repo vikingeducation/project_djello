@@ -30,7 +30,7 @@ class CreateCard extends React.Component {
     const { handleSubmitCard, boardId, listId } = this.props;
     return (
       <div>
-        <Button color="secondary" onClick={this.toggle}>
+        <Button color="info" onClick={this.toggle}>
           Add New Card
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>

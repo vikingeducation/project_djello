@@ -3,8 +3,8 @@ module.exports = function(sequelize, DataTypes) {
   var UsersBoards = sequelize.define(
     "UsersBoards",
     {
-      id: {
-        type: DataTypes.INTEGER,
+      fixId: {
+        type: DataTypes.BIGINT,
         primaryKey: true
       },
       userId: DataTypes.INTEGER,

@@ -3,8 +3,8 @@ module.exports = function(sequelize, DataTypes) {
   var UsersCards = sequelize.define(
     "UsersCards",
     {
-      id: {
-        type: DataTypes.INTEGER,
+      fixId: {
+        type: DataTypes.BIGINT,
         primaryKey: true
       },
       memberId: DataTypes.INTEGER,

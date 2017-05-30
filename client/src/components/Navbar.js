@@ -29,7 +29,9 @@ export default class Example extends React.Component {
       <div>
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
-          <NavbarBrand href="/">Djello</NavbarBrand>
+          <NavbarBrand href="/" style={{ color: "#0593E7" }}>
+            Djello
+          </NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               {this.props.isAuthenticated

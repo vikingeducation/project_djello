@@ -42,7 +42,12 @@ app.get("/boards/:userId", (req, res) => {
         ]
       }
     ],
-    order: [["name"], [List, "createdAt"], [List, Card, "createdAt"]]
+    order: [
+      ["name"],
+      [List, "createdAt"],
+      [List, Card, "createdAt"],
+      [List, Card, Activity, "createdAt", "DESC"]
+    ]
   })
     .then(boards => {
       res.send({ boards });
@@ -61,6 +66,7 @@ app.post("/boards/new", (req, res) => {
     .then(board => {
       currBoard = board;
       UsersBoards.create({
+        fixId: +new Date(),
         userId: currBoard.ownerId,
         boardId: currBoard.id
       }).then(board => {
@@ -124,7 +130,14 @@ app.post("/cards/new", (req, res) => {
     listId: req.body.listId
   })
     .then(card => {
-      res.send({ card });
+      Activity.create({
+        authorId: req.user.id,
+        cardId: card.id,
+        description: `created this card`
+      });
+    })
+    .then(() => {
+      res.send({});
     })
     .catch(function(err) {
       console.log(err, req.body);
@@ -132,13 +145,21 @@ app.post("/cards/new", (req, res) => {
 });
 
 app.put("/cards/update/:cardId", (req, res) => {
-  console.log("HIT");
   Card.update(
     { title: req.body.title, description: req.body.description },
     { where: { id: +req.params.cardId }, limit: 1 }
   )
     .then(card => {
-      res.send({ card });
+      Activity.create({
+        authorId: req.user.id,
+        cardId: +req.params.cardId,
+        description: req.body.name === "title"
+          ? `changed title of this card to "${req.body.title}"`
+          : `changed description of this card to "${req.body.description}"`
+      });
+    })
+    .then(() => {
+      res.send({});
     })
     .catch(function(err) {
       console.log(err, req.body);
@@ -162,6 +183,65 @@ app.get("/users", (req, res) => {
     .catch(function(err) {
       console.log(err, req.body);
     });
+});
+
+app.post("/cards/member/add/:cardId", (req, res) => {
+  let userId;
+  User.findOne({ where: { email: req.body.email } })
+    .then(user => {
+      userId = user.id;
+      UsersCards.create({
+        fixId: +new Date(),
+        memberId: userId,
+        cardId: +req.params.cardId
+      }).then(() => {
+        UsersBoards.findOne({
+          where: { userId: userId, boardId: +req.body.boardId }
+        })
+          .then(usersboard => {
+            if (!usersboard) {
+              UsersBoards.create({
+                fixId: +new Date(),
+                userId: userId,
+                boardId: +req.body.boardId
+              });
+            }
+          })
+          .then(() => {
+            Activity.create({
+              authorId: req.user.id,
+              cardId: +req.params.cardId,
+              description: `added ${req.body.email} to members' list `
+            });
+          })
+          .then(() => {
+            res.send({});
+          });
+      });
+    })
+    .catch(function(err) {
+      console.log(err, req.body);
+    });
+});
+
+app.delete("/cards/member/delete/:cardId", (req, res) => {
+  User.findOne({ where: { email: req.body.email } }).then(user => {
+    UsersCards.destroy({
+      where: { memberId: user.id, cardId: +req.params.cardId },
+      limit: 1
+    })
+      .then(() => {
+        Activity.create({
+          authorId: req.user.id,
+          cardId: +req.params.cardId,
+          description: `removed ${req.body.email} from members' list `
+        });
+      })
+      .then(() => res.send({}))
+      .catch(function(err) {
+        console.log(err, req.body);
+      });
+  });
 });
 
 // app.get("/test", (req, res) => {

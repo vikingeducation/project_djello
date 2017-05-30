@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import App from "./containers/App";
 import djelloApp from "./reducers/index";
 import thunkMiddleware from "redux-thunk";
-import "bootstrap/dist/css/bootstrap.css";
+
 import "./index.css";
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);

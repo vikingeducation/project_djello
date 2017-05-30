@@ -11,7 +11,9 @@ const listGroup = ({
   handleSubmitCard,
   updateCard,
   deleteCard,
-  users
+  users,
+  addMember,
+  deleteMember
 }) =>
   lists.map(list => {
     return (
@@ -28,6 +30,8 @@ const listGroup = ({
         updateCard={updateCard}
         deleteCard={deleteCard}
         users={users}
+        addMember={addMember}
+        deleteMember={deleteMember}
       />
     );
   });
@@ -41,7 +45,9 @@ class Lists extends React.Component {
       handleSubmitCard,
       updateCard,
       deleteCard,
-      users
+      users,
+      addMember,
+      deleteMember
     } = this.props;
     const lists = currentBoard.Lists;
     return (
@@ -56,7 +62,9 @@ class Lists extends React.Component {
               handleSubmitCard,
               updateCard,
               deleteCard,
-              users
+              users,
+              addMember,
+              deleteMember
             })
           : <p>No Lists...</p>}
       </CardDeck>

@@ -11,7 +11,9 @@ import {
   createNewBoard,
   createNewCard,
   updateCard,
-  deleteCard
+  deleteCard,
+  addMember,
+  deleteMember
 } from "../actions/boards";
 import { getUsers } from "../actions/users";
 import BoardsManager from "../components/BoardsManager";
@@ -36,7 +38,9 @@ class BoardContainer extends Component {
       handleSubmitBoard,
       handleSubmitCard,
       updateCard,
-      deleteCard
+      deleteCard,
+      addMember,
+      deleteMember
     } = this.props;
     console.log(users);
     return (
@@ -58,6 +62,8 @@ class BoardContainer extends Component {
           updateCard={updateCard}
           deleteCard={deleteCard}
           users={users}
+          addMember={addMember}
+          deleteMember={deleteMember}
         />
       </div>
     );
@@ -93,8 +99,8 @@ const mapDispatchToProps = dispatch => {
     updateList: ({ boardId, listId, title, description }) => {
       dispatch(updateList({ boardId, listId, title, description }));
     },
-    updateCard: ({ boardId, cardId, title, description }) => {
-      dispatch(updateCard({ boardId, cardId, title, description }));
+    updateCard: ({ boardId, cardId, title, description, name }) => {
+      dispatch(updateCard({ boardId, cardId, title, description, name }));
     },
     handleSubmitList: boardId => e => {
       e.preventDefault();
@@ -129,6 +135,12 @@ const mapDispatchToProps = dispatch => {
     },
     getUsers: () => {
       dispatch(getUsers());
+    },
+    addMember: ({ boardId, cardId }) => e => {
+      dispatch(addMember({ email: e.target.value, boardId, cardId }));
+    },
+    deleteMember: ({ boardId, cardId, email }) => e => {
+      dispatch(deleteMember({ boardId, cardId, email }));
     }
   };
 };

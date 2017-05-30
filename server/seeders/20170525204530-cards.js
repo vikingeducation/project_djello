@@ -13,14 +13,20 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    var usersboards = [];
-    usersboards.push(
-      { userId: 3, boardId: 1 },
-      { userId: 1, boardId: 1 },
-      { userId: 2, boardId: 1 },
-      { userId: 1, boardId: 2 }
+    var cards = [];
+    cards.push(
+      {
+        listId: 1,
+        title: "Card1",
+        description: "This is a description of card 1"
+      },
+      {
+        listId: 1,
+        title: "Card2",
+        description: "This is a description of card 2"
+      }
     );
-    return queryInterface.bulkInsert("UsersBoards", usersboards);
+    return queryInterface.bulkInsert("Cards", cards);
   },
 
   down: function(queryInterface, Sequelize) {
@@ -31,11 +37,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete(
-      "UsersBoards",
-      null,
-      {},
-      models.UsersBoards
-    );
+    return queryInterface.bulkDelete("Boards", null, {}, models.Card);
   }
 };

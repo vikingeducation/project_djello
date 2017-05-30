@@ -23,24 +23,24 @@ export default class AddMemberDropdown extends React.Component {
   }
 
   render() {
-    const { users, members } = this.props;
+    const { users, members, onClick } = this.props;
     return (
       <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
           Add Member
         </DropdownToggle>
         <DropdownMenu>
-          {dropMembers({ users, members })}
+          {dropMembers({ users, members, onClick })}
         </DropdownMenu>
       </ButtonDropdown>
     );
   }
 }
 
-const dropMembers = ({ users, members }) => {
+const dropMembers = ({ users, members, onClick }) => {
   return users.filter(user => !members.includes(user)).map(user => {
     return (
-      <DropdownItem key={user} value={user}>
+      <DropdownItem key={user} value={user} onClick={onClick}>
         {user}
       </DropdownItem>
     );

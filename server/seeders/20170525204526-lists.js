@@ -12,12 +12,20 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    var activities = [];
-    activities.push(
-      { authorId: 1, cardId: 1, description: "This is activity" },
-      { authorId: 1, cardId: 1, description: "This is activity" }
+    var lists = [];
+    lists.push(
+      {
+        boardId: 1,
+        title: "List1",
+        description: "This is a description of list 1"
+      },
+      {
+        boardId: 1,
+        title: "List2",
+        description: "This is a description of list 2"
+      }
     );
-    return queryInterface.bulkInsert("Activities", activities);
+    return queryInterface.bulkInsert("Lists", lists);
   },
 
   down: function(queryInterface, Sequelize) {
@@ -28,6 +36,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete("Activities", null, {}, models.Activity);
+    return queryInterface.bulkDelete("Boards", null, {}, models.List);
   }
 };

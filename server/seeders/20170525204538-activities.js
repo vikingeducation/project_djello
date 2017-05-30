@@ -1,6 +1,5 @@
 "use strict";
 const models = require("./../models");
-
 module.exports = {
   up: function(queryInterface, Sequelize) {
     /*
@@ -13,12 +12,12 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    var cards = [];
-    cards.push(
-      { listId: 1, title: "Card1", description: "This is a card 1" },
-      { listId: 1, title: "Card2", description: "This is a card 2" }
+    var activities = [];
+    activities.push(
+      { authorId: 1, cardId: 1, description: "created this card" },
+      { authorId: 1, cardId: 2, description: "created this card" }
     );
-    return queryInterface.bulkInsert("Cards", cards);
+    return queryInterface.bulkInsert("Activities", activities);
   },
 
   down: function(queryInterface, Sequelize) {
@@ -29,6 +28,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete("Boards", null, {}, models.Card);
+    return queryInterface.bulkDelete("Activities", null, {}, models.Activity);
   }
 };

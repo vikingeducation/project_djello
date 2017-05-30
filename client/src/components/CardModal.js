@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import MarkCompletedButton from "./MarkCompletedButton";
 import AddMemberDropdown from "./AddMemberDropdown";
+import moment from "moment";
 
 const TitleEdit = ({ onChange, onSubmit, title, toggleTitle }) => {
   return (
@@ -23,7 +24,7 @@ const TitleEdit = ({ onChange, onSubmit, title, toggleTitle }) => {
           value={title}
           onKeyPress={onSubmit}
         />
-        <InputGroupButton color="secondary" onClick={toggleTitle}>
+        <InputGroupButton color="info" onClick={toggleTitle}>
           Cancel
         </InputGroupButton>
       </InputGroup>
@@ -57,8 +58,9 @@ const DescriptionEdit = ({
           name="description"
           value={description}
           onKeyPress={onSubmit}
+          style={{ backgroundColor: "white" }}
         />
-        <InputGroupButton color="secondary" onClick={toggleDescription}>
+        <InputGroupButton color="info" onClick={toggleDescription}>
           Cancel
         </InputGroupButton>
       </InputGroup>
@@ -146,7 +148,8 @@ class CardModal extends React.Component {
             title: this.state.title,
             cardId: this.props.card.id,
             boardId: this.props.boardId,
-            description: this.state.description
+            description: this.state.description,
+            name
           });
 
           name === "title" ? this.toggleTitle() : this.toggleDescription();
@@ -156,13 +159,39 @@ class CardModal extends React.Component {
   }
 
   render() {
-    const { card, listTitle, deleteCard, boardId, users } = this.props;
+    const {
+      card,
+      listTitle,
+      deleteCard,
+      boardId,
+      users,
+      addMember,
+      deleteMember
+    } = this.props;
     const members = card.UsersCards.map(user => user.User.email);
+    const activities = card.Activities.map(act => {
+      return {
+        author: act.Author.email,
+        description: act.description,
+        date: act.createdAt
+      };
+    });
     return (
       <div>
-        <div onClick={this.toggle}>{card.title}</div>
+        <div onClick={this.toggle}>
+          {card.title}
+          {members.length
+            ? <div style={{ fontSize: "0.6em" }}>
+                <strong>Members:</strong>
+                {membersList({ members })}
+              </div>
+            : null}
+        </div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
+          <ModalHeader
+            toggle={this.toggle}
+            style={{ backgroundColor: "#D1ECFC" }}
+          >
             <Row>
               <Col sm="8">
                 {!this.state.editTitle
@@ -200,17 +229,26 @@ class CardModal extends React.Component {
                 />}
             <hr />
             <h3>Members</h3>
-            <Members members={members} />
+            <Members
+              members={members}
+              deleteMember={deleteMember}
+              cardId={card.id}
+              boardId={boardId}
+            />
 
             {!this.state.editMembers
               ? <AddMemberButton onClick={this.toggleMembers} />
               : <div>
-                  <AddMemberDropdown members={members} users={users} />
+                  <AddMemberDropdown
+                    members={members}
+                    users={users}
+                    onClick={addMember({ boardId, cardId: card.id })}
+                  />
                   <CancelMemberButton onClick={this.toggleMembers} />
                 </div>}
             <hr />
             <h3>Activity</h3>
-            Activity placeholder
+            <Activities activities={activities} />
           </ModalBody>
 
         </Modal>
@@ -218,21 +256,51 @@ class CardModal extends React.Component {
     );
   }
 }
-const Members = ({ members }) => {
-  const listOfMembers = members.map(member => {
+
+const membersList = ({ members }) => {
+  return members.map((member, i) => {
     return (
-      <li key={member}>
+      <p key={member + i} style={{ marginBottom: "0" }}>
         {member}
-        {" "}
-        <DeleteMemberButton />
-      </li>
+      </p>
     );
   });
-  return <ul style={{ listStyleType: "none" }}>{listOfMembers}</ul>;
+};
+const Members = ({ members, deleteMember, cardId, boardId }) => {
+  const listOfMembers = members.map(member => {
+    return (
+      <p key={member} style={{ marginBottom: "0" }}>
+        {member}
+        <DeleteMemberButton
+          onClick={deleteMember({ cardId, boardId, email: member })}
+        />
+      </p>
+    );
+  });
+  return <div>{listOfMembers}</div>;
+};
+const Activities = ({ activities }) => {
+  if (activities.length > 6) {
+    activities = activities.slice(0, 6);
+  }
+  const listOfActivities = activities.map((act, i) => {
+    return (
+      <p key={act.date + i} style={{ fontSize: "0.8em" }}>
+        <cite style={{ color: "grey" }}>{act.author}</cite>
+        {" "}
+        {act.description}
+        {" "}
+        <span style={{ color: "grey" }}>
+          {moment(act.date).format("MMM Do, YYYY")}
+        </span>
+      </p>
+    );
+  });
+  return <div>{listOfActivities}</div>;
 };
 
-const DeleteMemberButton = () => {
-  return <Button color="link">remove</Button>;
+const DeleteMemberButton = ({ onClick }) => {
+  return <Button color="link" onClick={onClick}>remove</Button>;
 };
 const AddMemberButton = ({ onClick }) => {
   return <Button color="link" onClick={onClick}>Add Member</Button>;

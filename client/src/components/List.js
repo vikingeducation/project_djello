@@ -21,7 +21,7 @@ const NameEdit = ({ toggleTitle, title, onChange, onSubmit }) => {
           value={title}
           onKeyPress={onSubmit}
         />
-        <InputGroupButton color="secondary" onClick={toggleTitle}>
+        <InputGroupButton color="info" onClick={toggleTitle}>
           Cancel
         </InputGroupButton>
       </InputGroup>
@@ -45,7 +45,7 @@ const DescriptionEdit = ({
           value={description}
           onKeyPress={onSubmit}
         />
-        <InputGroupButton color="secondary" onClick={toggleDescription}>
+        <InputGroupButton color="info" onClick={toggleDescription}>
           Cancel
         </InputGroupButton>
       </InputGroup>
@@ -53,7 +53,15 @@ const DescriptionEdit = ({
     </div>
   );
 };
-
+const Description = ({ onClick, description }) => {
+  return (
+    <span>
+      {description.length
+        ? <span onClick={onClick}>{description}</span>
+        : <cite onClick={onClick}> Your description goes here...</cite>}
+    </span>
+  );
+};
 class List extends React.Component {
   constructor(props) {
     super(props);
@@ -132,12 +140,24 @@ class List extends React.Component {
       handleSubmitCard,
       updateCard,
       deleteCard,
-      users
+      users,
+      addMember,
+      deleteMember
     } = this.props;
     return (
-      <Card className="my-2">
+      <Card
+        className="my-2"
+        style={{
+          backgroundColor: "#D1ECFC",
+          borderColor: "#317EAC",
+          maxWidth: "250px",
+          minWidth: "250px",
+          margin: "10px"
+        }}
+      >
         <CardBlock>
           <CardTitle>
+            <DeleteListButton onClick={deleteList({ listId, boardId })} />
             {!this.state.editTitle
               ? <span onClick={this.toggleTitle}>{this.state.title}</span>
               : <NameEdit
@@ -150,13 +170,13 @@ class List extends React.Component {
 
           </CardTitle>
           <CardSubtitle style={{ marginBottom: "30px" }}>
-            <DeleteListButton onClick={deleteList({ listId, boardId })} />
 
             <div>
               {!this.state.editDescription
-                ? <span onClick={this.toggleDescription}>
-                    {this.state.description}
-                  </span>
+                ? <Description
+                    onClick={this.toggleDescription}
+                    description={this.state.description}
+                  />
                 : <DescriptionEdit
                     toggleDescription={this.toggleDescription}
                     description={this.state.description}
@@ -172,6 +192,8 @@ class List extends React.Component {
             boardId={boardId}
             deleteCard={deleteCard}
             users={users}
+            addMember={addMember}
+            deleteMember={deleteMember}
           />
           <CreateCard
             handleSubmitCard={handleSubmitCard}

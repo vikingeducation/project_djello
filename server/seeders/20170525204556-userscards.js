@@ -14,7 +14,10 @@ module.exports = {
       }], {});
     */
     var userscards = [];
-    userscards.push({ memberId: 1, cardId: 1 }, { memberId: 2, cardId: 1 });
+    userscards.push(
+      { fixId: 2, memberId: 1, cardId: 1 },
+      { fixId: 3, memberId: 2, cardId: 1 }
+    );
     return queryInterface.bulkInsert("UsersCards", userscards);
   },
 

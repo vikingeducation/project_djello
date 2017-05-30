@@ -4,7 +4,7 @@ import BoardContainer from "../containers/BoardContainer";
 
 const Main = () => {
   return (
-    <Container>
+    <Container style={{ marginBottom: "40px" }}>
 
       <BoardContainer />
 
