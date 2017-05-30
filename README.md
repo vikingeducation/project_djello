@@ -1,35 +1,27 @@
-# assignment_djello
-Project management with that great wobbly taste.
+https://edjello.herokuapp.com
+# djello
 
-xUsers : xBoards --UsersBoards +
-1Owner : xBoards +
-1Board : xLists +
-1List : xCards +
-1Card : xActivity +
-1User : xActivity +
-xCards : xUsers(members) --UsersCards +
+It is a single-page project management application. It allows teams to maintain "Boards", "Lists", and "Cards", each of which represents a task that needs to be done. The app smooths the process of assigning team members to particular tasks. Sign in with email test@gmail.com or test1@gmail.com with passwords 123456, and see how adding one user as a card member, allows that user to fully participate in all the board's that the card is in actions.
+
+## Getting Started
+
+You can clone it and test it on your machine! You have to have the server (run `nodemon server.js` or `node server.js` inside server directory) and client side (run `npm start` inside client directory) running.
 
 
-User: id, email, password
+## Built With
 
+* [React] - front-end library to build single-page app
+* [Node, Express] - back-end
+* [PostgresSQL] - database
+* [Bootstrap 4] - styling
 
-Board: id, ownerid, name
+## Deployment
+https://edjello.herokuapp.com - front-end React app
+https://djello-server.herokuapp.com/ - server
 
-List: id, boardid, title, description
+## Authors
 
-Card: id, listid, title, description
-
-Activity: id, description, cardid
-
-Members User-Card: memberid-cardid
-
-sequelize model:create --name User --attributes "email:string passwordHash:string"
-sequelize model:create --name Board --attributes "name:string ownerId:integer"
-sequelize model:create --name UsersBoards --attributes "userId:integer boardId:integer"
-sequelize model:create --name List --attributes "boardId:integer title:string description:string"
-sequelize model:create --name Card --attributes "listId:integer title:string description:string"
-sequelize model:create --name UsersCards --attributes "memberId:integer cardId:integer"
-sequelize model:create --name Activity --attributes "authorId:integer cardId:integer description:string"
+* **Egle Libby** - (https://github.com/eglital)
 
 
 

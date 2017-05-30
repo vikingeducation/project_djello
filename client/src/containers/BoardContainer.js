@@ -84,7 +84,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getBoards(userId));
     },
     changeCurrentBoard: boards => e => {
-      const board = boards.find(board => board.name === e.target.value);
+      const board = boards.find(board => board.id === +e.target.value);
       dispatch(changeCurrentBoard(board.id));
     },
     deleteBoard: boardId => e => {
@@ -106,11 +106,13 @@ const mapDispatchToProps = dispatch => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form, { hash: true });
+      let description = data.description ? data.description : "";
+      let title = data.title ? data.title : "No Title";
       dispatch(
         createNewList({
-          title: data.title,
+          title,
           boardId,
-          description: data.description
+          description
         })
       );
     },
@@ -129,6 +131,7 @@ const mapDispatchToProps = dispatch => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form, { hash: true });
+      let title = data.title ? data.title : "No Title";
       dispatch(
         createNewCard({ title: data.title, boardId, description: "", listId })
       );

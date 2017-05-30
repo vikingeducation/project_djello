@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://djello-server.herokuapp.com",
   "dependencies": {
     "axios": "^0.16.1",
     "bcrypt": "^1.0.2",

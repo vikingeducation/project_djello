@@ -4,6 +4,8 @@ export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
+//change fetch url for development or production
+
 function requestLogin(creds) {
   return {
     type: LOGIN_REQUEST,
@@ -45,7 +47,7 @@ export function loginUser(creds) {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds));
 
-    return fetch("sessions/create", config)
+    return fetch("https://djello-server.herokuapp.com/sessions/create", config)
       .then(response => {
         if (!response.ok) {
           const error = new Error(response.statusText);

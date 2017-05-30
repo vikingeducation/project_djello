@@ -5,7 +5,7 @@ export const GET_FAILURE = "GET_FAILURE";
 export const CHANGE_CURRENT_BOARD = "CHANGE_CURRENT_BOARD";
 export const CREATE_NEW_BOARD_SUCCESS = "CREATE_NEW_BOARD_SUCCESS";
 export const DELETE_BOARD_SUCCESS = "DELETE_BOARD_SUCCESS";
-
+//change fetch url for development or production
 export function getBoardsSuccess(data) {
   return {
     type: GET_BOARDS_SUCCESS,
@@ -35,7 +35,9 @@ export function createNewBoardSuccess(data) {
 export function getBoards(userId, boardId) {
   return dispatch => {
     dispatch(getRequest());
-    fetch(`boards/${userId}?token=${localStorage.getItem("token")}`)
+    fetch(
+      `https://djello-server.herokuapp.com/boards/${userId}?token=${localStorage.getItem("token")}`
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(getBoardsSuccess({ json, boardId }));
@@ -61,7 +63,10 @@ export function createNewBoard(data) {
   };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`boards/new?token=${localStorage.getItem("token")}`, config)
+    fetch(
+      `https://djello-server.herokuapp.com/boards/new?token=${localStorage.getItem("token")}`,
+      config
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(data.userId, json.boardId));
@@ -84,7 +89,7 @@ export function deleteBoard(boardId) {
   return dispatch => {
     dispatch(getRequest());
     fetch(
-      `boards/delete/${boardId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/boards/delete/${boardId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)
@@ -105,7 +110,10 @@ export function createNewList(data) {
   };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`lists/new?token=${localStorage.getItem("token")}`, config)
+    fetch(
+      `https://djello-server.herokuapp.com/lists/new?token=${localStorage.getItem("token")}`,
+      config
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
@@ -122,7 +130,7 @@ export function deleteList(data) {
   return dispatch => {
     dispatch(getRequest());
     fetch(
-      `lists/delete/${data.listId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/lists/delete/${data.listId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)
@@ -146,7 +154,7 @@ export function updateList(data) {
     console.log("DISP");
     dispatch(getRequest());
     fetch(
-      `lists/update/${data.listId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/lists/update/${data.listId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)
@@ -167,7 +175,10 @@ export function createNewCard(data) {
   };
   return dispatch => {
     dispatch(getRequest());
-    fetch(`cards/new?token=${localStorage.getItem("token")}`, config)
+    fetch(
+      `https://djello-server.herokuapp.com/cards/new?token=${localStorage.getItem("token")}`,
+      config
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(getBoards(localStorage.getItem("userId"), data.boardId));
@@ -188,7 +199,7 @@ export function updateCard(data) {
   return dispatch => {
     dispatch(getRequest());
     fetch(
-      `cards/update/${data.cardId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/cards/update/${data.cardId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)
@@ -206,7 +217,7 @@ export function deleteCard(data) {
   return dispatch => {
     dispatch(getRequest());
     fetch(
-      `cards/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/cards/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)
@@ -227,7 +238,7 @@ export function addMember(data) {
   return dispatch => {
     dispatch(getRequest());
     fetch(
-      `cards/member/add/${data.cardId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/cards/member/add/${data.cardId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)
@@ -248,7 +259,7 @@ export function deleteMember(data) {
   return dispatch => {
     dispatch(getRequest());
     fetch(
-      `cards/member/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
+      `https://djello-server.herokuapp.com/cards/member/delete/${data.cardId}?token=${localStorage.getItem("token")}`,
       config
     )
       .then(checkStatus)

@@ -9,11 +9,11 @@ import CreateBoard from "./CreateBoard";
 import DeleteBoardButton from "./DeleteBoardButton";
 
 const dropBoards = (boards, changeCurrentBoard, currentBoard) => {
-  return boards.filter(board => board.name !== currentBoard.name).map(board => {
+  return boards.filter(board => board.id !== currentBoard.id).map(board => {
     return (
       <DropdownItem
         onClick={changeCurrentBoard(boards)}
-        value={board.name}
+        value={board.id}
         key={board.id}
       >
         {board.name}

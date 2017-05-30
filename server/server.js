@@ -34,13 +34,12 @@ app.use(function(req, res, next) {
 });
 app.use(cors());
 
-app.use(auth.initialize());
-
 app.get("/", function(req, res) {
   res.json({
     status: "My API is alive!"
   });
 });
+app.use(auth.initialize());
 
 app.use(require("./user-routes"));
 app.use("*", auth.authenticate(), function(req, res, next) {
