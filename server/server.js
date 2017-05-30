@@ -1,13 +1,16 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 var express = require("express");
 
 var app = express();
 
 var logger = require("morgan"),
   cors = require("cors"),
-  dotenv = require("dotenv"),
   bodyParser = require("body-parser");
 
-dotenv.load();
+app.set("port", process.env.PORT || 3001);
+
 var auth = require("./auth.js")();
 // Parsers
 // old version of line
@@ -45,8 +48,18 @@ app.use("*", auth.authenticate(), function(req, res, next) {
 });
 app.use(require("./db-routes"));
 
-app.listen(3001, function() {
+// Defines next action for errors
+function errorHandler(err, req, res, next) {
+  console.error(`Error: ${err.stack}`);
+  res.status(err.response ? err.response.status : 500);
+  res.json({
+    error: err.message
+  });
+}
+
+// Tell the app to use the errorHandler middleware
+app.use(errorHandler);
+
+app.listen(app.get("port"), function() {
   console.log("My API is running...");
 });
-
-module.exports = app;

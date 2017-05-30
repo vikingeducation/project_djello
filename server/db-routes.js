@@ -10,7 +10,7 @@ const Activity = models.Activity;
 const sequelize = models.sequelize;
 const app = (module.exports = express.Router());
 
-app.get("/boards/:userId", (req, res) => {
+app.get("/boards/:userId", (req, res, next) => {
   Board.findAll({
     include: [
       {
@@ -52,12 +52,10 @@ app.get("/boards/:userId", (req, res) => {
     .then(boards => {
       res.send({ boards });
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.post("/boards/new", (req, res) => {
+app.post("/boards/new", (req, res, next) => {
   let currBoard;
   Board.create({
     name: req.body.name,
@@ -73,20 +71,16 @@ app.post("/boards/new", (req, res) => {
         res.send({ boardId: currBoard.id });
       });
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.delete("/boards/delete/:boardId", (req, res) => {
+app.delete("/boards/delete/:boardId", (req, res, next) => {
   Board.destroy({ where: { id: +req.params.boardId }, limit: 1 })
     .then(() => res.send({ boardId: req.params.boardId }))
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.post("/lists/new", (req, res) => {
+app.post("/lists/new", (req, res, next) => {
   List.create({
     title: req.body.title,
     boardId: +req.body.boardId,
@@ -97,20 +91,16 @@ app.post("/lists/new", (req, res) => {
     .then(list => {
       res.send({ list });
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.delete("/lists/delete/:listId", (req, res) => {
+app.delete("/lists/delete/:listId", (req, res, next) => {
   List.destroy({ where: { id: +req.params.listId }, limit: 1 })
     .then(() => res.send({}))
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.put("/lists/update/:listId", (req, res) => {
+app.put("/lists/update/:listId", (req, res, next) => {
   List.update(
     { title: req.body.title, description: req.body.description },
     { where: { id: +req.params.listId }, limit: 1 }
@@ -118,12 +108,10 @@ app.put("/lists/update/:listId", (req, res) => {
     .then(list => {
       res.send({});
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.post("/cards/new", (req, res) => {
+app.post("/cards/new", (req, res, next) => {
   Card.create({
     title: req.body.title,
     description: req.body.description,
@@ -139,12 +127,10 @@ app.post("/cards/new", (req, res) => {
     .then(() => {
       res.send({});
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.put("/cards/update/:cardId", (req, res) => {
+app.put("/cards/update/:cardId", (req, res, next) => {
   Card.update(
     { title: req.body.title, description: req.body.description },
     { where: { id: +req.params.cardId }, limit: 1 }
@@ -161,31 +147,25 @@ app.put("/cards/update/:cardId", (req, res) => {
     .then(() => {
       res.send({});
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.delete("/cards/delete/:cardId", (req, res) => {
+app.delete("/cards/delete/:cardId", (req, res, next) => {
   Card.destroy({ where: { id: +req.params.cardId }, limit: 1 })
     .then(() => res.send({}))
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.get("/users", (req, res) => {
+app.get("/users", (req, res, next) => {
   User.findAll({ attributes: ["email"] })
     .then(users => {
       users = users.map(user => user.email);
       res.send({ users });
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.post("/cards/member/add/:cardId", (req, res) => {
+app.post("/cards/member/add/:cardId", (req, res, next) => {
   let userId;
   User.findOne({ where: { email: req.body.email } })
     .then(user => {
@@ -219,12 +199,10 @@ app.post("/cards/member/add/:cardId", (req, res) => {
           });
       });
     })
-    .catch(function(err) {
-      console.log(err, req.body);
-    });
+    .catch(next);
 });
 
-app.delete("/cards/member/delete/:cardId", (req, res) => {
+app.delete("/cards/member/delete/:cardId", (req, res, next) => {
   User.findOne({ where: { email: req.body.email } }).then(user => {
     UsersCards.destroy({
       where: { memberId: user.id, cardId: +req.params.cardId },
@@ -238,9 +216,7 @@ app.delete("/cards/member/delete/:cardId", (req, res) => {
         });
       })
       .then(() => res.send({}))
-      .catch(function(err) {
-        console.log(err, req.body);
-      });
+      .catch(next);
   });
 });
 
