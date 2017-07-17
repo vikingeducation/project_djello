@@ -208,7 +208,7 @@ describe("App", () => {
       Board Tests
     ================ */
     describe("Board", () => {
-      it("creates a new board", done => {
+      it("creates a new board through api", done => {
         let options = {
           method: "POST",
           uri: `${apiUrl}/boards`,
@@ -228,6 +228,33 @@ describe("App", () => {
           .then(res => {
             expect(res.statusCode).toBe(200);
             expect(res.body.data.title).toBe("Test Board POST");
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
+
+      it("deletes a board", done => {
+        let options = {
+          method: "DELETE",
+          uri: `${apiUrl}/boards/${board.id}`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.message).toBe("Resource successfully deleted.");
+            return Board.findById(board.id);
+          })
+          .then(board => {
+            expect(board).toEqual(null);
             done();
           })
           .catch(error => {
