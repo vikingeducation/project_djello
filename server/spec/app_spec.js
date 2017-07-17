@@ -1,5 +1,6 @@
 const app = require("../");
 const request = require("request");
+const rp = require('request-promise');
 const mongoose = require("mongoose");
 const models = require('../models');
 const User = models.User;
@@ -94,5 +95,43 @@ describe("App", () => {
       expect(res.statusCode).toBe(401);
       done();
     });
+  });
+
+  it("accepts an authorized request", done => {
+
+    let loginOpts = {
+      method: 'POST',
+      uri: `${baseUrl}/sessions`,
+      form: {
+        email: "foobar@gmail.com",
+        password: "password"
+      },
+      json: true
+    };
+
+    rp(loginOpts)
+      .then(result => {
+        let token = result.token;
+        expect(token).toBeDefined();
+
+        let securePathOpts = {
+          method: 'GET',
+          uri: `${apiUrl}/users`,
+          auth: {
+            'bearer': token
+          },
+          json: true
+        }
+
+        return rp(securePathOpts);
+      })
+      .then(results => {
+        expect(results.data).toBeDefined();
+        done();
+      })
+      .catch(error => {
+        expect(error).toEqual(null)
+        done();
+      });
   });
 });

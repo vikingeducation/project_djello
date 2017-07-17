@@ -4,7 +4,7 @@ const models = require("./../models");
 const User = models.User;
 const jwt = require('jsonwebtoken');
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   let {email, password} = req.body;
   User.findOne({email})
     .then(user => {
@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
       res.json({token});
     })
     .catch(error => {
-      res.json({error});
+      next(error);
     });
 });
 

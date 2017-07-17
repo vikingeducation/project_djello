@@ -20,7 +20,10 @@ router.get('/users/:id', (req, res) => {
 
 router.get('/users', 
   jwtAuth({secret: process.env.JWT_SECRET}),
-  (req, res) => {
-    res.json('123');
+  (req, res, next) => {
+    User.find({}).then(users => {
+      res.json({data: users});
+    })
+    .catch(error => { next(error) });
 });
 module.exports = router;
