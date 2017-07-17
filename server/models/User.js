@@ -14,10 +14,12 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
-    boards: [{
-      type: Schema.Types.ObjectId,
-      ref: "Board"
-    }]
+    boards: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Board"
+      }
+    ]
   },
   {
     timestamps: true
@@ -44,7 +46,6 @@ UserSchema.path("hashedPassword").validate(function(val) {
 UserSchema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.hashedPassword);
 };
-
 
 const User = mongoose.model("User", UserSchema);
 

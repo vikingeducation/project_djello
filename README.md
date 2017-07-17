@@ -7,14 +7,7 @@ Project management with that great wobbly taste.
 /api/users/:user/board < post method for adding to user's boards array
 
 NOW:
-  1. create a board model with the following properties:
-    Board: {
-      title,
-      lists,
-      users
-    }
   2. then, create tests for the following routes:
-    create: board for authenticated user
     delete: board if connected to authenticated user
     put: board/:id/users for adding user to a board
     put: users/:id/boards for adding board to a user (use mongo addToSet)

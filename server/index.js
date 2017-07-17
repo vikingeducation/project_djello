@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-require('dotenv').config({path: '../.env'});
+require("dotenv").config({ path: "../.env" });
 
 // ----------------------------------------
 // Body Parser
@@ -173,11 +173,11 @@ app.use("/api", (err, req, res, next) => {
   let errorType;
   if (err.stack) {
     err = err.stack;
-    errorType = err.split(':')[0];
+    errorType = err.split(":")[0];
   }
 
-  if (errorType == 'UnauthorizedError') {
-    res.status(401).json({error: err});
+  if (errorType == "UnauthorizedError") {
+    res.status(401).json({ error: err });
   } else {
     res.status(500).json({ error: err });
   }
@@ -191,7 +191,7 @@ app.use((err, req, res, next) => {
   if (err.stack) {
     err = err.stack;
   }
-  res.status(500).json( { error: err });
+  res.status(500).json({ error: err });
 });
 
 module.exports = app;
