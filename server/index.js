@@ -28,14 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 // ----------------------------------------
-// Referrer
-// ----------------------------------------
-app.use((req, res, next) => {
-  req.session.backUrl = req.header("Referer") || "/";
-  next();
-});
-
-// ----------------------------------------
 // Static Public Files
 // ----------------------------------------
 // app.use(express.static(`${__dirname}/public`));
@@ -110,6 +102,7 @@ app.use((req, res, next) => {
   }
 });
 
+// app.set('view engine', 'html');
 // ----------------------------------------
 // Template Engine
 // ----------------------------------------
@@ -148,9 +141,9 @@ app.use((req, res, next) => {
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-// const users = require("./routes/users");
+const sessions = require("./routes/sessions");
 // const madLibsApi = require("./routes/madlibs");
-// app.use("/", users);
+app.use("/sessions", sessions);
 // app.use("/api/v1", madLibsApi);
 
 // ----------------------------------------
@@ -190,7 +183,7 @@ app.use((err, req, res, next) => {
   if (err.stack) {
     err = err.stack;
   }
-  res.status(500).render("errors/500", { error: err });
+  res.status(500).json( { error: err });
 });
 
 module.exports = app;
