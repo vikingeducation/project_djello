@@ -29,8 +29,6 @@ describe("App", () => {
 
   beforeEach(done => {
     User.create({
-      fname: "Foo",
-      lname: "Bar",
       email: "foobar@gmail.com",
       password: "password"
     }).then(result => {
@@ -48,7 +46,7 @@ describe("App", () => {
   it("successfully creates a user", done => {
     User.findOne()
       .then(user => {
-        expect(user.fname).toBe("Foo");
+        expect(user.email).toBe("foobar@gmail.com");
         done();
       });
   });
@@ -87,25 +85,6 @@ describe("App", () => {
         })
     });
 
-    it("successfully grabs user info from api", done => {
-      request.get(`${apiUrl}/users/${user.id}`, (err, res, body) => {
-        let result = getJSON(body);
-  
-        expect(res.statusCode).toBe(200);
-        expect(result.data.email).toBe("foobar@gmail.com");
-        done();
-      });
-    });
-  
-    it("returns an error when searching for non-existent user", done => {
-      request.get(`${apiUrl}/users/123`, (err, res, body) => {
-        let result = getJSON(body);
-        expect(res.statusCode).toBe(400);
-        expect(result.error).toBeDefined();
-        done();
-      });
-    });
-  
     it("rejects an unauthorized request", done => {
       request.get(`${apiUrl}/users`, {
         'auth': {
@@ -119,8 +98,7 @@ describe("App", () => {
     });
   
     it("accepts an authorized request", done => {
-  
-      let securePathOpts = {
+      let options = {
         method: 'GET',
         uri: `${apiUrl}/users`,
         auth: {
@@ -128,14 +106,59 @@ describe("App", () => {
         },
         json: true
       }
-  
-      rp(securePathOpts)
+      rp(options)
         .then(results => {
           expect(results.data).toBeDefined();
           done();
         })
         .catch(error => {
           expect(error).toEqual(null)
+          done();
+        });
+    });
+
+    it("successfully grabs user info from api", done => {
+      let options = {
+        method: 'GET',
+        uri: `${apiUrl}/users/${user.id}`,
+        auth: {
+          'bearer': token
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.data.email).toBe("foobar@gmail.com");
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null)
+          done();
+        });
+    });
+  
+    it("returns an error when searching for non-existent user", done => {
+      let options = {
+        method: 'GET',
+        uri: `${apiUrl}/users/123`,
+        auth: {
+          'bearer': token
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res).toEqual(null);
+          done();
+        })
+        .catch(error => {
+          expect(error.statusCode).toBe(400);
+          expect(error.response.body.error).toBeDefined();
           done();
         });
     });

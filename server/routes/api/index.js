@@ -4,18 +4,20 @@ const models = require("./../../models");
 const User = models.User;
 const jwtAuth = require('express-jwt');
 
-router.get('/users/:id', (req, res) => {
-  User.findById(req.params.id)
-    .then(user => {
-      if (!user) {
-        throw new Error("Could not find user");
-      }
+router.get('/users/:id', 
+  jwtAuth({secret: process.env.JWT_SECRET}),
+  (req, res) => {
+    User.findById(req.params.id)
+      .then(user => {
+        if (!user) {
+          throw new Error("Could not find user");
+        }
 
-      res.json({data: user});
-    })
-    .catch(error => {
-      res.status(400).json({error});
-    });
+        res.json({data: user});
+      })
+      .catch(error => {
+        res.status(400).json({error});
+      });
 });
 
 router.get('/users', 
