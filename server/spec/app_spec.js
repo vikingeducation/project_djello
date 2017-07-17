@@ -3,6 +3,7 @@ const request = require("request");
 const mongoose = require("mongoose");
 const models = require('../models');
 const User = models.User;
+const jwt = require('jsonwebtoken');
 // const qs = require("qs");
 
 describe("App", () => {
@@ -49,8 +50,9 @@ describe("App", () => {
       password: "password"
     }}, (err, res, body) => {
       let result = getJSON(body);
+      let decoded = jwt.decode(result.token, {complete: true});
       expect(result.token).toBeDefined();
-      expect(result.email).toBe("foobar@gmail.com");
+      expect(decoded.payload.email).toBe("foobar@gmail.com");
       done();
     });
   });
