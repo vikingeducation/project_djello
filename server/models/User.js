@@ -13,7 +13,11 @@ const UserSchema = new Schema(
     hashedPassword: {
       type: String,
       required: true
-    }
+    },
+    boards: [{
+      type: Schema.Types.ObjectId,
+      ref: "Board"
+    }]
   },
   {
     timestamps: true

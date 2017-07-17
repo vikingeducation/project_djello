@@ -7,5 +7,22 @@ Project management with that great wobbly taste.
 /api/users/:user/board < post method for adding to user's boards array
 
 NOW:
-  1. create tests/models for boards and users
-  2. then flesh out tests for lists/cards/etc.
+  1. create a board model with the following properties:
+    Board: {
+      title,
+      lists,
+      users
+    }
+  2. then, create tests for the following routes:
+    create: board for authenticated user
+    delete: board if connected to authenticated user
+    put: board/:id/users for adding user to a board
+    put: users/:id/boards for adding board to a user (use mongo addToSet)
+    get: users/:id/boards for initial population of react state (should include all [lists/etc.])
+
+    what helpers do we need for tests?
+    already have user
+    for putting/getting/deleting:
+      -create initial board for gettin
+      -create second user, use their id for putting
+      -create a second board, use its id for putting

@@ -4,6 +4,7 @@ const rp = require('request-promise');
 const mongoose = require("mongoose");
 const models = require('../models');
 const User = models.User;
+const Board = models.Board;
 const jwt = require('jsonwebtoken');
 const chalk = require('chalk');
 
@@ -20,13 +21,26 @@ describe("App", () => {
   
   let server;
   let user;
+  let board;
 
+  /*  ===============
+    Manage Server
+  ================ */  
   beforeAll(done => {
     server = app.listen(8888, () => {
       done();
     });
   });
 
+  afterAll(done => {
+    server.close();
+    server = null;
+    done();
+  });
+
+  /*  ===============
+    Create User
+  ================ */  
   beforeEach(done => {
     User.create({
       email: "foobar@gmail.com",
@@ -36,11 +50,27 @@ describe("App", () => {
       done();
     });
   });
+  
+  /*  ===============
+    Create Board
+  ================ */  
+  beforeEach(done => {
+    Board.create({
+      title: "Test Board",
+      lists: [],
+      users: [user.id]
+    }).then(result => {
+      board = result;
+      done();
+    });
+  });
 
-  afterAll(done => {
-    server.close();
-    server = null;
-    done();
+  it("successfully creates a board", done => {
+    Board.findOne()
+      .then(board => {
+        expect(board.title).toBe("Test Board");
+        done();
+      });
   });
 
   it("successfully creates a user", done => {
@@ -64,6 +94,9 @@ describe("App", () => {
     });
   });
 
+  /*  ===============
+    API Tests
+  ================ */
   describe("API", () => {
     let token;
 
@@ -161,6 +194,36 @@ describe("App", () => {
           expect(error.response.body.error).toBeDefined();
           done();
         });
+    });
+
+    describe("Board", () => {
+      it("creates a new board", done => {
+        let options = {
+          method: 'POST',
+          uri: `${apiUrl}/boards`,
+          auth: {
+            'bearer': token
+          },
+          form: {
+            title: "Test Board POST",
+            lists: [],
+            users: [user.id]
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+  
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.title).toBe("Test Board POST");
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null)
+            done();
+          });
+      });
     });
   });
 });
