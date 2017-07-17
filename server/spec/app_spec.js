@@ -66,72 +66,78 @@ describe("App", () => {
     });
   });
 
-  it("successfully grabs user info from api", done => {
-    request.get(`${apiUrl}/users/${user.id}`, (err, res, body) => {
-      let result = getJSON(body);
+  describe("API", () => {
+    let token;
 
-      expect(res.statusCode).toBe(200);
-      expect(result.data.email).toBe("foobar@gmail.com");
-      done();
+    beforeEach(done => {
+      let loginOpts = {
+        method: 'POST',
+        uri: `${baseUrl}/sessions`,
+        form: {
+          email: "foobar@gmail.com",
+          password: "password"
+        },
+        json: true
+      };
+  
+      rp(loginOpts)
+        .then(result => {
+          token = result.token;
+          done();
+        })
     });
-  });
 
-  it("returns an error when searching for non-existent user", done => {
-    request.get(`${apiUrl}/users/123`, (err, res, body) => {
-      let result = getJSON(body);
-      expect(res.statusCode).toBe(400);
-      expect(result.error).toBeDefined();
-      done();
-    });
-  });
-
-  it("rejects an unauthorized request", done => {
-    request.get(`${apiUrl}/users`, {
-      'auth': {
-        'bearer': null
-      }
-    }, (err, res, body) => {
-      let result = getJSON(body);
-      expect(res.statusCode).toBe(401);
-      done();
-    });
-  });
-
-  it("accepts an authorized request", done => {
-
-    let loginOpts = {
-      method: 'POST',
-      uri: `${baseUrl}/sessions`,
-      form: {
-        email: "foobar@gmail.com",
-        password: "password"
-      },
-      json: true
-    };
-
-    rp(loginOpts)
-      .then(result => {
-        let token = result.token;
-        expect(token).toBeDefined();
-
-        let securePathOpts = {
-          method: 'GET',
-          uri: `${apiUrl}/users`,
-          auth: {
-            'bearer': token
-          },
-          json: true
-        }
-
-        return rp(securePathOpts);
-      })
-      .then(results => {
-        expect(results.data).toBeDefined();
-        done();
-      })
-      .catch(error => {
-        expect(error).toEqual(null)
+    it("successfully grabs user info from api", done => {
+      request.get(`${apiUrl}/users/${user.id}`, (err, res, body) => {
+        let result = getJSON(body);
+  
+        expect(res.statusCode).toBe(200);
+        expect(result.data.email).toBe("foobar@gmail.com");
         done();
       });
+    });
+  
+    it("returns an error when searching for non-existent user", done => {
+      request.get(`${apiUrl}/users/123`, (err, res, body) => {
+        let result = getJSON(body);
+        expect(res.statusCode).toBe(400);
+        expect(result.error).toBeDefined();
+        done();
+      });
+    });
+  
+    it("rejects an unauthorized request", done => {
+      request.get(`${apiUrl}/users`, {
+        'auth': {
+          'bearer': null
+        }
+      }, (err, res, body) => {
+        let result = getJSON(body);
+        expect(res.statusCode).toBe(401);
+        done();
+      });
+    });
+  
+    it("accepts an authorized request", done => {
+  
+      let securePathOpts = {
+        method: 'GET',
+        uri: `${apiUrl}/users`,
+        auth: {
+          'bearer': token
+        },
+        json: true
+      }
+  
+      rp(securePathOpts)
+        .then(results => {
+          expect(results.data).toBeDefined();
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null)
+          done();
+        });
+    });
   });
 });

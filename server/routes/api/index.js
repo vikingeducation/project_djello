@@ -26,4 +26,5 @@ router.get('/users',
     })
     .catch(error => { next(error) });
 });
+
 module.exports = router;
