@@ -49,8 +49,8 @@ describe("App", () => {
       password: "password"
     }}, (err, res, body) => {
       let result = getJSON(body);
-      // let result = body;
       expect(result.token).toBeDefined();
+      expect(result.email).toBe("foobar@gmail.com");
       done();
     });
   });

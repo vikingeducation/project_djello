@@ -7,6 +7,16 @@ router.get("/", (req, res) => {
   res.json("token")
 });
 router.post("/", (req, res) => {
+  let {email, password} = req.body;
+  User.find({email, password})
+    .then(user => {
+      if (!user) {
+        throw new Error("User could not be found");
+      }
+    })
+    .catch(error => {
+      res.json({error});
+    });
   res.json({token: "abc"})
 });
 
