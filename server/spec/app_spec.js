@@ -1,7 +1,8 @@
 const app = require("../");
 const request = require("request");
 const mongoose = require("mongoose");
-// const User = mongoose.model("User");
+const models = require('../models');
+const User = models.User;
 // const qs = require("qs");
 
 describe("App", () => {
@@ -13,9 +14,29 @@ describe("App", () => {
     });
   });
 
+  beforeEach(done => {
+    User.create({
+      fname: "Foo",
+      lname: "Bar",
+      email: "foobar@gmail",
+      password: "password"
+    }).then(result => {
+      user = result;
+      done();
+    });
+  });
+
   afterAll(done => {
     server.close();
     server = null;
     done();
+  });
+
+  it("successfully creates a user", done => {
+    User.findOne()
+      .then(user => {
+        expect(user.fname).toBe("Foo");
+        done();
+      });
   });
 });

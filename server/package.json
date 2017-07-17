@@ -4,13 +4,28 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^1.0.2",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cli-highlight": "^1.1.4",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "jasmine": "^2.6.0",
+    "md5": "^2.2.1",
     "mongoose": "^4.11.3",
+    "mongoose-unique-validator": "^1.0.5",
     "morgan": "^1.8.2",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  },
+  "scripts": {
+    "test": "npm run whichnodemon && nodemon --exec npm run jasmine || npm run jasmine",
+    "start": "npm run whichnodemon && nodemon index.js || node index.js",
+    "whichnodemon": "which nodemon > /dev/null",
+    "console": "node repl.js",
+    "c": "node repl.js",
+    "jasmine": "./node_modules/jasmine/bin/jasmine.js"
   }
 }
