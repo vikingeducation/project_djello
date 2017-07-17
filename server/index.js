@@ -143,9 +143,9 @@ app.use((req, res, next) => {
 // Routes
 // ----------------------------------------
 const sessions = require("./routes/sessions");
-// const madLibsApi = require("./routes/madlibs");
+const djelloApi = require("./routes/api");
 app.use("/sessions", sessions);
-// app.use("/api/v1", madLibsApi);
+app.use("/api/v1", djelloApi);
 
 // ----------------------------------------
 // Server

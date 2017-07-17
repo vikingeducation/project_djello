@@ -11,14 +11,15 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "jasmine": "^2.6.0",
+    "jsonwebtoken": "^7.4.1",
     "md5": "^2.2.1",
     "mongoose": "^4.11.3",
     "mongoose-unique-validator": "^1.0.5",
     "morgan": "^1.8.2",
-    "request": "^2.81.0",
-    "jsonwebtoken": "^7.4.1"
+    "request": "^2.81.0"
   },
   "devDependencies": {
+    "chalk": "^2.0.1",
     "jasmine-node": "^1.14.5"
   },
   "scripts": {
