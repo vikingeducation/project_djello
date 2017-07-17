@@ -85,9 +85,12 @@ describe("App", () => {
   });
 
   it("rejects an unauthorized request", done => {
-    request.get(`${apiUrl}/users`, (ress, res, body) => {
+    request.get(`${apiUrl}/users`, {
+      'auth': {
+        'bearer': null
+      }
+    }, (err, res, body) => {
       let result = getJSON(body);
-
       expect(res.statusCode).toBe(401);
       done();
     });

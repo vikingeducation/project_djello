@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const models = require("./../../models");
 const User = models.User;
+const jwtAuth = require('express-jwt');
 
 router.get('/users/:id', (req, res) => {
   User.findById(req.params.id)
@@ -17,7 +18,9 @@ router.get('/users/:id', (req, res) => {
     });
 });
 
-router.get('/users', (req, res) => {
-  res.json('123');
+router.get('/users', 
+  jwtAuth({secret: process.env.JWT_SECRET}),
+  (req, res) => {
+    res.json('123');
 });
 module.exports = router;

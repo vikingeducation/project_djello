@@ -170,10 +170,17 @@ app.use("/api", (err, req, res, next) => {
     return next(err);
   }
 
+  let errorType;
   if (err.stack) {
     err = err.stack;
+    errorType = err.split(':')[0];
   }
-  res.status(500).json({ error: err });
+
+  if (errorType == 'UnauthorizedError') {
+    res.status(401).json({error: err});
+  } else {
+    res.status(500).json({ error: err });
+  }
 });
 
 app.use((err, req, res, next) => {
