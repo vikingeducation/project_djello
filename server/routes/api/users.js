@@ -17,6 +17,17 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/:id/boards", (req, res, next) => {
+  User.findById(req.params.id)
+    .populate({
+      path: 'boards'
+    })
+    .then(user => {
+      res.json({data: user.boards});
+    })
+    .catch(error => next(error));
+});
+
 router.get("/", (req, res, next) => {
   User.find({})
     .then(users => {

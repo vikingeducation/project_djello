@@ -158,6 +158,9 @@ describe("App", () => {
         });
     });
 
+    /*  ===============
+      User Tests
+    ================ */
     describe("User", () => {
       it("successfully grabs user info from api", done => {
         let options = {
@@ -205,18 +208,34 @@ describe("App", () => {
           });
       });
 
-      xit("returns the current user's boards", done => {
+      it("returns the current user's boards", done => {
         let options = {
           method: "GET",
-          uri: `${apiUrl}/users/${user.id}`,
+          uri: `${apiUrl}/users/${user.id}/boards`,
           auth: {
             bearer: token
           },
           json: true,
           resolveWithFullResponse: true
         };
+        User.findByIdAndUpdate(user.id, {
+          $addToSet: {boards: board.id}
+        })
+          .then(() => {
+            return rp(options);
+          })
+          .then(res => {
+            expect(Array.isArray(res.body.data)).toBe(true);
+            expect(res.body.data.length).toBe(1);
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
       });
     })
+
     /*  ===============
       Board Tests
     ================ */
