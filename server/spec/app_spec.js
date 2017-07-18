@@ -158,52 +158,65 @@ describe("App", () => {
         });
     });
 
-    it("successfully grabs user info from api", done => {
-      let options = {
-        method: "GET",
-        uri: `${apiUrl}/users/${user.id}`,
-        auth: {
-          bearer: token
-        },
-        json: true,
-        resolveWithFullResponse: true
-      };
+    describe("User", () => {
+      it("successfully grabs user info from api", done => {
+        let options = {
+          method: "GET",
+          uri: `${apiUrl}/users/${user.id}`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
 
-      rp(options)
-        .then(res => {
-          expect(res.statusCode).toBe(200);
-          expect(res.body.data.email).toBe("foobar@gmail.com");
-          done();
-        })
-        .catch(error => {
-          expect(error).toEqual(null);
-          done();
-        });
-    });
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.email).toBe("foobar@gmail.com");
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
 
-    it("returns an error when searching for non-existent user", done => {
-      let options = {
-        method: "GET",
-        uri: `${apiUrl}/users/123`,
-        auth: {
-          bearer: token
-        },
-        json: true,
-        resolveWithFullResponse: true
-      };
+      it("returns an error when searching for non-existent user", done => {
+        let options = {
+          method: "GET",
+          uri: `${apiUrl}/users/123`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
 
-      rp(options)
-        .then(res => {
-          expect(res).toEqual(null);
-          done();
-        })
-        .catch(error => {
-          expect(error.statusCode).toBe(400);
-          expect(error.response.body.error).toBeDefined();
-          done();
-        });
-    });
+        rp(options)
+          .then(res => {
+            expect(res).toEqual(null);
+            done();
+          })
+          .catch(error => {
+            expect(error.statusCode).toBe(400);
+            expect(error.response.body.error).toBeDefined();
+            done();
+          });
+      });
 
+      xit("returns the current user's boards", done => {
+        let options = {
+          method: "GET",
+          uri: `${apiUrl}/users/${user.id}`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+      });
+    })
     /*  ===============
       Board Tests
     ================ */
@@ -270,7 +283,6 @@ describe("App", () => {
       it("adds a second user to a board and updates models", done => {
         let options = {
           method: "POST",
-          uri: `${apiUrl}/boards/${board.id}/users`,
           auth: {
             bearer: token
           },
@@ -283,7 +295,7 @@ describe("App", () => {
           password: "password"
         })
           .then(secondUser => {
-            options.form = {user: secondUser.id};
+            options.uri = `${apiUrl}/boards/${board.id}/users/${secondUser.id}`;
             return rp(options)
           })
           .then(res => {
@@ -306,11 +318,10 @@ describe("App", () => {
       it("pops a user from a board and updates modes", done => {
         let options = {
           method: "DELETE",
-          uri: `${apiUrl}/boards/${board.id}/users`,
+          uri: `${apiUrl}/boards/${board.id}/users/${user.id}`,
           auth: {
             bearer: token
           },
-          form: {user: user.id},
           json: true,
           resolveWithFullResponse: true
         };

@@ -59,9 +59,9 @@ router.delete("/:id", (req, res, next) => {
 /*  ===============
   Add User to Board
 ================ */
-router.post('/:id/users', (req, res, next) => {
+router.post('/:id/users/:userId', (req, res, next) => {
   const boardId = req.params.id;
-  const userToAdd = req.body.user;
+  const userToAdd = req.params.userId;
   let updatedBoard;
 
   Board.findById(boardId)
@@ -103,9 +103,9 @@ router.post('/:id/users', (req, res, next) => {
 /*  ===============
   Remove User from Board
 ================ */
-router.delete('/:id/users', (req, res, next) => {
+router.delete('/:id/users/:userId', (req, res, next) => {
   const boardId = req.params.id;
-  const userToRemove = req.body.user;
+  const userToRemove = req.params.userId;
   let updatedBoard;
 
   Board.findById(boardId)
