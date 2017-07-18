@@ -7,36 +7,6 @@ const List = models.List;
 const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 
 /*  ===============
-  Create
-================ */
-router.post("/", (req, res, next) => {
-  const { title, lists, users } = req.body;
-  let board;
-  Board.create({
-    title,
-    lists,
-    users
-  })
-    .then(result => {
-      board = result;
-      return User.findByIdAndUpdate(
-        req.user.id,
-        {
-          $addToSet: { boards: board }
-        },
-        { new: true }
-      );
-    })
-    .then(result => {
-      res.json({
-        message: apiMessages.successfulPost,
-        data: board
-      });
-    })
-    .catch(error => next(error));
-});
-
-/*  ===============
   Delete
 ================ */
 router.delete("/:id", (req, res, next) => {
@@ -210,6 +180,7 @@ router.delete("/:id/users/:userId", (req, res, next) => {
 router.post("/:id/lists", (req, res, next) => {
   const boardId = req.params.id;
   const { title, description } = req.body;
+  let newList;
   Board.findById(boardId)
     .then(board => {
       if (!board) {
@@ -229,9 +200,15 @@ router.post("/:id/lists", (req, res, next) => {
       });
     })
     .then(result => {
+      newList = result;
+      return Board.findByIdAndUpdate(boardId, {
+        $addToSet: {lists: result.id}
+      });
+    })
+    .then(() => {      
       res.json({
         message: apiMessages.successfulPost,
-        data: result
+        data: newList
       });
     })
     .catch(error => next(error));

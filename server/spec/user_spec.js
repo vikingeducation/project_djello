@@ -49,10 +49,14 @@ describe("User", () => {
       title: "Test Board",
       lists: [],
       users: [user.id]
-    }).then(result => {
-      board = result;
-      done();
-    });
+    })
+      .then(result => {
+        board = result;
+        return User.findByIdAndUpdate(user.id, {
+          $addToSet: {boards: board.id}
+        })
+      })
+      .then(() => done());
   });
 
   beforeEach(done => {
@@ -132,12 +136,7 @@ describe("User", () => {
         json: true,
         resolveWithFullResponse: true
       };
-      User.findByIdAndUpdate(user.id, {
-        $addToSet: { boards: board.id }
-      })
-        .then(() => {
-          return rp(options);
-        })
+      rp(options)
         .then(res => {
           expect(Array.isArray(res.body.data)).toBe(true);
           expect(res.body.data.length).toBe(1);

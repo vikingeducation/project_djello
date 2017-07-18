@@ -130,6 +130,37 @@ describe("List", () => {
         });
     });
 
+    it("updates board after creating list", done => {
+      let options = {
+        method: "POST",
+        uri: `${apiUrl}/boards/${board.id}/lists`,
+        auth: {
+          bearer: token
+        },
+        form: {
+          title: "Test New List Title",
+          description: "Test New List Description",
+          cards: []
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          return Board.findById(board.id);
+        })
+        .then(board => {
+          expect(board.lists.length).toBe(1);
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
+
     it("updates a list title", done => {
       let options = {
         method: "PUT",

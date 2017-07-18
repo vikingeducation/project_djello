@@ -85,6 +85,7 @@ router.put("/:id", (req, res, next) => {
 router.post("/:id/card", (req, res, next) => {
   const listId = req.params.id;
   const { title, description } = req.body;
+  let newCard;
   List.findById(listId)
     .populate("board")
     .then(list => {
@@ -109,9 +110,15 @@ router.post("/:id/card", (req, res, next) => {
       });
     })
     .then(result => {
+      newCard = result;
+      return List.findByIdAndUpdate(listId, {
+        $addToSet: {cards: result.id}
+      });
+    })
+    .then(() => {
       res.json({
         message: apiMessages.successfulPost,
-        data: result
+        data: newCard
       });
     })
     .catch(error => next(error));

@@ -398,14 +398,5 @@ describe("Card", () => {
           });
       });
     });
-    // to do: test the following
-    /*
-      PUT /cards/:id
-      it automatically creates an activity that explains change
-
-      Then...
-      create a second user, and add tests to each route to make
-      sure an unauthorized user can't make changes
-    */
   });
 });

@@ -79,14 +79,12 @@ describe("Board", () => {
     it("creates a new board through api", done => {
       let options = {
         method: "POST",
-        uri: `${apiUrl}/boards`,
+        uri: `${apiUrl}/users/${user.id}/boards`,
         auth: {
           bearer: token
         },
         form: {
           title: "Test Board POST",
-          lists: [],
-          users: [user.id]
         },
         json: true,
         resolveWithFullResponse: true
