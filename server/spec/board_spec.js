@@ -49,10 +49,16 @@ describe("Board", () => {
       title: "Test Board",
       lists: [],
       users: [user.id]
-    }).then(result => {
-      board = result;
-      done();
-    });
+    })
+      .then(result => {
+        board = result;
+        return User.findByIdAndUpdate(user.id, {
+          $addToSet: {boards: board.id}
+        });
+      })
+      .then(() => {
+        done();
+      });
   });
 
   beforeEach(done => {
@@ -97,7 +103,7 @@ describe("Board", () => {
           return User.findById(user.id);
         })
         .then(result => {
-          expect(result.boards.length).toBe(1);
+          expect(result.boards.length).toBe(2);
           done();
         })
         .catch(error => {
@@ -125,6 +131,10 @@ describe("Board", () => {
         })
         .then(board => {
           expect(board).toEqual(null);
+          return User.findById(user.id);
+        })
+        .then(user => {
+          expect(user.boards.length).toBe(0);
           done();
         })
         .catch(error => {

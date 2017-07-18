@@ -11,6 +11,8 @@ const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 ================ */
 router.delete("/:id", (req, res, next) => {
   const boardId = req.params.id;
+  let deletedBoard;
+
   Board.findById(boardId)
     .then(board => {
       if (!board) {
@@ -24,10 +26,16 @@ router.delete("/:id", (req, res, next) => {
       return Board.findByIdAndRemove(boardId);
     })
     .then(result => {
+      deletedBoard = result;
+      return User.update({boards: {$in: [deletedBoard.id]}}, {
+        $pop: {boards: deletedBoard}
+      })
+    })
+    .then(() => {
       res.json({
         message: apiMessages.successfulDelete,
         data: {
-          deletedResource: result
+          deletedResource: deletedBoard
         }
       });
     })
