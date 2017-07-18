@@ -228,6 +228,10 @@ describe("App", () => {
           .then(res => {
             expect(res.statusCode).toBe(200);
             expect(res.body.data.title).toBe("Test Board POST");
+            return User.findById(user.id);
+          })
+          .then(result => {
+            expect(result.boards.length).toBe(1);
             done();
           })
           .catch(error => {
@@ -262,6 +266,72 @@ describe("App", () => {
             done();
           });
       });
+
+      it("adds a second user to a board and updates models", done => {
+        let options = {
+          method: "POST",
+          uri: `${apiUrl}/boards/${board.id}/users`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+
+        User.create({
+          email: "foobar2@gmail.com",
+          password: "password"
+        })
+          .then(secondUser => {
+            options.form = {user: secondUser.id};
+            return rp(options)
+          })
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.board.users.length).toBe(2);
+            expect(res.body.data.user.boards.length).toBe(1);
+            expect(res.body.message).toBe("Resource successfully updated.");
+            return Board.findById(board.id);
+          })
+          .then(board => {
+            expect(board.users.length).toBe(2);
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
+
+      it("pops a user from a board and updates modes", done => {
+        let options = {
+          method: "DELETE",
+          uri: `${apiUrl}/boards/${board.id}/users`,
+          auth: {
+            bearer: token
+          },
+          form: {user: user.id},
+          json: true,
+          resolveWithFullResponse: true
+        };
+
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.board.users.length).toBe(0);
+            expect(res.body.data.user.boards.length).toBe(0);
+            expect(res.body.message).toBe("Resource successfully updated.");
+            return Board.findById(board.id);
+          })
+          .then(board => {
+            expect(board.users.length).toBe(0);
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      })
     });
   });
 });
