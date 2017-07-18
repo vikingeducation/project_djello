@@ -1,37 +1,13 @@
 const express = require("express");
 const app = express();
-require("dotenv").config({ path: "../.env" });
+const path = require('path');
+require("dotenv").config({ path: path.join(__dirname,"../.env") });
 
 // ----------------------------------------
 // Body Parser
 // ----------------------------------------
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// ----------------------------------------
-// Sessions/Cookies
-// ----------------------------------------
-// const cookieSession = require("cookie-session");
-// const cookieParser = require("cookie-parser");
-
-// app.use(cookieParser());
-
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     keys: [process.env.SESSION_SECRET || "asdf1234567890qwer"]
-//   })
-// );
-
-// app.use((req, res, next) => {
-//   res.locals.session = req.session;
-//   next();
-// });
-
-// ----------------------------------------
-// Static Public Files
-// ----------------------------------------
-// app.use(express.static(`${__dirname}/public`));
 
 // ----------------------------------------
 // Logging
@@ -103,42 +79,6 @@ app.use((req, res, next) => {
   }
 });
 
-// app.set('view engine', 'html');
-// ----------------------------------------
-// Template Engine
-// ----------------------------------------
-// const expressHandlebars = require("express-handlebars");
-// const h = require("./helpers").registered;
-
-// const hbs = expressHandlebars.create({
-//   helpers: h,
-//   partialsDir: "views/",
-//   defaultLayout: "application"
-// });
-
-// app.engine("handlebars", hbs.engine);
-// app.set("view engine", "handlebars");
-
-// ----------------------------------------
-// Services
-// ----------------------------------------
-// const authService = require("./services/auth");
-// const User = require("./models").User;
-
-// app.use(
-//   authService({
-//     findUserByEmail: email => {
-//       return User.findOne({ email: email });
-//     },
-//     findUserByToken: token => {
-//       return User.findOne({ token: token });
-//     },
-//     validateUserPassword: (user, password) => {
-//       return user.validatePassword(password);
-//     }
-//   })
-// );
-
 // ----------------------------------------
 // Routes
 // ----------------------------------------
@@ -156,7 +96,7 @@ const host = "localhost";
 let args;
 process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
 
-args.push(() => {});
+args.push(() => {console.log(`Listening: http://${ host }:${ port }`)});
 
 if (require.main === module) {
   app.listen.apply(app, args);
