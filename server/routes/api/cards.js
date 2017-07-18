@@ -17,6 +17,8 @@ const {
 ================ */
 router.delete("/:id", (req, res, next) => {
   const cardId = req.params.id;
+  let deletedCard;
+
   Card.findById(cardId)
     .populate({
       path: "list",
@@ -40,10 +42,16 @@ router.delete("/:id", (req, res, next) => {
       return Card.findByIdAndRemove(cardId);
     })
     .then(result => {
+      deletedCard = result;
+      return List.update({cards: {$in: [deletedCard.id]}}, {
+        $pop: {cards: deletedCard}
+      })
+    })
+    .then(() => {
       res.json({
         message: apiMessages.successfulDelete,
         data: {
-          deletedResource: result
+          deletedResource: deletedCard
         }
       });
     })

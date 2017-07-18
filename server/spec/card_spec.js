@@ -52,10 +52,16 @@ describe("Card", () => {
       title: "Test Board",
       lists: [],
       users: [user.id]
-    }).then(result => {
-      board = result;
-      done();
-    });
+    })
+      .then(result => {
+        board = result;
+        return User.findByIdAndUpdate(user.id, {
+          $addToSet: {boards: board.id}
+        });
+      })
+      .then(() => {
+        done();
+      });
   });
 
   beforeEach(done => {
@@ -64,10 +70,16 @@ describe("Card", () => {
       description: "Test List Description",
       board: board.id,
       cards: []
-    }).then(result => {
-      list = result;
-      done();
-    });
+    })
+      .then(result => {
+        list = result;
+        return Board.findByIdAndUpdate(board.id, {
+          $addToSet: {lists: list.id}
+        });
+      })
+      .then(() => {
+        done();
+      });
   });
 
   beforeEach(done => {
@@ -100,10 +112,16 @@ describe("Card", () => {
         list: list.id,
         members: [user.id],
         activities: []
-      }).then(result => {
-        card = result;
-        done();
-      });
+      })
+        .then(result => {
+          card = result;
+          return List.findByIdAndUpdate(list.id, {
+            $addToSet: {cards: card.id}
+          });
+        })
+        .then(() => {
+          done();
+        });
     });
 
     it("successfully creates a card", done => {
@@ -171,7 +189,7 @@ describe("Card", () => {
           return List.findById(list.id);
         })
         .then(list => {
-          expect(list.cards.length).toBe(1);
+          expect(list.cards.length).toBe(2);
           done();
         })
         .catch(error => {
@@ -329,6 +347,10 @@ describe("Card", () => {
         })
         .then(result => {
           expect(result).toEqual(null);
+          return List.findById(list.id);
+        })
+        .then(list => {
+          expect(list.cards.length).toBe(0);
           done();
         })
         .catch(error => {
