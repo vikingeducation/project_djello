@@ -3,7 +3,8 @@ const router = express.Router();
 const models = require("./../../models");
 const User = models.User;
 const Board = models.Board;
-const { checkUserBoardPermissions } = require("./../../helpers");
+const List = models.List;
+const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 
 /*  ===============
   Create
@@ -27,7 +28,10 @@ router.post("/", (req, res, next) => {
       );
     })
     .then(result => {
-      res.json({ data: board });
+      res.json({ 
+        message: apiMessages.successfulPost,
+        data: board
+      });
     })
     .catch(error => next(error));
 });
@@ -40,11 +44,11 @@ router.delete("/:id", (req, res, next) => {
   Board.findById(boardId)
     .then(board => {
       if (!board) {
-        throw new Error("Board does not exist");
+        throw new Error(apiMessages.doesNotExist("Board"));
       }
       let canCurrentUserDelete = checkUserBoardPermissions(board, req.user.id);
       if (!canCurrentUserDelete) {
-        throw new Error("You are not authorized to delete this resource.");
+        throw new Error(apiMessages.failedAuth);
       }
 
       return Board.findByIdAndRemove(boardId);
@@ -52,7 +56,7 @@ router.delete("/:id", (req, res, next) => {
     .then(result => {
       res.json({
         data: {
-          message: "Resource successfully deleted.",
+          message: apiMessages.successfulDelete,
           deletedResource: result
         }
       });
@@ -70,12 +74,12 @@ router.put("/:id", (req, res, next) => {
   Board.findById(boardId)
     .then(board => {
       if (!board) {
-        throw new Error("Board does not exist");
+        throw new Error(apiMessages.doesNotExist("Board"));
       }
 
       let canCurrentUserEdit = checkUserBoardPermissions(board, req.user.id);
       if (!canCurrentUserEdit) {
-        throw new Error("You are not authorized to modify this resource.");
+        throw new Error(apiMessages.failedAuth);
       }
 
       // Change the board's title
@@ -89,7 +93,7 @@ router.put("/:id", (req, res, next) => {
     })
     .then(result => {
       res.json({
-        message: "Resource successfully updated.",
+        message: apiMessages.successfulPut,
         data: result
       });
     })
@@ -107,12 +111,12 @@ router.post("/:id/users/:userId", (req, res, next) => {
   Board.findById(boardId)
     .then(board => {
       if (!board) {
-        throw new Error("Board does not exist");
+        throw new Error(apiMessages.doesNotExist("Board"));
       }
       let canCurrentUserEdit = checkUserBoardPermissions(board, req.user.id);
 
       if (!canCurrentUserEdit) {
-        throw new Error("You are not authorized to modify this resource.");
+        throw new Error(apiMessages.failedAuth);
       }
 
       // Add the user to the board's array
@@ -138,7 +142,7 @@ router.post("/:id/users/:userId", (req, res, next) => {
     })
     .then(result => {
       res.json({
-        message: "Resource successfully updated.",
+        message: apiMessages.successfulPut,
         data: {
           board: updatedBoard,
           user: result
@@ -159,12 +163,12 @@ router.delete("/:id/users/:userId", (req, res, next) => {
   Board.findById(boardId)
     .then(board => {
       if (!board) {
-        throw new Error("Board does not exist");
+        throw new Error(apiMessages.doesNotExist("Board"));
       }
       let canCurrentUserEdit = checkUserBoardPermissions(board, req.user.id);
 
       if (!canCurrentUserEdit) {
-        throw new Error("You are not authorized to modify this resource.");
+        throw new Error(apiMessages.failedAuth);
       }
 
       // Remove the user from the board's array
@@ -190,11 +194,44 @@ router.delete("/:id/users/:userId", (req, res, next) => {
     })
     .then(result => {
       res.json({
-        message: "Resource successfully updated.",
+        message: apiMessages.successfulPut,
         data: {
           board: updatedBoard,
           user: result
         }
+      });
+    })
+    .catch(error => next(error));
+});
+
+/*  ===============
+  Create List
+================ */
+router.post("/:id/lists", (req, res, next) => {
+  const boardId = req.params.id;
+  const {title, description, cards} = req.body;
+  Board.findById(boardId)
+    .then(board => {
+      if (!board) {
+        throw new Error(apiMessages.doesNotExist("Board"));
+      }
+      let canCurrentUserEdit = checkUserBoardPermissions(board, req.user.id);
+
+      if (!canCurrentUserEdit) {
+        throw new Error(apiMessages.failedAuth);
+      }
+
+      return List.create({
+        title: title || "New List",
+        description: description || "Enter a description here",
+        cards: cards || [],
+        board: boardId
+      });
+    })
+    .then(result => {
+      res.json({
+        message: apiMessages.successfulPost,
+        data: result
       });
     })
     .catch(error => next(error));

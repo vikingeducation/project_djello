@@ -123,7 +123,7 @@ describe("Board", () => {
         .then(res => {
           expect(res.statusCode).toBe(200);
           expect(res.body.data.message).toBe(
-            "Resource successfully deleted."
+            "Resource successfully removed."
           );
           return Board.findById(board.id);
         })

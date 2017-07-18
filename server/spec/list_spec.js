@@ -98,7 +98,7 @@ describe("List", () => {
         });
     });
 
-    xit("creates a list through the api", done => {
+    it("creates a list through the api", done => {
       let options = {
         method: "POST",
         uri: `${apiUrl}/boards/${board.id}/lists`,
@@ -131,7 +131,7 @@ describe("List", () => {
         });
     });
 
-    xit("updates a list title", done => {
+    it("updates a list title", done => {
       let options = {
         method: "PUT",
         uri: `${apiUrl}/lists/${list.id}`,
@@ -163,7 +163,7 @@ describe("List", () => {
         });
     });
 
-    xit("updates a list description", done => {
+    it("updates a list description", done => {
       let options = {
         method: "PUT",
         uri: `${apiUrl}/lists/${list.id}`,
