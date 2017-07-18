@@ -241,5 +241,59 @@ describe("Card", () => {
           done();
         });
     });
+
+    describe("User", () => {
+      let secondUser;
+      beforeEach(done => {
+        User.create({
+          email: "foobar2@gmail.com",
+          password: "password"
+        }).then(result => {
+          secondUser = result;
+          done();
+        });
+      });
+
+      it("adds a member to a card", done => {
+        let options = {
+          method: "POST",
+          uri: `${apiUrl}/cards/${card.id}/users/${secondUser.id}`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.card.members.length).toBe(2);
+            return Card.findById(card.id);
+          })
+          .then(result => {
+            expect(result.members.length).toBe(2);
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
+    });
+    // to do: test the following
+    /*
+      POST /cards/:id/user
+      it adds a member to a card
+      it adds user to board when a member is added to card
+      it adds board to user when a member is added to card
+
+      PUT /cards/:id
+      it automatically creates an activity that explains change
+
+      Then...
+      create a second user, and add tests to each route to make
+      sure an unauthorized user can't make changes
+    */
   });
 });

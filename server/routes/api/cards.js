@@ -79,4 +79,42 @@ router.put("/:id", (req, res, next) => {
     })
 });
 
+/*  ===============
+  Add Member to Card
+================ */
+router.post("/:id/users/:userId", (req, res, next) => {
+  const cardId = req.params.id;
+  const userToAdd = req.params.userId;
+
+  Card.findById(cardId)
+    .populate({
+      path: 'list',
+      populate: {
+        path: 'board'
+      }
+    })
+    .then(card => {
+      if (!card) {
+        throw new Error(apiMessages.doesNotExist("Card"));
+      }
+
+      let canCurrentUserDelete = checkUserBoardPermissions(card.list.board, req.user.id);
+      if (!canCurrentUserDelete) {
+        throw new Error(apiMessages.failedAuth);
+      }
+
+      return Card.findByIdAndUpdate(cardId, {
+        $addToSet: {members: userToAdd}
+      }, { new: true});
+    })
+    .then(result => {
+      res.json({
+        message: apiMessages.successfulPut,
+        data: {
+          card: result
+        }
+      })
+    })
+});
+
 module.exports = router;
