@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const models = require("../models");
 const User = models.User;
 const Board = models.Board;
-const List = models.List
-const helpers = require('./helpers');
+const List = models.List;
+const helpers = require("./helpers");
 
 describe("Board", () => {
-  const {baseUrl, apiUrl, getJSON, log} = helpers;
+  const { baseUrl, apiUrl, getJSON, log } = helpers;
 
   let server;
   let user;
@@ -54,7 +54,7 @@ describe("Board", () => {
       done();
     });
   });
-  
+
   beforeEach(done => {
     let loginOpts = {
       method: "POST",
@@ -122,9 +122,7 @@ describe("Board", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.message).toBe(
-            "Resource successfully removed."
-          );
+          expect(res.body.message).toBe("Resource successfully removed.");
           return Board.findById(board.id);
         })
         .then(board => {

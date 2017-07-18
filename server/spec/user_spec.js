@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const models = require("../models");
 const User = models.User;
 const Board = models.Board;
-const List = models.List
-const helpers = require('./helpers');
+const List = models.List;
+const helpers = require("./helpers");
 
 describe("User", () => {
-  const {baseUrl, apiUrl, getJSON, log} = helpers;
+  const { baseUrl, apiUrl, getJSON, log } = helpers;
 
   let server;
   let user;
@@ -54,7 +54,7 @@ describe("User", () => {
       done();
     });
   });
-  
+
   beforeEach(done => {
     let loginOpts = {
       method: "POST",

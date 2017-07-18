@@ -13,13 +13,16 @@ const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 router.delete("/:id", (req, res, next) => {
   const listId = req.params.id;
   List.findById(listId)
-    .populate('board')
+    .populate("board")
     .then(list => {
       if (!list) {
         throw new Error(apiMessages.doesNotExist("List"));
       }
 
-      let canCurrentUserDelete = checkUserBoardPermissions(list.board, req.user.id);
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        list.board,
+        req.user.id
+      );
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
@@ -32,7 +35,7 @@ router.delete("/:id", (req, res, next) => {
         data: {
           deletedResource: result
         }
-      })
+      });
     })
     .catch(error => next(error));
 });
@@ -42,31 +45,38 @@ router.delete("/:id", (req, res, next) => {
 ================ */
 router.put("/:id", (req, res, next) => {
   const listId = req.params.id;
-  const {title, description} = req.body;
+  const { title, description } = req.body;
 
   List.findById(listId)
-    .populate('board')
+    .populate("board")
     .then(list => {
       if (!list) {
         throw new Error(apiMessages.doesNotExist("List"));
       }
 
-      let canCurrentUserDelete = checkUserBoardPermissions(list.board, req.user.id);
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        list.board,
+        req.user.id
+      );
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
 
-      return List.findByIdAndUpdate(listId, {
-        title: title || list.title,
-        description: description || list.description
-      }, { new: true});
+      return List.findByIdAndUpdate(
+        listId,
+        {
+          title: title || list.title,
+          description: description || list.description
+        },
+        { new: true }
+      );
     })
     .then(result => {
       res.json({
         message: apiMessages.successfulPut,
         data: result
-      })
-    })
+      });
+    });
 });
 
 /*  ===============
@@ -74,14 +84,17 @@ router.put("/:id", (req, res, next) => {
 ================ */
 router.post("/:id/card", (req, res, next) => {
   const listId = req.params.id;
-  const {title, description} = req.body;
+  const { title, description } = req.body;
   List.findById(listId)
-    .populate('board')
+    .populate("board")
     .then(list => {
       if (!list) {
         throw new Error(apiMessages.doesNotExist("List"));
       }
-      let canCurrentUserEdit = checkUserBoardPermissions(list.board, req.user.id);
+      let canCurrentUserEdit = checkUserBoardPermissions(
+        list.board,
+        req.user.id
+      );
 
       if (!canCurrentUserEdit) {
         throw new Error(apiMessages.failedAuth);
@@ -92,7 +105,7 @@ router.post("/:id/card", (req, res, next) => {
         description: description || "Enter a description here",
         list: listId,
         activities: [],
-        members: [req.user.id],
+        members: [req.user.id]
       });
     })
     .then(result => {

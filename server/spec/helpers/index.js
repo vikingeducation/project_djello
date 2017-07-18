@@ -23,11 +23,9 @@ let helpers = {};
 helpers.baseUrl = "http://localhost:8888";
 helpers.apiUrl = helpers.baseUrl + "/api/v1";
 
-helpers.getJSON = str => JSON.parse(str),
-
-helpers.log = obj => {
+(helpers.getJSON = str => JSON.parse(str)), (helpers.log = obj => {
   let msg = JSON.stringify(obj, null, 2);
   process.stdout.write(chalk.cyanBright.bold.underline(msg));
-}
+});
 
 module.exports = helpers;

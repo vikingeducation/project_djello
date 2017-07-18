@@ -28,7 +28,7 @@ router.post("/", (req, res, next) => {
       );
     })
     .then(result => {
-      res.json({ 
+      res.json({
         message: apiMessages.successfulPost,
         data: board
       });
@@ -209,7 +209,7 @@ router.delete("/:id/users/:userId", (req, res, next) => {
 ================ */
 router.post("/:id/lists", (req, res, next) => {
   const boardId = req.params.id;
-  const {title, description} = req.body;
+  const { title, description } = req.body;
   Board.findById(boardId)
     .then(board => {
       if (!board) {

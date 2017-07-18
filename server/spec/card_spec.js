@@ -6,11 +6,11 @@ const User = models.User;
 const Board = models.Board;
 const List = models.List;
 const Card = models.Card;
-const helpers = require('./helpers');
+const helpers = require("./helpers");
 
 describe("Card", () => {
-  const {baseUrl, apiUrl, getJSON, log} = helpers;
-  
+  const { baseUrl, apiUrl, getJSON, log } = helpers;
+
   let server;
   let user;
   let board;
@@ -68,7 +68,7 @@ describe("Card", () => {
       done();
     });
   });
-  
+
   beforeEach(done => {
     let loginOpts = {
       method: "POST",
@@ -113,8 +113,8 @@ describe("Card", () => {
         })
         .catch(error => {
           expect(error).toBe(null);
-          done()
-        })
+          done();
+        });
     });
 
     it("creates a card through the api", done => {
@@ -126,7 +126,7 @@ describe("Card", () => {
         },
         form: {
           title: "Test New Card Title",
-          description: "Test New Card Description",
+          description: "Test New Card Description"
         },
         json: true,
         resolveWithFullResponse: true
@@ -167,7 +167,9 @@ describe("Card", () => {
         .then(res => {
           expect(res.statusCode).toBe(200);
           expect(res.body.data.title).toBe("Changed Card Title");
-          expect(res.body.data.description).toBe("Test Original Card Description");
+          expect(res.body.data.description).toBe(
+            "Test Original Card Description"
+          );
           return Card.findById(card.id);
         })
         .then(result => {
@@ -227,9 +229,7 @@ describe("Card", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.message).toBe(
-            "Resource successfully removed."
-          );
+          expect(res.body.message).toBe("Resource successfully removed.");
           return Card.findById(card.id);
         })
         .then(result => {
@@ -335,10 +335,6 @@ describe("Card", () => {
     });
     // to do: test the following
     /*
-      POST /cards/:id/user
-      it adds user to board when a member is added to card
-      it adds board to user when a member is added to card
-
       PUT /cards/:id
       it automatically creates an activity that explains change
 

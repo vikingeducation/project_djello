@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const models = require("../models");
 const User = models.User;
 const Board = models.Board;
-const List = models.List
+const List = models.List;
 const jwt = require("jsonwebtoken");
-const helpers = require('./helpers');
+const helpers = require("./helpers");
 
 describe("App", () => {
-  const {baseUrl, apiUrl, getJSON, log} = helpers;
+  const { baseUrl, apiUrl, getJSON, log } = helpers;
 
   let server;
   let user;
@@ -55,7 +55,7 @@ describe("App", () => {
       done();
     });
   });
-  
+
   /*  ===============
     Basic Tests
   ================ */
@@ -91,7 +91,6 @@ describe("App", () => {
       }
     );
   });
-
 
   /*  ===============
     Basic API Tests
@@ -151,9 +150,5 @@ describe("App", () => {
           done();
         });
     });
-
-
-
-    
   });
 });

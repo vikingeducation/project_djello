@@ -14,9 +14,9 @@ router.delete("/:id", (req, res, next) => {
   const cardId = req.params.id;
   Card.findById(cardId)
     .populate({
-      path: 'list',
+      path: "list",
       populate: {
-        path: 'board'
+        path: "board"
       }
     })
     .then(card => {
@@ -24,7 +24,10 @@ router.delete("/:id", (req, res, next) => {
         throw new Error(apiMessages.doesNotExist("List"));
       }
 
-      let canCurrentUserDelete = checkUserBoardPermissions(card.list.board, req.user.id);
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        card.list.board,
+        req.user.id
+      );
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
@@ -37,7 +40,7 @@ router.delete("/:id", (req, res, next) => {
         data: {
           deletedResource: result
         }
-      })
+      });
     })
     .catch(error => next(error));
 });
@@ -47,13 +50,13 @@ router.delete("/:id", (req, res, next) => {
 ================ */
 router.put("/:id", (req, res, next) => {
   const cardId = req.params.id;
-  const {title, description} = req.body;
+  const { title, description } = req.body;
 
   Card.findById(cardId)
     .populate({
-      path: 'list',
+      path: "list",
       populate: {
-        path: 'board'
+        path: "board"
       }
     })
     .then(card => {
@@ -61,21 +64,28 @@ router.put("/:id", (req, res, next) => {
         throw new Error(apiMessages.doesNotExist("Card"));
       }
 
-      let canCurrentUserDelete = checkUserBoardPermissions(card.list.board, req.user.id);
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        card.list.board,
+        req.user.id
+      );
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
 
-      return Card.findByIdAndUpdate(cardId, {
-        title: title || card.title,
-        description: description || card.description
-      }, { new: true});
+      return Card.findByIdAndUpdate(
+        cardId,
+        {
+          title: title || card.title,
+          description: description || card.description
+        },
+        { new: true }
+      );
     })
     .then(result => {
       res.json({
         message: apiMessages.successfulPut,
         data: result
-      })
+      });
     })
     .catch(error => next(error));
 });
@@ -91,9 +101,9 @@ router.post("/:id/users/:userId", (req, res, next) => {
 
   Card.findById(cardId)
     .populate({
-      path: 'list',
+      path: "list",
       populate: {
-        path: 'board'
+        path: "board"
       }
     })
     .then(card => {
@@ -101,32 +111,39 @@ router.post("/:id/users/:userId", (req, res, next) => {
         throw new Error(apiMessages.doesNotExist("Card"));
       }
 
-      let canCurrentUserDelete = checkUserBoardPermissions(card.list.board, req.user.id);
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        card.list.board,
+        req.user.id
+      );
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
 
       board = card.list.board;
-      return Card.findByIdAndUpdate(cardId, {
-        $addToSet: {members: userToAdd}
-      }, { new: true});
+      return Card.findByIdAndUpdate(
+        cardId,
+        {
+          $addToSet: { members: userToAdd }
+        },
+        { new: true }
+      );
     })
     .then(result => {
       updatedCard = result;
       return Board.findByIdAndUpdate(board.id, {
-        $addToSet: {users: userToAdd}
+        $addToSet: { users: userToAdd }
       });
     })
     .then(result => {
       return User.findByIdAndUpdate(userToAdd, {
-        $addToSet: {boards: board.id}
+        $addToSet: { boards: board.id }
       });
     })
     .then(result => {
       res.json({
         message: apiMessages.successfulPut,
         data: updatedCard
-      })
+      });
     })
     .catch(error => next(error));
 });

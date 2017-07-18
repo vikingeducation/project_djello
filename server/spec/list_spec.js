@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 const models = require("../models");
 const User = models.User;
 const Board = models.Board;
-const List = models.List
-const helpers = require('./helpers');
+const List = models.List;
+const helpers = require("./helpers");
 
 describe("List", () => {
-  const {baseUrl, apiUrl, getJSON, log} = helpers;
-  
+  const { baseUrl, apiUrl, getJSON, log } = helpers;
+
   let server;
   let user;
   let board;
@@ -54,7 +54,7 @@ describe("List", () => {
       done();
     });
   });
-  
+
   beforeEach(done => {
     let loginOpts = {
       method: "POST",
@@ -91,11 +91,10 @@ describe("List", () => {
     });
 
     it("successfully creates a list", done => {
-      List.findById(list.id)
-        .then(results => {
-          expect(results.title).toBe("Test Original List Title");
-          done();
-        });
+      List.findById(list.id).then(results => {
+        expect(results.title).toBe("Test Original List Title");
+        done();
+      });
     });
 
     it("creates a list through the api", done => {
@@ -149,7 +148,9 @@ describe("List", () => {
         .then(res => {
           expect(res.statusCode).toBe(200);
           expect(res.body.data.title).toBe("Changed List Title");
-          expect(res.body.data.description).toBe("Test Original List Description");
+          expect(res.body.data.description).toBe(
+            "Test Original List Description"
+          );
           return List.findById(list.id);
         })
         .then(result => {
@@ -209,9 +210,7 @@ describe("List", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.message).toBe(
-            "Resource successfully removed."
-          );
+          expect(res.body.message).toBe("Resource successfully removed.");
           return List.findById(list.id);
         })
         .then(result => {
