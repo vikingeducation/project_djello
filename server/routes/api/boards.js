@@ -209,7 +209,7 @@ router.delete("/:id/users/:userId", (req, res, next) => {
 ================ */
 router.post("/:id/lists", (req, res, next) => {
   const boardId = req.params.id;
-  const {title, description, cards} = req.body;
+  const {title, description} = req.body;
   Board.findById(boardId)
     .then(board => {
       if (!board) {
@@ -224,7 +224,7 @@ router.post("/:id/lists", (req, res, next) => {
       return List.create({
         title: title || "New List",
         description: description || "Enter a description here",
-        cards: cards || [],
+        cards: [],
         board: boardId
       });
     })

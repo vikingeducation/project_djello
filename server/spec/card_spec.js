@@ -117,10 +117,10 @@ describe("Card", () => {
         })
     });
 
-    xit("creates a card through the api", done => {
+    it("creates a card through the api", done => {
       let options = {
         method: "POST",
-        uri: `${apiUrl}/lists/${board.id}/card`,
+        uri: `${apiUrl}/lists/${list.id}/card`,
         auth: {
           bearer: token
         },
@@ -135,8 +135,8 @@ describe("Card", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.data.title).toBe("Test New List Title");
-          expect(res.body.data.description).toBe("Test New List Description");
+          expect(res.body.data.title).toBe("Test New Card Title");
+          expect(res.body.data.description).toBe("Test New Card Description");
           return Card.findById(res.body.data.id);
         })
         .then(result => {

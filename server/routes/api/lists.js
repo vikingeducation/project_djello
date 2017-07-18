@@ -4,14 +4,8 @@ const models = require("./../../models");
 const User = models.User;
 const Board = models.Board;
 const List = models.List;
+const Card = models.Card;
 const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
-
-/*  ===============
-  Create
-================ */
-router.post("/", (req, res, next) => {
-
-});
 
 /*  ===============
   Delete
@@ -76,17 +70,38 @@ router.put("/:id", (req, res, next) => {
 });
 
 /*  ===============
-  Add Card to List
+  Create Card
 ================ */
-router.post("/:id/card/:cardId", (req, res, next) => {
+router.post("/:id/card", (req, res, next) => {
+  const listId = req.params.id;
+  const {title, description} = req.body;
+  List.findById(listId)
+    .populate('board')
+    .then(list => {
+      if (!list) {
+        throw new Error(apiMessages.doesNotExist("List"));
+      }
+      let canCurrentUserEdit = checkUserBoardPermissions(list.board, req.user.id);
 
+      if (!canCurrentUserEdit) {
+        throw new Error(apiMessages.failedAuth);
+      }
+
+      return Card.create({
+        title: title || "New Card",
+        description: description || "Enter a description here",
+        list: listId,
+        activities: [],
+        members: [req.user.id],
+      });
+    })
+    .then(result => {
+      res.json({
+        message: apiMessages.successfulPost,
+        data: result
+      });
+    })
+    .catch(error => next(error));
 });
-
-/*  ===============
-  Remove Card from List
-================ */
-// router.delete("/:id/users/:userId", (req, res, next) => {
-  
-// });
 
 module.exports = router;
