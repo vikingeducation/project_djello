@@ -6,6 +6,7 @@ const User = models.User;
 const Board = models.Board;
 const List = models.List;
 const Card = models.Card;
+const Activity = models.Activity;
 const helpers = require("./helpers");
 
 describe("Card", () => {
@@ -207,6 +208,70 @@ describe("Card", () => {
         .then(result => {
           expect(result.title).toBe("Test Original Card Title");
           expect(result.description).toBe("Changed Card Description");
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
+
+    it("creates the correct activity when card title is changed", done => {
+      let options = {
+        method: "PUT",
+        uri: `${apiUrl}/cards/${card.id}`,
+        auth: {
+          bearer: token
+        },
+        form: {
+          title: "Changed Card Title"
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.data.title).toBe("Changed Card Title");
+          expect(res.body.data.description).toBe(
+            "Test Original Card Description"
+          );
+          return Activity.findById(res.body.data.activities[0]);
+        })
+        .then(result => {
+          expect(result.description).toBe('Changed title to "Changed Card Title".');
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
+
+    it("creates the correct activity when card description is changed", done => {
+      let options = {
+        method: "PUT",
+        uri: `${apiUrl}/cards/${card.id}`,
+        auth: {
+          bearer: token
+        },
+        form: {
+          description: "Changed Card Description"
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.data.title).toBe("Test Original Card Title");
+          expect(res.body.data.description).toBe("Changed Card Description");
+          return Activity.findById(res.body.data.activities[0]);
+        })
+        .then(result => {
+          expect(result.description).toBe('Changed description to "Changed Card Description".');
           done();
         })
         .catch(error => {

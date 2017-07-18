@@ -11,7 +11,21 @@ const apiMessages = {
   doesNotExist: resouce => `${resource} does not exist.`
 };
 
+const parseCardChange = (title, description) => {
+  let message;
+  if (!title && description) {
+    message = `Changed description to "${description}".`;
+  } else if (title && !description) {
+    message = `Changed title to "${title}".`;
+  } else if (title && description) {
+    message = `Changed title to "${title}" and description to "${description}".`;
+  }
+
+  return message;
+}
+
 module.exports = {
   checkUserBoardPermissions,
+  parseCardChange,
   apiMessages
 };

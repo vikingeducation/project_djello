@@ -5,7 +5,12 @@ const User = models.User;
 const Board = models.Board;
 const List = models.List;
 const Card = models.Card;
-const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
+const Activity = models.Activity;
+const { 
+  checkUserBoardPermissions,
+  parseCardChange,
+  apiMessages
+} = require("./../../helpers");
 
 /*  ===============
   Delete
@@ -46,11 +51,12 @@ router.delete("/:id", (req, res, next) => {
 });
 
 /*  ===============
-  Update List
+  Update Card
 ================ */
 router.put("/:id", (req, res, next) => {
   const cardId = req.params.id;
   const { title, description } = req.body;
+  let originalCard;
 
   Card.findById(cardId)
     .populate({
@@ -71,12 +77,20 @@ router.put("/:id", (req, res, next) => {
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
-
+      originalCard = card;
+      let activityMessage = parseCardChange(title, description);
+      return Activity.create({
+        description: activityMessage,
+        card: cardId
+      });
+    })
+    .then(activity => {
       return Card.findByIdAndUpdate(
         cardId,
         {
-          title: title || card.title,
-          description: description || card.description
+          title: title || originalCard.title,
+          description: description || originalCard.description,
+          $push: {activities: activity.id}
         },
         { new: true }
       );
