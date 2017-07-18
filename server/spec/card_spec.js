@@ -149,7 +149,7 @@ describe("Card", () => {
         });
     });
 
-    xit("updates a card title", done => {
+    it("updates a card title", done => {
       let options = {
         method: "PUT",
         uri: `${apiUrl}/cards/${card.id}`,
@@ -168,7 +168,7 @@ describe("Card", () => {
           expect(res.statusCode).toBe(200);
           expect(res.body.data.title).toBe("Changed Card Title");
           expect(res.body.data.description).toBe("Test Original Card Description");
-          return Card.findById(list.id);
+          return Card.findById(card.id);
         })
         .then(result => {
           expect(result.title).toBe("Changed Card Title");
@@ -181,7 +181,7 @@ describe("Card", () => {
         });
     });
 
-    xit("updates a card description", done => {
+    it("updates a card description", done => {
       let options = {
         method: "PUT",
         uri: `${apiUrl}/cards/${card.id}`,
@@ -200,7 +200,7 @@ describe("Card", () => {
           expect(res.statusCode).toBe(200);
           expect(res.body.data.title).toBe("Test Original Card Title");
           expect(res.body.data.description).toBe("Changed Card Description");
-          return Card.findById(list.id);
+          return Card.findById(card.id);
         })
         .then(result => {
           expect(result.title).toBe("Test Original Card Title");
