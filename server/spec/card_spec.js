@@ -213,7 +213,7 @@ describe("Card", () => {
         });
     });
 
-    xit("deletes a card", done => {
+    it("deletes a card", done => {
       let options = {
         method: "DELETE",
         uri: `${apiUrl}/cards/${card.id}`,

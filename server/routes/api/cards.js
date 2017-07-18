@@ -11,20 +11,25 @@ const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
   Delete
 ================ */
 router.delete("/:id", (req, res, next) => {
-  const listId = req.params.id;
-  List.findById(listId)
-    .populate('board')
-    .then(list => {
-      if (!list) {
+  const cardId = req.params.id;
+  Card.findById(cardId)
+    .populate({
+      path: 'list',
+      populate: {
+        path: 'board'
+      }
+    })
+    .then(card => {
+      if (!card) {
         throw new Error(apiMessages.doesNotExist("List"));
       }
 
-      let canCurrentUserDelete = checkUserBoardPermissions(list.board, req.user.id);
+      let canCurrentUserDelete = checkUserBoardPermissions(card.list.board, req.user.id);
       if (!canCurrentUserDelete) {
         throw new Error(apiMessages.failedAuth);
       }
 
-      return List.findByIdAndRemove(listId);
+      return Card.findByIdAndRemove(cardId);
     })
     .then(result => {
       res.json({
