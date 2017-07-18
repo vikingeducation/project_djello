@@ -306,6 +306,32 @@ describe("Card", () => {
             done();
           });
       });
+
+      it("adds board to user when a member is added to card", done => {
+        let options = {
+          method: "POST",
+          uri: `${apiUrl}/cards/${card.id}/users/${secondUser.id}`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            return User.findById(secondUser.id);
+          })
+          .then(result => {
+            expect(result.boards.length).toBe(1);
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
     });
     // to do: test the following
     /*

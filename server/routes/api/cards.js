@@ -118,6 +118,11 @@ router.post("/:id/users/:userId", (req, res, next) => {
       });
     })
     .then(result => {
+      return User.findByIdAndUpdate(userToAdd, {
+        $addToSet: {boards: board.id}
+      });
+    })
+    .then(result => {
       res.json({
         message: apiMessages.successfulPut,
         data: updatedCard
