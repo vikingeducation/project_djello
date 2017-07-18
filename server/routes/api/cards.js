@@ -77,6 +77,7 @@ router.put("/:id", (req, res, next) => {
         data: result
       })
     })
+    .catch(error => next(error));
 });
 
 /*  ===============
@@ -85,6 +86,8 @@ router.put("/:id", (req, res, next) => {
 router.post("/:id/users/:userId", (req, res, next) => {
   const cardId = req.params.id;
   const userToAdd = req.params.userId;
+  let board;
+  let updatedCard;
 
   Card.findById(cardId)
     .populate({
@@ -103,18 +106,24 @@ router.post("/:id/users/:userId", (req, res, next) => {
         throw new Error(apiMessages.failedAuth);
       }
 
+      board = card.list.board;
       return Card.findByIdAndUpdate(cardId, {
         $addToSet: {members: userToAdd}
       }, { new: true});
     })
     .then(result => {
+      updatedCard = result;
+      return Board.findByIdAndUpdate(board.id, {
+        $addToSet: {users: userToAdd}
+      });
+    })
+    .then(result => {
       res.json({
         message: apiMessages.successfulPut,
-        data: {
-          card: result
-        }
+        data: updatedCard
       })
     })
+    .catch(error => next(error));
 });
 
 module.exports = router;
