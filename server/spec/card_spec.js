@@ -150,6 +150,36 @@ describe("Card", () => {
         });
     });
 
+    it("updates list after creating card", done => {
+      let options = {
+        method: "POST",
+        uri: `${apiUrl}/lists/${list.id}/card`,
+        auth: {
+          bearer: token
+        },
+        form: {
+          title: "Test New Card Title",
+          description: "Test New Card Description"
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          return List.findById(list.id);
+        })
+        .then(list => {
+          expect(list.cards.length).toBe(1);
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
+
     it("updates a card title", done => {
       let options = {
         method: "PUT",
