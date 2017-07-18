@@ -7,7 +7,7 @@ const Board = models.Board;
 const List = models.List
 const helpers = require('./helpers');
 
-describe("App", () => {
+describe("Board", () => {
   const {baseUrl, apiUrl, getJSON, log} = helpers;
 
   let server;
@@ -75,7 +75,7 @@ describe("App", () => {
   /*  ===============
     Board Tests
   ================ */
-  describe("Board", () => {
+  describe("API", () => {
     it("creates a new board through api", done => {
       let options = {
         method: "POST",

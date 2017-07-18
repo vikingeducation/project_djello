@@ -7,7 +7,7 @@ const Board = models.Board;
 const List = models.List
 const helpers = require('./helpers');
 
-describe("App", () => {
+describe("User", () => {
   const {baseUrl, apiUrl, getJSON, log} = helpers;
 
   let server;
@@ -75,7 +75,7 @@ describe("App", () => {
   /*  ===============
     User Tests
   ================ */
-  describe("User", () => {
+  describe("API", () => {
     it("successfully grabs user info from api", done => {
       let options = {
         method: "GET",

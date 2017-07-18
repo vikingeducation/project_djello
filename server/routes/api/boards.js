@@ -78,7 +78,7 @@ router.put("/:id", (req, res, next) => {
         throw new Error("You are not authorized to modify this resource.");
       }
 
-      // Add the user to the board's array
+      // Change the board's title
       return Board.findByIdAndUpdate(
         boardId,
         {
