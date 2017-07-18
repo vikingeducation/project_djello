@@ -27,9 +27,12 @@ router.delete("/:id", (req, res, next) => {
     })
     .then(result => {
       deletedBoard = result;
-      return User.update({boards: {$in: [deletedBoard.id]}}, {
-        $pop: {boards: deletedBoard}
-      })
+      return User.update(
+        { boards: { $in: [deletedBoard.id] } },
+        {
+          $pop: { boards: deletedBoard }
+        }
+      );
     })
     .then(() => {
       res.json({
@@ -210,10 +213,10 @@ router.post("/:id/lists", (req, res, next) => {
     .then(result => {
       newList = result;
       return Board.findByIdAndUpdate(boardId, {
-        $addToSet: {lists: result.id}
+        $addToSet: { lists: result.id }
       });
     })
-    .then(() => {      
+    .then(() => {
       res.json({
         message: apiMessages.successfulPost,
         data: newList

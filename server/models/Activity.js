@@ -7,7 +7,7 @@ const ActivitySchema = new Schema(
     card: {
       type: Schema.Types.ObjectId,
       ref: "Card"
-    },
+    }
   },
   {
     timestamps: true

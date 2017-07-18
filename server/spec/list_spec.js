@@ -53,7 +53,7 @@ describe("List", () => {
       .then(result => {
         board = result;
         return User.findByIdAndUpdate(user.id, {
-          $addToSet: {boards: board.id}
+          $addToSet: { boards: board.id }
         });
       })
       .then(() => {
@@ -94,7 +94,7 @@ describe("List", () => {
         .then(result => {
           list = result;
           return Board.findByIdAndUpdate(board.id, {
-            $addToSet: {lists: list.id}
+            $addToSet: { lists: list.id }
           });
         })
         .then(() => {

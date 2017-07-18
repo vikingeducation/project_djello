@@ -22,7 +22,7 @@ const parseCardChange = (title, description) => {
   }
 
   return message;
-}
+};
 
 module.exports = {
   checkUserBoardPermissions,

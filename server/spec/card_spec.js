@@ -56,7 +56,7 @@ describe("Card", () => {
       .then(result => {
         board = result;
         return User.findByIdAndUpdate(user.id, {
-          $addToSet: {boards: board.id}
+          $addToSet: { boards: board.id }
         });
       })
       .then(() => {
@@ -74,7 +74,7 @@ describe("Card", () => {
       .then(result => {
         list = result;
         return Board.findByIdAndUpdate(board.id, {
-          $addToSet: {lists: list.id}
+          $addToSet: { lists: list.id }
         });
       })
       .then(() => {
@@ -116,7 +116,7 @@ describe("Card", () => {
         .then(result => {
           card = result;
           return List.findByIdAndUpdate(list.id, {
-            $addToSet: {cards: card.id}
+            $addToSet: { cards: card.id }
           });
         })
         .then(() => {
@@ -288,7 +288,9 @@ describe("Card", () => {
           return Activity.findById(res.body.data.activities[0]);
         })
         .then(result => {
-          expect(result.description).toBe('Changed title to "Changed Card Title".');
+          expect(result.description).toBe(
+            'Changed title to "Changed Card Title".'
+          );
           done();
         })
         .catch(error => {
@@ -319,7 +321,9 @@ describe("Card", () => {
           return Activity.findById(res.body.data.activities[0]);
         })
         .then(result => {
-          expect(result.description).toBe('Changed description to "Changed Card Description".');
+          expect(result.description).toBe(
+            'Changed description to "Changed Card Description".'
+          );
           done();
         })
         .catch(error => {

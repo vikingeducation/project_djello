@@ -6,7 +6,7 @@ const Board = models.Board;
 const List = models.List;
 const Card = models.Card;
 const Activity = models.Activity;
-const { 
+const {
   checkUserBoardPermissions,
   parseCardChange,
   apiMessages
@@ -43,9 +43,12 @@ router.delete("/:id", (req, res, next) => {
     })
     .then(result => {
       deletedCard = result;
-      return List.update({cards: {$in: [deletedCard.id]}}, {
-        $pop: {cards: deletedCard}
-      })
+      return List.update(
+        { cards: { $in: [deletedCard.id] } },
+        {
+          $pop: { cards: deletedCard }
+        }
+      );
     })
     .then(() => {
       res.json({
@@ -98,7 +101,7 @@ router.put("/:id", (req, res, next) => {
         {
           title: title || originalCard.title,
           description: description || originalCard.description,
-          $push: {activities: activity.id}
+          $push: { activities: activity.id }
         },
         { new: true }
       );

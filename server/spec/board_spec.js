@@ -53,7 +53,7 @@ describe("Board", () => {
       .then(result => {
         board = result;
         return User.findByIdAndUpdate(user.id, {
-          $addToSet: {boards: board.id}
+          $addToSet: { boards: board.id }
         });
       })
       .then(() => {
@@ -90,7 +90,7 @@ describe("Board", () => {
           bearer: token
         },
         form: {
-          title: "Test Board POST",
+          title: "Test Board POST"
         },
         json: true,
         resolveWithFullResponse: true

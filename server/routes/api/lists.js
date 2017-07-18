@@ -32,9 +32,12 @@ router.delete("/:id", (req, res, next) => {
     })
     .then(result => {
       deletedList = result;
-      return Board.update({lists: {$in: [deletedList.id]}}, {
-        $pop: {lists: deletedList}
-      })
+      return Board.update(
+        { lists: { $in: [deletedList.id] } },
+        {
+          $pop: { lists: deletedList }
+        }
+      );
     })
     .then(() => {
       res.json({
@@ -119,7 +122,7 @@ router.post("/:id/card", (req, res, next) => {
     .then(result => {
       newCard = result;
       return List.findByIdAndUpdate(listId, {
-        $addToSet: {cards: result.id}
+        $addToSet: { cards: result.id }
       });
     })
     .then(() => {
