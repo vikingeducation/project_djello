@@ -195,7 +195,7 @@ describe("List", () => {
         });
     });
 
-    xit("deletes a list", done => {
+    it("deletes a list", done => {
       let options = {
         method: "DELETE",
         uri: `${apiUrl}/lists/${list.id}`,
@@ -209,8 +209,8 @@ describe("List", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.data.message).toBe(
-            "Resource successfully deleted."
+          expect(res.body.message).toBe(
+            "Resource successfully removed."
           );
           return List.findById(list.id);
         })

@@ -55,8 +55,8 @@ router.delete("/:id", (req, res, next) => {
     })
     .then(result => {
       res.json({
+        message: apiMessages.successfulDelete,
         data: {
-          message: apiMessages.successfulDelete,
           deletedResource: result
         }
       });

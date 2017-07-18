@@ -122,7 +122,7 @@ describe("Board", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.data.message).toBe(
+          expect(res.body.message).toBe(
             "Resource successfully removed."
           );
           return Board.findById(board.id);
