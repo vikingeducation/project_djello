@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const models = require("../models");
 const User = models.User;
 const Board = models.Board;
+const List = models.List
 const jwt = require("jsonwebtoken");
 const chalk = require("chalk");
 
@@ -38,7 +39,7 @@ describe("App", () => {
   });
 
   /*  ===============
-    Create User
+    Create Resources
   ================ */
 
   beforeEach(done => {
@@ -51,10 +52,6 @@ describe("App", () => {
     });
   });
 
-  /*  ===============
-    Create Board
-  ================ */
-
   beforeEach(done => {
     Board.create({
       title: "Test Board",
@@ -65,7 +62,10 @@ describe("App", () => {
       done();
     });
   });
-
+  
+  /*  ===============
+    Basic Tests
+  ================ */
   it("successfully creates a board", done => {
     Board.findOne().then(board => {
       expect(board.title).toBe("Test Board");
@@ -391,6 +391,30 @@ describe("App", () => {
           })
           .catch(error => {
             expect(error).toEqual(null);
+            done();
+          });
+      });
+    });
+
+    describe("List", () => {
+      let list;
+
+      beforeEach(done => {
+        List.create({
+          title: "Test List",
+          description: "Test Description",
+          board: board.id,
+          cards: []
+        }).then(result => {
+          list = result;
+          done();
+        });
+      });
+
+      it("successfully creates a list", done => {
+        List.findById(list.id)
+          .then(results => {
+            expect(results.title).toBe("Test List");
             done();
           });
       });
