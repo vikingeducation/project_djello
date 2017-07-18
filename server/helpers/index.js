@@ -5,4 +5,4 @@ const checkUserBoardPermissions = (board, user) => {
 
 module.exports = {
   checkUserBoardPermissions
-}
+};

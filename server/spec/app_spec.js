@@ -99,6 +99,7 @@ describe("App", () => {
     );
   });
 
+
   /*  ===============
     API Tests
   ================ */
@@ -219,7 +220,7 @@ describe("App", () => {
           resolveWithFullResponse: true
         };
         User.findByIdAndUpdate(user.id, {
-          $addToSet: {boards: board.id}
+          $addToSet: { boards: board.id }
         })
           .then(() => {
             return rp(options);
@@ -234,7 +235,7 @@ describe("App", () => {
             done();
           });
       });
-    })
+    });
 
     /*  ===============
       Board Tests
@@ -286,7 +287,9 @@ describe("App", () => {
         rp(options)
           .then(res => {
             expect(res.statusCode).toBe(200);
-            expect(res.body.data.message).toBe("Resource successfully deleted.");
+            expect(res.body.data.message).toBe(
+              "Resource successfully deleted."
+            );
             return Board.findById(board.id);
           })
           .then(board => {
@@ -315,7 +318,7 @@ describe("App", () => {
         })
           .then(secondUser => {
             options.uri = `${apiUrl}/boards/${board.id}/users/${secondUser.id}`;
-            return rp(options)
+            return rp(options);
           })
           .then(res => {
             expect(res.statusCode).toBe(200);
@@ -361,7 +364,36 @@ describe("App", () => {
             expect(error).toEqual(null);
             done();
           });
-      })
+      });
+
+      it("successfully updates a board title", done => {
+        let options = {
+          method: "PUT",
+          uri: `${apiUrl}/boards/${board.id}`,
+          auth: {
+            bearer: token
+          },
+          form: {
+            title: "Changed Title"
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.title).toBe("Changed Title");
+            return Board.findById(board.id);
+          })
+          .then(result => {
+            expect(result.title).toBe("Changed Title");
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
     });
   });
 });

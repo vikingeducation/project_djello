@@ -20,10 +20,10 @@ router.get("/:id", (req, res) => {
 router.get("/:id/boards", (req, res, next) => {
   User.findById(req.params.id)
     .populate({
-      path: 'boards'
+      path: "boards"
     })
     .then(user => {
-      res.json({data: user.boards});
+      res.json({ data: user.boards });
     })
     .catch(error => next(error));
 });

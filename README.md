@@ -3,5 +3,6 @@ Project management with that great wobbly taste.
 
 
 NOW:
-  2. then, create tests/solutions for the following routes:
-  then, api routes n stuff for lists/cards
+  1. create put route for boards
+  2. create models for lists and cards
+  3. create routes for post/get/put/delete for lists and cards
