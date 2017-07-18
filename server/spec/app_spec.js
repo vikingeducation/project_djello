@@ -7,16 +7,10 @@ const User = models.User;
 const Board = models.Board;
 const List = models.List
 const jwt = require("jsonwebtoken");
-const chalk = require("chalk");
+const helpers = require('./helpers');
 
 describe("App", () => {
-  const baseUrl = "http://localhost:8888";
-  const apiUrl = baseUrl + "/api/v1";
-  const getJSON = str => JSON.parse(str);
-  const log = obj => {
-    let msg = JSON.stringify(obj, null, 2);
-    process.stdout.write(chalk.cyanBright.bold.underline(msg));
-  };
+  const {baseUrl, apiUrl, getJSON, log} = helpers;
 
   let server;
   let user;
@@ -25,7 +19,6 @@ describe("App", () => {
   /*  ===============
     Manage Server
   ================ */
-
   beforeAll(done => {
     server = app.listen(8888, () => {
       done();
@@ -101,9 +94,9 @@ describe("App", () => {
 
 
   /*  ===============
-    API Tests
+    Basic API Tests
   ================ */
-  describe("API", () => {
+  describe("Basic API", () => {
     let token;
 
     beforeEach(done => {
@@ -159,265 +152,8 @@ describe("App", () => {
         });
     });
 
-    /*  ===============
-      User Tests
-    ================ */
-    describe("User", () => {
-      it("successfully grabs user info from api", done => {
-        let options = {
-          method: "GET",
-          uri: `${apiUrl}/users/${user.id}`,
-          auth: {
-            bearer: token
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
 
-        rp(options)
-          .then(res => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.data.email).toBe("foobar@gmail.com");
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
 
-      it("returns an error when searching for non-existent user", done => {
-        let options = {
-          method: "GET",
-          uri: `${apiUrl}/users/123`,
-          auth: {
-            bearer: token
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-
-        rp(options)
-          .then(res => {
-            expect(res).toEqual(null);
-            done();
-          })
-          .catch(error => {
-            expect(error.statusCode).toBe(400);
-            expect(error.response.body.error).toBeDefined();
-            done();
-          });
-      });
-
-      it("returns the current user's boards", done => {
-        let options = {
-          method: "GET",
-          uri: `${apiUrl}/users/${user.id}/boards`,
-          auth: {
-            bearer: token
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-        User.findByIdAndUpdate(user.id, {
-          $addToSet: { boards: board.id }
-        })
-          .then(() => {
-            return rp(options);
-          })
-          .then(res => {
-            expect(Array.isArray(res.body.data)).toBe(true);
-            expect(res.body.data.length).toBe(1);
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
-    });
-
-    /*  ===============
-      Board Tests
-    ================ */
-    describe("Board", () => {
-      it("creates a new board through api", done => {
-        let options = {
-          method: "POST",
-          uri: `${apiUrl}/boards`,
-          auth: {
-            bearer: token
-          },
-          form: {
-            title: "Test Board POST",
-            lists: [],
-            users: [user.id]
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-
-        rp(options)
-          .then(res => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.data.title).toBe("Test Board POST");
-            return User.findById(user.id);
-          })
-          .then(result => {
-            expect(result.boards.length).toBe(1);
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
-
-      it("deletes a board", done => {
-        let options = {
-          method: "DELETE",
-          uri: `${apiUrl}/boards/${board.id}`,
-          auth: {
-            bearer: token
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-
-        rp(options)
-          .then(res => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.data.message).toBe(
-              "Resource successfully deleted."
-            );
-            return Board.findById(board.id);
-          })
-          .then(board => {
-            expect(board).toEqual(null);
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
-
-      it("adds a second user to a board and updates models", done => {
-        let options = {
-          method: "POST",
-          auth: {
-            bearer: token
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-
-        User.create({
-          email: "foobar2@gmail.com",
-          password: "password"
-        })
-          .then(secondUser => {
-            options.uri = `${apiUrl}/boards/${board.id}/users/${secondUser.id}`;
-            return rp(options);
-          })
-          .then(res => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.data.board.users.length).toBe(2);
-            expect(res.body.data.user.boards.length).toBe(1);
-            expect(res.body.message).toBe("Resource successfully updated.");
-            return Board.findById(board.id);
-          })
-          .then(board => {
-            expect(board.users.length).toBe(2);
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
-
-      it("pops a user from a board and updates modes", done => {
-        let options = {
-          method: "DELETE",
-          uri: `${apiUrl}/boards/${board.id}/users/${user.id}`,
-          auth: {
-            bearer: token
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-
-        rp(options)
-          .then(res => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.data.board.users.length).toBe(0);
-            expect(res.body.data.user.boards.length).toBe(0);
-            expect(res.body.message).toBe("Resource successfully updated.");
-            return Board.findById(board.id);
-          })
-          .then(board => {
-            expect(board.users.length).toBe(0);
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
-
-      it("successfully updates a board title", done => {
-        let options = {
-          method: "PUT",
-          uri: `${apiUrl}/boards/${board.id}`,
-          auth: {
-            bearer: token
-          },
-          form: {
-            title: "Changed Title"
-          },
-          json: true,
-          resolveWithFullResponse: true
-        };
-        rp(options)
-          .then(res => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.data.title).toBe("Changed Title");
-            return Board.findById(board.id);
-          })
-          .then(result => {
-            expect(result.title).toBe("Changed Title");
-            done();
-          })
-          .catch(error => {
-            expect(error).toEqual(null);
-            done();
-          });
-      });
-    });
-
-    describe("List", () => {
-      let list;
-
-      beforeEach(done => {
-        List.create({
-          title: "Test List",
-          description: "Test Description",
-          board: board.id,
-          cards: []
-        }).then(result => {
-          list = result;
-          done();
-        });
-      });
-
-      it("successfully creates a list", done => {
-        List.findById(list.id)
-          .then(results => {
-            expect(results.title).toBe("Test List");
-            done();
-          });
-      });
-    });
+    
   });
 });
