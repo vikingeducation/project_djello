@@ -149,15 +149,15 @@ describe("Card", () => {
         });
     });
 
-    xit("updates a list title", done => {
+    xit("updates a card title", done => {
       let options = {
         method: "PUT",
-        uri: `${apiUrl}/lists/${list.id}`,
+        uri: `${apiUrl}/cards/${card.id}`,
         auth: {
           bearer: token
         },
         form: {
-          title: "Changed List Title"
+          title: "Changed Card Title"
         },
         json: true,
         resolveWithFullResponse: true
@@ -166,13 +166,13 @@ describe("Card", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.data.title).toBe("Changed List Title");
-          expect(res.body.data.description).toBe("Test Original List Description");
-          return List.findById(list.id);
+          expect(res.body.data.title).toBe("Changed Card Title");
+          expect(res.body.data.description).toBe("Test Original Card Description");
+          return Card.findById(list.id);
         })
         .then(result => {
-          expect(result.title).toBe("Changed List Title");
-          expect(result.description).toBe("Test Original List Description");
+          expect(result.title).toBe("Changed Card Title");
+          expect(result.description).toBe("Test Original Card Description");
           done();
         })
         .catch(error => {
@@ -181,15 +181,15 @@ describe("Card", () => {
         });
     });
 
-    xit("updates a list description", done => {
+    xit("updates a card description", done => {
       let options = {
         method: "PUT",
-        uri: `${apiUrl}/lists/${list.id}`,
+        uri: `${apiUrl}/cards/${card.id}`,
         auth: {
           bearer: token
         },
         form: {
-          description: "Changed List Description"
+          description: "Changed Card Description"
         },
         json: true,
         resolveWithFullResponse: true
@@ -198,13 +198,13 @@ describe("Card", () => {
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
-          expect(res.body.data.title).toBe("Test Original List Title");
-          expect(res.body.data.description).toBe("Changed List Description");
-          return List.findById(list.id);
+          expect(res.body.data.title).toBe("Test Original Card Title");
+          expect(res.body.data.description).toBe("Changed Card Description");
+          return Card.findById(list.id);
         })
         .then(result => {
-          expect(result.title).toBe("Test Original List Title");
-          expect(result.description).toBe("Changed List Description");
+          expect(result.title).toBe("Test Original Card Title");
+          expect(result.description).toBe("Changed Card Description");
           done();
         })
         .catch(error => {
@@ -213,10 +213,10 @@ describe("Card", () => {
         });
     });
 
-    xit("deletes a list", done => {
+    xit("deletes a card", done => {
       let options = {
         method: "DELETE",
-        uri: `${apiUrl}/lists/${list.id}`,
+        uri: `${apiUrl}/cards/${card.id}`,
         auth: {
           bearer: token
         },
@@ -230,7 +230,7 @@ describe("Card", () => {
           expect(res.body.message).toBe(
             "Resource successfully removed."
           );
-          return List.findById(list.id);
+          return Card.findById(card.id);
         })
         .then(result => {
           expect(result).toEqual(null);
