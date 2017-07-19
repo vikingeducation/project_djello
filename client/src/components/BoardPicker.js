@@ -11,7 +11,7 @@ const BoardPicker = ({allBoards, onChangeSelectedBoard}) => {
   return (
     <form>
       <FormGroup controlId="selectedBoard">
-        <ControlLabel> Select a Board:</ControlLabel>
+        <ControlLabel>Select a Board:</ControlLabel>
         <FormControl componentClass="select" name="selectedBoard" onChange={onChangeSelectedBoard}>
         {boardOptions} 
         </FormControl>
