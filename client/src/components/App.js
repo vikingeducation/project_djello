@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header title="Djello" />
-        {/* <AuthLayerContainer /> */}
+         <AuthLayerContainer /> 
       </div>
     );
   }
