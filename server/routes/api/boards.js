@@ -7,6 +7,29 @@ const List = models.List;
 const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 
 /*  ===============
+  Read
+================ */
+router.get("/:id", (req, res, next) => {
+  const boardId = req.params.id;
+  Board.findById(boardId)
+    .populate({
+      path: "lists",
+      populate: {
+        path: "cards",
+        populate: {
+          path: "activities"
+        }
+      }
+    })
+    .then(board => {
+      res.json({
+        data: board
+      });
+    })
+    .catch(error => next(error));
+});
+
+/*  ===============
   Delete
 ================ */
 router.delete("/:id", (req, res, next) => {

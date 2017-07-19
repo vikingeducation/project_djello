@@ -111,6 +111,28 @@ describe("Board", () => {
           done();
         });
     });
+    
+    it("fetches a board", done => {
+      let options = {
+        method: "GET",
+        uri: `${apiUrl}/boards/${board.id}`,
+        auth: {
+          bearer: token
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.data.title).toBe("Test Board");
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
 
     it("deletes a board", done => {
       let options = {
