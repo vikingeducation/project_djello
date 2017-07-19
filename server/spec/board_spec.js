@@ -175,7 +175,6 @@ describe("Board", () => {
         });
     });
 
-
     it("deletes a board", done => {
       let options = {
         method: "DELETE",

@@ -47,3 +47,33 @@ export function getSpecificBoard(token, boardId) {
       });
   }
 }
+
+export function editSpecificBoard(token, boardId, form) {
+  let config = {
+    method: 'PUT',
+    headers: { 
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: form
+  };
+
+  return dispatch => {
+    dispatch(getSpecificBoardRequest())
+
+    fetch(`api/v1/boards/${boardId}`, config)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+
+        return response.json();
+      })
+      .then(json => {
+        dispatch(getSpecificBoardSuccess(json.data));
+      })
+      .catch(error => {
+        dispatch(getSpecificBoardFailure(error));
+      });
+  }
+}

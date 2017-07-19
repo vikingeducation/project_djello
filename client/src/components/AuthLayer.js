@@ -18,7 +18,10 @@ const AuthLayer = ({isAuthenticated, loginUser, authError, token, specificBoard}
         </Col>
       </Row>
       <Row>
-        <BoardContainer />
+        <BoardContainer 
+          token={token}
+          boardId={specificBoard._id}
+        />
       </Row>
     </Grid>
   )

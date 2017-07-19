@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Board from "../components/Board";
-// import { loginUser } from "../actions/auth";
+import serialize from "form-serialize";
+import { editSpecificBoard } from "../actions/specificBoard";
 
 const mapStateToProps = state => {
   return {
@@ -8,13 +9,17 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onChangeBoardTitle: e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = serialize(form);
+      dispatch(editSpecificBoard(ownProps.token, ownProps.boardId, data));
     }
   }
 }
 
-const BoardContainer = connect(mapStateToProps, null)(Board);
+const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Board);
 
 export default BoardContainer;

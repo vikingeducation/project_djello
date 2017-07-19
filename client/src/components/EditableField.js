@@ -10,7 +10,6 @@ class EditableField extends Component {
   }
 
   onClick = e => {
-    console.log('fuck');
     if (!this.state.isEditOpen) {
       this.setState({
         isEditOpen: true
@@ -19,9 +18,11 @@ class EditableField extends Component {
   };
 
   onBlur = e => {
-    this.setState({
-      isEditOpen: false
-    })
+    if(e.relatedTarget && e.relatedTarget.type !== "submit"){
+      this.setState({
+        isEditOpen: false
+      })
+    }
   }
 
   onCancel = e => {
@@ -31,23 +32,36 @@ class EditableField extends Component {
     })
   }
 
+  handleSubmit = e => {
+    this.props.onSubmit(e);
+    this.setState({
+      isEditOpen: false
+    })
+  }
+
   render() {
+    const {fieldName} = this.props;
     const form = (
-      <form onBlur={this.onBlur}>
-        <FormControl 
-          type="text"
-        />
-        <br />
-        <Button type="submit" bsStyle="success">
-          Submit Changes
-        </Button>
-        <Button bsStyle="danger" onClick={this.onCancel}>
-          Cancel
-        </Button>
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <FormControl 
+            type="text"
+            name={fieldName}
+          />
+          <br />
+          <Button type="submit" bsStyle="success">
+            Submit Changes
+          </Button>
+          <br />
+          <Button bsStyle="danger" onClick={this.onCancel}>
+            Cancel
+          </Button>
+        </form>
+      </div>
     )
+    
     return (
-      <div onClick={this.onClick}>
+      <div onClick={this.onClick} onBlur={this.onBlur}>
         {this.state.isEditOpen ? form : this.props.children}
       </div>
     );
