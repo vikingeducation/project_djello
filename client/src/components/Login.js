@@ -1,11 +1,13 @@
 import React from 'react';
 import {Grid, Row, Col, Panel, FormControl, Button} from 'react-bootstrap';
+import LoginError from './LoginError';
 
-const Login = ({loginUser}) => {
+const Login = ({loginUser, error}) => {
   return (
     <Grid>
       <Row>
         <Col md={6} mdOffset={3}>
+        {error ? <LoginError /> : null}
         <h1>Login</h1>
         <Panel header="Enter your email and password">
           <form onSubmit={loginUser}>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header';
 import AuthLayerContainer from '../containers/AuthLayerContainer';
 
@@ -9,15 +9,18 @@ import AuthLayerContainer from '../containers/AuthLayerContainer';
 // also create an app container that passes in isAuthenticated to
 // header for logout purposes
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header title="Djello" />
-         <AuthLayerContainer /> 
-      </div>
-    );
-  }
+const App = ({isAuthenticated, email, onLogout}) => {
+  return (
+    <div className="App">
+      <Header 
+        title="Djello"
+        isAuthenticated={isAuthenticated}
+        email={email}
+        onLogout={onLogout}
+      />
+       <AuthLayerContainer /> 
+    </div>
+  );
 }
 
 export default App;

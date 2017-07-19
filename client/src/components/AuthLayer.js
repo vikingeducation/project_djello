@@ -1,9 +1,9 @@
 import React from 'react';
 import Login from './Login';
 
-const AuthLayer = ({isAuthenticated, loginUser}) => {
+const AuthLayer = ({isAuthenticated, loginUser, authError}) => {
   if (!isAuthenticated) {
-    return <Login loginUser={loginUser}/>
+    return <Login loginUser={loginUser} error={authError}/>
   }
 
   return (

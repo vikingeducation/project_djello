@@ -3,27 +3,27 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGOUT = 'LOGOUT';
 
-export function loginRequest() {
+export function getLoginRequest() {
   return {
     type: LOGIN_REQUEST
   };
 }
 
-export function loginSuccess(data) {
+export function getLoginSuccess(data) {
   return {
     type: LOGIN_SUCCESS,
     data
   };
 }
 
-export function loginFailure(error) {
+export function getLoginFailure(error) {
   return {
     type: LOGIN_FAILURE,
     error
   };
 }
 
-export function logout() {
+export function logoutUser() {
   return {
     type: LOGOUT
   }
@@ -38,7 +38,7 @@ export function loginUser(creds) {
     };
   
     return dispatch => {
-      dispatch(loginRequest())
+      dispatch(getLoginRequest())
   
       fetch(`sessions`, config)
         .then(response => {
@@ -49,10 +49,11 @@ export function loginUser(creds) {
           return response.json();
         })
         .then(json => {
-          dispatch(loginSuccess(json.token));
+          dispatch(getLoginSuccess(json.token));
         })
         .catch(error => {
-          dispatch(loginFailure(error));
+          console.log(error);
+          dispatch(getLoginFailure(error));
         });
     }
   }

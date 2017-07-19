@@ -5,7 +5,8 @@ import { loginUser } from "../actions/auth";
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.user.isAuthenticated
+    isAuthenticated: state.user.isAuthenticated,
+    authError: state.user.error
   };
 };
 
@@ -15,7 +16,6 @@ const mapDispatchToProps = dispatch => {
       e.preventDefault();
       const form = e.target;
       const creds = serialize(form, { hash: true });
-      console.log(creds);
       dispatch(loginUser(creds));
     }
   }

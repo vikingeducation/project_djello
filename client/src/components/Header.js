@@ -1,7 +1,21 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
 
-const Header = ({ title }) => {
+const LogOut = ({isAuthenticated, email, onLogout}) => {
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <Nav pullRight>
+      <NavItem onClick={onLogout}>
+        Logout {email}
+      </NavItem>
+    </Nav>
+  )
+}
+
+const Header = ({ title, isAuthenticated, email, onLogout }) => {
   return (
     <Navbar fluid>
       <Navbar.Header>
@@ -9,6 +23,11 @@ const Header = ({ title }) => {
           <a>{title}</a>
         </Navbar.Brand>
       </Navbar.Header>
+      <LogOut 
+        isAuthenticated={isAuthenticated}
+        email={email}
+        onLogout={onLogout}
+      />
     </Navbar>
   );
 };
