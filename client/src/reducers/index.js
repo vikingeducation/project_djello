@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-// import { boards } from './boards'
+import {user} from './auth';
 
 const djelloApp = combineReducers({
-  //boards
+  user
 });
 
 export default djelloApp;
