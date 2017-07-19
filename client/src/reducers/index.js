@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import {user} from './auth';
-import {boards} from './boards';
+import {allBoards} from './allBoards';
+import {specificBoard} from './specificBoard';
 
 const djelloApp = combineReducers({
   user,
-  boards
+  allBoards,
+  specificBoard
 });
 
 export default djelloApp;

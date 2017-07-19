@@ -8,7 +8,7 @@ const mapStateToProps = state => {
     isAuthenticated: state.user.isAuthenticated,
     authError: state.user.error,
     token: state.user.token,
-    specificBoard: state.boards.specificBoard
+    specificBoard: state.specificBoard.data
   };
 };
 

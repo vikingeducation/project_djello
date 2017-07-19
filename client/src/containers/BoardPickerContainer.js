@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPicker from "../components/BoardPicker";
-import { getAllBoards, getSpecificBoard } from "../actions/boards";
+import { getAllBoards } from "../actions/allBoards";
+import { getSpecificBoard } from "../actions/specificBoard";
 
 class BoardPickerContainer extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ const mapStateToProps = state => {
   return {
     token: state.user.token,
     userId: state.user.id,
-    allBoards: state.boards.allBoards
+    allBoards: state.allBoards.data
   };
 };
 
