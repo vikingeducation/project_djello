@@ -1,13 +1,17 @@
 import * as Actions from '../actions/auth';
+import decode from 'jwt-decode';
 
 export const user = (state = {isAuthenticated: false}, action) => {
   switch (action.type) {
     case Actions.LOGIN_SUCCESS:
+      const decoded = decode(action.data);
       return {
         ...state,
         isAuthenticated: true,
         token: action.data,
-        isFetching: false
+        isFetching: false,
+        email: decoded.email,
+        id: decoded.id
       };
     case Actions.LOGIN_REQUEST:
       return {
