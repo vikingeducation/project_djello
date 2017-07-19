@@ -18,7 +18,8 @@ class EditableField extends Component {
   };
 
   onBlur = e => {
-    if(e.relatedTarget && e.relatedTarget.type !== "submit"){
+    let eventRelatedTarget = e.relatedTarget || {};
+    if (eventRelatedTarget.type !== "submit"){
       this.setState({
         isEditOpen: false
       })
@@ -43,7 +44,7 @@ class EditableField extends Component {
     const {fieldName} = this.props;
     const form = (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} onBlur={this.onBlur}>
           <FormControl 
             type="text"
             name={fieldName}
@@ -61,7 +62,7 @@ class EditableField extends Component {
     )
     
     return (
-      <div onClick={this.onClick} onBlur={this.onBlur}>
+      <div onClick={this.onClick}>
         {this.state.isEditOpen ? form : this.props.children}
       </div>
     );

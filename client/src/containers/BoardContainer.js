@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Board from "../components/Board";
 import serialize from "form-serialize";
 import { editSpecificBoard } from "../actions/specificBoard";
+import { getAllBoards } from '../actions/allBoards';
 
 const mapStateToProps = state => {
   return {
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const form = e.target;
       const data = serialize(form);
       dispatch(editSpecificBoard(ownProps.token, ownProps.boardId, data));
+      dispatch(getAllBoards(ownProps.token, ownProps.userId));
     }
   }
 }

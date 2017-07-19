@@ -4,7 +4,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 import BoardPickerContainer from '../containers/BoardPickerContainer';
 import BoardContainer from '../containers/BoardContainer';
 
-const AuthLayer = ({isAuthenticated, loginUser, authError, token, specificBoard}) => {
+const AuthLayer = ({isAuthenticated, loginUser, authError, token, userId, specificBoard}) => {
   if (!isAuthenticated) {
     return <Login loginUser={loginUser} error={authError}/>
   }
@@ -21,6 +21,7 @@ const AuthLayer = ({isAuthenticated, loginUser, authError, token, specificBoard}
         <BoardContainer 
           token={token}
           boardId={specificBoard._id}
+          userId={userId}
         />
       </Row>
     </Grid>
