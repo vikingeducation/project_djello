@@ -48,6 +48,7 @@ class EditableField extends Component {
           <FormControl 
             type="text"
             name={fieldName}
+            autoFocus
           />
           <br />
           <Button type="submit" bsStyle="success">
