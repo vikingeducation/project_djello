@@ -1,3 +1,5 @@
+import {getAllBoards} from './allBoards';
+
 export const GET_SPECIFIC_BOARD_REQUEST = 'GET_SPECIFIC_BOARD_REQUEST'
 export const GET_SPECIFIC_BOARD_SUCCESS = 'GET_SPECIFIC_BOARD_SUCCESS'
 export const GET_SPECIFIC_BOARD_FAILURE = 'GET_SPECIFIC_BOARD_FAILURE'
@@ -48,7 +50,7 @@ export function getSpecificBoard(token, boardId) {
   }
 }
 
-export function editSpecificBoard(token, boardId, form) {
+export function editSpecificBoard(token, boardId, form, userId) {
   let config = {
     method: 'PUT',
     headers: { 
@@ -71,6 +73,7 @@ export function editSpecificBoard(token, boardId, form) {
       })
       .then(json => {
         dispatch(getSpecificBoardSuccess(json.data));
+        dispatch(getAllBoards(token, userId));
       })
       .catch(error => {
         dispatch(getSpecificBoardFailure(error));
@@ -101,6 +104,7 @@ export function createBoard(token, userId) {
       })
       .then(json => {
         dispatch(getSpecificBoardSuccess(json.data));
+        dispatch(getAllBoards(token, userId));
       })
       .catch(error => {
         dispatch(getSpecificBoardFailure(error));

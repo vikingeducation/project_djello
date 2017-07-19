@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onCreateBoard: e => {
       e.preventDefault();
       dispatch(createBoard(ownProps.token, ownProps.userId));
-      dispatch(getAllBoards(ownProps.token, ownProps.userId));
     }
   };
 };
