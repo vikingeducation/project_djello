@@ -10,12 +10,19 @@ import djelloApp from "./reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const persistedState = localStorage.getItem("djelloAppState")
+  ? JSON.parse(localStorage.getItem("djelloAppState"))
+  : {};
+
 const store = createStore(
   djelloApp,
-  // persistedState,
+  {user: persistedState},
   composeEnhancers(applyMiddleware(thunk))
 );
 
+store.subscribe(() => {
+  localStorage.setItem("djelloAppState", JSON.stringify(store.getState().user));
+});
 
 
 ReactDOM.render(
