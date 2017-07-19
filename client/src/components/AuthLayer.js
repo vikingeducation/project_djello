@@ -12,7 +12,9 @@ const AuthLayer = ({isAuthenticated, loginUser, authError}) => {
     <Grid>
       <Row>
         <h1>Djello</h1>
-        <BoardPickerContainer />
+        <Col md={4} mdOffset={8}>
+          <BoardPickerContainer />
+        </Col>
       </Row>
     </Grid>
   )

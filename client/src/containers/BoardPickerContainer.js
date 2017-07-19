@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPicker from "../components/BoardPicker";
-import { getAllBoards } from "../actions/boards";
+import { getAllBoards, getSelectedBoard } from "../actions/boards";
 
 class BoardPickerContainer extends Component {
   componentDidMount() {
@@ -16,7 +16,8 @@ class BoardPickerContainer extends Component {
 const mapStateToProps = state => {
   return {
     token: state.user.token,
-    userId: state.user.id
+    userId: state.user.id,
+    allBoards: state.boards.allBoards
   };
 };
 
@@ -24,6 +25,10 @@ const mapDispatchToProps = dispatch => {
   return {
     getAllBoards: (token, userId) => {
       dispatch(getAllBoards(token, userId));
+    },
+    onChangeSelectedBoard: e => {
+      const selectedBoard = e.target.value;
+      dispatch(getSelectedBoard(selectedBoard));
     }
   };
 };

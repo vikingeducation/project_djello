@@ -7,18 +7,18 @@ export const boards = (state = {}, action) => {
         ...state,
         allBoards: action.data.boardIds,
         specificBoard: action.data.specificBoard,
-        isFetching: false
+        isFetchingAll: false
       };
     case Actions.GET_ALL_BOARDS_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isFetchingAll: true,
         error: null
       };
     case Actions.GET_ALL_BOARDS_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetchingAll: false,
         error: true
       };
     default:
