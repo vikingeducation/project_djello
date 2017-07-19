@@ -42,10 +42,9 @@ export function getAllBoards(token, userId) {
           return response.json();
         })
         .then(json => {
-          console.log('#########')
-          console.log(json);
-          console.log('#########')
-          dispatch(getAllBoardsSuccess(json));
+          let boardIds = json.data.map(board => board._id);
+          let specificBoard = json.data[0];
+          dispatch(getAllBoardsSuccess({boardIds, specificBoard}));
         })
         .catch(error => {
           console.log(error);

@@ -5,8 +5,8 @@ export const boards = (state = {}, action) => {
     case Actions.GET_ALL_BOARDS_SUCCESS:
       return {
         ...state,
-        allBoards: action.data,
-        specificBoard: action.data[0],
+        allBoards: action.data.boardIds,
+        specificBoard: action.data.specificBoard,
         isFetching: false
       };
     case Actions.GET_ALL_BOARDS_REQUEST:

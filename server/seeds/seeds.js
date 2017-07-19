@@ -1,21 +1,48 @@
+const MULTIPLIER = 5;
+
 module.exports = () => {
-  let users = [];
 
   // ----------------------------------------
   // Creating Users
   // ----------------------------------------
-  let p = User.create({
-    fname: "Foo",
-    lname: "Bar",
-    email: "foobar@gmail.com",
-    password: "password"
-  });
+  console.log('Creating users...');
+  let users = [];
+  for (let i = 0; i < 2; i++) {
+    let user = new User({
+      email: `foobar${i}@gmail.com`,
+      password: "password"
+    });
+    users.push(user);
+  }
+
+  // ----------------------------------------
+  // Creating Boards
+  // ----------------------------------------
+  console.log('Creating boards...');
+  let boards = [];
+  for (let i = 0; i < MULTIPLIER; i++) {
+    let board = new Board({
+      title: `Test Board ${i + 1}`,
+      lists: [],
+      users: [users[i % users.length]]
+    });
+    boards.push(board);
+    users[i % users.length].boards.push(board);
+  }
+
 
   // ----------------------------------------
   // Finish
   // ----------------------------------------
-  const promises = [p];
-  return Promise.all(promises).then(() => console.log()).catch(e => {
-    throw e;
+  console.log('Saving...');
+  let promises = [];
+  [
+    users,
+    boards
+  ].forEach((collection) => {
+    collection.forEach((model) => {
+      promises.push(model.save());
+    });
   });
+  return Promise.all(promises);
 };
