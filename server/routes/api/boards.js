@@ -22,6 +22,15 @@ router.get("/:id", (req, res, next) => {
       }
     })
     .then(board => {
+      if (!board) {
+        throw new Error(apiMessages.doesNotExist("Board"));
+      }
+
+      let canCurrentUserGet = checkUserBoardPermissions(board, req.user.id);
+      if (!canCurrentUserGet) {
+        throw new Error(apiMessages.failedAuth);
+      }
+
       res.json({
         data: board
       });
@@ -220,9 +229,9 @@ router.post("/:id/lists", (req, res, next) => {
       if (!board) {
         throw new Error(apiMessages.doesNotExist("Board"));
       }
-      let canCurrentUserEdit = checkUserBoardPermissions(board, req.user.id);
+      let canCurrentUserCreate = checkUserBoardPermissions(board, req.user.id);
 
-      if (!canCurrentUserEdit) {
+      if (!canCurrentUserCreate) {
         throw new Error(apiMessages.failedAuth);
       }
 

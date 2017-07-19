@@ -122,6 +122,7 @@ describe("Board", () => {
         json: true,
         resolveWithFullResponse: true
       };
+
       rp(options)
         .then(res => {
           expect(res.statusCode).toBe(200);
@@ -133,6 +134,47 @@ describe("Board", () => {
           done();
         });
     });
+
+    it("rejects an unauthorized user from getting a board", done => {
+      let secondUserLoginOpts = {
+        method: "POST",
+        uri: `${baseUrl}/sessions`,
+        form: {
+          email: "foobar2@gmail.com",
+          password: "password"
+        },
+        json: true
+      };
+
+      let getOpts = {
+        method: "GET",
+        uri: `${apiUrl}/boards/${board.id}`,
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      User.create({
+        email: "foobar2@gmail.com",
+        password: "password"
+      })
+        .then(user => {
+          return rp(secondUserLoginOpts)
+        })
+        .then(result => {
+          getOpts.auth = {bearer: result}
+          return rp(getOpts);
+        })
+        .then(result => {
+          expect(result).toBe(null);
+          done();
+        })
+        .catch(error => {
+          expect(error.statusCode).toBe(401);
+          expect(error.message).toBeDefined();
+          done();
+        });
+    });
+
 
     it("deletes a board", done => {
       let options = {
