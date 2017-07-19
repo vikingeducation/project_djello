@@ -4,8 +4,13 @@
   "private": true,
   "proxy": "http://localhost:4000/",
   "dependencies": {
+    "bootswatch": "^3.3.7",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-bootstrap": "^0.31.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.10"
