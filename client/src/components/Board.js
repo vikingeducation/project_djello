@@ -6,7 +6,7 @@ const Board = ({board, onChangeBoardTitle}) => {
   return (
     <Col md={12}>
       <Row>
-        <Col md={2}>
+        <Col md={4}>
           <EditableField
             fieldName={"title"}
             onSubmit={onChangeBoardTitle}

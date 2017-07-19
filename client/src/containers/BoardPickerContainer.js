@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPicker from "../components/BoardPicker";
-import { getAllBoardsInit } from "../actions/allBoards";
-import { getSpecificBoard } from "../actions/specificBoard";
+import { getAllBoardsInit, getAllBoards } from "../actions/allBoards";
+import { getSpecificBoard, createBoard } from "../actions/specificBoard";
 
 class BoardPickerContainer extends Component {
   componentDidMount() {
@@ -30,6 +30,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onChangeSelectedBoard: e => {
       const selectedBoard = e.target.value;
       dispatch(getSpecificBoard(ownProps.token, selectedBoard));
+    },
+    onCreateBoard: e => {
+      e.preventDefault();
+      dispatch(createBoard(ownProps.token, ownProps.userId));
+      dispatch(getAllBoards(ownProps.token, ownProps.userId));
     }
   };
 };

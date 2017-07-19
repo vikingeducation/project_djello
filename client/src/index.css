@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .navbar {
@@ -14,4 +14,8 @@ h1 {
   padding-bottom: 1em;
   border-bottom: solid 3px #2C3E50;
   margin-bottom: 1em;
+}
+
+a {
+  cursor: pointer;
 }

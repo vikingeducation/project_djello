@@ -14,7 +14,10 @@ const AuthLayer = ({isAuthenticated, loginUser, authError, token, userId, specif
       <Row>
         <h1>Djello</h1>
         <Col md={4} mdOffset={8}>
-          <BoardPickerContainer token={token}/>
+          <BoardPickerContainer 
+            token={token}
+            userId={userId}
+          />
         </Col>
       </Row>
       <Row>
