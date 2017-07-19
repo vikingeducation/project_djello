@@ -7,3 +7,11 @@ body {
 .navbar {
   border-radius: 0px;
 }
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 1em;
+  border-bottom: solid 3px #2C3E50;
+  margin-bottom: 1em;
+}

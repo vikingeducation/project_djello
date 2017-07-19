@@ -1,6 +1,14 @@
 import * as Actions from '../actions/specificBoard';
 
-export const specificBoard = (state = {}, action) => {
+const initialState = {
+  data: {
+    title: ""
+  },
+  isFetching: false,
+  error: null
+}
+
+export const specificBoard = (state = initialState, action) => {
   switch (action.type) {
     case Actions.GET_SPECIFIC_BOARD_SUCCESS:
       return {
