@@ -81,16 +81,16 @@ export function getAllBoards(token, userId) {
   }
 }
 
-export function getSelectedBoard(token, userId) {
+export function getSpecificBoard(token, boardId) {
   let config = {
     method: 'GET',
     headers: { 'Authorization':'Bearer ' + token },
   };
 
   return dispatch => {
-    dispatch(getAllBoardsRequest())
+    dispatch(getSpecificBoardsRequest())
 
-    fetch(`api/v1/users/${userId}/boards`, config)
+    fetch(`api/v1/boards/${boardId}`, config)
       .then(response => {
         if (!response.ok) {
           throw new Error(`${response.status}: ${response.statusText}`);
@@ -99,18 +99,11 @@ export function getSelectedBoard(token, userId) {
         return response.json();
       })
       .then(json => {
-        let boardIds = json.data.map(board => {
-          return {
-            id: board._id,
-            title: board.title
-          }
-        });
-        let specificBoard = json.data[0];
-        dispatch(getAllBoardsSuccess({boardIds, specificBoard}));
+        dispatch(getSpecificBoardsSuccess(json.data));
       })
       .catch(error => {
         console.log(error);
-        dispatch(getAllBoardsFailure(error));
+        dispatch(getSpecificBoardsFailure(error));
       });
   }
 }

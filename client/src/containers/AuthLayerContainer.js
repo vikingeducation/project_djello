@@ -6,7 +6,9 @@ import { loginUser } from "../actions/auth";
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.user.isAuthenticated,
-    authError: state.user.error
+    authError: state.user.error,
+    token: state.user.token,
+    specificBoard: state.boards.specificBoard
   };
 };
 

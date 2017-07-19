@@ -21,6 +21,24 @@ export const boards = (state = {}, action) => {
         isFetchingAll: false,
         error: true
       };
+    case Actions.GET_SPECIFIC_BOARDS_SUCCESS:
+      return {
+        ...state,
+        specificBoard: action.data,
+        isFetchingSpecific: false
+      };
+    case Actions.GET_SPECIFIC_BOARDS_REQUEST:
+      return {
+        ...state,
+        isFetchingSpecific: true,
+        error: null
+      };
+    case Actions.GET_SPECIFIC_BOARDS_FAILURE:
+      return {
+        ...state,
+        isFetchingSpecific: false,
+        error: true
+      };
     default:
       return state;
   }
