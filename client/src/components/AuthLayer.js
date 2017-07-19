@@ -1,5 +1,7 @@
 import React from 'react';
 import Login from './Login';
+import {Grid, Row, Col} from 'react-bootstrap';
+import BoardPickerContainer from '../containers/BoardPickerContainer';
 
 const AuthLayer = ({isAuthenticated, loginUser, authError}) => {
   if (!isAuthenticated) {
@@ -7,9 +9,12 @@ const AuthLayer = ({isAuthenticated, loginUser, authError}) => {
   }
 
   return (
-    <div>
-      You're logged in!!!!
-    </div>
+    <Grid>
+      <Row>
+        <h1>Djello</h1>
+        <BoardPickerContainer />
+      </Row>
+    </Grid>
   )
 };
 
