@@ -3,7 +3,7 @@ import { Navbar } from "react-bootstrap";
 
 const Header = ({ title }) => {
   return (
-    <Navbar fluid inverse>
+    <Navbar fluid>
       <Navbar.Header>
         <Navbar.Brand>
           <a>{title}</a>

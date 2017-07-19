@@ -38,7 +38,6 @@ export function loginUser(creds) {
     };
   
     return dispatch => {
-      // We dispatch requestLogin to kickoff the call to the API
       dispatch(loginRequest())
   
       fetch(`sessions`, config)

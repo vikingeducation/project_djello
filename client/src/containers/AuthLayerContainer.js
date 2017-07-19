@@ -15,6 +15,7 @@ const mapDispatchToProps = dispatch => {
       e.preventDefault();
       const form = e.target;
       const creds = serialize(form, { hash: true });
+      console.log(creds);
       dispatch(loginUser(creds));
     }
   }
