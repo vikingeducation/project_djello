@@ -6,6 +6,7 @@ export const ADD_NEW_LIST = "ADD_NEW_LIST";
 export const SET_CHANGED_LIST = "SET_CHANGED_LIST";
 export const DELETE_LIST = "DELETE_LIST";
 export const SET_CHANGED_CARD = "SET_CHANGED_CARD";
+export const DELETE_CARD = "DELETE_CARD";
 
 export function getListsRequest() {
   return {
@@ -60,6 +61,13 @@ export function setChangedCard(data) {
     type: SET_CHANGED_CARD,
     data
   };
+}
+
+export function deleteCard(data) {
+  return {
+    type: DELETE_CARD,
+    data
+  }
 }
 
 export function getLists(token, boardId) {
@@ -174,29 +182,53 @@ export function deleteSelectedList(token, listId) {
   Nested Card Actions
 ================ */
 export function editCard(token, cardId, form) {
-let config = {
-  method: "PUT",
-  headers: {
-    Authorization: "Bearer " + token,
-    "Content-Type": "application/x-www-form-urlencoded"
-  },
-  body: form
-};
+  let config = {
+    method: "PUT",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: form
+  };
 
-return dispatch => {
-  fetch(`api/v1/cards/${cardId}`, config)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`${response.status}: ${response.statusText}`);
-      }
+  return dispatch => {
+    fetch(`api/v1/cards/${cardId}`, config)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
 
-      return response.json();
-    })
-    .then(json => {
-      dispatch(setChangedCard(json.data));
-    })
-    .catch(error => {
-      dispatch(modifyListFailure(error));
-    });
-};
+        return response.json();
+      })
+      .then(json => {
+        dispatch(setChangedCard(json.data));
+      })
+      .catch(error => {
+        dispatch(modifyListFailure(error));
+      });
+  };
+}
+export function deleteSelectedCard(token, cardId) {
+  let config = {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  };
+  return dispatch => {
+    fetch(`api/v1/cards/${cardId}`, config)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+
+        return response.json();
+      })
+      .then(json => {
+        dispatch(deleteCard(json.data.deletedResource));
+      })
+      .catch(error => {
+        dispatch(modifyListFailure(error));
+      });
+  };
 }

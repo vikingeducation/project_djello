@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Card from "../components/Card";
 import serialize from "form-serialize";
-import { editCard } from "../actions/lists";
+import { editCard, deleteSelectedCard } from "../actions/lists";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -17,14 +17,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const data = serialize(form);
       dispatch(editCard(ownProps.token, ownProps.card._id, data));
     },
-    // onDeleteCard: (e, listId) => {
-    //   if (window.confirm(
-    //     `Are you sure you want to delete the following list? \n \n ${ownProps.list.title}`
-    //   )) {
-    //     e.preventDefault();
-    //     dispatch(deleteSelectedCard(ownProps.token, listId));
-    //   }
-    // }
+    onDeleteCard: (e, cardId) => {
+      if (window.confirm(
+        `Are you sure you want to delete the following card? \n \n ${ownProps.card.title}`
+      )) {
+        e.preventDefault();
+        dispatch(deleteSelectedCard(ownProps.token, cardId));
+      }
+    }
   };
 };
 
