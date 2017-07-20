@@ -2,7 +2,7 @@ import * as Actions from "../actions/lists";
 
 const initialState = {
   data: []
-}
+};
 export const lists = (state = initialState, action) => {
   let newData;
   switch (action.type) {
@@ -27,15 +27,12 @@ export const lists = (state = initialState, action) => {
     case Actions.ADD_NEW_LIST:
       return {
         ...state,
-        data: [
-          ...state.data,
-          action.data
-        ]
+        data: [...state.data, action.data]
       };
     case Actions.SET_CHANGED_LIST:
       newData = state.data.map(list => {
         if (list._id.toString() === action.data._id.toString()) {
-          return action.data
+          return action.data;
         }
         return list;
       });
@@ -56,11 +53,11 @@ export const lists = (state = initialState, action) => {
       return {
         ...state,
         error: action.data
-      }
+      };
     case Actions.ADD_NEW_CARD:
       newData = state.data.map(list => {
         if (list._id.toString() === action.data.list.toString()) {
-          return {...list, cards: [...list.cards, action.data]};
+          return { ...list, cards: [...list.cards, action.data] };
         }
 
         return list;
@@ -76,11 +73,11 @@ export const lists = (state = initialState, action) => {
             if (card._id.toString() === action.data._id.toString()) {
               return action.data;
             }
-            
+
             return card;
           });
 
-        return {...list, cards: updatedCards}
+          return { ...list, cards: updatedCards };
         }
 
         return list;
@@ -96,9 +93,9 @@ export const lists = (state = initialState, action) => {
             return card._id.toString() !== action.data._id.toString();
           });
 
-          return {...list, cards: updatedCards};
+          return { ...list, cards: updatedCards };
         }
-        
+
         return list;
       });
 

@@ -47,14 +47,14 @@ export function deleteList(data) {
   return {
     type: DELETE_LIST,
     data
-  }
+  };
 }
 
 export function modifyListFailure(data) {
   return {
     type: MODIFY_LIST_FAILURE,
     data
-  }
+  };
 }
 
 export function addNewCard(data) {
@@ -74,7 +74,7 @@ export function deleteCard(data) {
   return {
     type: DELETE_CARD,
     data
-  }
+  };
 }
 
 export function getLists(token, boardId) {
@@ -102,7 +102,6 @@ export function getLists(token, boardId) {
       });
   };
 }
-
 
 export function editList(token, listId, form) {
   let config = {

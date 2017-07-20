@@ -76,7 +76,7 @@ export function editSpecificBoard(token, boardId, form, userId) {
         let changedBoard = {
           id: json.data._id,
           title: json.data.title
-        }
+        };
         dispatch(getSpecificBoardSuccess(json.data));
         dispatch(setChangedBoard(changedBoard));
       })
@@ -112,7 +112,7 @@ export function createBoard(token, userId) {
         let newBoard = {
           id: json.data._id,
           title: json.data.title
-        }
+        };
         dispatch(addNewBoard(newBoard));
       })
       .catch(error => {

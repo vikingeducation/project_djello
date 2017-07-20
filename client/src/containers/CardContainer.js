@@ -18,9 +18,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(editCard(ownProps.token, ownProps.card._id, data));
     },
     onDeleteCard: (e, cardId) => {
-      if (window.confirm(
-        `Are you sure you want to delete the following card? \n \n ${ownProps.card.title}`
-      )) {
+      if (
+        window.confirm(
+          `Are you sure you want to delete the following card? \n \n ${ownProps
+            .card.title}`
+        )
+      ) {
         e.preventDefault();
         dispatch(deleteSelectedCard(ownProps.token, cardId));
       }

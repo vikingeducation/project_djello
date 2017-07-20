@@ -4,9 +4,9 @@ import EditableField from "./EditableField";
 import ListContainer from "../containers/ListContainer";
 
 const buildLists = (lists, token) => {
-  return lists.map(list => (
-    <ListContainer key={list._id} list={list} token={token}/>
-  ));
+  return lists.map(list =>
+    <ListContainer key={list._id} list={list} token={token} />
+  );
 };
 
 const Board = ({ board, lists, token, onChangeBoardTitle, onCreateList }) => {

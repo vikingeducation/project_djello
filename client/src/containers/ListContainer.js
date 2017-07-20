@@ -19,9 +19,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(editList(ownProps.token, ownProps.list._id, data));
     },
     onDeleteList: (e, listId) => {
-      if (window.confirm(
-        `Are you sure you want to delete the following list? \n \n ${ownProps.list.title}`
-      )) {
+      if (
+        window.confirm(
+          `Are you sure you want to delete the following list? \n \n ${ownProps
+            .list.title}`
+        )
+      ) {
         e.preventDefault();
         dispatch(deleteSelectedList(ownProps.token, listId));
       }

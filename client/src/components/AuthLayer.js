@@ -16,14 +16,17 @@ const AuthLayer = ({
   if (!isAuthenticated) {
     return <Login loginUser={loginUser} error={authError} />;
   }
-  
+
   if (allBoards.length === 0) {
     return (
       <Grid>
         <Row>
           <h1>Djello</h1>
           <Col md={10}>
-            <h3>Uh oh, no boards could be found! Make your first one to get started!</h3>
+            <h3>
+              Uh oh, no boards could be found! Make your first one to get
+              started!
+            </h3>
           </Col>
           <Col md={2}>
             <BoardPickerContainer
@@ -34,7 +37,7 @@ const AuthLayer = ({
           </Col>
         </Row>
       </Grid>
-    )
+    );
   }
 
   return (
