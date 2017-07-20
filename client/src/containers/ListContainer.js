@@ -5,7 +5,8 @@ import { editList, deleteSelectedList } from "../actions/lists";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    list: ownProps.list
+    list: ownProps.list,
+    token: ownProps.token
   };
 };
 
