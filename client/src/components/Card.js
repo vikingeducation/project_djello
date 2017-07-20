@@ -1,9 +1,17 @@
 import React from "react";
 import {Panel} from "react-bootstrap";
-const Card = ({card}) => {
+import EditableField from "./EditableField";
+
+const Card = ({card, onUpdateCard}) => {
   return (
-    <Panel header={card.title}>
-      {card.description}
+    <Panel 
+      bsStyle="success"
+      header={card.title}
+    >
+    <EditableField fieldName="description" onSubmit={onUpdateCard}>
+      <p>{card.description}</p>
+    </EditableField>
+      
     </Panel>
   );
 };

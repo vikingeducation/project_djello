@@ -19,6 +19,7 @@ const List = ({list, token, onDeleteList, onUpdateList}) => {
   return (
     <Col md={6}>
       <Panel 
+        bsStyle="primary"
         header={
           <EditableField fieldName="title" onSubmit={onUpdateList}>
             <h4>{list.title}</h4>

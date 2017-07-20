@@ -5,6 +5,7 @@ export const MODIFY_LIST_FAILURE = "MODIFY_LIST_FAILURE";
 export const ADD_NEW_LIST = "ADD_NEW_LIST";
 export const SET_CHANGED_LIST = "SET_CHANGED_LIST";
 export const DELETE_LIST = "DELETE_LIST";
+export const SET_CHANGED_CARD = "SET_CHANGED_CARD";
 
 export function getListsRequest() {
   return {
@@ -52,6 +53,13 @@ export function modifyListFailure(data) {
     type: MODIFY_LIST_FAILURE,
     data
   }
+}
+
+export function setChangedCard(data) {
+  return {
+    type: SET_CHANGED_CARD,
+    data
+  };
 }
 
 export function getLists(token, boardId) {
@@ -160,4 +168,35 @@ export function deleteSelectedList(token, listId) {
         dispatch(modifyListFailure(error));
       });
   };
+}
+
+/*  ===============
+  Nested Card Actions
+================ */
+export function editCard(token, cardId, form) {
+let config = {
+  method: "PUT",
+  headers: {
+    Authorization: "Bearer " + token,
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  body: form
+};
+
+return dispatch => {
+  fetch(`api/v1/cards/${cardId}`, config)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`);
+      }
+
+      return response.json();
+    })
+    .then(json => {
+      dispatch(setChangedCard(json.data));
+    })
+    .catch(error => {
+      dispatch(modifyListFailure(error));
+    });
+};
 }
