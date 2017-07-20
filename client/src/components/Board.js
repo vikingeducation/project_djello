@@ -1,25 +1,20 @@
 import React from "react";
-import { Panel, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import EditableField from "./EditableField";
+import ListContainer from "../containers/ListContainer";
 
-const buildLists = (lists, onDeleteList) => {
+const buildLists = (lists, token) => {
   return lists.map(list => (
-    <Col key={list._id} md={4}>
-      <Panel>
-        <h5>{list.title}</h5>
-        <p>{list.description}</p>
-      </Panel>
-      <a onClick={(e) => onDeleteList(e, list._id)}>Delete This List</a>
-    </Col>
+    <ListContainer key={list._id} list={list} token={token}/>
   ));
 };
 
-const Board = ({ board, lists, onChangeBoardTitle, onCreateList, onDeleteList }) => {
+const Board = ({ board, lists, token, onChangeBoardTitle, onCreateList }) => {
   let listPanels;
   if (lists.length === 0) {
     listPanels = null;
   } else {
-    listPanels = buildLists(lists, onDeleteList);
+    listPanels = buildLists(lists, token);
   }
   return (
     <Col md={12}>

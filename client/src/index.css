@@ -24,3 +24,10 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.list-panel {
+  margin-bottom: 2px;
+}
+.list-delete {
+  margin-bottom: 2em;
+}
