@@ -1,4 +1,4 @@
-import {getAllBoards} from './allBoards';
+import {getAllBoards, getAllBoardsInit} from './allBoards';
 
 export const GET_SPECIFIC_BOARD_REQUEST = 'GET_SPECIFIC_BOARD_REQUEST'
 export const GET_SPECIFIC_BOARD_SUCCESS = 'GET_SPECIFIC_BOARD_SUCCESS'
@@ -105,6 +105,34 @@ export function createBoard(token, userId) {
       .then(json => {
         dispatch(getSpecificBoardSuccess(json.data));
         dispatch(getAllBoards(token, userId));
+      })
+      .catch(error => {
+        dispatch(getSpecificBoardFailure(error));
+      });
+  }
+}
+
+export function deleteBoard(token, boardId, userId) {
+  let config = {
+    method: 'DELETE',
+    headers: { 
+      'Authorization': 'Bearer ' + token
+    }
+  };
+
+  return dispatch => {
+    dispatch(getSpecificBoardRequest())
+
+    fetch(`api/v1/boards/${boardId}`, config)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+
+        return response.json();
+      })
+      .then(() => {
+        dispatch(getAllBoardsInit(token, userId));
       })
       .catch(error => {
         dispatch(getSpecificBoardFailure(error));

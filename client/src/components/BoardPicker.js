@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
-const BoardPicker = ({allBoards, onChangeSelectedBoard, onCreateBoard}) => {
+const BoardPicker = ({allBoards, onChangeSelectedBoard, onCreateBoard, onDeleteBoard}) => {
   let boardOptions = [];
   if (allBoards && allBoards.length > 0) {
     boardOptions = allBoards.map(board => (
@@ -16,6 +16,8 @@ const BoardPicker = ({allBoards, onChangeSelectedBoard, onCreateBoard}) => {
         {boardOptions} 
         </FormControl>
         <a onClick={onCreateBoard}>Add a Board</a>
+        <br />
+        <a onClick={onDeleteBoard}>Delete Current Board</a>
       </FormGroup>
     </form>
   );

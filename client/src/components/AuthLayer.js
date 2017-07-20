@@ -17,6 +17,7 @@ const AuthLayer = ({isAuthenticated, loginUser, authError, token, userId, specif
           <BoardPickerContainer 
             token={token}
             userId={userId}
+            currentBoard={specificBoard}
           />
         </Col>
       </Row>

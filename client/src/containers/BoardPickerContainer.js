@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPicker from "../components/BoardPicker";
-import { getAllBoardsInit, getAllBoards } from "../actions/allBoards";
-import { getSpecificBoard, createBoard } from "../actions/specificBoard";
+import { getAllBoardsInit } from "../actions/allBoards";
+import { getSpecificBoard, createBoard, deleteBoard } from "../actions/specificBoard";
 
 class BoardPickerContainer extends Component {
   componentDidMount() {
@@ -34,6 +34,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onCreateBoard: e => {
       e.preventDefault();
       dispatch(createBoard(ownProps.token, ownProps.userId));
+    },
+    onDeleteBoard: e => {
+      if (window.confirm(`Are you sure you want to delete the following board? \n \n ${ownProps.currentBoard.title}`)) {
+        e.preventDefault();
+        dispatch(deleteBoard(ownProps.token, ownProps.currentBoard._id, ownProps.userId))
+      }
     }
   };
 };
