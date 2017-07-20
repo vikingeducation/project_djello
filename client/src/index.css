@@ -11,9 +11,10 @@ body {
 h1 {
   text-align: center;
   text-transform: uppercase;
-  padding-bottom: 1em;
+  padding-bottom: 10px;
   border-bottom: solid 3px #2C3E50;
-  margin-bottom: 1em;
+  margin-bottom: 15px;
+  margin-top: 0px;
 }
 
 a {
@@ -29,5 +30,9 @@ a {
   margin-bottom: 2px;
 }
 .list-delete {
+  margin-bottom: 2em;
+}
+
+.add-list-link {
   margin-bottom: 2em;
 }

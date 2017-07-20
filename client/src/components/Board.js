@@ -23,7 +23,7 @@ const Board = ({ board, lists, token, onChangeBoardTitle, onCreateList }) => {
           <EditableField fieldName={"title"} onSubmit={onChangeBoardTitle}>
             <h3>{board.title}</h3>
           </EditableField>
-          <a onClick={onCreateList}>Add a List</a>
+          <a className="add-list-link" onClick={onCreateList}>Add a List</a>
         </Col>
       </Row>
       <Row>

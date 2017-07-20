@@ -47,11 +47,28 @@ module.exports = () => {
   }
 
   // ----------------------------------------
+  // Creating Cards
+  // ----------------------------------------
+  console.log("Creating cards...");
+  let cards = [];
+  for (let i = 0; i < MULTIPLIER * 50; i++) {
+    let card = new Card({
+      title: `Test Card ${i + 1}`,
+      description: faker.lorem.sentences(1),
+      list: lists[i % lists.length],
+      activities: [],
+      members: users[i % users.length]
+    });
+    cards.push(card);
+    lists[i % lists.length].cards.push(card);
+  }
+
+  // ----------------------------------------
   // Finish
   // ----------------------------------------
   console.log("Saving...");
   let promises = [];
-  [users, boards, lists].forEach(collection => {
+  [users, boards, lists, cards].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });
