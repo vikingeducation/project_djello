@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Panel, Col } from "react-bootstrap";
+import { Button, Panel, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import EditableField from "./EditableField";
 import CardContainer from "../containers/CardContainer";
 
@@ -27,19 +27,25 @@ const List = ({ list, token, onDeleteList, onUpdateList, onCreateCard }) => {
         }
         className="list-panel"
       >
-        <EditableField fieldName="description" onSubmit={onUpdateList}>
-          <p>{list.description}</p>
-        </EditableField>
+        <ListGroup fill>
+          <ListGroupItem>
+            <EditableField fieldName="description" onSubmit={onUpdateList}>
+              <p className="list-description">{list.description}</p>
+            </EditableField>
+          </ListGroupItem>
+          <ListGroupItem>
+          {cardPanels}
+          <Button
+            bsStyle="success"
+            onClick={e => onCreateCard(e, list._id)}
+            className="card-create"
+          >
+            &#43;
+          </Button>
+          </ListGroupItem>
+        </ListGroup>
 
-        {cardPanels}
 
-        <Button
-          bsStyle="success"
-          onClick={e => onCreateCard(e, list._id)}
-          className="card-create"
-        >
-          &#43;
-        </Button>
       </Panel>
       <a onClick={e => onDeleteList(e, list._id)} className="list-delete">
         Delete This List

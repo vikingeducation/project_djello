@@ -29,8 +29,14 @@ a {
 .list-panel {
   margin-bottom: 2px;
 }
+
 .list-delete {
   margin-bottom: 2em;
+}
+
+.list-description {
+  text-align: center;
+  font-size: 1.2em;
 }
 
 .add-list-link {
