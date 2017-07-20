@@ -20,20 +20,20 @@ const AuthLayer = ({
     <Grid>
       <Row>
         <h1>Djello</h1>
-        <Col md={4} mdOffset={8}>
+        <Col md={10}>
+          <BoardContainer
+            token={token}
+            boardId={specificBoard._id}
+            userId={userId}
+          />
+        </Col>
+        <Col md={2}>
           <BoardPickerContainer
             token={token}
             userId={userId}
             currentBoard={specificBoard}
           />
         </Col>
-      </Row>
-      <Row>
-        <BoardContainer
-          token={token}
-          boardId={specificBoard._id}
-          userId={userId}
-        />
       </Row>
     </Grid>
   );
