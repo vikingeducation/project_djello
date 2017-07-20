@@ -1,4 +1,5 @@
 import { getSpecificBoardSuccess } from "./specificBoard";
+import { getListsSuccess } from "./lists";
 export const GET_ALL_BOARDS_REQUEST = "GET_ALL_BOARDS_REQUEST";
 export const GET_ALL_BOARDS_SUCCESS = "GET_ALL_BOARDS_SUCCESS";
 export const GET_ALL_BOARDS_FAILURE = "GET_ALL_BOARDS_FAILURE";
@@ -66,6 +67,7 @@ export function getAllBoardsInit(token, userId) {
         let specificBoard = json.data[0];
         dispatch(getAllBoardsSuccess(boardIds));
         dispatch(getSpecificBoardSuccess(specificBoard));
+        dispatch(getListsSuccess(specificBoard.lists));
       })
       .catch(error => {
         dispatch(getAllBoardsFailure(error));

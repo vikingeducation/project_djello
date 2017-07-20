@@ -1,5 +1,5 @@
 import { getAllBoardsInit, addNewBoard, setChangedBoard } from "./allBoards";
-
+import { getListsSuccess } from "./lists";
 export const GET_SPECIFIC_BOARD_REQUEST = "GET_SPECIFIC_BOARD_REQUEST";
 export const GET_SPECIFIC_BOARD_SUCCESS = "GET_SPECIFIC_BOARD_SUCCESS";
 export const GET_SPECIFIC_BOARD_FAILURE = "GET_SPECIFIC_BOARD_FAILURE";
@@ -43,6 +43,7 @@ export function getSpecificBoard(token, boardId) {
       })
       .then(json => {
         dispatch(getSpecificBoardSuccess(json.data));
+        dispatch(getListsSuccess(json.data.lists));
       })
       .catch(error => {
         dispatch(getSpecificBoardFailure(error));
