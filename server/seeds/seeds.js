@@ -1,3 +1,4 @@
+const faker = require('faker');
 const MULTIPLIER = 5;
 
 module.exports = () => {
@@ -30,11 +31,27 @@ module.exports = () => {
   }
 
   // ----------------------------------------
+  // Creating Lists
+  // ----------------------------------------
+  console.log("Creating boards...");
+  let lists = [];
+  for (let i = 0; i < MULTIPLIER * 5; i++) {
+    let list = new List({
+      title: `Test List ${i + 1}`,
+      description: faker.lorem.sentences(1),
+      board: boards[i % boards.length],
+      cards: []
+    });
+    lists.push(list);
+    boards[i % boards.length].lists.push(list);
+  }
+
+  // ----------------------------------------
   // Finish
   // ----------------------------------------
   console.log("Saving...");
   let promises = [];
-  [users, boards].forEach(collection => {
+  [users, boards, lists].forEach(collection => {
     collection.forEach(model => {
       promises.push(model.save());
     });
