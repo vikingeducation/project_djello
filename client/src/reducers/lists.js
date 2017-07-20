@@ -57,6 +57,18 @@ export const lists = (state = initialState, action) => {
         ...state,
         error: action.data
       }
+    case Actions.ADD_NEW_CARD:
+      newData = state.data.map(list => {
+        if (list._id.toString() === action.data.list.toString()) {
+          return {...list, cards: [...list.cards, action.data]};
+        }
+
+        return list;
+      });
+      return {
+        ...state,
+        data: newData
+      };
     case Actions.SET_CHANGED_CARD:
       newData = state.data.map(list => {
         if (list._id.toString() === action.data.list.toString()) {

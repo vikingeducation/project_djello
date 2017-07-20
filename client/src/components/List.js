@@ -9,7 +9,7 @@ const buildCards = (cards, token) => {
   ));
 }
 
-const List = ({list, token, onDeleteList, onUpdateList}) => {
+const List = ({list, token, onDeleteList, onUpdateList, onCreateCard}) => {
   let cardPanels;
   if (list.cards.length === 0) {
     cardPanels = null;
@@ -33,6 +33,7 @@ const List = ({list, token, onDeleteList, onUpdateList}) => {
 
         {cardPanels}
 
+        <a onClick={(e) => onCreateCard(e, list._id)} className="card-create">Create New Card</a>
       </Panel>
       <a onClick={(e) => onDeleteList(e, list._id)} className="list-delete">Delete This List</a>
     </Col>

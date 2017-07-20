@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import List from "../components/List";
 import serialize from "form-serialize";
-import { editList, deleteSelectedList } from "../actions/lists";
+import { editList, deleteSelectedList, createCard } from "../actions/lists";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -25,6 +25,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         e.preventDefault();
         dispatch(deleteSelectedList(ownProps.token, listId));
       }
+    },
+    onCreateCard: (e, listId) => {
+      e.preventDefault();
+      dispatch(createCard(ownProps.token, listId));
     }
   };
 };

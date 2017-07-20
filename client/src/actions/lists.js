@@ -5,6 +5,7 @@ export const MODIFY_LIST_FAILURE = "MODIFY_LIST_FAILURE";
 export const ADD_NEW_LIST = "ADD_NEW_LIST";
 export const SET_CHANGED_LIST = "SET_CHANGED_LIST";
 export const DELETE_LIST = "DELETE_LIST";
+export const ADD_NEW_CARD = "ADD_NEW_CARD";
 export const SET_CHANGED_CARD = "SET_CHANGED_CARD";
 export const DELETE_CARD = "DELETE_CARD";
 
@@ -56,6 +57,12 @@ export function modifyListFailure(data) {
   }
 }
 
+export function addNewCard(data) {
+  return {
+    type: ADD_NEW_CARD,
+    data
+  };
+}
 export function setChangedCard(data) {
   return {
     type: SET_CHANGED_CARD,
@@ -226,6 +233,34 @@ export function deleteSelectedCard(token, cardId) {
       })
       .then(json => {
         dispatch(deleteCard(json.data.deletedResource));
+      })
+      .catch(error => {
+        dispatch(modifyListFailure(error));
+      });
+  };
+}
+
+export function createCard(token, listId) {
+  let config = {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "title=New Card&description=Enter a description here"
+  };
+
+  return dispatch => {
+    fetch(`api/v1/lists/${listId}/cards`, config)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+
+        return response.json();
+      })
+      .then(json => {
+        dispatch(addNewCard(json.data));
       })
       .catch(error => {
         dispatch(modifyListFailure(error));
