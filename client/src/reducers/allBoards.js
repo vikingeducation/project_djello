@@ -28,6 +28,17 @@ export const allBoards = (state = {}, action) => {
           action.data
         ]
       };
+    case Actions.SET_CHANGED_BOARD:
+      let newData = state.data.map(board => {
+        if (board.id.toString() === action.data.id.toString()) {
+          return action.data
+        }
+        return board;
+      });
+      return {
+        ...state,
+        data: newData
+      };
     default:
       return state;
   }

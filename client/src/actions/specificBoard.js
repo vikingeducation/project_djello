@@ -1,4 +1,4 @@
-import { getAllBoards, getAllBoardsInit, addNewBoard } from "./allBoards";
+import { getAllBoardsInit, addNewBoard, setChangedBoard } from "./allBoards";
 
 export const GET_SPECIFIC_BOARD_REQUEST = "GET_SPECIFIC_BOARD_REQUEST";
 export const GET_SPECIFIC_BOARD_SUCCESS = "GET_SPECIFIC_BOARD_SUCCESS";
@@ -72,8 +72,12 @@ export function editSpecificBoard(token, boardId, form, userId) {
         return response.json();
       })
       .then(json => {
+        let changedBoard = {
+          id: json.data._id,
+          title: json.data.title
+        }
         dispatch(getSpecificBoardSuccess(json.data));
-        dispatch(getAllBoards(token, userId));
+        dispatch(setChangedBoard(changedBoard));
       })
       .catch(error => {
         dispatch(getSpecificBoardFailure(error));

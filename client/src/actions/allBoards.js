@@ -3,6 +3,7 @@ export const GET_ALL_BOARDS_REQUEST = "GET_ALL_BOARDS_REQUEST";
 export const GET_ALL_BOARDS_SUCCESS = "GET_ALL_BOARDS_SUCCESS";
 export const GET_ALL_BOARDS_FAILURE = "GET_ALL_BOARDS_FAILURE";
 export const ADD_NEW_BOARD = "ADD_NEW_BOARD";
+export const SET_CHANGED_BOARD = "SET_CHANGED_BOARD";
 
 export function getAllBoardsRequest() {
   return {
@@ -28,7 +29,14 @@ export function addNewBoard(data) {
   return {
     type: ADD_NEW_BOARD,
     data
-  }
+  };
+}
+
+export function setChangedBoard(data) {
+  return {
+    type: SET_CHANGED_BOARD,
+    data
+  };
 }
 
 export function getAllBoardsInit(token, userId) {
