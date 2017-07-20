@@ -9,7 +9,8 @@ const mapStateToProps = state => {
     authError: state.user.error,
     token: state.user.token,
     userId: state.user.id,
-    specificBoard: state.specificBoard.data
+    specificBoard: state.specificBoard.data,
+    allBoards: state.allBoards.data
   };
 };
 

@@ -271,8 +271,9 @@ Board.findById(boardId)
     return User.update(
       { boards: { $in: [deletedBoard.id] } },
       {
-        $pop: { boards: deletedBoard }
-      }
+        $pull: { boards: deletedBoard.id }
+      },
+      {multi: true}
     );
   })
   .then(() => {

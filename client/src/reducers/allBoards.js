@@ -1,6 +1,9 @@
 import * as Actions from "../actions/allBoards";
 
-export const allBoards = (state = {}, action) => {
+const initialState = {
+  data: []
+}
+export const allBoards = (state = initialState, action) => {
   switch (action.type) {
     case Actions.GET_ALL_BOARDS_SUCCESS:
       return {
