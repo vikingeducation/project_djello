@@ -269,5 +269,28 @@ describe("List", () => {
           done();
         });
     });
+
+    it("returns all lists associated with a board", done => {
+      let options = {
+        method: "GET",
+        uri: `${apiUrl}/boards/${board.id}/lists`,
+        auth: {
+          bearer: token
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.data.length).toBe(1);
+          expect(res.body.data[0].title).toBe("Test Original List Title");
+          done();
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
   });
 });
