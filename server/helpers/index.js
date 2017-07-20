@@ -4,7 +4,7 @@ const checkUserBoardPermissions = (board, user) => {
 };
 
 const apiMessages = {
-  successfulPost: "Resource successfully updated.",
+  successfulPost: "Resource successfully created.",
   successfulPut: "Resource successfully updated.",
   successfulDelete: "Resource successfully removed.",
   failedAuth: "You are not authorized to modify or remove this resource.",

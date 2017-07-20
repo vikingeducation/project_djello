@@ -1,4 +1,4 @@
-import { getAllBoards, getAllBoardsInit } from "./allBoards";
+import { getAllBoards, getAllBoardsInit, addNewBoard } from "./allBoards";
 
 export const GET_SPECIFIC_BOARD_REQUEST = "GET_SPECIFIC_BOARD_REQUEST";
 export const GET_SPECIFIC_BOARD_SUCCESS = "GET_SPECIFIC_BOARD_SUCCESS";
@@ -104,7 +104,11 @@ export function createBoard(token, userId) {
       })
       .then(json => {
         dispatch(getSpecificBoardSuccess(json.data));
-        dispatch(getAllBoards(token, userId));
+        let newBoard = {
+          id: json.data._id,
+          title: json.data.title
+        }
+        dispatch(addNewBoard(newBoard));
       })
       .catch(error => {
         dispatch(getSpecificBoardFailure(error));

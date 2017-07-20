@@ -20,6 +20,14 @@ export const allBoards = (state = {}, action) => {
         isFetching: false,
         error: true
       };
+    case Actions.ADD_NEW_BOARD:
+      return {
+        ...state,
+        data: [
+          ...state.data,
+          action.data
+        ]
+      };
     default:
       return state;
   }
