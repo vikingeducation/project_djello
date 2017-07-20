@@ -4,7 +4,7 @@ import EditableField from "./EditableField";
 
 const List = ({list, onDeleteList, onUpdateList}) => {
   return (
-    <Col md={4}>
+    <Col md={6}>
       <Panel 
         header={
           <EditableField fieldName="title" onSubmit={onUpdateList}>
