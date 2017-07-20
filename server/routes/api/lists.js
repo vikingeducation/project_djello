@@ -92,7 +92,7 @@ router.put("/:id", (req, res, next) => {
 /*  ===============
   Create Card
 ================ */
-router.post("/:id/card", (req, res, next) => {
+router.post("/:id/cards", (req, res, next) => {
   const listId = req.params.id;
   const { title, description } = req.body;
   let newCard;

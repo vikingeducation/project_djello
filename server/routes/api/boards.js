@@ -261,29 +261,29 @@ router.post("/:id/lists", (req, res, next) => {
   Get All Lists
 ================ */
 router.get("/:id/lists", (req, res, next) => {
-const boardId = req.params.id;
-Board.findById(boardId)
-  .populate({
-    path: "lists",
-    populate: {
-      path: "cards"
-    }
-  })
-  .then(board => {
-    if (!board) {
-      throw new Error(apiMessages.doesNotExist("Board"));
-    }
+  const boardId = req.params.id;
+  Board.findById(boardId)
+    .populate({
+      path: "lists",
+      populate: {
+        path: "cards"
+      }
+    })
+    .then(board => {
+      if (!board) {
+        throw new Error(apiMessages.doesNotExist("Board"));
+      }
 
-    let canCurrentUserGet = checkUserBoardPermissions(board, req.user.id);
-    if (!canCurrentUserGet) {
-      throw new Error(apiMessages.failedAuth);
-    }
+      let canCurrentUserGet = checkUserBoardPermissions(board, req.user.id);
+      if (!canCurrentUserGet) {
+        throw new Error(apiMessages.failedAuth);
+      }
 
-    res.json({
-      data: board.lists
-    });
-  })
-  .catch(error => next(error));
+      res.json({
+        data: board.lists
+      });
+    })
+    .catch(error => next(error));
 });
 
 module.exports = router;

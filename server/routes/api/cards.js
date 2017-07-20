@@ -13,6 +13,41 @@ const {
 } = require("./../../helpers");
 
 /*  ===============
+  Get Card
+================ */
+router.get("/:id", (req, res, next) => {
+  const cardId = req.params.id;
+
+  Card.findById(cardId)
+    .populate({
+      path: "list",
+      populate: {
+        path: "board"
+      }
+    })
+    .then(card => {
+      if (!card) {
+        throw new Error(apiMessages.doesNotExist("Card"));
+      }
+
+      let canCurrentUserGet = checkUserBoardPermissions(
+        card.list.board,
+        req.user.id
+      );
+
+      if (!canCurrentUserGet) {
+        throw new Error(apiMessages.failedAuth);
+      }
+
+      res.json({
+        message: apiMessages.successfulDelete,
+        data: card
+      });
+    })
+    .catch(error => next(error));
+});
+
+/*  ===============
   Delete
 ================ */
 router.delete("/:id", (req, res, next) => {
@@ -28,7 +63,7 @@ router.delete("/:id", (req, res, next) => {
     })
     .then(card => {
       if (!card) {
-        throw new Error(apiMessages.doesNotExist("List"));
+        throw new Error(apiMessages.doesNotExist("Card"));
       }
 
       let canCurrentUserDelete = checkUserBoardPermissions(

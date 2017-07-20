@@ -139,7 +139,7 @@ describe("Card", () => {
     it("creates a card through the api", done => {
       let options = {
         method: "POST",
-        uri: `${apiUrl}/lists/${list.id}/card`,
+        uri: `${apiUrl}/lists/${list.id}/cards`,
         auth: {
           bearer: token
         },
@@ -168,10 +168,34 @@ describe("Card", () => {
         });
     });
 
+    it("gets a card", done => {
+      let options = {
+        method: "GET",
+        uri: `${apiUrl}/cards/${card.id}`,
+        auth: {
+          bearer: token
+        },
+        json: true,
+        resolveWithFullResponse: true
+      };
+
+      rp(options)
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.data.title).toBe("Test Original Card Title");
+          expect(res.body.data.description).toBe("Test Original Card Description");
+          done()
+        })
+        .catch(error => {
+          expect(error).toEqual(null);
+          done();
+        });
+    });
+
     it("updates list after creating card", done => {
       let options = {
         method: "POST",
-        uri: `${apiUrl}/lists/${list.id}/card`,
+        uri: `${apiUrl}/lists/${list.id}/cards`,
         auth: {
           bearer: token
         },
