@@ -34,7 +34,7 @@ export const lists = (state = initialState, action) => {
       };
     case Actions.SET_CHANGED_LIST:
       newData = state.data.map(list => {
-        if (list.id.toString() === action.data._id.toString()) {
+        if (list._id.toString() === action.data._id.toString()) {
           return action.data
         }
         return list;
@@ -46,7 +46,7 @@ export const lists = (state = initialState, action) => {
     case Actions.DELETE_LIST:
       // action data is the deleted item
       newData = state.data.filter(list => {
-        return list.id.toString() !== action.data.id.toString();
+        return list._id.toString() !== action.data._id.toString();
       });
       return {
         ...state,

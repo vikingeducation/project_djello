@@ -137,14 +137,13 @@ export function createList(token, boardId) {
   };
 }
 
-export function deleteBoard(token, listId) {
+export function deleteSelectedList(token, listId) {
   let config = {
     method: "DELETE",
     headers: {
       Authorization: "Bearer " + token
     }
   };
-
   return dispatch => {
     fetch(`api/v1/lists/${listId}`, config)
       .then(response => {
@@ -155,7 +154,7 @@ export function deleteBoard(token, listId) {
         return response.json();
       })
       .then(json => {
-        dispatch(deleteList(json.data));
+        dispatch(deleteList(json.data.deletedResource));
       })
       .catch(error => {
         dispatch(modifyListFailure(error));

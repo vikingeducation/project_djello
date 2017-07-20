@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import Board from "../components/Board";
 import serialize from "form-serialize";
 import { editSpecificBoard } from "../actions/specificBoard";
-import { createList } from "../actions/lists";
+import { createList, deleteSelectedList } from "../actions/lists";
 
 const mapStateToProps = state => {
   return {
@@ -29,6 +29,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onCreateList: e => {
       e.preventDefault();
       dispatch(createList(ownProps.token, ownProps.boardId));
+    },
+    onDeleteList: (e, listId) => {
+      e.preventDefault();
+      dispatch(deleteSelectedList(ownProps.token, listId));
     }
   };
 };
