@@ -1,6 +1,6 @@
-import React from 'react';
-import Header from './Header';
-import AuthLayerContainer from '../containers/AuthLayerContainer';
+import React from "react";
+import Header from "./Header";
+import AuthLayerContainer from "../containers/AuthLayerContainer";
 
 // So we have an Auth Container
 // in it there's a boolean check
@@ -9,18 +9,18 @@ import AuthLayerContainer from '../containers/AuthLayerContainer';
 // also create an app container that passes in isAuthenticated to
 // header for logout purposes
 
-const App = ({isAuthenticated, email, onLogout}) => {
+const App = ({ isAuthenticated, email, onLogout }) => {
   return (
     <div className="App">
-      <Header 
+      <Header
         title="Djello"
         isAuthenticated={isAuthenticated}
         email={email}
         onLogout={onLogout}
       />
-       <AuthLayerContainer /> 
+      <AuthLayerContainer />
     </div>
   );
-}
+};
 
 export default App;

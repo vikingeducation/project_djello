@@ -21,9 +21,11 @@ const mapDispatchToProps = dispatch => {
       const creds = serialize(form, { hash: true });
       dispatch(loginUser(creds));
     }
-  }
-}
+  };
+};
 
-const AuthLayerContainer = connect(mapStateToProps, mapDispatchToProps)(AuthLayer);
+const AuthLayerContainer = connect(mapStateToProps, mapDispatchToProps)(
+  AuthLayer
+);
 
 export default AuthLayerContainer;

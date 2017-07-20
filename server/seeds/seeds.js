@@ -1,11 +1,10 @@
 const MULTIPLIER = 5;
 
 module.exports = () => {
-
   // ----------------------------------------
   // Creating Users
   // ----------------------------------------
-  console.log('Creating users...');
+  console.log("Creating users...");
   let users = [];
   for (let i = 0; i < 2; i++) {
     let user = new User({
@@ -18,7 +17,7 @@ module.exports = () => {
   // ----------------------------------------
   // Creating Boards
   // ----------------------------------------
-  console.log('Creating boards...');
+  console.log("Creating boards...");
   let boards = [];
   for (let i = 0; i < MULTIPLIER; i++) {
     let board = new Board({
@@ -30,17 +29,13 @@ module.exports = () => {
     users[i % users.length].boards.push(board);
   }
 
-
   // ----------------------------------------
   // Finish
   // ----------------------------------------
-  console.log('Saving...');
+  console.log("Saving...");
   let promises = [];
-  [
-    users,
-    boards
-  ].forEach((collection) => {
-    collection.forEach((model) => {
+  [users, boards].forEach(collection => {
+    collection.forEach(model => {
       promises.push(model.save());
     });
   });

@@ -1,4 +1,4 @@
-import * as Actions from '../actions/specificBoard';
+import * as Actions from "../actions/specificBoard";
 
 const initialState = {
   data: {
@@ -6,7 +6,7 @@ const initialState = {
   },
   isFetching: false,
   error: null
-}
+};
 
 export const specificBoard = (state = initialState, action) => {
   switch (action.type) {

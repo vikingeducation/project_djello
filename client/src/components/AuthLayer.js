@@ -1,12 +1,19 @@
-import React from 'react';
-import Login from './Login';
-import {Grid, Row, Col} from 'react-bootstrap';
-import BoardPickerContainer from '../containers/BoardPickerContainer';
-import BoardContainer from '../containers/BoardContainer';
+import React from "react";
+import Login from "./Login";
+import { Grid, Row, Col } from "react-bootstrap";
+import BoardPickerContainer from "../containers/BoardPickerContainer";
+import BoardContainer from "../containers/BoardContainer";
 
-const AuthLayer = ({isAuthenticated, loginUser, authError, token, userId, specificBoard}) => {
+const AuthLayer = ({
+  isAuthenticated,
+  loginUser,
+  authError,
+  token,
+  userId,
+  specificBoard
+}) => {
   if (!isAuthenticated) {
-    return <Login loginUser={loginUser} error={authError}/>
+    return <Login loginUser={loginUser} error={authError} />;
   }
 
   return (
@@ -14,7 +21,7 @@ const AuthLayer = ({isAuthenticated, loginUser, authError, token, userId, specif
       <Row>
         <h1>Djello</h1>
         <Col md={4} mdOffset={8}>
-          <BoardPickerContainer 
+          <BoardPickerContainer
             token={token}
             userId={userId}
             currentBoard={specificBoard}
@@ -22,14 +29,14 @@ const AuthLayer = ({isAuthenticated, loginUser, authError, token, userId, specif
         </Col>
       </Row>
       <Row>
-        <BoardContainer 
+        <BoardContainer
           token={token}
           boardId={specificBoard._id}
           userId={userId}
         />
       </Row>
     </Grid>
-  )
+  );
 };
 
 export default AuthLayer;

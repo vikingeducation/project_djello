@@ -1,4 +1,4 @@
-import * as Actions from '../actions/allBoards';
+import * as Actions from "../actions/allBoards";
 
 export const allBoards = (state = {}, action) => {
   switch (action.type) {

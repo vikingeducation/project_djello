@@ -15,9 +15,8 @@ const mapDispatchToProps = dispatch => {
       e.preventDefault();
       dispatch(logoutUser());
     }
-  }
-}
-
+  };
+};
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 

@@ -111,7 +111,7 @@ describe("Board", () => {
           done();
         });
     });
-    
+
     it("fetches a board", done => {
       let options = {
         method: "GET",
@@ -158,10 +158,10 @@ describe("Board", () => {
         password: "password"
       })
         .then(user => {
-          return rp(secondUserLoginOpts)
+          return rp(secondUserLoginOpts);
         })
         .then(result => {
-          getOpts.auth = {bearer: result}
+          getOpts.auth = { bearer: result };
           return rp(getOpts);
         })
         .then(result => {

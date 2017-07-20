@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import {Alert} from 'react-bootstrap';
+import React, { Component } from "react";
+import { Alert } from "react-bootstrap";
 
 class LoginError extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       visible: true
-    }
+    };
   }
 
   handleAlertDismiss = () => {
-    this.setState({visible: false});
-  }
+    this.setState({ visible: false });
+  };
 
   render() {
     if (this.state.visible) {

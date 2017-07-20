@@ -1,7 +1,7 @@
-import {getSpecificBoardSuccess} from './specificBoard';
-export const GET_ALL_BOARDS_REQUEST = 'GET_ALL_BOARDS_REQUEST'
-export const GET_ALL_BOARDS_SUCCESS = 'GET_ALL_BOARDS_SUCCESS'
-export const GET_ALL_BOARDS_FAILURE = 'GET_ALL_BOARDS_FAILURE'
+import { getSpecificBoardSuccess } from "./specificBoard";
+export const GET_ALL_BOARDS_REQUEST = "GET_ALL_BOARDS_REQUEST";
+export const GET_ALL_BOARDS_SUCCESS = "GET_ALL_BOARDS_SUCCESS";
+export const GET_ALL_BOARDS_FAILURE = "GET_ALL_BOARDS_FAILURE";
 
 export function getAllBoardsRequest() {
   return {
@@ -25,12 +25,12 @@ export function getAllBoardsFailure(error) {
 
 export function getAllBoardsInit(token, userId) {
   let config = {
-    method: 'GET',
-    headers: { 'Authorization':'Bearer ' + token },
+    method: "GET",
+    headers: { Authorization: "Bearer " + token }
   };
 
   return dispatch => {
-    dispatch(getAllBoardsRequest())
+    dispatch(getAllBoardsRequest());
 
     fetch(`api/v1/users/${userId}/boards`, config)
       .then(response => {
@@ -45,7 +45,7 @@ export function getAllBoardsInit(token, userId) {
           return {
             id: board._id,
             title: board.title
-          }
+          };
         });
         let specificBoard = json.data[0];
         dispatch(getAllBoardsSuccess(boardIds));
@@ -54,17 +54,17 @@ export function getAllBoardsInit(token, userId) {
       .catch(error => {
         dispatch(getAllBoardsFailure(error));
       });
-  }
+  };
 }
 
 export function getAllBoards(token, userId) {
   let config = {
-    method: 'GET',
-    headers: { 'Authorization':'Bearer ' + token },
+    method: "GET",
+    headers: { Authorization: "Bearer " + token }
   };
 
   return dispatch => {
-    dispatch(getAllBoardsRequest())
+    dispatch(getAllBoardsRequest());
 
     fetch(`api/v1/users/${userId}/boards`, config)
       .then(response => {
@@ -79,12 +79,12 @@ export function getAllBoards(token, userId) {
           return {
             id: board._id,
             title: board.title
-          }
+          };
         });
         dispatch(getAllBoardsSuccess(boardIds));
       })
       .catch(error => {
         dispatch(getAllBoardsFailure(error));
       });
-  }
+  };
 }

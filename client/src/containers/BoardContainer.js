@@ -15,10 +15,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form);
-      dispatch(editSpecificBoard(ownProps.token, ownProps.boardId, data, ownProps.userId));
+      dispatch(
+        editSpecificBoard(
+          ownProps.token,
+          ownProps.boardId,
+          data,
+          ownProps.userId
+        )
+      );
     }
-  }
-}
+  };
+};
 
 const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Board);
 

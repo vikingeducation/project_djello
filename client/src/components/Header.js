@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
 
-const LogOut = ({isAuthenticated, email, onLogout}) => {
+const LogOut = ({ isAuthenticated, email, onLogout }) => {
   if (!isAuthenticated) {
     return null;
   }
@@ -12,8 +12,8 @@ const LogOut = ({isAuthenticated, email, onLogout}) => {
         Logout {email}
       </NavItem>
     </Nav>
-  )
-}
+  );
+};
 
 const Header = ({ title, isAuthenticated, email, onLogout }) => {
   return (
@@ -23,7 +23,7 @@ const Header = ({ title, isAuthenticated, email, onLogout }) => {
           <a>{title}</a>
         </Navbar.Brand>
       </Navbar.Header>
-      <LogOut 
+      <LogOut
         isAuthenticated={isAuthenticated}
         email={email}
         onLogout={onLogout}

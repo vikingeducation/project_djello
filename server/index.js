@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const path = require('path');
-require("dotenv").config({ path: path.join(__dirname,"../.env") });
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 // ----------------------------------------
 // Body Parser
@@ -96,7 +96,9 @@ const host = "localhost";
 let args;
 process.env.NODE_ENV === "production" ? (args = [port]) : (args = [port, host]);
 
-args.push(() => {console.log(`Listening: http://${ host }:${ port }`)});
+args.push(() => {
+  console.log(`Listening: http://${host}:${port}`);
+});
 
 if (require.main === module) {
   app.listen.apply(app, args);

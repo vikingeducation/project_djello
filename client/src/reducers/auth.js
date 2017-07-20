@@ -1,7 +1,10 @@
-import * as Actions from '../actions/auth';
-import decode from 'jwt-decode';
+import * as Actions from "../actions/auth";
+import decode from "jwt-decode";
 
-export const user = (state = {isAuthenticated: false, error: null}, action) => {
+export const user = (
+  state = { isAuthenticated: false, error: null },
+  action
+) => {
   switch (action.type) {
     case Actions.LOGIN_SUCCESS:
       const decoded = decode(action.data);
@@ -29,7 +32,7 @@ export const user = (state = {isAuthenticated: false, error: null}, action) => {
     case Actions.LOGOUT:
       return {
         isAuthenticated: false
-      }
+      };
     default:
       return state;
   }
