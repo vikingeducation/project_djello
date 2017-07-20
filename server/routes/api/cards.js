@@ -19,12 +19,20 @@ router.get("/:id", (req, res, next) => {
   const cardId = req.params.id;
 
   Card.findById(cardId)
-    .populate({
-      path: "list",
-      populate: {
-        path: "board"
+    .populate([
+      {
+        path: "list",
+        populate: {
+          path: "board"
+        }
+      },
+      {
+        path: "activities"
+      },
+      {
+        path: "members"
       }
-    })
+    ])
     .then(card => {
       if (!card) {
         throw new Error(apiMessages.doesNotExist("Card"));
