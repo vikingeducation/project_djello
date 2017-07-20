@@ -109,6 +109,7 @@ export function createBoard(token, userId) {
       })
       .then(json => {
         dispatch(getSpecificBoardSuccess(json.data));
+        dispatch(getListsSuccess(json.data.lists));
         let newBoard = {
           id: json.data._id,
           title: json.data.title

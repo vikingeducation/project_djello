@@ -12,7 +12,7 @@ const buildLists = (lists, token) => {
 const Board = ({ board, lists, token, onChangeBoardTitle, onCreateList }) => {
   let listPanels;
   if (lists.length === 0) {
-    listPanels = null;
+    listPanels = <h3>No Lists found! Create a new list to get started.</h3>;
   } else {
     listPanels = buildLists(lists, token);
   }
