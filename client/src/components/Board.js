@@ -13,7 +13,7 @@ const buildLists = (lists) => {
   ));
 };
 
-const Board = ({ board, lists, onChangeBoardTitle }) => {
+const Board = ({ board, lists, onChangeBoardTitle, onCreateList }) => {
   let listPanels;
   if (lists.length === 0) {
     listPanels = null;
@@ -27,6 +27,7 @@ const Board = ({ board, lists, onChangeBoardTitle }) => {
           <EditableField fieldName={"title"} onSubmit={onChangeBoardTitle}>
             <h3>{board.title}</h3>
           </EditableField>
+          <a onClick={onCreateList}>Add a List</a>
         </Col>
       </Row>
       <Row>
