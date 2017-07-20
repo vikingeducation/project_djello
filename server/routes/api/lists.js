@@ -36,7 +36,7 @@ router.put("/:id", (req, res, next) => {
           description: description || list.description
         },
         { new: true }
-      );
+      ).populate('cards');
     })
     .then(result => {
       res.json({

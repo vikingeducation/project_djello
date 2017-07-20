@@ -33,7 +33,7 @@ module.exports = () => {
   // ----------------------------------------
   // Creating Lists
   // ----------------------------------------
-  console.log("Creating boards...");
+  console.log("Creating lists...");
   let lists = [];
   for (let i = 0; i < MULTIPLIER * 5; i++) {
     let list = new List({
