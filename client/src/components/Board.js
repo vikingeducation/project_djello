@@ -1,8 +1,25 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Panel, Col, Row } from "react-bootstrap";
 import EditableField from "./EditableField";
 
-const Board = ({ board, onChangeBoardTitle }) => {
+const buildLists = (lists) => {
+  return lists.map(list => (
+    <Col key={list._id} md={4}>
+      <Panel>
+        <h5>{list.title}</h5>
+        <p>{list.description}</p>
+      </Panel>
+    </Col>
+  ));
+};
+
+const Board = ({ board, lists, onChangeBoardTitle }) => {
+  let listPanels;
+  if (lists.length === 0) {
+    listPanels = null;
+  } else {
+    listPanels = buildLists(lists);
+  }
   return (
     <Col md={12}>
       <Row>
@@ -11,6 +28,9 @@ const Board = ({ board, onChangeBoardTitle }) => {
             <h3>{board.title}</h3>
           </EditableField>
         </Col>
+      </Row>
+      <Row>
+        {listPanels}
       </Row>
     </Col>
   );

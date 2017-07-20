@@ -5,7 +5,8 @@ import { editSpecificBoard } from "../actions/specificBoard";
 
 const mapStateToProps = state => {
   return {
-    board: state.specificBoard.data
+    board: state.specificBoard.data,
+    lists: state.lists.data
   };
 };
 
