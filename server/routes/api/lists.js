@@ -8,49 +8,6 @@ const Card = models.Card;
 const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 
 /*  ===============
-  Delete
-================ */
-router.delete("/:id", (req, res, next) => {
-  const listId = req.params.id;
-  let deletedList;
-  List.findById(listId)
-    .populate("board")
-    .then(list => {
-      if (!list) {
-        throw new Error(apiMessages.doesNotExist("List"));
-      }
-
-      let canCurrentUserDelete = checkUserBoardPermissions(
-        list.board,
-        req.user.id
-      );
-      if (!canCurrentUserDelete) {
-        throw new Error(apiMessages.failedAuth);
-      }
-
-      return List.findByIdAndRemove(listId);
-    })
-    .then(result => {
-      deletedList = result;
-      return Board.update(
-        { lists: { $in: [deletedList.id] } },
-        {
-          $pop: { lists: deletedList }
-        }
-      );
-    })
-    .then(() => {
-      res.json({
-        message: apiMessages.successfulDelete,
-        data: {
-          deletedResource: deletedList
-        }
-      });
-    })
-    .catch(error => next(error));
-});
-
-/*  ===============
   Update List
 ================ */
 router.put("/:id", (req, res, next) => {
@@ -87,6 +44,49 @@ router.put("/:id", (req, res, next) => {
         data: result
       });
     });
+});
+
+/*  ===============
+  Delete List
+================ */
+router.delete("/:id", (req, res, next) => {
+const listId = req.params.id;
+let deletedList;
+List.findById(listId)
+  .populate("board")
+  .then(list => {
+    if (!list) {
+      throw new Error(apiMessages.doesNotExist("List"));
+    }
+
+    let canCurrentUserDelete = checkUserBoardPermissions(
+      list.board,
+      req.user.id
+    );
+    if (!canCurrentUserDelete) {
+      throw new Error(apiMessages.failedAuth);
+    }
+
+    return List.findByIdAndRemove(listId);
+  })
+  .then(result => {
+    deletedList = result;
+    return Board.update(
+      { lists: { $in: [deletedList.id] } },
+      {
+        $pop: { lists: deletedList }
+      }
+    );
+  })
+  .then(() => {
+    res.json({
+      message: apiMessages.successfulDelete,
+      data: {
+        deletedResource: deletedList
+      }
+    });
+  })
+  .catch(error => next(error));
 });
 
 /*  ===============

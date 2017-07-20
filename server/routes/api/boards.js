@@ -7,7 +7,7 @@ const List = models.List;
 const { checkUserBoardPermissions, apiMessages } = require("./../../helpers");
 
 /*  ===============
-  Read
+  Read Board
 ================ */
 router.get("/:id", (req, res, next) => {
   const boardId = req.params.id;
@@ -33,45 +33,6 @@ router.get("/:id", (req, res, next) => {
 
       res.json({
         data: board
-      });
-    })
-    .catch(error => next(error));
-});
-
-/*  ===============
-  Delete
-================ */
-router.delete("/:id", (req, res, next) => {
-  const boardId = req.params.id;
-  let deletedBoard;
-
-  Board.findById(boardId)
-    .then(board => {
-      if (!board) {
-        throw new Error(apiMessages.doesNotExist("Board"));
-      }
-      let canCurrentUserDelete = checkUserBoardPermissions(board, req.user.id);
-      if (!canCurrentUserDelete) {
-        throw new Error(apiMessages.failedAuth);
-      }
-
-      return Board.findByIdAndRemove(boardId);
-    })
-    .then(result => {
-      deletedBoard = result;
-      return User.update(
-        { boards: { $in: [deletedBoard.id] } },
-        {
-          $pop: { boards: deletedBoard }
-        }
-      );
-    })
-    .then(() => {
-      res.json({
-        message: apiMessages.successfulDelete,
-        data: {
-          deletedResource: deletedBoard
-        }
       });
     })
     .catch(error => next(error));
@@ -284,6 +245,45 @@ router.get("/:id/lists", (req, res, next) => {
       });
     })
     .catch(error => next(error));
+});
+
+/*  ===============
+  Delete Board
+================ */
+router.delete("/:id", (req, res, next) => {
+const boardId = req.params.id;
+let deletedBoard;
+
+Board.findById(boardId)
+  .then(board => {
+    if (!board) {
+      throw new Error(apiMessages.doesNotExist("Board"));
+    }
+    let canCurrentUserDelete = checkUserBoardPermissions(board, req.user.id);
+    if (!canCurrentUserDelete) {
+      throw new Error(apiMessages.failedAuth);
+    }
+
+    return Board.findByIdAndRemove(boardId);
+  })
+  .then(result => {
+    deletedBoard = result;
+    return User.update(
+      { boards: { $in: [deletedBoard.id] } },
+      {
+        $pop: { boards: deletedBoard }
+      }
+    );
+  })
+  .then(() => {
+    res.json({
+      message: apiMessages.successfulDelete,
+      data: {
+        deletedResource: deletedBoard
+      }
+    });
+  })
+  .catch(error => next(error));
 });
 
 module.exports = router;

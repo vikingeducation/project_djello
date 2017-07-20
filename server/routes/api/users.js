@@ -23,7 +23,7 @@ router.get("/:id", (req, res) => {
 });
 
 /*  ===============
-  Get User's Boards
+  Get User Boards
 ================ */
 router.get("/:id/boards", (req, res, next) => {
   User.findById(req.params.id)
