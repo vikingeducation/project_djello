@@ -6,7 +6,11 @@ const Card = ({card, onUpdateCard, onDeleteCard}) => {
   return (
     <Panel 
       bsStyle="success"
-      header={card.title}
+      header={
+        <EditableField fieldName="title" onSubmit={onUpdateCard}>
+          {card.title}
+        </EditableField>
+      }
     >
     <EditableField fieldName="description" onSubmit={onUpdateCard}>
       <p>{card.description}</p>
