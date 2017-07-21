@@ -34,17 +34,16 @@ const List = ({ list, token, onDeleteList, onUpdateList, onCreateCard }) => {
             </EditableField>
           </ListGroupItem>
           <ListGroupItem>
-          {cardPanels}
-          <Button
-            bsStyle="success"
-            onClick={e => onCreateCard(e, list._id)}
-            className="card-create"
-          >
-            &#43;
-          </Button>
+            {cardPanels}
+            <Button
+              bsStyle="success"
+              onClick={e => onCreateCard(e, list._id)}
+              className="card-create"
+            >
+              &#43;
+            </Button>
           </ListGroupItem>
         </ListGroup>
-
 
       </Panel>
       <a onClick={e => onDeleteList(e, list._id)} className="list-delete">

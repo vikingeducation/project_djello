@@ -36,13 +36,12 @@ router.put("/:id", (req, res, next) => {
           description: description || list.description
         },
         { new: true }
-      )
-        .populate({
-          path: "cards", 
-          populate: {
-            path: "members"
-          }
-        });
+      ).populate({
+        path: "cards",
+        populate: {
+          path: "members"
+        }
+      });
     })
     .then(result => {
       res.json({
@@ -56,43 +55,43 @@ router.put("/:id", (req, res, next) => {
   Delete List
 ================ */
 router.delete("/:id", (req, res, next) => {
-const listId = req.params.id;
-let deletedList;
-List.findById(listId)
-  .populate("board")
-  .then(list => {
-    if (!list) {
-      throw new Error(apiMessages.doesNotExist("List"));
-    }
-
-    let canCurrentUserDelete = checkUserBoardPermissions(
-      list.board,
-      req.user.id
-    );
-    if (!canCurrentUserDelete) {
-      throw new Error(apiMessages.failedAuth);
-    }
-
-    return List.findByIdAndRemove(listId);
-  })
-  .then(result => {
-    deletedList = result;
-    return Board.update(
-      { lists: { $in: [deletedList.id] } },
-      {
-        $pop: { lists: deletedList }
+  const listId = req.params.id;
+  let deletedList;
+  List.findById(listId)
+    .populate("board")
+    .then(list => {
+      if (!list) {
+        throw new Error(apiMessages.doesNotExist("List"));
       }
-    );
-  })
-  .then(() => {
-    res.json({
-      message: apiMessages.successfulDelete,
-      data: {
-        deletedResource: deletedList
+
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        list.board,
+        req.user.id
+      );
+      if (!canCurrentUserDelete) {
+        throw new Error(apiMessages.failedAuth);
       }
-    });
-  })
-  .catch(error => next(error));
+
+      return List.findByIdAndRemove(listId);
+    })
+    .then(result => {
+      deletedList = result;
+      return Board.update(
+        { lists: { $in: [deletedList.id] } },
+        {
+          $pop: { lists: deletedList }
+        }
+      );
+    })
+    .then(() => {
+      res.json({
+        message: apiMessages.successfulDelete,
+        data: {
+          deletedResource: deletedList
+        }
+      });
+    })
+    .catch(error => next(error));
 });
 
 /*  ===============
@@ -123,7 +122,7 @@ router.post("/:id/cards", (req, res, next) => {
         list: listId,
         activities: [],
         members: [req.user.id]
-      }); 
+      });
     })
     .then(result => {
       newCard = result;
@@ -131,7 +130,7 @@ router.post("/:id/cards", (req, res, next) => {
         $addToSet: { cards: result.id }
       });
     })
-    .then(() => Card.findById(newCard.id).populate('members'))
+    .then(() => Card.findById(newCard.id).populate("members"))
     .then(result => {
       res.json({
         message: apiMessages.successfulPost,

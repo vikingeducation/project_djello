@@ -3,7 +3,7 @@ import * as Actions from "../actions/currentCard";
 const initialState = {
   data: {
     members: [],
-    activities: [],
+    activities: []
   },
   isFetching: false,
   error: null

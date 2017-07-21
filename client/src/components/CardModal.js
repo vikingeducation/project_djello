@@ -1,5 +1,12 @@
-import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Table, Button, Modal } from 'react-bootstrap';
+import React, { Component } from "react";
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Table,
+  Button,
+  Modal
+} from "react-bootstrap";
 import EditableField from "./EditableField";
 
 const buildAddUserOptions = (cardMembers, allUsers) => {
@@ -17,62 +24,65 @@ const buildAddUserOptions = (cardMembers, allUsers) => {
       options.push(user);
     }
   });
-  return options.map(user => (
+  return options.map(user =>
     <option key={user.id} value={user.id}>{user.email}</option>
-  ));
+  );
 };
 
 const buildActivityFeed = activities => {
   return activities.map(activity => {
     return (
-      <p key={activity._id}>{activity.description} Date: {new Date(activity.createdAt).toLocaleString()}</p>
-    )
+      <p key={activity._id}>
+        {activity.description} Date:{" "}
+        {new Date(activity.createdAt).toLocaleString()}
+      </p>
+    );
   });
-}
+};
 
 const buildMemberTable = (members, onUserRemove) => {
-  let memberCells = members.map(member => (
+  let memberCells = members.map(member =>
     <tr key={member.email}>
       <td>{member.email}</td>
       <td>
-        <Button bsStyle="danger" onClick={(e) => onUserRemove(e, member._id)}>
+        <Button bsStyle="danger" onClick={e => onUserRemove(e, member._id)}>
           Remove
         </Button>
       </td>
-    </tr>   
-  ))
+    </tr>
+  );
 
   return (
     <Table>
       <thead>
         <tr>
           <th>Name</th>
-          <th></th>
+          <th />
         </tr>
       </thead>
       <tbody>
         {memberCells}
       </tbody>
     </Table>
-  )
+  );
 };
 
 class CardModal extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       showModal: false
-    }
+    };
   }
 
   close = () => {
     this.setState({ showModal: false });
-  }
+  };
 
-  open = (e) => {
+  open = e => {
     this.props.onGetCard(this.props.card._id);
     this.setState({ showModal: true });
-  }
+  };
 
   render() {
     const { currentCard, allUsers, onUserAdd, onUserRemove } = this.props;
@@ -82,24 +92,27 @@ class CardModal extends Component {
 
     return (
       <div>
-        <Button
-          bsStyle="info"
-          onClick={this.open}
-        >
+        <Button bsStyle="info" onClick={this.open}>
           Open Card
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-          <Modal.Title>
-            <EditableField fieldName="title" onSubmit={this.props.onUpdateCard}>
-              {currentCard.title}
-            </EditableField>
-          </Modal.Title>
+            <Modal.Title>
+              <EditableField
+                fieldName="title"
+                onSubmit={this.props.onUpdateCard}
+              >
+                {currentCard.title}
+              </EditableField>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h4>Description</h4>
-            <EditableField fieldName="description" onSubmit={this.props.onUpdateCard}>
+            <EditableField
+              fieldName="description"
+              onSubmit={this.props.onUpdateCard}
+            >
               <p>{currentCard.description}</p>
             </EditableField>
             <hr />
@@ -107,18 +120,15 @@ class CardModal extends Component {
             {memberTable}
             <form onSubmit={onUserAdd}>
               <FormGroup controlId="selectedBoard">
-              <ControlLabel>Add a member:</ControlLabel>
-              <FormControl
-                componentClass="select"
-                name="newMember"
-              >
-                {addUserOptions}
-              </FormControl>
+                <ControlLabel>Add a member:</ControlLabel>
+                <FormControl componentClass="select" name="newMember">
+                  {addUserOptions}
+                </FormControl>
 
-              <br />
+                <br />
 
-              <Button block bsStyle="success" type="submit">Add</Button>
-            </FormGroup>
+                <Button block bsStyle="success" type="submit">Add</Button>
+              </FormGroup>
             </form>
             <hr />
             <h4>Activity Feed</h4>

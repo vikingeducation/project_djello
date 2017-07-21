@@ -183,8 +183,10 @@ describe("Card", () => {
         .then(res => {
           expect(res.statusCode).toBe(200);
           expect(res.body.data.title).toBe("Test Original Card Title");
-          expect(res.body.data.description).toBe("Test Original Card Description");
-          done()
+          expect(res.body.data.description).toBe(
+            "Test Original Card Description"
+          );
+          done();
         })
         .catch(error => {
           expect(error).toEqual(null);

@@ -9,7 +9,14 @@ const buildLists = (lists, token) => {
   );
 };
 
-const Board = ({ board, lists, isFetching, token, onChangeBoardTitle, onCreateList }) => {
+const Board = ({
+  board,
+  lists,
+  isFetching,
+  token,
+  onChangeBoardTitle,
+  onCreateList
+}) => {
   if (isFetching) {
     return (
       <Col>
@@ -17,9 +24,9 @@ const Board = ({ board, lists, isFetching, token, onChangeBoardTitle, onCreateLi
           Loading...
         </Row>
       </Col>
-    )
+    );
   }
-  
+
   let listPanels;
   if (lists.length === 0) {
     listPanels = <h3>No Lists found! Create a new list to get started.</h3>;
