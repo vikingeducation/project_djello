@@ -3,12 +3,14 @@ import { user } from "./auth";
 import { allBoards } from "./allBoards";
 import { specificBoard } from "./specificBoard";
 import { lists } from "./lists";
+import { currentCard } from "./currentCard";
 
 const djelloApp = combineReducers({
   user,
   allBoards,
   specificBoard,
-  lists
+  lists,
+  currentCard
 });
 
 export default djelloApp;

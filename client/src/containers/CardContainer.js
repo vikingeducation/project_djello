@@ -5,7 +5,8 @@ import { editCard, deleteSelectedCard } from "../actions/lists";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    card: ownProps.card
+    card: ownProps.card,
+    token: state.user.token
   };
 };
 

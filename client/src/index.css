@@ -25,6 +25,11 @@ a {
   display: flex;
   flex-direction: column;
 }
+.card-create {
+  font-size: 2em;
+  padding: 0 .3em;
+  height: 50%;
+}
 
 .list-panel {
   margin-bottom: 2px;

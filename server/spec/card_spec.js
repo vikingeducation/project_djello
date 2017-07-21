@@ -426,6 +426,33 @@ describe("Card", () => {
           });
       });
 
+      it("removes a member from a card", done => {
+        let options = {
+          method: "DELETE",
+          uri: `${apiUrl}/cards/${card.id}/users/${user.id}`,
+          auth: {
+            bearer: token
+          },
+          json: true,
+          resolveWithFullResponse: true
+        };
+
+        rp(options)
+          .then(res => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.data.members.length).toBe(0);
+            return Card.findById(card.id);
+          })
+          .then(result => {
+            expect(result.members.length).toBe(0);
+            done();
+          })
+          .catch(error => {
+            expect(error).toEqual(null);
+            done();
+          });
+      });
+
       it("adds user to board when a member is added to card", done => {
         let options = {
           method: "POST",

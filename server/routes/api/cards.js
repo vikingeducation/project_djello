@@ -168,6 +168,53 @@ Card.findById(cardId)
 });
 
 /*  ===============
+  Remove Member From Card
+================ */
+router.delete("/:id/users/:userId", (req, res, next) => {
+  const cardId = req.params.id;
+  const userToRemove = req.params.userId;
+  let board;
+  let updatedCard;
+
+  Card.findById(cardId)
+    .populate({
+      path: "list",
+      populate: {
+        path: "board"
+      }
+    })
+    .then(card => {
+      if (!card) {
+        throw new Error(apiMessages.doesNotExist("Card"));
+      }
+
+      let canCurrentUserDelete = checkUserBoardPermissions(
+        card.list.board,
+        req.user.id
+      );
+      if (!canCurrentUserDelete) {
+        throw new Error(apiMessages.failedAuth);
+      }
+
+      board = card.list.board;
+      return Card.findByIdAndUpdate(
+        cardId,
+        {
+          $pull: { members: userToRemove }
+        },
+        { new: true }
+      );
+    })
+    .then(result => {
+      res.json({
+        message: apiMessages.successfulPut,
+        data: result
+      });
+    })
+    .catch(error => next(error));
+});
+
+/*  ===============
   Delete Card
 ================ */
 router.delete("/:id", (req, res, next) => {

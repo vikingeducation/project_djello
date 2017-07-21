@@ -1,9 +1,9 @@
 import React from "react";
 import { Panel } from "react-bootstrap";
 import EditableField from "./EditableField";
-import CardModal from "./CardModal";
+import CardModalContainer from "../containers/CardModalContainer";
 
-const Card = ({ card, onUpdateCard, onDeleteCard }) => {
+const Card = ({ card, token, onUpdateCard, onDeleteCard }) => {
   return (
     <Panel
       header={
@@ -15,7 +15,7 @@ const Card = ({ card, onUpdateCard, onDeleteCard }) => {
       <EditableField fieldName="description" onSubmit={onUpdateCard}>
         <p>{card.description}</p>
       </EditableField>
-      <CardModal card={card}/>
+      <CardModalContainer token={token} card={card}/>
       <a onClick={e => onDeleteCard(e, card._id)} className="card-delete">
         Delete This Card
       </a>

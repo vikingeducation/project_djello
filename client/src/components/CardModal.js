@@ -8,21 +8,18 @@ class CardModal extends Component {
       showModal: false
     }
   }
-  // getInitialState() {
-  //   return { showModal: false };
-  // }
 
   close = () => {
     this.setState({ showModal: false });
   }
 
-  open = () => {
+  open = (e) => {
+    this.props.onGetCard(this.props.card._id);
     this.setState({ showModal: true });
   }
 
   render() {
     const { card } = this.props;
-    console.log(card);
     return (
       <div>
         <Button
