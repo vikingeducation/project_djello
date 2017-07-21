@@ -2,7 +2,8 @@ import * as Actions from "../actions/currentCard";
 
 const initialState = {
   data: {
-    members: []
+    members: [],
+    activities: [],
   },
   isFetching: false,
   error: null

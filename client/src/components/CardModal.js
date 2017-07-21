@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal } from 'react-bootstrap';
 
+const buildActivityFeed = activities => {
+  return activities.map(activity => (
+    <p key={activity._id}>{activity.description}</p>
+  ));
+}
+
 const buildMemberTable = members => {
   let memberCells = members.map(member => (
-    <tr>
+    <tr key={member.email}>
       <td>{member.email}</td>
       <td>Remove</td>
     </tr>   
@@ -43,8 +49,8 @@ class CardModal extends Component {
 
   render() {
     const { currentCard } = this.props;
-    let memberTable;
-    memberTable = buildMemberTable(currentCard.members);
+    let memberTable = buildMemberTable(currentCard.members);
+    let activitiesFeed = buildActivityFeed(currentCard.activities);
 
     return (
       <div>
@@ -67,6 +73,7 @@ class CardModal extends Component {
             {memberTable}
             <hr />
             <h4>Activity Feed</h4>
+            {activitiesFeed}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close} bsStyle="primary">Close</Button>
