@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
 import CardModal from "../components/CardModal";
 import serialize from "form-serialize";
-import { getCurrentCard, addMemberToCurrentCard } from "../actions/currentCard";
+import { getCurrentCard, addMemberToCurrentCard, removeMemberFromCurrentCard } from "../actions/currentCard";
 import { editCard } from "../actions/lists";
-
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -29,8 +28,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.preventDefault();
       const form = e.target;
       const newMember = serialize(form, {hash: true}).newMember;
-      console.log(newMember);
       dispatch(addMemberToCurrentCard(ownProps.token, ownProps.currentCard._id, newMember));
+    },
+    onUserRemove: (e, memberId) => {
+      e.preventDefault();
+      dispatch(removeMemberFromCurrentCard(ownProps.token, ownProps.currentCard._id, memberId));
     }
   };
 };

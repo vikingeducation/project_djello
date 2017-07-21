@@ -30,11 +30,15 @@ const buildActivityFeed = activities => {
   });
 }
 
-const buildMemberTable = members => {
+const buildMemberTable = (members, onUserRemove) => {
   let memberCells = members.map(member => (
     <tr key={member.email}>
       <td>{member.email}</td>
-      <td>Remove</td>
+      <td>
+        <Button bsStyle="danger" onClick={(e) => onUserRemove(e, member._id)}>
+          Remove
+        </Button>
+      </td>
     </tr>   
   ))
 
@@ -71,8 +75,8 @@ class CardModal extends Component {
   }
 
   render() {
-    const { currentCard, allUsers, onUserAdd } = this.props;
-    let memberTable = buildMemberTable(currentCard.members);
+    const { currentCard, allUsers, onUserAdd, onUserRemove } = this.props;
+    let memberTable = buildMemberTable(currentCard.members, onUserRemove);
     let activitiesFeed = buildActivityFeed(currentCard.activities);
     let addUserOptions = buildAddUserOptions(currentCard.members, allUsers);
 
