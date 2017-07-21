@@ -20,12 +20,10 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
       </EditableField>
       <Row>
         <Col md={6}>
-          <CardModalContainer
-            currentCard={currentCard}
-            token={token}
-            card={card}
-          />
-          <br />
+          <strong>Current Members:</strong>
+          {members}
+        </Col>
+        <Col md={6}>
           <Button
             block
             bsStyle="danger"
@@ -35,11 +33,16 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
             Delete Card
           </Button>
         </Col>
-        <Col md={6}>
-          <strong>Current Members:</strong>
-          {members}
-        </Col>
       </Row>
+      <Row>
+        <Col md={12}>
+          <CardModalContainer
+            currentCard={currentCard}
+            token={token}
+            card={card}
+          />
+        </Col>
+        </Row>
     </Panel>
   );
 };
