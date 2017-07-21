@@ -1,5 +1,4 @@
-// import { getAllBoardsInit, addNewBoard, setChangedBoard } from "./allBoards";
-// import { getListsSuccess } from "./lists";
+import { setChangedCard } from "./lists";
 export const GET_CURRENT_CARD_REQUEST = "GET_CURRENT_CARD_REQUEST";
 export const GET_CURRENT_CARD_SUCCESS = "GET_CURRENT_CARD_SUCCESS";
 export const GET_CURRENT_CARD_FAILURE = "GET_CURRENT_CARD_FAILURE";
@@ -69,6 +68,7 @@ export function addMemberToCurrentCard(token, cardId, newMemberId) {
       })
       .then(json => {
         dispatch(getCurrentCardSuccess(json.data));
+        dispatch(setChangedCard(json.data));
       })
       .catch(error => {
         dispatch(getCurrentCardFailure(error));
@@ -95,6 +95,7 @@ export function removeMemberFromCurrentCard(token, cardId, memberId) {
       })
       .then(json => {
         dispatch(getCurrentCardSuccess(json.data));
+        dispatch(setChangedCard(json.data));
       })
       .catch(error => {
         dispatch(getCurrentCardFailure(error));
