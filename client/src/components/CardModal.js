@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal } from 'react-bootstrap';
+import EditableField from "./EditableField";
 
 const buildActivityFeed = activities => {
   return activities.map(activity => {
@@ -65,7 +66,11 @@ class CardModal extends Component {
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>{currentCard.title}</Modal.Title>
+          <Modal.Title>
+            <EditableField fieldName="title" onSubmit={this.props.onUpdateCard}>
+              {currentCard.title}
+            </EditableField>
+          </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h4>Description</h4>
