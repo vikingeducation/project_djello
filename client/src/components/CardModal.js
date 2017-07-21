@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Table, Button, Modal } from 'react-bootstrap';
 import EditableField from "./EditableField";
+
+const buildAddUserOptions = (cardMembers, allUsers) => {
+  let options = [];
+
+  allUsers.forEach(user => {
+    let shouldAdd = true;
+    cardMembers.forEach(cardMember => {
+      if (cardMember._id === user.id) {
+        shouldAdd = false;
+      }
+    });
+
+    if (shouldAdd) {
+      options.push(user);
+    }
+  });
+  return options.map(user => (
+    <option key={user.id} value={user.id}>{user.email}</option>
+  ));
+};
 
 const buildActivityFeed = activities => {
   return activities.map(activity => {
@@ -51,9 +71,10 @@ class CardModal extends Component {
   }
 
   render() {
-    const { currentCard } = this.props;
+    const { currentCard, allUsers, onUserAdd } = this.props;
     let memberTable = buildMemberTable(currentCard.members);
     let activitiesFeed = buildActivityFeed(currentCard.activities);
+    let addUserOptions = buildAddUserOptions(currentCard.members, allUsers);
 
     return (
       <div>
@@ -80,6 +101,21 @@ class CardModal extends Component {
             <hr />
             <h4>Members</h4>
             {memberTable}
+            <form onSubmit={onUserAdd}>
+              <FormGroup controlId="selectedBoard">
+              <ControlLabel>Add a member:</ControlLabel>
+              <FormControl
+                componentClass="select"
+                name="newMember"
+              >
+                {addUserOptions}
+              </FormControl>
+
+              <br />
+
+              <Button block bsStyle="success" type="submit">Add</Button>
+            </FormGroup>
+            </form>
             <hr />
             <h4>Activity Feed</h4>
             {activitiesFeed}
