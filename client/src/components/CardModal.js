@@ -74,7 +74,9 @@ class CardModal extends Component {
           </Modal.Header>
           <Modal.Body>
             <h4>Description</h4>
-            <p>{currentCard.description}</p>
+            <EditableField fieldName="description" onSubmit={this.props.onUpdateCard}>
+              <p>{currentCard.description}</p>
+            </EditableField>
             <hr />
             <h4>Members</h4>
             {memberTable}

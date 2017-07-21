@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPicker from "../components/BoardPicker";
 import { getAllBoardsInit } from "../actions/allBoards";
+import { getAllUsers } from "../actions/allUsers";
 import {
   getSpecificBoard,
   createBoard,
@@ -11,6 +12,7 @@ import {
 class BoardPickerContainer extends Component {
   componentDidMount() {
     this.props.getAllBoardsInit(this.props.token, this.props.userId);
+    this.props.getAllUsers(this.props.token);
   }
 
   render() {
@@ -29,6 +31,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    getAllUsers: token => {
+      dispatch(getAllUsers(token));
+    },
     getAllBoardsInit: (token, userId) => {
       dispatch(getAllBoardsInit(token, userId));
     },
