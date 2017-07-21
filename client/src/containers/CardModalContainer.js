@@ -6,7 +6,7 @@ import {
   addMemberToCurrentCard,
   removeMemberFromCurrentCard
 } from "../actions/currentCard";
-import { editCard } from "../actions/lists";
+import { editCard, deleteSelectedCard } from "../actions/lists";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -56,6 +56,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           memberId
         )
       );
+    },
+    onMarkComplete: () => {
+      dispatch(deleteSelectedCard(ownProps.token, ownProps.currentCard._id,));
     }
   };
 };

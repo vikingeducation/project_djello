@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel, Row, Col } from "react-bootstrap";
+import { Button, Panel, Row, Col } from "react-bootstrap";
 import EditableField from "./EditableField";
 import CardModalContainer from "../containers/CardModalContainer";
 
@@ -25,9 +25,10 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
             token={token}
             card={card}
           />
-          <a onClick={e => onDeleteCard(e, card._id)} className="card-delete">
-            Delete This Card
-          </a>
+          <br />
+          <Button block bsStyle="danger" onClick={e => onDeleteCard(e, card._id)} className="card-delete">
+            Delete Card
+          </Button>
         </Col>
         <Col md={6}>
           <strong>Current Members:</strong>
