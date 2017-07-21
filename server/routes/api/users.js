@@ -34,7 +34,7 @@ router.get("/:id/boards", (req, res, next) => {
         populate: {
           path: "cards",
           populate: {
-            path: "activities"
+            path: "members"
           }
         }
       }

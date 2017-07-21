@@ -17,7 +17,7 @@ router.get("/:id", (req, res, next) => {
       populate: {
         path: "cards",
         populate: {
-          path: "activities"
+          path: "members"
         }
       }
     })
@@ -227,7 +227,10 @@ router.get("/:id/lists", (req, res, next) => {
     .populate({
       path: "lists",
       populate: {
-        path: "cards"
+        path: "cards",
+        populate: {
+          path: "members"
+        }
       }
     })
     .then(board => {

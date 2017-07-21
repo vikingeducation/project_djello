@@ -101,38 +101,3 @@ export function removeMemberFromCurrentCard(token, cardId, memberId) {
       });
   };
 }
-
-// export function editCurrentCard(token, boardId, form, userId) {
-//   let config = {
-//     method: "PUT",
-//     headers: {
-//       Authorization: "Bearer " + token,
-//       "Content-Type": "application/x-www-form-urlencoded"
-//     },
-//     body: form
-//   };
-
-//   return dispatch => {
-//     dispatch(getCurrentCardRequest());
-
-//     fetch(`api/v1/boards/${boardId}`, config)
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error(`${response.status}: ${response.statusText}`);
-//         }
-
-//         return response.json();
-//       })
-//       .then(json => {
-//         let changedBoard = {
-//           id: json.data._id,
-//           title: json.data.title
-//         };
-//         dispatch(getCurrentCardSuccess(json.data));
-//         dispatch(setChangedBoard(changedBoard));
-//       })
-//       .catch(error => {
-//         dispatch(getCurrentCardFailure(error));
-//       });
-//   };
-// }

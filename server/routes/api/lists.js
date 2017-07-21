@@ -36,7 +36,13 @@ router.put("/:id", (req, res, next) => {
           description: description || list.description
         },
         { new: true }
-      ).populate('cards');
+      )
+        .populate({
+          path: "cards", 
+          populate: {
+            path: "members"
+          }
+        });
     })
     .then(result => {
       res.json({
@@ -117,7 +123,7 @@ router.post("/:id/cards", (req, res, next) => {
         list: listId,
         activities: [],
         members: [req.user.id]
-      });
+      }); 
     })
     .then(result => {
       newCard = result;
@@ -125,10 +131,11 @@ router.post("/:id/cards", (req, res, next) => {
         $addToSet: { cards: result.id }
       });
     })
-    .then(() => {
+    .then(() => Card.findById(newCard.id).populate('members'))
+    .then(result => {
       res.json({
         message: apiMessages.successfulPost,
-        data: newCard
+        data: result
       });
     })
     .catch(error => next(error));

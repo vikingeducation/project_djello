@@ -21,7 +21,6 @@ const BoardPicker = ({
         <FormControl
           componentClass="select"
           name="selectedBoard"
-          value={selectedBoard.id}
           onChange={onChangeSelectedBoard}
         >
           {boardOptions}

@@ -1,9 +1,12 @@
 import React from "react";
-import { Panel } from "react-bootstrap";
+import { Panel, Row, Col } from "react-bootstrap";
 import EditableField from "./EditableField";
 import CardModalContainer from "../containers/CardModalContainer";
 
 const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
+  let members = card.members.map(member => (
+    <p key={member._id}>{member.email}</p>
+  ));
   return (
     <Panel
       header={
@@ -15,10 +18,18 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
       <EditableField fieldName="description" onSubmit={onUpdateCard}>
         <p>{card.description}</p>
       </EditableField>
-      <CardModalContainer currentCard={currentCard} token={token} card={card}/>
-      <a onClick={e => onDeleteCard(e, card._id)} className="card-delete">
-        Delete This Card
-      </a>
+      <Row>
+        <Col md={6}>
+          <CardModalContainer currentCard={currentCard} token={token} card={card}/>
+          <a onClick={e => onDeleteCard(e, card._id)} className="card-delete">
+            Delete This Card
+          </a>
+        </Col>
+        <Col md={6}>
+        <strong>Current Members:</strong>
+        {members}
+        </Col>
+      </Row>
     </Panel>
   );
 };
