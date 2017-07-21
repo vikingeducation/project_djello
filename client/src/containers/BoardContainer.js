@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     board: state.specificBoard.data,
     lists: state.lists.data,
-    token: ownProps.token
+    token: ownProps.token,
+    isFetching: state.specificBoard.isFetching
   };
 };
 

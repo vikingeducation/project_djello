@@ -1,7 +1,9 @@
 import * as Actions from "../actions/currentCard";
 
 const initialState = {
-  data: { },
+  data: {
+    members: []
+  },
   isFetching: false,
   error: null
 };
