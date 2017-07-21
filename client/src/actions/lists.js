@@ -1,3 +1,4 @@
+import { getCurrentCardSuccess } from "./currentCard";
 export const GET_LISTS_REQUEST = "GET_LISTS_REQUEST";
 export const GET_LISTS_SUCCESS = "GET_LISTS_SUCCESS";
 export const GET_LISTS_FAILURE = "GET_LISTS_FAILURE";
@@ -187,7 +188,7 @@ export function deleteSelectedList(token, listId) {
 /*  ===============
   Nested Card Actions
 ================ */
-export function editCard(token, cardId, form) {
+export function editCard(token, cardId, form, currentCard = false) {
   let config = {
     method: "PUT",
     headers: {
@@ -208,6 +209,9 @@ export function editCard(token, cardId, form) {
       })
       .then(json => {
         dispatch(setChangedCard(json.data));
+        if (currentCard) {
+          dispatch(getCurrentCardSuccess(json.data));
+        }
       })
       .catch(error => {
         dispatch(modifyListFailure(error));

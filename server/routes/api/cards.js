@@ -98,7 +98,7 @@ Card.findById(cardId)
         $push: { activities: activity.id }
       },
       { new: true }
-    );
+    ).populate(['activities', 'members']);
   })
   .then(result => {
     res.json({

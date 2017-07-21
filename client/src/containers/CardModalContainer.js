@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form);
-      dispatch(editCard(ownProps.token, ownProps.currentCard._id, data));
+      dispatch(editCard(ownProps.token, ownProps.currentCard._id, data, ownProps.currentCard));
     }, 
   };
 };
