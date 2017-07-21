@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Table, Button, Modal } from 'react-bootstrap';
 
 const buildActivityFeed = activities => {
-  return activities.map(activity => (
-    <p key={activity._id}>{activity.description}</p>
-  ));
+  return activities.map(activity => {
+    return (
+      <p key={activity._id}>{activity.description} Date: {new Date(activity.createdAt).toLocaleString()}</p>
+    )
+  });
 }
 
 const buildMemberTable = members => {
