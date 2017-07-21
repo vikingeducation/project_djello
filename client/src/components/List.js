@@ -12,7 +12,7 @@ const buildCards = (cards, token) => {
 const List = ({ list, token, onDeleteList, onUpdateList, onCreateCard }) => {
   let cardPanels;
   if (list.cards.length === 0) {
-    cardPanels = <h4>No Cards found! Create a new card to get started.</h4>;
+    cardPanels = <h4>No cards found.</h4>;
   } else {
     cardPanels = buildCards(list.cards, token);
   }
