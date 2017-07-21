@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       );
     },
     onMarkComplete: () => {
-      dispatch(deleteSelectedCard(ownProps.token, ownProps.currentCard._id,));
+      dispatch(deleteSelectedCard(ownProps.token, ownProps.currentCard._id));
     }
   };
 };

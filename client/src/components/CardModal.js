@@ -75,7 +75,7 @@ class CardModal extends Component {
     };
   }
 
-  onDelete = (e) => {
+  onDelete = e => {
     e.preventDefault();
     this.setState({ showModal: false });
     this.props.onMarkComplete();
@@ -140,7 +140,14 @@ class CardModal extends Component {
             <h4>Activity Feed</h4>
             {activitiesFeed}
             <hr />
-            <Button block onClick={this.onDelete} bsSize="large" bsStyle="primary">Mark Card Completed</Button>
+            <Button
+              block
+              onClick={this.onDelete}
+              bsSize="large"
+              bsStyle="primary"
+            >
+              Mark Card Completed
+            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close} bsStyle="primary">Close</Button>

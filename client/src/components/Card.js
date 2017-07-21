@@ -26,7 +26,12 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
             card={card}
           />
           <br />
-          <Button block bsStyle="danger" onClick={e => onDeleteCard(e, card._id)} className="card-delete">
+          <Button
+            block
+            bsStyle="danger"
+            onClick={e => onDeleteCard(e, card._id)}
+            className="card-delete"
+          >
             Delete Card
           </Button>
         </Col>
