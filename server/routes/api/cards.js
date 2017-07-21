@@ -145,7 +145,7 @@ Card.findById(cardId)
         $addToSet: { members: userToAdd }
       },
       { new: true }
-    );
+    ).populate(['activities', 'members']);
   })
   .then(result => {
     updatedCard = result;
@@ -160,7 +160,7 @@ Card.findById(cardId)
   })
   .then(result => {
     res.json({
-      message: apiMessages.successfulPut,
+      message: apiMessages.successfulPost,
       data: updatedCard
     });
   })
@@ -203,11 +203,11 @@ router.delete("/:id/users/:userId", (req, res, next) => {
           $pull: { members: userToRemove }
         },
         { new: true }
-      );
+      ).populate(['activities', 'members']);
     })
     .then(result => {
       res.json({
-        message: apiMessages.successfulPut,
+        message: apiMessages.successfulDelete,
         data: result
       });
     })
