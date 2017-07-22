@@ -47,3 +47,12 @@ a {
 .add-list-link {
   margin-bottom: 2em;
 }
+
+.panel-header {
+  position: relative;
+}
+.drag-handle {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+}

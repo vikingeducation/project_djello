@@ -2,6 +2,13 @@ import React from "react";
 import { Button, Panel, Row, Col } from "react-bootstrap";
 import EditableField from "./EditableField";
 import CardModalContainer from "../containers/CardModalContainer";
+import { SortableHandle } from 'react-sortable-hoc';
+
+const DragHandle = SortableHandle(() => (
+  <div className="drag-handle">
+    O
+  </div>
+));
 
 const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
   let members = card.members.map(member =>
@@ -10,10 +17,14 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
   return (
     <Panel
       header={
-        <EditableField fieldName="title" onSubmit={onUpdateCard}>
-          {card.title}
-        </EditableField>
+        <div>
+          <EditableField fieldName="title" onSubmit={onUpdateCard}>
+            {card.title}
+          </EditableField>
+          <DragHandle />
+        </div>
       }
+      className="panel-header"
     >
       <EditableField fieldName="description" onSubmit={onUpdateCard}>
         <p>{card.description}</p>
