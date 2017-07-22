@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootswatch/flatly/bootstrap.min.css";
-import 'font-awesome/css/font-awesome.css'
+import "font-awesome/css/font-awesome.css";
 import "./index.css";
 import AppContainer from "./containers/AppContainer";
 import { Provider } from "react-redux";

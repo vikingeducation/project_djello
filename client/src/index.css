@@ -61,3 +61,10 @@ a {
 .draggable-active {
   opacity: 0.7;
 }
+
+span.img-loader {
+  display: inline-block;
+  background-image: url("/ajax-loader.gif");
+  height: 1em;
+  width: 1em;
+}

@@ -8,6 +8,7 @@ import {
   Modal
 } from "react-bootstrap";
 import EditableField from "./EditableField";
+import Loader from "./Loader";
 
 const buildAddUserOptions = (cardMembers, allUsers) => {
   let options = [];
@@ -91,10 +92,67 @@ class CardModal extends Component {
   };
 
   render() {
-    const { currentCard, allUsers, onUserAdd, onUserRemove } = this.props;
+    const {
+      currentCard,
+      allUsers,
+      isFetching,
+      onUserAdd,
+      onUserRemove
+    } = this.props;
     let memberTable = buildMemberTable(currentCard.members, onUserRemove);
     let activitiesFeed = buildActivityFeed(currentCard.activities);
     let addUserOptions = buildAddUserOptions(currentCard.members, allUsers);
+
+    let content = (
+      <div>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <EditableField fieldName="title" onSubmit={this.props.onUpdateCard}>
+              {currentCard.title}
+            </EditableField>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Description</h4>
+          <EditableField
+            fieldName="description"
+            onSubmit={this.props.onUpdateCard}
+          >
+            <p>{currentCard.description}</p>
+          </EditableField>
+          <hr />
+          <h4>Members</h4>
+          {memberTable}
+          <form onSubmit={onUserAdd}>
+            <FormGroup controlId="selectedBoard">
+              <ControlLabel>Add a member:</ControlLabel>
+              <FormControl componentClass="select" name="newMember">
+                {addUserOptions}
+              </FormControl>
+
+              <br />
+
+              <Button block bsStyle="success" type="submit">Add</Button>
+            </FormGroup>
+          </form>
+          <hr />
+          <h4>Activity Feed</h4>
+          {activitiesFeed}
+          <hr />
+          <Button
+            block
+            onClick={this.onDelete}
+            bsSize="large"
+            bsStyle="primary"
+          >
+            Mark Card Completed
+          </Button>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.close} bsStyle="primary">Close</Button>
+        </Modal.Footer>
+      </div>
+    );
 
     return (
       <div>
@@ -103,55 +161,7 @@ class CardModal extends Component {
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              <EditableField
-                fieldName="title"
-                onSubmit={this.props.onUpdateCard}
-              >
-                {currentCard.title}
-              </EditableField>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Description</h4>
-            <EditableField
-              fieldName="description"
-              onSubmit={this.props.onUpdateCard}
-            >
-              <p>{currentCard.description}</p>
-            </EditableField>
-            <hr />
-            <h4>Members</h4>
-            {memberTable}
-            <form onSubmit={onUserAdd}>
-              <FormGroup controlId="selectedBoard">
-                <ControlLabel>Add a member:</ControlLabel>
-                <FormControl componentClass="select" name="newMember">
-                  {addUserOptions}
-                </FormControl>
-
-                <br />
-
-                <Button block bsStyle="success" type="submit">Add</Button>
-              </FormGroup>
-            </form>
-            <hr />
-            <h4>Activity Feed</h4>
-            {activitiesFeed}
-            <hr />
-            <Button
-              block
-              onClick={this.onDelete}
-              bsSize="large"
-              bsStyle="primary"
-            >
-              Mark Card Completed
-            </Button>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close} bsStyle="primary">Close</Button>
-          </Modal.Footer>
+          {isFetching ? <Loader /> : content}
         </Modal>
       </div>
     );

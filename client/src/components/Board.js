@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import EditableField from "./EditableField";
 import ListContainer from "../containers/ListContainer";
+import Loader from "./Loader";
 
 const buildLists = (lists, token) => {
   return lists.map(list =>
@@ -21,7 +22,7 @@ const Board = ({
     return (
       <Col>
         <Row>
-          Loading...
+          <Loader />
         </Row>
       </Col>
     );

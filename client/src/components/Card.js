@@ -2,17 +2,14 @@ import React from "react";
 import { Button, Panel, Row, Col } from "react-bootstrap";
 import EditableField from "./EditableField";
 import CardModalContainer from "../containers/CardModalContainer";
-import { SortableHandle } from 'react-sortable-hoc';
+import { SortableHandle } from "react-sortable-hoc";
 import FontAwesome from "react-fontawesome";
 
-const DragHandle = SortableHandle(() => (
+const DragHandle = SortableHandle(() =>
   <div className="drag-handle">
-    <FontAwesome
-      name='bars'
-      size='2x'
-    />
+    <FontAwesome name="bars" size="2x" />
   </div>
-));
+);
 
 const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
   let members = card.members.map(member =>
@@ -57,7 +54,7 @@ const Card = ({ card, currentCard, token, onUpdateCard, onDeleteCard }) => {
             card={card}
           />
         </Col>
-        </Row>
+      </Row>
     </Panel>
   );
 };

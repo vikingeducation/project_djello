@@ -5,10 +5,11 @@ import CardContainer from "../containers/CardContainer";
 import {
   SortableContainer,
   SortableElement,
-  arrayMove,
-} from 'react-sortable-hoc';
+  arrayMove
+} from "react-sortable-hoc";
+import Loader from "./Loader";
 
-const SortableItem = SortableElement(({value, token}) => {
+const SortableItem = SortableElement(({ value, token }) => {
   return (
     <div>
       <CardContainer card={value} token={token} />
@@ -16,19 +17,24 @@ const SortableItem = SortableElement(({value, token}) => {
   );
 });
 
-const SortableList = SortableContainer(({items, token}) => {
+const SortableList = SortableContainer(({ items, token }) => {
   return (
     <div>
-    {items.map((value, index) => (
-      <SortableItem key={`item-${index}`} index={index} token={token} value={value} />
-    ))}
+      {items.map((value, index) =>
+        <SortableItem
+          key={`item-${index}`}
+          index={index}
+          token={token}
+          value={value}
+        />
+      )}
     </div>
-  )
-})
+  );
+});
 
 class List extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       cards: this.props.list.cards
     };
@@ -42,25 +48,42 @@ class List extends Component {
     }
   }
 
-  onSortEnd = ({oldIndex, newIndex}) => {
-    let {cards} = this.state;
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    let { cards } = this.state;
 
     this.setState({
-      cards: arrayMove(cards, oldIndex, newIndex),
+      cards: arrayMove(cards, oldIndex, newIndex)
     });
   };
 
   render() {
-    const { list, token, onDeleteList, onUpdateList, onCreateCard } = this.props;
+    const {
+      list,
+      token,
+      isFetching,
+      onDeleteList,
+      onUpdateList,
+      onCreateCard
+    } = this.props;
 
-    let sortableCardPanels = <SortableList 
-      items={this.state.cards}
-      token={token}
-      onSortEnd={this.onSortEnd} 
-      useDragHandle={true}
-      helperClass="draggable-active"
-    />
-  
+    let sortableCardPanels = (
+      <SortableList
+        items={this.state.cards}
+        token={token}
+        onSortEnd={this.onSortEnd}
+        useDragHandle={true}
+        helperClass="draggable-active"
+      />
+    );
+    if (isFetching) {
+      return (
+        <Col md={6}>
+          <Panel>
+            <Loader />
+          </Panel>
+        </Col>
+      );
+    }
     return (
       <Col md={6}>
         <Panel
@@ -91,7 +114,7 @@ class List extends Component {
               </Button>
             </ListGroupItem>
           </ListGroup>
-    
+
         </Panel>
         <a onClick={e => onDeleteList(e, list._id)} className="list-delete">
           Delete This List
