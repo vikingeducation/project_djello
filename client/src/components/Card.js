@@ -3,10 +3,14 @@ import { Button, Panel, Row, Col } from "react-bootstrap";
 import EditableField from "./EditableField";
 import CardModalContainer from "../containers/CardModalContainer";
 import { SortableHandle } from 'react-sortable-hoc';
+import FontAwesome from "react-fontawesome";
 
 const DragHandle = SortableHandle(() => (
   <div className="drag-handle">
-    O
+    <FontAwesome
+      name='bars'
+      size='2x'
+    />
   </div>
 ));
 

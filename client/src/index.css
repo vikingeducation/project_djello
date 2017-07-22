@@ -52,6 +52,7 @@ a {
   position: relative;
 }
 .drag-handle {
+  cursor: ns-resize;
   position: absolute;
   top: 2%;
   right: 5%;

@@ -5,11 +5,13 @@
   "proxy": "http://localhost:4000/",
   "dependencies": {
     "bootswatch": "^3.3.7",
+    "font-awesome": "^4.7.0",
     "form-serialize": "^0.7.2",
     "jwt-decode": "^2.2.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.6.1",
+    "react-fontawesome": "^1.6.1",
     "react-redux": "^5.0.5",
     "react-sortable-hoc": "^0.6.5",
     "redux": "^3.7.2",

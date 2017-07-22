@@ -5,11 +5,8 @@ import CardContainer from "../containers/CardContainer";
 import {
   SortableContainer,
   SortableElement,
-  SortableHandle,
   arrayMove,
 } from 'react-sortable-hoc';
-
-const DragHandle = SortableHandle(() => <span>::</span>); // This can be any component you want
 
 const SortableItem = SortableElement(({value, token}) => {
   return (
@@ -29,12 +26,6 @@ const SortableList = SortableContainer(({items, token}) => {
   )
 })
 
-// const buildCards = (cards, token) => {
-//   return cards.map(card =>
-//     <CardContainer key={card._id} card={card} token={token} />
-//   );
-// };
-
 class List extends Component {
   constructor(props) {
     super(props)
@@ -44,7 +35,6 @@ class List extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('ayyyy');
     if (!nextProps.isFetching) {
       this.setState({
         cards: nextProps.list.cards
@@ -62,13 +52,6 @@ class List extends Component {
 
   render() {
     const { list, token, onDeleteList, onUpdateList, onCreateCard } = this.props;
-    // let cardPanels;
-
-    // if (this.state.cards.length === 0) {
-    //   cardPanels = <h4>No cards found.</h4>;
-    // } else {
-    //   cardPanels = buildCards(this.state.cards, token);
-    // }
 
     let sortableCardPanels = <SortableList 
       items={this.state.cards}
