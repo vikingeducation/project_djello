@@ -57,3 +57,7 @@ a {
   top: 2%;
   right: 5%;
 }
+
+.draggable-active {
+  opacity: 0.7;
+}

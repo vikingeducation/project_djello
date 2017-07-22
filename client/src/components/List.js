@@ -57,7 +57,8 @@ class List extends Component {
       items={this.state.cards}
       token={token}
       onSortEnd={this.onSortEnd} 
-      useDragHandle={true} 
+      useDragHandle={true}
+      helperClass="draggable-active"
     />
   
     return (
