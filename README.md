@@ -25,7 +25,9 @@ To start the project, run `yarn start` in the root directory. If you do not have
 A deployed version of this project may be found [here.](https://salty-dawn-77328.herokuapp.com/)
 
 You may log in using the following credentials:
+
 Email: foobar0@gmail.com -OR- foobar1@gmail.com
+
 Password: password
 
 ## Additional Notes
