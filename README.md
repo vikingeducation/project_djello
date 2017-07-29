@@ -1,5 +1,8 @@
 # Project Djello
 
+[![Project Djello](http://i.imgur.com/KXHUCzg.png)](https://salty-dawn-77328.herokuapp.com/)
+
+
 ## Introduction
 Project Djello is a reproduction of Trello using a fullstack JavaScript stack. 
 
