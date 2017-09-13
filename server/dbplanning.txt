@@ -1,0 +1,12 @@
+User
+	-email
+	-username
+	-password
+
+Board
+	-title
+	-userId
+
+List
+
+Card
