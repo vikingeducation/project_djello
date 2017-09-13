@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "seeds": "node ./seeds/users",
+    "seed": "node ./seeds/users"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "dotenv": "^4.0.0",
+    "express": "~4.15.2",
+    "express-handlebars": "^3.0.0",
+    "hbs": "~4.0.1",
+    "mongoose": "^4.11.11",
+    "mongoose-unique-validator": "^1.0.6",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  }
+}
