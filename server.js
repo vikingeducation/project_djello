@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
+
 const { User } = require("./models");
+
+io.on("connection", client => {
+  console.log("connected!");
+  console.log(client.id);
+});
 
 // .env
 if (process.env.NODE_ENV !== "production") {
@@ -68,14 +76,14 @@ app.use((err, req, res, next) => {
 });
 
 // Set up port/host
-const port = process.env.PORT || process.argv[2] || 3000;
+const port = process.env.PORT || process.argv[2] || 3001;
 const host = "localhost";
 let args = process.env.NODE_ENV === "production" ? [port] : [port, host];
 
-// helpful log when the server starts
+// Helpful log when the server starts
 args.push(() => {
   console.log(`Listening: http://${host}:${port}`);
 });
 
-// Use apply to pass the args to listen
-app.listen.apply(app, args);
+// Start it up!
+server.listen(...args);
