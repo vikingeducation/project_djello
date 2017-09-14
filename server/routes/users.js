@@ -11,11 +11,21 @@ router.get("/", (req, res, next) => {
       next(err);
     });
 });
-router.get("/:id", (req, res) => {
-  return res.send("users");
-
+router.get("/:id", async (req, res) => {
   //get user from database
-  res.json(user);
+  console.log("getting request");
+  const username = req.params.id;
+  try {
+    const user = await User.findOne({ username: req.params.id });
+    //authenticate password
+    // if (user.password === )
+    console.log("server sees user as = ", user);
+    res.json(user);
+  } catch (e) {
+    //handle error
+    res.setStatus(404);
+  } finally {
+  }
 });
 
 module.exports = router;

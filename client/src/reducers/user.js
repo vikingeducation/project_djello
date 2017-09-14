@@ -1,12 +1,15 @@
 import {
   REQUEST_CHECK_USER,
   SUCCESS_CHECK_USER,
-  FAILURE_CHECK_USER
+  FAILURE_CHECK_USER,
+  LOGIN_USER,
+  LOGOUT_USER
 } from "../actions/user";
 
 const intialState = {
-  user: null,
+  username: null,
   isFetching: false,
+  loggedIn: false,
   error: null
 };
 const user = (state = intialState, action) => {
@@ -27,6 +30,16 @@ const user = (state = intialState, action) => {
         ...state,
         isFetching: false,
         error: action.data
+      };
+    case LOGIN_USER:
+      return {
+        ...state,
+        loggedIn: true
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        loggedIn: false
       };
     default:
       return state;

@@ -52,14 +52,22 @@ class LoginContainer extends React.Component {
   onSubmit = e => {
     e.preventDefault();
     let validateErrors;
-    if (!(validateErrors = validateForm(this.state))) {
-      this.formSuccess();
-    } else {
-      this.formError(validateErrors);
-    }
+    this.formSuccess();
+    //VALIDATION DISABLED FOR TESTING
+    // if (!(validateErrors = validateForm(this.state))) {
+    //   this.formSuccess();
+    // } else {
+    //   this.formError(validateErrors);
+    // }
   };
 
   formSuccess = () => {
+    //attempt to login with formdata
+    const user = {
+      username: this.state.email,
+      password: this.state.password
+    };
+    this.props.validateUser(user);
     this.setState(
       {
         success: true,
@@ -82,8 +90,8 @@ class LoginContainer extends React.Component {
     );
   };
   render() {
-    console.log("lContainer state = ", this.state);
-    console.log("lContainer props = ", this.props);
+    // console.log("lContainer state = ", this.state);
+    // console.log("lContainer props = ", this.props);
     const loading = (
       <div>
         <p>Loading.....</p>
@@ -107,7 +115,6 @@ class LoginContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state = ", state);
   return {
     isFetching: state.user.isFetching,
     error: state.user.error,
@@ -116,12 +123,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    validateUser: () => {
-      const test = {
-        username: "Bob",
-        password: "blaahhh"
-      };
-      dispatch(validateUser(test));
+    validateUser: user => {
+      dispatch(validateUser(user));
     }
   };
 };
