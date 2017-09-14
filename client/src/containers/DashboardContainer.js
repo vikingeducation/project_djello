@@ -18,7 +18,7 @@ class DashboardContainer extends Component {
 		return await response.json();
 	};
 	render() {
-		return <pre>{JSON.stringify(this.state.boards, null, 2)}</pre>;
+		return <Dashboard boards={this.state.boards} />;
 	}
 }
 

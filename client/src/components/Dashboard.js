@@ -5,7 +5,7 @@ import fetch from "isomorphic-fetch";
 const Dashboard = ({ boards }) => {
 	return (
 		<div>
-			{boards.map(board => <Board title={board.title} lists={board.lists} />)}
+			{boards.map(board => <Board title={board.title} lists={board.Lists} />)}
 		</div>
 	);
 };

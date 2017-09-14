@@ -6,7 +6,7 @@ const Board = ({ title, lists }) => {
 		<div>
 			<h2>{title}</h2>
 
-			{lists.map(list => <List title={list.title} cards={list.cards} />)}
+			{lists.map(list => <List title={list.title} cards={list.Cards} />)}
 		</div>
 	);
 };
