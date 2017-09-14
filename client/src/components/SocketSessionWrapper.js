@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { Redirect } from 'react-router-dom';
 
-class SocketSessionWrapper extends Component {
-	constructor(props) {
-		super(props);
-
-		this.socket = props.socket;
-	}
-
-	reconnect() {}
-
+export default class SocketSessionWrapper extends PureComponent {
 	render() {
-		if (this.socket.disconnected) {
+		if (!this.props.user) {
+			return <Redirect to="/login" />;
 		}
-		return props.children;
+		return this.props.children;
 	}
 }

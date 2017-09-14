@@ -5,6 +5,9 @@ import logo from './logo.svg';
 import openSocket from 'socket.io-client';
 import Events from '../../containers/App/actions';
 
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import SessionWrapper from '../SocketSessionWrapper';
+
 const { SYSTEM, CLIENT } = Events;
 class App extends Component {
 	constructor(props) {
@@ -27,7 +30,16 @@ class App extends Component {
 	}
 
 	render() {
-		return <div />;
+		return (
+			<Router>
+				<SessionWrapper user={this.props.LoginReducer.user}>
+					<Switch>
+						<Route exact path="/" component={() => <p>foo</p>} />
+						<Route render={() => <h1>Page not found</h1>} />
+					</Switch>
+				</SessionWrapper>
+			</Router>
+		);
 	}
 
 	componentWillUnmount() {

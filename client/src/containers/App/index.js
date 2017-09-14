@@ -7,4 +7,8 @@ import App from '../../components/App';
 
 import * as Actions from './actions';
 
-export default connect(state => state, null)(App);
+const mapDispatchToProps = dispatch => ({
+	actions: bindActionCreators(Actions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(App);

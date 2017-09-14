@@ -8,8 +8,12 @@ const BoardSchema = new mongoose.Schema(
 	{
 		name: {
 			type: String,
-			require: true,
+			required: true,
 			unique: true
+		},
+		user: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User'
 		},
 		lists: [
 			{

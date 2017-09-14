@@ -1,1 +1,16 @@
+.root-loading {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	background-color: rgba(125, 125, 125, .5);
+}
 
+.root-loading .loading {
+	position: absolute;
+	left: calc(50% - 64px);
+	top: calc(50% - 64px);
+	display: inline-block;
+}
