@@ -5,8 +5,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 import LoginContainer from "./Containers/LoginContainer";
 import BoardsContainer from "./Containers/BoardsContainer";
+import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
+// import TableExampleSimple from "./Components/TableExampleSimple";
 
 class App extends Component {
   constructor() {
@@ -17,20 +19,21 @@ class App extends Component {
     // const testing = <p>Testing</p>;
     console.log("state in app = ", this.props);
 
-    // const user = this
+    const loggedIn = this.props.user.loggedIn;
     return (
       <Router>
         <div className="App">
+          <Appbar loggedIn={loggedIn} />
           <h1>App</h1>
           <p>user: {this.props.user.username}</p>
           {/* if logged in */}
-          <LoggedIn user={this.props.user.loggedIn}>
+          <LoggedIn user={loggedIn}>
             <Switch>
               <Route exact path="/" component={BoardsContainer} />
             </Switch>
           </LoggedIn>
           {/* if not logged in */}
-          <LoggedOut user={this.props.user.loggedIn}>
+          <LoggedOut user={loggedIn}>
             <LoginContainer />
           </LoggedOut>
         </div>

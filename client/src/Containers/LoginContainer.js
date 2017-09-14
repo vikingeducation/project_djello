@@ -9,17 +9,12 @@ import Showable from "../Components/elements/Showable";
 class LoginContainer extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   user: null,
-    //   isFetching: false,
-    //   error: null,
-    //   test: "testing"
-    // };
     this.state = {
       success: false,
       errors: {},
-      email: "",
-      password: ""
+      username: "",
+      password: "",
+      email: ""
     };
   }
   inputValidationHash = {
@@ -29,23 +24,23 @@ class LoginContainer extends React.Component {
   onChangeInput = async e => {
     let inputName = e.target.name;
     this.setState({ [e.target.name]: e.target.value }, () => {
-      let validateErrors = this.inputValidationHash[inputName]({
-        [inputName]: this.state[inputName]
-      });
-      if (validateErrors) {
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            [inputName]: validateErrors[inputName]
-          }
-        });
-      } else {
-        let error = this.state.errors;
-        delete error[inputName];
-        this.setState({
-          errors: error
-        });
-      }
+      // let validateErrors = this.inputValidationHash[inputName]({
+      //   [inputName]: this.state[inputName]
+      // });
+      // if (validateErrors) {
+      //   this.setState({
+      //     errors: {
+      //       ...this.state.errors,
+      //       [inputName]: validateErrors[inputName]
+      //     }
+      //   });
+      // } else {
+      //   let error = this.state.errors;
+      //   delete error[inputName];
+      //   this.setState({
+      //     errors: error
+      //   });
+      // }
     });
   };
 
@@ -64,7 +59,7 @@ class LoginContainer extends React.Component {
   formSuccess = () => {
     //attempt to login with formdata
     const user = {
-      username: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
     this.props.validateUser(user);
@@ -72,9 +67,9 @@ class LoginContainer extends React.Component {
       {
         success: true,
         errors: {},
-        exampleEmail: "",
-        examplePassword: "",
-        exampleURL: ""
+        username: "",
+        password: "",
+        email: ""
       },
       () => console.log("Success!")
     );
@@ -90,8 +85,6 @@ class LoginContainer extends React.Component {
     );
   };
   render() {
-    // console.log("lContainer state = ", this.state);
-    // console.log("lContainer props = ", this.props);
     const loading = (
       <div>
         <p>Loading.....</p>

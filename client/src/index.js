@@ -12,12 +12,15 @@ import user from "./reducers/user";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById("root")
 );
