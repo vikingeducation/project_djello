@@ -18,7 +18,7 @@ class DashboardContainer extends Component {
 		return await response.json();
 	};
 	render() {
-		return <Dashboard boards={this.state.boards} />;
+		return <Dashboard board={this.state.boards[0]} />;
 	}
 }
 

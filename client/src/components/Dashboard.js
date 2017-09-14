@@ -1,11 +1,10 @@
 import React from "react";
 import Board from "./Board";
-import fetch from "isomorphic-fetch";
 
-const Dashboard = ({ boards }) => {
+const Dashboard = ({ board }) => {
 	return (
 		<div>
-			{boards.map(board => <Board title={board.title} lists={board.Lists} />)}
+			{!board ? null : <Board title={board.title} lists={board.Lists} />}
 		</div>
 	);
 };

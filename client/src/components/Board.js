@@ -6,7 +6,11 @@ const Board = ({ title, lists }) => {
 		<div>
 			<h2>{title}</h2>
 
-			{lists.map(list => <List title={list.title} cards={list.Cards} />)}
+			<div className="grid-container">
+				{lists.map(list => (
+					<List key={list.id} title={list.title} cards={list.Cards} />
+				))}
+			</div>
 		</div>
 	);
 };
