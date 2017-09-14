@@ -6,14 +6,17 @@ import LoginContainer from "./Containers/LoginContainer";
 
 class App extends Component {
   render() {
+    // const testing = <p>Testing</p>;
     return (
       <Router>
         <div className="App">
           <h1>App</h1>
+          {/* if logged in */}
+          {/* if not logged in */}
           <Switch>
             <Route exact path="/" component={LoginContainer} />
-            <Route exact path="/thing" component={LoginContainer} />
-            <Route exact path="/testing" component={LoginContainer} />
+            {/* <Route exact path="/thing" component={testing} />
+            <Route exact path="/testing" component={testing} /> */}
           </Switch>
 
           {/* <LoginContainer /> */}
