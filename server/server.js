@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const { User } = require("./models");
+const { User, Board, List, Card } = require("./models");
 
 const morgan = require("morgan");
 const morganToolkit = require("morgan-toolkit")(morgan);
@@ -42,7 +42,6 @@ passport.use(
 				email: email
 			}
 		}).then(user => {
-			console.log(user);
 			if (!user || !user.validatePassword(password)) {
 				return done(null, false);
 			}
@@ -62,8 +61,18 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
-	console.log("This is the output log: ", req.user);
+	console.log("Hit the server");
 	res.json(req.user);
+});
+
+app.get("/api/:id/boards", async (req, res) => {
+	const boards = await Board.findAll({
+		where: { userId: req.params.id },
+		include: [{ model: List, include: [{ model: Card }] }]
+	});
+
+	console.log("This users boards are: ", boards);
+	res.json(boards);
 });
 
 app.listen(3001, () => {

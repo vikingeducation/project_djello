@@ -9,8 +9,9 @@ module.exports = {
         list += 1;
       }
       cards.push({
-        title: `List ${i}`,
-        description: "I'm just a list, yes I'm only a list.",
+        title: `Card ${i}`,
+        description:
+          "That really urgent thing you've been avoiding for weeks because it means diving into the snarl of legacy code, but you really can't put it off anymore.",
         listId: list,
         listIndex: i % 5,
         completed: false

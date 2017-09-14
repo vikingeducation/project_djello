@@ -1,5 +1,6 @@
 import React from "react";
 import Board from "./Board";
+import fetch from "isomorphic-fetch";
 
 const Dashboard = ({ boards }) => {
 	return (

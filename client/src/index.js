@@ -9,13 +9,17 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { djelloApp } from "./reducers";
 
-const store = createStore(djelloApp, applyMiddleware(thunk));
+//const store = createStore(djelloApp, applyMiddleware(thunk));
+
+//<MuiThemeProvider>
+//		<Provider store={store}>
+//			<App />
+//		</Provider>
+//	</MuiThemeProvider>
 
 const app = () => (
 	<MuiThemeProvider>
-		<Provider store={store}>
-			<App />
-		</Provider>
+		<App />
 	</MuiThemeProvider>
 );
 

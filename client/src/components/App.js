@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fetch from "isomorphic-fetch";
 import LoginForm from "./LoginForm";
+import DashboardContainer from "../containers/DashboardContainer";
 import "../App.css";
 
 class App extends Component {
@@ -14,7 +15,6 @@ class App extends Component {
 
   loginSubmit = async e => {
     e.preventDefault();
-
     try {
       const loginParams = {
         email: e.target.email.value,
@@ -41,7 +41,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.loggedIn ? (
-          <p>You logged in, {this.state.user.username}!</p>
+          <DashboardContainer />
         ) : (
           <LoginForm onSubmit={this.loginSubmit} />
         )}
