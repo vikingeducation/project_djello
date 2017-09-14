@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const h = require("../helpers");
 const { User } = require("../models");
 
 // Route Handlers
@@ -10,7 +9,7 @@ function authenticate(passport) {
     "/login",
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: h.loginPath(),
+      failureRedirect: "/auth/login",
       failureFlash: true
     })
   );
@@ -18,7 +17,7 @@ function authenticate(passport) {
   //register handler
   router.post("/register", (req, res, next) => {
     const { username, password } = req.body;
-    User.registerNewUser(username, password, id)
+    User.registerNewUser(username, password)
       .then(user => {
         req.login(user, err => {
           if (err) next(err);

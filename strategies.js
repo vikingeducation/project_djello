@@ -1,7 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const BearerStrategy = require("passport-http-bearer").Strategy;
 
-const { User } = require("../models");
+const { User } = require("./models");
 
 const localAuth = async (username, password, done) => {
   try {

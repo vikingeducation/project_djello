@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const h = require("./helpers");
 const { User } = require("./models");
 
 // .env
@@ -54,7 +53,7 @@ passport.use("local", local);
 passport.use("bearer", bearer);
 
 // Routes
-app.use("/auth", require("./routes")(passport));
+app.use("/auth", require("./routes/auth")(passport));
 app.use("/api", require("./routes/api"));
 
 // 404 Handler
