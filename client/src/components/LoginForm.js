@@ -4,11 +4,16 @@ import TextField from "material-ui/TextField";
 import Divider from "material-ui/Divider";
 import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
+import AlertModal from "./AlertModal";
 
 export const LoginForm = props => {
+  console.log(props);
   return (
     <div>
       <AppBar title="Login" />
+      {props.loginFailureMessage
+        ? <AlertModal loginFailureMessage={props.loginFailureMessage} />
+        : null}
       <Paper zDepth={2} style={{ marginTop: 50, width: 500 }}>
         <form>
           <TextField

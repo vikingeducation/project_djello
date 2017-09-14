@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Dashboard from "../components/Dashboard";
+import DashboardContainer from "../containers/DashboardContainer";
 import LoginFormContainer from "../containers/LoginFormContainer";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -16,12 +16,13 @@ const muiTheme = getMuiTheme({
 });
 
 const App = ({ state }) => {
+  console.log(state);
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       {!state.loggedIn
         ? <LoginFormContainer />
         : <Router>
-            <Dashboard />
+            <DashboardContainer {...state} />
           </Router>}
     </MuiThemeProvider>
   );

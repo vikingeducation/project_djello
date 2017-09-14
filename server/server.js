@@ -1,15 +1,30 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
+const expressSession = require("express-session");
+require("dotenv").config();
+const db = require("./config")(process.env.DB_URL);
+const User = require("./models/User");
+const formatUser = require("./services/formatUser");
+const { createSignedSessionId } = require("./services/session");
 
-let testusers = ["fake1", "fake2"];
+app.use(bodyParser.json());
 
 app.set("port", process.env.PORT || 3001);
 
-app.post("/api/users", (req, res) => {
-  console.log(req.body);
-  res.json(testusers);
+app.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  if (!user)
+    return res
+      .status(401)
+      .json({ error: "We did not find your username in the database" });
+  if (user.validatePassword) {
+    res.cookie(createSignedSessionId(username));
+    res.json(formatUser(user));
+  } else {
+    res.status(401).json({ error: "Your password was incorrect" });
+  }
 });
 
 app.listen(app.get("port"), () => {

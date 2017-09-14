@@ -27,6 +27,12 @@ export const app = (state = initialState, action) => {
         loginFailureMessage: action.data,
         awaitingLogin: false
       };
+    case Actions.LOG_OUT:
+      return {
+        ...state,
+        user: {},
+        loggedIn: false
+      };
     default:
       return state;
   }
