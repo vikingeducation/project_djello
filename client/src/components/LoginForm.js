@@ -7,10 +7,14 @@ const LoginForm = ({ onSubmit }) => {
 	return (
 		<div className="login-container">
 			<Paper zDepth={2} style={{ padding: "20px" }}>
-				<form onSubmit={onSubmit}>
-					<TextField type="email" floatingLabelText="Email" />
+				<form onSubmit={onSubmit} action="/" method="post">
+					<TextField type="email" name="email" floatingLabelText="Email" />
 					<br />
-					<TextField type="password" floatingLabelText="Password" />
+					<TextField
+						type="password"
+						name="password"
+						floatingLabelText="Password"
+					/>
 					<br />
 					<br />
 					<RaisedButton type="submit" label="Log In" primary={true} />

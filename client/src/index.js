@@ -2,13 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import App from "./App";
+import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { djelloApp } from "./reducers";
 
-ReactDOM.render(
+const store = createStore(djelloApp, applyMiddleware(thunk));
+
+const app = () => (
 	<MuiThemeProvider>
-		<App />
-	</MuiThemeProvider>,
-	document.getElementById("root")
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</MuiThemeProvider>
 );
+
+ReactDOM.render(app(), document.getElementById("root"));
 registerServiceWorker();

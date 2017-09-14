@@ -1,6 +1,13 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const bodyParser = require("body-parser");
+const { User } = require("./models");
+
+const morgan = require("morgan");
+const morganToolkit = require("morgan-toolkit")(morgan);
+
+app.use(morganToolkit());
 
 // Session
 
@@ -12,6 +19,10 @@ app.use(
 	})
 );
 
+// Body parser
+
+app.use(bodyParser.json());
+
 // Passport authentication
 
 const passport = require("passport");
@@ -21,7 +32,11 @@ app.use(passport.session());
 const LocalStrategy = require("passport-local").Strategy;
 
 passport.use(
-	new LocalStrategy(function(email, password, done) {
+	new LocalStrategy({ usernameField: "email" }, function(
+		email,
+		password,
+		done
+	) {
 		User.find({
 			where: {
 				email: email
@@ -46,12 +61,9 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
-app.post("/login", async (req, res) => {
-	const authentication = await passport.authenticate("local", {
-		failureFlash: true
-	});
-
-	console.log(authentication());
+app.post("/login", passport.authenticate("local"), (req, res) => {
+	console.log("This is the output log: ", req.user);
+	res.json(req.user);
 });
 
 app.listen(3001, () => {

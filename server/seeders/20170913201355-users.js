@@ -8,7 +8,7 @@ module.exports = {
     var users = [];
     for (let i = 0; i < 10; i++) {
       users.push({
-        email: `me{i}@gmail.com`,
+        email: `me${i}@gmail.com`,
         username: faker.internet.userName(),
         password: bcrypt.hashSync("password", 12)
       });
