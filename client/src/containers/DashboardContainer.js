@@ -5,20 +5,31 @@ class DashboardContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			boards: []
+			boards: [],
+			currentBoard: null
 		};
 	}
 	componentDidMount = async () => {
 		const boards = await this.getUserBoards(1);
-		this.setState({ boards: boards });
+		this.setState({ boards: boards, currentBoard: boards[0] });
 	};
 
 	getUserBoards = async id => {
-		const response = await fetch(`/api/${id}/boards/`);
+		const response = await fetch(`/api/${this.props.user.id}/boards/`);
 		return await response.json();
 	};
+
+	changeBoard = e => {
+		this.setState({ currentBoard: this.state.boards[e.target.value] });
+	};
 	render() {
-		return <Dashboard board={this.state.boards[0]} />;
+		return (
+			<Dashboard
+				boards={this.state.boards}
+				currentBoard={this.state.currentBoard}
+				onChange={this.changeBoard}
+			/>
+		);
 	}
 }
 

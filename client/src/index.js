@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import App from "./components/App";
+import AppContainer from "./containers/AppContainer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -14,7 +14,7 @@ const store = createStore(djelloApp, applyMiddleware(thunk));
 const app = () => (
 	<MuiThemeProvider>
 		<Provider store={store}>
-			<App />
+			<AppContainer />
 		</Provider>
 	</MuiThemeProvider>
 );

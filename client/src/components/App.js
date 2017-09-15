@@ -1,47 +1,19 @@
 import React, { Component } from "react";
-import fetch from "isomorphic-fetch";
 import LoginForm from "./LoginForm";
 import DashboardContainer from "../containers/DashboardContainer";
 import "../App.css";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loggedIn: false,
-      user: {}
-    };
-  }
-
   loginSubmit = async e => {
     e.preventDefault();
-    try {
-      const loginParams = {
-        email: e.target.email.value,
-        password: e.target.password.value
-      };
-
-      const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(loginParams)
-      });
-
-      const parsedResponse = await response.json();
-
-      this.setState({ loggedIn: true, user: parsedResponse });
-    } catch (error) {
-      console.log(error);
-    }
+    this.props.loginUser(e.target.email.value, e.target.password.value);
   };
 
   render() {
     return (
       <div className="App">
-        {this.state.loggedIn ? (
-          <DashboardContainer />
+        {this.props.user.username ? (
+          <DashboardContainer user={this.props.user} />
         ) : (
           <LoginForm onSubmit={this.loginSubmit} />
         )}

@@ -61,17 +61,20 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
-	console.log("Hit the server");
-	res.json(req.user);
+	res.json({
+		id: req.user.id,
+		username: req.user.username,
+		email: req.user.email
+	});
 });
 
 app.get("/api/:id/boards", async (req, res) => {
 	const boards = await Board.findAll({
 		where: { userId: req.params.id },
-		include: [{ model: List, include: [{ model: Card }] }]
+		include: [{ model: List, include: [{ model: Card }] }],
+		order: [[List, "boardIndex"], [List, Card, "listIndex"]]
 	});
 
-	console.log("This users boards are: ", boards);
 	res.json(boards);
 });
 
