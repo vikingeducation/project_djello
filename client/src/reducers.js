@@ -1,4 +1,4 @@
-import { SET_USER, SET_BOARDS } from "./actions";
+import { SET_USER, SET_BOARDS, ADD_BOARD, REMOVE_BOARD } from "./actions";
 
 export const djelloApp = (state = { user: {}, boards: [] }, action) => {
 	switch (action.type) {
@@ -11,6 +11,16 @@ export const djelloApp = (state = { user: {}, boards: [] }, action) => {
 			return {
 				...state,
 				boards: action.data
+			};
+		case ADD_BOARD:
+			return {
+				...state,
+				boards: [action.data, ...state.boards]
+			};
+		case REMOVE_BOARD:
+			return {
+				...state,
+				boards: state.boards.filter(board => board.id !== action.data)
 			};
 		default:
 			return state;

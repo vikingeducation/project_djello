@@ -72,10 +72,24 @@ app.get("/api/:id/boards", async (req, res) => {
 	const boards = await Board.findAll({
 		where: { userId: req.params.id },
 		include: [{ model: List, include: [{ model: Card }] }],
-		order: [[List, "boardIndex"], [List, Card, "listIndex"]]
+		order: [
+			["updatedAt", "DESC"],
+			["title"],
+			[List, "boardIndex"],
+			[List, Card, "listIndex"]
+		]
 	});
-
 	res.json(boards);
+});
+
+app.post("/api/boards/new", async (req, res) => {
+	const newBoard = await Board.create({ title: "", userId: req.body.id });
+	res.json(newBoard);
+});
+
+app.delete("/api/boards", async (req, res) => {
+	await Board.destroy({ where: { id: req.body.id } });
+	res.end();
 });
 
 app.listen(3001, () => {

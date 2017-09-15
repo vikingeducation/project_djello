@@ -1,7 +1,13 @@
 import React from "react";
 import List from "./List";
 
-const Dashboard = ({ currentBoard, boards, onChange }) => {
+const Dashboard = ({
+	currentBoard,
+	boards,
+	onChange,
+	newBoard,
+	deleteBoard
+}) => {
 	return (
 		<div>
 			<h2>{currentBoard ? currentBoard.title : null}</h2>
@@ -15,6 +21,8 @@ const Dashboard = ({ currentBoard, boards, onChange }) => {
 					))
 				)}
 			</select>
+			<a onClick={newBoard}>Add a board</a>
+			<a onClick={deleteBoard}>Delete Board</a>
 			<div className="grid-container">
 				{!currentBoard ? null : (
 					currentBoard.Lists.map(list => (
