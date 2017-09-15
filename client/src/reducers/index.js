@@ -1,7 +1,5 @@
 import * as Actions from "../actions";
 
-console.log(localStorage.getItem("token"));
-
 const initialState = {
   awaitingLogin: false,
   awaitingBoard: false,
@@ -9,7 +7,7 @@ const initialState = {
   loginFailureMessage: "",
   boardFailureMessage: null,
   user: {},
-  boards: [{ title: "Example Board", id: 1 }],
+  boards: [],
   cards: [],
   lists: []
 };

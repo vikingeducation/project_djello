@@ -15,7 +15,7 @@ app.set("port", process.env.PORT || 3001);
 
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username }).populate("boards");
   if (!user) return res.status(401).json({ error: USER_NOT_FOUND });
   user.validatePassword(password)
     ? res.json(formatUser(user, username))
@@ -35,8 +35,10 @@ app.post("/api/boards/new", async (req, res) => {
   board = await board.save();
   console.log("here");
 
-  const user = await User.findOne({ username });
-  user.update({ $push: { boards: board } });
+  // const user = await User.findOne({ username });
+  // await user.update({ $push: { boards: board } });
+  const user = await User.update({ username }, { $push: { boards: board } });
+  console.log(user);
   res.json(board);
   //   if (!user) return res.status(401).json({ error: USER_NOT_FOUND });
   //   user.validatePassword(password)

@@ -13,5 +13,5 @@ const style = {
 
 export default ({ board }) =>
   <Paper style={style} zDepth={2}>
-    <AppBar title={board.title} iconElementRight={<ContentCreate />} />
+    <AppBar title={board.title} />
   </Paper>;

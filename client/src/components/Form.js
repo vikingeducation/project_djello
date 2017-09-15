@@ -20,7 +20,6 @@ class Form extends React.Component {
     });
 
   render() {
-    console.log(this.props);
     const style = {
       height: 300,
       width: "90%",

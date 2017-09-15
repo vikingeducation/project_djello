@@ -1,5 +1,4 @@
 export const makeOptions = (body, method, token) => {
-  console.log(body);
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   const options = {
@@ -8,6 +7,5 @@ export const makeOptions = (body, method, token) => {
     body
   };
   if (token) headers.append("token", token);
-  console.log(options);
   return options;
 };

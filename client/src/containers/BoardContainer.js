@@ -14,7 +14,8 @@ const style = {
   width: "95%",
   margin: "2.5%",
   textAlign: "center",
-  display: "flex"
+  display: "flex",
+  flexWrap: "wrap"
 };
 
 class BoardContainer extends Component {
@@ -36,12 +37,13 @@ class BoardContainer extends Component {
         onClick={this.handleModalOpen}
       />
     ];
-    console.log("board container props: ", this.props);
 
     return (
       <div>
         <Paper style={style} zDepth={1}>
-          {this.props.boards.map(board => <Board board={board} />)}
+          {this.props.boards.map(board =>
+            <Board board={board} key={board._id} />
+          )}
           <AddBoard handleModalOpen={this.handleModalOpen} />
         </Paper>
         {this.state.modalOpen
@@ -68,7 +70,9 @@ class BoardContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createBoard: board => dispatch(createBoard(board))
+    createBoard: input => {
+      dispatch(createBoard(input));
+    }
   };
 };
 

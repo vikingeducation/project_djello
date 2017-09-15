@@ -56,11 +56,10 @@ export const createBoardFailure = error => {
   };
 };
 
-export const createBoard = board => async dispatch => {
-  console.log(board);
+export const createBoard = newBoard => async dispatch => {
   dispatch(startAwaitBoard());
   const options = makeOptions(
-    JSON.stringify(board),
+    JSON.stringify(newBoard),
     "POST",
     localStorage.getItem("token")
   );
@@ -81,6 +80,8 @@ export const login = credentials => async dispatch => {
       return dispatch(loginFailure("You screwed up"));
     localStorage.setItem("token", user.token);
     dispatch(loginSuccess(user));
+    console.log(user);
+    dispatch(createBoardSuccess(user.boards));
   } catch (err) {
     dispatch(loginFailure("Something went wrong, please try again"));
   }
