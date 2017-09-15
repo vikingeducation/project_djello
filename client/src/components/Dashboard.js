@@ -3,8 +3,7 @@ import AppBar from "material-ui/AppBar";
 import Boards from "./Boards";
 import FlatButton from "material-ui/FlatButton";
 
-const Dashboard = ({ logOut, user }) => {
-  console.log(user);
+const Dashboard = ({ logOut, user, boards }) => {
   return (
     <div>
       <AppBar
@@ -18,7 +17,7 @@ const Dashboard = ({ logOut, user }) => {
           </div>
         }
       />
-      <Boards />
+      <Boards boards={boards} user={user} />
     </div>
   );
 };

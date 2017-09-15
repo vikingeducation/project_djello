@@ -1,10 +1,8 @@
 import React from "react";
+import Board from "../components/Board";
+import BoardContainer from "../containers/BoardContainer";
 
-const Boards = () =>
-  <div
-    style={{ width: 500, height: 500, border: "1px solid black", margin: 15 }}
-  >
-    Boards
-  </div>;
+const Boards = ({ boards, user }) =>
+  <BoardContainer boards={boards} user={user} />;
 
 export default Boards;

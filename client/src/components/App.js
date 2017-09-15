@@ -11,17 +11,17 @@ const muiTheme = getMuiTheme({
     primary1Color: green700
   },
   appBar: {
-    height: 75
+    height: 50
   }
 });
 
 const App = ({ state }) => {
-  console.log(state);
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       {!state.loggedIn
         ? <LoginFormContainer />
-        : <Router>
+        : //wrap each component in a pagecontainer that checks localStorage on each time
+          <Router>
             <DashboardContainer {...state} />
           </Router>}
     </MuiThemeProvider>

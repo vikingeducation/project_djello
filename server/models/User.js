@@ -9,7 +9,13 @@ const UserSchema = new Schema(
     lname: String,
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true }
+    passwordHash: { type: String, required: true },
+    boards: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Board"
+      }
+    ]
   },
   {
     timestamps: true

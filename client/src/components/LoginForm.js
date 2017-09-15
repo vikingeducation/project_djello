@@ -7,7 +7,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import AlertModal from "./AlertModal";
 
 export const LoginForm = props => {
-  console.log(props);
   return (
     <div>
       <AppBar title="Login" />

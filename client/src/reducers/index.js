@@ -1,10 +1,17 @@
 import * as Actions from "../actions";
 
+console.log(localStorage.getItem("token"));
+
 const initialState = {
   awaitingLogin: false,
-  loggedIn: false,
+  awaitingBoard: false,
+  loggedIn: localStorage.getItem("token") || false,
   loginFailureMessage: "",
-  user: {}
+  boardFailureMessage: null,
+  user: {},
+  boards: [{ title: "Example Board", id: 1 }],
+  cards: [],
+  lists: []
 };
 
 export const app = (state = initialState, action) => {
@@ -13,6 +20,11 @@ export const app = (state = initialState, action) => {
       return {
         ...state,
         awaitingLogin: true
+      };
+    case Actions.START_AWAIT_BOARD:
+      return {
+        ...state,
+        awaitingBoard: true
       };
     case Actions.LOGIN_SUCCESS:
       return {
@@ -32,6 +44,18 @@ export const app = (state = initialState, action) => {
         ...state,
         user: {},
         loggedIn: false
+      };
+    case Actions.CREATE_BOARD_SUCCESS:
+      return {
+        ...state,
+        awaitingBoard: false,
+        boards: [...state.boards, action.data]
+      };
+    case Actions.CREATE_BOARD_FAILURE:
+      return {
+        ...state,
+        awaitingBoard: false,
+        boardFailureMessage: action.data
       };
     default:
       return state;

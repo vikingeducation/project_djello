@@ -1,0 +1,20 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const BoardSchema = new Schema({
+  title: { type: String, required: true },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  cards: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Card"
+    }
+  ]
+});
+
+const Board = mongoose.model("Board", BoardSchema);
+
+module.exports = Board;
