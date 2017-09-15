@@ -8,6 +8,7 @@ export const LOG_OUT = "LOG_OUT";
 export const START_AWAIT_BOARD = "START_AWAIT_BOARD";
 export const CREATE_BOARD_SUCCESS = "CREATE_BOARD_SUCCESS";
 export const CREATE_BOARD_FAILURE = "CREATE_BOARD_FAILURE";
+export const POPULATE_BOARDS = "POPULATE_BOARDS";
 
 export const startAwaitLogin = () => {
   return {
@@ -32,6 +33,13 @@ export const loginFailure = message => {
   return {
     type: LOGIN_FAILURE,
     data: message
+  };
+};
+
+export const populateBoards = boards => {
+  return {
+    type: POPULATE_BOARDS,
+    data: boards
   };
 };
 
@@ -80,8 +88,7 @@ export const login = credentials => async dispatch => {
       return dispatch(loginFailure("You screwed up"));
     localStorage.setItem("token", user.token);
     dispatch(loginSuccess(user));
-    console.log(user);
-    dispatch(createBoardSuccess(user.boards));
+    dispatch(populateBoards(user.boards));
   } catch (err) {
     dispatch(loginFailure("Something went wrong, please try again"));
   }

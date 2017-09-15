@@ -37,6 +37,11 @@ export const app = (state = initialState, action) => {
         loginFailureMessage: action.data,
         awaitingLogin: false
       };
+    case Actions.POPULATE_BOARDS:
+      return {
+        ...state,
+        boards: action.data
+      };
     case Actions.LOG_OUT:
       return {
         ...state,

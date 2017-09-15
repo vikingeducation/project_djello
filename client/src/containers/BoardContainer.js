@@ -5,7 +5,6 @@ import Board from "../components/Board";
 import AddBoard from "../components/AddBoard";
 import Paper from "material-ui/Paper";
 import Dialog from "material-ui/Dialog";
-import DatePicker from "material-ui/DatePicker";
 import FlatButton from "material-ui/FlatButton";
 import Form from "../components/Form";
 

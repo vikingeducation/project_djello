@@ -1,7 +1,6 @@
 import React from "react";
 import Paper from "material-ui/Paper";
 import AppBar from "material-ui/AppBar";
-import ContentCreate from "material-ui/svg-icons/content/create";
 
 const style = {
   height: 100,

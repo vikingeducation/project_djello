@@ -8,6 +8,6 @@ module.exports = (user, username) => {
     username: user.username,
     token: tokens[username],
     id: user._id,
-    boards: [user.boards]
+    boards: user.boards
   };
 };

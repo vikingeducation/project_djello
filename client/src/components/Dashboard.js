@@ -1,3 +1,4 @@
+import { Route, Switch } from "react-router-dom";
 import React from "react";
 import AppBar from "material-ui/AppBar";
 import Boards from "./Boards";
@@ -17,7 +18,13 @@ const Dashboard = ({ logOut, user, boards }) => {
           </div>
         }
       />
-      <Boards boards={boards} user={user} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => <Boards boards={boards} user={user} />}
+        />
+      </Switch>
     </div>
   );
 };
