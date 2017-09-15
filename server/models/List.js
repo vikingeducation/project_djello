@@ -2,13 +2,20 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const Card = require('./Card');
-
 const ListSchema = new mongoose.Schema(
 	{
 		name: {
 			type: String,
+			required: true,
+			unique: true
+		},
+		description: {
+			type: String,
 			required: true
+		},
+		board: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Board'
 		},
 		cards: [
 			{

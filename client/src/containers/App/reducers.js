@@ -1,5 +1,5 @@
 import * as Actions from './actions';
-const { SYSTEM, CLIENT } = Actions.default;
+const { CLIENT } = Actions.default;
 
 const initialLoginState = {
 	user: null,
@@ -8,20 +8,22 @@ const initialLoginState = {
 };
 
 export const LoginReducer = (state = initialLoginState, action) => {
+	console.log(action.type);
 	switch (action.type) {
-		case SYSTEM.ATTEMPT_REGISTER:
+		case CLIENT.ATTEMPT_LOGIN:
 			return {
 				...state,
 				isWorking: true,
 				error: null
 			};
-		case SYSTEM.SUCCESS_REGISTER:
+		case CLIENT.SUCCESS_LOGIN:
+			console.log('USER', action.data);
 			return {
 				...state,
 				user: action.data,
 				isWorking: false
 			};
-		case SYSTEM.FAILURE_REGISTER:
+		case CLIENT.FAILURE_LOGIN:
 			console.log('Error: ', action.error);
 			return {
 				...state,

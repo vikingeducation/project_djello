@@ -4,9 +4,12 @@ export default { ...Events };
 const { SYSTEM, CLIENT } = Events;
 
 /* SYSTEM ACTIONS */
-const attemptRegister = () => ({ type: SYSTEM.ATTEMPT_REGISTER });
-const successRegister = data => ({ type: SYSTEM.SUCCESS_REGISTER, data });
-const failureRegister = err => ({ type: SYSTEM.FAILURE_REGISTER, err });
+export const attemptRegister = () => ({ type: SYSTEM.ATTEMPT_REGISTER });
+export const successRegister = data => ({
+	type: SYSTEM.SUCCESS_REGISTER,
+	data
+});
+export const failureRegister = err => ({ type: SYSTEM.FAILURE_REGISTER, err });
 
 export const register = options => async dispatch => {
 	dispatch(attemptRegister());
@@ -27,9 +30,9 @@ export const register = options => async dispatch => {
 };
 
 /* CLIENT ACTIONS */
-const attemptLogin = () => ({ type: CLIENT.ATTEMPT_LOGIN });
-const successLogin = data => ({ type: CLIENT.SUCCESS_LOGIN, data });
-const failureLogin = err => ({ type: CLIENT.FAILURE_LOGIN, err });
+export const attemptLogin = () => ({ type: CLIENT.ATTEMPT_LOGIN });
+export const successLogin = data => ({ type: CLIENT.SUCCESS_LOGIN, data });
+export const failureLogin = err => ({ type: CLIENT.FAILURE_LOGIN, err });
 
 export const login = options => async dispatch => {
 	dispatch(attemptLogin());
@@ -40,6 +43,16 @@ export const login = options => async dispatch => {
 
 	const socket = options.socket;
 	delete options.socket;
+
+	socket.on(CLIENT.SUCCESS_LOGIN, data => {
+		dispatch(successLogin(data));
+		console.log('Login successful', data);
+	});
+
+	socket.on(CLIENT.FAILURE_LOGIN, err => {
+		dispatch(failureLogin(err));
+		console.log('Login failed', err);
+	});
 
 	try {
 		// Emit the register event and pass the data.

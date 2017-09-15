@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const Board = require('./Board');
-
 const UserSchema = new mongoose.Schema(
 	{
 		username: {

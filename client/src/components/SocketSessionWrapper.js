@@ -6,6 +6,10 @@ export default class SocketSessionWrapper extends PureComponent {
 		if (!this.props.user) {
 			return <Redirect to="/login" />;
 		}
-		return this.props.children;
+		return (
+			<div>
+				{this.props.children}
+			</div>
+		);
 	}
 }

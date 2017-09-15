@@ -6,12 +6,15 @@
 		"start": "node bin/www",
 		"dev": "./node_modules/.bin/nodemon bin/www",
 		"prd": "pm2 start bin/www",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"seed": "node seeding",
+		"seeds": "node seeding"
 	},
 	"dependencies": {
 		"bcrypt": "^1.0.3",
 		"bluebird": "^3.5.0",
 		"debug": "^2.6.3",
+		"faker": "^4.1.0",
 		"koa": "^2.2.0",
 		"koa-logger": "^2.0.1",
 		"koa-onerror": "^1.2.1",
@@ -20,6 +23,7 @@
 		"koa-socket.io": "^1.1.2",
 		"mongoose": "^4.11.11",
 		"mongoose-unique-validator": "^1.0.6",
+		"mongooseeder": "^2.0.5",
 		"socket.io": "^2.0.3"
 	},
 	"devDependencies": {

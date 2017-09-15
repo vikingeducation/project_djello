@@ -9,6 +9,7 @@ module.exports = {
 	_getList,
 	_getLists,
 	_createList,
+	_modifyList,
 	_deleteList
 };
 
@@ -88,13 +89,13 @@ async function _createList(ctx) {
 			});
 		}
 
-		const exists = await List.findOne({ name });
-		if (exists) {
-			return this.emit(INTERNAL.CREATE_LIST_FAILURE, {
-				name,
-				error: ERROR.LIST_EXISTS
-			});
-		}
+		// const exists = await List.findOne({ name });
+		// if (exists) {
+		// 	return this.emit(INTERNAL.CREATE_LIST_FAILURE, {
+		// 		name,
+		// 		error: ERROR.LIST_EXISTS
+		// 	});
+		// }
 
 		// All good.
 		const list = await List.create({ name });
@@ -104,6 +105,46 @@ async function _createList(ctx) {
 		});
 	} catch (error) {
 		this.emit(INTERNAL.CREATE_LIST_FAILURE, { error });
+		console.error(error);
+	}
+}
+
+async function _modifyList(ctx) {
+	try {
+		if (!ctx.user) {
+			return this.emit(INTERNAL.MODIFY_LIST_FAILURE, {
+				error: ERROR.USER_NONE
+			});
+		}
+
+		const { id, name, description } = ctx.data;
+		if (!id || !id.length) {
+			return this.emit(INTERNAL.MODIFY_LIST_FAILURE, {
+				error: ERROR.LIST_NO_ID
+			});
+		}
+
+		if ((!name || !name.length) && (!description || !description.length)) {
+			return this.emit(INTERNAL.MODIFY_LIST_FAILURE, {
+				error: ERROR.LIST_NO_OPTIONS
+			});
+		}
+
+		const exists = await List.findOne({ name });
+		if (!exists) {
+			return this.emit(INTERNAL.MODIFY_LIST_FAILURE, {
+				name,
+				error: ERROR.LIST_NOT_EXISTS
+			});
+		}
+
+		// All good.
+		await List.update({ id }, { name, description });
+		this.emit(INTERNAL.MODIFY_LIST_SUCCESS, {
+			message: SUCCESS.MODIFY_LIST
+		});
+	} catch (error) {
+		this.emit(INTERNAL.MODIFY_LIST_FAILURE, { error });
 		console.error(error);
 	}
 }

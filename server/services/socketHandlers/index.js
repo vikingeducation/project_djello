@@ -6,25 +6,48 @@ const {
 } = require('../../../client/src/socket/events');
 
 const { _getUser, _getUsers, _createUser, _deleteUser } = require('./users');
-
 const {
 	_getBoard,
 	_getBoards,
 	_createBoard,
 	_deleteBoard
 } = require('./boards');
+const {
+	_getList,
+	_getLists,
+	_createList,
+	_modifyList,
+	_deleteList
+} = require('./lists');
+const {
+	_getCard,
+	_getCards,
+	_createCard,
+	_modifyCard,
+	_deleteCard
+} = require('./cards');
 
 module.exports = {
 	_attemptRegister,
 	_attemptLogin,
+	_getUser,
+	_getUsers,
+	_createUser,
+	_deleteUser,
 	_getBoard,
 	_getBoards,
 	_createBoard,
 	_deleteBoard,
-	_getUser,
-	_getUsers,
-	_createUser,
-	_deleteUser
+	_getList,
+	_getLists,
+	_createList,
+	_modifyList,
+	_deleteList,
+	_getCard,
+	_getCards,
+	_createCard,
+	_modifyCard,
+	_deleteCard
 };
 
 async function _attemptRegister(ctx) {
