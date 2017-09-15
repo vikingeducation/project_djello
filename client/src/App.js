@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "./actions/user";
 
+//testing var
+import { TESTING } from "./index";
+
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 import LoginContainer from "./Containers/LoginContainer";
@@ -26,8 +29,8 @@ class App extends Component {
   };
   render = () => {
     console.log("state in app = ", this.props);
-
-    const loggedIn = this.props.user.loggedIn;
+    console.log("TESTING = ", TESTING);
+    const loggedIn = TESTING ? true : this.props.user.loggedIn;
     return (
       <Router>
         <div className="App">
@@ -42,7 +45,12 @@ class App extends Component {
           {/* if logged in */}
           <LoggedIn user={loggedIn}>
             <Switch>
-              <Route exact path="/" component={BoardsContainer} />
+              <Route
+                exact
+                path="/"
+                user={this.props.user}
+                component={BoardsContainer}
+              />
             </Switch>
           </LoggedIn>
           {/* if not logged in */}

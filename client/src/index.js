@@ -1,19 +1,15 @@
 //TODO: REMOVE PERF PROFILER BEFORE build
-
+//REACT
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+// import "./index.css";
 import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
+// import registerServiceWorker from "./registerServiceWorker";
 
 //REACT-REDUX
 import { Provider } from "react-redux";
 
-//REDUX
-import user from "./reducers/user";
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import rootReducer from "./reducers";
-import thunk from "redux-thunk";
+//MATERIAL-UI
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
@@ -21,7 +17,7 @@ import lightBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
 
 import PerfProfiler from "./Components/PerfProfiler";
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+import store from "./Store/store";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -34,4 +30,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-registerServiceWorker();
+// registerServiceWorker();
+
+export const TESTING = true;

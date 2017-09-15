@@ -1,4 +1,5 @@
 //make some users
+//NOTE: OLD CODE
 
 const mongoose = require("mongoose");
 const connect = require("../mongo");

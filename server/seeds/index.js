@@ -18,29 +18,45 @@ seeder.seed({
   mongoose: mongoose,
   seeds: async () => {
     //stock users for testing
+    const card = await Card.create({
+      title: "Suprah Awesome Card",
+      comments: ["Much cool"],
+      activity: [],
+      members: [],
+      labels: ["best"]
+    });
+    const list = await List.create({
+      title: "Suprah Awesome List",
+      cards: [card, card]
+    });
+    const board = await Board.create({
+      title: "Suprah Awesome Board",
+      lists: [list]
+    });
     User.create({
       username: "Bob",
       password: "blaahhh",
-      boards: []
+      boards: [board]
     });
     User.create({
       username: "Karl",
       password: "KarlRules",
-      boards: []
+      boards: [board]
     });
     User.create({
       username: "a",
       password: "a",
-      boards: []
+      boards: [board]
     });
-    for (var i = 0; i < numUsers; i++) {
-      const user = await User.create({
-        username: faker.name.findName(),
-        password: faker.internet.password(),
-        boards: createBoards(numBoards)
-      });
-      await user.save();
-    }
+    //TODO: FIX THE AMAZING SEEDER SO I CAN DO SOME ACCURATE STRESS TESTING LATER
+    // for (var i = 0; i < numUsers; i++) {
+    //   const user = await User.create({
+    //     username: faker.name.findName(),
+    //     password: faker.internet.password(),
+    //     boards: createBoards(numBoards)
+    //   });
+    //   await user.save();
+    // }
   }
 });
 

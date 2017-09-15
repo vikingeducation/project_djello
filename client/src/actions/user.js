@@ -40,14 +40,13 @@ const failureCheckUser = err => {
 export const validateUser = user => async dispatch => {
   dispatch(requestCheckUser(user));
   try {
+    //get the user
     const apiData = await fetch(`/users/${user.username}`);
     if (apiData && apiData.status == 200) {
-      //set user
-      console.log("user found");
       const data = await apiData.json();
-      const user = {
-        username: data.username
-      };
+      console.log("user found, = ", data);
+      //manipulate some info if need be
+      const user = data;
       console.log("user = ", user);
       dispatch(successCheckUser(user));
       dispatch(loginUser());

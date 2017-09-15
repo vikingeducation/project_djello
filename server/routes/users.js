@@ -16,7 +16,17 @@ router.get("/:id", async (req, res) => {
   console.log("getting request");
   const username = req.params.id;
   try {
-    const user = await User.findOne({ username: req.params.id });
+    //make sure to populate all their data
+    // const user = await User.findOne({ username: req.params.id });
+
+    const user = await User.findOne({ username: req.params.id })
+      .populate("boards")
+      .populate("lists")
+      .populate("cards");
+    // .then(result => {
+    //   return console.log("user in then = ", result);
+    // });
+    console.log("user = ", user);
     //authenticate password
     // if (user.password === )
     console.log("server sees user as = ", user);
