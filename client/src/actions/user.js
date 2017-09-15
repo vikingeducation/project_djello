@@ -18,7 +18,7 @@ const loginUser = () => {
   };
 };
 
-const logoutUser = () => {
+export const logoutUser = () => {
   return {
     type: LOGOUT_USER,
     data: null
@@ -37,7 +37,7 @@ const failureCheckUser = err => {
   };
 };
 
-const validateUser = user => async dispatch => {
+export const validateUser = user => async dispatch => {
   dispatch(requestCheckUser(user));
   try {
     const apiData = await fetch(`/users/${user.username}`);
@@ -60,4 +60,4 @@ const validateUser = user => async dispatch => {
   }
   return null;
 };
-export default validateUser;
+// export default validateUser;

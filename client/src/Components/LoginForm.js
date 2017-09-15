@@ -2,7 +2,6 @@ import React, { PropTypes } from "react";
 import TextField from "material-ui/TextField";
 
 const LoginForm = props => {
-  console.log("props = ", props);
   const {
     onSubmit,
     onChangeInput,
@@ -15,25 +14,28 @@ const LoginForm = props => {
     <div>
       <form onSubmit={onSubmit}>
         <div>
-          <label htmlFor="username">username</label>
+          <label htmlFor="username" />
           <TextField
             id="username"
             name="username"
+            hintText="username"
+            floatingLabelText="username"
             value={username}
             onChange={onChangeInput}
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
-          {/* <input name="password" value={password} onChange={onChangeInput} /> */}
+          <label htmlFor="password" />
+
           <TextField
             id="password"
             name="password"
+            hintText="password"
+            floatingLabelText="password"
             value={password}
             onChange={onChangeInput}
           />
         </div>
-        {/* <input name="username" value={username} onChange={onChangeInput} /> */}
 
         <button>Submit</button>
       </form>

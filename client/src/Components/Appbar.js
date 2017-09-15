@@ -15,42 +15,44 @@ class Login extends Component {
     return <FlatButton {...this.props} label="Login" />;
   }
 }
+class Logout extends Component {
+  static muiName = "FlatButton";
 
-const Logged = props => (
-  <IconMenu
-    {...props}
-    iconButtonElement={
-      <IconButton>
-        <MoreVertIcon />
-      </IconButton>
-    }
-    targetOrigin={{ horizontal: "right", vertical: "top" }}
-    anchorOrigin={{ horizontal: "right", vertical: "top" }}
-  >
-    <MenuItem primaryText="Refresh" />
-    <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
-  </IconMenu>
-);
-
-Logged.muiName = "IconMenu";
+  render() {
+    return <FlatButton {...this.props} label="logout" />;
+  }
+}
 
 /**
  * This example is taking advantage of the composability of the `AppBar`
  * to render different components depending on the application state.
  */
 class Appbar extends Component {
+  constructor(props) {
+    super(props);
+    // this.onLogout = props.onLogout;
+    // this.onLogin = props.onLogin;
+  }
   render() {
+    const { onLogout, onLogin } = this.props;
     return (
       <div>
         <AppBar
           title="Djello"
-          // iconElementLeft={
-          //   <IconButton>
-          //     <NavigationClose />
-          //   </IconButton>
-          // }
-          iconElementRight={this.props.loggedIn ? <Logged /> : <Login />}
+          iconElementLeft={
+            <div>
+              <IconButton>
+                <i className="material-icons">dashboard</i>
+              </IconButton>
+            </div>
+          }
+          iconElementRight={
+            this.props.loggedIn ? (
+              <Logout onClick={onLogout} />
+            ) : (
+              <Login onClick={onLogin} />
+            )
+          }
         />
       </div>
     );

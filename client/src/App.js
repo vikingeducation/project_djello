@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { logoutUser } from "./actions/user";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
@@ -8,22 +9,34 @@ import BoardsContainer from "./Containers/BoardsContainer";
 import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
-// import TableExampleSimple from "./Components/TableExampleSimple";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {};
   }
-  render() {
-    // const testing = <p>Testing</p>;
+  onLogout = e => {
+    //do a thing
+    console.log("logout = ", e);
+    console.log("this = ", this);
+    this.props.logoutUser();
+  };
+  onLogin = e => {
+    //do a thing
+  };
+  render = () => {
     console.log("state in app = ", this.props);
 
     const loggedIn = this.props.user.loggedIn;
     return (
       <Router>
         <div className="App">
-          <Appbar loggedIn={loggedIn} />
+          {/* <Dashboard /> */}
+          <Appbar
+            loggedIn={loggedIn}
+            onLogin={this.onLogin}
+            onLogout={this.onLogout}
+          />
           <h1>App</h1>
           <p>user: {this.props.user.username}</p>
           {/* if logged in */}
@@ -39,7 +52,7 @@ class App extends Component {
         </div>
       </Router>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => {
@@ -47,5 +60,12 @@ const mapStateToProps = state => {
     ...state
   };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: () => {
+      dispatch(logoutUser());
+    }
+  };
+};
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
