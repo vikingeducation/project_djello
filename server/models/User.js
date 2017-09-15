@@ -12,7 +12,13 @@ const UserSchema = new mongoose.Schema(
       unique: true
     },
     emaiL: String,
-    password: String
+    password: String,
+    boards: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Board"
+      }
+    ]
   },
   {
     timestamps: true
