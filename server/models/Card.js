@@ -15,8 +15,7 @@ const CardSchema = new mongoose.Schema(
     ],
     memebers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        type: String
       }
     ],
     labels: [

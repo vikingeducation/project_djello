@@ -20,33 +20,62 @@ seeder.seed({
     //stock users for testing
     const card = await Card.create({
       title: "Suprah Awesome Card",
-      comments: ["Much cool"],
-      activity: [],
-      members: [],
-      labels: ["best"]
+      comments: ["not implemented"],
+      activity: ["not implemented"],
+      members: ["not implemented"],
+      labels: ["not implemented"]
+    });
+    const card2 = await Card.create({
+      title: "Suprah Awesome Card",
+      comments: ["not implemented"],
+      activity: ["not implemented"],
+      members: ["not implemented"],
+      labels: ["not implemented"]
     });
     const list = await List.create({
       title: "Suprah Awesome List",
-      cards: [card, card]
+      cards: [card, card2]
     });
     const board = await Board.create({
       title: "Suprah Awesome Board",
       lists: [list]
     });
-    User.create({
-      username: "Bob",
-      password: "blaahhh",
-      boards: [board]
+    const card3 = await Card.create({
+      title: "Suprah Awesome Card",
+      comments: ["not implemented"],
+      activity: ["not implemented"],
+      members: ["not implemented"],
+      labels: ["not implemented"]
     });
-    User.create({
-      username: "Karl",
-      password: "KarlRules",
-      boards: [board]
+    const card4 = await Card.create({
+      title: "Suprah Awesome Card",
+      comments: ["not implemented"],
+      activity: ["not implemented"],
+      members: ["not implemented"],
+      labels: ["not implemented"]
     });
+    const list2 = await List.create({
+      title: "Suprah Awesome List",
+      cards: [card3, card4]
+    });
+    const board2 = await Board.create({
+      title: "Suprah Awesome Board",
+      lists: [list2]
+    });
+    // User.create({
+    //   username: "Bob",
+    //   password: "blaahhh",
+    //   boards: [board]
+    // });
+    // User.create({
+    //   username: "Karl",
+    //   password: "KarlRules",
+    //   boards: [board]
+    // });
     User.create({
       username: "a",
       password: "a",
-      boards: [board]
+      boards: [board, board2]
     });
     //TODO: FIX THE AMAZING SEEDER SO I CAN DO SOME ACCURATE STRESS TESTING LATER
     // for (var i = 0; i < numUsers; i++) {

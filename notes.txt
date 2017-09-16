@@ -1,0 +1,48 @@
+///////   CLIENT      ////////
+//TODO:
+check that login button does redirect you to login
+add dashboard handler to dashboard icon to redirect you to a dashboard
+
+//LOGIN PAGE
+center form
+fix button spacing issue
+make button pretty
+
+//PERF PROFILER
+conditionally render only in testing mode
+
+//USER ENHANCEMENTS
+//display user images in nav
+//maybe add a user profile page
+//create a form for changing profile images 
+
+
+////    SERVER  ////////
+//TODO:
+
+//USER ENHANCEMENTS
+//add user profile images
+//randomly assign some default images on account generation
+
+
+//USER AUTHENTICATION
+start hashing password before storing in db
+validate user passwords
+start generating tokens for users
+
+//SEEDING
+add the programatically generated seeding
+
+//AWS INTEGRATION
+//consider doing this for funsies, could be useful for user profile images
+
+//TESTING
+start fooling around with loadtest
+add some testing scripts
+  //I honestly don't know which ones would be beneficially besides end-to-end Nightwatch testing
+  //maybe do some unit testing on the user authentication stuff
+
+
+///     PRODUCTION    //////
+//TODO:
+prepare for a heroku deployment

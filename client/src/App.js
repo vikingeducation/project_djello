@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "./actions/user";
 
 //testing var
-import { TESTING } from "./index";
+// import { TESTING } from "./index";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
@@ -29,8 +29,9 @@ class App extends Component {
   };
   render = () => {
     console.log("state in app = ", this.props);
-    console.log("TESTING = ", TESTING);
-    const loggedIn = TESTING ? true : this.props.user.loggedIn;
+    // console.log("TESTING = ", TESTING);
+    // const loggedIn = TESTING ? true : this.props.user.loggedIn;
+    const loggedIn = this.props.user.loggedIn;
     return (
       <Router>
         <div className="App">

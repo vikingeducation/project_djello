@@ -11,6 +11,18 @@ router.get("/", (req, res, next) => {
       next(err);
     });
 });
+const getFullUserData = async query => {
+  const user = await User.findOne({ username: "a" }).populate({
+    path: "boards",
+    populate: {
+      path: "lists",
+      populate: {
+        path: "cards"
+      }
+    }
+  });
+  return user;
+};
 router.get("/:id", async (req, res) => {
   //get user from database
   console.log("getting request");
@@ -18,14 +30,12 @@ router.get("/:id", async (req, res) => {
   try {
     //make sure to populate all their data
     // const user = await User.findOne({ username: req.params.id });
-
-    const user = await User.findOne({ username: req.params.id })
-      .populate("boards")
-      .populate("lists")
-      .populate("cards");
-    // .then(result => {
-    //   return console.log("user in then = ", result);
-    // });
+    //
+    // const user = await User.findOne({ username: req.params.id })
+    //   .populate("boards")
+    //   .populate("lists")
+    //   .populate("cards");
+    const user = await getFullUserData({ username: username });
     console.log("user = ", user);
     //authenticate password
     // if (user.password === )

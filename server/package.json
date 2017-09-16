@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "seeds": "node ./seeds/index",
-    "seed": "node ./seeds/users"
+    "seed": "node ./seeds/users",
+    "c": "node repl.js"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
