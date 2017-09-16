@@ -4,12 +4,11 @@ const Handlers = require('./socketHandlers');
 const { SYSTEM, CLIENT, INTERNAL } = require('../../client/src/socket/events');
 
 module.exports = async (ctx, next) => {
+	const client = ctx.socket;
 	try {
 		// Connect to the database.
 		await connect();
 		console.log('Socket connection initiated!');
-
-		const client = ctx.socket;
 
 		// REGISTER EVENTS
 		client.on(SYSTEM.ATTEMPT_REGISTER, Handlers._attemptRegister.bind(client));
@@ -44,6 +43,7 @@ module.exports = async (ctx, next) => {
 		//client.on(INTERNAL.COMPLETE_CARD, Handlers._completeCard.bind(client));
 		client.on(INTERNAL.DELETE_CARD, Handlers._deleteCard.bind(client));
 	} catch (error) {
+		client.emit(INTERNAL.ERROR_NO_DB, error);
 		console.error(error);
 	}
 };

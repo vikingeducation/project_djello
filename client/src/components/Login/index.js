@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-	Card,
-	CardActions,
-	CardHeader,
-	CardMedia,
-	CardTitle,
-	CardText
-} from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import { pink500, green600 } from 'material-ui/styles/colors';
-import FontIcon from 'material-ui/FontIcon';
-import FlatButton from 'material-ui/RaisedButton';
-import RaisedButton from 'material-ui/RaisedButton';
+
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import GroupWork from 'material-ui/svg-icons/action/group-work';
+
 import Dialog from 'material-ui/Dialog';
-import 'material-design-icons/iconfont/material-icons.css';
+
+import LoginInterface from './interface';
+import ErrorDialog from '../ErrorDialog';
+
+import './login-interface.css';
 
 export default class Login extends Component {
 	constructor(props) {
@@ -26,54 +22,40 @@ export default class Login extends Component {
 		};
 	}
 
+	onLoginAttempt = e => {
+		e.preventDefault();
+		this.props.loginAction({
+			socket: this.props.socket,
+			username: this.state.username,
+			password: this.state.password
+		});
+	};
+
+	onChange = e => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
+
 	render() {
+		console.log(this.props);
 		if (this.props.user) return <Redirect to="/main" />;
 		return (
-			<Card>
-				<CardHeader
-					title="Stylish Form"
-					subtitle="An awesome material-ui form!"
+			<div>
+				<AppBar
+					title="Djello - The project management toolkit for awesome people!"
+					iconElementLeft={
+						<IconButton>
+							<GroupWork />
+						</IconButton>
+					}
 				/>
-				<CardTitle
-					title="Complete the form"
-					subtitle="Everything must be valid... OR ELSE!"
+				<LoginInterface
+					onSubmit={this.onLoginAttempt}
+					onInputChange={this.onChange}
 				/>
-				<CardText>
-					<form onSubmit={this.props.submit} style={{ marginLeft: '1em' }}>
-						<div>
-							<TextField
-								autoComplete="false"
-								name="name"
-								hintText="Your name here..."
-								floatingLabelText="Name"
-								onChange={this.props.change}
-							/>
-						</div>
-						<div>
-							<TextField
-								autoComplete="false"
-								name="email"
-								hintText="Your email here..."
-								floatingLabelText="Email"
-								onChange={this.props.change}
-							/>
-						</div>
-						<div>
-							<TextField
-								autoComplete="false"
-								name="phone"
-								hintText="Your Phone here..."
-								floatingLabelText="Phone"
-								onChange={this.props.change}
-							/>
-						</div>
-						<br />
-						<CardActions>
-							<RaisedButton type="submit" label="Submit" secondary={true} />
-						</CardActions>
-					</form>
-				</CardText>
-			</Card>
+				<ErrorDialog />
+			</div>
 		);
 	}
 }

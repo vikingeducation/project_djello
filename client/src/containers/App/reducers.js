@@ -1,5 +1,5 @@
 import * as Actions from './actions';
-const { CLIENT } = Actions.default;
+const { REDUCERS, CLIENT, INTERNAL } = Actions.default;
 
 const initialLoginState = {
 	user: null,
@@ -17,19 +17,27 @@ export const LoginReducer = (state = initialLoginState, action) => {
 				error: null
 			};
 		case CLIENT.SUCCESS_LOGIN:
-			console.log('USER', action.data);
 			return {
 				...state,
 				user: action.data,
 				isWorking: false
 			};
 		case CLIENT.FAILURE_LOGIN:
-			console.log('Error: ', action.error);
+			console.log('Error: ', action.err);
 			return {
 				...state,
-				error: action.error,
+				error: action.err,
 				isWorking: false
 			};
+		case INTERNAL.CLEAR_ERROR:
+			console.log(action);
+			if (action.reducer === REDUCERS.LOGIN) {
+				return {
+					...state,
+					error: null
+				};
+			}
+			return state;
 		default:
 			return state;
 	}

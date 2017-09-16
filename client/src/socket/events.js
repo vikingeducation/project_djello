@@ -1,4 +1,7 @@
 module.exports = {
+	REDUCERS: {
+		LOGIN: 'REDUCER_LOGIN'
+	},
 	SYSTEM: {
 		ATTEMPT_REGISTER: 'ATTEMPT_REGISTER',
 		SUCCESS_REGISTER: 'SUCCESS_REGISTER',
@@ -10,6 +13,9 @@ module.exports = {
 		FAILURE_LOGIN: 'FAILURE_LOGIN'
 	},
 	INTERNAL: {
+		CLEAR_ERROR: 'CLEAR_ERROR',
+		ERROR_NO_DB: 'ERROR_NO_DB',
+
 		GET_USER: 'GET_USER',
 		GET_USERS: 'GET_USERS',
 		GET_USER_SUCCESS: 'GET_USER_SUCCESS',
@@ -68,6 +74,8 @@ module.exports = {
 		ADD_CARD_ACTIVITY: 'ADD_CARD_ACTIVITY'
 	},
 	ERROR: {
+		INVALID_CREDENTIALS: `Invalid username/password combination`,
+
 		USER_NONE: `No logged-in user, please login.`,
 		USER_NO_ID: `No user id supplied`,
 		USER_NO_OPTIONS: `No parameters supplied for GET_USERS event.`,

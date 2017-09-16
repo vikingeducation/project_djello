@@ -2,7 +2,9 @@ const { User } = require('../../models/index');
 const {
 	SYSTEM,
 	CLIENT,
-	INTERNAL
+	INTERNAL,
+	ERROR,
+	SUCCESS
 } = require('../../../client/src/socket/events');
 
 const { _getUser, _getUsers, _createUser, _deleteUser } = require('./users');
@@ -72,7 +74,7 @@ async function _attemptLogin(ctx) {
 		const { username, password } = ctx.data;
 		if (!username || !password) {
 			// Failure
-			return this.emit(CLIENT.FAILURE_LOGIN, ctx.data);
+			return this.emit(CLIENT.FAILURE_LOGIN, ERROR.INVALID_CREDENTIALS);
 		}
 
 		console.log('Login attempt from: ', ctx.data.username);
@@ -84,10 +86,10 @@ async function _attemptLogin(ctx) {
 			return this.emit(CLIENT.SUCCESS_LOGIN, user);
 		} else {
 			// Failure
-			return this.emit(CLIENT.FAILURE_LOGIN, ctx.data);
+			return this.emit(CLIENT.FAILURE_LOGIN, ERROR.INVALID_CREDENTIALS);
 		}
 	} catch (error) {
-		this.emit(CLIENT.FAILURE_LOGIN, error);
+		this.emit(CLIENT.FAILURE_LOGIN, error.message);
 		console.error(error);
 	}
 }

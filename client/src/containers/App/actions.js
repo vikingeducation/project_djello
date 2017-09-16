@@ -1,15 +1,15 @@
 import Events from '../../socket/events';
 export default { ...Events };
 
-const { SYSTEM, CLIENT } = Events;
+const { REDUCERS, SYSTEM, CLIENT, INTERNAL } = Events;
 
 /* SYSTEM ACTIONS */
-export const attemptRegister = () => ({ type: SYSTEM.ATTEMPT_REGISTER });
-export const successRegister = data => ({
+const attemptRegister = () => ({ type: SYSTEM.ATTEMPT_REGISTER });
+const successRegister = data => ({
 	type: SYSTEM.SUCCESS_REGISTER,
 	data
 });
-export const failureRegister = err => ({ type: SYSTEM.FAILURE_REGISTER, err });
+const failureRegister = err => ({ type: SYSTEM.FAILURE_REGISTER, err });
 
 export const register = options => async dispatch => {
 	dispatch(attemptRegister());
@@ -30,9 +30,9 @@ export const register = options => async dispatch => {
 };
 
 /* CLIENT ACTIONS */
-export const attemptLogin = () => ({ type: CLIENT.ATTEMPT_LOGIN });
-export const successLogin = data => ({ type: CLIENT.SUCCESS_LOGIN, data });
-export const failureLogin = err => ({ type: CLIENT.FAILURE_LOGIN, err });
+const attemptLogin = () => ({ type: CLIENT.ATTEMPT_LOGIN });
+const successLogin = data => ({ type: CLIENT.SUCCESS_LOGIN, data });
+const failureLogin = err => ({ type: CLIENT.FAILURE_LOGIN, err });
 
 export const login = options => async dispatch => {
 	dispatch(attemptLogin());
@@ -46,12 +46,12 @@ export const login = options => async dispatch => {
 
 	socket.on(CLIENT.SUCCESS_LOGIN, data => {
 		dispatch(successLogin(data));
-		console.log('Login successful', data);
+		socket.off(this);
 	});
 
 	socket.on(CLIENT.FAILURE_LOGIN, err => {
 		dispatch(failureLogin(err));
-		console.log('Login failed', err);
+		socket.off(this);
 	});
 
 	try {
@@ -60,4 +60,12 @@ export const login = options => async dispatch => {
 	} catch (err) {
 		dispatch(failureLogin(err));
 	}
+};
+
+export const clearLoginError = () => {
+	console.log('clearing');
+	return {
+		type: INTERNAL.CLEAR_ERROR,
+		reducer: REDUCERS.LOGIN
+	};
 };
