@@ -6,9 +6,10 @@ import { logoutUser } from "./actions/user";
 // import { TESTING } from "./index";
 
 import { BrowserRouter as Router } from "react-router-dom";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import LoginContainer from "./Containers/LoginContainer";
-import BoardsContainer from "./Containers/BoardsContainer";
+import BoardsIndexContainer from "./Containers/BoardsIndexContainer";
+import BoardShowContainer from "./Containers/BoardShowContainer";
 import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
@@ -32,6 +33,10 @@ class App extends Component {
     // console.log("TESTING = ", TESTING);
     // const loggedIn = TESTING ? true : this.props.user.loggedIn;
     const loggedIn = this.props.user.loggedIn;
+    const boardsWithProps = () => (
+      <BoardsIndexContainer user={this.props.user} />
+    );
+    const boardWithProps = () => <BoardShowContainer user={this.props.user} />;
     return (
       <Router>
         <div className="App">
@@ -41,22 +46,24 @@ class App extends Component {
             onLogin={this.onLogin}
             onLogout={this.onLogout}
           />
-          <h1>App</h1>
-          <p>user: {this.props.user.username}</p>
           {/* if logged in */}
           <LoggedIn user={loggedIn}>
             <Switch>
-              <Route
-                exact
-                path="/"
-                user={this.props.user}
-                component={BoardsContainer}
-              />
+              {/* boards index page */}
+              <Route exact path="/" render={boardsWithProps} />
+              {/* board show page */}
+              <Route path="/boards/:id" render={boardWithProps} />
+              {/* not found */}
+              <Route render={() => <h1>Page not found</h1>} />
             </Switch>
           </LoggedIn>
           {/* if not logged in */}
           <LoggedOut user={loggedIn}>
-            <LoginContainer />
+            <Switch>
+              <Route exact path="/" component={LoginContainer} />
+              <Route path="*" render={() => <Redirect to="/" />} />
+            </Switch>
+            {/* <LoginContainer /> */}
           </LoggedOut>
         </div>
       </Router>
