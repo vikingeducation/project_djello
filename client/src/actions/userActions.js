@@ -1,15 +1,14 @@
 import socket from "../socket";
+import { set as setBoards } from "../actions/boardActions";
 
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const SIGN_UP = "SIGN_UP";
 export const SET_AUTHENTICATING = "SET_AUTHENTICATING";
 
-const setAuthenticating = () => {
-  return {
-    type: SET_AUTHENTICATING
-  };
-};
+const setAuthenticating = () => ({
+  type: SET_AUTHENTICATING
+});
 
 export const logOut = message => {
   localStorage.setItem("token", "");
@@ -30,19 +29,18 @@ const logIn = (username, token) => {
 const auth = (credentials, dispatch) => {
   dispatch(setAuthenticating());
   socket.emit("authentication", credentials);
-  socket.on("authSuccess", ({ username, token }) =>
-    dispatch(logIn(username, token))
-  );
+  socket.on("authSuccess", ({ username, token, boards, cards }) => {
+    dispatch(logIn(username, token));
+    dispatch(setBoards(boards));
+  });
   socket.on("authFail", message => dispatch(logOut(message)));
 };
 
-export const credentialAuth = credentials => dispatch => {
+export const credentialAuth = credentials => dispatch =>
   auth(credentials, dispatch);
-};
 
-export const register = credentials => dispatch => {
+export const register = credentials => dispatch =>
   auth({ ...credentials, register: true }, dispatch);
-};
 
 export const tokenAuth = () => dispatch => {
   const token = localStorage.getItem("token");

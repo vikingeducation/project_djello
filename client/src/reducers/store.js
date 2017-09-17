@@ -3,8 +3,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
 import user from "./user";
+import boards from "./boards";
 
-const reducers = combineReducers({ user });
+const reducers = combineReducers({ user, boards });
 
 const store = createStore(
   reducers,
