@@ -6,7 +6,7 @@ const initialState = {
   loggedIn: localStorage.getItem("token") || false,
   loginFailureMessage: "",
   boardFailureMessage: null,
-  user: {},
+  user: "",
   boards: [],
   cards: [],
   lists: []

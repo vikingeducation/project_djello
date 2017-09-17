@@ -16,7 +16,6 @@ app.set("port", process.env.PORT || 3001);
 app.post("/api/login", async (req, res) => {
   const { username, password, token } = req.body;
   const user = await User.findOne({ username }).populate("boards");
-  console.log(user.boards);
   if (!user) return res.status(401).json({ error: USER_NOT_FOUND });
   user.validatePassword(password)
     ? res.json(formatUser(user, username))
@@ -45,6 +44,13 @@ app.post("/api/boards/new", async (req, res) => {
   //   user.validatePassword(password)
   //     ? res.json(formatUser(user, username))
   //     : res.status(401).json({ error: WRONG_PASSWORD });
+});
+
+app.get("/api/user", async (req, res) => {
+  const token = req.headers.token;
+  const user = await User.findOne({ token }).populate("boards");
+  console.log(user);
+  res.json(formatUser(user));
 });
 
 app.listen(app.get("port"), () => {

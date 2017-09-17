@@ -1,6 +1,7 @@
 import { makeOptions } from "../services/actionsHelper";
 const BASE_LOGIN_API = "api/login";
 const BASE_CREATE_BOARD = "api/boards/new";
+const BASE_USER = "api/user";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const START_AWAIT_LOGIN = "START_AWAIT_LOGIN";
@@ -76,6 +77,16 @@ export const createBoard = newBoard => async dispatch => {
     return dispatch(createBoardFailure("Bad request"));
   const board = await response.json();
   dispatch(createBoardSuccess(board));
+};
+
+export const getAuthenticatedUser = token => async dispatch => {
+  console.log("getting here?");
+  const options = makeOptions("", "GET", localStorage.getItem("token"));
+  const response = await fetch(BASE_USER, options);
+  const user = await response.json();
+  console.log(user);
+  dispatch(loginSuccess(user));
+  dispatch(populateBoards(user.boards));
 };
 
 export const login = credentials => async dispatch => {
