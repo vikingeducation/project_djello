@@ -40,17 +40,6 @@ const failureCheckUser = err => {
 export const validateUser = user => async dispatch => {
   dispatch(requestCheckUser(user));
   try {
-    //get the user
-    // const apiData = await fetch(`/users/${user.username}`);
-    // const apiData = await fetch(`/users/${user.username}`, {
-    //   method: "POST",
-    //   body: user
-    // });
-
-    // var user = {
-    //   username: "a",
-    //   password: "a"
-    // };
     let headers = new Headers();
     headers.append("Content-type", "application/json");
     const json = JSON.stringify(user);
@@ -59,14 +48,13 @@ export const validateUser = user => async dispatch => {
       method: "POST",
       body: json
     });
-    console.log("apiData = ", apiData);
 
     if (apiData && apiData.status == 200) {
       const data = await apiData.json();
-      console.log("user found, = ", data);
+      // console.log("user found, = ", data);
       //manipulate some info if need be
       const user = data;
-      console.log("user = ", user);
+      // console.log("user = ", user);
       dispatch(successCheckUser(user));
       dispatch(loginUser());
     } else {

@@ -33,7 +33,7 @@ router.post("/:id", async (req, res) => {
     const user = await getFullUserData({ username: username });
     if (!user) {
       return res.sendStatus(404);
-    } else if (user.password !== password) {
+    } else if (!user.validatePassword(password)) {
       return res.sendStatus(400);
     }
     console.log("user = ", user);

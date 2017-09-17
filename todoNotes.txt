@@ -34,7 +34,6 @@ conditionally render only in testing mode
 //add a the routes for /user/:id/
 
 //SECURITY
-//change from cleartext to hashed passwords
 
 
 //USER AUTHENTICATION
