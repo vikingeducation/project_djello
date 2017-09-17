@@ -1,7 +1,8 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import React from "react";
 import AppBar from "material-ui/AppBar";
 import Boards from "./Boards";
+import BoardDashboard from "./BoardDashboard";
 import FlatButton from "material-ui/FlatButton";
 
 const Dashboard = ({ logOut, user, boards }) => {
@@ -18,13 +19,15 @@ const Dashboard = ({ logOut, user, boards }) => {
           </div>
         }
       />
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => <Boards boards={boards} user={user} />}
-        />
-      </Switch>
+      <Route
+        exact
+        path="/"
+        render={() => <Boards boards={boards} user={user} />}
+      />
+      <Route
+        path="/boards/:board_id"
+        render={() => <BoardDashboard boards={boards} />}
+      />
     </div>
   );
 };

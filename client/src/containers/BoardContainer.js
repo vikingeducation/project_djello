@@ -3,10 +3,11 @@ import { createBoard } from "../actions";
 import { connect } from "react-redux";
 import Board from "../components/Board";
 import AddBoard from "../components/AddBoard";
-import Paper from "material-ui/Paper";
 import Dialog from "material-ui/Dialog";
+import PaperWrapper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
 import Form from "../components/Form";
+import { Link, withRouter } from "react-router-dom";
 
 const style = {
   height: 600,
@@ -39,12 +40,14 @@ class BoardContainer extends Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={1}>
+        <PaperWrapper>
           {this.props.boards.map(board =>
-            <Board board={board} key={board._id} />
+            <Link to={`/boards/${board._id}`}>
+              <Board board={board} key={board._id} />
+            </Link>
           )}
           <AddBoard handleModalOpen={this.handleModalOpen} />
-        </Paper>
+        </PaperWrapper>
         {this.state.modalOpen
           ? <div>
               <Dialog

@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3001);
 
 app.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, token } = req.body;
   const user = await User.findOne({ username }).populate("boards");
   console.log(user.boards);
   if (!user) return res.status(401).json({ error: USER_NOT_FOUND });
