@@ -3,7 +3,8 @@ const { User } = require("../models");
 const _success = (client, user, callback) => {
   console.log("Logged in!");
   client.user = user;
-  client.emit("authSuccess", user.token);
+  const { username, token, boards, cards } = user;
+  client.emit("authSuccess", { username, token, boards, cards });
   callback(null, true);
 };
 

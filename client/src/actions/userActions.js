@@ -5,13 +5,6 @@ export const LOG_OUT = "LOG_OUT";
 export const SIGN_UP = "SIGN_UP";
 export const SET_AUTHENTICATING = "SET_AUTHENTICATING";
 
-const logIn = (username, token) => {
-  return {
-    type: LOG_IN,
-    data: { username, token }
-  };
-};
-
 const setAuthenticating = () => {
   return {
     type: SET_AUTHENTICATING
@@ -19,28 +12,38 @@ const setAuthenticating = () => {
 };
 
 export const logOut = () => {
+  localStorage.setItem("token", "");
   return {
     type: LOG_OUT
   };
 };
 
-const auth = (credentials, dispatch, action) => {
-  dispatch(setAuthenticating());
-  socket.emit(action, credentials);
-  socket.on("authSuccess", token => {
-    console.log("Success!");
-    dispatch(logIn(credentials.username, token));
-  });
-  socket.on("authFail", () => {
-    console.log("Failure!");
-    dispatch(logOut());
-  });
+const logIn = (username, token) => {
+  localStorage.setItem("token", token);
+  return {
+    type: LOG_IN,
+    data: { username, token }
+  };
 };
 
-export const authenticate = credentials => dispatch => {
-  auth(credentials, dispatch, "authentication");
+const auth = (credentials, dispatch) => {
+  dispatch(setAuthenticating());
+  socket.emit("authentication", credentials);
+  socket.on("authSuccess", (username, token) =>
+    dispatch(logIn(username, token))
+  );
+  socket.on("authFail", () => dispatch(logOut()));
+};
+
+export const credentialAuth = credentials => dispatch => {
+  auth(credentials, dispatch);
 };
 
 export const register = credentials => dispatch => {
-  auth({ ...credentials, register: true }, dispatch, "authentication");
+  auth({ ...credentials, register: true }, dispatch);
+};
+
+export const tokenAuth = () => dispatch => {
+  const token = localStorage.getItem("token");
+  if (token) auth({ token }, dispatch);
 };

@@ -13,6 +13,10 @@ class LoginContainer extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    this.props.tokenAuth();
+  }
+
   onLogIn = () => {
     this.props.logIn(this.state);
   };
@@ -45,8 +49,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logIn: credentials => dispatch(userActions.authenticate(credentials)),
-    signUp: credentials => dispatch(userActions.register(credentials))
+    logIn: credentials => dispatch(userActions.credentialAuth(credentials)),
+    signUp: credentials => dispatch(userActions.register(credentials)),
+    tokenAuth: () => dispatch(userActions.tokenAuth())
   };
 };
 
