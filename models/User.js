@@ -12,7 +12,7 @@ const UserSchema = new Schema(
     cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
 
     // Properties
-    token: { type: String, required: true },
+    token: { type: String },
     username: { type: String, required: true, unique: true },
     passwordHash: { type: String, required: true }
   },
