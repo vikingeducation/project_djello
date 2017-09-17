@@ -1,10 +1,15 @@
 import React from "react";
 import Paper from "material-ui/Paper";
-import { withRouter } from "react-router-dom";
+
+const style = {
+  width: "100%",
+  display: "flex",
+  flexWrap: "wrap"
+};
 
 const PaperWrapper = ({ children }) =>
-  <Paper>
+  <Paper style={style}>
     {children}
   </Paper>;
 
-export default withRouter(PaperWrapper);
+export default PaperWrapper;

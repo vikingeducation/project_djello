@@ -4,13 +4,15 @@ import AppBar from "material-ui/AppBar";
 
 const style = {
   height: 100,
-  width: "25%",
+  width: "300",
   margin: "2.5%",
   textAlign: "center",
-  display: "flex"
+  backgroundColor: "green"
 };
 
 export default ({ board }) =>
   <Paper style={style} zDepth={2}>
-    <AppBar title={board.title} />
+    <h2>
+      {board.title}{" "}
+    </h2>
   </Paper>;

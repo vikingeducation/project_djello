@@ -9,23 +9,18 @@ import { green700 } from "material-ui/styles/colors";
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: green700
-  },
-  appBar: {
-    height: 50
   }
 });
 
-const App = ({ state }) => {
-  return (
-    <MuiThemeProvider muiTheme={muiTheme}>
-      {!state.loggedIn
-        ? <LoginFormContainer />
-        : //wrap each component in a pagecontainer that checks localStorage on each time
-          <Router>
-            <DashboardContainer {...state} />
-          </Router>}
-    </MuiThemeProvider>
-  );
-};
+// Material-ui wrapper for the theme. Basic conditional logic checking
+// if the user's logged in and renders either the Dashboard or the Login screen
+const App = ({ state }) =>
+  <MuiThemeProvider muiTheme={muiTheme}>
+    {!state.loggedIn
+      ? <LoginFormContainer />
+      : <Router>
+          <DashboardContainer {...state} />
+        </Router>}
+  </MuiThemeProvider>;
 
 export default App;
