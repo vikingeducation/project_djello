@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { userActions } from "../actions";
 import Login from "../components/Login";
 import BoardContainer from "../containers/BoardContainer";
 
-class LoginContainer extends Component {
+class LoginContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,8 +15,8 @@ class LoginContainer extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.props.tokenAuth();
+  componentDidMount() {
+    this.props.tokenAuth();
   }
 
   clear = () => this.setState({ username: "", password: "" });
@@ -35,6 +35,12 @@ class LoginContainer extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  actions = {
+    onLogIn: this.onLogIn,
+    onSignUp: this.onSignUp,
+    onChange: this.onChange
+  };
+
   render() {
     if (this.props.user.username) {
       return (
@@ -48,9 +54,8 @@ class LoginContainer extends Component {
         <Login
           {...this.state}
           loading={this.props.user.authenticating}
-          onLogIn={this.onLogIn}
-          onSignUp={this.onSignUp}
-          onChange={this.onChange}
+          message={this.props.user.authMessage}
+          actions={this.actions}
         />
       );
     }

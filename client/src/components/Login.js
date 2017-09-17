@@ -5,20 +5,19 @@ import {
   Grid,
   Header,
   Loader,
-  // Image,
-  // Message,
+  Message,
   Segment
 } from "semantic-ui-react";
 
-const Login = ({
-  username,
-  password,
-  loading,
-  onLogIn,
-  onSignUp,
-  onChange
-}) => (
+import Showable from "../components/elements/Showable";
+
+const Login = ({ username, password, loading, message, actions }) => (
   <Grid textAlign="center" verticalAlign="middle">
+    <Grid.Column width={16}>
+      <Showable condition={!!message}>
+        <Message color="blue">{message}</Message>
+      </Showable>
+    </Grid.Column>
     <Grid.Column width={6}>
       <Loader active={loading} />
       <Header as="h2" textAlign="center">
@@ -33,7 +32,7 @@ const Login = ({
             iconPosition="left"
             placeholder="Username"
             value={username}
-            onChange={onChange}
+            onChange={actions.onChange}
           />
           <Form.Input
             name="password"
@@ -43,13 +42,13 @@ const Login = ({
             placeholder="Password"
             type="password"
             value={password}
-            onChange={onChange}
+            onChange={actions.onChange}
           />
 
-          <Button onClick={onLogIn} color="blue" size="large">
+          <Button onClick={actions.onLogIn} color="blue" size="large">
             Log In
           </Button>
-          <Button onClick={onSignUp} color="violet" size="large">
+          <Button onClick={actions.onSignUp} color="violet" size="large">
             Sign Up
           </Button>
         </Segment>

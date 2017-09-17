@@ -3,7 +3,8 @@ import { userActions } from "../actions";
 const defaultState = {
   username: "",
   token: "",
-  authenticating: false
+  authenticating: false,
+  authMessage: ""
 };
 
 const user = (state = defaultState, action) => {
@@ -12,13 +13,15 @@ const user = (state = defaultState, action) => {
       return {
         username: action.data.username,
         token: action.data.token,
-        authenticating: false
+        authenticating: false,
+        authMessage: ""
       };
     case userActions.LOG_OUT:
       return {
         username: "",
         token: "",
-        authenticating: false
+        authenticating: false,
+        authMessage: action.data
       };
     case userActions.SET_AUTHENTICATING:
       return {

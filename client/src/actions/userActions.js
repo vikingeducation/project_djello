@@ -11,10 +11,11 @@ const setAuthenticating = () => {
   };
 };
 
-export const logOut = () => {
+export const logOut = message => {
   localStorage.setItem("token", "");
   return {
-    type: LOG_OUT
+    type: LOG_OUT,
+    data: message
   };
 };
 
@@ -32,7 +33,7 @@ const auth = (credentials, dispatch) => {
   socket.on("authSuccess", ({ username, token }) =>
     dispatch(logIn(username, token))
   );
-  socket.on("authFail", () => dispatch(logOut()));
+  socket.on("authFail", message => dispatch(logOut(message)));
 };
 
 export const credentialAuth = credentials => dispatch => {
