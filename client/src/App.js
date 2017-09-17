@@ -33,10 +33,13 @@ class App extends Component {
     // console.log("TESTING = ", TESTING);
     // const loggedIn = TESTING ? true : this.props.user.loggedIn;
     const loggedIn = this.props.user.loggedIn;
-    const boardsWithProps = () => (
-      <BoardsIndexContainer user={this.props.user} />
+    console.log("loggedIn = ", loggedIn, ", user = ", this.props.user);
+    const bIndexWithProps = () => (
+      <BoardsIndexContainer boards={this.props.user.boards} />
     );
-    const boardWithProps = () => <BoardShowContainer user={this.props.user} />;
+    const bShowWithProps = () => (
+      <BoardShowContainer boards={this.props.user.boards} />
+    );
     return (
       <Router>
         <div className="App">
@@ -50,9 +53,9 @@ class App extends Component {
           <LoggedIn user={loggedIn}>
             <Switch>
               {/* boards index page */}
-              <Route exact path="/" render={boardsWithProps} />
+              <Route exact path="/" render={bIndexWithProps} />
               {/* board show page */}
-              <Route path="/boards/:id" render={boardWithProps} />
+              <Route path="/boards/:id" render={bShowWithProps} />
               {/* not found */}
               <Route render={() => <h1>Page not found</h1>} />
             </Switch>

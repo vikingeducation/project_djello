@@ -14,7 +14,7 @@ conditionally render only in testing mode
 //USER ENHANCEMENTS
 //display user images in nav
 //maybe add a user profile page
-//create a form for changing profile images 
+//create a form for changing profile images
 
 
 ////    SERVER  ////////
@@ -23,6 +23,12 @@ conditionally render only in testing mode
 //USER ENHANCEMENTS
 //add user profile images
 //randomly assign some default images on account generation
+
+//SOCKETS
+//add a socket pub/sub system
+
+//ROUTES
+//add a the routes for /user/:id/
 
 
 //USER AUTHENTICATION

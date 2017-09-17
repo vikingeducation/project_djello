@@ -9,7 +9,7 @@ class BoardsIndexContainer extends React.Component {
   }
   render() {
     console.log("board props = ", this.props);
-    const boards = this.props.user.boards.map(board => {
+    const boards = this.props.boards.map(board => {
       const url = makeBoardShow(board._id);
       return (
         <li>
