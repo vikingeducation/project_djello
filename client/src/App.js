@@ -61,13 +61,15 @@ class App extends Component {
             </Switch>
           </LoggedIn>
           {/* if not logged in */}
-          <LoggedOut user={loggedIn}>
-            <Switch>
-              <Route exact path="/" component={LoginContainer} />
-              <Route path="*" render={() => <Redirect to="/" />} />
-            </Switch>
-            {/* <LoginContainer /> */}
-          </LoggedOut>
+          <div id="formContainer" className="flex-center">
+            <LoggedOut user={loggedIn}>
+              <Switch>
+                <Route exact path="/" component={LoginContainer} />
+                <Route path="*" render={() => <Redirect to="/" />} />
+              </Switch>
+              {/* <LoginContainer /> */}
+            </LoggedOut>
+          </div>
         </div>
       </Router>
     );

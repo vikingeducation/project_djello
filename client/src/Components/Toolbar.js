@@ -4,8 +4,16 @@ import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 import FlatButton from "material-ui/FlatButton";
-
-import { Link } from "react-router-dom";
+import Toggle from "material-ui/Toggle";
+import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
+import NavigationClose from "material-ui/svg-icons/navigation/close";
+import DropDownMenu from "material-ui/DropDownMenu";
+import {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  ToolbarTitle
+} from "material-ui/Toolbar";
 
 class Login extends Component {
   static muiName = "FlatButton";
@@ -40,26 +48,24 @@ class Appbar extends Component {
       <Login onClick={onLogin} />
     );
 
+    //toolbar version
     return (
-      <div>
-        <AppBar
-          title="Djello"
-          iconElementLeft={
-            <Link to="/">
-              <IconButton tooltip="dashboard" tooltipPosition="bottom-center">
-                <i className="material-icons">dashboard</i>
-              </IconButton>
-            </Link>
-          }
-          iconElementRight={
-            <IconButton tooltip="settings" tooltipPosition="bottom-center">
-              <i className="material-icons">settings</i>
-            </IconButton>
-          }
-          iconElementRight={logBtn}
-          // iconElementRight={logBtn}
-        />
-      </div>
+      <Toolbar>
+        <ToolbarGroup>
+          <ToolbarTitle text="Djello" />
+          <IconButton tooltip="dashboard" tooltipPosition="bottom-center">
+            <i className="material-icons">dashboard</i>
+          </IconButton>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <IconButton tooltip="settings" tooltipPosition="bottom-center">
+            <i className="material-icons">settings</i>
+          </IconButton>
+          <IconButton tooltip="settings" tooltipPosition="bottom-center">
+            {logBtn}
+          </IconButton>
+        </ToolbarGroup>
+      </Toolbar>
     );
   }
 }

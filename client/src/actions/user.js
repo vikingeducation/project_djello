@@ -41,7 +41,26 @@ export const validateUser = user => async dispatch => {
   dispatch(requestCheckUser(user));
   try {
     //get the user
-    const apiData = await fetch(`/users/${user.username}`);
+    // const apiData = await fetch(`/users/${user.username}`);
+    // const apiData = await fetch(`/users/${user.username}`, {
+    //   method: "POST",
+    //   body: user
+    // });
+
+    // var user = {
+    //   username: "a",
+    //   password: "a"
+    // };
+    let headers = new Headers();
+    headers.append("Content-type", "application/json");
+    const json = JSON.stringify(user);
+    const apiData = await fetch(`/users/${user.username}`, {
+      headers,
+      method: "POST",
+      body: json
+    });
+    console.log("apiData = ", apiData);
+
     if (apiData && apiData.status == 200) {
       const data = await apiData.json();
       console.log("user found, = ", data);

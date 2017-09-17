@@ -1,5 +1,10 @@
 import React, { PropTypes } from "react";
 import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
+
+const style = {
+  margin: 12
+};
 
 const LoginForm = props => {
   const {
@@ -11,35 +16,38 @@ const LoginForm = props => {
     password
   } = props;
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="username" />
-          <TextField
-            id="username"
-            name="username"
-            hintText="username"
-            floatingLabelText="username"
-            value={username}
-            onChange={onChangeInput}
-          />
-        </div>
-        <div>
-          <label htmlFor="password" />
+    <form onSubmit={onSubmit}>
+      <div>
+        <label htmlFor="username" />
+        <TextField
+          id="username"
+          name="username"
+          hintText="username"
+          floatingLabelText="username"
+          value={username}
+          onChange={onChangeInput}
+        />
+      </div>
+      <div>
+        <label htmlFor="password" />
 
-          <TextField
-            id="password"
-            name="password"
-            hintText="password"
-            floatingLabelText="password"
-            value={password}
-            onChange={onChangeInput}
-          />
-        </div>
+        <TextField
+          id="password"
+          name="password"
+          hintText="password"
+          floatingLabelText="password"
+          value={password}
+          onChange={onChangeInput}
+        />
+      </div>
 
-        <button>Submit</button>
-      </form>
-    </div>
+      <RaisedButton
+        label="Login"
+        primary={true}
+        style={style}
+        onClick={onSubmit}
+      />
+    </form>
   );
 };
 

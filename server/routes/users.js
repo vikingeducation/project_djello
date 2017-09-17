@@ -23,6 +23,27 @@ const getFullUserData = async query => {
   });
   return user;
 };
+router.post("/:id", async (req, res) => {
+  const username = req.params.id;
+  console.log("body = ", req.body);
+  // return res.sendStatus("200");
+  try {
+    //TODO: //attempt authentication
+    let { username, password } = req.body;
+    const user = await getFullUserData({ username: username });
+    if (!user) {
+      return res.sendStatus(404);
+    } else if (user.password !== password) {
+      return res.sendStatus(400);
+    }
+    console.log("user = ", user);
+    console.log("server sees user as = ", user);
+    res.json(user);
+  } catch (e) {
+    //handle error
+    return res.sendStatus(500);
+  }
+});
 router.get("/:id", async (req, res) => {
   //get user from database
   console.log("getting request");
