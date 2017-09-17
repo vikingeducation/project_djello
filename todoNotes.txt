@@ -38,6 +38,9 @@ start generating tokens for users
 
 //SEEDING
 add the programatically generated seeding
+default boards
+default lists
+default cards 
 
 //AWS INTEGRATION
 //consider doing this for funsies, could be useful for user profile images

@@ -10,6 +10,7 @@ module.exports = () => {
   const mongoUrl = envUrl ? envUrl : localUrl;
   return mongoose.connect(mongoUrl, { useMongoClient: true });
 };
+
 /*
 User.find().then(usr => (user = usr));
 User.find().then(user => lg(user.boards));

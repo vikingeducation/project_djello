@@ -11,6 +11,8 @@ const numBoards = 1;
 const numLists = 3;
 const numCards = 3;
 
+const { makeDefaultBoard } = require("../controllers");
+
 seeder.seed({
   mongodbUrl: mongodbUrl,
   models: models,
@@ -34,7 +36,7 @@ seeder.seed({
     });
     const list = await List.create({
       title: "Suprah Awesome List",
-      cards: [card, card2]
+      cards: [card, card2, randoCard()]
     });
     const board = await Board.create({
       title: "Suprah Awesome Board",
@@ -72,10 +74,12 @@ seeder.seed({
     //   password: "KarlRules",
     //   boards: [board]
     // });
+    const defBoard = await makeDefaultBoard();
+    console.log("defBoard = ", defBoard);
     User.create({
       username: "a",
       password: "a",
-      boards: [board, board2]
+      boards: [defBoard, board, board2]
     });
     //TODO: FIX THE AMAZING SEEDER SO I CAN DO SOME ACCURATE STRESS TESTING LATER
     // for (var i = 0; i < numUsers; i++) {
@@ -125,3 +129,15 @@ const createBoards = async () => {
     });
   return await Promise.all(boards);
 };
+const randoCard = (() => {
+  let counter = 0;
+  return () => {
+    return Card.create({
+      title: `card${counter++}`,
+      comments: ["not implemented"],
+      activity: ["not implemented"],
+      members: ["not implemented"],
+      labels: ["not implemented"]
+    });
+  };
+})();

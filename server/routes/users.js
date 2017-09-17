@@ -27,6 +27,7 @@ router.get("/:id", async (req, res) => {
   //get user from database
   console.log("getting request");
   const username = req.params.id;
+  console.log("username = ", username);
   try {
     //make sure to populate all their data
     // const user = await User.findOne({ username: req.params.id });
@@ -36,6 +37,9 @@ router.get("/:id", async (req, res) => {
     //   .populate("lists")
     //   .populate("cards");
     const user = await getFullUserData({ username: username });
+    if (!user) {
+      return res.sendStatus(404);
+    }
     console.log("user = ", user);
     //authenticate password
     // if (user.password === )
@@ -43,8 +47,7 @@ router.get("/:id", async (req, res) => {
     res.json(user);
   } catch (e) {
     //handle error
-    res.setStatus(404);
-  } finally {
+    return res.sendStatus(500);
   }
 });
 
