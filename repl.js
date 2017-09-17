@@ -1,7 +1,11 @@
 // repl.js
-let repl = require("repl").start({});
 const mongoose = require("mongoose");
 const models = require("./models");
+const options = {
+  prompt: "mongorepl> ",
+  breakEvalOnSigint: true
+};
+const repl = require("repl").start(options);
 
 // connect
 require("./mongo")().then(() => {
