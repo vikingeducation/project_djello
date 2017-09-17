@@ -4,14 +4,23 @@ import {
   Form,
   Grid,
   Header,
-  Image,
-  Message,
+  Loader,
+  // Image,
+  // Message,
   Segment
 } from "semantic-ui-react";
 
-const Login = ({ username, password, onLogIn, onSignUp, onChange }) => (
+const Login = ({
+  username,
+  password,
+  loading,
+  onLogIn,
+  onSignUp,
+  onChange
+}) => (
   <Grid textAlign="center" verticalAlign="middle">
     <Grid.Column width={6}>
+      <Loader active={loading} />
       <Header as="h2" textAlign="center">
         Please Log In
       </Header>

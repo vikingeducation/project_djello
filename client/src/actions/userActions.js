@@ -29,7 +29,7 @@ const logIn = (username, token) => {
 const auth = (credentials, dispatch) => {
   dispatch(setAuthenticating());
   socket.emit("authentication", credentials);
-  socket.on("authSuccess", (username, token) =>
+  socket.on("authSuccess", ({ username, token }) =>
     dispatch(logIn(username, token))
   );
   socket.on("authFail", () => dispatch(logOut()));
