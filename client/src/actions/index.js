@@ -72,21 +72,31 @@ export const createBoard = newBoard => async dispatch => {
     "POST",
     localStorage.getItem("token")
   );
-  const response = await fetch(BASE_CREATE_BOARD, options);
-  if (response.status === 400)
-    return dispatch(createBoardFailure("Bad request"));
-  const board = await response.json();
-  dispatch(createBoardSuccess(board));
+  try {
+    const response = await fetch(BASE_CREATE_BOARD, options);
+    if (response.status === 400 || response.status === 401)
+      return dispatch(createBoardFailure("Bad request"));
+    const board = await response.json();
+    dispatch(createBoardSuccess(board));
+  } catch (err) {
+    dispatch(createBoardFailure(err.message));
+  }
 };
 
 export const getAuthenticatedUser = token => async dispatch => {
-  console.log("getting here?");
+  dispatch(startAwaitLogin());
   const options = makeOptions("", "GET", localStorage.getItem("token"));
-  const response = await fetch(BASE_USER, options);
-  const user = await response.json();
-  console.log(user);
-  dispatch(loginSuccess(user));
-  dispatch(populateBoards(user.boards));
+  try {
+    const response = await fetch(BASE_USER, options);
+    if (response.status === 400) {
+      dispatch(loginFailure("Something went wrong"));
+    }
+    const user = await response.json();
+    dispatch(loginSuccess(user));
+    dispatch(populateBoards(user.boards));
+  } catch (err) {
+    dispatch(loginFailure("something went wrong"));
+  }
 };
 
 export const login = credentials => async dispatch => {
@@ -96,7 +106,7 @@ export const login = credentials => async dispatch => {
     const response = await fetch(BASE_LOGIN_API, options);
     const user = await response.json();
     if (response.status === 401)
-      return dispatch(loginFailure("You screwed up"));
+      return dispatch(loginFailure("Invalid credentials, please try again"));
     localStorage.setItem("token", user.token);
     dispatch(loginSuccess(user));
     dispatch(populateBoards(user.boards));

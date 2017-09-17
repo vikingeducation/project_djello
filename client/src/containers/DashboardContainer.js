@@ -7,11 +7,8 @@ import { getAuthenticatedUser } from "../actions";
 
 class DashboardContainer extends Component {
   componentDidMount() {
-    const token = window.localStorage.getItem("token");
-    console.log(this.props);
-    console.log(window.localStorage.getItem("token"));
-    if (!this.props.user && window.localStorage.getItem("token")) {
-      console.log("i think this worked?");
+    const token = localStorage.getItem("token");
+    if (!this.props.user && localStorage.getItem("token")) {
       this.props.getAuthenticatedUser(token);
     }
   }
