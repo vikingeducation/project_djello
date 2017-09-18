@@ -6,9 +6,12 @@ const db = require("./config")(process.env.DB_URL);
 const User = require("./models/User");
 const { loginController } = require("./controllers/loginController");
 const Board = require("./models/Board");
+const List = require("./models/List");
 const formatUser = require("./services/formatUser");
 const { USER_NOT_FOUND, WRONG_PASSWORD } = require("./services/constants");
 const tokens = require("./tokens.json");
+const cors = require("cors");
+app.use(cors());
 
 app.use(bodyParser.json());
 
@@ -21,6 +24,20 @@ app.post("/api/login", async (req, res) => {
   user.validatePassword(password)
     ? res.json(formatUser(user, username))
     : res.status(401).json({ error: WRONG_PASSWORD });
+});
+
+app.post("/api/lists", async (req, res) => {
+  const { title, board_id } = req.body;
+  let list = new List({
+    title,
+    board: board_id
+  });
+  list = await list.save();
+  const board = await Board.update(
+    { _id: board_id },
+    { $push: { lists: list } }
+  );
+  res.json(list);
 });
 
 app.post("/api/boards", async (req, res) => {
@@ -40,10 +57,8 @@ app.post("/api/boards", async (req, res) => {
 });
 
 app.get("/api/boards/:id", async (req, res) => {
-  console.log("getting here?");
   const boardId = req.params.id;
-  const response = await Board.findById({ _id: boardId }).populate("lists");
-  console.log("getting here?");
+  const response = await Board.findById({ _id: boardId });
   const populatedBoard = await response.json();
   res.json(populatedBoard);
 });

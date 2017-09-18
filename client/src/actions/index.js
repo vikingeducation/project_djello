@@ -1,5 +1,6 @@
 import { makeOptions } from "../services/actionsHelper";
-const BASE_LOGIN_API = "api/login";
+const BASE_URI = "http://localhost:3001";
+const BASE_LOGIN = "api/login";
 const BASE_BOARD = "api/boards";
 const BASE_USER = "api/user";
 const BASE_LIST = "api/lists";
@@ -101,16 +102,17 @@ export const createListFailure = error => {
 
 export const getLists = boardId => async dispatch => {
   console.log(boardId);
-  const response = await fetch(`${BASE_BOARD}/${boardId}`);
+  const response = await fetch(`${BASE_URI}/${BASE_BOARD}/${boardId}`);
   const populatedBoard = await response.json();
-  dispatch(populateCards(populatedBoard.lists));
+  dispatch(populateLists(populatedBoard.lists));
 };
 
 export const createList = newList => async dispatch => {
   const body = JSON.stringify(newList);
   const options = makeOptions(body, "POST", null);
-  const response = await fetch(`${BASE_LIST}`, options);
   const list = await response.json();
+  const response = await fetch(`${BASE_URI}/${BASE_LIST}`, options);
+  console.log(list);
   dispatch(createListSuccess(list));
 };
 
@@ -119,7 +121,7 @@ export const createBoard = newBoard => async dispatch => {
   const body = JSON.stringify(newBoard);
   const options = makeOptions(body, "POST", localStorage.getItem("token"));
   try {
-    const response = await fetch(BASE_BOARD, options);
+    const response = await fetch(`${BASE_URI}/${BASE_BOARD}`, options);
     if (response.status === 400 || response.status === 401)
       return dispatch(createBoardFailure("Bad request"));
     const board = await response.json();
@@ -133,7 +135,7 @@ export const getAuthenticatedUser = token => async dispatch => {
   dispatch(startAwaitLogin());
   const options = makeOptions("", "GET", localStorage.getItem("token"));
   try {
-    const response = await fetch(BASE_USER, options);
+    const response = await fetch(`${BASE_URI}/${BASE_USER}`, options);
     if (response.status === 400) {
       dispatch(loginFailure("Something went wrong"));
     }
@@ -149,7 +151,7 @@ export const login = credentials => async dispatch => {
   dispatch(startAwaitLogin());
   const options = makeOptions(JSON.stringify(credentials), "POST", null);
   try {
-    const response = await fetch(BASE_LOGIN_API, options);
+    const response = await fetch(`${BASE_URI}/${BASE_LOGIN}`, options);
     const user = await response.json();
     if (response.status === 401)
       return dispatch(loginFailure("Invalid credentials, please try again"));
