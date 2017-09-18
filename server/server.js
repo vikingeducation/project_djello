@@ -43,6 +43,7 @@ app.get("/api/boards/:id", async (req, res) => {
   console.log("getting here?");
   const boardId = req.params.id;
   const response = await Board.findById({ _id: boardId }).populate("lists");
+  console.log("getting here?");
   const populatedBoard = await response.json();
   res.json(populatedBoard);
 });

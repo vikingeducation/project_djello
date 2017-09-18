@@ -15,7 +15,14 @@ const Dashboard = ({ logOut, user, boards }) => {
       />
       <Route
         path="/boards/:board_id"
-        render={() => <BoardDashboard boards={boards} />}
+        render={props =>
+          <BoardDashboard
+            board={
+              boards.filter(
+                board => board._id === props.match.params.board_id
+              )[0]
+            }
+          />}
       />
     </div>
   );

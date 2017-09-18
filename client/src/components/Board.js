@@ -9,8 +9,8 @@ const style = {
   backgroundColor: "green"
 };
 
-export default ({ board, getCards }) =>
-  <Paper style={style} zDepth={2} onClick={getCards}>
+export default ({ board, getLists }) =>
+  <Paper style={style} zDepth={2} onClick={getLists}>
     <h2>
       {board.title}{" "}
     </h2>

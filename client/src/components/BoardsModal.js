@@ -12,7 +12,7 @@ const actions = [
   />
 ];
 
-const BoardModal = props =>
+const BoardsModal = props =>
   <div>
     <Dialog
       title="Add a new board"
@@ -26,4 +26,4 @@ const BoardModal = props =>
     </Dialog>
   </div>;
 
-export default BoardModal;
+export default BoardsModal;

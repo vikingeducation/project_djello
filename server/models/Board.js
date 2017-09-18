@@ -7,7 +7,7 @@ const BoardSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  cards: [
+  lists: [
     {
       type: Schema.Types.ObjectId,
       ref: "List"

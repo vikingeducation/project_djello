@@ -2,6 +2,8 @@ import { makeOptions } from "../services/actionsHelper";
 const BASE_LOGIN_API = "api/login";
 const BASE_BOARD = "api/boards";
 const BASE_USER = "api/user";
+const BASE_LIST = "api/lists";
+
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const START_AWAIT_LOGIN = "START_AWAIT_LOGIN";
@@ -12,6 +14,8 @@ export const CREATE_BOARD_FAILURE = "CREATE_BOARD_FAILURE";
 export const POPULATE_BOARDS = "POPULATE_BOARDS";
 export const POPULATE_CARDS = "POPULATE_CARDS";
 export const POPULATE_LISTS = "POPULATE_LISTS";
+export const CREATE_LIST_SUCCESS = "CREATE_LIST_SUCCESS";
+export const CREATE_LIST_FAILURE = "CREATE_LIST_FAILURE";
 
 export const startAwaitLogin = () => {
   return {
@@ -55,7 +59,7 @@ export const populateCards = cards => {
 
 export const populateLists = lists => {
   return {
-    type: POPULATE_CARDS,
+    type: POPULATE_LISTS,
     data: lists
   };
 };
@@ -76,25 +80,44 @@ export const createBoardSuccess = board => {
 
 export const createBoardFailure = error => {
   return {
-    type: CREATE_BOARD_SUCCESS,
+    type: CREATE_BOARD_FAILURE,
     data: error
   };
 };
 
-export const getCards = boardId => async dispatch => {
+export const createListSuccess = board => {
+  return {
+    type: CREATE_LIST_SUCCESS,
+    data: board
+  };
+};
+
+export const createListFailure = error => {
+  return {
+    type: CREATE_LIST_FAILURE,
+    data: error
+  };
+};
+
+export const getLists = boardId => async dispatch => {
   console.log(boardId);
   const response = await fetch(`${BASE_BOARD}/${boardId}`);
   const populatedBoard = await response.json();
-  dispatch(populateCards(populatedBoard.cards));
+  dispatch(populateCards(populatedBoard.lists));
+};
+
+export const createList = newList => async dispatch => {
+  const body = JSON.stringify(newList);
+  const options = makeOptions(body, "POST", null);
+  const response = await fetch(`${BASE_LIST}`, options);
+  const list = await response.json();
+  dispatch(createListSuccess(list));
 };
 
 export const createBoard = newBoard => async dispatch => {
   dispatch(startAwaitBoard());
-  const options = makeOptions(
-    JSON.stringify(newBoard),
-    "POST",
-    localStorage.getItem("token")
-  );
+  const body = JSON.stringify(newBoard);
+  const options = makeOptions(body, "POST", localStorage.getItem("token"));
   try {
     const response = await fetch(BASE_BOARD, options);
     if (response.status === 400 || response.status === 401)

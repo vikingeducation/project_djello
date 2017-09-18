@@ -69,6 +69,18 @@ export const app = (state = initialState, action) => {
         fetching: false,
         boardFailureMessage: action.data
       };
+    case Actions.CREATE_LIST_SUCCESS:
+      return {
+        ...state,
+        fetching: false,
+        lists: [...state.lists, action.data]
+      };
+    case Actions.CREATE_LIST_FAILURE:
+      return {
+        ...state,
+        fetching: false,
+        listFailureMessage: action.data
+      };
     default:
       return state;
   }

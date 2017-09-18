@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { createBoard, getCards } from "../actions";
+import { createBoard, getLists } from "../actions";
 import { connect } from "react-redux";
 import Board from "../components/Board";
 import AddBoard from "../components/AddBoard";
 import PaperWrapper from "../components/PaperWrapper";
-import BoardModal from "../components/BoardModal";
+import BoardsModal from "../components/BoardsModal";
 import { Link } from "react-router-dom";
 
 const style = {
@@ -40,15 +40,15 @@ class BoardsContainer extends Component {
             >
               <Board
                 board={board}
-                cards={this.state.cards}
-                getCards={() => this.props.getCards(board._id)}
+                lists={this.state.lists}
+                getLists={() => this.props.getLists(board._id)}
               />
             </Link>
           )}
           <AddBoard handleModalOpen={this.handleModalOpen} />
         </PaperWrapper>
         {this.state.modalOpen
-          ? <BoardModal
+          ? <BoardsModal
               open={this.state.modalOpen}
               onRequestClose={this.handleModalOpen}
               createBoard={this.props.createBoard}
@@ -71,8 +71,8 @@ const mapDispatchToProps = dispatch => {
     createBoard: input => {
       dispatch(createBoard(input));
     },
-    getCards: boardId => {
-      dispatch(getCards(boardId));
+    getLists: boardId => {
+      dispatch(getLists(boardId));
     }
   };
 };
