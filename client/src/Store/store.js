@@ -13,7 +13,8 @@ const intialState = {
     isFetching: false,
     error: null,
     success: null,
-    board: null
+    board: null,
+    boards: null
   },
   isFetching: false,
   error: null

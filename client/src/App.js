@@ -31,12 +31,8 @@ class App extends Component {
     // const loggedIn = TESTING ? true : this.props.user.loggedIn;
     const loggedIn = this.props.user.loggedIn;
     console.log("loggedIn = ", loggedIn, ", user = ", this.props.user);
-    const bIndexWithProps = () => (
-      <BoardsIndexContainer boards={this.props.user.boards} />
-    );
-    const bShowWithProps = () => (
-      <BoardShowContainer boards={this.props.user.boards} />
-    );
+    const bIndexWithProps = () => <BoardsIndexContainer />;
+    const bShowWithProps = () => <BoardShowContainer />;
     return (
       <Router>
         <div className="App">

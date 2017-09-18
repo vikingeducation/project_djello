@@ -12,6 +12,19 @@ const { User, Board, List, Card } = models;
 //   connection();
 // }
 
+const getFullUserData = async (query = { username: "a" }) => {
+  const user = await User.findOne(query).populate({
+    path: "boards",
+    populate: {
+      path: "lists",
+      populate: {
+        path: "cards"
+      }
+    }
+  });
+  return user;
+};
+
 //make a default board
 
 const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
@@ -82,5 +95,6 @@ const randoCard = (() => {
 
 // console.log(dfBoard);
 module.exports = {
-  makeDefaultBoard
+  makeDefaultBoard,
+  getFullUserData
 };

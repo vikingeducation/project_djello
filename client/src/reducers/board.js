@@ -1,10 +1,17 @@
-import { START_REQUEST, BOARD_SUCESS, BOARD_FAILURE } from "../actions/board";
+import {
+  START_REQUEST,
+  BOARD_SUCESS,
+  BOARD_FAILURE,
+  GET_BOARDS_SUCCESS,
+  DELETE_REQUEST_SUCCESS
+} from "../actions/board";
 //
 // const intialState = {
 //   isFetching: false,
 //   error: null,
 //   success: null,
-//   board: null
+//   board: null,
+//   boards: null
 // };
 
 const board = (state = {}, action) => {
@@ -25,6 +32,17 @@ const board = (state = {}, action) => {
         ...state,
         isFetching: false,
         error: action.data
+      };
+    case GET_BOARDS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        boards: action.data
+      };
+    case DELETE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        isFetching: false
       };
     default:
       return state;
