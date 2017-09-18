@@ -8,8 +8,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const connect = require("./mongo");
 
-const index = require("./routes/index");
-const users = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const boardsRouter = require("./routes/boards");
 
 const app = express();
 
@@ -37,8 +38,9 @@ app.use(async (req, res, next) => {
 });
 
 //ROUTES
-app.use("/", index);
-app.use("/users", users);
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/boards", boardsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

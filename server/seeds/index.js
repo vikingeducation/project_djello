@@ -64,16 +64,6 @@ seeder.seed({
       title: "Suprah Awesome Board",
       lists: [list2]
     });
-    // User.create({
-    //   username: "Bob",
-    //   password: "blaahhh",
-    //   boards: [board]
-    // });
-    // User.create({
-    //   username: "Karl",
-    //   password: "KarlRules",
-    //   boards: [board]
-    // });
     const defBoard = await makeDefaultBoard();
     console.log("defBoard = ", defBoard);
     User.create({

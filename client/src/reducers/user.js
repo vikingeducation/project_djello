@@ -6,13 +6,13 @@ import {
   LOGOUT_USER
 } from "../actions/user";
 
-const intialState = {
-  username: null,
-  isFetching: false,
-  loggedIn: false,
-  error: null
-};
-const user = (state = intialState, action) => {
+// const intialState = {
+//   username: null,
+//   isFetching: false,
+//   loggedIn: false,
+//   error: null
+// };
+const user = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_CHECK_USER:
       return {

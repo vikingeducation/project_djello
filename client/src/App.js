@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "./actions/user";
 
-//testing var
-// import { TESTING } from "./index";
-
 import { BrowserRouter as Router } from "react-router-dom";
 import { Redirect, Route, Switch } from "react-router-dom";
 import LoginContainer from "./Containers/LoginContainer";

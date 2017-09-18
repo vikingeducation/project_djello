@@ -14,7 +14,7 @@ const { User, Board, List, Card } = models;
 
 //make a default board
 
-const makeDefaultBoard = async () => {
+const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   //default list: Bugs, To Implement, Planned Features, Feature Creep, Research, Suggested Features
 
   //bug list
@@ -23,7 +23,6 @@ const makeDefaultBoard = async () => {
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
 
-  console.log("buglist cards = ", stockCards);
   const bugList = await List.create({
     title: "Bugs",
     cards: stockCards
@@ -34,7 +33,6 @@ const makeDefaultBoard = async () => {
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
-  console.log("stockCards = ", stockCards);
   const implementList = await List.create({
     title: "To Implement",
     cards: stockCards
@@ -45,7 +43,6 @@ const makeDefaultBoard = async () => {
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
-  console.log("stockCards = ", stockCards);
   const plannedList = await List.create({
     title: "Planned Features",
     cards: stockCards
@@ -56,14 +53,13 @@ const makeDefaultBoard = async () => {
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
-  console.log("stockCards = ", stockCards);
   const creepList = await List.create({
     title: "Feature Creep",
     cards: stockCards
   });
   //a default board
   return Board.create({
-    title: "Sample Game Dev Board",
+    title: name,
     lists: [bugList, implementList, plannedList, creepList]
   });
 };

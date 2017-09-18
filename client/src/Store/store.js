@@ -9,6 +9,12 @@ const intialState = {
     loggedIn: false,
     error: null
   },
+  board: {
+    isFetching: false,
+    error: null,
+    success: null,
+    board: null
+  },
   isFetching: false,
   error: null
 };
