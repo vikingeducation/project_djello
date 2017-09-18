@@ -23,7 +23,7 @@ app.post("/api/login", async (req, res) => {
     : res.status(401).json({ error: WRONG_PASSWORD });
 });
 
-app.post("/api/boards/new", async (req, res) => {
+app.post("/api/boards", async (req, res) => {
   const { title, username } = req.body;
   if (!req.headers.token || !username)
     return res.status(400).json({ error: "Please log in" });
@@ -37,6 +37,14 @@ app.post("/api/boards/new", async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: "unable to create" });
   }
+});
+
+app.get("/api/boards/:id", async (req, res) => {
+  console.log("getting here?");
+  const boardId = req.params.id;
+  const response = await Board.findById({ _id: boardId }).populate("lists");
+  const populatedBoard = await response.json();
+  res.json(populatedBoard);
 });
 
 app.get("/api/user", async (req, res) => {

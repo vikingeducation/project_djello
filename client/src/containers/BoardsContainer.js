@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createBoard } from "../actions";
+import { createBoard, getCards } from "../actions";
 import { connect } from "react-redux";
 import Board from "../components/Board";
 import AddBoard from "../components/AddBoard";
@@ -38,7 +38,11 @@ class BoardsContainer extends Component {
               key={board._id}
               style={{ height: 100 }}
             >
-              <Board board={board} />
+              <Board
+                board={board}
+                cards={this.state.cards}
+                getCards={() => this.props.getCards(board._id)}
+              />
             </Link>
           )}
           <AddBoard handleModalOpen={this.handleModalOpen} />
@@ -56,12 +60,21 @@ class BoardsContainer extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    cards: state.cards
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     createBoard: input => {
       dispatch(createBoard(input));
+    },
+    getCards: boardId => {
+      dispatch(getCards(boardId));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(BoardsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardsContainer);

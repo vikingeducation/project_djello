@@ -41,6 +41,16 @@ export const app = (state = initialState, action) => {
         ...state,
         boards: action.data
       };
+    case Actions.POPULATE_LISTS:
+      return {
+        ...state,
+        lists: action.data
+      };
+    case Actions.POPULATE_CARDS:
+      return {
+        ...state,
+        cards: action.data
+      };
     case Actions.LOG_OUT:
       return {
         ...state,

@@ -10,7 +10,7 @@ const BoardSchema = new Schema({
   cards: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Card"
+      ref: "List"
     }
   ]
 });
