@@ -3,11 +3,10 @@ const Schema = mongoose.Schema;
 
 const BoardSchema = Schema({
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  cards: [
+  lists: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Card"
+      ref: "List"
     }
   ],
   users: [

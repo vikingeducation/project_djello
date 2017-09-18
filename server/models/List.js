@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CardSchema = Schema({
+const ListSchema = Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  activities: [
+  cards: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Activity"
+      ref: "Card"
     }
   ],
-  list: { type: Schema.Types.ObjectId, ref: "Board" }
+  board: { type: Schema.Types.ObjectId, ref: "Board" }
 });
 
-const Card = mongoose.model("Card", CardSchema);
+const List = mongoose.model("List", ListSchema);
 
-module.exports = Card;
+module.exports = List;
