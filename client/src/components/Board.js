@@ -1,12 +1,22 @@
 import React from "react";
-import { Grid, Select, Header, Button, Form, Divider } from "semantic-ui-react";
+import {
+  Grid,
+  Select,
+  Header,
+  Button,
+  Form,
+  Divider,
+  Loader
+} from "semantic-ui-react";
 import List from "./List";
+import Showable from "./elements/Showable";
 
 const Board = ({ info, actions }) => (
   <Grid>
+    <Loader active={info.fetching} />
     <Grid.Row>
       <Grid.Column computer={6} tablet={8} mobile={16}>
-        <Header as="h1">{info.selected.title}</Header>
+        <Header as="h1">{info.current.title || "You have no boards..."}</Header>
       </Grid.Column>
       <Grid.Column computer={6} tablet={8} mobile={16} textAlign="right">
         <Form>
@@ -17,28 +27,31 @@ const Board = ({ info, actions }) => (
               options={info.boards}
             />
           </Form.Field>
-          <Button size="tiny" color="red">
+          <Button basic size="tiny" color="red">
             Delete
           </Button>
-          <Button size="tiny" color="green">
+          <Button basic size="tiny" color="green">
             New
           </Button>
         </Form>
       </Grid.Column>
     </Grid.Row>
     <Divider />
-    <Grid.Row>
-      {info.selected.lists.map(list => <List key={list.slug} list={list} />)}
-      <Grid.Column
-        computer={4}
-        tablet={8}
-        mobile={16}
-        textAlign="center"
-        verticalAlign="middle"
-      >
-        <Button color="violet">Add a List</Button>
-      </Grid.Column>
-    </Grid.Row>
+    <Showable condition={info.current.title}>
+      <Grid.Row>
+        {info.current.lists &&
+          info.current.lists.map(list => <List key={list.slug} list={list} />)}
+        <Grid.Column
+          computer={4}
+          tablet={8}
+          mobile={16}
+          textAlign="center"
+          verticalAlign="middle"
+        >
+          <Button color="violet">Add a List</Button>
+        </Grid.Column>
+      </Grid.Row>
+    </Showable>
   </Grid>
 );
 

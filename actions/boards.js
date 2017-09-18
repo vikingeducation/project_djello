@@ -18,17 +18,30 @@ const getBoard = client => async slug => {
         }
       })
       .populate({ path: "members" });
-    board
-      ? client.emit("getBoardSuccess", board)
-      : new Error("Failed to find board");
+    if (board && board.members.some(member => member.id === client.user.id)) {
+      client.emit("getBoardSuccess", board);
+    } else {
+      throw new Error("Failed to find board");
+    }
   } catch (error) {
-    console.log();
     errorHandler(client, "getBoardError", error);
+  }
+};
+
+const addBoard = client => async ({ title, creator }) => {
+  try {
+    const board = await Board.create({ title, members: [creator] });
+    board
+      ? client.emit("addBoardSuccess", board)
+      : new Error("Failed to create board");
+  } catch (error) {
+    errorHandler(client, "addBoardError", error);
   }
 };
 
 const boards = client => {
   client.on("getBoard", getBoard(client));
+  client.on("addBoard", addBoard(client));
 };
 
 module.exports = boards;

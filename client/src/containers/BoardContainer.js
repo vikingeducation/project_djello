@@ -2,50 +2,58 @@ import React, { PureComponent } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import { Header } from "semantic-ui-react";
+
+import socket from "../socket";
 
 import Board from "../components/Board";
 import { boardActions } from "../actions";
 
-const BASES = ["/boards", "/boards/"];
-
 class BoardContainer extends PureComponent {
-  nextSlug = "";
-  componentWillReceiveProps(nextProps) {
-    const prop = nextProps.boards;
-    const next = nextProps.match.params.slug || (prop[0] && prop[0].slug) || "";
-    const current = this.props.current.slug;
-    if (next !== this.nextSlug && next !== current) {
-      this.nextSlug = next;
-      this.props.setCurrent(next);
-      if (BASES.includes(this.props.history.location.pathname)) {
-        nextProps.history.push(`/boards/${next}`);
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: {},
+      fetching: false,
+      error: ""
+    };
+  }
+
+  componentDidMount() {
+    socket.on("getBoardSuccess", board => {
+      if (board.slug !== this.state.current.slug) {
+        this.setState({ current: board, fetching: false });
       }
+    });
+    socket.on("getBoardError", error => {
+      this.setState({ error, fetching: false });
+    });
+  }
+
+  componentDidUpdate() {
+    const slug = this.props.match.params.slug;
+    if (!slug && this.props.boards[0]) {
+      this.props.history.push(`/boards/${this.props.boards[0].slug}`);
+    } else if (slug && slug !== this.state.current.slug) {
+      socket.emit("getBoard", slug);
+      this.setState({ fetching: true });
     }
   }
 
-  onChangeBoard = (e, { value }) => {
-    this.props.history.push(`/boards/${value}`);
-  };
+  onChangeBoard = (e, { value }) => this.props.history.push(`/boards/${value}`);
 
   actions = {
     onChangeBoard: this.onChangeBoard
   };
 
-  render() {
-    if (this.props.current.title) {
-      const info = {
-        boards: this.props.boardOptions,
-        selected: this.props.current
-      };
-      return <Board info={info} actions={this.actions} />;
-    } else {
-      return <Header as="h1">You don't have any boards...</Header>;
-    }
-  }
+  info = () => ({
+    ...this.state,
+    boards: this.props.boardOptions
+  });
+
+  render = () => <Board info={this.info()} actions={this.actions} />;
 }
 
-const boardsSelector = state => state.boards.list;
+const boardsSelector = state => state.boards;
 
 const boardOptionsSelector = createSelector(boardsSelector, boards =>
   boards.map(board => ({
@@ -56,7 +64,6 @@ const boardOptionsSelector = createSelector(boardsSelector, boards =>
 );
 
 const mapStateToProps = state => ({
-  current: state.boards.current,
   boards: state.boards.list,
   boardOptions: boardOptionsSelector(state)
 });

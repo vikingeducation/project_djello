@@ -1,25 +1,17 @@
 import { boardActions } from "../actions";
 
-const defaultState = {
-  list: [],
-  current: {}
-};
+const defaultState = [];
 
 const boards = (state = defaultState, action) => {
   switch (action.type) {
-    case boardActions.SET_CURRENT:
-      return { ...state, current: action.data };
     case boardActions.SET:
-      return { ...state, list: action.data };
+      return action.data;
     case boardActions.CLEAR:
-      return { ...defaultState };
+      return [...defaultState];
     case boardActions.ADD:
-      return { ...state, list: [...state.list].concat(action.data) };
+      return [...state].concat(action.data);
     case boardActions.REMOVE:
-      return {
-        ...state,
-        list: state.list.filter(board => board.slug !== action.data)
-      };
+      return state.filter(board => board.slug !== action.data);
     default:
       return state;
   }
