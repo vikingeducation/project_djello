@@ -58,7 +58,7 @@ app.post("/api/boards", async (req, res) => {
 
 app.get("/api/boards/:id", async (req, res) => {
   const boardId = req.params.id;
-  const response = await Board.findById({ _id: boardId });
+  const response = await Board.findById({ _id: boardId }).populate("lists");
   const populatedBoard = await response.json();
   res.json(populatedBoard);
 });

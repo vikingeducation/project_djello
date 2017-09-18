@@ -7,6 +7,7 @@ const initialState = {
   boardFailureMessage: null,
   user: "",
   boards: [],
+  board: {},
   cards: [],
   lists: []
 };
@@ -40,6 +41,11 @@ export const app = (state = initialState, action) => {
       return {
         ...state,
         boards: action.data
+      };
+    case Actions.POPULATE_BOARD:
+      return {
+        ...state,
+        board: action.data
       };
     case Actions.POPULATE_LISTS:
       return {

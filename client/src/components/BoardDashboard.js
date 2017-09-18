@@ -4,7 +4,7 @@ import { List, ListItem } from "material-ui/List";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import { connect } from "react-redux";
-import { createList } from "../actions";
+import { createList, getLists } from "../actions";
 
 class BoardDashboard extends Component {
   constructor() {
@@ -15,13 +15,17 @@ class BoardDashboard extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log(this.props);
+    this.props.getLists(this.props.board._id);
+  }
+
   handleListName = (e, val) => this.setState({ formValue: val });
 
   handleAddList = () => this.setState({ formOpen: !this.state.formOpen });
 
   render() {
     const { createList } = this.props;
-    console.log(this.props);
     return (
       <PaperWrapper>
         <div style={{ flexDirection: "column" }}>
@@ -51,12 +55,21 @@ class BoardDashboard extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    state: state.board
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     createList: listData => {
       dispatch(createList(listData));
+    },
+    getLists: board_id => {
+      dispatch(getLists(board_id));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(BoardDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardDashboard);

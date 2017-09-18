@@ -13,6 +13,7 @@ export const START_AWAIT_BOARD = "START_AWAIT_BOARD";
 export const CREATE_BOARD_SUCCESS = "CREATE_BOARD_SUCCESS";
 export const CREATE_BOARD_FAILURE = "CREATE_BOARD_FAILURE";
 export const POPULATE_BOARDS = "POPULATE_BOARDS";
+export const POPULATE_BOARD = "POPULATE_BOARD";
 export const POPULATE_CARDS = "POPULATE_CARDS";
 export const POPULATE_LISTS = "POPULATE_LISTS";
 export const CREATE_LIST_SUCCESS = "CREATE_LIST_SUCCESS";
@@ -48,6 +49,13 @@ export const populateBoards = boards => {
   return {
     type: POPULATE_BOARDS,
     data: boards
+  };
+};
+
+export const populateBoard = board => {
+  return {
+    type: POPULATE_BOARD,
+    data: board
   };
 };
 
@@ -103,15 +111,16 @@ export const createListFailure = error => {
 export const getLists = boardId => async dispatch => {
   console.log(boardId);
   const response = await fetch(`${BASE_URI}/${BASE_BOARD}/${boardId}`);
-  const populatedBoard = await response.json();
-  dispatch(populateLists(populatedBoard.lists));
+  const board = await response.json();
+  dispatch(populateBoard(board));
+  dispatch(populateLists(board.lists));
 };
 
 export const createList = newList => async dispatch => {
   const body = JSON.stringify(newList);
   const options = makeOptions(body, "POST", null);
-  const list = await response.json();
   const response = await fetch(`${BASE_URI}/${BASE_LIST}`, options);
+  const list = await response.json();
   console.log(list);
   dispatch(createListSuccess(list));
 };
