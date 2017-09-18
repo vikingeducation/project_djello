@@ -4,9 +4,9 @@ export const CLEAR = "CLEAR";
 export const ADD = "ADD";
 export const REMOVE = "REMOVE";
 
-export const setCurrent = board => ({
+export const setCurrent = slug => ({
   type: SET_CURRENT,
-  data: board
+  data: slug
 });
 
 export const set = boards => ({

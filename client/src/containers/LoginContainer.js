@@ -45,7 +45,7 @@ class LoginContainer extends PureComponent {
     if (this.props.user.username) {
       return (
         <Switch>
-          <Route path="/boards/:id?" component={BoardContainer} />
+          <Route path="/boards/:slug?" component={BoardContainer} />
           <Redirect from="/" to="/boards" />
         </Switch>
       );

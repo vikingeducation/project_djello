@@ -1,5 +1,8 @@
 import socket from "../socket";
-import { set as setBoards } from "../actions/boardActions";
+import {
+  set as setBoards,
+  clear as clearBoards
+} from "../actions/boardActions";
 
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
@@ -10,13 +13,10 @@ const setAuthenticating = () => ({
   type: SET_AUTHENTICATING
 });
 
-export const logOut = message => {
-  localStorage.setItem("token", "");
-  return {
-    type: LOG_OUT,
-    data: message
-  };
-};
+const setLoggedOut = message => ({
+  type: LOG_OUT,
+  data: message
+});
 
 const logIn = (username, token) => {
   localStorage.setItem("token", token);
@@ -24,6 +24,12 @@ const logIn = (username, token) => {
     type: LOG_IN,
     data: { username, token }
   };
+};
+
+export const logOut = message => dispatch => {
+  localStorage.setItem("token", "");
+  dispatch(clearBoards());
+  dispatch(setLoggedOut());
 };
 
 const auth = (credentials, dispatch) => {
