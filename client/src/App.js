@@ -48,7 +48,7 @@ class App extends Component {
               {/* boards index page */}
               <Route exact path="/" render={bIndexWithProps} />
               {/* board show page */}
-              <Route path="/boards/:id" render={bShowWithProps} />
+              <Route path="/boards/:id" component={BoardShowContainer} />
               {/* not found */}
               <Route render={() => <h1>Page not found</h1>} />
             </Switch>

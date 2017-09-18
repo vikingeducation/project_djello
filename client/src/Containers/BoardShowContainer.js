@@ -42,16 +42,23 @@ const Card = props => {
 class BoardShowContainer extends React.Component {
   constructor(props) {
     super(props);
+    console.log("location = ", this.props.location);
+    //TODO: reconsider this method of setting the boardId
+    let location = this.props.location.pathname.split("/")[2];
+    this.state = {
+      boardId: location
+    };
   }
   componentDidMount = async () => {
     //TODO: grab the user
     console.log("mounting boardShow");
+    console.log("boardId = ", this.state.boardId);
     const user = {
       username: "a",
       password: "a"
     };
     // let data = await this.props.getAllBoards(user);
-    this.props.getAllLists(user.username, this.props.board._id);
+    this.props.getAllLists(user.username, this.state.boardId);
   };
   render() {
     console.log("boardShow props = ", this.props);
