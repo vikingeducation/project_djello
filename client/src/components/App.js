@@ -1,10 +1,12 @@
 import React from "react";
+import Header from "./Header";
 import LoginForm from "./LoginForm";
 import DashboardContainer from "../containers/DashboardContainer";
 
 const App = ({ user, loginUser }) => {
   return (
-    <div className="App">
+    <div>
+      <Header />
       {user.username ? (
         <DashboardContainer />
       ) : (

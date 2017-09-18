@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import List from "./List";
+import ListContainer from "../containers/ListContainer";
 
 class Dashboard extends Component {
 	constructor() {
@@ -30,6 +30,10 @@ class Dashboard extends Component {
 			this.props.boards[this.state.currentBoard].Lists.length
 		);
 	};
+
+	componentDidUpdate() {
+		console.log("Hey I updated! ", this.props.boards);
+	}
 
 	render() {
 		return (
@@ -73,7 +77,7 @@ class Dashboard extends Component {
 				<div className="grid-container">
 					{this.state.currentBoard === null ? null : (
 						this.props.boards[this.state.currentBoard].Lists.map(list => (
-							<List
+							<ListContainer
 								key={list.id}
 								id={list.id}
 								title={list.title}

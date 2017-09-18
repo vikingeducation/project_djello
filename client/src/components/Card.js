@@ -1,13 +1,22 @@
 import React from "react";
-import { Card as CardDisplay, CardHeader, CardText } from "material-ui/Card";
+import Paper from "material-ui/Paper";
 
-const Card = ({ card }) => {
+const Card = ({ card, deleteCard }) => {
 	return (
-		<CardDisplay>
-			<CardHeader title={card.title} showExpandableButton={true} />
-			<CardText>{card.description}</CardText>
-			<CardText expandable={true}>Testing to see if this works...</CardText>
-		</CardDisplay>
+		<Paper className="card">
+			<h4>{card.title}</h4>
+			<button
+				href=""
+				className="close-button"
+				onClick={e => {
+					e.preventDefault();
+					deleteCard(card.id);
+				}}
+			>
+				&times;
+			</button>
+			<p>{card.description}</p>
+		</Paper>
 	);
 };
 

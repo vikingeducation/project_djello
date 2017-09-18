@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import "./index.css";
 import AppContainer from "./containers/AppContainer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "react-redux";

@@ -4,6 +4,8 @@ export const REMOVE_BOARD = "REMOVE_BOARD";
 export const ADD_BOARD = "ADD_BOARD";
 export const ADD_LIST = "ADD_LIST";
 export const REMOVE_LIST = "REMOVE_LIST";
+export const ADD_CARD = "ADD_CARD";
+export const REMOVE_CARD = "REMOVE_CARD";
 
 export const setUser = data => ({
 	type: SET_USER,
@@ -32,6 +34,16 @@ export const addList = (boardId, list) => ({
 
 export const removeList = id => ({
 	type: REMOVE_LIST,
+	data: id
+});
+
+export const addCard = (listId, card) => ({
+	type: ADD_CARD,
+	data: { listId: listId, card: card }
+});
+
+export const removeCard = id => ({
+	type: REMOVE_CARD,
 	data: id
 });
 
@@ -118,6 +130,36 @@ export const deleteList = id => async dispatch => {
 		});
 
 		dispatch(removeList(id));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const createCard = (listId, listIndex) => async dispatch => {
+	try {
+		const response = await fetch("/api/cards/new", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ listId, listIndex })
+		});
+
+		const newCard = await response.json();
+		console.log("New card is: ", newCard);
+		dispatch(addCard(listId, newCard));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const deleteCard = id => async dispatch => {
+	try {
+		await fetch("/api/cards", {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ id })
+		});
+
+		dispatch(removeCard(id));
 	} catch (error) {
 		console.log(error);
 	}

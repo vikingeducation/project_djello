@@ -84,7 +84,7 @@ app.post("/login", passport.authenticate("local"), async (req, res) => {
 
 app.post("/api/boards/new", async (req, res) => {
 	const newBoard = await Board.create({
-		title: "untitled board",
+		title: "Untitled Board",
 		userId: req.body.userId
 	});
 	res.json(newBoard);
@@ -97,7 +97,7 @@ app.delete("/api/boards", async (req, res) => {
 
 app.post("/api/lists/new", async (req, res) => {
 	const newList = await List.create({
-		title: "untitled list",
+		title: "Untitled List",
 		description: "Your description here",
 		boardId: req.body.boardId,
 		boardIndex: req.body.boardIndex
@@ -108,6 +108,23 @@ app.post("/api/lists/new", async (req, res) => {
 
 app.delete("/api/lists", async (req, res) => {
 	await List.destroy({ where: { id: req.body.id } });
+	res.end();
+});
+
+app.post("/api/cards/new", async (req, res) => {
+	const newCard = await Card.create({
+		title: "Untitled Card",
+		description: "Your description here",
+		listId: req.body.listId,
+		listIndex: req.body.listIndex,
+		completed: false
+	});
+
+	res.json(newCard);
+});
+
+app.delete("/api/cards", async (req, res) => {
+	await Card.destroy({ where: { id: req.body.id } });
 	res.end();
 });
 

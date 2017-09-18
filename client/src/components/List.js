@@ -1,25 +1,35 @@
 import React from "react";
 import Paper from "material-ui/Paper";
-import Card from "./Card";
+import CardContainer from "../containers/CardContainer";
 
-const List = ({ id, title, cards, deleteList }) => {
+const List = ({ id, title, cards, deleteList, createCard }) => {
 	return (
 		<Paper className="list">
-			<h2>{title}</h2>
-			<a
-				href=""
+			<h3>{title}</h3>
+			<button
+				className="close-button"
 				onClick={e => {
 					e.preventDefault();
 					deleteList(id);
 				}}
 			>
-				X
-			</a>
+				&times;
+			</button>
 
-			{!cards.length ? null : (
-				cards.map(card => <Card key={card.id} card={card} />)
+			{!cards ? null : (
+				<div>
+					{cards.map(card => <CardContainer key={card.id} card={card} />)}
+					<a
+						href=""
+						onClick={e => {
+							e.preventDefault();
+							createCard(id, cards.length);
+						}}
+					>
+						Add a Card
+					</a>
+				</div>
 			)}
-			<a href="">Add a Card</a>
 		</Paper>
 	);
 };

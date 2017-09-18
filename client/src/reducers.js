@@ -4,7 +4,9 @@ import {
 	ADD_BOARD,
 	REMOVE_BOARD,
 	ADD_LIST,
-	REMOVE_LIST
+	REMOVE_LIST,
+	ADD_CARD,
+	REMOVE_CARD
 } from "./actions";
 
 export const djelloApp = (state = { user: {}, boards: [] }, action) => {
@@ -43,6 +45,33 @@ export const djelloApp = (state = { user: {}, boards: [] }, action) => {
 				...state,
 				boards: state.boards.map(board => {
 					board.Lists = board.Lists.filter(list => list.id !== action.data);
+					return board;
+				})
+			};
+		case ADD_CARD:
+			return {
+				...state,
+				boards: state.boards.map(board => {
+					board.Lists = board.Lists.map(list => {
+						list.Cards =
+							list.id === action.data.listId
+								? [...list.Cards, action.data.card]
+								: list.Cards;
+
+						return list;
+					});
+
+					return board;
+				})
+			};
+		case REMOVE_CARD:
+			return {
+				...state,
+				boards: state.boards.map(board => {
+					board.Lists = board.Lists.map(list => {
+						list.Cards = list.Cards.filter(card => card.id !== action.data);
+						return list;
+					});
 					return board;
 				})
 			};
