@@ -7,7 +7,10 @@ const List = ({ title, cards }) => {
 		<Paper className="list">
 			<h2>{title}</h2>
 
-			{cards.map(card => <Card key={card.id} card={card} />)}
+			{!cards.length ? null : (
+				cards.map(card => <Card key={card.id} card={card} />)
+			)}
+			<a href="">Add a Card</a>
 		</Paper>
 	);
 };

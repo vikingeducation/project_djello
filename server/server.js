@@ -60,17 +60,9 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
-app.post("/login", passport.authenticate("local"), (req, res) => {
-	res.json({
-		id: req.user.id,
-		username: req.user.username,
-		email: req.user.email
-	});
-});
-
-app.get("/api/:id/boards", async (req, res) => {
+app.post("/login", passport.authenticate("local"), async (req, res) => {
 	const boards = await Board.findAll({
-		where: { userId: req.params.id },
+		where: { userId: req.user.id },
 		include: [{ model: List, include: [{ model: Card }] }],
 		order: [
 			["updatedAt", "DESC"],
@@ -79,17 +71,38 @@ app.get("/api/:id/boards", async (req, res) => {
 			[List, Card, "listIndex"]
 		]
 	});
-	res.json(boards);
+	res.json({
+		user: {
+			id: req.user.id,
+			username: req.user.username,
+			email: req.user.email
+		},
+		boards: boards
+	});
 });
 
 app.post("/api/boards/new", async (req, res) => {
-	const newBoard = await Board.create({ title: "", userId: req.body.id });
+	const newBoard = await Board.create({
+		title: "untitled board",
+		userId: req.body.userId
+	});
 	res.json(newBoard);
 });
 
 app.delete("/api/boards", async (req, res) => {
 	await Board.destroy({ where: { id: req.body.id } });
 	res.end();
+});
+
+app.post("/api/lists/new", async (req, res) => {
+	const newList = await List.create({
+		title: "untitled list",
+		description: "Your description here",
+		boardId: req.body.boardId,
+		boardIndex: req.body.boardIndex
+	});
+
+	res.json(newList);
 });
 
 app.listen(3001, () => {
