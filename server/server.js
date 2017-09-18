@@ -106,6 +106,11 @@ app.post("/api/lists/new", async (req, res) => {
 	res.json(newList);
 });
 
+app.delete("/api/lists", async (req, res) => {
+	await List.destroy({ where: { id: req.body.id } });
+	res.end();
+});
+
 app.listen(3001, () => {
 	console.log("Now listening...");
 });

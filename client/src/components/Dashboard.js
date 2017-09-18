@@ -73,7 +73,15 @@ class Dashboard extends Component {
 				<div className="grid-container">
 					{this.state.currentBoard === null ? null : (
 						this.props.boards[this.state.currentBoard].Lists.map(list => (
-							<List key={list.id} title={list.title} cards={list.Cards} />
+							<List
+								key={list.id}
+								id={list.id}
+								title={list.title}
+								cards={list.Cards}
+								deleteList={id => {
+									this.props.deleteList(id);
+								}}
+							/>
 						))
 					)}
 					<a href="" onClick={this.createList}>

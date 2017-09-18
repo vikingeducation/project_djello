@@ -2,7 +2,8 @@ export const SET_USER = "SET_USER";
 export const SET_BOARDS = "SET_BOARDS";
 export const REMOVE_BOARD = "REMOVE_BOARD";
 export const ADD_BOARD = "ADD_BOARD";
-export const UPDATE_BOARD_LISTS = "UPDATE_BOARD_LISTS";
+export const ADD_LIST = "ADD_LIST";
+export const REMOVE_LIST = "REMOVE_LIST";
 
 export const setUser = data => ({
 	type: SET_USER,
@@ -24,9 +25,14 @@ export const removeBoard = id => ({
 	data: id
 });
 
-export const updateBoardLists = (boardId, list) => ({
-	type: UPDATE_BOARD_LISTS,
+export const addList = (boardId, list) => ({
+	type: ADD_LIST,
 	data: { boardId: boardId, list: list }
+});
+
+export const removeList = id => ({
+	type: REMOVE_LIST,
+	data: id
 });
 
 export const loginUser = (email, password) => async dispatch => {
@@ -97,7 +103,21 @@ export const createList = (boardId, boardIndex) => async dispatch => {
 
 		const newList = await response.json();
 		newList.Cards = [];
-		dispatch(updateBoardLists(boardId, newList));
+		dispatch(addList(boardId, newList));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const deleteList = id => async dispatch => {
+	try {
+		await fetch("/api/lists", {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ id })
+		});
+
+		dispatch(removeList(id));
 	} catch (error) {
 		console.log(error);
 	}

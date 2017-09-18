@@ -3,7 +3,8 @@ import {
 	SET_BOARDS,
 	ADD_BOARD,
 	REMOVE_BOARD,
-	UPDATE_BOARD_LISTS
+	ADD_LIST,
+	REMOVE_LIST
 } from "./actions";
 
 export const djelloApp = (state = { user: {}, boards: [] }, action) => {
@@ -28,13 +29,21 @@ export const djelloApp = (state = { user: {}, boards: [] }, action) => {
 				...state,
 				boards: state.boards.filter(board => board.id !== action.data)
 			};
-		case UPDATE_BOARD_LISTS:
+		case ADD_LIST:
 			return {
 				...state,
 				boards: state.boards.map(board => {
 					return board.id === action.data.boardId
 						? { ...board, Lists: [...board.Lists, action.data.list] }
 						: board;
+				})
+			};
+		case REMOVE_LIST:
+			return {
+				...state,
+				boards: state.boards.map(board => {
+					board.Lists = board.Lists.filter(list => list.id !== action.data);
+					return board;
 				})
 			};
 		default:
