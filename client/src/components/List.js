@@ -9,8 +9,10 @@ const List = ({ list, actions }) => (
       <Header as="h3">{list.title}</Header>
       <p>{list.description}</p>
       <Divider />
-      {list.cards.map(card => <Card title={card.title} />)}
-      <Button color="violet">Add a Card</Button>
+      {list.cards.map(card => <Card key={card.slug} title={card.title} />)}
+      <Button basic color="violet">
+        Add a Card
+      </Button>
     </Segment>
   </Grid.Column>
 );

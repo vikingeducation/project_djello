@@ -28,7 +28,7 @@ const Board = ({ info, actions }) => (
     </Grid.Row>
     <Divider />
     <Grid.Row>
-      {info.selected.lists.map(list => <List list={list} />)}
+      {info.selected.lists.map(list => <List key={list.slug} list={list} />)}
       <Grid.Column
         computer={4}
         tablet={8}
@@ -36,7 +36,7 @@ const Board = ({ info, actions }) => (
         textAlign="center"
         verticalAlign="middle"
       >
-        <Button color="olive">Add a List</Button>
+        <Button color="violet">Add a List</Button>
       </Grid.Column>
     </Grid.Row>
   </Grid>

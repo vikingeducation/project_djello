@@ -8,12 +8,7 @@ const defaultState = {
 const boards = (state = defaultState, action) => {
   switch (action.type) {
     case boardActions.SET_CURRENT:
-      const current =
-        state.list.reduce(
-          (b, board) => (board.slug === action.data ? board : b),
-          {}
-        ) || state.current;
-      return { ...state, ...{ current } };
+      return { ...state, current: action.data };
     case boardActions.SET:
       return { ...state, list: action.data };
     case boardActions.CLEAR:

@@ -1,6 +1,9 @@
 const authenticate = require("./auth");
+const boardActions = require("./boards");
 
-const postAuthenticate = client => {};
+const postAuthenticate = client => {
+  boardActions(client);
+};
 
 const actions = io => {
   require("socketio-auth")(io, {
