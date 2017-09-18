@@ -8,18 +8,8 @@ module.exports = {
       });
     }
   },
-  loggedInOnly: (req, res, next) => {
-    if (req.user) {
-      next();
-    } else {
-      res.redirect("/login");
-    }
-  },
-  loggedOutOnly: (req, res, next) => {
-    if (!req.user) {
-      next();
-    } else {
-      res.redirect("/login");
-    }
+  logConnections: (req, res, next) => {
+    console.log("incoming connection...");
+    next();
   }
 };

@@ -4,7 +4,10 @@ const bluebird = require("bluebird");
 mongoose.Promise = bluebird;
 
 const models = {
-  User: require("./user")
+  User: require("./user"),
+  Board: require("./board"),
+  Card: require("./card"),
+  List: require("./list")
 };
 
 module.exports = models;
