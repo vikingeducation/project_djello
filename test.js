@@ -14,3 +14,5 @@ var d = () => {
   }).then(console.log);
 };
 d();
+// user.boards.forEach((board)=>{console.log(board)})
+// user.boards = user.boards.filter(board => { console.log(board); return !(boardId == board._id); });

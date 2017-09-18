@@ -39,8 +39,10 @@ class BoardShowContainer extends React.Component {
   }
   render() {
     console.log("board props = ", this.props);
-    const boards = this.props.boards;
-    const board = boards[0];
+    // const boards = this.props.boards;
+    // const board = boards[0];
+    const boards = null;
+    const board = null;
     return (
       <div>
         {/* <h1>Username: {this.props.user.username}</h1> */}

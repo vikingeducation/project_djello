@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { FloatingActionButton } from "material-ui";
 
 import { createBoard, getAllBoards, deleteBoard } from "../actions/board";
-
+import NewBoardModal from "../Components/NewBoardModal";
 import Showable from "../Components/elements/Showable";
 
 export const makeBoardShow = id => `/boards/${id}`;
@@ -27,17 +27,19 @@ class BoardsIndexContainer extends React.Component {
     };
     let data = await this.props.getAllBoards(user);
   };
-  onCreateBoard = (name = "newBoard YOOOO") => {
-    //TODO: find the magic to do this
-    //change url
+  onCreateBoard = async (name = "newBoard YOOOO") => {
     console.log("createBoard called");
-    this.props.createBoard(name);
+    await this.props.createBoard(name);
+    //TODO: CHANGE THIS REFRESH BOARDS THING LATER
+    await this.props.getAllBoards({ username: "a", password: "a" });
   };
   //TODO: change this madness later
-  onDeleteBoard = (e, id) => {
+  onDeleteBoard = async (e, id) => {
     //TODO: experiment with doing this with hrefs
     e.preventDefault();
-    this.props.deleteBoard(id, "a");
+    await this.props.deleteBoard(id, "a");
+    //TODO: CHANGE THIS REFRESH BOARDS THING LATER
+    await this.props.getAllBoards({ username: "a", password: "a" });
     // this.props.getAllBoards({ username: "a", password: "a" });
     console.log(`deleting board ${id}`);
     console.log(e.target);
@@ -84,6 +86,11 @@ class BoardsIndexContainer extends React.Component {
             {boards}
             {newBoard}
           </ul>
+          <NewBoardModal>
+            <FloatingActionButton onClick={this.onCreateBoard}>
+              <i className="material-icons">add</i>
+            </FloatingActionButton>
+          </NewBoardModal>
         </Showable>
       </div>
     );

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "debug": "node debug ./bin/www",
     "seeds": "node ./seeds/index",
     "seed": "node ./seeds/users",
     "c": "node repl.js"
