@@ -87,7 +87,7 @@ export const getAllBoards = user => async dispatch => {
 export const createBoard = name => async dispatch => {
   dispatch(startRequest());
   let newBoard = {
-    name: "newBoard now plix plox"
+    name
   };
   let serverResponse;
   try {

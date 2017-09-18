@@ -56,7 +56,7 @@ class BoardsIndexContainer extends React.Component {
           <li key={board._id}>
             <Link to={url}>{board.title}</Link>
             <FloatingActionButton
-              href={`${board._id}`}
+              href={`${board._id}`} ///????????
               mini={true}
               onClick={e => {
                 this.onDeleteBoard(e, board._id);
@@ -68,10 +68,12 @@ class BoardsIndexContainer extends React.Component {
         );
       });
     }
-    const newBoard = (
-      <FloatingActionButton onClick={this.onCreateBoard}>
-        <i className="material-icons">add</i>
-      </FloatingActionButton>
+    const newBoardButton = (
+      <NewBoardModal onSubmit={this.onCreateBoard}>
+        <FloatingActionButton>
+          <i className="material-icons">add</i>
+        </FloatingActionButton>
+      </NewBoardModal>
     );
 
     return (
@@ -84,13 +86,8 @@ class BoardsIndexContainer extends React.Component {
           <p>Boards Index Page </p>
           <ul>
             {boards}
-            {newBoard}
+            {newBoardButton}
           </ul>
-          <NewBoardModal>
-            <FloatingActionButton onClick={this.onCreateBoard}>
-              <i className="material-icons">add</i>
-            </FloatingActionButton>
-          </NewBoardModal>
         </Showable>
       </div>
     );

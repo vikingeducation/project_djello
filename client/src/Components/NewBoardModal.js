@@ -16,6 +16,8 @@ class NewBoardModal extends React.Component {
   };
   handleClose = e => {
     this.setState({ open: false });
+    console.log("form = ", this.state.boardTitle);
+    this.props.onSubmit(this.state.boardTitle);
   };
   onChange = e => {
     this.setState({ boardTitle: e.target.value });
@@ -31,7 +33,7 @@ class NewBoardModal extends React.Component {
         label="Create!"
         primary={true}
         keyboardFocused={false}
-        onClick={this.onSubmit}
+        onClick={this.handleClose}
       />
     ];
     return (
@@ -43,13 +45,7 @@ class NewBoardModal extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-        >
-          {/* <TextField
-            name='boardTitle',
-            value={this.state.boardTitle}
-            onChange={onChange}
-          /> */}
-        </Dialog>
+        />
       </div>
     );
   }

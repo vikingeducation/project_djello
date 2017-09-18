@@ -16,6 +16,18 @@ const intialState = {
     board: null,
     boards: null
   },
+  list: {
+    isFetching: false,
+    error: null,
+    success: null,
+    lists: null
+  },
+  card: {
+    isFetching: false,
+    error: null,
+    success: null,
+    cards: null
+  },
   isFetching: false,
   error: null
 };
