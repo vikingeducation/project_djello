@@ -97,7 +97,6 @@ export const createList = (boardId, boardIndex) => async dispatch => {
 
 		const newList = await response.json();
 		newList.Cards = [];
-		console.log(newList);
 		dispatch(updateBoardLists(boardId, newList));
 	} catch (error) {
 		console.log(error);

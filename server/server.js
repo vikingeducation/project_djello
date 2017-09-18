@@ -71,6 +71,7 @@ app.post("/login", passport.authenticate("local"), async (req, res) => {
 			[List, Card, "listIndex"]
 		]
 	});
+
 	res.json({
 		user: {
 			id: req.user.id,

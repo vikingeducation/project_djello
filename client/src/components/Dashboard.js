@@ -10,26 +10,24 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		console.log("Props: ", this.props.user);
-		this.setState({ currentBoard: this.props.boards[0] });
+		this.setState({ currentBoard: 0 });
 	}
 
 	changeBoard = e => {
-		this.setState({ currentBoard: this.props.boards[e.target.value] });
+		this.setState({ currentBoard: e.target.value });
 	};
 
 	addOrDeleteBoard = async (type, id) => {
 		await this.props[type](id);
 		document.querySelector("#board-0").selected = true;
-		console.log(this.props.boards);
-		this.setState({ currentBoard: this.props.boards[0] });
+		this.setState({ currentBoard: 0 });
 	};
 
-	createList = e => {
+	createList = async e => {
 		e.preventDefault();
-		this.props.createList(
-			this.state.currentBoard.id,
-			this.state.currentBoard.Lists.length
+		await this.props.createList(
+			this.props.boards[this.state.currentBoard].id,
+			this.props.boards[this.state.currentBoard].Lists.length
 		);
 	};
 
@@ -37,7 +35,9 @@ class Dashboard extends Component {
 		return (
 			<div>
 				<h2>
-					{this.state.currentBoard ? this.state.currentBoard.title : null}
+					{this.state.currentBoard === null ? null : (
+						this.props.boards[this.state.currentBoard].title
+					)}
 				</h2>
 
 				<select id="boardSelector" onChange={this.changeBoard}>
@@ -62,14 +62,17 @@ class Dashboard extends Component {
 					href=""
 					onClick={e => {
 						e.preventDefault();
-						this.addOrDeleteBoard("deleteBoard", this.state.currentBoard.id);
+						this.addOrDeleteBoard(
+							"deleteBoard",
+							this.props.boards[this.state.currentBoard].id
+						);
 					}}
 				>
 					Delete Board
 				</a>
 				<div className="grid-container">
-					{!this.state.currentBoard ? null : (
-						this.state.currentBoard.Lists.map(list => (
+					{this.state.currentBoard === null ? null : (
+						this.props.boards[this.state.currentBoard].Lists.map(list => (
 							<List key={list.id} title={list.title} cards={list.Cards} />
 						))
 					)}
