@@ -1,9 +1,9 @@
-const { Board } = require("../models");
+const { Board, User } = require("../models");
 
-const errorHandler = (client, event, error) => {
+const errorHandler = (client, error) => {
   console.error(error.message);
   console.error(error.stack);
-  client.emit(event, error.message);
+  client.emit("boardError", error.message);
 };
 
 const getBoard = client => async slug => {
@@ -24,7 +24,7 @@ const getBoard = client => async slug => {
       throw new Error("Failed to find board");
     }
   } catch (error) {
-    errorHandler(client, "getBoardError", error);
+    errorHandler(client, error);
   }
 };
 
@@ -32,12 +32,13 @@ const addBoard = client => async ({ title }) => {
   try {
     const board = await Board.create({ title, members: [client.user._id] });
     if (board) {
-      client.emit("addBoardSuccess", board);
+      const user = await User.findById(client.user._id).populate("boards");
+      client.emit("addBoardSuccess", board, user.boards);
     } else {
       throw new Error("Failed to create board");
     }
   } catch (error) {
-    errorHandler(client, "addBoardError", error);
+    errorHandler(client, error);
   }
 };
 
@@ -45,12 +46,13 @@ const delBoard = client => async slug => {
   try {
     const board = await Board.findOneAndRemove({ slug });
     if (board) {
-      client.emit("delBoardSuccess");
+      const user = await User.findById(client.user._id).populate("boards");
+      client.emit("delBoardSuccess", user.boards);
     } else {
       throw new Error("Failed to delete board");
     }
   } catch (error) {
-    errorHandler(client, "delBoardError", error);
+    errorHandler(client, error);
   }
 };
 

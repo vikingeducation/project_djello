@@ -12,7 +12,7 @@ const current = (state = defaultState, action) => {
       return { board: action.data, error: "", fetching: false };
     case currentActions.CLEAR_CURRENT:
       return { ...defaultState };
-    case currentActions.SET_CURRENT_FETCHING:
+    case currentActions.SET_CURRENT_FETCH:
       return { ...state, fetching: true };
     case currentActions.SET_CURRENT_ERROR:
       return { ...state, fetching: false, error: action.data };

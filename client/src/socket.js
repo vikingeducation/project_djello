@@ -3,6 +3,8 @@ import { userActions, boardActions, currentActions } from "./actions";
 
 const socket = io.connect("http://localhost:3001");
 
+// Private Methods
+//////////////////
 const _logOut = (dispatch, message) => {
   localStorage.setItem("token", "");
   dispatch(userActions.logOut(message));
@@ -15,6 +17,8 @@ const _auth = (dispatch, credentials) => {
   socket.emit("authentication", credentials);
 };
 
+// Event Handlers
+/////////////////
 export default ({ dispatch }) => {
   // Authentication
   socket.on("authSuccess", ({ username, token, boards }) => {
@@ -24,10 +28,17 @@ export default ({ dispatch }) => {
   });
   socket.on("authFail", message => _logOut(dispatch, message));
 
-  // Update Current Board
+  // Current Board
   socket.on("getBoardSuccess", board => dispatch(currentActions.set(board)));
-  socket.on("getBoardError", error => dispatch(currentActions.setError(error)));
+  socket.on("delBoardSuccess", boards => {
+    dispatch(currentActions.clear());
+    dispatch(boardActions.set(boards));
+  });
+  socket.on("boardError", error => dispatch(currentActions.setError(error)));
 };
+
+// Event Emitters
+/////////////////
 
 // Authentication
 export const authenticate = credentials => dispatch =>
@@ -40,6 +51,12 @@ export const logOut = message => dispatch => _logOut(dispatch, message);
 
 // Update Current Board
 export const getBoard = slug => dispatch => {
+  console.log("get: ", slug);
   dispatch(currentActions.setFetching());
   socket.emit("getBoard", slug);
+};
+export const delBoard = slug => dispatch => {
+  console.log("del: ", slug);
+  dispatch(currentActions.setFetching());
+  socket.emit("delBoard", slug);
 };

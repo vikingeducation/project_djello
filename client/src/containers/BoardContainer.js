@@ -3,26 +3,47 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
-import { getBoard } from "../socket";
+import { getBoard, delBoard } from "../socket";
 import Board from "../components/Board";
 
 class BoardContainer extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      getting: ""
+    };
+  }
+
   componentDidUpdate() {
     const slug = this.props.match.params.slug;
-    if (!slug && this.props.boards && this.props.boards[0]) {
-      this.props.history.push(`/boards/${this.props.boards[0].slug}`);
-    } else if (slug && slug !== this.props.current.slug) {
-      this.props.getBoard(slug);
+    if (!slug || (slug && !this.props.boardHash[slug])) {
+      const dest = this.props.boards.length
+        ? `/boards/${this.props.boards[0].slug}`
+        : "/boards";
+      if (dest !== this.props.history.location.pathname) {
+        this.props.history.push(dest);
+      }
+    } else if (
+      slug &&
+      ![this.props.current.slug, this.state.getting].includes(slug)
+    ) {
+      this.setState({ getting: slug }, () => this.props.getBoard(slug));
     }
   }
 
   onChangeBoard = (e, { value }) => this.props.history.push(`/boards/${value}`);
+  onDelBoard = slug => () => {
+    this.props.delBoard(slug);
+    this.props.history.push("/boards");
+  };
 
   actions = {
-    onChangeBoard: this.onChangeBoard
+    onChangeBoard: this.onChangeBoard,
+    onDelBoard: this.onDelBoard
   };
 
   info = () => ({
+    numBoards: this.props.boards.length,
     boards: this.props.boardOptions,
     current: this.props.current,
     fetching: this.props.fetching
@@ -41,7 +62,15 @@ const boardOptionsSelector = createSelector(boardsSelector, boards =>
   }))
 );
 
+const boardHashSelector = createSelector(boardsSelector, boards =>
+  boards.reduce((hash, board) => {
+    hash[board.slug] = board.title;
+    return hash;
+  }, {})
+);
+
 const mapStateToProps = state => ({
+  boardHash: boardHashSelector(state),
   boards: state.boards,
   boardOptions: boardOptionsSelector(state),
   current: state.current.board,
@@ -49,7 +78,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getBoard: slug => dispatch(getBoard(slug))
+  getBoard: slug => dispatch(getBoard(slug)),
+  delBoard: slug => dispatch(delBoard(slug))
 });
 
 export default withRouter(

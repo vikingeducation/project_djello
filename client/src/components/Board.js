@@ -16,7 +16,9 @@ const Board = ({ info, actions }) => (
     <Loader active={info.fetching} />
     <Grid.Row>
       <Grid.Column computer={6} tablet={8} mobile={16}>
-        <Header as="h1">{info.current.title || "You have no boards..."}</Header>
+        <Header as="h1">
+          {info.current.title || "Please select a board:"}
+        </Header>
       </Grid.Column>
       <Grid.Column computer={6} tablet={8} mobile={16} textAlign="right">
         <Form>
@@ -27,9 +29,16 @@ const Board = ({ info, actions }) => (
               options={info.boards}
             />
           </Form.Field>
-          <Button basic size="tiny" color="red">
-            Delete
-          </Button>
+          <Showable condition={info.current.slug}>
+            <Button
+              onClick={actions.onDelBoard(info.current.slug)}
+              basic
+              size="tiny"
+              color="red"
+            >
+              Delete
+            </Button>
+          </Showable>
           <Button basic size="tiny" color="green">
             New
           </Button>
@@ -37,6 +46,13 @@ const Board = ({ info, actions }) => (
       </Grid.Column>
     </Grid.Row>
     <Divider />
+    <Showable condition={!info.numBoards}>
+      <Grid.Row>
+        <Header as="h2">
+          You don't have any boards... <Button color="green">Create One</Button>
+        </Header>
+      </Grid.Row>
+    </Showable>
     <Showable condition={info.current.title}>
       <Grid.Row>
         {info.current.lists &&
