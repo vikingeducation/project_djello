@@ -1,19 +1,16 @@
 const { Board, User } = require("../models");
 const errorHandler = require("./errors")("boardError");
+const { popBoard, projBoard } = require("./utils");
 
 const getBoard = client => async slug => {
   try {
-    const board = await Board.findOne({ slug })
-      .populate({
-        path: "lists",
-        populate: {
-          path: "cards",
-          model: "Card",
-          populate: { path: "members", model: "User" }
-        }
-      })
-      .populate({ path: "members" });
-    if (board && board.members.some(member => member.id === client.user.id)) {
+    const board = await Board.findOne({ slug }, projBoard)
+      .populate(popBoard[0])
+      .populate(popBoard[1]);
+    if (
+      board &&
+      board.members.some(member => member.username === client.user.username)
+    ) {
       client.emit("getBoardSuccess", board);
     } else {
       throw new Error("Failed to find board");
@@ -23,9 +20,9 @@ const getBoard = client => async slug => {
   }
 };
 
-const addBoard = client => async () => {
+const addBoard = client => async title => {
   try {
-    const board = await Board.create({ members: [client.user._id] });
+    const board = await Board.create({ members: [client.user._id], title });
     if (board) {
       client.user = await User.findByIdAndUpdate(
         client.user._id,

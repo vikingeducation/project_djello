@@ -18,6 +18,11 @@ const constraints = {
   }
 };
 
+const projectOpts = {
+  path: "boards",
+  select: "slug title -_id"
+};
+
 const success = (client, user, callback) => {
   client.user = user;
   const { username, token, boards } = user;
@@ -43,9 +48,9 @@ const auth = async (client, data, callback) => {
       user = await User.create({ username, password });
     } else if (token) {
       message = "Expired session";
-      user = await User.findOne({ token }).populate("boards");
+      user = await User.findOne({ token }).populate(projectOpts);
     } else {
-      user = await User.findOne({ username }).populate("boards");
+      user = await User.findOne({ username }).populate(projectOpts);
       user = user && user.validPassword(password) ? user : null;
     }
     user ? success(client, user, callback) : failure(client, callback, message);

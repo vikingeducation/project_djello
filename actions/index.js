@@ -1,8 +1,12 @@
 const authenticate = require("./auth");
 const boardActions = require("./boards");
+const cardActions = require("./cards");
+const listActions = require("./lists");
 
 const postAuthenticate = client => {
   boardActions(client);
+  cardActions(client);
+  listActions(client);
 };
 
 const actions = io => {
