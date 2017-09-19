@@ -9,6 +9,7 @@ import {
   Loader
 } from "semantic-ui-react";
 import List from "./List";
+import NewModalContainer from "../containers/NewModalContainer";
 import Showable from "./elements/Showable";
 
 const Board = ({ info, actions }) => (
@@ -39,9 +40,11 @@ const Board = ({ info, actions }) => (
               Delete
             </Button>
           </Showable>
-          <Button onClick={actions.onAddBoard} basic size="tiny" color="green">
-            New
-          </Button>
+          <NewModalContainer
+            buttonProps={{ basic: true, size: "tiny", color: "green" }}
+            buttonText="New"
+            type="board"
+          />
         </Form>
       </Grid.Column>
     </Grid.Row>

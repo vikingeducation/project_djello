@@ -10,7 +10,7 @@ const BoardSchema = new Schema(
 
     // Properties
     slug: { type: String, default: shortid.generate },
-    title: { type: String, default: "Click to edit title" }
+    title: { type: String, required: true }
   },
   {
     timestamps: true

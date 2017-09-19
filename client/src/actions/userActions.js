@@ -12,9 +12,9 @@ export const logOut = message => ({
   data: message
 });
 
-export const logIn = (username, token) => {
+export const logIn = username => {
   return {
     type: LOG_IN,
-    data: { username, token }
+    data: username
   };
 };

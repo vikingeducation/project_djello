@@ -2,7 +2,6 @@ import { userActions } from "../actions";
 
 const defaultState = {
   username: "",
-  token: "",
   authenticating: false,
   authMessage: ""
 };
@@ -11,15 +10,13 @@ const user = (state = defaultState, action) => {
   switch (action.type) {
     case userActions.LOG_IN:
       return {
-        username: action.data.username,
-        token: action.data.token,
+        username: action.data,
         authenticating: false,
         authMessage: ""
       };
     case userActions.LOG_OUT:
       return {
         username: "",
-        token: "",
         authenticating: false,
         authMessage: action.data
       };

@@ -5,7 +5,6 @@ const defaultState = [];
 const boards = (state = defaultState, action) => {
   switch (action.type) {
     case boardActions.SET_BOARDS:
-      console.log(action.data);
       return [...action.data];
     case boardActions.CLEAR_BOARD:
       return [...defaultState];
