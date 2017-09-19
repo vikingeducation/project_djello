@@ -68,6 +68,8 @@ const loggedInOnly = (req, res, next) => {
 	}
 };
 
+// Login/Logout routes
+
 app.get("/login", loggedInOnly, async (req, res) => {
 	const boards = await Board.findAll({
 		where: { userId: req.user.id },
@@ -119,85 +121,90 @@ app.delete("/logout", loggedInOnly, (req, res) => {
 	res.end();
 });
 
-app.post("/api/boards/new", loggedInOnly, async (req, res) => {
-	const newBoard = await Board.create({
-		title: "Untitled Board",
-		userId: req.body.userId
-	});
-	res.json(newBoard);
-});
+// API routes
+const api = require("./routes/api");
 
-app.patch("/api/boards", loggedInOnly, async (req, res) => {
-	await Board.update({ title: req.body.title }, { where: { id: req.body.id } });
-	res.end();
-});
+app.use("/api", loggedInOnly, api);
 
-app.delete("/api/boards", loggedInOnly, async (req, res) => {
-	await Board.destroy({ where: { id: req.body.id } });
-	res.end();
-});
+// app.post("/api/boards/new", loggedInOnly, async (req, res) => {
+// 	const newBoard = await Board.create({
+// 		title: "Untitled Board",
+// 		userId: req.body.userId
+// 	});
+// 	res.json(newBoard);
+// });
 
-app.post("/api/lists/new", loggedInOnly, async (req, res) => {
-	const newList = await List.create({
-		title: "Untitled List",
-		description: "Your description here",
-		boardId: req.body.boardId,
-		boardIndex: req.body.boardIndex
-	});
+// app.patch("/api/boards", loggedInOnly, async (req, res) => {
+// 	await Board.update({ title: req.body.title }, { where: { id: req.body.id } });
+// 	res.end();
+// });
 
-	res.json(newList);
-});
+// app.delete("/api/boards", loggedInOnly, async (req, res) => {
+// 	await Board.destroy({ where: { id: req.body.id } });
+// 	res.end();
+// });
 
-app.patch("/api/lists/", loggedInOnly, async (req, res) => {
-	const updateObj = {};
-	updateObj[req.body.field] = req.body.data;
+// app.post("/api/lists/new", loggedInOnly, async (req, res) => {
+// 	const newList = await List.create({
+// 		title: "Untitled List",
+// 		description: "Your description here",
+// 		boardId: req.body.boardId,
+// 		boardIndex: req.body.boardIndex
+// 	});
 
-	await List.update(updateObj, {
-		where: { id: req.body.id }
-	});
+// 	res.json(newList);
+// });
 
-	const updatedList = await List.findById(req.body.id, {
-		include: [{ model: Card }],
-		order: [[Card, "listIndex"]]
-	});
-	res.json(updatedList);
-});
+// app.patch("/api/lists/", loggedInOnly, async (req, res) => {
+// 	const updateObj = {};
+// 	updateObj[req.body.field] = req.body.data;
 
-app.delete("/api/lists", loggedInOnly, async (req, res) => {
-	await List.destroy({ where: { id: req.body.id } });
-	res.end();
-});
+// 	await List.update(updateObj, {
+// 		where: { id: req.body.id }
+// 	});
 
-app.post("/api/cards/new", loggedInOnly, async (req, res) => {
-	const newCard = await Card.create({
-		title: "Untitled Card",
-		description: "Your description here",
-		listId: req.body.listId,
-		listIndex: req.body.listIndex,
-		completed: false
-	});
+// 	const updatedList = await List.findById(req.body.id, {
+// 		include: [{ model: Card }],
+// 		order: [[Card, "listIndex"]]
+// 	});
+// 	res.json(updatedList);
+// });
 
-	res.json(newCard);
-});
+// app.delete("/api/lists", loggedInOnly, async (req, res) => {
+// 	await List.destroy({ where: { id: req.body.id } });
+// 	res.end();
+// });
 
-app.post("/api/cards", loggedInOnly, async (req, res) => {
-	await Card.update({ completed: true }, { where: { id: req.body.id } });
-	res.end();
-});
+// app.post("/api/cards/new", loggedInOnly, async (req, res) => {
+// 	const newCard = await Card.create({
+// 		title: "Untitled Card",
+// 		description: "Your description here",
+// 		listId: req.body.listId,
+// 		listIndex: req.body.listIndex,
+// 		completed: false
+// 	});
 
-app.put("/api/cards", loggedInOnly, async (req, res) => {
-	const updatedCard = await Card.update(
-		{ title: req.body.data.title, description: req.body.data.description },
-		{ where: { id: req.body.id }, returning: true }
-	);
+// 	res.json(newCard);
+// });
 
-	res.json(updatedCard[1][0]);
-});
+// app.post("/api/cards", loggedInOnly, async (req, res) => {
+// 	await Card.update({ completed: true }, { where: { id: req.body.id } });
+// 	res.end();
+// });
 
-app.delete("/api/cards", loggedInOnly, async (req, res) => {
-	await Card.destroy({ where: { id: req.body.id } });
-	res.end();
-});
+// app.put("/api/cards", loggedInOnly, async (req, res) => {
+// 	const updatedCard = await Card.update(
+// 		{ title: req.body.data.title, description: req.body.data.description },
+// 		{ where: { id: req.body.id }, returning: true }
+// 	);
+
+// 	res.json(updatedCard[1][0]);
+// });
+
+// app.delete("/api/cards", loggedInOnly, async (req, res) => {
+// 	await Card.destroy({ where: { id: req.body.id } });
+// 	res.end();
+// });
 
 app.listen(3001, () => {
 	console.log("Now listening...");
