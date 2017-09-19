@@ -19,24 +19,45 @@ const paperStyle = {
   margin: 5
 };
 
-const Board = ({ lists, newCard }) => {
+const Board = ({ lists, newCard, newList, deleteList, deleteCard }) => {
   if (!lists) return null;
-
+  // console.log("board props = ", lists, newCard);
   return (
     <div>
       {lists.map(list => (
-        <List key={list._id} newCard={e => newCard(e, list._id)} {...list} />
+        <List
+          {...list}
+          key={list._id}
+          id={list._id}
+          newCard={e => newCard(e, list._id)}
+          deleteList={e => deleteList(e, list._id)}
+          deleteCard={deleteCard}
+        />
       ))}
+      <NewList id="newBtn" newList={newList} />
     </div>
   );
 };
-const List = ({ props, newCard }) => {
-  const cards = props.cards.map(card => <Card key={card._id} {...card} />);
+
+const NewList = ({ cards, newList }) => {
   return (
     <Paper style={style}>
-      <h5>{props.title}</h5>
-      <ul>{cards}</ul>
+      <FlatButton onClick={newList} label="New" />
+    </Paper>
+  );
+};
+const List = ({ cards, newCard, deleteList, deleteCard }) => {
+  const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
+  return (
+    <Paper style={style}>
+      <h5>{cards.title}</h5>
+      <ul>{cardComponents}</ul>
       <FlatButton onClick={newCard} label="New" />
+      <div>
+        <FlatButton onClick={deleteList}>
+          <i className="material-icons">delete</i>
+        </FlatButton>
+      </div>
     </Paper>
   );
 };
@@ -44,6 +65,9 @@ const Card = props => {
   return (
     <Paper style={paperStyle}>
       <p>{props.title}</p>
+      {/* <FlatButton onClick={props.deleteCard}>
+        <i className="material-icons">delete</i>
+      </FlatButton> */}
     </Paper>
   );
 };
@@ -66,6 +90,30 @@ class BoardShowContainer extends React.Component {
   onNewCard = (e, listId) => {
     console.log("making new card");
     console.log("e.target", e.target, "\n list = ", listId);
+    e.stopPropagation();
+    e.preventDefault();
+    //make a card
+    //tell the server
+    //refresh the page??
+  };
+  onNewList = e => {
+    console.log("making new list");
+    console.log("e.target", e.target);
+    e.stopPropagation();
+    e.preventDefault();
+    //make a list
+  };
+  onDeleteList = (e, listId) => {
+    console.log("making new list");
+    console.log("e.target", e.target, "\n list = ", listId);
+    e.stopPropagation();
+    e.preventDefault();
+  };
+  onDeleteCard = (e, cardId) => {
+    console.log("making new list");
+    console.log("e.target", e.target, "\n list = ", cardId);
+    e.stopPropagation();
+    e.preventDefault();
   };
   componentDidMount = async () => {
     //TODO: grab the user
@@ -83,7 +131,13 @@ class BoardShowContainer extends React.Component {
     return (
       <Showable isFetching={this.props.isFetching}>
         <BoardNavContainer />
-        <Board newCard={this.onNewCard} lists={this.props.lists} />
+        <Board
+          newCard={this.onNewCard}
+          newList={this.onNewList}
+          lists={this.props.lists}
+          deleteList={this.onDeleteList}
+          deleteCard={this.onDeleteCard}
+        />
       </Showable>
     );
   }
