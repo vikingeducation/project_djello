@@ -5,11 +5,6 @@ body {
 	font-family: sans-serif;
 }
 
-h3,
-h4 {
-	display: inline-block;
-}
-
 .header {
 	background-color: #995577;
 	margin: 0;
@@ -39,12 +34,20 @@ h4 {
 	margin: 10px;
 }
 
+.title-grid {
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+}
+
+.close-button-cell {
+	justify-self: end;
+}
+
 .close-button {
 	background-color: white;
 	border: none;
 	cursor: pointer;
 	font-size: 30px;
-	float: right;
 }
 
 .close-button:hover {

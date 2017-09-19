@@ -5,6 +5,7 @@ import {
 	REMOVE_BOARD,
 	ADD_LIST,
 	REMOVE_LIST,
+	UPDATE_LIST,
 	ADD_CARD,
 	REMOVE_CARD
 } from "./actions";
@@ -46,6 +47,22 @@ export const djelloApp = (state = { user: {}, boards: [] }, action) => {
 				boards: state.boards.map(board => {
 					board.Lists = board.Lists.filter(list => list.id !== action.data);
 					return board;
+				})
+			};
+		case UPDATE_LIST:
+			return {
+				...state,
+				boards: state.boards.map(board => {
+					return board.id === action.data.boardId
+						? {
+								...board,
+								Lists: board.Lists.map(list => {
+									return list.id === action.data.listId
+										? action.data.list
+										: list;
+								})
+							}
+						: board;
 				})
 			};
 		case ADD_CARD:

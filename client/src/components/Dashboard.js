@@ -31,10 +31,6 @@ class Dashboard extends Component {
 		);
 	};
 
-	componentDidUpdate() {
-		console.log("Hey I updated! ", this.props.boards);
-	}
-
 	render() {
 		return (
 			<div>
@@ -80,6 +76,7 @@ class Dashboard extends Component {
 							<ListContainer
 								key={list.id}
 								id={list.id}
+								parentId={this.props.boards[this.state.currentBoard].id}
 								title={list.title}
 								cards={list.Cards}
 								deleteList={id => {

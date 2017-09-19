@@ -4,6 +4,7 @@ export const REMOVE_BOARD = "REMOVE_BOARD";
 export const ADD_BOARD = "ADD_BOARD";
 export const ADD_LIST = "ADD_LIST";
 export const REMOVE_LIST = "REMOVE_LIST";
+export const UPDATE_LIST = "EDIT_LIST";
 export const ADD_CARD = "ADD_CARD";
 export const REMOVE_CARD = "REMOVE_CARD";
 
@@ -37,6 +38,15 @@ export const removeList = id => ({
 	data: id
 });
 
+export const updateList = (boardId, listId, list) => ({
+	type: UPDATE_LIST,
+	data: {
+		listId: listId,
+		boardId: boardId,
+		list: list
+	}
+});
+
 export const addCard = (listId, card) => ({
 	type: ADD_CARD,
 	data: { listId: listId, card: card }
@@ -49,7 +59,6 @@ export const removeCard = id => ({
 
 export const loginUser = (email, password) => async dispatch => {
 	try {
-		console.log("In loginUser");
 		const loginParams = {
 			email: email,
 			password: password
@@ -135,6 +144,22 @@ export const deleteList = id => async dispatch => {
 	}
 };
 
+export const editList = (boardId, listId, field, data) => async dispatch => {
+	try {
+		const response = await fetch("/api/lists", {
+			method: "PATCH",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ id: listId, field, data })
+		});
+
+		const updatedList = await response.json();
+
+		dispatch(updateList(boardId, listId, updatedList));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const createCard = (listId, listIndex) => async dispatch => {
 	try {
 		const response = await fetch("/api/cards/new", {
@@ -144,7 +169,6 @@ export const createCard = (listId, listIndex) => async dispatch => {
 		});
 
 		const newCard = await response.json();
-		console.log("New card is: ", newCard);
 		dispatch(addCard(listId, newCard));
 	} catch (error) {
 		console.log(error);

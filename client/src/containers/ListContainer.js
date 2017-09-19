@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import List from "../components/List";
-import { deleteList, createCard } from "../actions";
+import { deleteList, editList, createCard } from "../actions";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
@@ -9,6 +9,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		createCard: (listId, listIndex) => {
 			dispatch(createCard(listId, listIndex));
+		},
+		editList: (boardId, listId, field, data) => {
+			dispatch(editList(boardId, listId, field, data));
 		}
 	};
 };

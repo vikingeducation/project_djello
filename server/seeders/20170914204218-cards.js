@@ -13,7 +13,7 @@ module.exports = {
         description:
           "That really urgent thing you've been avoiding for weeks because it means diving into the snarl of legacy code, but you really can't put it off anymore.",
         listId: list,
-        listIndex: 30 - i % 5,
+        listIndex: i % 5,
         completed: false
       });
     }

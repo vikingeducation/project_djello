@@ -106,6 +106,21 @@ app.post("/api/lists/new", async (req, res) => {
 	res.json(newList);
 });
 
+app.patch("/api/lists/", async (req, res) => {
+	const updateObj = {};
+	updateObj[req.body.field] = req.body.data;
+
+	await List.update(updateObj, {
+		where: { id: req.body.id }
+	});
+
+	const updatedList = await List.findById(req.body.id, {
+		include: [{ model: Card }],
+		order: [[Card, "listIndex"]]
+	});
+	res.json(updatedList);
+});
+
 app.delete("/api/lists", async (req, res) => {
 	await List.destroy({ where: { id: req.body.id } });
 	res.end();
