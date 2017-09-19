@@ -10,18 +10,12 @@ class ListContainer extends Component {
 
   componentDidMount = async () => {};
 
-  handleInputChange = e => this.setState({ description: e.target.value });
-
   render() {
     console.log(this.props);
     return (
       <BoardList
         props={this.props}
-        createCard={() =>
-          this.props.createCard({
-            description: this.state.description,
-            list_id: this.props.id
-          })}
+        createCard={this.props.createCard}
         handleInputChange={this.handleInputChange}
       />
     );

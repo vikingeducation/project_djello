@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Card from "./Card";
 
 const styles = {
@@ -9,20 +9,40 @@ const styles = {
   flexWrap: "wrap"
 };
 
-const BoardList = ({ props, handleInputChange, createCard }) =>
-  <div style={styles}>
-    <p>
-      {props.title}
-    </p>
-    <div>
-      {props.cards.map(card =>
-        <Card description={card.description} key={card._id} />
-      )}
-    </div>
-    <div>
-      <input type="text" />
-      <button onClick={createCard}>Save</button>
-    </div>
-  </div>;
+class BoardList extends Component {
+  state = {
+    inputVal: ""
+  };
+
+  handleInputChange = e => this.setState({ description: e.target.value });
+
+  render() {
+    const createCard = this.props.createCard;
+    return (
+      <div style={styles}>
+        <p>
+          {this.props.props.title}
+        </p>
+        <div>
+          {this.props.props.cards.map(card =>
+            <Card description={card.description} key={card._id} />
+          )}
+        </div>
+        <div>
+          <input type="text" onChange={this.handleInputChange} />
+          <button
+            onClick={() =>
+              createCard({
+                description: this.state.description,
+                list_id: this.props.props.id
+              })}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default BoardList;
