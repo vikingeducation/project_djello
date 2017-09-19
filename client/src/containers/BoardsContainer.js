@@ -31,6 +31,7 @@ class BoardsContainer extends Component {
   render() {
     return (
       <div style={style}>
+        <h1>Your Boards</h1>
         <PaperWrapper>
           <AddBoard handleModalOpen={this.handleModalOpen} />
           {this.props.boards.length &&

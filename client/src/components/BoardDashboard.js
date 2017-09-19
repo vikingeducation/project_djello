@@ -7,6 +7,19 @@ import { connect } from "react-redux";
 import { createList, getLists, createCard } from "../actions";
 import ListContainer from "../containers/ListContainer";
 
+const style = {
+  flexCol: {
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap"
+  },
+  flexRow: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap"
+  }
+};
+
 class BoardDashboard extends Component {
   state = {
     formOpen: false,
@@ -26,15 +39,11 @@ class BoardDashboard extends Component {
     const { createList } = this.props;
     return (
       <PaperWrapper>
-        <div
-          style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
-        >
+        <div style={style.flexCol}>
           <h1>
             {this.props.state.title}
           </h1>
-          <div
-            style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
-          >
+          <div style={style.flexRow}>
             <List>
               <ListItem onClick={this.handleAddList}>Add a list...</ListItem>
               {this.state.formOpen
