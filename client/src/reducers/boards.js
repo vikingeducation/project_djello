@@ -4,13 +4,13 @@ const defaultState = [];
 
 const boards = (state = defaultState, action) => {
   switch (action.type) {
-    case boardActions.SET:
-      return action.data;
-    case boardActions.CLEAR:
+    case boardActions.SET_BOARD:
+      return [...action.data];
+    case boardActions.CLEAR_BOARD:
       return [...defaultState];
-    case boardActions.ADD:
+    case boardActions.ADD_BOARD:
       return [...state].concat(action.data);
-    case boardActions.REMOVE:
+    case boardActions.REMOVE_BOARD:
       return state.filter(board => board.slug !== action.data);
     default:
       return state;

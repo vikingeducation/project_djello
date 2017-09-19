@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import { userActions } from "../actions";
+import { authenticate, tokenAuth } from "../socket";
 import Login from "../components/Login";
 import BoardContainer from "../containers/BoardContainer";
 
@@ -65,9 +65,10 @@ class LoginContainer extends PureComponent {
 const mapStateToProps = state => ({ user: state.user });
 
 const mapDispatchToProps = dispatch => ({
-  logIn: credentials => dispatch(userActions.credentialAuth(credentials)),
-  signUp: credentials => dispatch(userActions.register(credentials)),
-  tokenAuth: () => dispatch(userActions.tokenAuth())
+  logIn: credentials => dispatch(authenticate(credentials)),
+  signUp: credentials =>
+    dispatch(authenticate({ ...credentials, register: true })),
+  tokenAuth: () => dispatch(tokenAuth())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

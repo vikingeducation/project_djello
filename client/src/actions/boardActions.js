@@ -1,26 +1,23 @@
-// import socket from "../socket";
-
-export const SET_CURRENT = "SET_CURRENT";
-export const SET = "SET";
-export const CLEAR = "CLEAR";
-export const ADD = "ADD";
-export const REMOVE = "REMOVE";
+export const SET_BOARD = "SET_BOARD";
+export const CLEAR_BOARD = "CLEAR_BOARD";
+export const ADD_BOARD = "ADD_BOARD";
+export const REMOVE_BOARD = "REMOVE_BOARD";
 
 export const set = boards => ({
-  type: SET,
+  type: SET_BOARD,
   data: boards
 });
 
 export const clear = () => ({
-  type: CLEAR
+  type: CLEAR_BOARD
 });
 
 export const add = board => ({
-  type: ADD,
+  type: ADD_BOARD,
   data: board
 });
 
 export const remove = slug => ({
-  type: REMOVE,
+  type: REMOVE_BOARD,
   data: slug
 });

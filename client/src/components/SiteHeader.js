@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Menu, Icon, Button } from "semantic-ui-react";
 
-import { userActions } from "../actions";
+import { logOut } from "../socket";
 import Showable from "../components/elements/Showable";
 
 const SiteHeader = ({ user, logOut }) => (
@@ -28,7 +28,7 @@ const SiteHeader = ({ user, logOut }) => (
 const mapStateToProps = state => ({ user: state.user.username });
 
 const mapDispatchToProps = dispatch => ({
-  logOut: () => dispatch(userActions.logOut("Logged out!"))
+  logOut: () => dispatch(logOut("Logged out!"))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);

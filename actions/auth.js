@@ -20,8 +20,8 @@ const constraints = {
 
 const success = (client, user, callback) => {
   client.user = user;
-  const { username, token, boards, cards } = user;
-  client.emit("authSuccess", { username, token, boards, cards });
+  const { username, token, boards } = user;
+  client.emit("authSuccess", { username, token, boards });
   callback(null, true);
 };
 
@@ -43,9 +43,9 @@ const auth = async (client, data, callback) => {
       user = await User.create({ username, password });
     } else if (token) {
       message = "Expired session";
-      user = await User.findOne({ token }).populate("boards cards");
+      user = await User.findOne({ token }).populate("boards");
     } else {
-      user = await User.findOne({ username }).populate("boards cards");
+      user = await User.findOne({ username }).populate("boards");
       user = user && user.validPassword(password) ? user : null;
     }
     user ? success(client, user, callback) : failure(client, callback, message);
