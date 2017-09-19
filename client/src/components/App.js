@@ -16,10 +16,10 @@ const muiTheme = getMuiTheme({
 // if the user's logged in and renders either the Dashboard or the Login screen
 const App = props =>
   <MuiThemeProvider muiTheme={muiTheme}>
-    {!props.user.loggedIn
+    {!props.state.loggedIn
       ? <LoginFormContainer />
       : <Router>
-          <DashboardContainer {...props} />
+          <DashboardContainer props={props.state} />
         </Router>}
   </MuiThemeProvider>;
 

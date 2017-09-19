@@ -12,19 +12,15 @@ class BoardDashboard extends Component {
     super();
     this.state = {
       formOpen: false,
-      formValue: "",
-      lists: []
+      formValue: ""
     };
   }
 
   componentDidMount = async () => {
-    const response = await fetch(
-      `http://localhost:3001/api/boards/${this.props.board._id}`
-    );
-    const board = await response.json();
-    this.setState({
-      lists: board.lists
-    });
+    console.log(this.props.path);
+    console.log(this.state._id);
+    const id = this.state._id || this.props.path;
+    await this.props.getLists(id);
   };
 
   handleListName = (e, val) => this.setState({ formValue: val });
@@ -32,20 +28,14 @@ class BoardDashboard extends Component {
   handleAddList = () => this.setState({ formOpen: !this.state.formOpen });
 
   render() {
-    const { createList, board } = this.props;
+    console.log(this.props);
     return (
       <PaperWrapper>
         <div style={{ flexDirection: "column" }}>
-          <h1>teset</h1>
+          <h1>
+            {this.props.state.title}
+          </h1>
           <div style={{ flexDirection: "row" }}>
-            {console.log(this.state.lists)}
-            {this.state.lists.length
-              ? this.state.lists.map(list =>
-                  <PaperWrapper>
-                    {list.title}
-                  </PaperWrapper>
-                )
-              : null}
             <List>
               <ListItem onClick={this.handleAddList}>Add a list...</ListItem>
               {this.state.formOpen
@@ -57,7 +47,7 @@ class BoardDashboard extends Component {
                       onClick={() =>
                         createList({
                           title: this.state.formValue,
-                          board_id: this.props.board._id
+                          board_id: this.props.state.board.board._id
                         })}
                     />
                   </div>

@@ -12,7 +12,7 @@ class DashboardContainer extends Component {
   // token to populate the user object
   componentDidMount() {
     const token = localStorage.getItem("token");
-    if (!this.props.user.user && localStorage.getItem("token")) {
+    if (!this.props.user && localStorage.getItem("token")) {
       this.props.getAuthenticatedUser(token);
     }
   }

@@ -4,25 +4,30 @@ import AppBarWrapper from "./AppBarWrapper";
 import BoardsContainer from "../containers/BoardsContainer";
 import BoardDashboard from "./BoardDashboard";
 
-const Dashboard = ({ logOut, user, boards, match }) => {
+const Dashboard = ({ logOut, props, match, location }) => {
   return (
     <div>
-      <AppBarWrapper title="Djello" name={user.firstName} onClick={logOut} />
+      <AppBarWrapper
+        title="Djello"
+        name={props.user ? props.user.firstName : null}
+        onClick={logOut}
+      />
       <Route
         exact
         path="/"
         render={() =>
-          <BoardsContainer user={user.user} boards={boards.boards} />}
+          <BoardsContainer user={props.user} boards={props.boards} />}
       />
       <Route
         path="/boards/:board_id"
-        render={props =>
+        render={() =>
           <BoardDashboard
             board={
-              boards.boards.filter(
-                board => board._id === props.match.params.board_id
+              props.boards.filter(
+                board => board._id === match.params.board_id
               )[0]
             }
+            path={location.pathname.split("/")[2]}
           />}
       />
     </div>

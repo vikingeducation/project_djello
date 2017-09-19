@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 
 const mapStateToProps = state => {
   return {
-    user: state.app,
-    boards: state.boards
+    state: state
   };
 };
 

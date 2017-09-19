@@ -1,11 +1,13 @@
 import * as Actions from "../actions";
-import { boards } from "./boards";
-import { combineReducers } from "redux";
 
 const initialState = {
   fetching: false,
   loggedIn: localStorage.getItem("token") || false,
-  user: ""
+  user: "",
+  boards: [],
+  board: {},
+  boardFailureMessage: null,
+  lists: []
 };
 
 export const app = (state = initialState, action) => {
@@ -21,6 +23,28 @@ export const app = (state = initialState, action) => {
         loggedIn: true,
         user: action.data,
         fetching: false
+      };
+    case Actions.POPULATE_BOARDS:
+      return {
+        ...state,
+        boards: action.data
+      };
+    case Actions.POPULATE_BOARD:
+      return {
+        ...state,
+        board: action.data
+      };
+    case Actions.CREATE_BOARD_SUCCESS:
+      return {
+        ...state,
+        fetching: false,
+        boards: [...state.boards, action.data]
+      };
+    case Actions.CREATE_BOARD_FAILURE:
+      return {
+        ...state,
+        fetching: false,
+        boardFailureMessage: action.data
       };
     case Actions.LOGIN_FAILURE:
       return {
@@ -39,4 +63,4 @@ export const app = (state = initialState, action) => {
   }
 };
 
-export default combineReducers({ app, boards });
+export default app;
