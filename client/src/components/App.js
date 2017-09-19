@@ -14,12 +14,12 @@ const muiTheme = getMuiTheme({
 
 // Material-ui wrapper for the theme. Basic conditional logic checking
 // if the user's logged in and renders either the Dashboard or the Login screen
-const App = ({ state }) =>
+const App = props =>
   <MuiThemeProvider muiTheme={muiTheme}>
-    {!state.loggedIn
+    {!props.user.loggedIn
       ? <LoginFormContainer />
       : <Router>
-          <DashboardContainer {...state} />
+          <DashboardContainer {...props} />
         </Router>}
   </MuiThemeProvider>;
 

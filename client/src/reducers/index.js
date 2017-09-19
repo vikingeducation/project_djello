@@ -1,25 +1,16 @@
 import * as Actions from "../actions";
+import { boards } from "./boards";
+import { combineReducers } from "redux";
 
 const initialState = {
   fetching: false,
   loggedIn: localStorage.getItem("token") || false,
-  loginFailureMessage: "",
-  boardFailureMessage: null,
-  user: "",
-  boards: [],
-  board: {},
-  cards: [],
-  lists: []
+  user: ""
 };
 
 export const app = (state = initialState, action) => {
   switch (action.type) {
     case Actions.START_AWAIT_LOGIN:
-      return {
-        ...state,
-        fetching: true
-      };
-    case Actions.START_AWAIT_BOARD:
       return {
         ...state,
         fetching: true
@@ -37,57 +28,15 @@ export const app = (state = initialState, action) => {
         loginFailureMessage: action.data,
         fetching: false
       };
-    case Actions.POPULATE_BOARDS:
-      return {
-        ...state,
-        boards: action.data
-      };
-    case Actions.POPULATE_BOARD:
-      return {
-        ...state,
-        board: action.data
-      };
-    case Actions.POPULATE_LISTS:
-      return {
-        ...state,
-        lists: action.data
-      };
-    case Actions.POPULATE_CARDS:
-      return {
-        ...state,
-        cards: action.data
-      };
     case Actions.LOG_OUT:
       return {
         ...state,
         user: {},
         loggedIn: false
       };
-    case Actions.CREATE_BOARD_SUCCESS:
-      return {
-        ...state,
-        fetching: false,
-        boards: [...state.boards, action.data]
-      };
-    case Actions.CREATE_BOARD_FAILURE:
-      return {
-        ...state,
-        fetching: false,
-        boardFailureMessage: action.data
-      };
-    case Actions.CREATE_LIST_SUCCESS:
-      return {
-        ...state,
-        fetching: false,
-        lists: [...state.lists, action.data]
-      };
-    case Actions.CREATE_LIST_FAILURE:
-      return {
-        ...state,
-        fetching: false,
-        listFailureMessage: action.data
-      };
     default:
       return state;
   }
 };
+
+export default combineReducers({ app, boards });

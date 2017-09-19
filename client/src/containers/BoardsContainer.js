@@ -32,19 +32,20 @@ class BoardsContainer extends Component {
     return (
       <div style={style}>
         <PaperWrapper>
-          {this.props.boards.map(board =>
-            <Link
-              to={`/boards/${board._id}`}
-              key={board._id}
-              style={{ height: 100 }}
-            >
-              <Board
-                board={board}
-                lists={this.state.lists}
-                getLists={() => this.props.getLists(board._id)}
-              />
-            </Link>
-          )}
+          {this.props.boards.length &&
+            this.props.boards.map(board =>
+              <Link
+                to={`/boards/${board._id}`}
+                key={board._id}
+                style={{ height: 100 }}
+              >
+                <Board
+                  board={board}
+                  lists={this.state.lists}
+                  getLists={() => this.props.getLists(board._id)}
+                />
+              </Link>
+            )}
           <AddBoard handleModalOpen={this.handleModalOpen} />
         </PaperWrapper>
         {this.state.modalOpen
@@ -60,12 +61,6 @@ class BoardsContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    cards: state.cards
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     createBoard: input => {
@@ -77,4 +72,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardsContainer);
+export default connect(null, mapDispatchToProps)(BoardsContainer);

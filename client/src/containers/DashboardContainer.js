@@ -12,7 +12,7 @@ class DashboardContainer extends Component {
   // token to populate the user object
   componentDidMount() {
     const token = localStorage.getItem("token");
-    if (!this.props.user && localStorage.getItem("token")) {
+    if (!this.props.user.user && localStorage.getItem("token")) {
       this.props.getAuthenticatedUser(token);
     }
   }
@@ -28,12 +28,6 @@ class DashboardContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     logOut: () => dispatch(logOut()),
@@ -42,5 +36,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(DashboardContainer)
+  connect(null, mapDispatchToProps)(DashboardContainer)
 );

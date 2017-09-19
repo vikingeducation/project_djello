@@ -30,12 +30,6 @@ class LoginFormContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    loginFailureMessage: state.loginFailureMessage
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     login: credentials => {
@@ -44,4 +38,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginFormContainer);
+export default connect(null, mapDispatchToProps)(LoginFormContainer);
