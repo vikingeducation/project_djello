@@ -5,8 +5,13 @@ import Dashboard from "../components/Dashboard";
 import { withRouter } from "react-router-dom";
 import { getAuthenticatedUser } from "../actions";
 import CircularProgress from "material-ui/CircularProgress";
+import Drawer from "material-ui/Drawer";
 
 class DashboardContainer extends Component {
+  state = {
+    drawerOpen: false
+  };
+
   // On mount, checks for token on localStorage. If there is, but there isn't
   // a user, like in the case of a page refresh, it pings the server using the
   // token to populate the user object
@@ -17,12 +22,19 @@ class DashboardContainer extends Component {
     }
   }
 
+  handleDrawerOpen = () =>
+    this.setState({ drawerOpen: !this.state.drawerOpen });
+
   render() {
     return (
       <div>
         {this.props.fetching
           ? <CircularProgress />
-          : <Dashboard {...this.props} />}
+          : <Dashboard
+              {...this.props}
+              state={this.state}
+              handleDrawerOpen={this.handleDrawerOpen}
+            />}
       </div>
     );
   }

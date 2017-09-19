@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "./Card";
 
 const styles = {
   height: 500,
@@ -15,13 +16,13 @@ const BoardList = ({ props, handleInputChange, createCard }) =>
     </p>
     <div>
       {props.cards.map(card =>
-        <p>
-          card: {card.description}
-        </p>
+        <Card description={card.description} key={card._id} />
       )}
     </div>
-    <input type="text" onChange={handleInputChange} />
-    <button onClick={createCard}>Save</button>
+    <div>
+      <input type="text" />
+      <button onClick={createCard}>Save</button>
+    </div>
   </div>;
 
 export default BoardList;

@@ -3,15 +3,39 @@ import React from "react";
 import AppBarWrapper from "./AppBarWrapper";
 import BoardsContainer from "../containers/BoardsContainer";
 import BoardDashboard from "./BoardDashboard";
+import Drawer from "material-ui/Drawer";
+import HardWareKeyboardBackspace from "material-ui/svg-icons/hardware/keyboard-backspace";
+import NavLink from "react-router-dom";
 
-const Dashboard = ({ logOut, props, match, location }) => {
+const Dashboard = ({
+  logOut,
+  props,
+  match,
+  location,
+  state,
+  handleDrawerOpen
+}) => {
   return (
     <div>
       <AppBarWrapper
         title="Djello"
         name={props.user ? props.user.firstName : null}
         onClick={logOut}
+        handleDrawerOpen={handleDrawerOpen}
       />
+      {state.drawerOpen
+        ? <Drawer open="true">
+            <HardWareKeyboardBackspace onClick={handleDrawerOpen} />
+            {prop.boards
+              ? props.boards.map(board =>
+                  <NavLink exact to={`boards/${board._id}`}>
+                    {board.title}
+                  </NavLink>
+                )
+              : null}
+          </Drawer>
+        : null}
+
       <Route
         exact
         path="/"
