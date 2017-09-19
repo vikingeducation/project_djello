@@ -39,7 +39,7 @@ const Board = ({ info, actions }) => (
               Delete
             </Button>
           </Showable>
-          <Button basic size="tiny" color="green">
+          <Button onClick={actions.onAddBoard} basic size="tiny" color="green">
             New
           </Button>
         </Form>
@@ -49,7 +49,10 @@ const Board = ({ info, actions }) => (
     <Showable condition={!info.numBoards}>
       <Grid.Row>
         <Header as="h2">
-          You don't have any boards... <Button color="green">Create One</Button>
+          You don't have any boards...{" "}
+          <Button onClick={actions.onAddBoard} color="green">
+            Create One
+          </Button>
         </Header>
       </Grid.Row>
     </Showable>

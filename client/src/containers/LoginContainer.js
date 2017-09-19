@@ -7,17 +7,10 @@ import Login from "../components/Login";
 import BoardContainer from "../containers/BoardContainer";
 
 class LoginContainer extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
-  }
-
-  componentDidMount() {
-    this.props.tokenAuth();
-  }
+  state = {
+    username: "",
+    password: ""
+  };
 
   clear = () => this.setState({ username: "", password: "" });
 

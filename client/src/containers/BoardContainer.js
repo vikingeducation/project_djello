@@ -3,16 +3,13 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
-import { getBoard, delBoard } from "../socket";
+import { getBoard, delBoard, addBoard } from "../socket";
 import Board from "../components/Board";
 
 class BoardContainer extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      getting: ""
-    };
-  }
+  state = {
+    getting: ""
+  };
 
   componentDidUpdate() {
     const slug = this.props.match.params.slug;
@@ -39,7 +36,8 @@ class BoardContainer extends PureComponent {
 
   actions = {
     onChangeBoard: this.onChangeBoard,
-    onDelBoard: this.onDelBoard
+    onDelBoard: this.onDelBoard,
+    onAddBoard: this.props.addBoard
   };
 
   info = () => ({
@@ -54,11 +52,12 @@ class BoardContainer extends PureComponent {
 
 const boardsSelector = state => state.boards;
 
+const untitled = "Click to edit title";
 const boardOptionsSelector = createSelector(boardsSelector, boards =>
   boards.map(board => ({
     key: board.slug,
     value: board.slug,
-    text: board.title
+    text: board.title === untitled ? "untitled" : board.title
   }))
 );
 
@@ -79,7 +78,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getBoard: slug => dispatch(getBoard(slug)),
-  delBoard: slug => dispatch(delBoard(slug))
+  delBoard: slug => dispatch(delBoard(slug)),
+  addBoard: () => dispatch(addBoard())
 });
 
 export default withRouter(

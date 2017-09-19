@@ -21,6 +21,7 @@ const _auth = (dispatch, credentials) => {
 /////////////////
 export default ({ dispatch }) => {
   // Authentication
+  socket.on("connect", () => dispatch(tokenAuth()));
   socket.on("authSuccess", ({ username, token, boards }) => {
     localStorage.setItem("token", token);
     dispatch(userActions.logIn(username, token));
@@ -33,6 +34,10 @@ export default ({ dispatch }) => {
   socket.on("delBoardSuccess", boards => {
     dispatch(currentActions.clear());
     dispatch(boardActions.set(boards));
+  });
+  socket.on("addBoardSuccess", (board, boards) => {
+    dispatch(boardActions.set(boards));
+    dispatch(currentActions.set(board));
   });
   socket.on("boardError", error => dispatch(currentActions.setError(error)));
 };
@@ -59,4 +64,9 @@ export const delBoard = slug => dispatch => {
   console.log("del: ", slug);
   dispatch(currentActions.setFetching());
   socket.emit("delBoard", slug);
+};
+export const addBoard = () => dispatch => {
+  console.log("add");
+  dispatch(currentActions.setFetching());
+  socket.emit("addBoard");
 };

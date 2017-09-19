@@ -1,10 +1,5 @@
 const { Board, User } = require("../models");
-
-const errorHandler = (client, error) => {
-  console.error(error.message);
-  console.error(error.stack);
-  client.emit("boardError", error.message);
-};
+const errorHandler = require("./errors")("boardError");
 
 const getBoard = client => async slug => {
   try {
@@ -28,12 +23,16 @@ const getBoard = client => async slug => {
   }
 };
 
-const addBoard = client => async ({ title }) => {
+const addBoard = client => async () => {
   try {
-    const board = await Board.create({ title, members: [client.user._id] });
+    const board = await Board.create({ members: [client.user._id] });
     if (board) {
-      const user = await User.findById(client.user._id).populate("boards");
-      client.emit("addBoardSuccess", board, user.boards);
+      client.user = await User.findByIdAndUpdate(
+        client.user._id,
+        { $push: { boards: board } },
+        { new: true }
+      ).populate("boards");
+      client.emit("addBoardSuccess", board, client.user.boards);
     } else {
       throw new Error("Failed to create board");
     }
