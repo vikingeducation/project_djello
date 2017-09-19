@@ -14,11 +14,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/authenticate", async (req, res) => {
-  console.log("req.session: ", localStorage.getItem("token"));
   try {
     if (!localStorage.getItem("token")) throw new Error("no token present");
     let userData = await validateUser(localStorage.getItem("token"));
-    res.json({ _id: userData._id, email: userData.email, error: userData });
+    res.json({ _id: userData._id, email: userData.email, error: null });
   } catch (error) {
     localStorage.getItem("token") = null;
     res.json({ error: error.message });

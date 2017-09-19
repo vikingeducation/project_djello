@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import serialize from "form-serialize";
+import { withRouter } from "react-router-dom";
 // import { bindActionCreators } from "redux";
 
 import { UserActions } from "../actions";
@@ -11,33 +12,19 @@ import { BASE_URL } from "../actions/constants";
 class LoginContainer extends Component {
   constructor() {
     super();
-
     this.state = {
       error_email: null,
       error_password: null
     };
   }
 
-  componentDidMount() {
-    // console.log(this.props);
-    // this.socket = io("http://localhost:3001");
-    // this.socket.on("isValidUser", isValidUser => {
-    //   let userInfo;
-    //   if (isValidUser.isValid) {
-    //     userInfo = this.props.UsersReducers.usersData.find(user => {
-    //       return user.email === isValidUser.email;
-    //     });
-    //   }
-    //   if (userInfo) this.props.loginUser(userInfo);
-    // });
+  componentWillMount() {
+    console.log("this.props: ", this.props);
   }
 
-  // onChangeInput = e => {
-  //   let text = e.target.value;
-  //   this.setState({
-  //     [e.target.name]: text
-  //   });
-  // };
+  componentWillReceiveProps(nextProps) {
+    console.log("this.props: ", this.props);
+  }
 
   onSubmitForm = async e => {
     e.preventDefault();
@@ -53,8 +40,6 @@ class LoginContainer extends Component {
         method: "POST",
         body: JSON.stringify(userData)
       });
-
-      console.log("login result: ", result);
     } catch (error) {
       throw error;
     }
@@ -74,7 +59,10 @@ class LoginContainer extends Component {
       });
 
       result = await result.json();
-      console.log("authenticate result: ", result);
+      console.log("result: ", result);
+      if (!result.error) {
+        this.props.history.push("/");
+      }
     } catch (error) {
       throw error;
     }
@@ -109,4 +97,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+);
