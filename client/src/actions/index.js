@@ -112,17 +112,20 @@ export const getLists = boardId => async dispatch => {
   console.log(boardId);
   const response = await fetch(`${BASE_URI}/${BASE_BOARD}/${boardId}`);
   const board = await response.json();
+  console.log(board);
   dispatch(populateBoard(board));
   dispatch(populateLists(board.lists));
 };
 
 export const createList = newList => async dispatch => {
+  console.log("getting hit?");
   const body = JSON.stringify(newList);
   const options = makeOptions(body, "POST", null);
   const response = await fetch(`${BASE_URI}/${BASE_LIST}`, options);
-  const list = await response.json();
-  console.log(list);
-  dispatch(createListSuccess(list));
+  const board = await response.json();
+  console.log(board);
+  dispatch(populateBoard(board));
+  dispatch(createListSuccess(board.lists));
 };
 
 export const createBoard = newBoard => async dispatch => {

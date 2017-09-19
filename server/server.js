@@ -33,11 +33,12 @@ app.post("/api/lists", async (req, res) => {
     board: board_id
   });
   list = await list.save();
-  const board = await Board.update(
+  const updatedBoard = await Board.update(
     { _id: board_id },
     { $push: { lists: list } }
   );
-  res.json(list);
+  const board = await Board.findById(board_id).populate("lists");
+  res.json(board);
 });
 
 app.post("/api/boards", async (req, res) => {
