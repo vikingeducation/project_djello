@@ -39,7 +39,7 @@ class LoginContainer extends Component {
       result = await result.json();
 
       if (!result.error && result._id && result.email) {
-        this.props.history.push("/board");
+        this.props.history.push("/dashboard");
       }
 
       if (result.error) {

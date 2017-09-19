@@ -95,7 +95,7 @@ class App extends Component {
   loggedOutOnly = async () => {
     await this.authenticate();
     if (!this.state.error && this.state._id && this.state.email) {
-      this.props.history.push("/board");
+      this.props.history.push("/dashboard");
     }
   };
 
