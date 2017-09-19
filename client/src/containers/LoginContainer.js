@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import serialize from "form-serialize";
-import { withRouter } from "react-router-dom";
-// import { bindActionCreators } from "redux";
+// import { withRouter } from "react-router-dom";
 
 import { UserActions } from "../actions";
 import Login from "../components/Login";
@@ -68,13 +67,6 @@ class LoginContainer extends Component {
     }
   };
 
-  // this.props.userLogin({ email: data.email, password: data.password });
-
-  // this.socket.emit("login", {
-  //   email: this.state.email,
-  //   password: this.state.password
-  // });
-
   render() {
     return (
       <Login
@@ -97,6 +89,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
