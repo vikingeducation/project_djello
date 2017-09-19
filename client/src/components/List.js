@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Paper from "material-ui/Paper";
 import EditableTitle from "./EditableTitle";
 import CardContainer from "../containers/CardContainer";
-import Dialog from "material-ui/Dialog";
+import CardModal from "./CardModal";
 
 class List extends Component {
 	constructor() {
@@ -21,7 +21,7 @@ class List extends Component {
 	saveTitle = async e => {
 		if (e.charCode === 13) {
 			await this.props.editList(
-				this.props.parentId,
+				this.props.boardId,
 				this.props.id,
 				"title",
 				e.target.value
@@ -86,14 +86,13 @@ class List extends Component {
 					</div>
 				)}
 				{!this.state.card ? null : (
-					<Dialog
+					<CardModal
+						saveCard={this.props.editCard}
+						boardId={this.props.boardId}
 						open={this.state.cardOpen}
-						onRequestClose={this.closeCardModal}
-						actions={<button onClick={this.closeCardModal}>Close</button>}
-					>
-						<h2>{this.state.card.title}</h2>
-						<p>{this.state.card.description}</p>
-					</Dialog>
+						close={this.closeCardModal}
+						card={this.state.card}
+					/>
 				)}
 			</Paper>
 		);

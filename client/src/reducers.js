@@ -7,7 +7,8 @@ import {
 	REMOVE_LIST,
 	UPDATE_LIST,
 	ADD_CARD,
-	REMOVE_CARD
+	REMOVE_CARD,
+	UPDATE_CARD
 } from "./actions";
 
 export const djelloApp = (state = { user: {}, boards: [] }, action) => {
@@ -90,6 +91,29 @@ export const djelloApp = (state = { user: {}, boards: [] }, action) => {
 						return list;
 					});
 					return board;
+				})
+			};
+		case UPDATE_CARD:
+			return {
+				...state,
+				boards: state.boards.map(board => {
+					return board.id !== action.data.boardId
+						? board
+						: {
+								...board,
+								Lists: board.Lists.map(list => {
+									return list.id !== action.data.listId
+										? list
+										: {
+												...list,
+												Cards: list.Cards.map(card => {
+													return card.id === action.data.cardId
+														? action.data.data
+														: card;
+												})
+											};
+								})
+							};
 				})
 			};
 		default:

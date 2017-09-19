@@ -173,6 +173,15 @@ app.post("/api/cards/new", loggedInOnly, async (req, res) => {
 	res.json(newCard);
 });
 
+app.put("/api/cards", loggedInOnly, async (req, res) => {
+	const updatedCard = await Card.update(
+		{ title: req.body.data.title, description: req.body.data.description },
+		{ where: { id: req.body.id }, returning: true }
+	);
+
+	res.json(updatedCard[1][0]);
+});
+
 app.delete("/api/cards", loggedInOnly, async (req, res) => {
 	await Card.destroy({ where: { id: req.body.id } });
 	res.end();

@@ -16,12 +16,7 @@ class Card extends Component {
 
 	render() {
 		return (
-			<Paper
-				className="card"
-				onClick={() => {
-					this.props.onClick(this.props.card);
-				}}
-			>
+			<Paper className="card">
 				<div className="title-grid">
 					<div>
 						<h4 onClick={this.toggleTitleEdit}>
@@ -44,7 +39,14 @@ class Card extends Component {
 						</button>
 					</div>
 				</div>
-				<p>{this.props.card.description}</p>
+				<div
+					className="card-description"
+					onClick={() => {
+						this.props.onClick(this.props.card);
+					}}
+				>
+					<p>{this.props.card.description}</p>
+				</div>
 			</Paper>
 		);
 	}

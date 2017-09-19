@@ -7,6 +7,7 @@ export const REMOVE_LIST = "REMOVE_LIST";
 export const UPDATE_LIST = "EDIT_LIST";
 export const ADD_CARD = "ADD_CARD";
 export const REMOVE_CARD = "REMOVE_CARD";
+export const UPDATE_CARD = "UPDATE_CARD";
 
 export const setUser = data => ({
 	type: SET_USER,
@@ -55,6 +56,16 @@ export const addCard = (listId, card) => ({
 export const removeCard = id => ({
 	type: REMOVE_CARD,
 	data: id
+});
+
+export const updateCard = (boardId, listId, cardId, data) => ({
+	type: UPDATE_CARD,
+	data: {
+		boardId: boardId,
+		listId: listId,
+		cardId: cardId,
+		data: data
+	}
 });
 
 export const returningUser = () => async dispatch => {
@@ -222,6 +233,24 @@ export const deleteCard = id => async dispatch => {
 		});
 
 		dispatch(removeCard(id));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const editCard = (boardId, listId, cardId, data) => async dispatch => {
+	try {
+		const response = await fetch("/api/cards", {
+			method: "PUT",
+			credentials: "include",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ id: cardId, data })
+		});
+
+		const updatedCard = await response.json();
+
+		console.log("Fresh card is: ", updatedCard);
+		dispatch(updateCard(boardId, listId, cardId, updatedCard));
 	} catch (error) {
 		console.log(error);
 	}

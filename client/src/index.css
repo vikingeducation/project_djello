@@ -1,20 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
 html,
 body {
 	margin: 0;
 	padding: 0;
-	font-family: sans-serif;
+	font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	line-height: 1em;
+	margin: 10px;
+	font-weight: 500;
+}
+
+a {
+	display: block;
+	margin: 0 auto;
+	color: #995577;
+	text-align: center;
+}
+
+a:hover {
+	color: #cc99aa;
+}
+
+h3,
+.card-description {
+	cursor: pointer;
 }
 
 .header {
 	background-color: #995577;
 	margin: 0;
-	padding: 0;
+	padding: 0 20px;
 	color: white;
+}
+
+.logout {
+	justify-self: end;
+	align-self: center;
 }
 
 .login-container {
 	width: 400px;
 	margin: 50px auto;
+}
+
+.board-title-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	margin-bottom: 30px;
+}
+
+.board-title {
+	align-self: center;
+}
+
+.select-board {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.select-board-dropdown {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	text-align: center;
 }
 
 .list {
