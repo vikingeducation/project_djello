@@ -28,20 +28,36 @@ const getBoard = client => async slug => {
   }
 };
 
-const addBoard = client => async ({ title, creator }) => {
+const addBoard = client => async ({ title }) => {
   try {
-    const board = await Board.create({ title, members: [creator] });
-    board
-      ? client.emit("addBoardSuccess", board)
-      : new Error("Failed to create board");
+    const board = await Board.create({ title, members: [client.user._id] });
+    if (board) {
+      client.emit("addBoardSuccess", board);
+    } else {
+      throw new Error("Failed to create board");
+    }
   } catch (error) {
     errorHandler(client, "addBoardError", error);
+  }
+};
+
+const delBoard = client => async slug => {
+  try {
+    const board = await Board.findOneAndRemove({ slug });
+    if (board) {
+      client.emit("delBoardSuccess");
+    } else {
+      throw new Error("Failed to delete board");
+    }
+  } catch (error) {
+    errorHandler(client, "delBoardError", error);
   }
 };
 
 const boards = client => {
   client.on("getBoard", getBoard(client));
   client.on("addBoard", addBoard(client));
+  client.on("delBoard", delBoard(client));
 };
 
 module.exports = boards;
