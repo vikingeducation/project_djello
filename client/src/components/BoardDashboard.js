@@ -17,8 +17,6 @@ class BoardDashboard extends Component {
   }
 
   componentDidMount = async () => {
-    console.log(this.props.path);
-    console.log(this.state._id);
     const id = this.state._id || this.props.path;
     await this.props.getLists(id);
   };
@@ -36,6 +34,17 @@ class BoardDashboard extends Component {
             {this.props.state.title}
           </h1>
           <div style={{ flexDirection: "row" }}>
+            <div>
+              {this.props.state.lists
+                ? this.props.state.lists.map(list =>
+                    <div key={list._id}>
+                      <h4>
+                        {list.title}
+                      </h4>
+                    </div>
+                  )
+                : null}
+            </div>
             <List>
               <ListItem onClick={this.handleAddList}>Add a list...</ListItem>
               {this.state.formOpen
