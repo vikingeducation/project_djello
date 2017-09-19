@@ -9,8 +9,7 @@ import { green900, green700 } from "material-ui/styles/colors";
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: green900,
-    primary2Color: green700,
-    textColor: "#ffffff"
+    primary2Color: green700
   }
 });
 

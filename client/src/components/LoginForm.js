@@ -18,6 +18,7 @@ export const LoginForm = props => {
           <TextField
             hintText="Hint Text"
             type="text"
+            style={{ color: "black" }}
             floatingLabelText="Username"
             onChange={props.handleInputChange}
             name="username"
@@ -26,6 +27,7 @@ export const LoginForm = props => {
           <TextField
             hintText="Hint Text"
             type="password"
+            style={{ color: "black" }}
             floatingLabelText="Password"
             onChange={props.handleInputChange}
             name="password"

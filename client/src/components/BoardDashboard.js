@@ -5,7 +5,6 @@ import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import { connect } from "react-redux";
 import { createList, getLists, createCard } from "../actions";
-import BoardList from "./BoardList";
 import ListContainer from "../containers/ListContainer";
 
 class BoardDashboard extends Component {

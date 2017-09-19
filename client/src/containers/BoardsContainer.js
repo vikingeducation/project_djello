@@ -5,7 +5,6 @@ import Board from "../components/Board";
 import AddBoard from "../components/AddBoard";
 import PaperWrapper from "../components/PaperWrapper";
 import BoardsModal from "../components/BoardsModal";
-import { Link } from "react-router-dom";
 
 const style = {
   height: 600,
@@ -13,7 +12,8 @@ const style = {
   margin: "2.5%",
   textAlign: "center",
   display: "flex",
-  flexWrap: "wrap"
+  flexWrap: "wrap",
+  background: "lightgray"
 };
 
 class BoardsContainer extends Component {
@@ -32,21 +32,16 @@ class BoardsContainer extends Component {
     return (
       <div style={style}>
         <PaperWrapper>
+          <AddBoard handleModalOpen={this.handleModalOpen} />
           {this.props.boards.length &&
             this.props.boards.map(board =>
-              <Link
-                to={`/boards/${board._id}`}
+              <Board
+                board={board}
                 key={board._id}
-                style={{ height: 100 }}
-              >
-                <Board
-                  board={board}
-                  lists={this.state.lists}
-                  getLists={() => this.props.getLists(board._id)}
-                />
-              </Link>
+                lists={this.state.lists}
+                getLists={() => this.props.getLists(board._id)}
+              />
             )}
-          <AddBoard handleModalOpen={this.handleModalOpen} />
         </PaperWrapper>
         {this.state.modalOpen
           ? <BoardsModal

@@ -4,7 +4,8 @@ import FlatButton from "material-ui/FlatButton";
 const style = {
   textAlign: "center",
   display: "flex",
-  alignSelf: "center"
+  alignSelf: "center",
+  color: "white"
 };
 
 const LogOutButton = ({ name, onClick }) =>

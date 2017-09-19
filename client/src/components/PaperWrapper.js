@@ -8,7 +8,7 @@ const style = {
 };
 
 const PaperWrapper = ({ children }) =>
-  <Paper style={style}>
+  <Paper style={style} zDepth={3}>
     {children}
   </Paper>;
 

@@ -5,7 +5,6 @@ import Dashboard from "../components/Dashboard";
 import { withRouter } from "react-router-dom";
 import { getAuthenticatedUser } from "../actions";
 import CircularProgress from "material-ui/CircularProgress";
-import Drawer from "material-ui/Drawer";
 
 class DashboardContainer extends Component {
   state = {
@@ -26,7 +25,6 @@ class DashboardContainer extends Component {
     this.setState({ drawerOpen: !this.state.drawerOpen });
 
   render() {
-    console.log(this.props);
     return (
       <div>
         {this.props.fetching
