@@ -12,10 +12,14 @@ class App extends Component {
     e.preventDefault();
     this.props.loginUser(e.target.email.value, e.target.password.value);
   };
+
   render() {
     return (
       <div>
-        <Header />
+        <Header
+          logout={this.props.logoutUser}
+          showLogout={this.props.user.username ? true : false}
+        />
         {this.props.user.username ? (
           <DashboardContainer />
         ) : (

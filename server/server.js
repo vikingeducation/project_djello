@@ -112,6 +112,11 @@ app.post("/login", passport.authenticate("local"), async (req, res) => {
 	});
 });
 
+app.delete("/logout", loggedInOnly, (req, res) => {
+	req.logout();
+	res.end();
+});
+
 app.post("/api/boards/new", loggedInOnly, async (req, res) => {
 	const newBoard = await Board.create({
 		title: "Untitled Board",

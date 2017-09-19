@@ -98,6 +98,20 @@ export const loginUser = (email, password) => async dispatch => {
 	}
 };
 
+export const logoutUser = () => async dispatch => {
+	try {
+		await fetch("/logout", {
+			method: "DELETE",
+			credentials: "include"
+		});
+
+		dispatch(setUser({}));
+		dispatch(setBoards([]));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const createBoard = userId => async dispatch => {
 	try {
 		const response = await fetch("/api/boards/new", {
