@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAllLists } from "../actions/list";
+import { getAllLists, deleteList, createList } from "../actions/list";
 import { getOneBoard } from "../actions/board";
 import Showable from "../Components/elements/Showable";
 import BoardNavContainer from "./BoardNavContainer";
 import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
+import TextField from "material-ui/TextField";
 
 const loadingScreen = <div>Loading...</div>;
 
@@ -18,6 +19,8 @@ const style = {
 const paperStyle = {
   margin: 5
 };
+
+//TODO: move these components out into their own files
 
 const Board = ({ lists, newCard, newList, deleteList, deleteCard }) => {
   if (!lists) return null;
@@ -47,11 +50,18 @@ const NewList = ({ cards, newList }) => {
     </Paper>
   );
 };
+const blur = e => {
+  console.log("blurring", e.target);
+};
+
 const List = ({ cards, newCard, deleteList, deleteCard, title }) => {
   const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
   return (
     <Paper style={style}>
       <h5>{title}</h5>
+      <FlatButton style={{ textAlign: "center" }} onClick={() => {}}>
+        <TextField onChange={() => {}} onBlur={blur} value={title} />
+      </FlatButton>
       <ul>{cardComponents}</ul>
       <FlatButton onClick={newCard} label="New" />
       <div>
@@ -102,34 +112,28 @@ class BoardShowContainer extends React.Component {
     console.log("e.target", e.target);
     e.stopPropagation();
     e.preventDefault();
-    //make a list
+    this.props.createList(this.props.board._id, null); //change
   };
   onDeleteList = (e, listId) => {
-    console.log("making new list");
+    console.log("deleting a list");
     console.log("e.target", e.target, "\n list = ", listId);
     e.stopPropagation();
     e.preventDefault();
     //attempting things test
-    let headers = new Headers();
-    headers.append("Content-type", "application/json");
-    fetch(`/lists/${listId}`, {
-      headers,
-      method: "DELETE",
-      body: null
-    });
+    this.props.deleteList(listId);
   };
   onDeleteCard = (e, cardId) => {
     console.log("making new list");
     console.log("e.target", e.target, "\n list = ", cardId);
     e.stopPropagation();
     e.preventDefault();
-    let headers = new Headers();
-    headers.append("Content-type", "application/json");
-    fetch(`/cards/${cardId}`, {
-      headers,
-      method: "DELETE",
-      body: null
-    });
+    // let headers = new Headers();
+    // headers.append("Content-type", "application/json");
+    // fetch(`/cards/${cardId}`, {
+    //   headers,
+    //   method: "DELETE",
+    //   body: null
+    // });
   };
   componentDidMount = async () => {
     //TODO: grab the user
@@ -163,13 +167,20 @@ const mapStateToProps = state => {
   console.log("state of lists, = ", state);
   return {
     ...state.board,
-    ...state.list
+    ...state.list,
+    userId: state.user.username
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     getAllLists: (userId, boardId) => {
       dispatch(getAllLists(userId, boardId));
+    },
+    createList: (boardId, name) => {
+      dispatch(createList(boardId, name));
+    },
+    deleteList: listId => {
+      dispatch(deleteList(listId));
     },
     getOneBoard: (boardId, userId) => {
       dispatch(getOneBoard(boardId, userId));
