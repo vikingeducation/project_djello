@@ -10,41 +10,31 @@ class Card extends Component {
 		};
 	}
 
-	toggleTitleEdit = () => {
-		this.setState({ titleEdit: !this.state.titleEdit });
+	deleteCard = e => {
+		e.preventDefault();
+		e.stopPropagation();
+		this.props.deleteCard(this.props.card.id);
 	};
 
 	render() {
 		return (
-			<Paper className="card">
+			<Paper
+				className="card"
+				onClick={() => {
+					this.props.onClick(this.props.card);
+				}}
+			>
 				<div className="title-grid">
 					<div>
-						<h4 onClick={this.toggleTitleEdit}>
-							<EditableTitle
-								title={this.props.card.title}
-								editing={this.state.titleEdit}
-							/>
-						</h4>
+						<h4>{this.props.card.title}</h4>
 					</div>
 					<div className="close-button-cell">
-						<button
-							href=""
-							className="close-button"
-							onClick={e => {
-								e.preventDefault();
-								this.props.deleteCard(this.props.card.id);
-							}}
-						>
+						<button href="" className="close-button" onClick={this.deleteCard}>
 							&times;
 						</button>
 					</div>
 				</div>
-				<div
-					className="card-description"
-					onClick={() => {
-						this.props.onClick(this.props.card);
-					}}
-				>
+				<div className="card-description">
 					<p>{this.props.card.description}</p>
 				</div>
 			</Paper>

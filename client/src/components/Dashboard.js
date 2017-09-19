@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ListContainer from "../containers/ListContainer";
+import EditableTitle from "./EditableTitle";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 
@@ -7,7 +8,8 @@ class Dashboard extends Component {
 	constructor() {
 		super();
 		this.state = {
-			currentBoard: null
+			currentBoard: null,
+			titleEdit: false
 		};
 	}
 
@@ -32,14 +34,33 @@ class Dashboard extends Component {
 		);
 	};
 
+	toggleBoardTitle = () => {
+		this.setState({ titleEdit: !this.state.titleEdit });
+	};
+
+	saveTitle = async e => {
+		if (e.charCode === 13) {
+			await this.props.editBoard(
+				this.props.boards[this.state.currentBoard].id,
+				e.target.value
+			);
+
+			this.toggleBoardTitle();
+		}
+	};
+
 	render() {
 		return (
 			<div>
 				<div className="board-title-grid">
 					<div className="board-title">
-						<h2>
+						<h2 onKeyPress={this.saveTitle}>
 							{this.state.currentBoard === null ? null : (
-								this.props.boards[this.state.currentBoard].title
+								<EditableTitle
+									title={this.props.boards[this.state.currentBoard].title}
+									editing={this.state.titleEdit}
+									toggle={this.toggleBoardTitle}
+								/>
 							)}
 						</h2>
 					</div>

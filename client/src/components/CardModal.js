@@ -46,6 +46,24 @@ class CardModal extends Component {
 		}
 	};
 
+	saveCard = async () => {
+		await this.props.saveCard(
+			this.props.boardId,
+			this.props.card.listId,
+			this.props.card.id,
+			{
+				title: this.state.title,
+				description: this.state.description
+			}
+		);
+		this.props.close();
+	};
+
+	completeCard = async () => {
+		await this.props.completeCard(this.props.card.id);
+		this.props.close();
+	};
+
 	render() {
 		return (
 			<Dialog
@@ -55,20 +73,14 @@ class CardModal extends Component {
 				actions={[
 					<RaisedButton label="Cancel" onClick={this.props.close} />,
 					<RaisedButton
-						primary={true}
+						secondary={true}
 						label="Save"
-						onClick={() => {
-							this.props.saveCard(
-								this.props.boardId,
-								this.props.card.listId,
-								this.props.card.id,
-								{
-									title: this.state.title,
-									description: this.state.description
-								}
-							);
-							this.props.close();
-						}}
+						onClick={this.saveCard}
+					/>,
+					<RaisedButton
+						primary={true}
+						label="Mark Complete"
+						onClick={this.completeCard}
 					/>
 				]}
 			>
@@ -81,14 +93,14 @@ class CardModal extends Component {
 						toggle={this.toggleTitleEdit}
 					/>
 				</h2>
-				<p onKeyPress={this.saveDescription}>
+				<span onKeyPress={this.saveDescription}>
 					<EditableDescription
 						rows={7}
 						text={this.state.description}
 						editing={this.state.editDescription}
 						toggle={this.toggleDescriptionEdit}
 					/>
-				</p>
+				</span>
 			</Dialog>
 		);
 	}

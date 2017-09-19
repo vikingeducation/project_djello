@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Dashboard from "../components/Dashboard";
-import { createBoard, deleteBoard, createList } from "../actions";
+import { createBoard, deleteBoard, editBoard, createList } from "../actions";
 
 const mapStateToProps = state => {
 	return {
@@ -16,6 +16,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		deleteBoard: id => {
 			dispatch(deleteBoard(id));
+		},
+		editBoard: (id, title) => {
+			dispatch(editBoard(id, title));
 		},
 		createList: (boardId, boardIndex) => {
 			dispatch(createList(boardId, boardIndex));

@@ -93,7 +93,9 @@ app.get("/login", loggedInOnly, async (req, res) => {
 app.post("/login", passport.authenticate("local"), async (req, res) => {
 	const boards = await Board.findAll({
 		where: { userId: req.user.id },
-		include: [{ model: List, include: [{ model: Card }] }],
+		include: [
+			{ model: List, include: [{ model: Card, where: { completed: false } }] }
+		],
 		order: [
 			["updatedAt", "DESC"],
 			["title"],
@@ -123,6 +125,11 @@ app.post("/api/boards/new", loggedInOnly, async (req, res) => {
 		userId: req.body.userId
 	});
 	res.json(newBoard);
+});
+
+app.patch("/api/boards", loggedInOnly, async (req, res) => {
+	await Board.update({ title: req.body.title }, { where: { id: req.body.id } });
+	res.end();
 });
 
 app.delete("/api/boards", loggedInOnly, async (req, res) => {
@@ -171,6 +178,11 @@ app.post("/api/cards/new", loggedInOnly, async (req, res) => {
 	});
 
 	res.json(newCard);
+});
+
+app.post("/api/cards", loggedInOnly, async (req, res) => {
+	await Card.update({ completed: true }, { where: { id: req.body.id } });
+	res.end();
 });
 
 app.put("/api/cards", loggedInOnly, async (req, res) => {

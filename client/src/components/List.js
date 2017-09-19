@@ -88,6 +88,7 @@ class List extends Component {
 				{!this.state.card ? null : (
 					<CardModal
 						saveCard={this.props.editCard}
+						completeCard={this.props.completeCard}
 						boardId={this.props.boardId}
 						open={this.state.cardOpen}
 						close={this.closeCardModal}

@@ -78,6 +78,7 @@ h3,
 .card {
 	padding: 10px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 .grid-container {
