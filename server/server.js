@@ -60,6 +60,36 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
+const loggedInOnly = (req, res, next) => {
+	if (req.user) {
+		next();
+	} else {
+		res.end();
+	}
+};
+
+app.get("/login", loggedInOnly, async (req, res) => {
+	const boards = await Board.findAll({
+		where: { userId: req.user.id },
+		include: [{ model: List, include: [{ model: Card }] }],
+		order: [
+			["updatedAt", "DESC"],
+			["title"],
+			[List, "boardIndex"],
+			[List, Card, "listIndex"]
+		]
+	});
+
+	res.json({
+		user: {
+			id: req.user.id,
+			username: req.user.username,
+			email: req.user.email
+		},
+		boards: boards
+	});
+});
+
 app.post("/login", passport.authenticate("local"), async (req, res) => {
 	const boards = await Board.findAll({
 		where: { userId: req.user.id },
@@ -82,7 +112,7 @@ app.post("/login", passport.authenticate("local"), async (req, res) => {
 	});
 });
 
-app.post("/api/boards/new", async (req, res) => {
+app.post("/api/boards/new", loggedInOnly, async (req, res) => {
 	const newBoard = await Board.create({
 		title: "Untitled Board",
 		userId: req.body.userId
@@ -90,12 +120,12 @@ app.post("/api/boards/new", async (req, res) => {
 	res.json(newBoard);
 });
 
-app.delete("/api/boards", async (req, res) => {
+app.delete("/api/boards", loggedInOnly, async (req, res) => {
 	await Board.destroy({ where: { id: req.body.id } });
 	res.end();
 });
 
-app.post("/api/lists/new", async (req, res) => {
+app.post("/api/lists/new", loggedInOnly, async (req, res) => {
 	const newList = await List.create({
 		title: "Untitled List",
 		description: "Your description here",
@@ -106,7 +136,7 @@ app.post("/api/lists/new", async (req, res) => {
 	res.json(newList);
 });
 
-app.patch("/api/lists/", async (req, res) => {
+app.patch("/api/lists/", loggedInOnly, async (req, res) => {
 	const updateObj = {};
 	updateObj[req.body.field] = req.body.data;
 
@@ -121,12 +151,12 @@ app.patch("/api/lists/", async (req, res) => {
 	res.json(updatedList);
 });
 
-app.delete("/api/lists", async (req, res) => {
+app.delete("/api/lists", loggedInOnly, async (req, res) => {
 	await List.destroy({ where: { id: req.body.id } });
 	res.end();
 });
 
-app.post("/api/cards/new", async (req, res) => {
+app.post("/api/cards/new", loggedInOnly, async (req, res) => {
 	const newCard = await Card.create({
 		title: "Untitled Card",
 		description: "Your description here",
@@ -138,7 +168,7 @@ app.post("/api/cards/new", async (req, res) => {
 	res.json(newCard);
 });
 
-app.delete("/api/cards", async (req, res) => {
+app.delete("/api/cards", loggedInOnly, async (req, res) => {
 	await Card.destroy({ where: { id: req.body.id } });
 	res.end();
 });

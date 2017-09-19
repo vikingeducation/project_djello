@@ -57,6 +57,22 @@ export const removeCard = id => ({
 	data: id
 });
 
+export const returningUser = () => async dispatch => {
+	try {
+		const response = await fetch("/login", {
+			method: "GET",
+			credentials: "include"
+		});
+
+		const parsedResponse = await response.json();
+
+		dispatch(setBoards(parsedResponse.boards));
+		dispatch(setUser(parsedResponse.user));
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const loginUser = (email, password) => async dispatch => {
 	try {
 		const loginParams = {
@@ -66,6 +82,7 @@ export const loginUser = (email, password) => async dispatch => {
 
 		const response = await fetch("/login", {
 			method: "POST",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json"
 			},
@@ -85,6 +102,7 @@ export const createBoard = userId => async dispatch => {
 	try {
 		const response = await fetch("/api/boards/new", {
 			method: "POST",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json"
 			},
@@ -102,6 +120,7 @@ export const deleteBoard = id => async dispatch => {
 	try {
 		await fetch("/api/boards/", {
 			method: "DELETE",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json"
 			},
@@ -118,6 +137,7 @@ export const createList = (boardId, boardIndex) => async dispatch => {
 	try {
 		const response = await fetch("/api/lists/new", {
 			method: "POST",
+			credentials: "include",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ boardId, boardIndex })
 		});
@@ -134,6 +154,7 @@ export const deleteList = id => async dispatch => {
 	try {
 		await fetch("/api/lists", {
 			method: "DELETE",
+			credentials: "include",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ id })
 		});
@@ -148,6 +169,7 @@ export const editList = (boardId, listId, field, data) => async dispatch => {
 	try {
 		const response = await fetch("/api/lists", {
 			method: "PATCH",
+			credentials: "include",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ id: listId, field, data })
 		});
@@ -164,6 +186,7 @@ export const createCard = (listId, listIndex) => async dispatch => {
 	try {
 		const response = await fetch("/api/cards/new", {
 			method: "POST",
+			credentials: "include",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ listId, listIndex })
 		});
@@ -179,6 +202,7 @@ export const deleteCard = id => async dispatch => {
 	try {
 		await fetch("/api/cards", {
 			method: "DELETE",
+			credentials: "include",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ id })
 		});
