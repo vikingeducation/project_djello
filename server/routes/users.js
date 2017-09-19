@@ -1,12 +1,27 @@
-router = require("express").Router();
-const { validateUser } = require("../controllers/users");
+const router = require("express").Router();
+const localStorage = require("localStorage");
+const { generateToken, validateUser } = require("../controllers/users");
 
 router.post("/login", async (req, res) => {
   try {
-    const userData = await validateUser(req.body.email, req.body.password);
+    const userData = await generateToken(req.body.email, req.body.password);
+    localStorage.setItem("token", userData.token);
     res.json(userData);
-  } catch (err) {
-    res.json(err);
+  } catch (error) {
+    localStorage.setItem("token", null);
+    res.json({ error: error.message });
+  }
+});
+
+router.post("/authenticate", async (req, res) => {
+  console.log("req.session: ", localStorage.getItem("token"));
+  try {
+    if (!localStorage.getItem("token")) throw new Error("no token present");
+    let userData = await validateUser(localStorage.getItem("token"));
+    res.json({ _id: userData._id, email: userData.email, error: userData });
+  } catch (error) {
+    localStorage.getItem("token") = null;
+    res.json({ error: error.message });
   }
 });
 

@@ -15,24 +15,6 @@ app.use(bodyParser.json());
 
 app.set("port", process.env.PORT || 3001);
 
-// const cookieSession = require("cookie-session");
-// app.set("trust proxy", 1);
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     keys: ["token"]
-//   })
-// );
-
-const session = require("express-session");
-app.use(
-  session({
-    secret: "123fljwejflkkwjelk23jlkf23fl2k3jl23kfjlk23j329f4",
-    resave: true,
-    saveUninitialized: true
-  })
-);
-
 const cors = require("cors");
 app.use(cors());
 

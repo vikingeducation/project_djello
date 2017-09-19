@@ -5,11 +5,17 @@ import {
   LISTS_GET_FAILURE
 } from "../actions/constants";
 
+// const initialState = {
+//   listsData: [],
+//   isFetching: false,
+//   error: null,
+//   board: null
+// };
+
 const initialState = {
   listsData: [],
   isFetching: false,
-  error: null,
-  board: null
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +26,14 @@ export default (state = initialState, action) => {
         isFetching: true,
         error: null
       };
+    // case LISTS_GET_SUCCESS:
+    //   return {
+    //     ...state,
+    //     isFetching: false,
+    //     listsData: !state.board
+    //       ? action.data
+    //       : action.data.filter(list => list.board === state.board)
+    //   };
     case LISTS_GET_SUCCESS:
       return {
         ...state,

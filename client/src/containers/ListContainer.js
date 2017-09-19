@@ -25,7 +25,8 @@ class ListContainer extends Component {
   }
 
   render() {
-    return <List list={this.props.list} />;
+    console.log("this.props: ", this.props);
+    return <List list={this.props.list} cards={this.state.cards} />;
   }
 }
 

@@ -1,5 +1,3 @@
-import Cookies from "universal-cookie";
-
 import {
   BASE_URL,
   USER_LOGIN_REQUEST,
@@ -7,15 +5,11 @@ import {
   USER_LOGIN_FAILURE
 } from "./constants";
 
-const cookies = new Cookies();
-
 export const userLoginRequest = () => ({
   type: USER_LOGIN_REQUEST
 });
 
 export const userLoginSuccess = data => {
-  console.log("made it here");
-  cookies.set("token", data.token, { path: "/" });
   return {
     type: USER_LOGIN_SUCCESS,
     data

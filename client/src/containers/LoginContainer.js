@@ -5,6 +5,7 @@ import serialize from "form-serialize";
 
 import { UserActions } from "../actions";
 import Login from "../components/Login";
+import { BASE_URL } from "../actions/constants";
 // import io from "socket.io-client";
 
 class LoginContainer extends Component {
@@ -38,19 +39,61 @@ class LoginContainer extends Component {
   //   });
   // };
 
-  onSubmitForm = e => {
+  onSubmitForm = async e => {
     e.preventDefault();
-    const data = serialize(e.target, { hash: true });
-    this.props.userLogin({ email: data.email, password: data.password });
+    const userData = serialize(e.target, { hash: true });
+    let url = `${BASE_URL}/users/login`;
+    let result;
+    try {
+      result = await fetch(url, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(userData)
+      });
 
-    // this.socket.emit("login", {
-    //   email: this.state.email,
-    //   password: this.state.password
-    // });
+      console.log("login result: ", result);
+    } catch (error) {
+      throw error;
+    }
   };
 
+  onSubmitLogin = async e => {
+    e.preventDefault();
+    let url = `${BASE_URL}/users/authenticate`;
+    let result;
+    try {
+      result = await fetch(url, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      });
+
+      result = await result.json();
+      console.log("authenticate result: ", result);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // this.props.userLogin({ email: data.email, password: data.password });
+
+  // this.socket.emit("login", {
+  //   email: this.state.email,
+  //   password: this.state.password
+  // });
+
   render() {
-    return <Login onSubmitForm={this.onSubmitForm} />;
+    return (
+      <Login
+        onSubmitForm={this.onSubmitForm}
+        onSubmitLogin={this.onSubmitLogin}
+      />
+    );
   }
 }
 

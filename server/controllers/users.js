@@ -31,7 +31,6 @@ const getUser = async userObj => {
 };
 
 const getUsers = async () => {
-  console.log("users schema: ", Object.keys(User.schema.paths));
   try {
     return await User.find();
   } catch (err) {
@@ -39,22 +38,34 @@ const getUsers = async () => {
   }
 };
 
-const validateUser = async (email, password) => {
+const generateToken = async (email, password) => {
   try {
     const user = await getUser({ email });
     if (!user) throw new Error("Cannot find user in database");
     if (!user.validatePassword(password))
       throw new Error("User password is incorrect");
 
-    const token = jwt.sign({ email }, process.env.SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ _id: user._id, email }, process.env.SECRET, {
+      expiresIn: "1d"
+    });
     return {
-      email,
       token,
+      _id: user._id,
+      email,
       error: null
     };
   } catch (error) {
     console.log(error);
-    return { error: erorr.message };
+    return { error: error.message };
+  }
+};
+
+const validateUser = async token => {
+  try {
+    return jwt.verify(token, process.env.SECRET);
+  } catch (error) {
+    console.log(error);
+    return { error: error.message };
   }
 };
 
@@ -62,5 +73,6 @@ module.exports = {
   addUser,
   getUser,
   getUsers,
+  generateToken,
   validateUser
 };

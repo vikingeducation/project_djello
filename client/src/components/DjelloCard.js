@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Row, Col } from "react-flexbox-grid";
-import { Card, CardText } from "material-ui/Card";
+import { Card, CardText, CardTitle } from "material-ui/Card";
 
-const Card = ({ card }) => {
+const DjelloCard = ({ card }) => {
   const { title, description, activities } = card;
   return (
     <Row>
@@ -18,4 +18,4 @@ const Card = ({ card }) => {
   );
 };
 
-export default Card;
+export default DjelloCard;

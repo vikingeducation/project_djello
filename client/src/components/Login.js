@@ -21,7 +21,7 @@ import { deepPurple400 } from "material-ui/styles/colors";
 //   textAlign: "center"
 // };
 
-const Login = ({ onSubmitForm }) => {
+const Login = ({ onSubmitForm, onSubmitLogin }) => {
   return (
     <Grid fluid>
       <Row>
@@ -50,6 +50,16 @@ const Login = ({ onSubmitForm }) => {
               <RaisedButton label="Sign In" type="submit" primary={true} />
             </Col>
           </form>
+          <br />
+          <br />
+          <Col lg={4} lgOffset={3}>
+            <RaisedButton
+              label="Log in"
+              type="submit"
+              primary={true}
+              onClick={onSubmitLogin}
+            />
+          </Col>
         </Col>
       </Row>
     </Grid>
