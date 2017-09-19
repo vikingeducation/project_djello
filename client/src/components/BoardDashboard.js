@@ -6,6 +6,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import { connect } from "react-redux";
 import { createList, getLists, createCard } from "../actions";
 import BoardList from "./BoardList";
+import ListContainer from "../containers/ListContainer";
 
 class BoardDashboard extends Component {
   state = {
@@ -53,9 +54,14 @@ class BoardDashboard extends Component {
                   </div>
                 : null}
             </List>
-            {this.props.state.lists
-              ? this.props.state.lists.map(list =>
-                  <BoardList title={list.title} key={list._id} />
+            {this.props.lists.length
+              ? this.props.lists.map(list =>
+                  <ListContainer
+                    id={list._id}
+                    title={list.title}
+                    key={list._id}
+                    createCard={createCard}
+                  />
                 )
               : null}
           </div>
@@ -67,7 +73,8 @@ class BoardDashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    state: state.board
+    state: state.board,
+    lists: state.lists
   };
 };
 
@@ -78,9 +85,6 @@ const mapDispatchToProps = dispatch => {
     },
     getLists: board_id => {
       dispatch(getLists(board_id));
-    },
-    createCard: list_id => {
-      dispatch(createCard(list_id));
     }
   };
 };

@@ -7,6 +7,7 @@ const User = require("./models/User");
 const { loginController } = require("./controllers/loginController");
 const Board = require("./models/Board");
 const List = require("./models/List");
+const Card = require("./models/Card");
 const formatUser = require("./services/formatUser");
 const { USER_NOT_FOUND, WRONG_PASSWORD } = require("./services/constants");
 const tokens = require("./tokens.json");
@@ -24,6 +25,25 @@ app.post("/api/login", async (req, res) => {
   user.validatePassword(password)
     ? res.json(formatUser(user, username))
     : res.status(401).json({ error: WRONG_PASSWORD });
+});
+
+app.post("/api/cards", async (req, res) => {
+  console.log(req.body);
+  const { description, list_id } = req.body;
+  let card = new Card({
+    description,
+    list: list_id
+  });
+  card = await card.save();
+  console.log(card);
+  const updatedList = await List.update(
+    { _id: list_id },
+    { $push: { cards: card } }
+  );
+  console.log("updated list", updatedList);
+  const list = await List.findById(list_id).populate("cards");
+  console.log("returned list", list);
+  res.json(list);
 });
 
 app.post("/api/lists", async (req, res) => {

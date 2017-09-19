@@ -8,9 +8,13 @@ const styles = {
   flexWrap: "wrap"
 };
 
-const BoardList = ({ title }) =>
+const BoardList = ({ props, handleInputChange, createCard }) =>
   <div style={styles}>
-    {title}
+    <p>
+      {props.title}
+    </p>
+    <input type="text" onChange={handleInputChange} />
+    <button onClick={createCard}>Save</button>
   </div>;
 
 export default BoardList;

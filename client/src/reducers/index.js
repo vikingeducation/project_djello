@@ -29,6 +29,20 @@ export const app = (state = initialState, action) => {
         ...state,
         boards: action.data
       };
+    case Actions.POPULATE_LISTS:
+      return {
+        ...state,
+        lists: action.data
+      };
+    case Actions.POPULATE_LIST:
+      return {
+        ...state,
+        lists: [
+          ...state.lists.map(
+            list => (list._id !== action.data._id ? list : action.data)
+          )
+        ]
+      };
     case Actions.POPULATE_BOARD:
       return {
         ...state,

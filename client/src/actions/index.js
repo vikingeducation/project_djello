@@ -4,6 +4,7 @@ const BASE_LOGIN = "api/login";
 const BASE_BOARD = "api/boards";
 const BASE_USER = "api/user";
 const BASE_LIST = "api/lists";
+const BASE_CARD = "api/cards";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -16,6 +17,7 @@ export const POPULATE_BOARDS = "POPULATE_BOARDS";
 export const POPULATE_BOARD = "POPULATE_BOARD";
 export const POPULATE_CARDS = "POPULATE_CARDS";
 export const POPULATE_LISTS = "POPULATE_LISTS";
+export const POPULATE_LIST = "POPULATE_LIST";
 export const CREATE_LIST_SUCCESS = "CREATE_LIST_SUCCESS";
 export const CREATE_LIST_FAILURE = "CREATE_LIST_FAILURE";
 
@@ -73,6 +75,13 @@ export const populateLists = lists => {
   };
 };
 
+export const populateList = list => {
+  return {
+    type: POPULATE_LIST,
+    data: list
+  };
+};
+
 export const logOut = () => {
   localStorage.removeItem("token");
   return {
@@ -109,23 +118,29 @@ export const createListFailure = error => {
 };
 
 export const getLists = boardId => async dispatch => {
-  console.log(boardId);
   const response = await fetch(`${BASE_URI}/${BASE_BOARD}/${boardId}`);
   const board = await response.json();
-  console.log(board);
   dispatch(populateBoard(board));
   dispatch(populateLists(board.lists));
 };
 
+export const createCard = body => async dispatch => {
+  console.log(body);
+  body = JSON.stringify(body);
+  const options = makeOptions(body, "POST", null);
+  const response = await fetch(`${BASE_URI}/${BASE_CARD}`, options);
+  const list = await response.json();
+  console.log(list);
+  dispatch(populateList(list));
+};
+
 export const createList = newList => async dispatch => {
-  console.log("getting hit?");
   const body = JSON.stringify(newList);
   const options = makeOptions(body, "POST", null);
   const response = await fetch(`${BASE_URI}/${BASE_LIST}`, options);
   const board = await response.json();
-  console.log(board);
+  dispatch(populateLists(board.lists));
   dispatch(populateBoard(board));
-  dispatch(createListSuccess(board.lists));
 };
 
 export const createBoard = newBoard => async dispatch => {
