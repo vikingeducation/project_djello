@@ -6,8 +6,8 @@ add dashboard handler to dashboard icon to redirect you to a dashboard
 //LOGIN PAGE
 center form
 
-//STORE
-Flatten the store into resources, instead of a nested structure under users
+//board show page
+//drop down 
 
 //PERF PROFILER
 conditionally render only in testing mode

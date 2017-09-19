@@ -1,24 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getAllLists } from "../actions/list";
-
+import { getOneBoard } from "../actions/board";
 import Showable from "../Components/elements/Showable";
-
+import BoardNavContainer from "./BoardNavContainer";
 const loadingScreen = <div>Loading...</div>;
 
-const BoardNav = props => {
+const BoardNav = ({ board }) => {
   return (
     <div>
-      <h1>{props.title}</h1>
+      <h1>{board.title}</h1>
     </div>
   );
 };
-const Board = props => {
-  const lists = props.lists.map(list => <List key={list._id} {...list} />);
+const Board = ({ board, lists }) => {
+  const listsComponents = lists.map(list => <List key={list._id} {...list} />);
   return (
     <div>
-      <h1>Board: {props.title}</h1>
-      <ul>{lists}</ul>
+      <h1>Board: {board.title}</h1>
+      <ul>{listsComponents}</ul>
     </div>
   );
 };
@@ -46,7 +46,12 @@ class BoardShowContainer extends React.Component {
     //TODO: reconsider this method of setting the boardId
     let location = this.props.location.pathname.split("/")[2];
     this.state = {
-      boardId: location
+      boardId: location,
+      loaded: false
+    };
+    const user = {
+      username: "a",
+      password: "a"
     };
   }
   componentDidMount = async () => {
@@ -57,26 +62,31 @@ class BoardShowContainer extends React.Component {
       username: "a",
       password: "a"
     };
-    // let data = await this.props.getAllBoards(user);
+    this.props.getOneBoard(this.state.boardId, user.username);
     this.props.getAllLists(user.username, this.state.boardId);
   };
   render() {
     console.log("boardShow props = ", this.props);
-    // const boards = this.props.boards;
-    // const board = boards[0];
-    const boards = null;
-    const board = null;
+    let boardComponent;
+    let boardNavComponent;
+    if (!this.state.loaded) {
+      if (this.props.board && this.props.lists) {
+        this.setState({ loaded: true });
+      }
+      boardComponent = null;
+      boardNavComponent = null;
+    } else {
+      boardComponent = (
+        <Board board={this.props.board} lists={this.props.lists} />
+      );
+      boardNavComponent = <BoardNavContainer />; //<BoardNav board={this.props.board} />;
+    }
+
     return (
-      <div>
-        {/* <h1>Username: {this.props.user.username}</h1> */}
-        <h1>Nav Bar for a Board</h1>
-        {/* {<BoardNav {...board} />}
-        <Board {...board} /> */}
-        <p>Board show page </p>
-        <Showable>
-          <p>things</p>
-        </Showable>
-      </div>
+      <Showable isFetching={this.props.isFetching}>
+        {boardNavComponent}
+        {boardComponent}
+      </Showable>
     );
   }
 }
@@ -90,8 +100,11 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getAllLists: userId => {
-      dispatch(getAllLists(userId));
+    getAllLists: (userId, boardId) => {
+      dispatch(getAllLists(userId, boardId));
+    },
+    getOneBoard: (boardId, userId) => {
+      dispatch(getOneBoard(boardId, userId));
     }
   };
 };

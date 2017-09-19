@@ -13,10 +13,6 @@ const loadingScreen = <div>Loading...</div>;
 class BoardsIndexContainer extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   error: null,
-    //   isFetching: false
-    // };
   }
   componentDidMount = async () => {
     //TODO: grab the user
@@ -29,21 +25,26 @@ class BoardsIndexContainer extends React.Component {
   };
   onCreateBoard = async (name = "newBoard YOOOO") => {
     console.log("createBoard called");
-    await this.props.createBoard(name);
+    this.props.createBoard(name);
     //TODO: CHANGE THIS REFRESH BOARDS THING LATER
-    await this.props.getAllBoards({ username: "a", password: "a" });
+    this.props.getAllBoards({ username: "a", password: "a" });
   };
   //TODO: change this madness later
   onDeleteBoard = async (e, id) => {
     //TODO: experiment with doing this with hrefs
     e.preventDefault();
-    await this.props.deleteBoard(id, "a");
+    this.props.deleteBoard(id, "a");
     //TODO: CHANGE THIS REFRESH BOARDS THING LATER
-    await this.props.getAllBoards({ username: "a", password: "a" });
+    this.props.getAllBoards({ username: "a", password: "a" });
     // this.props.getAllBoards({ username: "a", password: "a" });
     console.log(`deleting board ${id}`);
-    console.log(e.target);
   };
+  // onSelectBoard = e => {
+  //   console.log("key = ", e.target.value);
+  //   console.log("e = ", e);
+  //   e.preventDefault();
+  //   // boards.find( (board) => return board._id == e.target.key)
+  // };
 
   render() {
     console.log("board props = ", this.props);

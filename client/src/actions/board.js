@@ -1,7 +1,8 @@
 export const START_REQUEST = "REQUESTING ACITON FROM SERVER";
 export const DELETE_REQUEST_SUCCESS = "SUCCESSFUL REQUEST";
 export const GET_BOARDS_SUCCESS = "GOT ALL THE BOARDS";
-export const BOARD_SUCESS = "BOARD SUCCESSFULLY CREATED";
+export const GET_BOARD_SUCCESS = "GOT A BOARD";
+export const CREATE_BOARD_SUCESS = "BOARD SUCCESSFULLY CREATED";
 export const BOARD_FAILURE = "FAILURE WITH BOARDS";
 
 const startRequest = () => {
@@ -16,9 +17,15 @@ const getBoardsSuccess = boards => {
     data: boards
   };
 };
+const getBoardSuccess = board => {
+  return {
+    type: GET_BOARD_SUCCESS,
+    data: board
+  };
+};
 const boardSuccess = board => {
   return {
-    type: BOARD_SUCESS,
+    type: CREATE_BOARD_SUCESS,
     data: board
   };
 };
@@ -33,6 +40,28 @@ const deleteSuccess = () => {
     type: DELETE_REQUEST_SUCCESS,
     data: null
   };
+};
+export const getOneBoard = (boardId, userId) => async dispatch => {
+  dispatch(startRequest());
+  console.log("fetching one board ");
+  let boards;
+  let serverResponse;
+  try {
+    serverResponse = await fetch(`/boards/${boardId}?user=${userId}`);
+  } catch (e) {
+    console.log("error from fetching");
+    console.error(e);
+    dispatch(boardFailure(e));
+  }
+  try {
+    let board = await serverResponse.json();
+    console.log("successfully got a board = ", board);
+    dispatch(getBoardSuccess(board));
+  } catch (e) {
+    console.log("error from response parsing");
+    console.error(e);
+    dispatch(boardFailure(e));
+  }
 };
 
 export const deleteBoard = (boardId, userID) => async dispatch => {

@@ -1,8 +1,9 @@
 import {
   START_REQUEST,
-  BOARD_SUCESS,
+  CREATE_BOARD_SUCESS,
   BOARD_FAILURE,
   GET_BOARDS_SUCCESS,
+  GET_BOARD_SUCCESS,
   DELETE_REQUEST_SUCCESS
 } from "../actions/board";
 //
@@ -21,11 +22,11 @@ const board = (state = {}, action) => {
         isFetching: true,
         ...state
       };
-    case BOARD_SUCESS:
+    case CREATE_BOARD_SUCESS:
       return {
         ...state,
-        isFetching: false,
-        board: action.data
+        isFetching: false
+        // board: action.data
       };
     case BOARD_FAILURE:
       return {
@@ -38,6 +39,12 @@ const board = (state = {}, action) => {
         ...state,
         isFetching: false,
         boards: action.data
+      };
+    case GET_BOARD_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        board: action.data
       };
     case DELETE_REQUEST_SUCCESS:
       return {

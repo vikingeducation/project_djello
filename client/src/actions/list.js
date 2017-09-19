@@ -29,8 +29,9 @@ export const getAllLists = (userId, boardId) => async dispatch => {
   let serverResponse;
   try {
     //get all the lists for a given board
+    console.log("boardID = ", boardId, " userId = ", userId);
     serverResponse = await fetch(`/lists?user=${userId}&board=${boardId}`);
-    // console.log(`serverResponse = ${serverResponse}`);
+    console.log(`serverResponse = ${serverResponse}`);
   } catch (e) {
     console.log("error from fetching");
     console.error(e);
@@ -38,7 +39,7 @@ export const getAllLists = (userId, boardId) => async dispatch => {
   }
   try {
     let lists = await serverResponse.json();
-    // console.log("boards action, boards = ", boards);
+    console.log("server gave us lists = ", lists);
     dispatch(getListsSuccess(lists));
   } catch (e) {
     console.log("error from response parsing");

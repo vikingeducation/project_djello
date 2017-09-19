@@ -23,7 +23,7 @@ ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <div>
-        <PerfProfiler />
+        {/* <PerfProfiler /> */}
         <App />
       </div>
     </MuiThemeProvider>
