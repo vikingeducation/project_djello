@@ -1,4 +1,4 @@
-import * as Actions from "../actions/actions.js";
+import * as Actions from "../actions/authActions.js";
 
 const initialState = {
   email: null,
@@ -7,7 +7,7 @@ const initialState = {
   error: null
 };
 
-export const reducer = (state=initialState, action)=>{
+export const authReducer = (state=initialState, action)=>{
   switch (action.type) {
     case Actions.LOGIN_REQUEST:
       return {

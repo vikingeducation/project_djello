@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User.js");
+const {User, Board, List, Card, Activity} = require("../models");
 
 // Middleware to protect routes
 const loggedInOnly = (req, res, next) => {
@@ -19,11 +19,34 @@ const loggedOutOnly = (req, res, next) => {
 };
 
 // routes
+// get a user
+router.get('/api/v1/users/:id', (req, res)=>{
+  User.findById(req.params.id)
+  .populate({
+      path: "boards",
+      populate: {
+        path: "lists",
+        populate: {
+          path: "cards",
+          populate: {
+            path: "users"
+          }
+        }
+      }
+    })
+    .then(user => {
+      if (!user) {
+        throw new Error("Could not find user");
+      }
+      res.json(user);
+    })
+    .catch(error => {
+      res.status(400).json({ error });
+    });
+});
 
-router.get('/', (req, res)=>{
-  console.log(req)
-  req.user ? res.redirect('/boards') : res.redirect('/login')
-  })
+//router.get('/api/v1/boards')
+
 
 
 

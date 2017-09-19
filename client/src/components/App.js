@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '../App.css';
+import Header from './Header.js'
+import BoardSelectorContainer from '../containers/BoardSelectorContainer.js'
+
 
 class App extends Component {
+
+
+
   render() {
     return (
-      <div className="App">
-        
+      <div className="App" >
+        <Header />
+        <BoardSelectorContainer />
+
 
       </div>
     );

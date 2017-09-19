@@ -9,8 +9,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
 const localStrategy = require("./strategies/local");
 const User = require('./models/User.js');
+const cors = require('cors')
 
 require("dotenv").config();
+
+app.use(cors());
 
 app.use(bodyParser.json())
 //const urlencodedParser = bodyParser.urlencoded({ extended: false })

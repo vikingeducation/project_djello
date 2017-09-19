@@ -26,7 +26,7 @@ const seeds = ()=>{
   let boards = [];
   for (let i=0; i<2; i++) {
     let board = new Board ({
-      title: `Board ${i}`,
+      title: `Board_${i}`,
       lists: [],
       users: users[0]
     })
@@ -40,7 +40,7 @@ const seeds = ()=>{
   for (let i=0; i<4; i++) {
     i>1 ? (j=i-2) : (j=i);
     let list = new List({
-      title: `List # ${i}`,
+      title: `List_${i}`,
       description: `This is a description for List # ${i}`,
       board: boards[j],
       cards: []
@@ -54,7 +54,7 @@ const seeds = ()=>{
   for (let i=0; i<8; i++) {
     i>3 ? (j=i-4) : (j=i);
     let card = new Card({
-      title: `Card # ${i}`,
+      title: `Card_${i}`,
       description: `This is a description for Card # ${i}`,
       list: lists[j],
       users: [users[0]],
@@ -85,7 +85,6 @@ const seeds = ()=>{
   })
   return Promise.all(promises);
 }
-
 
 mongooseeder.seed({
   mongodbUrl: mongodbUrl,
