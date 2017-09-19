@@ -3,14 +3,51 @@ const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 const models = require("../models");
 const { User, Board, List, Card } = models;
-// const mongodbUrl = "mongodb://localhost/project_djello_dev";
 
-//check connection
-// debugger;
-// const connection = require("../mongo");
-// if (!mongoose.connection.readyState) {
-//   connection();
-// }
+const deleteCard = async cardId => {
+  //delete a card and update the user
+  try {
+    Card.findByIdAndRemove(cardId);
+    return cardId;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+
+  /* test code
+  Card.findById(cardId)
+  Card.deleteOne({title: 'card0'}).then(lg)
+  Card.find().then(lg)
+  Card.deleteMany().then(lg)
+  Card.find().then(lg)
+  User.findOne({ username: "a" }).populate({
+    path: "boards",
+    populate: {
+      path: "lists",
+      populate: {
+        path: "cards"
+      }
+    }
+  }).then(user => console.log(user.boards.cards))*/
+};
+const deleteList = async listId => {
+  try {
+    return await List.findByIdAndRemove(listId);
+    // return listId;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
+const deleteBoard = async boardId => {
+  try {
+    Board.findByIdAndRemove(boardId);
+    return boardId;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
 
 const getFullUserData = async (query = { username: "a" }) => {
   const user = await User.findOne(query).populate({
@@ -24,9 +61,7 @@ const getFullUserData = async (query = { username: "a" }) => {
   });
   return user;
 };
-
 //make a default board
-
 const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   //default list: Bugs, To Implement, Planned Features, Feature Creep, Research, Suggested Features
 
@@ -88,13 +123,11 @@ const randoCard = (() => {
     });
   };
 })();
-// const dfBoard = makeDefaultBoard().then(board => {
-//   console.log(board);
-//   mongoose.disconnect();
-// });
 
-// console.log(dfBoard);
 module.exports = {
   makeDefaultBoard,
-  getFullUserData
+  getFullUserData,
+  deleteCard,
+  deleteList,
+  deleteBoard
 };

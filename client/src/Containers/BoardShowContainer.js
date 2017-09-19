@@ -32,6 +32,7 @@ const Board = ({ lists, newCard, newList, deleteList, deleteCard }) => {
           newCard={e => newCard(e, list._id)}
           deleteList={e => deleteList(e, list._id)}
           deleteCard={deleteCard}
+          title={list.title}
         />
       ))}
       <NewList id="newBtn" newList={newList} />
@@ -46,11 +47,11 @@ const NewList = ({ cards, newList }) => {
     </Paper>
   );
 };
-const List = ({ cards, newCard, deleteList, deleteCard }) => {
+const List = ({ cards, newCard, deleteList, deleteCard, title }) => {
   const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
   return (
     <Paper style={style}>
-      <h5>{cards.title}</h5>
+      <h5>{title}</h5>
       <ul>{cardComponents}</ul>
       <FlatButton onClick={newCard} label="New" />
       <div>
@@ -108,12 +109,27 @@ class BoardShowContainer extends React.Component {
     console.log("e.target", e.target, "\n list = ", listId);
     e.stopPropagation();
     e.preventDefault();
+    //attempting things test
+    let headers = new Headers();
+    headers.append("Content-type", "application/json");
+    fetch(`/lists/${listId}`, {
+      headers,
+      method: "DELETE",
+      body: null
+    });
   };
   onDeleteCard = (e, cardId) => {
     console.log("making new list");
     console.log("e.target", e.target, "\n list = ", cardId);
     e.stopPropagation();
     e.preventDefault();
+    let headers = new Headers();
+    headers.append("Content-type", "application/json");
+    fetch(`/cards/${cardId}`, {
+      headers,
+      method: "DELETE",
+      body: null
+    });
   };
   componentDidMount = async () => {
     //TODO: grab the user

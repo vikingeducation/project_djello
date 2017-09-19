@@ -1,4 +1,5 @@
 const { User, Board } = require("../models");
+const { deleteList } = require("../controllers");
 const router = require("express").Router();
 
 //this route path is mighty fishy feeling
@@ -24,18 +25,25 @@ router.get("/", async (req, res) => {
 });
 
 //NOT IMPLEMENTED
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   return res.sendStatus(501);
 });
 
 //NOT IMPLEMENTED
-router.put("/", (req, res) => {
+router.put("/", async (req, res) => {
   return res.sendStatus(501);
 });
 
 //NOT IMPLEMENTED
-router.delete("/", (req, res) => {
-  return res.sendStatus(501);
+router.delete("/:id", async (req, res) => {
+  // console.log("deleting list ", req.params.id);
+  try {
+    let result = await deleteList(req.params.id);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+  return res.sendStatus(200);
 });
 
 module.exports = router;
