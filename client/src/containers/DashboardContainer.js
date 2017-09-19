@@ -26,6 +26,7 @@ class DashboardContainer extends Component {
     this.setState({ drawerOpen: !this.state.drawerOpen });
 
   render() {
+    console.log(this.props);
     return (
       <div>
         {this.props.fetching

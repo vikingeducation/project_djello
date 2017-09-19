@@ -5,7 +5,7 @@ import BoardsContainer from "../containers/BoardsContainer";
 import BoardDashboard from "./BoardDashboard";
 import Drawer from "material-ui/Drawer";
 import HardWareKeyboardBackspace from "material-ui/svg-icons/hardware/keyboard-backspace";
-import NavLink from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Dashboard = ({
   logOut,
@@ -26,11 +26,14 @@ const Dashboard = ({
       {state.drawerOpen
         ? <Drawer open="true">
             <HardWareKeyboardBackspace onClick={handleDrawerOpen} />
-            {prop.boards
+            {props.boards
               ? props.boards.map(board =>
-                  <NavLink exact to={`boards/${board._id}`}>
-                    {board.title}
-                  </NavLink>
+                  <div>
+                    <NavLink to={`boards/${board._id}`}>
+                      {board.title}
+                    </NavLink>
+                    <br />
+                  </div>
                 )
               : null}
           </Drawer>

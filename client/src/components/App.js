@@ -4,11 +4,13 @@ import DashboardContainer from "../containers/DashboardContainer";
 import LoginFormContainer from "../containers/LoginFormContainer";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import { green700 } from "material-ui/styles/colors";
+import { green900, green700 } from "material-ui/styles/colors";
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: green700
+    primary1Color: green900,
+    primary2Color: green700,
+    textColor: "#ffffff"
   }
 });
 
