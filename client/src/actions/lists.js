@@ -18,7 +18,6 @@ export const listsGetFailure = error => ({
   type: LISTS_GET_FAILURE
 });
 
-// put boardId as your input here
 export const listsGet = () => async dispatch => {
   dispatch(listsRequest());
   let url = `${BASE_URL}/lists`;

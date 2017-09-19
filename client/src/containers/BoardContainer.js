@@ -5,8 +5,8 @@ import { ListsActions } from "../actions";
 import Board from "../components/Board";
 
 class BoardContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       lists: []
@@ -19,9 +19,11 @@ class BoardContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("nextProps: ", nextProps);
+    if (!nextProps.board) return;
     this.setState({
-      lists: nextProps.ListsReducers.listsData
+      lists: nextProps.ListsReducers.listsData.filter(
+        list => list.board === nextProps.board._id
+      )
     });
   }
 

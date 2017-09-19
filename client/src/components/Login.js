@@ -14,14 +14,7 @@ import {
 
 import { deepPurple400 } from "material-ui/styles/colors";
 
-// const style = {
-//   color: "#9E9E9E",
-//   fontSize: "16px",
-//   fontWeight: "normal",
-//   textAlign: "center"
-// };
-
-const Login = ({ onSubmitForm, onSubmitLogin }) => {
+const Login = ({ onSubmitForm, error_email, error_password }) => {
   return (
     <Grid fluid>
       <Row>
@@ -33,7 +26,7 @@ const Login = ({ onSubmitForm, onSubmitLogin }) => {
                 floatingLabelText="email"
                 name="email"
                 type="text"
-                value="susan0@gmail.com"
+                errorText={error_email}
               />
             </Col>
             <Col lg={12}>
@@ -41,7 +34,7 @@ const Login = ({ onSubmitForm, onSubmitLogin }) => {
                 floatingLabelText="password"
                 name="password"
                 type="password"
-                value="password"
+                errorText={error_password}
               />
             </Col>
             <br />
@@ -51,15 +44,6 @@ const Login = ({ onSubmitForm, onSubmitLogin }) => {
             </Col>
           </form>
           <br />
-          <br />
-          <Col lg={4} lgOffset={3}>
-            <RaisedButton
-              label="Log in"
-              type="submit"
-              primary={true}
-              onClick={onSubmitLogin}
-            />
-          </Col>
         </Col>
       </Row>
     </Grid>

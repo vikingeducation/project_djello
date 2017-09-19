@@ -1,31 +1,31 @@
-import { ListsActions } from "../actions";
+import { BoardsActions } from "../actions";
 import {
-  LISTS_REQUEST,
-  LISTS_GET_SUCCESS,
-  LISTS_GET_FAILURE
+  BOARDS_REQUEST,
+  BOARDS_GET_SUCCESS,
+  BOARDS_GET_FAILURE
 } from "../actions/constants";
 
 const initialState = {
-  listsData: [],
+  boardsData: [],
   isFetching: false,
   error: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LISTS_REQUEST:
+    case BOARDS_REQUEST:
       return {
         ...state,
         isFetching: true,
         error: null
       };
-    case LISTS_GET_SUCCESS:
+    case BOARDS_GET_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        listsData: action.data
+        boardsData: action.data
       };
-    case LISTS_GET_FAILURE:
+    case BOARDS_GET_FAILURE:
       return {
         ...state,
         isFetching: false,

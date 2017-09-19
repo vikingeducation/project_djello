@@ -20,7 +20,9 @@ class ListContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      cards: nextProps.CardsReducers.cardsData
+      cards: nextProps.CardsReducers.cardsData.filter(
+        card => card.list === nextProps.list._id
+      )
     });
   }
 

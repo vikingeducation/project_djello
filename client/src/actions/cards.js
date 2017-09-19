@@ -24,7 +24,7 @@ export const cardsGet = () => async dispatch => {
   let result;
 
   try {
-    result = await fetch(url);
+    result = await fetch(url, { credientials: "include" });
     result = await result.json();
     dispatch(cardsGetSuccess(result));
   } catch (err) {

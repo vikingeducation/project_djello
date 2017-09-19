@@ -32,6 +32,7 @@ const Board = ({ lists }) => {
           {lists}
           <ListAdder />
         </Row>
+        <br />
       </Grid>
     </div>
   );

@@ -3,8 +3,6 @@ const controller = require("../controllers");
 const { findResourceAndResourceFunction } = require("../middleware");
 
 router.get("/:resource", findResourceAndResourceFunction, async (req, res) => {
-  // console.log(res.locals.resource);
-  // console.log(res.locals.resourceFunction);
   try {
     res.json(
       await controller[res.locals.resource][res.locals.resourceFunction]()

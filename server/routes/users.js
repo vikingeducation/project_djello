@@ -1,25 +1,34 @@
 const router = require("express").Router();
-const localStorage = require("localStorage");
 const { generateToken, validateUser } = require("../controllers/users");
 
 router.post("/login", async (req, res) => {
   try {
     const userData = await generateToken(req.body.email, req.body.password);
-    localStorage.setItem("token", userData.token);
+    res.cookie("token", userData.token);
     res.json(userData);
   } catch (error) {
-    localStorage.setItem("token", null);
-    res.json({ error: error.message });
+    res.cookie("token", null);
+    res.json({ error: { name: error.name, message: error.message } });
   }
 });
 
 router.post("/authenticate", async (req, res) => {
   try {
-    if (!localStorage.getItem("token")) throw new Error("no token present");
-    let userData = await validateUser(localStorage.getItem("token"));
+    if (!req.cookies.token) throw new Error("no token present");
+    let userData = await validateUser(req.cookies.token);
     res.json({ _id: userData._id, email: userData.email, error: null });
   } catch (error) {
-    localStorage.getItem("token") = null;
+    res.cookie("token", null);
+    res.json({ error: error.message });
+  }
+});
+
+router.post("/logout", async (req, res) => {
+  try {
+    res.cookie("token", null);
+    res.json({ error: "user has logged out successfully" });
+  } catch (error) {
+    res.cookie("token", null);
     res.json({ error: error.message });
   }
 });

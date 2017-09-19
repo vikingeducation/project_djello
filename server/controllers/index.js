@@ -1,5 +1,6 @@
 module.exports = {
   Users: require("./users"),
   Lists: require("./lists"),
-  Cards: require("./cards")
+  Cards: require("./cards"),
+  Boards: require("./boards")
 };

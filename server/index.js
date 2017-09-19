@@ -18,6 +18,27 @@ app.set("port", process.env.PORT || 3001);
 const cors = require("cors");
 app.use(cors());
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+// const session = require("express-session");
+// app.set("trust proxy", 1); // trust first proxy
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     saveUninitialized: true,
+//     cookie: { maxAge: 60000 }
+//   })
+// );
+
+// const cookieSession = require("cookie-session");
+// app.set('trust proxy', 1) // trust first proxy
+//
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['token']
+// }))
+
 const apiRoutes = require("./routes/api");
 app.use("/djello/api", apiRoutes);
 

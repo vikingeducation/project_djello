@@ -7,8 +7,6 @@ function capFirstLetter(resource) {
 }
 
 const findResourceAndResourceFunction = (req, res, next) => {
-  console.log("made it to the middleware");
-
   const resource = capFirstLetter(req.params.resource);
   let action, resourceFunction;
   switch (req.method.toUpperCase()) {
@@ -28,8 +26,6 @@ const findResourceAndResourceFunction = (req, res, next) => {
   }
   res.locals.resourceFunction = resourceFunction;
   res.locals.resource = resource;
-  console.log(res.locals.resource);
-  console.log(res.locals.resourceFunction);
   next();
 };
 

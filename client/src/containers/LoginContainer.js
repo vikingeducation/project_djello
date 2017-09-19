@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import serialize from "form-serialize";
-// import { withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { UserActions } from "../actions";
 import Login from "../components/Login";
 import { BASE_URL } from "../actions/constants";
-// import io from "socket.io-client";
 
 class LoginContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       error_email: null,
       error_password: null
@@ -18,11 +17,7 @@ class LoginContainer extends Component {
   }
 
   componentWillMount() {
-    console.log("this.props: ", this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log("this.props: ", this.props);
+    this.props.loggedOutOnly();
   }
 
   onSubmitForm = async e => {
@@ -32,6 +27,7 @@ class LoginContainer extends Component {
     let result;
     try {
       result = await fetch(url, {
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
@@ -39,28 +35,19 @@ class LoginContainer extends Component {
         method: "POST",
         body: JSON.stringify(userData)
       });
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  onSubmitLogin = async e => {
-    e.preventDefault();
-    let url = `${BASE_URL}/users/authenticate`;
-    let result;
-    try {
-      result = await fetch(url, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        method: "POST"
-      });
 
       result = await result.json();
-      console.log("result: ", result);
-      if (!result.error) {
-        this.props.history.push("/");
+
+      if (!result.error && result._id && result.email) {
+        this.props.history.push("/board");
+      }
+
+      if (result.error) {
+        this.setState({
+          error_email: null,
+          error_password: null,
+          [result.error.name]: result.error.message
+        });
       }
     } catch (error) {
       throw error;
@@ -71,7 +58,8 @@ class LoginContainer extends Component {
     return (
       <Login
         onSubmitForm={this.onSubmitForm}
-        onSubmitLogin={this.onSubmitLogin}
+        error_email={this.state.error_email}
+        error_password={this.state.error_password}
       />
     );
   }
@@ -89,4 +77,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+);

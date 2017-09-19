@@ -41,9 +41,16 @@ const getUsers = async () => {
 const generateToken = async (email, password) => {
   try {
     const user = await getUser({ email });
-    if (!user) throw new Error("Cannot find user in database");
-    if (!user.validatePassword(password))
-      throw new Error("User password is incorrect");
+    if (!user) {
+      let error = new Error("Cannot find email in database");
+      error.name = "error_email";
+      throw error;
+    }
+    if (!user.validatePassword(password)) {
+      let error = new Error("User password is incorrect");
+      error.name = "error_password";
+      throw error;
+    }
 
     const token = jwt.sign({ _id: user._id, email }, process.env.SECRET, {
       expiresIn: "1d"
@@ -55,8 +62,7 @@ const generateToken = async (email, password) => {
       error: null
     };
   } catch (error) {
-    console.log(error);
-    return { error: error.message };
+    throw error;
   }
 };
 
