@@ -18,6 +18,16 @@ const ListSchema = new Schema(
   { timestamps: true }
 );
 
+const autoPopulateChildren = function(next) {
+  this.populate("cards");
+  next();
+};
+
+ListSchema.pre("findOne", autoPopulateChildren).pre(
+  "find",
+  autoPopulateChildren
+);
+
 const List = mongoose.model("List", ListSchema);
 
 module.exports = List;

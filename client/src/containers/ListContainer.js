@@ -8,9 +8,12 @@ class ListContainer extends Component {
     description: ""
   };
 
+  componentDidMount = async () => {};
+
   handleInputChange = e => this.setState({ description: e.target.value });
 
   render() {
+    console.log(this.props);
     return (
       <BoardList
         props={this.props}
@@ -28,7 +31,6 @@ class ListContainer extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     createCard: body => {
-      console.log(body);
       dispatch(createCard(body));
     }
   };

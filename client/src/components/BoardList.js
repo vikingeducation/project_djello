@@ -13,6 +13,13 @@ const BoardList = ({ props, handleInputChange, createCard }) =>
     <p>
       {props.title}
     </p>
+    <div>
+      {props.cards.map(card =>
+        <p>
+          card: {card.description}
+        </p>
+      )}
+    </div>
     <input type="text" onChange={handleInputChange} />
     <button onClick={createCard}>Save</button>
   </div>;

@@ -57,7 +57,7 @@ app.post("/api/lists", async (req, res) => {
     { _id: board_id },
     { $push: { lists: list } }
   );
-  const board = await Board.findById(board_id).populate("lists");
+  const board = await Board.findById(board_id).populate("lists lists.cards");
   res.json(board);
 });
 

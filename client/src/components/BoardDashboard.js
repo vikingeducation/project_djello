@@ -24,7 +24,6 @@ class BoardDashboard extends Component {
   handleAddList = () => this.setState({ formOpen: !this.state.formOpen });
 
   render() {
-    console.log(this.props);
     const { createList } = this.props;
     return (
       <PaperWrapper>
@@ -61,6 +60,7 @@ class BoardDashboard extends Component {
                     title={list.title}
                     key={list._id}
                     createCard={createCard}
+                    cards={list.cards}
                   />
                 )
               : null}
