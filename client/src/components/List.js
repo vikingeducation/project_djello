@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import Paper from "material-ui/Paper";
 import EditableTitle from "./EditableTitle";
 import CardContainer from "../containers/CardContainer";
+import Dialog from "material-ui/Dialog";
 
 class List extends Component {
 	constructor() {
 		super();
 		this.state = {
-			titleEdit: false
+			titleEdit: false,
+			card: null,
+			cardOpen: false
 		};
 	}
 
@@ -28,15 +31,24 @@ class List extends Component {
 		}
 	};
 
+	showCardModal = card => {
+		this.setState({ card: card, cardOpen: true });
+	};
+
+	closeCardModal = () => {
+		this.setState({ card: null, cardOpen: false });
+	};
+
 	render() {
 		return (
 			<Paper className="list">
 				<div className="title-grid">
 					<div>
-						<h3 onClick={this.toggleTitleEdit} onKeyPress={this.saveTitle}>
+						<h3 onKeyPress={this.saveTitle}>
 							<EditableTitle
 								editing={this.state.titleEdit}
 								title={this.props.title}
+								toggle={this.toggleTitleEdit}
 							/>
 						</h3>
 					</div>
@@ -56,7 +68,11 @@ class List extends Component {
 				{!this.props.cards ? null : (
 					<div>
 						{this.props.cards.map(card => (
-							<CardContainer key={card.id} card={card} />
+							<CardContainer
+								key={card.id}
+								card={card}
+								onClick={this.showCardModal}
+							/>
 						))}
 						<a
 							href=""
@@ -68,6 +84,16 @@ class List extends Component {
 							Add a Card
 						</a>
 					</div>
+				)}
+				{!this.state.card ? null : (
+					<Dialog
+						open={this.state.cardOpen}
+						onRequestClose={this.closeCardModal}
+						actions={<button onClick={this.closeCardModal}>Close</button>}
+					>
+						<h2>{this.state.card.title}</h2>
+						<p>{this.state.card.description}</p>
+					</Dialog>
 				)}
 			</Paper>
 		);
