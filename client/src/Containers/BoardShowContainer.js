@@ -4,45 +4,54 @@ import { getAllLists } from "../actions/list";
 import { getOneBoard } from "../actions/board";
 import Showable from "../Components/elements/Showable";
 import BoardNavContainer from "./BoardNavContainer";
+import Paper from "material-ui/Paper";
+import FlatButton from "material-ui/FlatButton";
+
 const loadingScreen = <div>Loading...</div>;
 
-const BoardNav = ({ board }) => {
+const style = {
+  width: 300,
+  margin: 20,
+  textAlign: "center",
+  display: "inline-block"
+};
+const paperStyle = {
+  margin: 5
+};
+
+const Board = ({ lists, newCard }) => {
+  if (!lists) return null;
+
   return (
     <div>
-      <h1>{board.title}</h1>
+      {lists.map(list => (
+        <List key={list._id} newCard={e => newCard(e, list._id)} {...list} />
+      ))}
     </div>
   );
 };
-const Board = ({ board, lists }) => {
-  const listsComponents = lists.map(list => <List key={list._id} {...list} />);
-  return (
-    <div>
-      <h1>Board: {board.title}</h1>
-      <ul>{listsComponents}</ul>
-    </div>
-  );
-};
-const List = props => {
+const List = ({ props, newCard }) => {
   const cards = props.cards.map(card => <Card key={card._id} {...card} />);
   return (
-    <div>
-      <h5>List: {props.title}</h5>
+    <Paper style={style}>
+      <h5>{props.title}</h5>
       <ul>{cards}</ul>
-    </div>
+      <FlatButton onClick={newCard} label="New" />
+    </Paper>
   );
 };
 const Card = props => {
   return (
-    <div>
-      <h5>Card: {props.title}</h5>
-    </div>
+    <Paper style={paperStyle}>
+      <p>{props.title}</p>
+    </Paper>
   );
 };
 
 class BoardShowContainer extends React.Component {
   constructor(props) {
     super(props);
-    console.log("location = ", this.props.location);
+    // console.log("location = ", this.props.location);
     //TODO: reconsider this method of setting the boardId
     let location = this.props.location.pathname.split("/")[2];
     this.state = {
@@ -54,6 +63,10 @@ class BoardShowContainer extends React.Component {
       password: "a"
     };
   }
+  onNewCard = (e, listId) => {
+    console.log("making new card");
+    console.log("e.target", e.target, "\n list = ", listId);
+  };
   componentDidMount = async () => {
     //TODO: grab the user
     console.log("mounting boardShow");
@@ -67,25 +80,10 @@ class BoardShowContainer extends React.Component {
   };
   render() {
     console.log("boardShow props = ", this.props);
-    let boardComponent;
-    let boardNavComponent;
-    if (!this.state.loaded) {
-      if (this.props.board && this.props.lists) {
-        this.setState({ loaded: true });
-      }
-      boardComponent = null;
-      boardNavComponent = null;
-    } else {
-      boardComponent = (
-        <Board board={this.props.board} lists={this.props.lists} />
-      );
-      boardNavComponent = <BoardNavContainer />; //<BoardNav board={this.props.board} />;
-    }
-
     return (
       <Showable isFetching={this.props.isFetching}>
-        {boardNavComponent}
-        {boardComponent}
+        <BoardNavContainer />
+        <Board newCard={this.onNewCard} lists={this.props.lists} />
       </Showable>
     );
   }

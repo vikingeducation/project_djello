@@ -39,12 +39,6 @@ class BoardsIndexContainer extends React.Component {
     // this.props.getAllBoards({ username: "a", password: "a" });
     console.log(`deleting board ${id}`);
   };
-  // onSelectBoard = e => {
-  //   console.log("key = ", e.target.value);
-  //   console.log("e = ", e);
-  //   e.preventDefault();
-  //   // boards.find( (board) => return board._id == e.target.key)
-  // };
 
   render() {
     console.log("board props = ", this.props);
