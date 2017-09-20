@@ -5,8 +5,9 @@ import thunk from "redux-thunk";
 import user from "./user";
 import boards from "./boards";
 import current from "./current";
+import list from "./list";
 
-const reducers = combineReducers({ user, boards, current });
+const reducers = combineReducers({ user, boards, current, list });
 
 const store = createStore(
   reducers,

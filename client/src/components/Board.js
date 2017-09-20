@@ -53,9 +53,11 @@ const Board = ({ info, actions }) => (
       <Grid.Row>
         <Header as="h2">
           You don't have any boards...{" "}
-          <Button onClick={actions.onAddBoard} color="green">
-            Create One
-          </Button>
+          <NewModalContainer
+            buttonProps={{ color: "green" }}
+            buttonText="Create One"
+            type="board"
+          />
         </Header>
       </Grid.Row>
     </Showable>
@@ -70,7 +72,11 @@ const Board = ({ info, actions }) => (
           textAlign="center"
           verticalAlign="middle"
         >
-          <Button color="violet">Add a List</Button>
+          <NewModalContainer
+            buttonProps={{ color: "violet" }}
+            buttonText="Add a List"
+            type="list"
+          />
         </Grid.Column>
       </Grid.Row>
     </Showable>

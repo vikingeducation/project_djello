@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import React, { PureComponent } from "react";
 import { Button } from "semantic-ui-react";
 
-import { addBoard } from "../socket";
+import { addBoard, addList, addCard } from "../socket";
 
 import NewModal from "../components/NewModal";
 
@@ -40,7 +40,9 @@ class NewModalContainer extends PureComponent {
 }
 
 const handlerMap = {
-  board: addBoard
+  board: addBoard,
+  list: addList,
+  card: addCard
 };
 
 const mapStateToProps = (state, ownProps) => ({

@@ -1,5 +1,10 @@
 import io from "socket.io-client";
-import { userActions, boardActions, currentActions } from "./actions";
+import {
+  userActions,
+  boardActions,
+  currentActions,
+  listActions
+} from "./actions";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -29,7 +34,7 @@ export default ({ dispatch }) => {
   });
   socket.on("authFail", message => _logOut(dispatch, message));
 
-  // Current Board
+  // Board
   socket.on("getBoardSuccess", board => dispatch(currentActions.set(board)));
   socket.on("delBoardSuccess", boards => {
     dispatch(currentActions.clear());
@@ -40,6 +45,15 @@ export default ({ dispatch }) => {
     dispatch(currentActions.set(board));
   });
   socket.on("boardError", error => dispatch(currentActions.setError(error)));
+
+  // List
+  socket.on("getListSuccess", (list, board) => {
+    console.log("gls!");
+    dispatch(listActions.set(list));
+    dispatch(currentActions.set(board));
+  });
+
+  socket.on("listError", error => dispatch(listActions.set(error)));
 };
 
 // Event Emitters
@@ -54,7 +68,7 @@ export const tokenAuth = () => dispatch => {
 };
 export const logOut = message => dispatch => _logOut(dispatch, message);
 
-// Update Current Board
+// Board
 export const getBoard = slug => dispatch => {
   console.log("get: ", slug);
   dispatch(currentActions.setFetching());
@@ -69,4 +83,15 @@ export const addBoard = title => dispatch => {
   console.log("add", title);
   dispatch(currentActions.setFetching());
   socket.emit("addBoard", title);
+};
+
+// List
+export const addList = title => dispatch => {
+  console.log("Add List: ", title);
+  dispatch(listActions.setFetching());
+  socket.emit("addList", title);
+};
+
+export const addCard = title => dispatch => {
+  console.log("Add Card: ", title);
 };
