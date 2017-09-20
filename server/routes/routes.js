@@ -29,6 +29,9 @@ router.get('/api/v1/users/:id', (req, res)=>{
         populate: {
           path: "cards",
           populate: {
+            path: "activities"
+          },
+          populate: {
             path: "users"
           }
         }

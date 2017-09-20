@@ -11,14 +11,14 @@ export function getUserRequest() {
 export function getUserSuccess(data) {
   return {
     type: GET_USER_SUCCESS,
-    data
+    payload: data
   };
 }
 
 export function getUserFailure(error) {
   return {
     type: GET_USER_FAILURE,
-    error
+    error: error
   };
 }
 
