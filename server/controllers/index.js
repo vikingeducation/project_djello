@@ -66,7 +66,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   //default list: Bugs, To Implement, Planned Features, Feature Creep, Research, Suggested Features
 
   //bug list
-  let stockCards = Array(2)
+  let stockCards = Array(7)
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
@@ -77,7 +77,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   });
 
   //to implement list
-  stockCards = Array(2)
+  stockCards = Array(8)
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
@@ -87,7 +87,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   });
 
   //plannedfeatures list
-  stockCards = Array(2)
+  stockCards = Array(12)
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
@@ -97,7 +97,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   });
 
   //feature creep list
-  stockCards = Array(2)
+  stockCards = Array(22)
     .fill(1)
     .map(card => randoCard());
   stockCards = await Promise.all(stockCards);
