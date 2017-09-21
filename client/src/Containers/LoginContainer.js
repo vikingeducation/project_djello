@@ -3,8 +3,24 @@ import { connect } from "react-redux";
 import { validateUser } from "../actions/user";
 import { validateForm, validateEmail, validatePassword } from "../helpers.js";
 import LoginForm from "../Components/LoginForm";
+import Paper from "material-ui/Paper";
 
 import Showable from "../Components/elements/Showable";
+
+const centerForm = {
+  display: "flex",
+  "flex-direction": "column",
+  "text-align": "center",
+  height: "100vh",
+  "align-items": "center",
+  "justify-content": "center"
+};
+const style = {
+  height: 200,
+  width: 200,
+  margin: 20,
+  textAlign: "center"
+};
 
 class LoginContainer extends React.Component {
   constructor(props) {
@@ -23,56 +39,31 @@ class LoginContainer extends React.Component {
   };
   onChangeInput = async e => {
     let inputName = e.target.name;
-    this.setState({ [e.target.name]: e.target.value }, () => {
-      // let validateErrors = this.inputValidationHash[inputName]({
-      //   [inputName]: this.state[inputName]
-      // });
-      // if (validateErrors) {
-      //   this.setState({
-      //     errors: {
-      //       ...this.state.errors,
-      //       [inputName]: validateErrors[inputName]
-      //     }
-      //   });
-      // } else {
-      //   let error = this.state.errors;
-      //   delete error[inputName];
-      //   this.setState({
-      //     errors: error
-      //   });
-      // }
-    });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = e => {
     e.preventDefault();
     let validateErrors;
     this.formSuccess();
-    //VALIDATION DISABLED FOR TESTING
-    // if (!(validateErrors = validateForm(this.state))) {
-    //   this.formSuccess();
-    // } else {
-    //   this.formError(validateErrors);
-    // }
   };
 
   formSuccess = () => {
     //attempt to login with formdata
+    //pull user off the state
     const user = {
       username: this.state.username,
       password: this.state.password
     };
     this.props.validateUser(user);
-    this.setState(
-      {
-        success: true,
-        errors: {},
-        username: "",
-        password: "",
-        email: ""
-      },
-      () => console.log("Success!")
-    );
+    //reset the form
+    this.setState({
+      success: true,
+      errors: {},
+      username: "",
+      password: "",
+      email: ""
+    });
   };
 
   formError = errors => {
@@ -92,16 +83,17 @@ class LoginContainer extends React.Component {
     );
     return (
       <Showable isFetching={this.props.isFetching} loadScreen={loading}>
-        <div>
-          <h1>Login Component</h1>
-        </div>
-        <div>
+        <Paper style={centerForm}>
+          {/* <Paper style={style} zDepth={3}> */}
+          <h1>Login</h1>
+          <h4>Much Djello'ing awaits!</h4>
           <LoginForm
             onSubmit={this.onSubmit}
             onChangeInput={this.onChangeInput}
             {...this.state}
           />
-        </div>
+          {/* </Paper> */}
+        </Paper>
       </Showable>
     );
   }

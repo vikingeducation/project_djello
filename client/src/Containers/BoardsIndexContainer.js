@@ -6,9 +6,37 @@ import { FloatingActionButton } from "material-ui";
 import { createBoard, getAllBoards, deleteBoard } from "../actions/board";
 import NewBoardModal from "../Components/NewBoardModal";
 import Showable from "../Components/elements/Showable";
+import Paper from "material-ui/Paper";
 
 export const makeBoardShow = id => `/boards/${id}`;
 const loadingScreen = <div>Loading...</div>;
+
+const cardWrapper = {
+  display: "flex",
+  "flex-direction": "row",
+  "flex-wrap": "wrap",
+  "text-align": "center",
+  "align-items": "center",
+  "justify-content": "space-evenly",
+  height: "100vh"
+};
+// p {
+//   height: 30px;
+//   background-color: black;
+//   width: auto;
+//   color: white;
+// }
+// .box {
+//   width: 100px;
+//   height: 100px;
+//   margin: 20px;
+//   padding: 20px;
+//   box-sizing: border-box;
+// /*   align-self:center; */
+// }
+// .red {
+//   background-color: red;
+// }
 
 class BoardsIndexContainer extends React.Component {
   constructor(props) {
@@ -48,8 +76,10 @@ class BoardsIndexContainer extends React.Component {
       boards = this.props.boards.map(board => {
         const url = makeBoardShow(board._id);
         return (
-          <li key={board._id}>
-            <Link to={url}>{board.title}</Link>
+          <Paper zIndex={1} key={board._id}>
+            <Link to={url}>
+              <h1>{board.title}</h1>
+            </Link>
             <FloatingActionButton
               href={`${board._id}`} ///????????
               mini={true}
@@ -59,7 +89,7 @@ class BoardsIndexContainer extends React.Component {
             >
               <i className="material-icons">delete</i>
             </FloatingActionButton>
-          </li>
+          </Paper>
         );
       });
     }
@@ -79,10 +109,10 @@ class BoardsIndexContainer extends React.Component {
         >
           <h1>Nav Bar for a Board</h1>
           <p>Boards Index Page </p>
-          <ul>
+          <div style={cardWrapper}>
             {boards}
             {newBoardButton}
-          </ul>
+          </div>
         </Showable>
       </div>
     );

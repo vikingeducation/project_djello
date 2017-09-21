@@ -54,13 +54,14 @@ const blur = e => {
   console.log("blurring", e.target);
 };
 
+//TODO: ONBLUR EMPTY OUT THE TEXTFIELD
 const List = ({ cards, newCard, deleteList, deleteCard, title }) => {
   const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
   return (
     <Paper style={style}>
       <h5>{title}</h5>
       <FlatButton style={{ textAlign: "center" }} onClick={() => {}}>
-        <TextField onChange={() => {}} onBlur={blur} value={title} />
+        <TextField onChange={() => {}} onBlur={blur} defaultValue={title} />
       </FlatButton>
       <ul>{cardComponents}</ul>
       <FlatButton onClick={newCard} label="New" />
