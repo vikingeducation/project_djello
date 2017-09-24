@@ -14,11 +14,6 @@ import IconButton from "material-ui/IconButton";
 class BoardNavContainer extends React.Component {
   constructor() {
     super();
-    this.menuButton = (
-      <IconButton tooltip="switch boards" tooltipPosition="bottom-center">
-        <i className="material-icons">menu</i>
-      </IconButton>
-    );
   }
   render() {
     let boardTitle = null;
@@ -38,7 +33,9 @@ class BoardNavContainer extends React.Component {
         {/* user avatar here */}
         <ToolbarGroup>{boardTitle}</ToolbarGroup>
         <ToolbarGroup>
-          <DropDownMenu iconButton={this.menuButton}>{boardLinks}</DropDownMenu>
+          <DropDownMenu iconButton={<i className="material-icons">menu</i>}>
+            {boardLinks}
+          </DropDownMenu>
           <IconButton tooltip="settings" tooltipPosition="bottom-center">
             <i className="material-icons">settings</i>
           </IconButton>

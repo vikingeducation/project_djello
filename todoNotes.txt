@@ -6,10 +6,14 @@ add dashboard handler to dashboard icon to redirect you to a dashboard
 //LOGIN PAGE
 center form
 
+//LIST
+//edit the title
+//edit the description
+
 //board show page
 //drop down
   //notes:
-  the link is working but we're not setting board based on the url 
+  the link is working but we're not setting board based on the url
 
 //PERF PROFILER
 conditionally render only in testing mode

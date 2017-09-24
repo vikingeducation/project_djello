@@ -1,5 +1,5 @@
 const { User, Board, List } = require("../models");
-const { deleteList } = require("../controllers");
+const { updateList, deleteList } = require("../controllers");
 const router = require("express").Router();
 
 //this route path is mighty fishy feeling
@@ -34,6 +34,7 @@ router.post("/", async (req, res) => {
     const board = await Board.findById(boardId).populate("lists");
     const list = await List.create({
       title: name || "listy list list",
+      description: "11/10 would list again",
       cards: []
     });
     board.lists.push(list);
@@ -45,6 +46,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+//NOT IMPLEMENTED
+router.put("/:id", async (req, res) => {
+  try {
+    let list = req.body;
+    console.log("list from front-end = ", list);
+    const result = await updateList(req.params.id, list);
+    if (result) return res.sendStatus(204);
+    return res.sendStatus(404);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+});
 //NOT IMPLEMENTED
 router.put("/", async (req, res) => {
   return res.sendStatus(501);

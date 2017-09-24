@@ -39,6 +39,22 @@ const deleteList = async listId => {
     return e;
   }
 };
+//currently only allows updates on title and description
+const updateList = async (listId, newList) => {
+  try {
+    let list = await List.findById(listId);
+    console.log("list to update = ", list);
+    if (!list) return false;
+    console.log("list title = ", list.title);
+    list.title = newList.title;
+    list.description = newList.description;
+    await list.save();
+    return true;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
 const deleteBoard = async boardId => {
   try {
     Board.findByIdAndRemove(boardId);
@@ -73,6 +89,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
 
   const bugList = await List.create({
     title: "Bugs",
+    description: "11/10 would list again",
     cards: stockCards
   });
 
@@ -83,6 +100,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   stockCards = await Promise.all(stockCards);
   const implementList = await List.create({
     title: "To Implement",
+    description: "11/10 would list again",
     cards: stockCards
   });
 
@@ -93,6 +111,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   stockCards = await Promise.all(stockCards);
   const plannedList = await List.create({
     title: "Planned Features",
+    description: "11/10 would list again",
     cards: stockCards
   });
 
@@ -103,6 +122,7 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
   stockCards = await Promise.all(stockCards);
   const creepList = await List.create({
     title: "Feature Creep",
+    description: "11/10 would list again",
     cards: stockCards
   });
   //a default board
@@ -127,6 +147,7 @@ const randoCard = (() => {
 module.exports = {
   makeDefaultBoard,
   getFullUserData,
+  updateList,
   deleteCard,
   deleteList,
   deleteBoard

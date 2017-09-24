@@ -15,7 +15,7 @@ import {
 //   lists: null
 // };
 
-const board = (state = {}, action) => {
+const list = (state = {}, action) => {
   switch (action.type) {
     case START_REQUEST:
       return {
@@ -44,6 +44,17 @@ const board = (state = {}, action) => {
         isFetching: false,
         lists: newLists
       };
+    case UPDATE_LIST_SUCCESS:
+      console.log("updatin list in reducers = ", action.data);
+      const updatedLists = state.lists.map(list => {
+        if (list._id === action.data._id) return action.data;
+        return list;
+      });
+      return {
+        ...state,
+        isFetching: false,
+        lists: updatedLists
+      };
     case LIST_FAILURE:
       return {
         ...state,
@@ -54,4 +65,4 @@ const board = (state = {}, action) => {
       return state;
   }
 };
-export default board;
+export default list;

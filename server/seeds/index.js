@@ -36,6 +36,7 @@ seeder.seed({
     });
     const list = await List.create({
       title: "Suprah Awesome List",
+      description: "11/10 would list again",
       cards: [card, card2, randoCard()]
     });
     const board = await Board.create({
@@ -58,6 +59,7 @@ seeder.seed({
     });
     const list2 = await List.create({
       title: "Suprah Awesome List",
+      description: "11/10 would list again",
       cards: [card3, card4]
     });
     const board2 = await Board.create({
@@ -103,6 +105,7 @@ const createLists = async () => {
     .map(async () => {
       await List.create({
         title: "Suprah Awesome List",
+        description: "11/10 would list again",
         cards: await createCards()
       });
     });

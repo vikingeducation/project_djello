@@ -87,27 +87,34 @@ export const createList = (boardId, name = "new list") => async dispatch => {
     dispatch(listFailure(new Error("server disagrees with deleting")));
   }
 };
-// export const updateList = () => async dispatch => {
-//   dispatch(startRequest());
-//   let serverResponse;
-//   try {
-//     let headers = new Headers();
-//     headers.append("Content-type", "application/json");
-//     serverResponse = await fetch(`/lists/${listId}`, {
-//       headers,
-//       method: "DELETE",
-//       body: null
-//     });
-//   } catch (e) {
-//     console.error(e);
-//     dispatch(listFailure(e));
-//   }
-//   if (serverResponse.status === 200) {
-//     dispatch(deleteListSuccess(listId));
-//   } else {
-//     dispatch(listFailure(new Error("server disagrees with deleting")));
-//   }
-// };
+export const updateList = list => async dispatch => {
+  dispatch(startRequest());
+  let serverResponse;
+  let listId = "nananer";
+  console.log("attempting to update list = ", list);
+  try {
+    let headers = new Headers();
+    headers.append("Content-type", "application/json");
+    let data = JSON.stringify(list);
+    console.log("sending data = ", data);
+    serverResponse = await fetch(`/lists/${list._id}`, {
+      headers,
+      method: "PUT",
+      body: data
+    });
+  } catch (e) {
+    console.error(e);
+    dispatch(listFailure(e));
+  }
+  if (serverResponse.status === 200) {
+    list = await serverResponse.json();
+    dispatch(updateListSuccess(list));
+  } else if (serverResponse.status === 204) {
+    dispatch(updateListSuccess(list));
+  } else {
+    dispatch(listFailure(new Error("server disagrees with deleting")));
+  }
+};
 
 export const getAllLists = (userId, boardId) => async dispatch => {
   dispatch(startRequest());

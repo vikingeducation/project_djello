@@ -1,8 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAllLists, deleteList, createList } from "../actions/list";
+import {
+  updateList,
+  getAllLists,
+  deleteList,
+  createList
+} from "../actions/list";
 import { getOneBoard } from "../actions/board";
 import Showable from "../Components/elements/Showable";
+import Editable from "../Components/Editable";
 import BoardNavContainer from "./BoardNavContainer";
 import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
@@ -19,10 +25,13 @@ const style = {
 const paperStyle = {
   margin: 5
 };
+const hidden = {
+  display: "none"
+};
 
 //TODO: move these components out into their own files
 
-const Board = ({ lists, newCard, newList, deleteList, deleteCard }) => {
+const Board = ({ lists, newCard, newList, deleteList, deleteCard, edit }) => {
   if (!lists) return null;
   // console.log("board props = ", lists, newCard);
   return (
@@ -36,6 +45,8 @@ const Board = ({ lists, newCard, newList, deleteList, deleteCard }) => {
           deleteList={e => deleteList(e, list._id)}
           deleteCard={deleteCard}
           title={list.title}
+          description={list.description}
+          edit={e => edit(e, list._id)}
         />
       ))}
       <NewList id="newBtn" newList={newList} />
@@ -55,14 +66,24 @@ const blur = e => {
 };
 
 //TODO: ONBLUR EMPTY OUT THE TEXTFIELD
-const List = ({ cards, newCard, deleteList, deleteCard, title }) => {
+const List = ({
+  cards,
+  newCard,
+  deleteList,
+  deleteCard,
+  edit,
+  title,
+  description
+}) => {
   const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
   return (
     <Paper style={style}>
-      <h5>{title}</h5>
-      <FlatButton style={{ textAlign: "center" }} onClick={() => {}}>
-        <TextField onChange={() => {}} onBlur={blur} defaultValue={title} />
-      </FlatButton>
+      <Editable name="title" onSubmit={edit} text={title}>
+        <h5>{title}</h5>
+      </Editable>
+      <Editable name="description" onSubmit={edit} text={description}>
+        <h5>{description}</h5>
+      </Editable>
       <ul>{cardComponents}</ul>
       <FlatButton onClick={newCard} label="New" />
       <div>
@@ -136,10 +157,22 @@ class BoardShowContainer extends React.Component {
     //   body: null
     // });
   };
+  onEditList = (e, listId) => {
+    console.log("received data, ", e.target.value);
+    console.log("received data from , ", e.target.name);
+    e.stopPropagation();
+    e.preventDefault();
+    //DO THE REQUEST
+    console.log("found oldList = ", oldList);
+    let oldList = this.props.lists.find(list => list._id === listId);
+    console.log("found oldList = ", oldList);
+    oldList[e.target.name] = e.target.value;
+    this.props.updateList(oldList);
+  };
   componentDidMount = async () => {
     //TODO: grab the user
     console.log("mounting boardShow");
-    console.log("boardId = ", this.state.boardId);
+    // console.log("boardId = ", this.state.boardId);
     const user = {
       username: "a",
       password: "a"
@@ -158,6 +191,7 @@ class BoardShowContainer extends React.Component {
           lists={this.props.lists}
           deleteList={this.onDeleteList}
           deleteCard={this.onDeleteCard}
+          edit={this.onEditList}
         />
       </Showable>
     );
@@ -185,6 +219,9 @@ const mapDispatchToProps = dispatch => {
     },
     getOneBoard: (boardId, userId) => {
       dispatch(getOneBoard(boardId, userId));
+    },
+    updateList: list => {
+      dispatch(updateList(list));
     }
   };
 };

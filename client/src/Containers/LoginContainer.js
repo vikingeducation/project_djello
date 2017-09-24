@@ -9,11 +9,11 @@ import Showable from "../Components/elements/Showable";
 
 const centerForm = {
   display: "flex",
-  "flex-direction": "column",
-  "text-align": "center",
+  flexDirection: "column",
+  textAlign: "center",
   height: "100vh",
-  "align-items": "center",
-  "justify-content": "center"
+  alignItems: "center",
+  justifyContent: "center"
 };
 const style = {
   height: 200,

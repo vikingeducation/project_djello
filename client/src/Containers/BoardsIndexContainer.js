@@ -13,11 +13,11 @@ const loadingScreen = <div>Loading...</div>;
 
 const cardWrapper = {
   display: "flex",
-  "flex-direction": "row",
-  "flex-wrap": "wrap",
-  "text-align": "center",
-  "align-items": "center",
-  "justify-content": "space-evenly",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  textAlign: "center",
+  alignItems: "center",
+  justifyContent: "space-evenly",
   height: "100vh"
 };
 // p {
@@ -76,7 +76,7 @@ class BoardsIndexContainer extends React.Component {
       boards = this.props.boards.map(board => {
         const url = makeBoardShow(board._id);
         return (
-          <Paper zIndex={1} key={board._id}>
+          <Paper zDepth={1} key={board._id}>
             <Link to={url}>
               <h1>{board.title}</h1>
             </Link>
