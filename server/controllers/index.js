@@ -18,6 +18,7 @@ const createCard = async (listId, title = "SUCH CARDS") => {
   try {
     const card = await Card.create({
       title: title,
+      description: "things!!!!",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],
@@ -134,9 +135,10 @@ const makeDefaultBoard = async (name = "Sample Game Dev Board") => {
 };
 const randoCard = (() => {
   let counter = 0;
-  return async () => {
+  return () => {
     return Card.create({
       title: `card${counter++}`,
+      description: "stuff",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],

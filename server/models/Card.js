@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const CardSchema = new mongoose.Schema(
   {
     title: String,
+    description: String,
     comments: [
       {
         type: String

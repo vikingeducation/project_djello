@@ -22,6 +22,7 @@ seeder.seed({
     //stock users for testing
     const card = await Card.create({
       title: "Suprah Awesome Card",
+      description: "Amazement, pure DJELLOY goodness",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],
@@ -29,6 +30,7 @@ seeder.seed({
     });
     const card2 = await Card.create({
       title: "Suprah Awesome Card",
+      description: "Amazement, pure DJELLOY goodness",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],
@@ -45,6 +47,7 @@ seeder.seed({
     });
     const card3 = await Card.create({
       title: "Suprah Awesome Card",
+      description: "Amazement, pure DJELLOY goodness",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],
@@ -52,6 +55,7 @@ seeder.seed({
     });
     const card4 = await Card.create({
       title: "Suprah Awesome Card",
+      description: "Amazement, pure DJELLOY goodness",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],
@@ -91,6 +95,7 @@ const createCards = async () => {
     .map(async () => {
       Card.create({
         title: "Suprah Awesome Card",
+        description: "Such awesome, +++good",
         comments: ["Much cool"],
         activity: [],
         members: [],
@@ -127,6 +132,7 @@ const randoCard = (() => {
   return () => {
     return Card.create({
       title: `card${counter++}`,
+      description: "stuff",
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],
