@@ -24,9 +24,9 @@ const intialState = {
   },
   card: {
     isFetching: false,
-    error: null,
-    success: null,
-    cards: null
+    error: null
+    // success: null,
+    // cards: null
   },
   isFetching: false,
   error: null

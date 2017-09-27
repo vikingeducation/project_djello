@@ -3,6 +3,7 @@ export const GET_LISTS_SUCCESS = "GOT ALL THE LISTS";
 export const CREATE_LIST_SUCCESS = "SUCCESS CREATING A LIST";
 export const DELETE_LIST_SUCCESS = "SUCCESS DELETING A  LIST";
 export const UPDATE_LIST_SUCCESS = "SUCCESS UPDATING A LIST";
+export const GET_LIST_SUCCESS = "SUCCESS GETTING A LIST";
 export const LIST_FAILURE = "FAILURE WITH LISTS";
 
 const startRequest = () => {
@@ -15,6 +16,12 @@ const getListsSuccess = lists => {
   return {
     type: GET_LISTS_SUCCESS,
     data: lists
+  };
+};
+const getListSuccess = list => {
+  return {
+    type: GET_LIST_SUCCESS,
+    data: list
   };
 };
 const createListSuccess = list => {
@@ -116,6 +123,31 @@ export const updateList = list => async dispatch => {
   }
 };
 
+export const getOneList = listId => async dispatch => {
+  dispatch(startRequest());
+  console.log("fetching list ");
+  let list;
+  let serverResponse;
+  try {
+    //get one list
+    serverResponse = await fetch(`/lists/${listId}`);
+    console.log(`serverResponse = ${serverResponse}`);
+  } catch (e) {
+    console.log("error from fetching");
+    console.error(e);
+    dispatch(listFailure(e));
+  }
+  try {
+    list = await serverResponse.json();
+    console.log("server gave us lists = ", list);
+    dispatch(getListSuccess(list));
+  } catch (e) {
+    console.log("error from response parsing");
+    console.error(e);
+    dispatch(listFailure(e));
+  }
+  return true; //maybe?
+};
 export const getAllLists = (userId, boardId) => async dispatch => {
   dispatch(startRequest());
   console.log("fetching lists ");

@@ -13,22 +13,23 @@ const deleteCard = async cardId => {
     console.error(e);
     return e;
   }
-
-  /* test code
-  Card.findById(cardId)
-  Card.deleteOne({title: 'card0'}).then(lg)
-  Card.find().then(lg)
-  Card.deleteMany().then(lg)
-  Card.find().then(lg)
-  User.findOne({ username: "a" }).populate({
-    path: "boards",
-    populate: {
-      path: "lists",
-      populate: {
-        path: "cards"
-      }
-    }
-  }).then(user => console.log(user.boards.cards))*/
+};
+const createCard = async listId => {
+  try {
+    const card = await Card.create({
+      title: `SUCH NEW CARDS`,
+      comments: ["not implemented"],
+      activity: ["not implemented"],
+      members: ["not implemented"],
+      labels: ["not implemented"]
+    });
+    let list = await List.findById(listId);
+    list.cards.push(card);
+    list.save();
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
 };
 const deleteList = async listId => {
   try {
@@ -150,5 +151,23 @@ module.exports = {
   updateList,
   deleteCard,
   deleteList,
-  deleteBoard
+  deleteBoard,
+  createCard
 };
+// 59caf9398d21887e0b6d2171
+
+/* test code
+  Card.findById(cardId)
+  Card.deleteOne({title: 'card0'}).then(lg)
+  Card.find().then(lg)
+  Card.deleteMany().then(lg)
+  Card.find().then(lg)
+  User.findOne({ username: "a" }).populate({
+    path: "boards",
+    populate: {
+      path: "lists",
+      populate: {
+        path: "cards"
+      }
+    }
+  }).then(user => console.log(user.boards.cards))*/

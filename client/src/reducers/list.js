@@ -1,6 +1,7 @@
 import {
   START_REQUEST,
   GET_LISTS_SUCCESS,
+  GET_LIST_SUCCESS,
   CREATE_LIST_SUCCESS,
   DELETE_LIST_SUCCESS,
   UPDATE_LIST_SUCCESS,
@@ -27,6 +28,16 @@ const list = (state = {}, action) => {
         ...state,
         isFetching: false,
         lists: action.data
+      };
+    case GET_LIST_SUCCESS:
+      const lists = state.lists.map(list => {
+        if (list._id === action.data._id) return action.data;
+        return list;
+      });
+      return {
+        ...state,
+        isFetching: false,
+        lists: lists
       };
     case DELETE_LIST_SUCCESS:
       const filteredLists = state.lists.filter(

@@ -6,6 +6,7 @@ import {
   deleteList,
   createList
 } from "../actions/list";
+import { createCard } from "../actions/card";
 import { getOneBoard } from "../actions/board";
 import Showable from "../Components/elements/Showable";
 import Editable from "../Components/Editable";
@@ -120,12 +121,21 @@ class BoardShowContainer extends React.Component {
       password: "a"
     };
   }
-  onNewCard = (e, listId) => {
+  onNewCard = async (e, listId) => {
     console.log("making new card");
     console.log("e.target", e.target, "\n list = ", listId);
     e.stopPropagation();
     e.preventDefault();
     //make a card
+    let card = await this.props.createCard(listId);
+    console.log("card = ", card);
+    // const user = {
+    //   username: "a",
+    //   password: "a"
+    // };
+    // this.props.getOneBoard(this.state.boardId, user.username);
+    // this.props.getAllLists(user.username, this.state.boardId);
+
     //tell the server
     //refresh the page??
   };
@@ -217,11 +227,14 @@ const mapDispatchToProps = dispatch => {
     deleteList: listId => {
       dispatch(deleteList(listId));
     },
+    updateList: list => {
+      dispatch(updateList(list));
+    },
     getOneBoard: (boardId, userId) => {
       dispatch(getOneBoard(boardId, userId));
     },
-    updateList: list => {
-      dispatch(updateList(list));
+    createCard: card => {
+      dispatch(createCard(card));
     }
   };
 };

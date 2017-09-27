@@ -24,6 +24,20 @@ router.get("/", async (req, res) => {
   return res.json(board.lists);
 });
 
+//GET A LIST
+router.get("/:id", async (req, res) => {
+  //get the user
+  //authenticate
+  let list;
+  try {
+    list = await List.findById(req.params.id).populate("cards");
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+  return res.json(list);
+});
+
 //CREATE A LIST
 router.post("/", async (req, res) => {
   //grab the user and the name
@@ -46,7 +60,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//NOT IMPLEMENTED
+//NOT IMPLEMENTED     ///? or is it
 router.put("/:id", async (req, res) => {
   try {
     let list = req.body;

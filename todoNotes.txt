@@ -3,14 +3,18 @@
 check that login button does redirect you to login
 add dashboard handler to dashboard icon to redirect you to a dashboard
 
-//LOGIN PAGE
-center form
-
-//LIST
-//edit the title
-//edit the description
 
 //board show page
+  //arrange the lists better
+  //add some style
+
+//BOARD INDEX PAGE
+  //FIX THE STYLES
+  //REMOVE THE NAV BAR THING
+
+//NAV BAR
+  //add a user menu icon
+
 //drop down
   //notes:
   the link is working but we're not setting board based on the url
@@ -41,6 +45,9 @@ conditionally render only in testing mode
 //add a the routes for /user/:id/
 
 //SECURITY
+
+//PUT REQUESTS
+Change all successful put responses to send 201 with a link to the new resource
 
 
 //USER AUTHENTICATION

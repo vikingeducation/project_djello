@@ -1,6 +1,6 @@
 import {
   START_REQUEST,
-  CREATE_BOARD_SUCESS,
+  CREATE_BOARD_SUCCESS,
   BOARD_FAILURE,
   GET_BOARDS_SUCCESS,
   GET_BOARD_SUCCESS,
@@ -22,11 +22,10 @@ const board = (state = {}, action) => {
         isFetching: true,
         ...state
       };
-    case CREATE_BOARD_SUCESS:
+    case CREATE_BOARD_SUCCESS:
       return {
         ...state,
         isFetching: false
-        // board: action.data
       };
     case BOARD_FAILURE:
       return {

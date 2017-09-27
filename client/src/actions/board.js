@@ -2,7 +2,7 @@ export const START_REQUEST = "REQUESTING ACITON FROM SERVER";
 export const DELETE_REQUEST_SUCCESS = "SUCCESSFUL REQUEST";
 export const GET_BOARDS_SUCCESS = "GOT ALL THE BOARDS";
 export const GET_BOARD_SUCCESS = "GOT A BOARD";
-export const CREATE_BOARD_SUCESS = "BOARD SUCCESSFULLY CREATED";
+export const CREATE_BOARD_SUCCESS = "BOARD SUCCESSFULLY CREATED";
 export const BOARD_FAILURE = "FAILURE WITH BOARDS";
 
 const startRequest = () => {
@@ -25,7 +25,7 @@ const getBoardSuccess = board => {
 };
 const boardSuccess = board => {
   return {
-    type: CREATE_BOARD_SUCESS,
+    type: CREATE_BOARD_SUCCESS,
     data: board
   };
 };
@@ -130,7 +130,7 @@ export const createBoard = name => async dispatch => {
       body: json
     });
   } catch (e) {
-    console.log("error from fetching");
+    console.log("error from creating");
     console.error(e);
     dispatch(boardFailure(e));
   }
