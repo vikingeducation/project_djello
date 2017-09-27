@@ -1,5 +1,6 @@
 import React from "react";
 
+//TODO: CHANGE THIS TO LOADING OR SOMETHING
 const Showable = ({ isFetching, loadScreen, children }) => {
   loadScreen = loadScreen || <p>Loading...</p>;
   if (isFetching) {
@@ -10,3 +11,8 @@ const Showable = ({ isFetching, loadScreen, children }) => {
 };
 
 export default Showable;
+//
+// const Showable = ({ show, children }) => {
+//   if (show) return children;
+//   return null;
+// };

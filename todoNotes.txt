@@ -49,6 +49,8 @@ conditionally render only in testing mode
 //PUT REQUESTS
 Change all successful put responses to send 201 with a link to the new resource
 
+//CARDS
+Create default cards 
 
 //USER AUTHENTICATION
 start hashing password before storing in db

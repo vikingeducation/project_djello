@@ -25,12 +25,12 @@ const cardFailure = error => {
   };
 };
 
-export const createCard = listId => async dispatch => {
+export const createCard = (listId, title) => async dispatch => {
   dispatch(startRequest());
   let card;
   let serverResponse;
   try {
-    const data = JSON.stringify({ listId });
+    const data = JSON.stringify({ listId, title });
     let headers = new Headers();
     headers.append("Content-type", "application/json");
     serverResponse = await fetch("/cards", {

@@ -10,6 +10,7 @@ import { createCard } from "../actions/card";
 import { getOneBoard } from "../actions/board";
 import Showable from "../Components/elements/Showable";
 import Editable from "../Components/Editable";
+import Board from "../Components/Board";
 import BoardNavContainer from "./BoardNavContainer";
 import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
@@ -30,82 +31,6 @@ const hidden = {
   display: "none"
 };
 
-//TODO: move these components out into their own files
-
-const Board = ({ lists, newCard, newList, deleteList, deleteCard, edit }) => {
-  if (!lists) return null;
-  // console.log("board props = ", lists, newCard);
-  return (
-    <div>
-      {lists.map(list => (
-        <List
-          {...list}
-          key={list._id}
-          id={list._id}
-          newCard={e => newCard(e, list._id)}
-          deleteList={e => deleteList(e, list._id)}
-          deleteCard={deleteCard}
-          title={list.title}
-          description={list.description}
-          edit={e => edit(e, list._id)}
-        />
-      ))}
-      <NewList id="newBtn" newList={newList} />
-    </div>
-  );
-};
-
-const NewList = ({ cards, newList }) => {
-  return (
-    <Paper style={style}>
-      <FlatButton onClick={newList} label="New" />
-    </Paper>
-  );
-};
-const blur = e => {
-  console.log("blurring", e.target);
-};
-
-//TODO: ONBLUR EMPTY OUT THE TEXTFIELD
-const List = ({
-  cards,
-  newCard,
-  deleteList,
-  deleteCard,
-  edit,
-  title,
-  description
-}) => {
-  const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
-  return (
-    <Paper style={style}>
-      <Editable name="title" onSubmit={edit} text={title}>
-        <h5>{title}</h5>
-      </Editable>
-      <Editable name="description" onSubmit={edit} text={description}>
-        <h5>{description}</h5>
-      </Editable>
-      <ul>{cardComponents}</ul>
-      <FlatButton onClick={newCard} label="New" />
-      <div>
-        <FlatButton onClick={deleteList}>
-          <i className="material-icons">delete</i>
-        </FlatButton>
-      </div>
-    </Paper>
-  );
-};
-const Card = props => {
-  return (
-    <Paper style={paperStyle}>
-      <p>{props.title}</p>
-      {/* <FlatButton onClick={props.deleteCard}>
-        <i className="material-icons">delete</i>
-      </FlatButton> */}
-    </Paper>
-  );
-};
-
 class BoardShowContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -122,22 +47,10 @@ class BoardShowContainer extends React.Component {
     };
   }
   onNewCard = async (e, listId) => {
-    console.log("making new card");
-    console.log("e.target", e.target, "\n list = ", listId);
     e.stopPropagation();
     e.preventDefault();
     //make a card
-    let card = await this.props.createCard(listId);
-    console.log("card = ", card);
-    // const user = {
-    //   username: "a",
-    //   password: "a"
-    // };
-    // this.props.getOneBoard(this.state.boardId, user.username);
-    // this.props.getAllLists(user.username, this.state.boardId);
-
-    //tell the server
-    //refresh the page??
+    let card = await this.props.createCard(listId, e.target.value);
   };
   onNewList = e => {
     console.log("making new list");
@@ -168,14 +81,10 @@ class BoardShowContainer extends React.Component {
     // });
   };
   onEditList = (e, listId) => {
-    console.log("received data, ", e.target.value);
-    console.log("received data from , ", e.target.name);
     e.stopPropagation();
     e.preventDefault();
     //DO THE REQUEST
-    console.log("found oldList = ", oldList);
     let oldList = this.props.lists.find(list => list._id === listId);
-    console.log("found oldList = ", oldList);
     oldList[e.target.name] = e.target.value;
     this.props.updateList(oldList);
   };
@@ -233,8 +142,8 @@ const mapDispatchToProps = dispatch => {
     getOneBoard: (boardId, userId) => {
       dispatch(getOneBoard(boardId, userId));
     },
-    createCard: card => {
-      dispatch(createCard(card));
+    createCard: (listId, title) => {
+      dispatch(createCard(listId, title));
     }
   };
 };

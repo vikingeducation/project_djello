@@ -14,10 +14,10 @@ const deleteCard = async cardId => {
     return e;
   }
 };
-const createCard = async listId => {
+const createCard = async (listId, title = "SUCH CARDS") => {
   try {
     const card = await Card.create({
-      title: `SUCH NEW CARDS`,
+      title: title,
       comments: ["not implemented"],
       activity: ["not implemented"],
       members: ["not implemented"],

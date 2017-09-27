@@ -8,6 +8,8 @@ import TextField from "material-ui/TextField";
 //   textAlign: "center"
 // };
 
+//A click to edit in place component
+
 class Editable extends React.Component {
   constructor(props) {
     super(props);

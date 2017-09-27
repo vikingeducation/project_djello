@@ -12,11 +12,10 @@ router.get("/:id", async (req, res) => {
 //WORKING ON IT
 //CREATE A CARD
 router.post("/", async (req, res) => {
-  const { listId } = req.body;
-  console.log("listid = ", listId);
+  const { listId, title } = req.body;
   let card;
   try {
-    card = createCard(listId);
+    card = createCard(listId, title);
   } catch (e) {
     console.error(e);
     return res.sendStatus(500);
