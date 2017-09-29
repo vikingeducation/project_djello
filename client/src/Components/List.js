@@ -77,25 +77,34 @@ const style = {
 //   }
 // }
 const List = ({
+  id,
   cards,
   newCard,
   deleteList,
   deleteCard,
-  edit,
+  editList,
+  editCard,
   title,
   description
 }) => {
-  const cardComponents = cards.map(card => <Card key={card._id} {...card} />);
+  const cardComponents = cards.map(card => (
+    <Card
+      key={card._id}
+      {...card}
+      list={id}
+      edit={e => editCard(e, card._id, id)}
+    />
+  ));
   return (
     <Paper style={style}>
-      <Editable name="title" onSubmit={edit} text={title}>
+      <Editable name="title" onSubmit={editList} text={title}>
         <h5>{title}</h5>
       </Editable>
-      <Editable name="description" onSubmit={edit} text={description}>
+      <Editable name="description" onSubmit={editList} text={description}>
         <h5>{description}</h5>
       </Editable>
       <ul>{cardComponents}</ul>
-      <Editable name="description" onSubmit={newCard} text={description}>
+      <Editable onSubmit={newCard}>
         <FlatButton label="New" />
       </Editable>
       <div>

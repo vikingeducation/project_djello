@@ -107,8 +107,6 @@ class BoardsIndexContainer extends React.Component {
           isFetching={this.props.isFetching}
           loadingScreen={loadingScreen}
         >
-          <h1>Nav Bar for a Board</h1>
-          <p>Boards Index Page </p>
           <div style={cardWrapper}>
             {boards}
             {newBoardButton}

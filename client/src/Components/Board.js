@@ -19,7 +19,15 @@ const NewList = ({ cards, newList }) => {
   );
 };
 
-const Board = ({ lists, newCard, newList, deleteList, deleteCard, edit }) => {
+const Board = ({
+  lists,
+  newCard,
+  newList,
+  deleteList,
+  deleteCard,
+  editList,
+  editCard
+}) => {
   if (!lists) return null;
   return (
     <div>
@@ -33,7 +41,8 @@ const Board = ({ lists, newCard, newList, deleteList, deleteCard, edit }) => {
           deleteCard={deleteCard}
           title={list.title}
           description={list.description}
-          edit={e => edit(e, list._id)}
+          editList={e => editList(e, list._id)}
+          editCard={editCard}
         />
       ))}
       <NewList id="newBtn" newList={newList} />

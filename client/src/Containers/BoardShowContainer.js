@@ -1,13 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
+
+//REDUX RESOURCES
+import { getOneBoard } from "../actions/board";
 import {
   updateList,
   getAllLists,
   deleteList,
   createList
 } from "../actions/list";
-import { createCard } from "../actions/card";
-import { getOneBoard } from "../actions/board";
+import { createCard, updateCard } from "../actions/card";
+
+//COMPONENTS
 import Showable from "../Components/elements/Showable";
 import Editable from "../Components/Editable";
 import Board from "../Components/Board";
@@ -88,6 +92,18 @@ class BoardShowContainer extends React.Component {
     oldList[e.target.name] = e.target.value;
     this.props.updateList(oldList);
   };
+  onEditCard = (e, cardId, listId) => {
+    console.log("you changed something");
+    console.log(`${cardId} and ${e.target.value}, ${listId}`);
+    //find and update the appropriate card
+    let oldCard = this.props.lists.find(list => {
+      if (list._id === listId) {
+        return list.cards.find(card => card._id === cardId);
+      }
+    });
+    oldCard[e.target.name] = e.target.value;
+    this.props.editCard(oldCard);
+  };
   componentDidMount = async () => {
     //TODO: grab the user
     console.log("mounting boardShow");
@@ -110,7 +126,8 @@ class BoardShowContainer extends React.Component {
           lists={this.props.lists}
           deleteList={this.onDeleteList}
           deleteCard={this.onDeleteCard}
-          edit={this.onEditList}
+          editList={this.onEditList}
+          editCard={this.onEditCard}
         />
       </Showable>
     );
@@ -144,6 +161,9 @@ const mapDispatchToProps = dispatch => {
     },
     createCard: (listId, title) => {
       dispatch(createCard(listId, title));
+    },
+    editCard: (cardId, updatedCard) => {
+      dispatch(updateCard(cardId, updatedCard));
     }
   };
 };

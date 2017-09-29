@@ -1,8 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
-// import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
 import Paper from "material-ui/Paper";
+import Editable from "./Editable";
 
 const paperStyle = {
   margin: 5
@@ -15,6 +15,13 @@ class Card extends React.Component {
       open: false
     };
   }
+  // onChange = (e, attribute) => {
+  //   console.log("you changed something");
+  //   console.log(`${attribute} and ${e.target.value}`);
+  //   this.props.editCard();
+  // };
+
+  //material-ui modal methods
   onClose = e => {
     //things
     console.log("closing");
@@ -27,11 +34,13 @@ class Card extends React.Component {
   render() {
     const {
       onClose,
+      edit,
       title,
       description,
       activity,
       comments,
       members,
+      _id,
       labels
     } = this.props;
     return (
@@ -47,18 +56,21 @@ class Card extends React.Component {
             <h5>{title}</h5>
             <div>
               <h5>description</h5>
-              <p>{description}</p>
-              {/* <Editable name="description" onSubmit={edit} text={description}>
+              <Editable name="description" onSubmit={edit}>
                 <h5>{description}</h5>
-              </Editable> */}
+              </Editable>
             </div>
             <div>
               <h5>members</h5>
-              <p>{members}</p>
+              <Editable name="members" onSubmit={edit}>
+                <p>{members}</p>
+              </Editable>
             </div>
             <div>
               <h5>activity</h5>
-              <p>{activity}</p>
+              <Editable name="activity" onSubmit={edit}>
+                <h5>{activity}</h5>
+              </Editable>
             </div>
           </div>
         </Dialog>
@@ -88,5 +100,4 @@ class Card extends React.Component {
 //
 //   );
 // };
-
 export default Card;

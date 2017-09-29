@@ -32,6 +32,23 @@ const createCard = async (listId, title = "SUCH CARDS") => {
     return e;
   }
 };
+//how do I change a specific thing???
+//I can't just diff them
+//because your change could overwrite another user's change
+///////.....hmmmm.....
+const updateCard = async card => {
+  try {
+    let oldCard = await Card.findById(card._id);
+    if (!oldCard) return false;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+  oldCard.description = card.description;
+  oldCard.title = card.title;
+  await oldCard.save();
+  return card;
+};
 const deleteList = async listId => {
   try {
     return await List.findByIdAndRemove(listId);
@@ -151,6 +168,7 @@ module.exports = {
   makeDefaultBoard,
   getFullUserData,
   updateList,
+  updateCard,
   deleteCard,
   deleteList,
   deleteBoard,

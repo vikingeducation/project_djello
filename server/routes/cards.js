@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { createCard } = require("../controllers");
+const { createCard, updateCard } = require("../controllers");
 
 //NOT IMPLEMENTED
 router.get("/", async (req, res) => {
@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   res.sendStatus(501);
 });
-//WORKING ON IT
 //CREATE A CARD
 router.post("/", async (req, res) => {
   const { listId, title } = req.body;
@@ -22,13 +21,33 @@ router.post("/", async (req, res) => {
   }
   res.json(card);
 });
-//NOT IMPLEMENTED
+//WORKING ON IT
 router.put("/:id", async (req, res) => {
-  res.sendStatus(501);
+  let card = req.body;
+  try {
+    card = updateCard(card);
+    if (card) return res.json(card);
+    return res.sendStatus(404);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+  // res.json(card);
 });
 //NOT IMPLEMENTED
 router.delete("/:id", async (req, res) => {
   res.sendStatus(501);
+});
+
+//NOT ALLOWED
+router.put("/", async (req, res) => {
+  res.sendStatus(405);
+});
+router.patch("/", async (req, res) => {
+  res.sendStatus(405);
+});
+router.delete("/", async (req, res) => {
+  res.sendStatus(405);
 });
 
 module.exports = router;

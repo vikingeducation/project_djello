@@ -4,6 +4,7 @@ const path = require("path");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
 const mongoose = require("mongoose");
 const connect = require("./mongo");
@@ -16,8 +17,9 @@ const cardsRouter = require("./routes/cards");
 
 const app = express();
 
+app.use(helmet());
+
 // view engine setup
-// app.set("views", path.join(__dirname, "views"));
 const hbs = require("express-handlebars");
 app.engine("express-handlebars", hbs({ defaultLayout: "main" }));
 app.set("view engine", "hbs");

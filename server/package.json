@@ -20,6 +20,7 @@
     "express-handlebars": "^3.0.0",
     "faker": "^4.1.0",
     "hbs": "~4.0.1",
+    "helmet": "^3.8.2",
     "mongoose": "^4.11.11",
     "mongoose-unique-validator": "^1.0.6",
     "mongooseeder": "^2.0.5",
