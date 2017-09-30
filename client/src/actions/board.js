@@ -1,8 +1,8 @@
 export const START_REQUEST = "REQUESTING ACITON FROM SERVER";
-export const DELETE_REQUEST_SUCCESS = "SUCCESSFUL REQUEST";
 export const GET_BOARDS_SUCCESS = "GOT ALL THE BOARDS";
 export const GET_BOARD_SUCCESS = "GOT A BOARD";
 export const CREATE_BOARD_SUCCESS = "BOARD SUCCESSFULLY CREATED";
+export const DELETE_REQUEST_SUCCESS = "SUCCESSFULLY DELETED A BOARD";
 export const BOARD_FAILURE = "FAILURE WITH BOARDS";
 
 const startRequest = () => {
@@ -23,7 +23,7 @@ const getBoardSuccess = board => {
     data: board
   };
 };
-const boardSuccess = board => {
+const createBoardSuccess = board => {
   return {
     type: CREATE_BOARD_SUCCESS,
     data: board
@@ -35,10 +35,10 @@ const boardFailure = error => {
     data: error
   };
 };
-const deleteSuccess = () => {
+const deleteSuccess = boardId => {
   return {
     type: DELETE_REQUEST_SUCCESS,
-    data: null
+    data: boardId
   };
 };
 export const getOneBoard = (boardId, userId) => async dispatch => {
@@ -47,7 +47,7 @@ export const getOneBoard = (boardId, userId) => async dispatch => {
   let boards;
   let serverResponse;
   try {
-    serverResponse = await fetch(`/boards/${boardId}?user=${userId}`);
+    serverResponse = await fetch(`/boards/${boardId}`);
   } catch (e) {
     console.log("error from fetching");
     console.error(e);
@@ -67,7 +67,6 @@ export const getOneBoard = (boardId, userId) => async dispatch => {
 export const deleteBoard = (boardId, userID) => async dispatch => {
   dispatch(startRequest());
   console.log("deleting board");
-  let boards;
   let serverResponse;
   try {
     var headers = new Headers();
@@ -79,7 +78,7 @@ export const deleteBoard = (boardId, userID) => async dispatch => {
       body: null
     });
     console.log(`serverResponse = ${serverResponse}`);
-    dispatch(deleteSuccess());
+    dispatch(deleteSuccess(boardId));
   } catch (e) {
     console.log("error from fetching");
     console.error(e);
@@ -95,7 +94,7 @@ export const getAllBoards = user => async dispatch => {
   try {
     //get all the boards
     // console.log("starting request ");
-    serverResponse = await fetch(`/boards?user=${user.username}`);
+    serverResponse = await fetch(`/users/${user.username}/boards`);
     // console.log(`serverResponse = ${serverResponse}`);
   } catch (e) {
     console.log("error from fetching");
@@ -113,6 +112,8 @@ export const getAllBoards = user => async dispatch => {
   }
 };
 
+//CREATE A BOARD FOR THE LOGGED IN USER
+//TODO: FIX THE READING HEADERS FROM SERVER RESPONSE PROBLEM
 export const createBoard = name => async dispatch => {
   dispatch(startRequest());
   let newBoard = {
@@ -120,25 +121,32 @@ export const createBoard = name => async dispatch => {
   };
   let serverResponse;
   try {
-    //TRY to make a board
+    //TODO:
     let headers = new Headers();
     headers.append("Content-type", "application/json");
     const json = JSON.stringify(newBoard);
-    serverResponse = await fetch("/boards", {
+    serverResponse = await fetch("/users/a/boards", {
       headers,
       method: "POST",
       body: json
     });
+    console.log("serverResponse, ", serverResponse);
   } catch (e) {
     console.log("error from creating");
     console.error(e);
     dispatch(boardFailure(e));
   }
   try {
-    console.log("serverResponse, ", serverResponse);
-    if (serverResponse.status == 200) {
-      newBoard = await serverResponse.json();
-      dispatch(boardSuccess(newBoard));
+    // console.log("serverResponse, ", serverResponse);
+    if (serverResponse.status >= 200 && serverResponse.status < 300) {
+      // console.log(
+      //   "serverResponse headers",
+      //   serverResponse.headers["content-location"]
+      // );
+      // let data = await serverResponse.json();
+      // console.log(`serverResponse = ${data.headers}`);
+      // console.log(data);
+      // dispatch(createBoardSuccess(newBoard));
     } else {
       //TODO: SET ERROR LATER
       console.log("error from server");

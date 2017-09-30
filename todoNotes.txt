@@ -10,7 +10,7 @@ add dashboard handler to dashboard icon to redirect you to a dashboard
 
 //BOARD INDEX PAGE
   //FIX THE STYLES
-  //REMOVE THE NAV BAR THING
+  //TODO: FIX THE READING HEADERS FROM SERVER RESPONSE PROBLEM
 
 //NAV BAR
   //add a user menu icon
@@ -42,7 +42,8 @@ conditionally render only in testing mode
 //add a socket pub/sub system
 
 //ROUTES
-//add a the routes for /user/:id/
+//REWORK ROUTE ENDPOINTS
+//REWORK THE RETURNS OF THE API ENDPOINTS TO BE RESTful
 
 //SECURITY
 
@@ -50,7 +51,7 @@ conditionally render only in testing mode
 Change all successful put responses to send 201 with a link to the new resource
 
 //CARDS
-Create default cards 
+Create default cards
 
 //USER AUTHENTICATION
 start hashing password before storing in db

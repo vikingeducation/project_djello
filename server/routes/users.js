@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User } = require("../models");
 const { getFullUserData } = require("../controllers");
+const { createBoard } = require("../controllers/boards");
 
 /* GET users listing. */
 router.get("/", (req, res, next) => {
@@ -49,6 +50,56 @@ router.post("/:id", async (req, res) => {
     //handle error
     return res.sendStatus(500);
   }
+});
+//NOT IMPLEMENTED
+router.put("/:id", async (req, res) => {
+  res.sendStatus(501);
+});
+//NOT IMPLEMENTED
+router.delete("/:id", async (req, res) => {
+  res.sendStatus(501);
+});
+
+//GET ALL THE BOARDS FOR A USER
+router.get("/:id/boards", async (req, res) => {
+  //TODO: implement user tokens
+  //grab the token
+  let user;
+  const userId = req.params.id;
+  try {
+    user = await getFullUserData({ username: userId });
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+  if (!user) return res.sendStatus(404);
+
+  return res.json(user.boards);
+});
+
+//CREATE A BOARD FOR A USER
+router.post("/:userId/boards", async (req, res) => {
+  //grab the user
+  console.log("making DA BOARDS !!!!!!");
+  let userId = req.params.userId;
+  let boardData = { name: "AMAZING NEW BOARD" };
+  if (Object.entries(req.body).length) {
+    boardData = req.body;
+  }
+  let board;
+  try {
+    board = await createBoard(userId, boardData);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(501);
+  }
+  res.append("content-type", "text/plain");
+  res.append("content-location", `/boards/$${board._id}`);
+  res.status(201);
+  res.end();
+  // return res.json({ location: createdBoard._id });
+  // res.json(board);
+  //return 201
 });
 
 module.exports = router;

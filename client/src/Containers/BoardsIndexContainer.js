@@ -20,28 +20,8 @@ const cardWrapper = {
   justifyContent: "space-evenly",
   height: "100vh"
 };
-// p {
-//   height: 30px;
-//   background-color: black;
-//   width: auto;
-//   color: white;
-// }
-// .box {
-//   width: 100px;
-//   height: 100px;
-//   margin: 20px;
-//   padding: 20px;
-//   box-sizing: border-box;
-// /*   align-self:center; */
-// }
-// .red {
-//   background-color: red;
-// }
 
 class BoardsIndexContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount = async () => {
     //TODO: grab the user
     console.log("mounting board");
@@ -63,7 +43,7 @@ class BoardsIndexContainer extends React.Component {
     e.preventDefault();
     this.props.deleteBoard(id, "a");
     //TODO: CHANGE THIS REFRESH BOARDS THING LATER
-    this.props.getAllBoards({ username: "a", password: "a" });
+    // this.props.getAllBoards({ username: "a", password: "a" });
     // this.props.getAllBoards({ username: "a", password: "a" });
     console.log(`deleting board ${id}`);
   };

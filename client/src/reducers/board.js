@@ -16,22 +16,12 @@ import {
 // };
 
 const board = (state = {}, action) => {
+  console.log("boardReducer; action = ", action.type);
   switch (action.type) {
     case START_REQUEST:
       return {
         isFetching: true,
         ...state
-      };
-    case CREATE_BOARD_SUCCESS:
-      return {
-        ...state,
-        isFetching: false
-      };
-    case BOARD_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        error: action.data
       };
     case GET_BOARDS_SUCCESS:
       return {
@@ -45,11 +35,28 @@ const board = (state = {}, action) => {
         isFetching: false,
         board: action.data
       };
-    case DELETE_REQUEST_SUCCESS:
+    case CREATE_BOARD_SUCCESS:
       return {
         ...state,
         isFetching: false
       };
+    case DELETE_REQUEST_SUCCESS:
+      const filteredBoards = state.boards.filter(board => {
+        if (board._id !== action.data) return board;
+      });
+      console.log("boards = ", filteredBoards);
+      return {
+        ...state,
+        boards: filteredBoards,
+        isFetching: false
+      };
+    case BOARD_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.data
+      };
+
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { validateUser } from "../actions/user";
-import { validateForm, validateEmail, validatePassword } from "../helpers.js";
+// import { validateForm, validateEmail, validatePassword } from "../helpers.js";
 import LoginForm from "../Components/LoginForm";
 import Paper from "material-ui/Paper";
 
@@ -33,10 +33,6 @@ class LoginContainer extends React.Component {
       email: ""
     };
   }
-  inputValidationHash = {
-    email: validateEmail,
-    password: validatePassword
-  };
   onChangeInput = async e => {
     let inputName = e.target.name;
     this.setState({ [e.target.name]: e.target.value });
@@ -44,19 +40,11 @@ class LoginContainer extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    let validateErrors;
-    this.formSuccess();
-  };
-
-  formSuccess = () => {
-    //attempt to login with formdata
-    //pull user off the state
     const user = {
       username: this.state.username,
       password: this.state.password
     };
     this.props.validateUser(user);
-    //reset the form
     this.setState({
       success: true,
       errors: {},
@@ -64,16 +52,6 @@ class LoginContainer extends React.Component {
       password: "",
       email: ""
     });
-  };
-
-  formError = errors => {
-    this.setState(
-      {
-        success: false,
-        errors: errors
-      },
-      () => console.log("Errors!!")
-    );
   };
   render() {
     const loading = (
@@ -84,7 +62,6 @@ class LoginContainer extends React.Component {
     return (
       <Showable isFetching={this.props.isFetching} loadScreen={loading}>
         <Paper style={centerForm}>
-          {/* <Paper style={style} zDepth={3}> */}
           <h1>Login</h1>
           <h4>Much Djello'ing awaits!</h4>
           <LoginForm
@@ -92,7 +69,6 @@ class LoginContainer extends React.Component {
             onChangeInput={this.onChangeInput}
             {...this.state}
           />
-          {/* </Paper> */}
         </Paper>
       </Showable>
     );

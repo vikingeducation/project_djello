@@ -31,8 +31,6 @@ class App extends Component {
     // const loggedIn = TESTING ? true : this.props.user.loggedIn;
     const loggedIn = this.props.user.loggedIn;
     console.log("loggedIn = ", loggedIn, ", user = ", this.props.user);
-    const bIndexWithProps = () => <BoardsIndexContainer />;
-    const bShowWithProps = () => <BoardShowContainer />;
     return (
       <Router>
         <div className="App">
@@ -46,7 +44,7 @@ class App extends Component {
           <LoggedIn user={loggedIn}>
             <Switch>
               {/* boards index page */}
-              <Route exact path="/" render={bIndexWithProps} />
+              <Route exact path="/" component={BoardsIndexContainer} />
               {/* board show page */}
               <Route path="/boards/:id" component={BoardShowContainer} />
               {/* not found */}

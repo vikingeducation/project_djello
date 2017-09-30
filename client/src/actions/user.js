@@ -49,7 +49,7 @@ export const validateUser = user => async dispatch => {
       body: json
     });
 
-    if (apiData && apiData.status == 200) {
+    if (apiData && apiData.status === 200) {
       const data = await apiData.json();
       // console.log("user found, = ", data);
       //manipulate some info if need be

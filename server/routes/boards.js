@@ -3,23 +3,25 @@
 const router = require("express").Router();
 const { Board, User } = require("../models");
 const { makeDefaultBoard, getFullUserData } = require("../controllers");
+const {
+  createBoard,
+  getBoards,
+  deleteBoard
+} = require("../controllers/boards");
 
-//GET ALL THE BOARDS FOR A USER
-//boards for user 'a' = /boards?user=a
+//GET ALL THE BOARDS
+//TODO: CHANGE THIS TO ALLOW FOR PRIVACY SETTINGS LATER
 router.get("/", async (req, res) => {
-  //TODO: implement user tokens
-  //grab the token
-  let user;
-  const userId = req.query.user;
+  let boards;
   try {
-    user = await getFullUserData({ username: userId });
+    boards = await getBoards();
   } catch (e) {
     console.error(e);
     return res.sendStatus(500);
   }
-  if (!user) return res.sendStatus(404);
+  if (!boards) return res.sendStatus(404);
 
-  return res.json(user.boards);
+  return res.json(boards);
 });
 
 //GET A BOARD
@@ -58,7 +60,7 @@ router.get("/:id/lists", async (req, res) => {
   //get the user
   //authenticate
   const boardId = req.params.board;
-  const userId = req.query.user;
+  // const userId = req.query.user;
   let board;
   try {
     board = await Board.findById(boardId).populate({
@@ -79,41 +81,32 @@ router.get("/:id/lists", async (req, res) => {
 router.delete(`/:id`, async (req, res) => {
   console.log("deleting");
   let boardId = req.params.id;
-  const userId = req.query.user;
-  let selectedBoard;
-  try {
-    user = await getFullUserData({ username: userId });
-
-    if (!user) return res.sendStatus(404);
-
-    //delete the board
-    await Board.remove({ _id: boardId });
-    //remove the reference from user
-    user.boards = user.boards.filter(board => {
-      return !(boardId == board._id);
-    });
-
-    await user.save();
-    // await User.find().then(console.log);
-  } catch (e) {
-    console.error(e);
-    return res.sendStatus(500);
+  if (deleteBoard(boardId)) {
+    return res.json(boardId);
+  } else {
+    res.sendStatus(500);
   }
-  res.end(true);
 });
 
 //CREATE A BOARD
 router.post("/", async (req, res) => {
   //grab the user and the name
+  const user = {
+    username: "a"
+  };
+  const newBoard = req.body;
   try {
-    const user = await User.findOne({ username: "a" });
-    console.log("creating new board ");
-    const name = req.body.name;
-    //TODO: stop using default boards
-    const newBoard = await makeDefaultBoard(name);
-    user.boards.push(newBoard);
-    await user.save();
-    res.json(newBoard);
+    const createdBoard = createBoard(user, newBoard);
+    if (createdBoard) {
+      //TODO: MAKE RESTFUL LATER
+      res.status(201);
+      res.append("Content-Type", "text/plain");
+      res.append("Content-Location", `/boards/$${createdBoard._id}`);
+      return res.json({ location: createdBoard._id });
+      // // return res.end(`/boards/$${createdBoard._id}`);
+      // return res.json(createdBoard);
+    }
+    return res.sendStatus(500);
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
@@ -125,19 +118,7 @@ router.post("/", async (req, res) => {
 router.delete(`/`, async (req, res) => {
   console.log("deleting everything");
   try {
-    // user = await getFullUserData({ username: userId });
     //
-    // if (!user) return res.sendStatus(404);
-    //
-    // //delete the board
-    // await Board.remove({ _id: boardId });
-    // //remove the reference from user
-    // user.boards = user.boards.filter(board => {
-    //   return !(boardId == board._id);
-    // });
-    //
-    // await user.save();
-    // // await User.find().then(console.log);
   } catch (e) {
     console.error(e);
     return res.sendStatus(500);
