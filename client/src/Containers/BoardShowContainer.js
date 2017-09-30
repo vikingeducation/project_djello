@@ -87,6 +87,18 @@ class BoardShowContainer extends React.Component {
     oldCard[e.target.name] = e.target.value;
     this.props.editCard(oldCard);
   };
+  componentWillReceiveProps = async nextProps => {
+    const nextLocation = nextProps.location.pathname.split("/")[2];
+    if (this.state.boardId !== nextLocation) {
+      const user = {
+        username: "a",
+        password: "a"
+      };
+      this.props.getOneBoard(nextLocation, user.username);
+      this.props.getAllLists(user.username, nextLocation);
+      this.setState({ boardId: nextLocation });
+    }
+  };
   componentDidMount = async () => {
     //TODO: grab the user
     console.log("mounting boardShow");

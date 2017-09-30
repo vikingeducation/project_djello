@@ -1,10 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
+import { NavLink, Link } from "react-router-dom";
+
+//MATERIAL UI COMPONENTS
 import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
-import { Link } from "react-router-dom";
 import IconButton from "material-ui/IconButton";
+
+//STYLES
+import { activeLinkStyle, linkStyle } from "../styles/styles.js";
 
 class BoardNavContainer extends React.Component {
   render() {
@@ -14,9 +19,16 @@ class BoardNavContainer extends React.Component {
     }
     const boardLinks = this.props.boards.map(board => {
       return (
-        <Link key={board._id} to={`${board._id}`}>
-          <MenuItem value={board._id} primaryText={board.title} />
-        </Link>
+        <MenuItem key={board._id} value={board._id}>
+          <NavLink
+            to={`/boards/${board._id}`}
+            className="link"
+            activeStyle={activeLinkStyle}
+            style={linkStyle}
+          >
+            <span>{board.title}</span>
+          </NavLink>
+        </MenuItem>
       );
     });
 
@@ -38,7 +50,6 @@ class BoardNavContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state of lists, = ", state);
   return {
     board: state.board.board,
     boards: state.board.boards

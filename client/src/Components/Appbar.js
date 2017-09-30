@@ -22,11 +22,6 @@ class Logout extends Component {
 }
 
 class Appbar extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   // this.onLogout = props.onLogout;
-  //   // this.onLogin = props.onLogin;
-  // }
   render() {
     const { onLogout, onLogin } = this.props;
     const logBtn = this.props.loggedIn ? (
