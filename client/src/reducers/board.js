@@ -16,7 +16,6 @@ import {
 // };
 
 const board = (state = {}, action) => {
-  console.log("boardReducer; action = ", action.type);
   switch (action.type) {
     case START_REQUEST:
       return {

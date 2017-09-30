@@ -34,18 +34,11 @@ class BoardsIndexContainer extends React.Component {
   onCreateBoard = async (name = "newBoard YOOOO") => {
     console.log("createBoard called");
     this.props.createBoard(name);
-    //TODO: CHANGE THIS REFRESH BOARDS THING LATER
-    this.props.getAllBoards({ username: "a", password: "a" });
   };
-  //TODO: change this madness later
   onDeleteBoard = async (e, id) => {
     //TODO: experiment with doing this with hrefs
     e.preventDefault();
     this.props.deleteBoard(id, "a");
-    //TODO: CHANGE THIS REFRESH BOARDS THING LATER
-    // this.props.getAllBoards({ username: "a", password: "a" });
-    // this.props.getAllBoards({ username: "a", password: "a" });
-    console.log(`deleting board ${id}`);
   };
 
   render() {
@@ -98,7 +91,6 @@ class BoardsIndexContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state of boardssss, = ", state);
   return {
     ...state.board
   };

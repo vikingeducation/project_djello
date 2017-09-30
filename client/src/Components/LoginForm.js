@@ -7,14 +7,7 @@ const style = {
 };
 
 const LoginForm = props => {
-  const {
-    onSubmit,
-    onChangeInput,
-    success,
-    errors,
-    username,
-    password
-  } = props;
+  const { onSubmit, onChangeInput, username, password } = props;
   return (
     <form onSubmit={onSubmit}>
       <div>

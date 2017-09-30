@@ -5,10 +5,18 @@ import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
 
 const style = {
-  width: 300,
-  margin: 20,
+  width: "300px",
+  margin: "20px"
+};
+const flexBoard = {
+  display: "flex",
+  flexDirection: "row",
+  height: "100vh",
+  width: "auto",
   textAlign: "center",
-  display: "inline-block"
+  position: "absolute",
+  justifyContent: "space-evenly",
+  boxSizing: "border-box"
 };
 
 const NewList = ({ cards, newList }) => {
@@ -30,7 +38,7 @@ const Board = ({
 }) => {
   if (!lists) return null;
   return (
-    <div>
+    <div style={flexBoard}>
       {lists.map(list => (
         <List
           {...list}

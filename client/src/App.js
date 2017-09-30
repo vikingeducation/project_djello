@@ -11,6 +11,19 @@ import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
 
+const appBarStyle = {
+  position: "fixed",
+  height: "100px",
+  width: "100%"
+};
+const contentStyle = {
+  position: "absolute",
+  top: "100px",
+  height: "100%",
+  width: "100%",
+  left: "0px"
+};
+
 class App extends Component {
   constructor() {
     super();
@@ -35,31 +48,35 @@ class App extends Component {
       <Router>
         <div className="App">
           {/* <Dashboard /> */}
-          <Appbar
-            loggedIn={loggedIn}
-            onLogin={this.onLogin}
-            onLogout={this.onLogout}
-          />
-          {/* if logged in */}
-          <LoggedIn user={loggedIn}>
-            <Switch>
-              {/* boards index page */}
-              <Route exact path="/" component={BoardsIndexContainer} />
-              {/* board show page */}
-              <Route path="/boards/:id" component={BoardShowContainer} />
-              {/* not found */}
-              <Route render={() => <h1>Page not found</h1>} />
-            </Switch>
-          </LoggedIn>
-          {/* if not logged in */}
-          <div id="formContainer" className="flex-center">
-            <LoggedOut user={loggedIn}>
+          <div style={appBarStyle}>
+            <Appbar
+              loggedIn={loggedIn}
+              onLogin={this.onLogin}
+              onLogout={this.onLogout}
+            />
+          </div>
+          <div style={contentStyle}>
+            {/* if logged in */}
+            <LoggedIn user={loggedIn}>
               <Switch>
-                <Route exact path="/" component={LoginContainer} />
-                <Route path="*" render={() => <Redirect to="/" />} />
+                {/* boards index page */}
+                <Route exact path="/" component={BoardsIndexContainer} />
+                {/* board show page */}
+                <Route path="/boards/:id" component={BoardShowContainer} />
+                {/* not found */}
+                <Route render={() => <h1>Page not found</h1>} />
               </Switch>
-              {/* <LoginContainer /> */}
-            </LoggedOut>
+            </LoggedIn>
+            {/* if not logged in */}
+            <div id="formContainer" className="flex-center">
+              <LoggedOut user={loggedIn}>
+                <Switch>
+                  <Route exact path="/" component={LoginContainer} />
+                  <Route path="*" render={() => <Redirect to="/" />} />
+                </Switch>
+                {/* <LoginContainer /> */}
+              </LoggedOut>
+            </div>
           </div>
         </div>
       </Router>

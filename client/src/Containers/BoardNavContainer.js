@@ -1,20 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
-} from "material-ui/Toolbar";
+import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
 import { Link } from "react-router-dom";
 import IconButton from "material-ui/IconButton";
 
 class BoardNavContainer extends React.Component {
-  constructor() {
-    super();
-  }
   render() {
     let boardTitle = null;
     if (this.props.board) {

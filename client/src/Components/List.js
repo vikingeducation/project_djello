@@ -6,10 +6,12 @@ import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 
 const style = {
-  width: 300,
-  margin: 20,
+  width: "300px",
+  margin: "20px",
+  padding: "10px",
   textAlign: "center",
-  display: "inline-block"
+  // display: "inline-block",
+  flex: "none"
 };
 // //TODO: ONBLUR EMPTY OUT THE TEXTFIELD
 // class List extends React.Component {

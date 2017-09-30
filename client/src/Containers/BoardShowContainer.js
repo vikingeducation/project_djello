@@ -13,14 +13,14 @@ import { createCard, updateCard } from "../actions/card";
 
 //COMPONENTS
 import Showable from "../Components/elements/Showable";
-import Editable from "../Components/Editable";
+// import Editable from "../Components/Editable";
 import Board from "../Components/Board";
 import BoardNavContainer from "./BoardNavContainer";
-import Paper from "material-ui/Paper";
-import FlatButton from "material-ui/FlatButton";
-import TextField from "material-ui/TextField";
+// import Paper from "material-ui/Paper";
+// import FlatButton from "material-ui/FlatButton";
+// import TextField from "material-ui/TextField";
 
-const loadingScreen = <div>Loading...</div>;
+// const loadingScreen = <div>Loading...</div>;
 
 const style = {
   width: 300,
@@ -28,61 +28,44 @@ const style = {
   textAlign: "center",
   display: "inline-block"
 };
-const paperStyle = {
-  margin: 5
-};
-const hidden = {
-  display: "none"
-};
+// const paperStyle = {
+//   margin: 5
+// };
+// const hidden = {
+//   display: "none"
+// };
 
 class BoardShowContainer extends React.Component {
   constructor(props) {
     super(props);
-    // console.log("location = ", this.props.location);
     //TODO: reconsider this method of setting the boardId
     let location = this.props.location.pathname.split("/")[2];
     this.state = {
       boardId: location,
       loaded: false
     };
-    const user = {
-      username: "a",
-      password: "a"
-    };
   }
   onNewCard = async (e, listId) => {
     e.stopPropagation();
     e.preventDefault();
-    //make a card
-    let card = await this.props.createCard(listId, e.target.value);
+    this.props.createCard(listId, e.target.value);
   };
   onNewList = e => {
-    console.log("making new list");
-    console.log("e.target", e.target);
     e.stopPropagation();
     e.preventDefault();
     this.props.createList(this.props.board._id, null); //change
   };
   onDeleteList = (e, listId) => {
-    console.log("deleting a list");
-    console.log("e.target", e.target, "\n list = ", listId);
     e.stopPropagation();
     e.preventDefault();
     //attempting things test
     this.props.deleteList(listId);
   };
   onDeleteCard = (e, cardId) => {
-    console.log("making new list");
-    console.log("e.target", e.target, "\n list = ", cardId);
+    console.log("deleting a card");
     e.stopPropagation();
     e.preventDefault();
-    // let headers = new Headers();
-    // headers.append("Content-type", "application/json");
-    // fetch(`/cards/${cardId}`, {
-    //   headers,
-    //   method: "DELETE",
-    //   body: null
-    // });
+    //delete the card
   };
   onEditList = (e, listId) => {
     e.stopPropagation();
