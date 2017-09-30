@@ -11,14 +11,17 @@ import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
 
-const appBarStyle = {
+export const appBarStyle = {
   position: "fixed",
-  height: "100px",
+  height: "80px",
+  zIndex: "1",
+  top: 0,
+  left: 0,
   width: "100%"
 };
-const contentStyle = {
+export const contentStyle = {
   position: "absolute",
-  top: "100px",
+  top: appBarStyle.height,
   height: "100%",
   width: "100%",
   left: "0px"
@@ -97,4 +100,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

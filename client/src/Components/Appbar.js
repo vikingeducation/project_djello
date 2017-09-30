@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import FlatButton from "material-ui/FlatButton";
+import { appBarStyle } from "../App";
 
 import { Link } from "react-router-dom";
 
@@ -35,24 +36,23 @@ class Appbar extends Component {
     );
 
     return (
-      <div>
-        <AppBar
-          title="Djello"
-          iconElementLeft={
-            <Link to="/">
-              <IconButton tooltip="dashboard" tooltipPosition="bottom-center">
-                <i className="material-icons">dashboard</i>
-              </IconButton>
-            </Link>
-          }
-          iconElementRight={
-            <IconButton tooltip="settings" tooltipPosition="bottom-center">
-              <i className="material-icons">settings</i>
+      <AppBar
+        title="Djello"
+        iconElementLeft={
+          <Link to="/">
+            <IconButton tooltip="dashboard" tooltipPosition="bottom-center">
+              <i className="material-icons">dashboard</i>
             </IconButton>
-          }
-          iconElementRight={logBtn}
-        />
-      </div>
+          </Link>
+        }
+        iconElementRight={
+          <IconButton tooltip="settings" tooltipPosition="bottom-center">
+            <i className="material-icons">settings</i>
+          </IconButton>
+        }
+        iconElementRight={logBtn}
+        style={appBarStyle}
+      />
     );
   }
 }

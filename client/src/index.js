@@ -2,7 +2,7 @@
 //REACT
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { AppContainer } from "./App";
 
 //REACT-REDUX
 import { Provider } from "react-redux";
@@ -21,7 +21,7 @@ ReactDOM.render(
     <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <div>
         {/* <PerfProfiler /> */}
-        <App />
+        <AppContainer />
       </div>
     </MuiThemeProvider>
   </Provider>,
