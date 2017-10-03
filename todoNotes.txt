@@ -15,9 +15,9 @@ add dashboard handler to dashboard icon to redirect you to a dashboard
 //NAV BAR
   //add a user menu icon
 
-//drop down
-  //notes:
-  the link is working but we're not setting board based on the url
+//dropdown menu
+  //only changes route when text is clicked FIX IT
+
 
 //PERF PROFILER
 conditionally render only in testing mode
