@@ -97,11 +97,15 @@ router.post("/", async (req, res) => {
   const newBoard = req.body;
   try {
     const createdBoard = createBoard(user, newBoard);
+    console.log("making a board");
     if (createdBoard) {
       //TODO: MAKE RESTFUL LATER
       res.status(201);
       res.append("Content-Type", "text/plain");
       res.append("Content-Location", `/boards/$${createdBoard._id}`);
+      res.append("Location", `/boards/$${createdBoard._id}`);
+      console.log("res.headers = ", res.headers);
+      return res.sendStatus(201);
       return res.json({ location: createdBoard._id });
       // // return res.end(`/boards/$${createdBoard._id}`);
       // return res.json(createdBoard);

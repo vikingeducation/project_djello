@@ -1,5 +1,11 @@
 const router = require("express").Router();
-const { createCard, updateCard } = require("../controllers");
+const {
+  createCard,
+  getCard,
+  getCards,
+  updateCard,
+  deleteCard
+} = require("../controllers/cards");
 
 //NOT IMPLEMENTED
 router.get("/", async (req, res) => {
@@ -21,22 +27,30 @@ router.post("/", async (req, res) => {
   }
   res.json(card);
 });
-//WORKING ON IT
+
+//EDIT A CARD
 router.put("/:id", async (req, res) => {
-  let card = req.body;
+  let { card } = req.body;
   try {
-    card = updateCard(card);
-    if (card) return res.json(card);
+    newCard = await updateCard(card);
+    if (newCard) return res.json(newCard);
     return res.sendStatus(404);
   } catch (e) {
     console.error(e);
     return res.sendStatus(500);
   }
-  // res.json(card);
 });
 //NOT IMPLEMENTED
 router.delete("/:id", async (req, res) => {
-  res.sendStatus(501);
+  let deletedCard;
+  try {
+    deletedCard = await deleteCard(req.params.id);
+    if (!deletedCard) return res.sendStatus(404);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
+  res.json({ _id: deletedCard._id });
 });
 
 //NOT ALLOWED

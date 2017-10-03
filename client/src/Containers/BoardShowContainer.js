@@ -79,13 +79,12 @@ class BoardShowContainer extends React.Component {
     console.log("you changed something");
     console.log(`${cardId} and ${e.target.value}, ${listId}`);
     //find and update the appropriate card
-    let oldCard = this.props.lists.find(list => {
-      if (list._id === listId) {
-        return list.cards.find(card => card._id === cardId);
-      }
-    });
+    let list = this.props.lists.find(list => list._id === listId);
+    let oldCard = list.cards.find(card => card._id === cardId);
+    console.log("oldCard = ", oldCard);
+    //TODO: old card is already changed???
     oldCard[e.target.name] = e.target.value;
-    this.props.editCard(oldCard);
+    this.props.editCard(oldCard._id, oldCard);
   };
   componentWillReceiveProps = async nextProps => {
     const nextLocation = nextProps.location.pathname.split("/")[2];

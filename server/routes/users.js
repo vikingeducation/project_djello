@@ -82,21 +82,24 @@ router.post("/:userId/boards", async (req, res) => {
   //grab the user
   console.log("making DA BOARDS !!!!!!");
   let userId = req.params.userId;
+  ///
+  //set a default board if we didn't get one
   let boardData = { name: "AMAZING NEW BOARD" };
   if (Object.entries(req.body).length) {
     boardData = req.body;
   }
-  let board;
+  let createdBoard;
   try {
-    board = await createBoard(userId, boardData);
+    createdBoard = await createBoard(userId, boardData);
   } catch (e) {
     console.error(e);
     return res.sendStatus(501);
   }
-  res.append("content-type", "text/plain");
-  res.append("content-location", `/boards/$${board._id}`);
-  res.status(201);
-  res.end();
+  res.append("Content-Type", "text/plain");
+  res.append("Content-Location", `/boards/$${createdBoard._id}`);
+  res.append("Location", `/boards/$${createdBoard._id}`);
+  console.log("res.headers = ", res);
+  return res.sendStatus(201);
   // return res.json({ location: createdBoard._id });
   // res.json(board);
   //return 201

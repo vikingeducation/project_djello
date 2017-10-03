@@ -5,6 +5,9 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const cors = require("cors"); //hoping this solves me fetch issue
+
+require("dotenv").config();
 
 const mongoose = require("mongoose");
 const connect = require("./mongo");
@@ -18,6 +21,7 @@ const cardsRouter = require("./routes/cards");
 const app = express();
 
 app.use(helmet());
+app.use(cors()); //hoping this solves me fetch issue
 
 // view engine setup
 const hbs = require("express-handlebars");
@@ -40,6 +44,9 @@ app.use(async (req, res, next) => {
   }
   next();
 });
+
+//AUTH
+require("./services/session");
 
 //ROUTES
 app.use("/", indexRouter);
@@ -67,11 +74,11 @@ app.use(function(err, req, res, next) {
 });
 
 //CLOSE DB CONNECTION
-app.use(async (req, res, next) => {
-  if (mongoose.connection.readyState) {
-    await mongoose.disconnect();
-  }
-  next();
-});
+// app.use(async (req, res, next) => {
+//   if (mongoose.connection.readyState) {
+//     await mongoose.disconnect();
+//   }
+//   next();
+// });
 
 module.exports = app;

@@ -79,7 +79,7 @@ export const getCard = cardId => async dispatch => {
     ////
   }
 };
-export const updateCard = card => async dispatch => {
+export const updateCard = (cardId, card) => async dispatch => {
   dispatch(startRequest());
   let newCard;
   let serverResponse;
@@ -87,11 +87,13 @@ export const updateCard = card => async dispatch => {
     const data = JSON.stringify({ card });
     let headers = new Headers();
     headers.append("Content-type", "application/json");
-    serverResponse = await fetch(`/cards/${card._id}`, {
+    console.log("card = ", card);
+    serverResponse = await fetch(`/cards/${cardId}`, {
       headers,
       method: "PUT",
       body: data
     });
+    console.log("serverResponse = ", serverResponse);
   } catch (e) {
     console.log("error from editing");
     console.error(e);
@@ -100,6 +102,7 @@ export const updateCard = card => async dispatch => {
   try {
     if (serverResponse.status == 200) {
       newCard = await serverResponse.json();
+      console.log("newCard = ", newCard);
       //trying the RESTFUL api style now
       //update the list
       //do a fetch request the card now

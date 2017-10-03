@@ -64,28 +64,6 @@ export const getOneBoard = (boardId, userId) => async dispatch => {
   }
 };
 
-export const deleteBoard = (boardId, userID) => async dispatch => {
-  dispatch(startRequest());
-  console.log("deleting board");
-  let serverResponse;
-  try {
-    var headers = new Headers();
-    headers.append("Content-type", "application/json");
-    var json = JSON.stringify(boardId);
-    serverResponse = await fetch(`/boards/${boardId}?user=${userID}`, {
-      headers,
-      method: "DELETE",
-      body: null
-    });
-    console.log(`serverResponse = ${serverResponse}`);
-    dispatch(deleteSuccess(boardId));
-  } catch (e) {
-    console.log("error from fetching");
-    console.error(e);
-    dispatch(boardFailure(e));
-  }
-};
-
 export const getAllBoards = user => async dispatch => {
   dispatch(startRequest());
   console.log("fetching boards ");
@@ -107,6 +85,28 @@ export const getAllBoards = user => async dispatch => {
     dispatch(getBoardsSuccess(boards));
   } catch (e) {
     console.log("error from response parsing");
+    console.error(e);
+    dispatch(boardFailure(e));
+  }
+};
+
+export const deleteBoard = (boardId, userID) => async dispatch => {
+  dispatch(startRequest());
+  console.log("deleting board");
+  let serverResponse;
+  try {
+    var headers = new Headers();
+    headers.append("Content-type", "application/json");
+    var json = JSON.stringify(boardId);
+    serverResponse = await fetch(`/boards/${boardId}?user=${userID}`, {
+      headers,
+      method: "DELETE",
+      body: null
+    });
+    console.log(`serverResponse = ${serverResponse}`);
+    dispatch(deleteSuccess(boardId));
+  } catch (e) {
+    console.log("error from fetching");
     console.error(e);
     dispatch(boardFailure(e));
   }
@@ -139,6 +139,8 @@ export const createBoard = name => async dispatch => {
   try {
     // console.log("serverResponse, ", serverResponse);
     if (serverResponse.status >= 200 && serverResponse.status < 300) {
+      console.log("serverResponse = ");
+      console.log(serverResponse);
       // console.log(
       //   "serverResponse headers",
       //   serverResponse.headers["content-location"]
