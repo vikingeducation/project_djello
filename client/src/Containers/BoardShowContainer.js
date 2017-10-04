@@ -13,14 +13,8 @@ import { createCard, updateCard } from "../actions/card";
 
 //COMPONENTS
 import Showable from "../Components/elements/Showable";
-// import Editable from "../Components/Editable";
-import Board from "../Components/Board";
+import Board from "../Components/BoardShowComponents/Board";
 import BoardNavContainer from "./BoardNavContainer";
-// import Paper from "material-ui/Paper";
-// import FlatButton from "material-ui/FlatButton";
-// import TextField from "material-ui/TextField";
-
-// const loadingScreen = <div>Loading...</div>;
 
 const style = {
   width: 300,

@@ -1,6 +1,6 @@
 import React from "react";
 
-import List from "./List";
+import CardList from "./CardList";
 import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
 
@@ -40,7 +40,7 @@ const Board = ({
   return (
     <div style={flexBoard}>
       {lists.map(list => (
-        <List
+        <CardList
           {...list}
           key={list._id}
           id={list._id}
