@@ -14,7 +14,7 @@ const UserSchema = new Schema(
     // Properties
     token: { type: String },
     username: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true }
+    passwordHash: { type: String, required: true, select: false }
   },
   {
     timestamps: true
@@ -40,6 +40,16 @@ UserSchema.pre("remove", function(next) {
   ];
   Promise.all(updates).then(() => next());
 });
+
+const populateBoards = function(next) {
+  this.populate("boards");
+  next();
+};
+
+UserSchema.pre("find", populateBoards)
+  .pre("findOne", populateBoards)
+  .pre("findOneAndUpdate", populateBoards)
+  .pre("update", populateBoards);
 
 // Instance Methods
 UserSchema.methods.validPassword = function(password) {

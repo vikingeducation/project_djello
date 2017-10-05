@@ -1,12 +1,9 @@
 const authenticate = require("./auth");
-const boardActions = require("./boards");
-const cardActions = require("./cards");
-const listActions = require("./lists");
 
 const postAuthenticate = client => {
-  boardActions(client);
-  cardActions(client);
-  listActions(client);
+  require("./boards")(client);
+  require("./cards")(client);
+  require("./lists")(client);
 };
 
 const actions = io => {
@@ -14,10 +11,6 @@ const actions = io => {
     authenticate,
     postAuthenticate,
     timeout: "none"
-  });
-  io.on("connection", client => {
-    console.log("New connection!");
-    client.on("disconnect", () => console.log("Disconnected!"));
   });
 };
 

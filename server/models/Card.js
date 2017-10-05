@@ -34,6 +34,16 @@ CardSchema.pre("remove", function(next) {
   Promise.all(updates).then(() => next());
 });
 
+const populateAll = function(next) {
+  this.populate({ path: "members", model: "User", select: "username" });
+  next();
+};
+
+CardSchema.pre("find", populateAll)
+  .pre("findOne", populateAll)
+  .pre("findOneAndUpdate", populateAll)
+  .pre("update", populateAll);
+
 const Card = mongoose.model("Card", CardSchema);
 
 module.exports = Card;

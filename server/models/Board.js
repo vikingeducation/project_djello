@@ -32,6 +32,17 @@ BoardSchema.post("update", function(next) {
   this.remove({ members: { $size: 0 } }).then(() => next());
 });
 
+const populateAll = function(next) {
+  this.populate({ path: "lists" });
+  this.populate({ path: "members", select: "username" });
+  next();
+};
+
+BoardSchema.pre("find", populateAll)
+  .pre("findOne", populateAll)
+  .pre("findOneAndUpdate", populateAll)
+  .pre("update", populateAll);
+
 const Board = mongoose.model("Board", BoardSchema);
 
 module.exports = Board;

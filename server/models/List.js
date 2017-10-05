@@ -6,7 +6,7 @@ const ListSchema = new Schema(
   {
     // Relationships
     board: { type: Schema.Types.ObjectId, ref: "Board", required: true },
-    cards: [{ type: Schema.Types.ObjectId, ref: "List" }],
+    cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
 
     // Properties
     slug: { type: String, default: shortid.generate },
@@ -28,6 +28,16 @@ ListSchema.pre("remove", async function(next) {
   ];
   Promise.all(updates).then(() => next());
 });
+
+const populateAll = function(next) {
+  this.populate({ path: "cards" });
+  next();
+};
+
+ListSchema.pre("find", populateAll)
+  .pre("findOne", populateAll)
+  .pre("findOneAndUpdate", populateAll)
+  .pre("update", populateAll);
 
 const List = mongoose.model("List", ListSchema);
 
