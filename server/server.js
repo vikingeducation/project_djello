@@ -4,12 +4,13 @@ const io = require("socket.io")(server);
 
 // Connect to Mongoose
 const mongoose = require("mongoose");
-io.use((socket, next) => {
-  if (mongoose.connection.readyState) next();
-  else
-    require("./mongo")()
-      .then(() => next())
-      .catch(e => console.error(e.stack));
+io.use(async (socket, next) => {
+  try {
+    if (!mongoose.connection.readyState) await require("./mongo")();
+  } catch (error) {
+    console.error(error);
+  }
+  next();
 });
 
 // Handle Socket.io events
