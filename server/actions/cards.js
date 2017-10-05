@@ -1,5 +1,5 @@
 const { Card, List } = require("../models");
-const errorWrapper = require("./errors")("cardError");
+const errorHandler = require("./errors");
 
 const getCard = async (client, slug) => {
   const card = await Card.findOne({ slug }).populate("members activities");
@@ -10,7 +10,7 @@ const getCard = async (client, slug) => {
   }
 };
 
-const addCard = async (client, { title, slug }) => {
+const addCard = async (client, title, slug) => {
   let list = await List.findOne({ slug });
   const card = await Card.create({ title, list });
   if (card) {
@@ -40,7 +40,8 @@ const delCard = async (client, slug) => {
 };
 
 module.exports = client => {
-  client.on("getCard", errorWrapper(client, getCard));
-  client.on("addCard", errorWrapper(client, addCard));
-  client.on("delCard", errorWrapper(client, delCard));
+  const errorWrapper = errorHandler(client, "cardError");
+  client.on("getCard", errorWrapper(getCard));
+  client.on("addCard", errorWrapper(addCard));
+  client.on("delCard", errorWrapper(delCard));
 };

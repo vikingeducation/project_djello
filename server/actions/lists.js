@@ -1,5 +1,5 @@
 const { Board, List } = require("../models");
-const errorWrapper = require("./errors")("listError");
+const errorHandler = require("./errors");
 
 const getList = async (client, slug) => {
   const list = await List.findOne({ slug });
@@ -10,7 +10,7 @@ const getList = async (client, slug) => {
   }
 };
 
-const addList = async (client, { title, slug }) => {
+const addList = async (client, title, slug) => {
   let board = await Board.findOne({ slug });
   const list = await List.create({ board, title });
   if (list) {
@@ -36,7 +36,8 @@ const delList = async (client, slug) => {
 };
 
 module.exports = client => {
-  client.on("getList", errorWrapper(client, getList));
-  client.on("addList", errorWrapper(client, addList));
-  client.on("delList", errorWrapper(client, delList));
+  const errorWrapper = errorHandler(client, "listError");
+  client.on("getList", errorWrapper(getList));
+  client.on("addList", errorWrapper(addList));
+  client.on("delList", errorWrapper(delList));
 };

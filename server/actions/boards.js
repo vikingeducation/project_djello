@@ -1,5 +1,5 @@
 const { Board, User } = require("../models");
-const errorWrapper = require("./errors")("boardError");
+const errorHandler = require("./errors");
 
 const getBoard = async (client, slug) => {
   const board = await Board.findOne({ slug });
@@ -38,9 +38,10 @@ const delBoard = async (client, slug) => {
 };
 
 const boards = client => {
-  client.on("getBoard", errorWrapper(client, getBoard));
-  client.on("addBoard", errorWrapper(client, addBoard));
-  client.on("delBoard", errorWrapper(client, delBoard));
+  const errorWrapper = errorHandler(client, "boardError");
+  client.on("getBoard", errorWrapper(getBoard));
+  client.on("addBoard", errorWrapper(addBoard));
+  client.on("delBoard", errorWrapper(delBoard));
 };
 
 module.exports = boards;
