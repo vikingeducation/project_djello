@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
-import { getBoard } from "../socket";
+import { getBoard, addList } from "../socket";
 import Board from "../components/Board";
 
 class BoardContainer extends PureComponent {
@@ -29,13 +29,15 @@ class BoardContainer extends PureComponent {
     }
   }
 
+  onAddList = title => this.props.addList(this.props.slug)(title);
+
   info = () => ({
     boardsToShow: !!this.props.fallback,
     lists: this.props.lists,
     fetching: this.props.fetching
   });
 
-  render = () => <Board {...this.info()} />;
+  render = () => <Board {...this.info()} onAddList={this.onAddList} />;
 }
 
 const boardsSelector = state => state.user.boards;
@@ -60,7 +62,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getBoard: slug => dispatch(getBoard(slug))
+  getBoard: slug => dispatch(getBoard(slug)),
+  addList: boardSlug => title => dispatch(addList(title, boardSlug))
 });
 
 export default withRouter(

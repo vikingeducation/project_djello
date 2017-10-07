@@ -7,7 +7,7 @@ import Showable from "./elements/Showable";
 const BoardHeader = ({ info, actions }) => (
   <Grid.Row>
     <Grid.Column computer={6} tablet={8} mobile={16}>
-      <Header as="h1">{info.title || "Please select a board:"}</Header>
+      <Header as="h1">{info.title}</Header>
     </Grid.Column>
     <Grid.Column computer={6} tablet={8} mobile={16} textAlign="right">
       <Form>
@@ -26,7 +26,8 @@ const BoardHeader = ({ info, actions }) => (
         <NewModalContainer
           buttonProps={{ basic: true, size: "tiny", color: "green" }}
           buttonText="New"
-          type="board"
+          title="New board title:"
+          onCreate={actions.onAddBoard}
         />
       </Form>
     </Grid.Column>

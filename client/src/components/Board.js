@@ -5,7 +5,20 @@ import NewModalContainer from "../containers/NewModalContainer";
 import BoardHeaderContainer from "../containers/BoardHeaderContainer";
 import Showable from "./elements/Showable";
 
-const Board = ({ fetching, boardsToShow, lists }) => (
+const DEFAULTS = {
+  computer: 4,
+  tablet: 8,
+  mobile: 16,
+  style: { paddingBottom: "10px" }
+};
+
+const ListColumn = ({ props, children }) => (
+  <Grid.Column {...DEFAULTS} {...props}>
+    {children}
+  </Grid.Column>
+);
+
+const Board = ({ fetching, boardsToShow, lists, onAddList }) => (
   <Grid>
     <Loader active={fetching} />
     <BoardHeaderContainer />
@@ -22,24 +35,21 @@ const Board = ({ fetching, boardsToShow, lists }) => (
         </Header>
       </Grid.Row>
     </Showable>
-    <Showable condition={lists.length}>
-      <Grid.Row>
-        {lists.map(list => <List key={list.slug} list={list} />)}
-        <Grid.Column
-          computer={4}
-          tablet={8}
-          mobile={16}
-          textAlign="center"
-          verticalAlign="middle"
-        >
-          <NewModalContainer
-            buttonProps={{ color: "violet" }}
-            buttonText="Add a List"
-            type="list"
-          />
-        </Grid.Column>
-      </Grid.Row>
-    </Showable>
+    <Grid.Row>
+      {lists.map(list => (
+        <ListColumn key={list.slug}>
+          <List list={list} />
+        </ListColumn>
+      ))}
+      <ListColumn props={{ textAlign: "center", verticalAlign: "middle" }}>
+        <NewModalContainer
+          buttonProps={{ color: "violet" }}
+          buttonText="Add a List"
+          title="New list title:"
+          onCreate={onAddList}
+        />
+      </ListColumn>
+    </Grid.Row>
   </Grid>
 );
 

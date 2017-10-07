@@ -42,8 +42,7 @@ export default ({ dispatch }) => {
   socket.on("boardError", error => dispatch(boardActions.setError(error)));
 
   // List
-  socket.on("getListSuccess", (list, board) => {
-    dispatch(listActions.set(list));
+  socket.on("addListSuccess", board => {
     dispatch(boardActions.set(board));
   });
 
@@ -77,9 +76,9 @@ export const addBoard = title => dispatch => {
 };
 
 // List
-export const addList = title => dispatch => {
-  dispatch(listActions.setFetching());
-  socket.emit("addList", title);
+export const addList = (title, boardSlug) => dispatch => {
+  dispatch(boardActions.setFetching());
+  socket.emit("addList", title, boardSlug);
 };
 
 export const addCard = title => dispatch => {

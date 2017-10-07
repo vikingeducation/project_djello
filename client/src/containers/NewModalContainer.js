@@ -1,16 +1,15 @@
-import { connect } from "react-redux";
 import React, { PureComponent } from "react";
-import { Button } from "semantic-ui-react";
-
-import { addBoard, addList, addCard } from "../socket";
 
 import NewModal from "../components/NewModal";
 
 class NewModalContainer extends PureComponent {
-  state = {
-    title: "",
-    open: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      open: false
+    };
+  }
 
   handleClose = () => this.setState({ open: false });
   handleOpen = () => this.setState({ open: true });
@@ -22,36 +21,23 @@ class NewModalContainer extends PureComponent {
     }
   };
 
+  actions = {
+    handleClose: this.handleClose,
+    onChange: this.onChange,
+    onCreate: this.onCreate,
+    handleOpen: this.handleOpen
+  };
+
+  info = () => ({
+    buttonText: this.props.buttonText,
+    buttonProps: this.props.buttonProps || {},
+    modalTitle: this.props.title,
+    ...this.state
+  });
+
   render() {
-    return (
-      <span>
-        <Button {...this.props.buttonProps} onClick={this.handleOpen}>
-          {this.props.buttonText}
-        </Button>
-        <NewModal
-          {...this.state}
-          onChange={this.onChange}
-          onCreate={this.onCreate}
-          onClose={this.handleClose}
-        />
-      </span>
-    );
+    return <NewModal actions={this.actions} info={this.info()} />;
   }
 }
 
-const handlerMap = {
-  board: addBoard,
-  list: addList,
-  card: addCard
-};
-
-const mapStateToProps = (state, ownProps) => ({
-  buttonProps: ownProps.buttonProps,
-  buttonText: ownProps.buttonText
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onCreate: title => dispatch(handlerMap[ownProps.type](title))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewModalContainer);
+export default NewModalContainer;

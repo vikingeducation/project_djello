@@ -19,7 +19,7 @@ const addList = async (client, title, slug) => {
       { $push: { lists: list } },
       { new: true }
     );
-    client.emit("addListSuccess", list, board);
+    client.emit("addListSuccess", board);
   } else {
     throw new Error("Failed to add list");
   }

@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { createSelector } from "reselect";
 import { connect } from "react-redux";
 
-import { getBoard, delBoard } from "../socket";
+import { getBoard, delBoard, addBoard } from "../socket";
 import BoardHeader from "../components/BoardHeader";
 
 class BoardHeaderContainer extends PureComponent {
@@ -18,7 +18,8 @@ class BoardHeaderContainer extends PureComponent {
 
   actions = {
     onChangeBoard: this.onChangeBoard,
-    onDelBoard: this.onDelBoard
+    onDelBoard: this.onDelBoard,
+    onAddBoard: this.props.addBoard
   };
 
   render = () => <BoardHeader info={this.info()} actions={this.actions} />;
@@ -26,12 +27,11 @@ class BoardHeaderContainer extends PureComponent {
 
 const boardsSelector = state => state.user.boards;
 
-const untitled = "Click to edit title";
 const boardOptionsSelector = createSelector(boardsSelector, boards =>
   boards.map(board => ({
     key: board.slug,
     value: board.slug,
-    text: board.title === untitled ? "untitled" : board.title
+    text: board.title
   }))
 );
 
@@ -43,7 +43,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getBoard: slug => dispatch(getBoard(slug)),
-  delBoard: slug => dispatch(delBoard(slug))
+  delBoard: slug => dispatch(delBoard(slug)),
+  addBoard: title => dispatch(addBoard(title))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
