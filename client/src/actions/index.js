@@ -1,6 +1,5 @@
-import * as boardActions from "./boardActions";
 import * as userActions from "./userActions";
-import * as currentActions from "./currentActions";
+import * as boardActions from "./boardActions";
 import * as listActions from "./listActions";
 
-export { boardActions, userActions, currentActions, listActions };
+export { userActions, boardActions, listActions };

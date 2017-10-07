@@ -3,28 +3,26 @@ import { userActions } from "../actions";
 const defaultState = {
   username: "",
   authenticating: false,
-  authMessage: ""
+  authMessage: "",
+  boards: []
 };
 
 const user = (state = defaultState, action) => {
   switch (action.type) {
     case userActions.LOG_IN:
+      const { username, boards } = action.data;
       return {
-        username: action.data,
+        username,
+        boards,
         authenticating: false,
         authMessage: ""
       };
     case userActions.LOG_OUT:
-      return {
-        username: "",
-        authenticating: false,
-        authMessage: action.data
-      };
+      return { ...defaultState };
     case userActions.SET_AUTHENTICATING:
-      return {
-        ...state,
-        authenticating: true
-      };
+      return { ...state, authenticating: true };
+    case userActions.SET_BOARDS:
+      return { ...state, boards: action.data };
     default:
       return state;
   }

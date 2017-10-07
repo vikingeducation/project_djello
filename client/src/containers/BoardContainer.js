@@ -7,32 +7,30 @@ import { getBoard, delBoard, addBoard } from "../socket";
 import Board from "../components/Board";
 
 class BoardContainer extends PureComponent {
-  state = {
-    getting: ""
-  };
-
-  componentDidUpdate() {
-    const slug = this.props.match.params.slug;
-    if (!slug || (slug && !this.props.boardHash[slug])) {
-      const dest = this.props.boards.length
-        ? `/boards/${this.props.boards[0].slug}`
-        : "/boards";
-      if (dest !== this.props.history.location.pathname) {
-        this.props.history.push(dest);
+  boardPicker = props => {
+    if (!props.fetching) {
+      const slug = props.match.params.slug;
+      if (!slug || (slug && !props.boardHash[slug])) {
+        const dest = props.boards.length
+          ? `/boards/${props.boards[0].slug}`
+          : "/boards";
+        if (dest !== props.history.location.pathname) {
+          props.history.push(dest);
+        }
+      } else if (slug && slug !== props.current.slug) {
+        props.getBoard(slug);
       }
-    } else if (
-      slug &&
-      ![this.props.current.slug, this.state.getting].includes(slug)
-    ) {
-      this.setState({ getting: slug }, () => this.props.getBoard(slug));
     }
+  };
+  componentWillReceiveProps(nextProps) {
+    this.boardPicker(nextProps);
+  }
+  componentDidMount() {
+    this.boardPicker(this.props);
   }
 
   onChangeBoard = (e, { value }) => this.props.history.push(`/boards/${value}`);
-  onDelBoard = slug => () => {
-    this.props.delBoard(slug);
-    this.props.history.push("/boards");
-  };
+  onDelBoard = slug => () => this.props.delBoard(slug);
 
   actions = {
     onChangeBoard: this.onChangeBoard,
@@ -50,7 +48,7 @@ class BoardContainer extends PureComponent {
   render = () => <Board info={this.info()} actions={this.actions} />;
 }
 
-const boardsSelector = state => state.boards;
+const boardsSelector = state => state.user.boards;
 
 const untitled = "Click to edit title";
 const boardOptionsSelector = createSelector(boardsSelector, boards =>
@@ -70,10 +68,10 @@ const boardHashSelector = createSelector(boardsSelector, boards =>
 
 const mapStateToProps = state => ({
   boardHash: boardHashSelector(state),
-  boards: state.boards,
+  boards: state.user.boards,
   boardOptions: boardOptionsSelector(state),
-  current: state.current.board,
-  fetching: state.current.fetching
+  current: state.board.data,
+  fetching: state.board.fetching
 });
 
 const mapDispatchToProps = dispatch => ({

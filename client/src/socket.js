@@ -1,10 +1,5 @@
 import io from "socket.io-client";
-import {
-  userActions,
-  boardActions,
-  currentActions,
-  listActions
-} from "./actions";
+import { userActions, boardActions, listActions } from "./actions";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -14,7 +9,6 @@ const _logOut = (dispatch, message) => {
   localStorage.setItem("token", "");
   dispatch(userActions.logOut(message));
   dispatch(boardActions.clear());
-  dispatch(currentActions.clear());
 };
 
 const _auth = (dispatch, credentials) => {
@@ -29,28 +23,26 @@ export default ({ dispatch }) => {
   socket.on("connect", () => dispatch(tokenAuth()));
   socket.on("authSuccess", ({ username, token, boards }) => {
     localStorage.setItem("token", token);
-    dispatch(userActions.logIn(username));
-    dispatch(boardActions.set(boards));
+    dispatch(userActions.logIn(username, boards));
   });
   socket.on("authFail", message => _logOut(dispatch, message));
 
   // Board
-  socket.on("getBoardSuccess", board => dispatch(currentActions.set(board)));
+  socket.on("getBoardSuccess", board => dispatch(boardActions.set(board)));
   socket.on("delBoardSuccess", boards => {
-    dispatch(currentActions.clear());
-    dispatch(boardActions.set(boards));
+    dispatch(boardActions.clear());
+    dispatch(userActions.setBoards(boards));
   });
   socket.on("addBoardSuccess", (board, boards) => {
-    dispatch(boardActions.set(boards));
-    dispatch(currentActions.set(board));
+    dispatch(userActions.setBoards(boards));
+    dispatch(boardActions.set(board));
   });
-  socket.on("boardError", error => dispatch(currentActions.setError(error)));
+  socket.on("boardError", error => dispatch(boardActions.setError(error)));
 
   // List
   socket.on("getListSuccess", (list, board) => {
-    console.log("gls!");
     dispatch(listActions.set(list));
-    dispatch(currentActions.set(board));
+    dispatch(boardActions.set(board));
   });
 
   socket.on("listError", error => dispatch(listActions.set(error)));
@@ -70,24 +62,20 @@ export const logOut = message => dispatch => _logOut(dispatch, message);
 
 // Board
 export const getBoard = slug => dispatch => {
-  console.log("get: ", slug);
-  dispatch(currentActions.setFetching());
+  dispatch(boardActions.setFetching());
   socket.emit("getBoard", slug);
 };
 export const delBoard = slug => dispatch => {
-  console.log("del: ", slug);
-  dispatch(currentActions.setFetching());
+  dispatch(boardActions.setFetching());
   socket.emit("delBoard", slug);
 };
 export const addBoard = title => dispatch => {
-  console.log("add", title);
-  dispatch(currentActions.setFetching());
+  dispatch(boardActions.setFetching());
   socket.emit("addBoard", title);
 };
 
 // List
 export const addList = title => dispatch => {
-  console.log("Add List: ", title);
   dispatch(listActions.setFetching());
   socket.emit("addList", title);
 };

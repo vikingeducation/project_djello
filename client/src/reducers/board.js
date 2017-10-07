@@ -1,4 +1,4 @@
-import { listActions } from "../actions";
+import { boardActions } from "../actions";
 
 const defaultState = {
   data: {},
@@ -6,19 +6,19 @@ const defaultState = {
   error: ""
 };
 
-const current = (state = defaultState, action) => {
+const board = (state = defaultState, action) => {
   switch (action.type) {
-    case listActions.SET_LIST:
+    case boardActions.SET_BOARD:
       return { data: action.data, error: "", fetching: false };
-    case listActions.CLEAR_CURRENT:
+    case boardActions.CLEAR_BOARD:
       return { ...defaultState };
-    case listActions.SET_LIST_FETCH:
+    case boardActions.SET_BOARD_FETCH:
       return { ...state, fetching: true };
-    case listActions.SET_LIST_ERROR:
+    case boardActions.SET_BOARD_ERROR:
       return { ...state, fetching: false, error: action.data };
     default:
       return state;
   }
 };
 
-export default current;
+export default board;

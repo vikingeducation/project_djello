@@ -3,11 +3,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
 import user from "./user";
-import boards from "./boards";
-import current from "./current";
+import board from "./board";
 import list from "./list";
 
-const reducers = combineReducers({ user, boards, current, list });
+const reducers = combineReducers({ user, board, list });
 
 const store = createStore(
   reducers,
