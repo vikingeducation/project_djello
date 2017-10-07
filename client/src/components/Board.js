@@ -1,58 +1,19 @@
 import React from "react";
-import {
-  Grid,
-  Select,
-  Header,
-  Button,
-  Form,
-  Divider,
-  Loader
-} from "semantic-ui-react";
+import { Grid, Header, Divider, Loader } from "semantic-ui-react";
 import List from "./List";
 import NewModalContainer from "../containers/NewModalContainer";
+import BoardHeaderContainer from "../containers/BoardHeaderContainer";
 import Showable from "./elements/Showable";
 
-const Board = ({ info, actions }) => (
+const Board = ({ fetching, boardsToShow, lists }) => (
   <Grid>
-    <Loader active={info.fetching} />
-    <Grid.Row>
-      <Grid.Column computer={6} tablet={8} mobile={16}>
-        <Header as="h1">
-          {info.current.title || "Please select a board:"}
-        </Header>
-      </Grid.Column>
-      <Grid.Column computer={6} tablet={8} mobile={16} textAlign="right">
-        <Form>
-          <Form.Field>
-            <Select
-              onChange={actions.onChangeBoard}
-              placeholder="Select a board"
-              options={info.boards}
-            />
-          </Form.Field>
-          <Showable condition={info.current.slug}>
-            <Button
-              onClick={actions.onDelBoard(info.current.slug)}
-              basic
-              size="tiny"
-              color="red"
-            >
-              Delete
-            </Button>
-          </Showable>
-          <NewModalContainer
-            buttonProps={{ basic: true, size: "tiny", color: "green" }}
-            buttonText="New"
-            type="board"
-          />
-        </Form>
-      </Grid.Column>
-    </Grid.Row>
+    <Loader active={fetching} />
+    <BoardHeaderContainer />
     <Divider />
-    <Showable condition={!info.numBoards}>
+    <Showable condition={!boardsToShow}>
       <Grid.Row>
         <Header as="h2">
-          You don't have any boards...{" "}
+          <p>You don't have any boards...</p>
           <NewModalContainer
             buttonProps={{ color: "green" }}
             buttonText="Create One"
@@ -61,10 +22,9 @@ const Board = ({ info, actions }) => (
         </Header>
       </Grid.Row>
     </Showable>
-    <Showable condition={info.current.title}>
+    <Showable condition={lists.length}>
       <Grid.Row>
-        {info.current.lists &&
-          info.current.lists.map(list => <List key={list.slug} list={list} />)}
+        {lists.map(list => <List key={list.slug} list={list} />)}
         <Grid.Column
           computer={4}
           tablet={8}
