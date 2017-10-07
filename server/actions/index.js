@@ -26,7 +26,6 @@ const authenticate = async (client, data, callback) => {
           ? await User.findOne({ username })
           : null;
     }
-
     if (user) {
       client.user = user;
       client.emit("authSuccess", user);

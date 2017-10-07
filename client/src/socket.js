@@ -30,8 +30,10 @@ export default ({ dispatch }) => {
   // Board
   socket.on("getBoardSuccess", board => dispatch(boardActions.set(board)));
   socket.on("delBoardSuccess", boards => {
-    dispatch(boardActions.clear());
     dispatch(userActions.setBoards(boards));
+    boards.length
+      ? dispatch(getBoard(boards[0].slug))
+      : dispatch(boardActions.clear());
   });
   socket.on("addBoardSuccess", (board, boards) => {
     dispatch(userActions.setBoards(boards));

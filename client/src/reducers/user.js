@@ -18,7 +18,7 @@ const user = (state = defaultState, action) => {
         authMessage: ""
       };
     case userActions.LOG_OUT:
-      return { ...defaultState };
+      return { ...defaultState, authMessage: action.data };
     case userActions.SET_AUTHENTICATING:
       return { ...state, authenticating: true };
     case userActions.SET_BOARDS:

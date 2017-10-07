@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Segment, Divider, Button, Grid } from "semantic-ui-react";
+import { Header, Segment, Divider, Grid } from "semantic-ui-react";
 
 import NewModalContainer from "../containers/NewModalContainer";
 

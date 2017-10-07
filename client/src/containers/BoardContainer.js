@@ -3,39 +3,37 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
-import { getBoard, delBoard, addBoard } from "../socket";
+import { getBoard, delBoard } from "../socket";
 import Board from "../components/Board";
 
 class BoardContainer extends PureComponent {
-  boardPicker = props => {
-    if (!props.fetching) {
-      const slug = props.match.params.slug;
-      if (!slug || (slug && !props.boardHash[slug])) {
-        const dest = props.boards.length
-          ? `/boards/${props.boards[0].slug}`
-          : "/boards";
-        if (dest !== props.history.location.pathname) {
-          props.history.push(dest);
-        }
-      } else if (slug && slug !== props.current.slug) {
-        props.getBoard(slug);
-      }
-    }
-  };
+  // Set the route to match the current board
   componentWillReceiveProps(nextProps) {
-    this.boardPicker(nextProps);
-  }
-  componentDidMount() {
-    this.boardPicker(this.props);
+    const slug = nextProps.current.slug;
+    if (slug && slug !== this.props.current.slug) {
+      this.props.history.push(`/boards/${nextProps.current.slug}`);
+    } else if (!slug && this.props.match.params.slug) {
+      this.props.history.push("/boards");
+    }
   }
 
-  onChangeBoard = (e, { value }) => this.props.history.push(`/boards/${value}`);
+  // Fetch a board if specified/possible, or reset the route
+  componentDidMount() {
+    if (this.props.boards.length) {
+      let slug = this.props.match.params.slug;
+      slug = this.props.boardHash[slug] ? slug : this.props.boards[0].slug;
+      this.props.getBoard(slug);
+    } else {
+      this.props.history.replace("/boards");
+    }
+  }
+
+  onChangeBoard = (e, { value }) => this.props.getBoard(value);
   onDelBoard = slug => () => this.props.delBoard(slug);
 
   actions = {
     onChangeBoard: this.onChangeBoard,
-    onDelBoard: this.onDelBoard,
-    onAddBoard: this.props.addBoard
+    onDelBoard: this.onDelBoard
   };
 
   info = () => ({
@@ -76,8 +74,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getBoard: slug => dispatch(getBoard(slug)),
-  delBoard: slug => dispatch(delBoard(slug)),
-  addBoard: () => dispatch(addBoard())
+  delBoard: slug => dispatch(delBoard(slug))
 });
 
 export default withRouter(
