@@ -43,7 +43,7 @@ const deleteSuccess = boardId => {
 };
 export const getOneBoard = (boardId, userId) => async dispatch => {
   dispatch(startRequest());
-  // console.log("fetching one board ");
+  console.log("fetching one board ");
   let boards;
   let serverResponse;
   try {
@@ -55,7 +55,7 @@ export const getOneBoard = (boardId, userId) => async dispatch => {
   }
   try {
     let board = await serverResponse.json();
-    // console.log("successfully got a board = ", board);
+    console.log("successfully got a board = ", board);
     dispatch(getBoardSuccess(board));
   } catch (e) {
     console.log("error from response parsing");

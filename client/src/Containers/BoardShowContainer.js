@@ -83,31 +83,29 @@ class BoardShowContainer extends React.Component {
   componentWillReceiveProps = async nextProps => {
     const nextLocation = nextProps.location.pathname.split("/")[2];
     if (this.state.boardId !== nextLocation) {
-      const user = {
-        username: "a",
-        password: "a"
-      };
-      this.props.getOneBoard(nextLocation, user.username);
-      this.props.getAllLists(user.username, nextLocation);
+      this.setState({ loaded: false });
+      this.props.getOneBoard(nextLocation, this.props.userId);
+      this.props.getAllLists(this.props.userId, nextLocation);
       this.setState({ boardId: nextLocation });
+    } else if (!this.state.loaded) {
+      console.log("nextProps = ", nextProps);
+      if (nextProps.board && nextProps.lists) {
+        this.setState({ loaded: true });
+      }
     }
   };
   componentDidMount = async () => {
-    //TODO: grab the user
     console.log("mounting boardShow");
-    // console.log("boardId = ", this.state.boardId);
-    const user = {
-      username: "a",
-      password: "a"
-    };
-    this.props.getOneBoard(this.state.boardId, user.username);
-    this.props.getAllLists(user.username, this.state.boardId);
+    this.props.getOneBoard(this.state.boardId, this.props.userId);
+    this.props.getAllLists(this.props.userId, this.state.boardId);
   };
-  render() {
+  render = () => {
     console.log("boardShow props = ", this.props);
+    console.log("loaded = ", this.state.loaded);
+    if (!this.state.loaded) return <div>Loading</div>;
     return (
-      <Showable isFetching={this.props.isFetching}>
-        <BoardNavContainer />
+      <div>
+        <BoardNavContainer userId={this.props.userId} />
         <Board
           newCard={this.onNewCard}
           newList={this.onNewList}
@@ -117,9 +115,9 @@ class BoardShowContainer extends React.Component {
           editList={this.onEditList}
           editCard={this.onEditCard}
         />
-      </Showable>
+      </div>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => {

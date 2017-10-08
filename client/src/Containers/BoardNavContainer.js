@@ -8,12 +8,19 @@ import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
 import IconButton from "material-ui/IconButton";
 
+//ACTIONS
+import { getAllBoards } from "../actions/board";
+
 //STYLES
 import { activeLinkStyle, linkStyle } from "../styles/styles.js";
 
 class BoardNavContainer extends React.Component {
+  componentDidMount = async () => {
+    this.props.getAllBoards(this.props.userId);
+  };
   render() {
     let boardTitle = null;
+    if (!this.props.board || !this.props.boards) return null;
     if (this.props.board) {
       boardTitle = <ToolbarTitle text={this.props.board.title} />;
     }
@@ -50,13 +57,16 @@ class BoardNavContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log("board nav state = ", state);
   return {
     board: state.board.board,
     boards: state.board.boards
   };
 };
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    getAllBoards: userId => dispatch(getAllBoards(userId))
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardNavContainer);

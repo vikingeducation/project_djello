@@ -12,11 +12,15 @@ class NewBoardModal extends React.Component {
     };
   }
   handleOpen = e => {
-    this.setState({ open: true });
+    this.setState({ open: true, boardTitle: "" });
   };
   handleClose = e => {
-    this.setState({ open: false });
-    this.props.onSubmit(this.state.boardTitle);
+    if (this.state.boardTitle.length > 0) {
+      this.props.onSubmit(this.state.boardTitle);
+    } else {
+      //display error ?
+    }
+    this.setState({ open: false, boardTitle: "" });
   };
   onChange = e => {
     this.setState({ boardTitle: e.target.value });
