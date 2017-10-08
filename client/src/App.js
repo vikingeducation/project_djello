@@ -65,7 +65,7 @@ class App extends Component {
     this.props.logoutUser();
   };
   render = () => {
-    //if loggedIn === false kick them to /login
+    //my handling of log in things
     let needToLogin;
     if (this.state.loggedIn === undefined) {
       return <div>Logging You In Now</div>;

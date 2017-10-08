@@ -57,7 +57,6 @@ class BoardNavContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("board nav state = ", state);
   return {
     board: state.board.board,
     boards: state.board.boards

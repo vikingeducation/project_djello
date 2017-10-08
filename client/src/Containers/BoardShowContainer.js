@@ -52,11 +52,9 @@ class BoardShowContainer extends React.Component {
   onDeleteList = (e, listId) => {
     e.stopPropagation();
     e.preventDefault();
-    //attempting things test
     this.props.deleteList(listId);
   };
   onDeleteCard = (e, cardId) => {
-    console.log("deleting a card");
     e.stopPropagation();
     e.preventDefault();
     //delete the card
@@ -64,7 +62,7 @@ class BoardShowContainer extends React.Component {
   onEditList = (e, listId) => {
     e.stopPropagation();
     e.preventDefault();
-    //DO THE REQUEST
+    //
     let oldList = this.props.lists.find(list => list._id === listId);
     oldList[e.target.name] = e.target.value;
     this.props.updateList(oldList);
@@ -83,25 +81,24 @@ class BoardShowContainer extends React.Component {
   componentWillReceiveProps = async nextProps => {
     const nextLocation = nextProps.location.pathname.split("/")[2];
     if (this.state.boardId !== nextLocation) {
-      this.setState({ loaded: false });
+      //on changing to view a different board
+      this.setState({ loaded: false, boardId: nextLocation });
       this.props.getOneBoard(nextLocation, this.props.userId);
       this.props.getAllLists(this.props.userId, nextLocation);
-      this.setState({ boardId: nextLocation });
     } else if (!this.state.loaded) {
-      console.log("nextProps = ", nextProps);
+      //if we have a board and it's lists we're loaded
       if (nextProps.board && nextProps.lists) {
         this.setState({ loaded: true });
       }
     }
   };
+  //hydrate some data
   componentDidMount = async () => {
-    console.log("mounting boardShow");
     this.props.getOneBoard(this.state.boardId, this.props.userId);
     this.props.getAllLists(this.props.userId, this.state.boardId);
   };
+
   render = () => {
-    console.log("boardShow props = ", this.props);
-    console.log("loaded = ", this.state.loaded);
     if (!this.state.loaded) return <div>Loading</div>;
     return (
       <div>
@@ -121,7 +118,6 @@ class BoardShowContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state of lists, = ", state);
   return {
     ...state.board,
     ...state.list,

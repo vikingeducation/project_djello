@@ -124,7 +124,6 @@ export const createBoard = (boardName, userId) => async dispatch => {
       method: "POST",
       body: json
     });
-    console.log("serverResponse, ", serverResponse);
   } catch (e) {
     console.log("error from creating");
     console.error(e);
@@ -133,7 +132,6 @@ export const createBoard = (boardName, userId) => async dispatch => {
   try {
     if (serverResponse.status >= 200 && serverResponse.status < 300) {
       const newBoard = await serverResponse.json();
-      console.log("new board = ", newBoard);
       dispatch(createBoardSuccess(newBoard));
     } else {
       //TODO: SET ERROR LATER
