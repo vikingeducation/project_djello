@@ -15,6 +15,9 @@ add dashboard handler to dashboard icon to redirect you to a dashboard
 //NAV BAR
   //add a user menu icon
 
+//sessions
+  //fix the navigation, so you don't get bounced to '/'
+
 //dropdown menu
   //only changes route when text is clicked FIX IT
 
@@ -33,6 +36,9 @@ conditionally render only in testing mode
 
 ////    SERVER  ////////
 //TODO:
+
+//sessions
+  //implement real access tokens 
 
 //USER ENHANCEMENTS
 //add user profile images

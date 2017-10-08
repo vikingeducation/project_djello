@@ -30,12 +30,10 @@ router.get("/:id", async (req, res) => {
     return res.sendStatus(500);
   }
 });
-
 //CREATE A USER
-router.post("/:id", async (req, res) => {
-  const username = req.params.id;
+router.post("/", async (req, res) => {
+  //check availability of username?
   try {
-    //TODO: //attempt authentication
     let { username, password } = req.body;
     const user = await getFullUserData({ username: username });
     if (!user) {
@@ -51,6 +49,7 @@ router.post("/:id", async (req, res) => {
     return res.sendStatus(500);
   }
 });
+
 //NOT IMPLEMENTED
 router.put("/:id", async (req, res) => {
   res.sendStatus(501);

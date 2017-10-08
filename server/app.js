@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 const connect = require("./mongo");
 
 const indexRouter = require("./routes/index");
+const sessionRouter = require("./routes/sessions");
 const usersRouter = require("./routes/users");
 const boardsRouter = require("./routes/boards");
 const listsRouter = require("./routes/lists");
@@ -50,6 +51,7 @@ require("./services/session");
 
 //ROUTES
 app.use("/", indexRouter);
+app.use("/sessions", sessionRouter);
 app.use("/users", usersRouter);
 app.use("/boards", boardsRouter);
 app.use("/lists", listsRouter);

@@ -13,15 +13,18 @@ const seed = async () => {
     await connect();
     User.create({
       username: "Bob",
-      password: "blaahhh"
+      password: "blaahhh",
+      accessToken: "Dank"
     });
     User.create({
       username: "Karl",
-      password: "KarlRules"
+      password: "KarlRules",
+      accessToken: "Memez"
     });
     User.create({
       username: "a",
-      password: "a"
+      password: "a",
+      accessToken: "DankMemez"
     });
   }
 };

@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logoutUser } from "./actions/user";
-
 import { BrowserRouter as Router } from "react-router-dom";
 import { Redirect, Route, Switch } from "react-router-dom";
+
+//Components
 import LoginContainer from "./Containers/LoginContainer";
 import BoardsIndexContainer from "./Containers/BoardsIndexContainer";
 import BoardShowContainer from "./Containers/BoardShowContainer";
 import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
+//Actions
+import { logoutUser, getSession, DJELLO_SESSION } from "./actions/user";
 
+//random styles
 export const appBarStyle = {
   position: "fixed",
   height: "80px",
@@ -30,22 +33,22 @@ export const contentStyle = {
 class App extends Component {
   constructor() {
     super();
-    this.state = {};
   }
+  componentWillMount = async () => await this.sessionLogin();
+  sessionLogin = async () => {
+    console.log(localStorage.getItem(DJELLO_SESSION));
+    console.log("sessionLogin ", this.props);
+    let session = localStorage.getItem(DJELLO_SESSION);
+    if (session) await this.props.getSession(session);
+  };
   onLogout = e => {
-    //do a thing
-    console.log("logout = ", e);
-    console.log("this = ", this);
     this.props.logoutUser();
   };
   onLogin = e => {
     //do a thing
   };
   render = () => {
-    console.log("state in app = ", this.props);
-    // console.log("TESTING = ", TESTING);
-    // const loggedIn = TESTING ? true : this.props.user.loggedIn;
-    const loggedIn = this.props.user.loggedIn;
+    const loggedIn = this.props.user;
     console.log("loggedIn = ", loggedIn, ", user = ", this.props.user);
     return (
       <Router>
@@ -77,7 +80,6 @@ class App extends Component {
                   <Route exact path="/" component={LoginContainer} />
                   <Route path="*" render={() => <Redirect to="/" />} />
                 </Switch>
-                {/* <LoginContainer /> */}
               </LoggedOut>
             </div>
           </div>
@@ -88,6 +90,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log("app state = ", state);
   return {
     ...state
   };
@@ -96,7 +99,8 @@ const mapDispatchToProps = dispatch => {
   return {
     logoutUser: () => {
       dispatch(logoutUser());
-    }
+    },
+    getSession: session => dispatch(getSession(session))
   };
 };
 

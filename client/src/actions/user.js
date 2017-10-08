@@ -3,6 +3,7 @@ export const SUCCESS_CHECK_USER = "SUCCESS CHECK USER";
 export const LOGIN_USER = "LOG IN USER";
 export const LOGOUT_USER = "LOG OUT USER";
 export const FAILURE_CHECK_USER = "FAILURE CHECK USER";
+export const DJELLO_SESSION = "DJELLO_SESSION";
 
 const requestCheckUser = user => {
   return {
@@ -36,14 +37,19 @@ const failureCheckUser = err => {
     data: err
   };
 };
-
-export const validateUser = user => async dispatch => {
-  dispatch(requestCheckUser(user));
+//CREATE A NEW USER
+//TODO: IMPLEMENT THIS
+export const registerUser = userInfo => async dispatch => {
+  // dispatch(requestCheckUser(user));
   try {
     let headers = new Headers();
     headers.append("Content-type", "application/json");
+    const user = {
+      username: userInfo.username,
+      password: userInfo.password
+    };
     const json = JSON.stringify(user);
-    const apiData = await fetch(`/users/${user.username}`, {
+    const apiData = await fetch(`/users`, {
       headers,
       method: "POST",
       body: json
@@ -51,7 +57,9 @@ export const validateUser = user => async dispatch => {
 
     if (apiData && apiData.status === 200) {
       const data = await apiData.json();
-      // console.log("user found, = ", data);
+      console.log("user found, = ", data);
+      //create the localSession with the token given
+
       //manipulate some info if need be
       const user = data;
       // console.log("user = ", user);
@@ -66,4 +74,82 @@ export const validateUser = user => async dispatch => {
   }
   return null;
 };
-// export default validateUser;
+//LOGIN A USER
+//TODO: IMPLEMENT THIS
+export const validateUser = user => async dispatch => {
+  dispatch(requestCheckUser(user));
+  try {
+    let headers = new Headers();
+    headers.append("Content-type", "application/json");
+    const json = JSON.stringify(user);
+    const apiData = await fetch(`/sessions`, {
+      headers,
+      method: "POST",
+      body: json
+    });
+
+    if (apiData && apiData.status === 200) {
+      const data = await apiData.json();
+      console.log("user found, = ", data);
+      //create the localSession with the token given
+
+      //manipulate some info if need be
+      const user = data;
+      const sessionData = {
+        accessToken: data.accessToken,
+        username: data.username
+      };
+      localStorage.setItem(DJELLO_SESSION, sessionData);
+      dispatch(successCheckUser(user));
+      dispatch(loginUser());
+    } else {
+      console.log("user not found");
+      dispatch(failureCheckUser(user));
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return null;
+};
+
+//Use existing sessionData to login the user
+export const getSession = sessionData => async dispatch => {
+  let user;
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const apiData = await fetch(`/sessions/login`, {
+      headers,
+      method: "POST",
+      body: JSON.stringify({ accessToken: "DankMemez", username: "a" })
+    });
+
+    if (apiData && apiData.status === 200) {
+      const data = await apiData.json();
+      console.log("user found, = ", data);
+      //create the localSession with the token given
+
+      //manipulate some info if need be
+      user = data;
+      const sessionData = {
+        accessToken: data.accessToken,
+        username: data.username
+      };
+      localStorage.setItem(DJELLO_SESSION, sessionData);
+      dispatch(successCheckUser(user));
+      dispatch(loginUser());
+    } else {
+      console.log("user not found");
+      dispatch(failureCheckUser(user));
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return null;
+};
+//LOGOUT A USER
+export const logout = user => async dispatch => {
+  localStorage.removeItem("DJELLO_ACCESS_TOKEN");
+  dispatch(logoutUser());
+  //need I DELETE /session/id ??
+};

@@ -75,6 +75,7 @@ seeder.seed({
     User.create({
       username: "a",
       password: "a",
+      accessToken: "DankMemez",
       boards: [defBoard, board, board2]
     });
     //TODO: FIX THE AMAZING SEEDER SO I CAN DO SOME ACCURATE STRESS TESTING LATER

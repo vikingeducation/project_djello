@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { validateUser } from "../actions/user";
-// import { validateForm, validateEmail, validatePassword } from "../helpers.js";
+
+//Components
+import Showable from "../Components/elements/Showable";
 import LoginForm from "../Components/LoginForm";
 import Paper from "material-ui/Paper";
 
-import Showable from "../Components/elements/Showable";
+//Actions
+import { validateUser } from "../actions/user";
 
+//Random Styles
 const centerForm = {
   display: "flex",
   flexDirection: "column",
@@ -44,6 +47,9 @@ class LoginContainer extends React.Component {
       username: this.state.username,
       password: this.state.password
     };
+    //validate input
+    /////
+    //attempt to login the user
     this.props.validateUser(user);
     this.setState({
       success: true,
