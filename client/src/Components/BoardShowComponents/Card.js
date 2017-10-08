@@ -1,9 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import Dialog from "material-ui/Dialog";
+
+//components
+import Editable from "../Editable";
+import RaisedButton from "material-ui/RaisedButton";
 import Paper from "material-ui/Paper";
 import { ListItem } from "material-ui/List";
-import Editable from "../Editable";
+import Dialog from "material-ui/Dialog";
 
 const paperStyle = {
   margin: 5,
@@ -24,11 +27,6 @@ class Card extends React.Component {
       open: false
     };
   }
-  // onChange = (e, attribute) => {
-  //   console.log("you changed something");
-  //   console.log(`${attribute} and ${e.target.value}`);
-  //   this.props.editCard();
-  // };
 
   //material-ui modal methods
   onClose = e => {
@@ -52,14 +50,22 @@ class Card extends React.Component {
       _id,
       labels
     } = this.props;
+    const actions = [
+      <RaisedButton onClick={() => {}} label="Cancel" />,
+      <RaisedButton onClick={() => {}} label="Submit" />
+    ];
     return (
       <Paper onClick={this.onOpen} style={style}>
         <ListItem hoverColor="none" primaryText={title}>
           {/* MODAL */}
           <Dialog
+            title={title}
+            actions={actions}
             modal={false}
             open={this.state.open}
+            overlayStyle={{ backgroundColor: "green" }}
             onRequestClose={this.onClose}
+            autoScrollBodyContent={true}
           >
             <div>
               <h5>{title}</h5>
@@ -88,23 +94,4 @@ class Card extends React.Component {
     );
   }
 }
-// const Card = props => {
-//   return (
-//     <div>
-//       <Dialog
-//         title={prop.title}
-//         // actions={actions}
-//         modal={true}
-//         open={this.state.open}
-//         onRequestClose={this.handleClose}
-//       >
-//         The actions in this window were passed in as an array of React objects.
-//       </Dialog>
-//       <Paper style={paperStyle}>
-//         <p>{props.title}</p>
-//       </Paper>
-//     </div>
-//
-//   );
-// };
 export default Card;
