@@ -40,40 +40,50 @@ export const contentStyle = {
 class App extends Component {
   constructor() {
     super();
+    this.state = {
+      loggedIn: undefined
+    };
   }
   componentWillMount = async () => await this.sessionLogin();
-  componentWillUnmount = () => console.log("UNMOUNTING APP");
+  // componentWillUnmount = () => console.log("UNMOUNTING APP");
+  //
+  componentWillReceiveProps = props => {
+    if (!this.state.loggedIn && this.props.user !== props.user) {
+      console.log("user changed");
+      if (props.user.loggedIn) this.setState({ loggedIn: true });
+    }
+  };
   sessionLogin = async () => {
     let session = {
       username: localStorage.getItem(DJELLO_SESSION_USERNAME),
       accessToken: localStorage.getItem(DJELLO_SESSION_ACCESSTOKEN)
     };
-    console.log("sessionData = ", session.accessToken, session.username);
     if (session) await this.props.getSession(session);
+    if (!session) this.setState({ loggedIn: false });
   };
   onLogout = e => {
     this.props.logoutUser();
   };
-  onLogin = e => {
-    //do a thing
-  };
   render = () => {
-    const loggedIn = this.props.user;
-    console.log("loggedIn = ", loggedIn, ", user = ", this.props.user);
+    //if loggedIn === false kick them to /login
+    let needToLogin;
+    if (this.state.loggedIn === undefined) {
+      return <div>Logging You In Now</div>;
+    } else if (this.state.loggedIn === false) {
+      needToLogin = true;
+    } else if (this.state.loggedIn === true) {
+      needToLogin = false;
+    }
     return (
       <Router>
         <div className="App">
           {/* <Dashboard /> */}
           <div style={appBarStyle}>
-            <Appbar
-              loggedIn={loggedIn}
-              onLogin={this.onLogin}
-              onLogout={this.onLogout}
-            />
+            <Appbar loggedIn={!needToLogin} onLogout={this.onLogout} />
           </div>
           <div style={contentStyle}>
             {/* if logged in */}
-            <LoggedIn user={loggedIn}>
+            <LoggedIn user={!needToLogin}>
               <Switch>
                 {/* boards index page */}
                 <Route exact path="/" component={BoardsIndexContainer} />
@@ -85,7 +95,7 @@ class App extends Component {
             </LoggedIn>
             {/* if not logged in */}
             <div id="formContainer" className="flex-center">
-              <LoggedOut user={loggedIn}>
+              <LoggedOut user={!needToLogin}>
                 <Switch>
                   <Route exact path="/" component={LoginContainer} />
                   <Route path="*" render={() => <Redirect to="/" />} />
@@ -100,9 +110,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("app state = ", state);
   return {
-    ...state
+    user: state.user
   };
 };
 const mapDispatchToProps = dispatch => {

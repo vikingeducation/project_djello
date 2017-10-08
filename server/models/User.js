@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema(
 UserSchema.methods.getFreshAccessToken = function() {
   return this.accessToken;
 };
+//TODO: implement this
 UserSchema.methods.validateAccessToken = function(token) {
   if (!this.accessToken || !token) return false;
   // let isValid = bcrypt.compareSync(token, this.accessToken);

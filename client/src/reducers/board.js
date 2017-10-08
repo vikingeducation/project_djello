@@ -35,8 +35,11 @@ const board = (state = {}, action) => {
         board: action.data
       };
     case CREATE_BOARD_SUCCESS:
+      let boards = state.boards.slice(0);
+      boards.push(action.data);
       return {
         ...state,
+        boards,
         isFetching: false
       };
     case DELETE_REQUEST_SUCCESS:

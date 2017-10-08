@@ -16,7 +16,6 @@ class NewBoardModal extends React.Component {
   };
   handleClose = e => {
     this.setState({ open: false });
-    console.log("form = ", this.state.boardTitle);
     this.props.onSubmit(this.state.boardTitle);
   };
   onChange = e => {

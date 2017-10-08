@@ -22,23 +22,17 @@ const cardWrapper = {
 };
 
 class BoardsIndexContainer extends React.Component {
+  //hydrate some data
   componentDidMount = async () => {
-    //TODO: grab the user
-    console.log("mounting board");
-    const user = {
-      username: "a",
-      password: "a"
-    };
-    let data = await this.props.getAllBoards(user);
+    let data = await this.props.getAllBoards(this.props.user.username);
   };
-  onCreateBoard = async (name = "newBoard YOOOO") => {
-    console.log("createBoard called");
-    this.props.createBoard(name);
+  onCreateBoard = async name => {
+    this.props.createBoard(name, this.props.user.username);
   };
   onDeleteBoard = async (e, id) => {
     //TODO: experiment with doing this with hrefs
     e.preventDefault();
-    this.props.deleteBoard(id, "a");
+    this.props.deleteBoard(id, this.props.username);
   };
 
   render() {
@@ -92,16 +86,17 @@ class BoardsIndexContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.board
+    ...state.board,
+    user: state.user
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    createBoard: name => {
-      dispatch(createBoard(name));
+    createBoard: (name, userId) => {
+      dispatch(createBoard(name, userId));
     },
-    getAllBoards: user => {
-      dispatch(getAllBoards(user));
+    getAllBoards: userId => {
+      dispatch(getAllBoards(userId));
     },
     deleteBoard: (boardId, userID) => {
       dispatch(deleteBoard(boardId, userID));

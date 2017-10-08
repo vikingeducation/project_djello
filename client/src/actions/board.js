@@ -43,7 +43,7 @@ const deleteSuccess = boardId => {
 };
 export const getOneBoard = (boardId, userId) => async dispatch => {
   dispatch(startRequest());
-  console.log("fetching one board ");
+  // console.log("fetching one board ");
   let boards;
   let serverResponse;
   try {
@@ -55,7 +55,7 @@ export const getOneBoard = (boardId, userId) => async dispatch => {
   }
   try {
     let board = await serverResponse.json();
-    console.log("successfully got a board = ", board);
+    // console.log("successfully got a board = ", board);
     dispatch(getBoardSuccess(board));
   } catch (e) {
     console.log("error from response parsing");
@@ -64,16 +64,13 @@ export const getOneBoard = (boardId, userId) => async dispatch => {
   }
 };
 
-export const getAllBoards = user => async dispatch => {
+export const getAllBoards = userId => async dispatch => {
   dispatch(startRequest());
-  console.log("fetching boards ");
   let boards;
   let serverResponse;
   try {
     //get all the boards
-    // console.log("starting request ");
-    serverResponse = await fetch(`/users/${user.username}/boards`);
-    // console.log(`serverResponse = ${serverResponse}`);
+    serverResponse = await fetch(`/users/${userId}/boards`);
   } catch (e) {
     console.log("error from fetching");
     console.error(e);
@@ -81,7 +78,6 @@ export const getAllBoards = user => async dispatch => {
   }
   try {
     let boards = await serverResponse.json();
-    // console.log("boards action, boards = ", boards);
     dispatch(getBoardsSuccess(boards));
   } catch (e) {
     console.log("error from response parsing");
@@ -92,7 +88,6 @@ export const getAllBoards = user => async dispatch => {
 
 export const deleteBoard = (boardId, userID) => async dispatch => {
   dispatch(startRequest());
-  console.log("deleting board");
   let serverResponse;
   try {
     var headers = new Headers();
@@ -103,7 +98,6 @@ export const deleteBoard = (boardId, userID) => async dispatch => {
       method: "DELETE",
       body: null
     });
-    console.log(`serverResponse = ${serverResponse}`);
     dispatch(deleteSuccess(boardId));
   } catch (e) {
     console.log("error from fetching");
@@ -114,18 +108,18 @@ export const deleteBoard = (boardId, userID) => async dispatch => {
 
 //CREATE A BOARD FOR THE LOGGED IN USER
 //TODO: FIX THE READING HEADERS FROM SERVER RESPONSE PROBLEM
-export const createBoard = name => async dispatch => {
+export const createBoard = (boardName, userId) => async dispatch => {
   dispatch(startRequest());
+  console.log(boardName, userId);
   let newBoard = {
-    name
+    name: boardName
   };
   let serverResponse;
   try {
-    //TODO:
     let headers = new Headers();
     headers.append("Content-type", "application/json");
     const json = JSON.stringify(newBoard);
-    serverResponse = await fetch("/users/a/boards", {
+    serverResponse = await fetch(`/users/${userId}/boards`, {
       headers,
       method: "POST",
       body: json
@@ -137,18 +131,10 @@ export const createBoard = name => async dispatch => {
     dispatch(boardFailure(e));
   }
   try {
-    // console.log("serverResponse, ", serverResponse);
     if (serverResponse.status >= 200 && serverResponse.status < 300) {
-      console.log("serverResponse = ");
-      console.log(serverResponse);
-      // console.log(
-      //   "serverResponse headers",
-      //   serverResponse.headers["content-location"]
-      // );
-      // let data = await serverResponse.json();
-      // console.log(`serverResponse = ${data.headers}`);
-      // console.log(data);
-      // dispatch(createBoardSuccess(newBoard));
+      const newBoard = await serverResponse.json();
+      console.log("new board = ", newBoard);
+      dispatch(createBoardSuccess(newBoard));
     } else {
       //TODO: SET ERROR LATER
       console.log("error from server");

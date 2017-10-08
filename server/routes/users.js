@@ -16,14 +16,12 @@ router.get("/", (req, res, next) => {
 
 //GET A USER
 router.get("/:id", async (req, res) => {
-  console.log("getting request");
   const username = req.params.id;
   try {
     const user = await getFullUserData({ username: username });
     if (!user) {
       return res.sendStatus(404);
     }
-    // if (user.password === )
     res.json(user);
   } catch (e) {
     //handle error
@@ -79,9 +77,7 @@ router.get("/:id/boards", async (req, res) => {
 //CREATE A BOARD FOR A USER
 router.post("/:userId/boards", async (req, res) => {
   //grab the user
-  console.log("making DA BOARDS !!!!!!");
   let userId = req.params.userId;
-  ///
   //set a default board if we didn't get one
   let boardData = { name: "AMAZING NEW BOARD" };
   if (Object.entries(req.body).length) {
@@ -94,14 +90,13 @@ router.post("/:userId/boards", async (req, res) => {
     console.error(e);
     return res.sendStatus(501);
   }
+
   res.append("Content-Type", "text/plain");
-  res.append("Content-Location", `/boards/$${createdBoard._id}`);
-  res.append("Location", `/boards/$${createdBoard._id}`);
-  console.log("res.headers = ", res);
-  return res.sendStatus(201);
-  // return res.json({ location: createdBoard._id });
-  // res.json(board);
-  //return 201
+  //TODO: FIND OUT WHY THE CONTENT-LOCATION HEADER DOESN'T GET RECEIVED
+  // res.append("Content-Location", `/boards/$${createdBoard._id}`);
+  // res.append("Location", `/boards/$${createdBoard._id}`);
+  // return res.sendStatus(201);
+  res.json(createdBoard);
 });
 
 module.exports = router;
