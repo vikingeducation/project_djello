@@ -3,8 +3,8 @@ export const SUCCESS_CHECK_USER = "SUCCESS CHECK USER";
 export const LOGIN_USER = "LOG IN USER";
 export const LOGOUT_USER = "LOG OUT USER";
 export const FAILURE_CHECK_USER = "FAILURE CHECK USER";
-export const DJELLO_SESSION = "DJELLO_SESSION";
-
+export const DJELLO_SESSION_USERNAME = "DJELLO_SESSION_USERNAME";
+export const DJELLO_SESSION_ACCESSTOKEN = "DJELLO_SESSION_ACCESSTOKEN";
 const requestCheckUser = user => {
   return {
     type: REQUEST_CHECK_USER,
@@ -75,7 +75,6 @@ export const registerUser = userInfo => async dispatch => {
   return null;
 };
 //LOGIN A USER
-//TODO: IMPLEMENT THIS
 export const validateUser = user => async dispatch => {
   dispatch(requestCheckUser(user));
   try {
@@ -92,14 +91,10 @@ export const validateUser = user => async dispatch => {
       const data = await apiData.json();
       console.log("user found, = ", data);
       //create the localSession with the token given
-
-      //manipulate some info if need be
+      localStorage.setItem(DJELLO_SESSION_USERNAME, data.username);
+      localStorage.setItem(DJELLO_SESSION_ACCESSTOKEN, data.accessToken);
+      //ship user info off to the redux store
       const user = data;
-      const sessionData = {
-        accessToken: data.accessToken,
-        username: data.username
-      };
-      localStorage.setItem(DJELLO_SESSION, sessionData);
       dispatch(successCheckUser(user));
       dispatch(loginUser());
     } else {
@@ -115,27 +110,24 @@ export const validateUser = user => async dispatch => {
 //Use existing sessionData to login the user
 export const getSession = sessionData => async dispatch => {
   let user;
+  console.log("sessionData = ", sessionData.accessToken, sessionData.username);
   try {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     const apiData = await fetch(`/sessions/login`, {
       headers,
       method: "POST",
-      body: JSON.stringify({ accessToken: "DankMemez", username: "a" })
+      body: JSON.stringify(sessionData)
     });
 
     if (apiData && apiData.status === 200) {
       const data = await apiData.json();
       console.log("user found, = ", data);
-      //create the localSession with the token given
-
-      //manipulate some info if need be
-      user = data;
-      const sessionData = {
-        accessToken: data.accessToken,
-        username: data.username
-      };
-      localStorage.setItem(DJELLO_SESSION, sessionData);
+      //set the localSession in case the server sent a fresh token
+      localStorage.setItem(DJELLO_SESSION_USERNAME, data.username);
+      localStorage.setItem(DJELLO_SESSION_ACCESSTOKEN, data.accessToken);
+      //ship the user off to the redux store
+      user = { username: data.username };
       dispatch(successCheckUser(user));
       dispatch(loginUser());
     } else {
@@ -147,9 +139,14 @@ export const getSession = sessionData => async dispatch => {
   }
   return null;
 };
-//LOGOUT A USER
+//LOGOUT A USER, (basically wipe this device of info)
 export const logout = user => async dispatch => {
-  localStorage.removeItem("DJELLO_ACCESS_TOKEN");
+  //clean out the local storage session data
+  localStorage.removeItem(DJELLO_SESSION_USERNAME);
+  localStorage.removeItem(DJELLO_SESSION_ACCESSTOKEN);
+  //logout the redux store data
+  //??? mayhaps change this to destroy all the store data ?
   dispatch(logoutUser());
+  //if the server needs it send a delete session request
   //need I DELETE /session/id ??
 };

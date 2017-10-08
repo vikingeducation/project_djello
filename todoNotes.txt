@@ -17,6 +17,11 @@ add dashboard handler to dashboard icon to redirect you to a dashboard
 
 //sessions
   //fix the navigation, so you don't get bounced to '/'
+  //might have fixed this somehow
+
+//hydration issues
+  //navigating straight to a page off a refresh blows everything up
+
 
 //dropdown menu
   //only changes route when text is clicked FIX IT
@@ -38,7 +43,7 @@ conditionally render only in testing mode
 //TODO:
 
 //sessions
-  //implement real access tokens 
+  //implement real access tokens
 
 //USER ENHANCEMENTS
 //add user profile images

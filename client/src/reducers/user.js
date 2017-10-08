@@ -38,7 +38,6 @@ const user = (state = {}, action) => {
       };
     case LOGOUT_USER:
       return {
-        ...state,
         loggedIn: false
       };
     default:

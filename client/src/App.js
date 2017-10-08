@@ -10,8 +10,15 @@ import BoardShowContainer from "./Containers/BoardShowContainer";
 import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
+
 //Actions
-import { logoutUser, getSession, DJELLO_SESSION } from "./actions/user";
+import {
+  logoutUser,
+  logout,
+  getSession,
+  DJELLO_SESSION_USERNAME,
+  DJELLO_SESSION_ACCESSTOKEN
+} from "./actions/user";
 
 //random styles
 export const appBarStyle = {
@@ -35,10 +42,13 @@ class App extends Component {
     super();
   }
   componentWillMount = async () => await this.sessionLogin();
+  componentWillUnmount = () => console.log("UNMOUNTING APP");
   sessionLogin = async () => {
-    console.log(localStorage.getItem(DJELLO_SESSION));
-    console.log("sessionLogin ", this.props);
-    let session = localStorage.getItem(DJELLO_SESSION);
+    let session = {
+      username: localStorage.getItem(DJELLO_SESSION_USERNAME),
+      accessToken: localStorage.getItem(DJELLO_SESSION_ACCESSTOKEN)
+    };
+    console.log("sessionData = ", session.accessToken, session.username);
     if (session) await this.props.getSession(session);
   };
   onLogout = e => {
@@ -100,6 +110,7 @@ const mapDispatchToProps = dispatch => {
     logoutUser: () => {
       dispatch(logoutUser());
     },
+    logout: () => dispatch(logout()),
     getSession: session => dispatch(getSession(session))
   };
 };
