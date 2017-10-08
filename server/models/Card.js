@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const shortid = require("shortid");
+const wrapper = require("./errors");
 
 const CardSchema = new Schema(
   {
     // Relationships
     list: { type: Schema.Types.ObjectId, ref: "List", required: true },
     members: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    activities: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
 
     // Properties
     slug: { type: String, default: shortid.generate },
@@ -16,23 +16,24 @@ const CardSchema = new Schema(
     body: { type: String }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true }
   }
 );
 
-// Hooks
-CardSchema.pre("remove", function(next) {
-  const updates = [
-    mongoose
-      .model("List")
-      .update({ _id: this.list }, { $pull: { cards: this._id } }),
-    mongoose
-      .model("User")
-      .update({ _id: { in: this.members } }, { $pull: { cards: this._id } }),
-    mongoose.model("Activity").remove({ _id: { in: this.activities } })
-  ];
-  Promise.all(updates).then(() => next());
+CardSchema.virtual("activities", {
+  ref: "Activity",
+  localField: "_id",
+  foreignField: "card"
 });
+
+// Hooks
+const removeFromUser = async function() {
+  await mongoose
+    .model("User")
+    .update({ _id: { in: this.members } }, { $pull: { cards: this._id } });
+};
+CardSchema.pre("remove", wrapper(removeFromUser));
 
 const populateAll = function(next) {
   this.populate({ path: "members", model: "User", select: "username" });

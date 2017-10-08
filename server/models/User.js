@@ -4,6 +4,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
 const md5 = require("md5");
 const uuid = require("uuid");
+const wrapper = require("./errors");
 
 const UserSchema = new Schema(
   {
@@ -17,9 +18,16 @@ const UserSchema = new Schema(
     passwordHash: { type: String, required: true, select: false }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true }
   }
 );
+
+UserSchema.virtual("activities", {
+  ref: "Activity",
+  localField: "_id",
+  foreignField: "owner"
+});
 
 UserSchema.plugin(uniqueValidator);
 
@@ -29,17 +37,17 @@ UserSchema.pre("save", function(next) {
   next();
 });
 
-UserSchema.pre("remove", function(next) {
-  const updates = [
+const removeFromOthers = async function() {
+  await Promise.all([
     mongoose
       .model("Board")
       .update({ _id: { in: this.boards } }, { $pull: { members: this._id } }),
     mongoose
       .model("Card")
       .update({ _id: { in: this.cards } }, { $pull: { members: this._id } })
-  ];
-  Promise.all(updates).then(() => next());
-});
+  ]);
+};
+UserSchema.pre("remove", wrapper(removeFromOthers));
 
 const populateBoards = function(next) {
   this.populate("boards");

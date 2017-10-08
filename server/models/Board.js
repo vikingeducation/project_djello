@@ -1,36 +1,36 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const shortid = require("shortid");
+const wrapper = require("./errors");
 
 const BoardSchema = new Schema(
   {
     // Relationships
     members: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    lists: [{ type: Schema.Types.ObjectId, ref: "List" }],
 
     // Properties
     slug: { type: String, default: shortid.generate },
     title: { type: String, required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true }
   }
 );
 
-// Hooks
-BoardSchema.pre("remove", function(next) {
-  const updates = [
-    mongoose
-      .model("User")
-      .update({ _id: { in: this.members } }, { $pull: { boards: this._id } }),
-    mongoose.model("List").remove({ _id: { in: this.lists } })
-  ];
-  Promise.all(updates).then(() => next());
+BoardSchema.virtual("lists", {
+  ref: "List",
+  localField: "_id",
+  foreignField: "board"
 });
 
-BoardSchema.post("update", function(next) {
-  this.remove({ members: { $size: 0 } }).then(() => next());
-});
+// Hooks
+const removeFromUser = async function() {
+  await mongoose
+    .model("User")
+    .update({ _id: { in: this.members } }, { $pull: { boards: this._id } });
+};
+BoardSchema.pre("remove", wrapper(removeFromUser));
 
 const populateAll = function(next) {
   this.populate({ path: "lists" });

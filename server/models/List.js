@@ -6,7 +6,6 @@ const ListSchema = new Schema(
   {
     // Relationships
     board: { type: Schema.Types.ObjectId, ref: "Board", required: true },
-    cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
 
     // Properties
     slug: { type: String, default: shortid.generate },
@@ -14,19 +13,15 @@ const ListSchema = new Schema(
     description: { type: String }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true }
   }
 );
 
-// Hooks
-ListSchema.pre("remove", async function(next) {
-  const updates = [
-    mongoose
-      .model("Board")
-      .update({ _id: this.board }, { $pull: { cards: this._id } }),
-    mongoose.model("Card").remove({ _id: { in: this.cards } })
-  ];
-  Promise.all(updates).then(() => next());
+ListSchema.virtual("cards", {
+  ref: "Card",
+  localField: "_id",
+  foreignField: "list"
 });
 
 const populateAll = function(next) {
