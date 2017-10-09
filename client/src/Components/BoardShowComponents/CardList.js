@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card";
+import CardModal from "./CardModal";
 import Editable from "../Editable";
 import Paper from "material-ui/Paper";
 import { List } from "material-ui/List";
@@ -28,7 +28,7 @@ const CardList = ({
   description
 }) => {
   const cardComponents = cards.map(card => (
-    <Card
+    <CardModal
       key={card._id}
       {...card}
       list={id}
@@ -48,7 +48,6 @@ const CardList = ({
       </div>
       {/* main */}
       <div className="listMain">
-        {/* <ul>{cardComponents}</ul> */}
         <List className="cardList">{cardComponents}</List>
       </div>
       {/* footer */}

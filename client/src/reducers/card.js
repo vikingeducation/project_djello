@@ -1,7 +1,8 @@
+//TODO: DELETE THE CARD REDUX FILES, I BELIEVE THEY'RE UNUSED
+
 import {
   START_REQUEST,
   CREATE_CARD_SUCCESS,
-  UPDATE_CARD_SUCCESS,
   CARD_FAILURE
 } from "../actions/card";
 
@@ -18,11 +19,6 @@ const card = (state = {}, action) => {
         ...state
       };
     case CREATE_CARD_SUCCESS:
-      return {
-        isFetching: false,
-        ...state
-      };
-    case UPDATE_CARD_SUCCESS:
       return {
         isFetching: false,
         ...state

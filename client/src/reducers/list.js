@@ -5,6 +5,7 @@ import {
   CREATE_LIST_SUCCESS,
   DELETE_LIST_SUCCESS,
   UPDATE_LIST_SUCCESS,
+  UPDATE_CARD_SUCCESS,
   LIST_FAILURE
 } from "../actions/list";
 
@@ -17,6 +18,7 @@ import {
 // };
 
 const list = (state = {}, action) => {
+  let updatedLists;
   switch (action.type) {
     case START_REQUEST:
       return {
@@ -56,8 +58,7 @@ const list = (state = {}, action) => {
         lists: newLists
       };
     case UPDATE_LIST_SUCCESS:
-      console.log("updatin list in reducers = ", action.data);
-      const updatedLists = state.lists.map(list => {
+      updatedLists = state.lists.map(list => {
         if (list._id === action.data._id) return action.data;
         return list;
       });
@@ -71,6 +72,25 @@ const list = (state = {}, action) => {
         ...state,
         isFetching: false,
         error: action.data
+      };
+    case UPDATE_CARD_SUCCESS:
+      updatedLists = state.lists.map(list => {
+        if (list._id === action.data.listId) {
+          //modifying the state, like I just don't care
+          list.cards = list.cards.map(card => {
+            if (card._id === action.data.card._id) {
+              return action.data.card;
+            }
+            return card;
+          });
+          return list;
+        }
+        return list;
+      });
+      console.log("updatedLists = ", updatedLists);
+      return {
+        ...state,
+        lists: updatedLists
       };
     default:
       return state;

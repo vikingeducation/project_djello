@@ -62,21 +62,13 @@ class BoardShowContainer extends React.Component {
   onEditList = (e, listId) => {
     e.stopPropagation();
     e.preventDefault();
-    //
+    //find the appropriate list
     let oldList = this.props.lists.find(list => list._id === listId);
     oldList[e.target.name] = e.target.value;
     this.props.updateList(oldList);
   };
-  onEditCard = (e, cardId, listId) => {
-    console.log("you changed something");
-    console.log(`${cardId} and ${e.target.value}, ${listId}`);
-    //find and update the appropriate card
-    let list = this.props.lists.find(list => list._id === listId);
-    let oldCard = list.cards.find(card => card._id === cardId);
-    console.log("oldCard = ", oldCard);
-    //TODO: old card is already changed???
-    oldCard[e.target.name] = e.target.value;
-    this.props.editCard(oldCard._id, oldCard);
+  onEditCard = (newCard, cardId, listId) => {
+    this.props.editCard(cardId, newCard, listId);
   };
   componentWillReceiveProps = async nextProps => {
     const nextLocation = nextProps.location.pathname.split("/")[2];
@@ -144,8 +136,8 @@ const mapDispatchToProps = dispatch => {
     createCard: (listId, title) => {
       dispatch(createCard(listId, title));
     },
-    editCard: (cardId, updatedCard) => {
-      dispatch(updateCard(cardId, updatedCard));
+    editCard: (cardId, updatedCard, listId) => {
+      dispatch(updateCard(cardId, updatedCard, listId));
     }
   };
 };

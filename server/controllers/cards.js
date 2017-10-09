@@ -1,4 +1,3 @@
-//
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 const { User, Board, List, Card } = require("../models");
@@ -18,7 +17,7 @@ const createCard = async (listId, title = "SUCH CARDS") => {
     list.save();
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 
@@ -29,7 +28,7 @@ const getCard = async cardId => {
     if (!card) return false;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
   return card;
 };
@@ -48,33 +47,30 @@ const getCards = async cardIds => {
   // return cards;
   return false;
 };
-//how do I change a specific thing???
-//I can't just diff them
-//because your change could overwrite another user's change
-///////.....hmmmm.....
-const updateCard = async card => {
+//UPDATE ONE CARD
+const updateCard = async (cardId, updatedFields) => {
   let oldCard;
   try {
-    oldCard = await Card.findById(card._id);
+    oldCard = await Card.findById(cardId);
     if (!oldCard) return false;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
-  oldCard.description = card.description;
-  oldCard.title = card.title;
+  for (let key in updatedFields) {
+    oldCard[key] = updatedFields[key];
+  }
   await oldCard.save();
   return oldCard;
 };
-
+//DELETE A CARD
 const deleteCard = async cardId => {
-  //delete a card and update the user
   try {
     Card.findByIdAndRemove(cardId);
     return cardId;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 

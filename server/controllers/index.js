@@ -10,7 +10,7 @@ const deleteList = async listId => {
     // return listId;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 //currently only allows updates on title and description
@@ -26,7 +26,7 @@ const updateList = async (listId, newList) => {
     return true;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 const deleteBoard = async boardId => {
@@ -35,7 +35,7 @@ const deleteBoard = async boardId => {
     return boardId;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 

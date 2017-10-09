@@ -11,7 +11,7 @@ const getBoards = async (query = {}) => {
     return null;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 
@@ -28,7 +28,7 @@ const createBoard = async (userId, newBoard) => {
     return board;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 
@@ -39,7 +39,7 @@ const deleteBoard = async boardId => {
     return true;
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };
 

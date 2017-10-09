@@ -30,9 +30,9 @@ router.post("/", async (req, res) => {
 
 //EDIT A CARD
 router.put("/:id", async (req, res) => {
-  let { card } = req.body;
+  let updatedFields = req.body.card;
   try {
-    newCard = await updateCard(card);
+    newCard = await updateCard(req.params.id, updatedFields);
     if (newCard) return res.json(newCard);
     return res.sendStatus(404);
   } catch (e) {

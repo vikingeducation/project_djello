@@ -5,6 +5,7 @@ export const DELETE_LIST_SUCCESS = "SUCCESS DELETING A  LIST";
 export const UPDATE_LIST_SUCCESS = "SUCCESS UPDATING A LIST";
 export const GET_LIST_SUCCESS = "SUCCESS GETTING A LIST";
 export const LIST_FAILURE = "FAILURE WITH LISTS";
+export const UPDATE_CARD_SUCCESS = "CARD SUCCESSFULLY UPDATED";
 
 const startRequest = () => {
   return {
@@ -46,6 +47,12 @@ const listFailure = error => {
   return {
     type: LIST_FAILURE,
     data: error
+  };
+};
+export const updateCardSuccess = (card, listId) => {
+  return {
+    type: UPDATE_CARD_SUCCESS,
+    data: { card, listId }
   };
 };
 
