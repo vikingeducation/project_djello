@@ -44,6 +44,7 @@ class Editable extends React.Component {
   };
   render = () => {
     if (this.state.editMode) {
+      console.log("editable children = ", this.props.children);
       return (
         <TextField
           ref={input => {
@@ -53,7 +54,7 @@ class Editable extends React.Component {
           onBlur={this.onBlur}
           onKeyDown={this.onKeyDown}
           floatingLabelText={this.props.label || ""}
-          defaultValue={this.props.text}
+          defaultValue={this.props.children.props.children || ""}
           multiLine={this.props.multiline || true}
           fullWidth={this.props.fullWidth || false}
         />
