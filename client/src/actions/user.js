@@ -1,30 +1,44 @@
+import { dumpBoardStore } from "./board";
+import { dumpCardStore } from "./card";
+import { dumpListStore } from "./list";
+
 export const REQUEST_CHECK_USER = "REQUEST CHECK USER";
 export const SUCCESS_CHECK_USER = "SUCCESS CHECK USER";
 export const LOGIN_USER = "LOG IN USER";
+export const DUMP_USER_STORE = "WIPING ALL USER INFO FROM REDUX STORE";
 export const LOGOUT_USER = "LOG OUT USER";
 export const FAILURE_CHECK_USER = "FAILURE CHECK USER";
 export const DJELLO_SESSION_USERNAME = "DJELLO_SESSION_USERNAME";
 export const DJELLO_SESSION_ACCESSTOKEN = "DJELLO_SESSION_ACCESSTOKEN";
+
 const requestCheckUser = user => {
   return {
     type: REQUEST_CHECK_USER,
     data: null
   };
 };
-
+//set loggedIn to true
+//Idk why
 const loginUser = () => {
   return {
     type: LOGIN_USER,
     data: null
   };
 };
-
+//clear out all user data and logout
+const dumpUserStore = () => {
+  return {
+    type: DUMP_USER_STORE,
+    data: null
+  };
+};
 export const logoutUser = () => {
   return {
     type: LOGOUT_USER,
     data: null
   };
 };
+//actually login the user, and put user info into the redux store
 const successCheckUser = user => {
   return {
     type: SUCCESS_CHECK_USER,
@@ -139,14 +153,35 @@ export const getSession = sessionData => async dispatch => {
   }
   return null;
 };
-//LOGOUT A USER, (basically wipe this device of info)
-export const logout = user => async dispatch => {
-  //clean out the local storage session data
-  localStorage.removeItem(DJELLO_SESSION_USERNAME);
-  localStorage.removeItem(DJELLO_SESSION_ACCESSTOKEN);
-  //logout the redux store data
-  //??? mayhaps change this to destroy all the store data ?
-  dispatch(logoutUser());
-  //if the server needs it send a delete session request
-  //need I DELETE /session/id ??
+//LOGOUT A USER,
+//(basically wipe this device of info)
+//and ensure the server deletes the current accessToken
+export const logout = () => async dispatch => {
+  //delete the session from the server
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const response = await fetch("/sessions/logout", {
+      headers,
+      method: "POST",
+      body: JSON.stringify({
+        username: localStorage.getItem(DJELLO_SESSION_USERNAME),
+        accessToken: localStorage.getItem(DJELLO_SESSION_ACCESSTOKEN)
+      })
+    });
+    if (response.status !== 200) throw new Error("error deleting session");
+  } catch (e) {
+    console.error(e);
+    throw e;
+  } finally {
+    //clean out the local storage session data
+    localStorage.removeItem(DJELLO_SESSION_USERNAME);
+    localStorage.removeItem(DJELLO_SESSION_ACCESSTOKEN);
+
+    //dump the redux store
+    dispatch(dumpBoardStore());
+    dispatch(dumpCardStore());
+    dispatch(dumpListStore());
+    dispatch(dumpUserStore());
+  }
 };

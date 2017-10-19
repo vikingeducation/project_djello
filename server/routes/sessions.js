@@ -4,7 +4,7 @@ const { getFullUserData } = require("../controllers");
 
 //ATTEMPT TO LOGIN VIA A PREVIOUS SESSION
 router.post("/login", async (req, res) => {
-  // console.log("validating previous session");
+  console.log("validating previous session");
   try {
     let { accessToken, username } = req.body;
     const user = await getFullUserData({ username });
@@ -20,6 +20,28 @@ router.post("/login", async (req, res) => {
         accessToken: user.getFreshAccessToken()
       };
       return res.json(data);
+    }
+    //if something went horribly wrong somehow
+    return res.sendStatus(500);
+  } catch (e) {
+    //handle error
+    console.error(e);
+    return res.sendStatus(500);
+  }
+});
+router.post("/logout", async (req, res) => {
+  try {
+    let { accessToken, username } = req.body;
+    const user = await getFullUserData({ username });
+    let validToken = user.validateAccessToken(accessToken);
+    if (!user) return res.sendStatus(404);
+    if (!validToken) {
+      return res.sendStatus(400);
+    } else if (validToken) {
+      //delete their session
+      user.accessToken = null;
+      await user.save();
+      return res.sendStatus(200);
     }
     //if something went horribly wrong somehow
     return res.sendStatus(500);

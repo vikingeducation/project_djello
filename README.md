@@ -1,8 +1,7 @@
 # Djello
-A Trello styled task-management single page web app. Djello was made using the Agile Process and the current board for it's development can be found @
+A Trello styled task-management single page web app. It's a very CRUD-y react app. Djello was made using the Agile Process and the current board for it's development can be found @
 ##### Trello Project Board
  https://trello.com/b/FxLPFqAM
-It's a very CRUD-y react app.
 
 #### Deployment
 Not yet deployed

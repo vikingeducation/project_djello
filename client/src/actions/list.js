@@ -5,6 +5,8 @@ export const DELETE_LIST_SUCCESS = "SUCCESS DELETING A  LIST";
 export const UPDATE_LIST_SUCCESS = "SUCCESS UPDATING A LIST";
 export const GET_LIST_SUCCESS = "SUCCESS GETTING A LIST";
 export const LIST_FAILURE = "FAILURE WITH LISTS";
+export const DUMP_LIST_STORE = "DUMPING ALL LISTS FROM THE REDUX STORE";
+//I forget exactly why this is in lists
 export const UPDATE_CARD_SUCCESS = "CARD SUCCESSFULLY UPDATED";
 
 const startRequest = () => {
@@ -53,6 +55,13 @@ export const updateCardSuccess = (card, listId) => {
   return {
     type: UPDATE_CARD_SUCCESS,
     data: { card, listId }
+  };
+};
+
+export const dumpListStore = () => {
+  return {
+    type: DUMP_LIST_STORE,
+    data: null
   };
 };
 

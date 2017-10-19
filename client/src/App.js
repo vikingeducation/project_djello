@@ -13,7 +13,6 @@ import LoggedOut from "./Components/elements/LoggedOut";
 
 //Actions
 import {
-  logoutUser,
   logout,
   getSession,
   DJELLO_SESSION_USERNAME,
@@ -44,10 +43,13 @@ class App extends Component {
       loggedIn: undefined
     };
   }
-  componentWillMount = async () => await this.sessionLogin();
-  // componentWillUnmount = () => console.log("UNMOUNTING APP");
-  //
+  componentWillMount = async () => this.sessionLogin();
+
   componentWillReceiveProps = props => {
+    if (this.props.user !== props.user) {
+      console.log("user changed");
+      this.setState({ loggedIn: props.user.loggedIn });
+    }
     if (!this.state.loggedIn && this.props.user !== props.user) {
       console.log("user changed");
       if (props.user.loggedIn) this.setState({ loggedIn: true });
@@ -58,8 +60,10 @@ class App extends Component {
       username: localStorage.getItem(DJELLO_SESSION_USERNAME),
       accessToken: localStorage.getItem(DJELLO_SESSION_ACCESSTOKEN)
     };
-    if (session) await this.props.getSession(session);
-    if (!session) this.setState({ loggedIn: false });
+    if (session.username && session.accessToken)
+      await this.props.getSession(session);
+    if (!(session.username && session.accessToken))
+      this.setState({ loggedIn: false });
   };
   onLogout = e => {
     this.props.logoutUser();
@@ -117,7 +121,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     logoutUser: () => {
-      dispatch(logoutUser());
+      dispatch(logout());
     },
     logout: () => dispatch(logout()),
     getSession: session => dispatch(getSession(session))

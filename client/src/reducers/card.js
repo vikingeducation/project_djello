@@ -3,6 +3,7 @@
 import {
   START_REQUEST,
   CREATE_CARD_SUCCESS,
+  DUMP_CARD_STORE,
   CARD_FAILURE
 } from "../actions/card";
 
@@ -27,6 +28,11 @@ const card = (state = {}, action) => {
       return {
         isFetching: false,
         ...state
+      };
+    case DUMP_CARD_STORE:
+      return {
+        isFetching: undefined,
+        error: undefined
       };
     default:
       return state;

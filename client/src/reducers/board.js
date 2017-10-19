@@ -4,7 +4,8 @@ import {
   BOARD_FAILURE,
   GET_BOARDS_SUCCESS,
   GET_BOARD_SUCCESS,
-  DELETE_REQUEST_SUCCESS
+  DELETE_REQUEST_SUCCESS,
+  DUMP_BOARD_STORE
 } from "../actions/board";
 //
 // const intialState = {
@@ -58,7 +59,14 @@ const board = (state = {}, action) => {
         isFetching: false,
         error: action.data
       };
-
+    case DUMP_BOARD_STORE:
+      return {
+        isFetching: false,
+        error: null,
+        success: null,
+        board: null,
+        boards: null
+      };
     default:
       return state;
   }

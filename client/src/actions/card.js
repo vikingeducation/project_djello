@@ -1,6 +1,8 @@
 import { getOneList, updateCardSuccess } from "./list";
 export const START_REQUEST = "REQUESTING ACITON FROM SERVER";
 export const CREATE_CARD_SUCCESS = "CARD SUCCESSFULLY CREATED";
+export const DUMP_CARD_STORE =
+  "SUCCESSFULLY DUMPED ALL CARD RELATED REDUX MEMORY";
 export const CARD_FAILURE = "FAILURE WITH CARDS";
 
 const startRequest = () => {
@@ -13,6 +15,13 @@ const createCardSuccess = card => {
   return {
     type: CREATE_CARD_SUCCESS,
     data: card
+  };
+};
+
+export const dumpCardStore = () => {
+  return {
+    type: DUMP_CARD_STORE,
+    data: null
   };
 };
 

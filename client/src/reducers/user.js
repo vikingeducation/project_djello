@@ -3,6 +3,7 @@ import {
   SUCCESS_CHECK_USER,
   FAILURE_CHECK_USER,
   LOGIN_USER,
+  DUMP_USER_STORE,
   LOGOUT_USER
 } from "../actions/user";
 
@@ -36,10 +37,17 @@ const user = (state = {}, action) => {
         ...state,
         loggedIn: true
       };
-    case LOGOUT_USER:
+    case DUMP_USER_STORE:
       return {
-        loggedIn: false
+        username: null,
+        isFetching: false,
+        loggedIn: false,
+        error: null
       };
+    // case LOGOUT_USER:
+    //   return {
+    //     loggedIn: false
+    //   };
     default:
       return state;
   }

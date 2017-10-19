@@ -6,6 +6,7 @@ import {
   DELETE_LIST_SUCCESS,
   UPDATE_LIST_SUCCESS,
   UPDATE_CARD_SUCCESS,
+  DUMP_LIST_STORE,
   LIST_FAILURE
 } from "../actions/list";
 
@@ -91,6 +92,13 @@ const list = (state = {}, action) => {
       return {
         ...state,
         lists: updatedLists
+      };
+    case DUMP_LIST_STORE:
+      return {
+        isFetching: false,
+        error: null,
+        success: null,
+        lists: null
       };
     default:
       return state;

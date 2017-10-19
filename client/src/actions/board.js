@@ -3,6 +3,8 @@ export const GET_BOARDS_SUCCESS = "GOT ALL THE BOARDS";
 export const GET_BOARD_SUCCESS = "GOT A BOARD";
 export const CREATE_BOARD_SUCCESS = "BOARD SUCCESSFULLY CREATED";
 export const DELETE_REQUEST_SUCCESS = "SUCCESSFULLY DELETED A BOARD";
+export const DUMP_BOARD_STORE =
+  "SUCCESSFULLY DUMPED ALL BOARD RELATED REDUX MEMORY";
 export const BOARD_FAILURE = "FAILURE WITH BOARDS";
 
 const startRequest = () => {
@@ -41,6 +43,15 @@ const deleteSuccess = boardId => {
     data: boardId
   };
 };
+
+//wipe the board related redux memory
+export const dumpBoardStore = () => {
+  return {
+    type: DUMP_BOARD_STORE,
+    data: null
+  };
+};
+
 export const getOneBoard = (boardId, userId) => async dispatch => {
   dispatch(startRequest());
   console.log("fetching one board ");
