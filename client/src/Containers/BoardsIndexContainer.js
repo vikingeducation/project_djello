@@ -1,25 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { FloatingActionButton } from "material-ui";
+import { FlatButton } from "material-ui";
 
 import { createBoard, getAllBoards, deleteBoard } from "../actions/board";
 import NewBoardModal from "../Components/NewBoardModal";
 import Showable from "../Components/elements/Showable";
+import { Card, CardHeader, CardActions } from "material-ui/Card";
 import Paper from "material-ui/Paper";
-
+import boardIndexStyles from "../styles/boardIndexStyles.css";
 export const makeBoardShow = id => `/boards/${id}`;
 const loadingScreen = <div>Loading...</div>;
 
-const cardWrapper = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  textAlign: "center",
-  alignItems: "center",
-  justifyContent: "space-evenly",
-  height: "100vh"
-};
+// const cardWrapper = {
+//   display: "flex",
+//   flexDirection: "row",
+//   flexWrap: "wrap",
+//   textAlign: "center",
+//   alignItems: "center",
+//   justifyContent: "space-evenly",
+//   height: "100vh"
+// };
 
 class BoardsIndexContainer extends React.Component {
   //hydrate some data
@@ -36,50 +37,53 @@ class BoardsIndexContainer extends React.Component {
   };
 
   render() {
-    console.log("board props = ", this.props);
-
     let boards;
     if (this.props.boards) {
       boards = this.props.boards.map(board => {
         const url = makeBoardShow(board._id);
         return (
-          <Paper zDepth={1} key={board._id}>
+          <div style={{ flexGrow: 1 }}>
             <Link to={url}>
-              <h1>{board.title}</h1>
+              <Card className="boardCard" key={board._id}>
+                <CardHeader title={board.title} />
+                <CardActions>
+                  <FlatButton
+                    href={`${board._id}`} ///????????
+                    mini={true}
+                    onClick={e => {
+                      this.onDeleteBoard(e, board._id);
+                    }}
+                    icon={<i className="material-icons">delete</i>}
+                  />
+                </CardActions>
+              </Card>
             </Link>
-            <FloatingActionButton
-              href={`${board._id}`} ///????????
-              mini={true}
-              onClick={e => {
-                this.onDeleteBoard(e, board._id);
-              }}
-            >
-              <i className="material-icons">delete</i>
-            </FloatingActionButton>
-          </Paper>
+          </div>
         );
       });
     }
     const newBoardButton = (
       <NewBoardModal onSubmit={this.onCreateBoard}>
-        <FloatingActionButton>
-          <i className="material-icons">add</i>
-        </FloatingActionButton>
+        <FlatButton
+          labelPosition="before"
+          label="Create a Board"
+          className="centerChildren"
+          icon={<i className="material-icons">add</i>}
+        />
       </NewBoardModal>
     );
 
     return (
-      <div>
+      <Paper>
         <Showable
           isFetching={this.props.isFetching}
           loadingScreen={loadingScreen}
         >
-          <div style={cardWrapper}>
-            {boards}
-            {newBoardButton}
-          </div>
+          <h1>Boards</h1>
+          <div className="cardWrapper">{boards}</div>
+          <div>{newBoardButton}</div>
         </Showable>
-      </div>
+      </Paper>
     );
   }
 }
