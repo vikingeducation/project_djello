@@ -6,7 +6,7 @@
     "start": "nodemon ./bin/www",
     "debug": "node debug ./bin/www",
     "seeds": "node ./seeds/index",
-    "seed": "node ./seeds/users",
+    "seed": "node ./seeds/index",
     "c": "node repl.js"
   },
   "dependencies": {

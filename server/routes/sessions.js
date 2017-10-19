@@ -9,7 +9,7 @@ router.post("/login", async (req, res) => {
     let { accessToken, username } = req.body;
     const user = await getFullUserData({ username });
     if (!user) return res.sendStatus(404);
-    let validToken = user.validateAccessToken(accessToken);
+    let validToken = await user.validateAccessToken(accessToken);
     if (!validToken) {
       return res.sendStatus(400);
     } else if (validToken) {
@@ -17,7 +17,7 @@ router.post("/login", async (req, res) => {
       //else get a new one
       const data = {
         username: user.username,
-        accessToken: user.getFreshAccessToken()
+        accessToken: await user.getFreshAccessToken()
       };
       return res.json(data);
     }
@@ -68,7 +68,7 @@ router.post("/", async (req, res) => {
     } else if (validPassword) {
       const data = {
         username: user.username,
-        accessToken: user.getFreshAccessToken()
+        accessToken: await user.getFreshAccessToken()
       };
       return res.json(data);
     }

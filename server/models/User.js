@@ -28,7 +28,11 @@ const UserSchema = new mongoose.Schema(
   }
 );
 //TODO: implement this
-UserSchema.methods.getFreshAccessToken = function() {
+UserSchema.methods.getFreshAccessToken = async function() {
+  if (!this.accessToken) {
+    this.accessToken = "dank";
+    await this.save();
+  }
   return this.accessToken;
 };
 //TODO: implement this

@@ -13,6 +13,14 @@ const numCards = 3;
 
 const { makeDefaultBoard } = require("../controllers");
 
+const util = require("util");
+// (async () => {
+//   const mongo = require("../mongo")();
+//   console.log("inpsecting ");
+//   console.log(util.inspect(mongo));
+//   mongo.dropDatabase();
+// })();
+
 seeder.seed({
   mongodbUrl: mongodbUrl,
   models: models,
