@@ -8,19 +8,15 @@ import NewBoardModal from "../Components/NewBoardModal";
 import Showable from "../Components/elements/Showable";
 import { Card, CardHeader, CardActions } from "material-ui/Card";
 import Paper from "material-ui/Paper";
-import boardIndexStyles from "../styles/boardIndexStyles.css";
+import styles from "../styles/style.css";
+import boardIndexStyle from "../styles/boardIndexStyle.css";
+import {
+  colorPrimary0,
+  colorSecondary0,
+  colorThree4
+} from "../styles/styles.js";
 export const makeBoardShow = id => `/boards/${id}`;
 const loadingScreen = <div>Loading...</div>;
-
-// const cardWrapper = {
-//   display: "flex",
-//   flexDirection: "row",
-//   flexWrap: "wrap",
-//   textAlign: "center",
-//   alignItems: "center",
-//   justifyContent: "space-evenly",
-//   height: "100vh"
-// };
 
 class BoardsIndexContainer extends React.Component {
   //hydrate some data
@@ -42,23 +38,25 @@ class BoardsIndexContainer extends React.Component {
       boards = this.props.boards.map(board => {
         const url = makeBoardShow(board._id);
         return (
-          <div style={{ flexGrow: 1 }}>
-            <Link to={url}>
-              <Card className="boardCard" key={board._id}>
-                <CardHeader title={board.title} />
-                <CardActions>
-                  <FlatButton
-                    href={`${board._id}`} ///????????
-                    mini={true}
-                    onClick={e => {
-                      this.onDeleteBoard(e, board._id);
-                    }}
-                    icon={<i className="material-icons">delete</i>}
-                  />
-                </CardActions>
-              </Card>
-            </Link>
-          </div>
+          <Link to={url}>
+            <Card
+              style={{ flexGrow: 1, backgroundColor: colorPrimary0 }}
+              className="boardCard"
+              key={board._id}
+            >
+              <CardHeader title={board.title} titleColor={"white"} />
+              <CardActions>
+                <FlatButton
+                  href={`${board._id}`} ///????????
+                  mini={true}
+                  onClick={e => {
+                    this.onDeleteBoard(e, board._id);
+                  }}
+                  icon={<i className="material-icons">delete</i>}
+                />
+              </CardActions>
+            </Card>
+          </Link>
         );
       });
     }
@@ -74,12 +72,15 @@ class BoardsIndexContainer extends React.Component {
     );
 
     return (
-      <Paper>
+      <Paper
+        className="globalBoardIndex"
+        style={{ backgroundColor: colorSecondary0 }}
+      >
         <Showable
           isFetching={this.props.isFetching}
           loadingScreen={loadingScreen}
         >
-          <h1>Boards</h1>
+          <h2>Boards</h2>
           <div className="cardWrapper">{boards}</div>
           <div>{newBoardButton}</div>
         </Showable>

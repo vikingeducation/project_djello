@@ -1,7 +1,15 @@
+$main-font-color: #fff;
+
+.globalBoardIndex * {
+  color: white;
+  // font-family: inherit, sans-serif;
+}
+
 .cardWrapper {
   margin: 30px;
   padding: 30px;
   display: flex;
+  color: $main-font-color;
   flex-direction: row;
   flex-wrap: wrap;
   /*justify-content: center;*/
@@ -10,9 +18,11 @@
 }
 .boardCard {
   flex-grow: 1;
+  color: $main-font-color;
   margin: 10px;
   /*padding: 10px;*/
 }
 .boards-index-wrapper {
   background-color: "green";
+  color: $main-font-color;
 }

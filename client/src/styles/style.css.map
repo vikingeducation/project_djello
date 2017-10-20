@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,KAAM;EACJ,SAAS,EAAE,IAAI;EACf,KAAK,ECGW,OAAO",
+"sources": ["style.scss","colorPalette.scss"],
+"names": [],
+"file": "style.css"
+}
