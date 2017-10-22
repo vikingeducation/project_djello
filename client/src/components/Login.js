@@ -36,7 +36,9 @@ class Login extends Component {
   render() {
 
     const { feedback } = this.state
-    const { error } = this.props
+    const invalidLogin = this.props.error ?
+      (<p className="text-danger">Couldn't log you in: No user with those login details found. Please try a different combination.</p>) :
+      ''
 
 
     return (
@@ -45,8 +47,8 @@ class Login extends Component {
 		<Col md={8} lg={5} sm={10} >
 		<Card className="p-5">
 			<h1 className="text-center">Djello</h1>
-			{this.props.error}
 			<CardBody>
+		{invalidLogin}
 			<Form onSubmit={this.onSubmit} >
 				<FormGroup row>
 				<Label for="email" className="sr-only">Email</Label>

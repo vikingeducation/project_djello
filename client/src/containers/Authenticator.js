@@ -16,7 +16,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     login: (form) => {
-      dispatch(login(form))
+      dispatch(login(form)).then(() => {
+        // get user info
+      })
 
       // dispatch login action
     }
