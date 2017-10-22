@@ -15,3 +15,11 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Logs
+client/logs
+client/*.log
+client/npm-debug.log*
+
+# Dependency directories
+client/node_modules/
