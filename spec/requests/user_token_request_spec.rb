@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-describe 'UserRequests' do
+describe 'UserTokenRequests' do
   let(:user){ create(:user)}
 
+  context 'logging in'
   it 'returns nothing if credentials invalid' do
     post login_path, params: {auth: {email: user.email, password: user.password}}
     expect(response).to have_http_status(:created)
@@ -14,5 +15,4 @@ describe 'UserRequests' do
   end
 
 
-end
 end
