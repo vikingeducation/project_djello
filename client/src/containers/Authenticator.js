@@ -8,7 +8,7 @@ import AppContainer from './AppContainer'
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn && state.auth.token,
+    isLoggedIn: !!state.auth.token,
     feedback: state.auth.feedback,
     error: state.auth.error
   }
@@ -29,6 +29,5 @@ const Authenticator = (props) => {
     <Login {...rest} />
   )
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authenticator)

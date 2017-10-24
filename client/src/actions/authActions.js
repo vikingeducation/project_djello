@@ -1,9 +1,5 @@
 import * as Types from './actionTypes'
 
-// loginRequest
-// loginFailure
-// loginSuccess
-
 const baseURL = 'http://localhost:3000'
 
 export function loginRequest() {
@@ -20,6 +16,10 @@ export function loginSuccess(data) {
 
 export function loginFormErrors(data) {
   return { data, type: Types.LOGIN_FORM_ERRORS }
+}
+
+export function logoutUser() {
+  return { type: Types.LOGOUT_USER }
 }
 
 export function login(data) {

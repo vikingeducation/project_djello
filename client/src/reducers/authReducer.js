@@ -12,14 +12,12 @@ function authentication(state = initialState, action) {
     case Actions.LOGIN_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
         token: action.data,
         isFetching: false,
       }
     case Actions.LOGIN_FAILURE:
       return {
         ...state,
-        isLoggedIn: false,
         token: null,
         error: action.data,
         isFetching: false,
@@ -34,6 +32,11 @@ function authentication(state = initialState, action) {
       return {
         ...state,
         formFeedback: action.data
+      }
+    case Actions.LOGOUT_USER:
+      return {
+        ...state,
+        token: null,
       }
     default:
       return state

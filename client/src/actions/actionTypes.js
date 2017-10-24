@@ -3,6 +3,7 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGIN_FORM_ERRORS = 'LOGIN_FORM_ERRORS'
+export const LOGOUT_USER = 'LOGOUT_USER'
 
 // User
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'

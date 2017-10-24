@@ -5,22 +5,27 @@ import PropTypes from 'prop-types'
 
 export default class Header extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.toggle = this.toggle.bind(this);
+    this.toggle = this.toggle.bind(this)
     this.state = {
       isOpen: false
-    };
+    }
+    this.logOut = this.logOut.bind(this)
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
-    });
+    })
+  }
+
+  logOut(e) {
+    e.preventDefault()
+    this.props.logOut();
   }
   render() {
 
-    console.log('this.props', this.props)
-    const { user } = this.props
+    const { user, logOut } = this.props
 
     return (
       <div>
@@ -33,16 +38,17 @@ export default class Header extends Component {
                <span className="navbar-text text-dark">Welcome, {user.name}</span>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Sign Out</NavLink>
+                <NavLink onClick={logOut} href="#">Sign Out</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
       </div>
-    );
+    )
   }
 }
 
 Header.propTypes = {
   user: PropTypes.object,
+  logOUut: PropTypes.func
 }

@@ -35,7 +35,6 @@ export function getUser() {
       method: 'GET'
     }
 
-
     return fetch(`${baseURL}/users`, options)
       .then(response => {
         if (!response.ok) {
