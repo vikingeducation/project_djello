@@ -1,4 +1,29 @@
 FactoryBot.define do
+
+  factory :action do
+    name "MyString"
+  end
+  factory :membership do
+    card nil
+    user nil
+  end
+  factory :card do
+    title "MyString"
+    description "MyText"
+    done false
+    list nil
+    position ""
+  end
+  factory :list do
+    title "MyString"
+    description "MyText"
+    board nil
+  end
+  factory :board do
+    sequence(:title){|n| "Board Title #{n}"}
+    association :owner
+  end
+
   factory :user, aliases: [:owner] do
     sequence(:email){|n| "foo#{n}@bar.com"}
     password 'password'
