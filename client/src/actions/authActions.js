@@ -39,6 +39,7 @@ export function login(data) {
       return response.json()
     }).then(json => {
       dispatch(loginSuccess(json.jwt))
+      return json.jwt
     }).catch(error => {
       dispatch(loginFailure(error.status))
     })

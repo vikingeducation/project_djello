@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Login from '../components/Login'
 import serialize from 'form-serialize'
 import { login, loginFormErrors } from '../actions/authActions'
+import AppContainer from './AppContainer'
 
 
 const mapStateToProps = (state) => {
@@ -16,11 +17,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     login: (form) => {
-      dispatch(login(form)).then(() => {
-        // get user info
-      })
-
-      // dispatch login action
+      dispatch(login(form))
     }
   }
 }
@@ -28,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const Authenticator = (props) => {
   const { isLoggedIn, ...rest } = props
   return (isLoggedIn ?
-    <div>AppContainer</div> :
+    <div><AppContainer /></div> :
     <Login {...rest} />
   )
 }
