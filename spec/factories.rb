@@ -1,24 +1,24 @@
 FactoryBot.define do
 
-  factory :action do
-    name "MyString"
-  end
+
   factory :membership do
-    card nil
-    user nil
+    association :card
+    association :user
   end
   factory :card do
-    title "MyString"
-    description "MyText"
+    sequence(:title){|n| "Card title #{n}"}
+    sequence(:description){|n| "Card description #{n}"}
     done false
-    list nil
+    association :list
     position ""
   end
+
   factory :list do
-    title "MyString"
-    description "MyText"
-    board nil
+    sequence(:title){|n| "List title #{n}"}
+    sequence(:description){ |n| "List description #{n}"}
+    association :board
   end
+
   factory :board do
     sequence(:title){|n| "Board Title #{n}"}
     association :owner
