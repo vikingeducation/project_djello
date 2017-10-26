@@ -2,30 +2,48 @@ require 'rails_helper'
 
 describe 'BoardRequests' do
   let(:user){ create(:user)}
-  let(:board){ create_list(:board, 3, owner: user)}
+  let(:boards){ create_list(:board, 3, owner: user)}
 
-  context 'logged out' do
-    it 'returns unauthorized if incorrect or no token' do
-      get boards_path
-      expect(response).to have_http_status(:unauthorized)
-      get boards_path, headers: bad_auth_headers(user)
-      expect(response).to have_http_status(:unauthorized)
+  describe '#update' do
+    context 'logged out' do
+      it 'returns unauthorized if incorrect or no token' do
+        boards
+        put board_path(boards.first.id)
+        expect(response).to have_http_status(:unauthorized)
+        put board_path(boards.first.id), headers: bad_auth_headers(user)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when user is logged in' do
+
+      it 'returns :ok' do
+        boards
+        new_title = 'Updated!'
+        put board_path(boards.first.id), headers: auth_headers(user), params: {board: {title: new_title}}
+        boards.first.reload
+        expect(response).to have_http_status(:ok)
+        expect(boards.first.title).to eq(new_title)
+      end
     end
   end
 
-  context 'logged in' do
-    before do
-      get boards_path, headers: auth_headers(user)
+  describe '#destroy' do
+    context 'logged out' do
+      before do
+        boards
+      end
+      it 'returns unauthorized if incorrect or no token' do
+        delete board_path(boards.first.id)
+        expect(response).to have_http_status(:unauthorized)
+        delete board_path(boards.first.id), headers: bad_auth_headers(user)
+        expect(response).to have_http_status(:unauthorized)
+      end
+      it 'returns no_content on successful deletion' do
+        delete board_path(boards.first.id), headers: auth_headers(user)
+        expect(response).to have_http_status(:no_content)
+      end
     end
-
-    it 'returns :ok' do
-      board
-      expect(response).to have_http_status(:ok)
-    end
-
-
-
 
   end
-
 end

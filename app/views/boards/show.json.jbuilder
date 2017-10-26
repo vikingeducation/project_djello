@@ -1,1 +1,1 @@
-json.current @board, :id, :title
+  json.current @board, :id, :title

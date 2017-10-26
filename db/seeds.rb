@@ -19,7 +19,7 @@ end
 
 puts 'Creating boards...'
 User.all.each do |u|
-  rand(0..4).times do
+  rand(1..4).times do
     Board.create!(title: Faker::Book.title, owner: u)
   end
 end

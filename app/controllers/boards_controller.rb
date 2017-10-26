@@ -12,6 +12,12 @@ class BoardsController < ApplicationController
 
   def destroy
     @board = Board.find(params[:id])
+    return head :not_found if @board.blank?
+    if @board.destroy
+      return head :no_content
+    else
+      return head :internal_server_error
+    end
   end
 
   def whitelisted_params
