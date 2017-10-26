@@ -5,3 +5,19 @@
 #login-box {
   height: 100vh;
 }
+
+a {
+  transition: .3s all ease-in-out;
+}
+
+.link-danger {
+  color: $red;
+}
+
+.edit-in-place {
+  color: $body-color;
+  &:hover {
+    color: $blue;
+    text-decoration: none;
+  }
+}

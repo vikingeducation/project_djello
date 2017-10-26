@@ -1,5 +1,8 @@
 import React from 'react'
-import Header from './Header'
+import Navigation from './Navigation'
+import BoardContainer from '../containers/BoardContainer'
+import PropTypes from 'prop-types'
+
 
 const App = (props) => {
   if (props.user.isFetching) {
@@ -7,9 +10,14 @@ const App = (props) => {
   }
   return (
     <div>
-    	<Header {...props} />
-    	
+    	<Navigation {...props} />
+    	<BoardContainer />
     </div>)
+}
+
+App.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func
 }
 
 export default App

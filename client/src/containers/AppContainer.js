@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     getUser: () => {
       dispatch(getUser())
     },
-    logOut: () => {
+    logout: () => {
       dispatch(logoutUser())
     }
   }
@@ -28,6 +28,7 @@ class AppContainer extends Component {
   }
 
   render() {
+
     return (
       <App {...this.props} />
     )

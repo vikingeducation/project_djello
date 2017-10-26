@@ -1,6 +1,7 @@
 import * as Types from './actionTypes'
+import { baseURL } from '../helpers/actionHelpers'
 
-const baseURL = 'http://localhost:3000'
+// const baseURL = 'http://localhost:3000'
 
 export function loginRequest() {
   return { type: Types.LOGIN_REQUEST }
@@ -38,6 +39,7 @@ export function login(data) {
       }
       return response.json()
     }).then(json => {
+      console.log('token', json.jwt)
       dispatch(loginSuccess(json.jwt))
       return json.jwt
     }).catch(error => {

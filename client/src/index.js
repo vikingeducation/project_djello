@@ -12,12 +12,14 @@ import index from './reducers/index'
 // so we don't have to keep signing in in development mode
 const login = {
   auth: {
-    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDg5MzAwNTQsInN1YiI6N30.sdeN46FZIRgeL0e7a9lLIECK-GqssiJFF-XbHQHme44',
+    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDkwMzU2NzksInN1YiI6NzJ9.cIGAQ5ij8Ya19Q0lAAc3QtSH2GElhfbaLBEE5omSdJo',
     isLoggedIn: true
   }
 }
 
+
 const store = createStore(index, login, applyMiddleware(thunk));
+// const store = createStore(index, applyMiddleware(thunk));
 
 
 ReactDOM.render(
