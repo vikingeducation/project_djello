@@ -36,6 +36,17 @@ export function deleteBoardFailure(data) {
 export function deleteBoardSuccess(data) {
   return { data, type: Actions.DELETE_BOARD_SUCCESS }
 }
+export function createBoardRequest() {
+  return { type: Actions.CREATE_BOARD_REQUEST }
+}
+
+export function createBoardFailure(data) {
+  return { data, type: Actions.CREATE_BOARD_FAILURE }
+}
+
+export function createBoardSuccess(data) {
+  return { data, type: Actions.CREATE_BOARD_SUCCESS }
+}
 
 export function loadDefaultBoard() {
   return (dispatch, getState) => {
@@ -52,16 +63,15 @@ export function loadDefaultBoard() {
     return fetch(`${baseURL}/main`, options)
       .then(response => {
         if (!response.ok) {
-          console.log('response not ok', response)
-          throw response
+          throw new Error(response)
         }
         return response.json()
       }).then(json => {
         console.log('success', json)
         dispatch(getBoardSuccess(json))
       }).catch(error => {
-        dispatch(getBoardFailure(error.status))
-        console.log('error', error)
+        console.log('load boarderror', error)
+        dispatch(getBoardFailure(error))
       })
   }
 }
@@ -82,15 +92,42 @@ export function updateBoard(data, board_id) {
 
     return fetch(`${baseURL}/boards/${board_id}`, options).then(response => {
       if (!response.ok) {
-        throw response
+        throw Error(response)
       }
       return response.json()
     }).then(json => {
       dispatch(updateBoardSuccess(json))
-      console.log('response ok', json)
     }).catch(error => {
-      dispatch(updateBoardFailure(error))
-      console.log('response no ok', error.status)
+      dispatch(updateBoardFailure(error.status))
     })
+  }
+}
+
+export function deleteBoard(board_id) {
+  return (dispatch, getState) => {
+    const token = getState().auth.token
+    const options = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      method: 'DELETE',
+    }
+
+    dispatch(deleteBoardRequest())
+
+    return fetch(`${baseURL}/boards/${board_id}`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response)
+        }
+        return response
+      }).then(json => {
+        console.log('response', json)
+        dispatch(deleteBoardSuccess())
+      }).catch(error => {
+        console.log('error', error)
+        dispatch(deleteBoardFailure(error.status))
+      })
   }
 }

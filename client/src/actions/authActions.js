@@ -35,7 +35,7 @@ export function login(data) {
     return fetch(`${baseURL}/login`, options).
     then(response => {
       if (!response.ok) {
-        throw response
+        throw Error(response.status)
       }
       return response.json()
     }).then(json => {

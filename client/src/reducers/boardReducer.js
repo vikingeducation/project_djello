@@ -5,7 +5,7 @@ const initialState = {
   board_list: [],
   lists: [],
   cards: [],
-  errors: null,
+  error: null,
   isFetching: false,
 }
 
@@ -19,6 +19,7 @@ export default function board(state = initialState, action) {
         isFetching: true,
       }
     case Actions.GET_BOARD_SUCCESS:
+      console.log('get baord success', action.data)
       return {
         ...state,
         ...action.data,
@@ -34,8 +35,12 @@ export default function board(state = initialState, action) {
     case Actions.UPDATE_BOARD_FAILURE:
       return {
         ...state,
-        errors: action.data,
+        error: action.data,
         isFetching: false
+      }
+    case Actions.DELETE_BOARD_SUCCESS:
+      return {
+        ...initialState
       }
     default:
       return state

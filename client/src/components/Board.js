@@ -10,12 +10,14 @@ import {
   Button
 } from 'reactstrap';
 import EditInPlace from './EditInPlace'
+import DeleteConfirmation from './DeleteConfirmation'
 
 // to do 
 // 1. set up SElect Board onChange method
-// 2. Set up Board title edit inplace
+// 2. Set up board creation
 
-export default function Board({ board, updateBoard, deleteBoard }) {
+
+export default function Board({ board, updateBoard, deleteBoard, createBoard }) {
 
   // lists.
   // for each list in board.lists, 
@@ -27,7 +29,6 @@ export default function Board({ board, updateBoard, deleteBoard }) {
     )
   }
 
-
   const board_options = board.board_list.map(board_option => {
     if (board_option.id !== board.current.id) {
       return (
@@ -36,17 +37,34 @@ export default function Board({ board, updateBoard, deleteBoard }) {
     }
   })
 
-  function confirmDeletion(id) {
-    confirm('Are you sure you want to delete this board?') ?
-      deleteBoard(board.current.id) : null
+  function confirmDeletion() {
+    deleteBoard(board.current.id)
   }
 
+  function boardCreation(e) {
+    e.preventDefault()
+    console.log('create board')
+  }
+
+
+  if (!board.current.id) {
+
+    return (
+      <Container>
+       <Row className="justify-content-center text-center align-items-center">
+         <Col>
+           <h1>Oops! You don't have any boards...</h1>
+           <p className="h4"><Button color="primary" onClick={boardCreation}>Create a board</Button></p>
+         </Col>
+       </Row>
+     </Container>
+    )
+  }
 
   return (
 
     <Container>
-
-  	<Row className="justify-content-between align-items-top">
+	<Row className="justify-content-between align-items-top">
   		<Col md={9} lg={7} xs={12}>
   		 <EditInPlace text={board.current.title} onSubmit={updateBoard} id={board.current.id} />
   		</Col>
@@ -55,13 +73,13 @@ export default function Board({ board, updateBoard, deleteBoard }) {
   			<FormGroup>
   				<Label for="board_id" >Select Board:</Label>
   				<Input type="select" name="board_id" className="ml-sm-2">
-  				<option key={`board-option-${board.current.id}`} disabled>{board.current.title}</option>
+  				<option key={`board-option-${board.current.id}`} >{board.current.title}</option>
   				{board_options}
   				</Input>
   			</FormGroup>
   			</Form>
-        <p className="float-lg-right">
-        <a href="#" className="text-danger" onClick={confirmDeletion}>Delete Board</a> / <a href="#"  >New Board</a></p>
+        <div className="float-lg-right">
+        <DeleteConfirmation buttonLabel="Delete Board" confirmationLabel="Delete" body="Delete board?" delete={confirmDeletion} className="d-inline-block"  /> / <a href="#"  >New Board</a></div>
   		</Col>
   	</Row>
   	<Row>
@@ -69,6 +87,7 @@ export default function Board({ board, updateBoard, deleteBoard }) {
   			lists
   		</Col>
   	</Row>
+  
   
   	</Container>
 
