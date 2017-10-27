@@ -1,9 +1,5 @@
-const { Card } = require('../../models/index');
-const {
-	INTERNAL,
-	ERROR,
-	SUCCESS
-} = require('../../../client/src/socket/events');
+const { Card } = require("../../models/index");
+const { INTERNAL, ERROR, SUCCESS } = require("../../client/src/socket/events");
 
 module.exports = {
 	_getCard,
@@ -53,7 +49,7 @@ async function _getCards(ctx) {
 		}
 
 		const { options } = ctx.data;
-		if (!options || !(typeof options === 'object')) {
+		if (!options || !(typeof options === "object")) {
 			return this.emit(INTERNAL.GET_CARD_FAILURE, {
 				error: ERROR.CARD_NO_OPTIONS
 			});

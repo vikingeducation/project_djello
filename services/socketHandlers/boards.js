@@ -1,9 +1,5 @@
-const { Board } = require('../../models/index');
-const {
-	INTERNAL,
-	ERROR,
-	SUCCESS
-} = require('../../../client/src/socket/events');
+const { Board } = require("../../models/index");
+const { INTERNAL, ERROR, SUCCESS } = require("../../client/src/socket/events");
 
 module.exports = {
 	_getBoard,

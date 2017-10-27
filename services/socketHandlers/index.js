@@ -1,33 +1,33 @@
-const { User } = require('../../models/index');
+const { User } = require("../../models/index");
 const {
 	SYSTEM,
 	CLIENT,
 	INTERNAL,
 	ERROR,
 	SUCCESS
-} = require('../../../client/src/socket/events');
+} = require("../../client/src/socket/events");
 
-const { _getUser, _getUsers, _createUser, _deleteUser } = require('./users');
+const { _getUser, _getUsers, _createUser, _deleteUser } = require("./users");
 const {
 	_getBoard,
 	_getBoards,
 	_createBoard,
 	_deleteBoard
-} = require('./boards');
+} = require("./boards");
 const {
 	_getList,
 	_getLists,
 	_createList,
 	_modifyList,
 	_deleteList
-} = require('./lists');
+} = require("./lists");
 const {
 	_getCard,
 	_getCards,
 	_createCard,
 	_modifyCard,
 	_deleteCard
-} = require('./cards');
+} = require("./cards");
 
 module.exports = {
 	_attemptRegister,
@@ -82,7 +82,7 @@ async function _attemptLogin(ctx) {
 			return this.emit(CLIENT.FAILURE_LOGIN, ERROR.INVALID_CREDENTIALS);
 		}
 
-		console.log('Login attempt from: ', ctx.data.username);
+		console.log("Login attempt from: ", ctx.data.username);
 
 		const user = await User.findOne({ username: username });
 		if (user && user.validatePassword(password)) {

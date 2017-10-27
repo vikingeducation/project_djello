@@ -1,9 +1,5 @@
-const { List } = require('../../models/index');
-const {
-	INTERNAL,
-	ERROR,
-	SUCCESS
-} = require('../../../client/src/socket/events');
+const { List } = require("../../models/index");
+const { INTERNAL, ERROR, SUCCESS } = require("../../client/src/socket/events");
 
 module.exports = {
 	_getList,
@@ -53,7 +49,7 @@ async function _getLists(ctx) {
 		}
 
 		const { options } = ctx.data;
-		if (!options || !(typeof options === 'object')) {
+		if (!options || !(typeof options === "object")) {
 			return this.emit(INTERNAL.GET_LIST_FAILURE, {
 				error: ERROR.LIST_NO_OPTIONS
 			});

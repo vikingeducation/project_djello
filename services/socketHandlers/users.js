@@ -1,9 +1,5 @@
-const { User } = require('../../models/index');
-const {
-	INTERNAL,
-	ERROR,
-	SUCCESS
-} = require('../../../client/src/socket/events');
+const { User } = require("../../models/index");
+const { INTERNAL, ERROR, SUCCESS } = require("../../client/src/socket/events");
 
 module.exports = {
 	_getUser,
@@ -15,7 +11,7 @@ module.exports = {
 async function _getUser(ctx) {
 	try {
 		const options = ctx.data;
-		if (!options || !(typeof options === 'object')) {
+		if (!options || !(typeof options === "object")) {
 			return this.emit(INTERNAL.GET_USER_FAILURE, {
 				error: ERROR.USER_NO_OPTIONS
 			});
@@ -46,7 +42,7 @@ async function _getUsers(ctx) {
 		}
 
 		const { options } = ctx.data;
-		if (!options || !(typeof options === 'object')) {
+		if (!options || !(typeof options === "object")) {
 			return this.emit(INTERNAL.GET_USER_FAILURE, {
 				error: ERROR.USER_NO_OPTIONS
 			});

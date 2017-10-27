@@ -1,14 +1,14 @@
-const connect = require('../mongo');
-const Handlers = require('./socketHandlers');
+const connect = require("../mongo");
+const Handlers = require("./socketHandlers");
 
-const { SYSTEM, CLIENT, INTERNAL } = require('../../client/src/socket/events');
+const { SYSTEM, CLIENT, INTERNAL } = require("../client/src/socket/events");
 
 module.exports = async (ctx, next) => {
 	const client = ctx.socket;
 	try {
 		// Connect to the database.
 		await connect();
-		console.log('Socket connection initiated!');
+		console.log("Socket connection initiated!");
 
 		// REGISTER EVENTS
 		client.on(SYSTEM.ATTEMPT_REGISTER, Handlers._attemptRegister.bind(client));
