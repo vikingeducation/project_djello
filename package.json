@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"postinstall": "cd client && npm i && npm run build",
 		"start": "node bin/www",
 		"dev": "./node_modules/.bin/nodemon bin/www",
 		"prd": "pm2 start bin/www",
