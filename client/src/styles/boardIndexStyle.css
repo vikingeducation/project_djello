@@ -1,0 +1,22 @@
+.globalBoardIndex * {
+  color: white; }
+
+.cardWrapper {
+  margin: 30px;
+  padding: 30px;
+  display: flex;
+  color: #fff;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start; }
+
+.boardCard {
+  flex-grow: 1;
+  color: #fff;
+  margin: 10px; }
+
+.boards-index-wrapper {
+  background-color: "green";
+  color: #fff; }
+
+/*# sourceMappingURL=boardIndexStyle.css.map */

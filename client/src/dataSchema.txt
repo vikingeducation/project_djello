@@ -1,0 +1,10 @@
+Redux Store
+---------------
+User {
+  username / name :
+  email :
+  password :
+  boards :
+    lists : 
+  memberships : ??
+}
