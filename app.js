@@ -33,10 +33,10 @@ const session = koaSession(CONFIG, app);
 app.use(session);
 
 app.use(async (ctx, next) => {
-	let n = ctx.session.views || 0;
-	debug("app session: %s", n);
-	ctx.session.views = ++n;
-	await next();
+	// let n = ctx.session.views || 0;
+	// // debug("app session: %s", n);
+	// ctx.session.views = ++n;
+	// await next();
 });
 
 module.exports = {
