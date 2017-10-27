@@ -1,0 +1,34 @@
+.board-actions {
+	text-align: right;
+	padding: .8em;
+}
+
+.board-list {
+	padding: 1.5em;
+}
+
+.board-list-container {
+	overflow-y: auto;
+	max-height: 600px;
+	padding: 0 !important;
+}
+
+.list-info-edit-link {
+	cursor: pointer;
+}
+
+.list-info-edit-link:hover {
+	text-decoration: underline;
+}
+
+.delete-board-button {
+	position: absolute;
+	top: -20px;
+	right: -20px;
+}
+
+.card-activity-count {
+	vertical-align: middle;
+	float: left;
+	margin-right: .5em;
+}
