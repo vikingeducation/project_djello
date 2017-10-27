@@ -1,9 +1,16 @@
 const Koa = require("koa");
-
+const staticServe = require("koa2-static").default;
 const app = new Koa();
 const onerror = require("koa-onerror");
 const logger = require("koa-logger");
 const koaSession = require("koa-session2");
+
+app.use(
+	staticServe({
+		root: __dirname + "/build",
+		path: "/"
+	})
+);
 
 // error handler
 onerror(app);
@@ -34,7 +41,7 @@ app.use(session);
 
 app.use(async (ctx, next) => {
 	// let n = ctx.session.views || 0;
-	// // debug("app session: %s", n);
+	// debug("app session: %s", n);
 	// ctx.session.views = ++n;
 	// await next();
 });
