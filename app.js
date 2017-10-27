@@ -7,7 +7,7 @@ const koaSession = require("koa-session2");
 
 app.use(
 	static({
-		root: __dirname + "/client/build",
+		root: __dirname + "/build",
 		path: "/"
 	})
 );
