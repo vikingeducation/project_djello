@@ -4,6 +4,8 @@ const app = new Koa();
 const onerror = require("koa-onerror");
 const logger = require("koa-logger");
 const koaSession = require("koa-session2");
+require("babel-core/register");
+require("babel-polyfill");
 
 app.use(
 	staticServe({
