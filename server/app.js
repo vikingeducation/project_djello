@@ -1,8 +1,16 @@
-const Koa = require('koa');
+const Koa = require("koa");
+const static = require("koa2-static");
 const app = new Koa();
-const onerror = require('koa-onerror');
-const logger = require('koa-logger');
-const koaSession = require('koa-session2');
+const onerror = require("koa-onerror");
+const logger = require("koa-logger");
+const koaSession = require("koa-session2");
+
+app.use(
+	static({
+		root: __dirname + "/client/build",
+		path: "/"
+	})
+);
 
 // error handler
 onerror(app);
@@ -18,14 +26,14 @@ app.use(async (ctx, next) => {
 });
 
 const CONFIG = {
-	key: 'koa:sess' /** (string) cookie key (default is koa:sess) */,
+	key: "koa:sess" /** (string) cookie key (default is koa:sess) */,
 	maxAge: 86400000 /** (number) maxAge in ms (default is 1 days) */,
 	overwrite: true /** (boolean) can overwrite or not (default true) */,
 	httpOnly: true /** (boolean) httpOnly or not (default true) */,
 	signed: true /** (boolean) signed or not (default true) */
 };
 
-const APP_SECRET = process.env.SECRET || 'I Like Pickles';
+const APP_SECRET = process.env.SECRET || "I Like Pickles";
 app.keys = [APP_SECRET];
 
 const session = koaSession(CONFIG, app);
@@ -33,7 +41,7 @@ app.use(session);
 
 app.use(async (ctx, next) => {
 	let n = ctx.session.views || 0;
-	debug('app session: %s', n);
+	debug("app session: %s", n);
 	ctx.session.views = ++n;
 	await next();
 });

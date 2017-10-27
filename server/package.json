@@ -21,6 +21,7 @@
 		"koa-session2": "^2.2.5",
 		"koa-socket-session": "^1.2.0",
 		"koa-socket.io": "^1.1.2",
+		"koa2-static": "^1.0.1",
 		"md5": "^2.2.1",
 		"mongoose": "^4.11.11",
 		"mongoose-unique-validator": "^1.0.6",
