@@ -2,4 +2,32 @@
   font-size: 50px;
   color: #39a939; }
 
+.nav {
+  height: 60px; }
+
+html,
+body {
+  width: 100%;
+  height: 100%; }
+
+#root {
+  width: 100%;
+  height: 100%; }
+  #root div {
+    width: inherit;
+    height: inherit; }
+
+.main-content {
+  height: 100%;
+  width: 100%; }
+  .main-content div {
+    width: auto;
+    height: auto; }
+
+.ctaButton {
+  background-color: #5cc45c !important; }
+
+.ctaButton:hover {
+  background-color: #8cdc8c !important; }
+
 /*# sourceMappingURL=style.css.map */

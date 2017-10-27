@@ -2,9 +2,18 @@ import React, { Component } from "react";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import FlatButton from "material-ui/FlatButton";
-import { appBarStyle } from "../App";
-
+import { colorPrimary3 } from "../styles/styles.js";
 import { Link } from "react-router-dom";
+
+const appBarStyle = {
+  position: "fixed",
+  zIndex: "10",
+  height: "60px",
+  top: "0px",
+  left: "0px",
+  width: "100%"
+  // backgroundColor: colorPrimary3
+};
 
 class Login extends Component {
   static muiName = "FlatButton";
@@ -41,9 +50,11 @@ class Appbar extends Component {
           </Link>
         }
         iconElementRight={
-          <IconButton tooltip="settings" tooltipPosition="bottom-center">
-            <i className="material-icons">settings</i>
-          </IconButton>
+          <Link to="/settings">
+            <IconButton tooltip="settings" tooltipPosition="bottom-center">
+              <i className="material-icons">settings</i>
+            </IconButton>
+          </Link>
         }
         iconElementRight={logBtn}
         style={appBarStyle}

@@ -14,7 +14,7 @@ const centerForm = {
   display: "flex",
   flexDirection: "column",
   textAlign: "center",
-  height: "100vh",
+  height: "100%",
   alignItems: "center",
   justifyContent: "center"
 };

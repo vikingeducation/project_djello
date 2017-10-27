@@ -29,3 +29,8 @@ export const colorThree1 = "#d6f39b";
 export const colorThree2 = "#bce46c";
 export const colorThree3 = "#7ca924";
 export const colorThree4 = "#5d860c";
+
+export const ctaButton = {
+  color: colorPrimary2,
+  hover: colorPrimary1
+};

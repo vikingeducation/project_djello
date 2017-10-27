@@ -8,15 +8,12 @@
   color: #fff;
   flex-direction: row;
   flex-wrap: wrap;
-  /*justify-content: center;*/
-  align-items: flex-start;
-  /*align-content: stretch;*/ }
+  align-items: flex-start; }
 
 .boardCard {
   flex-grow: 1;
   color: #fff;
-  margin: 10px;
-  /*padding: 10px;*/ }
+  margin: 10px; }
 
 .boards-index-wrapper {
   background-color: "green";

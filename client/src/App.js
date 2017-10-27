@@ -11,6 +11,8 @@ import Appbar from "./Components/Appbar";
 import LoggedIn from "./Components/elements/LoggedIn";
 import LoggedOut from "./Components/elements/LoggedOut";
 
+import style from "./styles/style.css";
+
 //Actions
 import {
   logout,
@@ -19,21 +21,8 @@ import {
   DJELLO_SESSION_ACCESSTOKEN
 } from "./actions/user";
 
-//random styles
-export const appBarStyle = {
-  position: "fixed",
-  height: "80px",
-  zIndex: "1",
-  top: 0,
-  left: 0,
-  width: "100%"
-};
 export const contentStyle = {
-  position: "absolute",
-  top: appBarStyle.height,
-  height: "100%",
-  width: "100%",
-  left: "0px"
+  marginTop: "60px"
 };
 
 class App extends Component {
@@ -80,11 +69,11 @@ class App extends Component {
     }
     return (
       <Router>
-        <div className="App">
+        <div className="App main-content">
           {/* <Dashboard /> */}
-          <div style={appBarStyle}>
-            <Appbar loggedIn={!needToLogin} onLogout={this.onLogout} />
-          </div>
+          {/* <div style={appBarStyle}> */}
+          <Appbar loggedIn={!needToLogin} onLogout={this.onLogout} />
+          {/* </div> */}
           <div style={contentStyle}>
             {/* if logged in */}
             <LoggedIn user={!needToLogin}>
@@ -98,14 +87,12 @@ class App extends Component {
               </Switch>
             </LoggedIn>
             {/* if not logged in */}
-            <div id="formContainer" className="flex-center">
-              <LoggedOut user={!needToLogin}>
-                <Switch>
-                  <Route exact path="/" component={LoginContainer} />
-                  <Route path="*" render={() => <Redirect to="/" />} />
-                </Switch>
-              </LoggedOut>
-            </div>
+            <LoggedOut user={!needToLogin}>
+              <Switch>
+                <Route exact path="/" component={LoginContainer} />
+                <Route path="*" render={() => <Redirect to="/" />} />
+              </Switch>
+            </LoggedOut>
           </div>
         </div>
       </Router>

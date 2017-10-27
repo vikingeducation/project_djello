@@ -1,11 +1,15 @@
 import React, { PropTypes } from "react";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
+import globalStyles from "../styles/style.css";
+
+// import { ctaButton } from "../styles/styles.js";
 
 const style = {
   margin: 12
 };
-
+// console.log(`ctaButton = ${ctaButton.color}`);
 const LoginForm = props => {
   const { onSubmit, onChangeInput, username, password } = props;
   return (
@@ -15,8 +19,8 @@ const LoginForm = props => {
         <TextField
           id="username"
           name="username"
-          hintText="username"
-          floatingLabelText="username"
+          hintText="Username"
+          floatingLabelText="Username"
           value={username}
           onChange={onChangeInput}
         />
@@ -27,19 +31,13 @@ const LoginForm = props => {
         <TextField
           id="password"
           name="password"
-          hintText="password"
-          floatingLabelText="password"
+          hintText="Password"
+          floatingLabelText="Password"
           value={password}
           onChange={onChangeInput}
         />
       </div>
-
-      <RaisedButton
-        label="Login"
-        primary={true}
-        style={style}
-        onClick={onSubmit}
-      />
+      <FlatButton label="Login" className="ctaButton" onClick={onSubmit} />
     </form>
   );
 };
