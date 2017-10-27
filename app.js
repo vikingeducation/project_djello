@@ -4,7 +4,7 @@ const app = new Koa();
 const onerror = require("koa-onerror");
 const logger = require("koa-logger");
 const koaSession = require("koa-session2");
-
+console.log(static);
 app.use(
 	static({
 		root: __dirname + "/build",
