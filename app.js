@@ -10,7 +10,7 @@ require("babel-polyfill");
 app.use(
 	staticServe({
 		root: __dirname + "/client/build",
-		path: "/"
+		path: "*"
 	})
 );
 
