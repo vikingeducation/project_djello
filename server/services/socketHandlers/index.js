@@ -71,6 +71,11 @@ async function _attemptRegister(ctx) {
 
 async function _attemptLogin(ctx) {
 	try {
+		if (ctx.data._id) {
+			ctx.user = ctx.data;
+			return this.emit(CLIENT.SUCCESS_LOGIN, ctx.user);
+		}
+
 		const { username, password } = ctx.data;
 		if (!username || !password) {
 			// Failure

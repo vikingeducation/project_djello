@@ -9,7 +9,7 @@ import {
 	CardText
 } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import { pink500, green600, cyan500, grey100 } from 'material-ui/styles/colors';
+import { cyan500, grey100 } from 'material-ui/styles/colors';
 import FontIcon from 'material-ui/FontIcon';
 import FlatButton from 'material-ui/RaisedButton';
 import RaisedButton from 'material-ui/RaisedButton';

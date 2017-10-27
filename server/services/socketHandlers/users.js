@@ -14,20 +14,14 @@ module.exports = {
 
 async function _getUser(ctx) {
 	try {
-		if (!ctx.user) {
+		const options = ctx.data;
+		if (!options || !(typeof options === 'object')) {
 			return this.emit(INTERNAL.GET_USER_FAILURE, {
-				error: ERROR.USER_NONE
+				error: ERROR.USER_NO_OPTIONS
 			});
 		}
 
-		const { id } = ctx.data;
-		if (!id || !id.length) {
-			return this.emit(INTERNAL.GET_USER_FAILURE, {
-				error: ERROR.USER_NO_ID
-			});
-		}
-
-		const user = await User.findOne({ id });
+		const user = await User.findOne(options);
 		if (!user) {
 			return this.emit(INTERNAL.GET_USER_FAILURE, {
 				id,
@@ -36,7 +30,7 @@ async function _getUser(ctx) {
 		}
 
 		// All good.
-		this.emit(INTERNAL.GET_USER_SUCCECSS, user);
+		this.emit(INTERNAL.GET_USER_SUCCESS, user);
 	} catch (error) {
 		this.emit(INTERNAL.GET_USER_FAILURE, { error });
 		console.error(error);

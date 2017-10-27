@@ -1,16 +1,16 @@
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as Actions from '../containers/App/actions';
+import Actions from '../containers/App/actions';
+
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class ErrorDialog extends React.PureComponent {
 	render() {
-		console.log('ERROR DIALOG', this.props);
 		const actions = [
 			<FlatButton
 				label="Okay"
@@ -18,23 +18,20 @@ class ErrorDialog extends React.PureComponent {
 				onClick={this.props.clearLoginError}
 			/>
 		];
-
 		return (
-			<div>
-				<Dialog
-					actions={actions}
-					modal={false}
-					open={this.props.LoginReducer.error ? true : false}
-				>
-					{this.props.LoginReducer.error}
-				</Dialog>
-			</div>
+			<Dialog
+				actions={actions}
+				modal={false}
+				open={this.props.error ? true : false}
+			>
+				{this.props.error}
+			</Dialog>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-	LoginReducer: state.LoginReducer
+	error: state.LoginReducer.error
 });
 
 const mapDispatchToProps = dispatch => ({

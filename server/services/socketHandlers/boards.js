@@ -51,14 +51,13 @@ async function _getBoards(ctx) {
 			});
 		}
 
-		const { options } = ctx.data;
-		if (!options || !(typeof options === 'object')) {
-			return this.emit(INTERNAL.GET_BOARD_FAILURE, {
-				error: ERROR.BOARD_NO_OPTIONS
-			});
+		let boards,
+			options = ctx.data.options;
+		if (!ctx.data.populate) {
+			boards = await Board.find(options);
+		} else {
+			boards = await Board.find(options).populate(ctx.data.populate);
 		}
-
-		const boards = await Board.find(options);
 		if (!boards || !Array.isArray(boards) || !boards.length) {
 			return this.emit(INTERNAL.GET_BOARD_FAILURE, {
 				error: ERROR.BOARDS_NOT_FOUND

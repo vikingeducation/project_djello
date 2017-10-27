@@ -21,9 +21,11 @@
 		"koa-session2": "^2.2.5",
 		"koa-socket-session": "^1.2.0",
 		"koa-socket.io": "^1.1.2",
+		"md5": "^2.2.1",
 		"mongoose": "^4.11.11",
 		"mongoose-unique-validator": "^1.0.6",
 		"mongooseeder": "^2.0.5",
+		"shortid": "^2.2.8",
 		"socket.io": "^2.0.3"
 	},
 	"devDependencies": {
