@@ -1,0 +1,43 @@
+{
+  "name": "project_djello",
+  "version": "1.0.0",
+  "description": "Project management with that great wobbly taste.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=socketio-auth,socket.io:* nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebopshoobop/project_djello.git"
+  },
+  "author": "Will Timpson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebopshoobop/project_djello/issues"
+  },
+  "homepage": "https://github.com/thebopshoobop/project_djello#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "faker": "^4.1.0",
+    "md5": "^2.2.1",
+    "mongoose": "^4.11.11",
+    "mongoose-unique-validator": "^1.0.6",
+    "mongooseeder": "^2.0.5",
+    "morgan": "^1.8.2",
+    "morgan-toolkit": "^1.0.2",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "reselect": "^3.0.1",
+    "shortid": "^2.2.8",
+    "socket.io": "^2.0.3",
+    "socketio-auth": "^0.1.0",
+    "uuid": "^3.1.0",
+    "validate.js": "^0.11.1",
+    "voca": "^1.3.0"
+  }
+}
