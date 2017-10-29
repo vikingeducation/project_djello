@@ -48,7 +48,13 @@ export function createBoardSuccess(data) {
   return { data, type: Actions.CREATE_BOARD_SUCCESS }
 }
 
-export function loadDefaultBoard() {
+
+export function loadBoard(board_id) {
+  console.log('load baord')
+  console.log('board_id is defined', board_id)
+  let fetchURL = board_id ? (baseURL + '/boards/' + board_id) : baseURL + '/main'
+
+  console.log('fetchURL', fetchURL)
   return (dispatch, getState) => {
     const token = getState().auth.token
     const options = {
@@ -60,14 +66,14 @@ export function loadDefaultBoard() {
 
     dispatch(getBoardRequest())
 
-    return fetch(`${baseURL}/main`, options)
+    return fetch(fetchURL, options)
       .then(response => {
         if (!response.ok) {
           throw new Error(response)
         }
         return response.json()
       }).then(json => {
-        console.log('success', json)
+        console.log('get board success', json)
         dispatch(getBoardSuccess(json))
       }).catch(error => {
         console.log('load boarderror', error)
@@ -123,11 +129,9 @@ export function deleteBoard(board_id) {
         }
         return response
       }).then(json => {
-        console.log('response', json)
-        dispatch(deleteBoardSuccess())
+        return dispatch(deleteBoardSuccess())
       }).catch(error => {
-        console.log('error', error)
-        dispatch(deleteBoardFailure(error.status))
+        return dispatch(deleteBoardFailure(error.status))
       })
   }
 }

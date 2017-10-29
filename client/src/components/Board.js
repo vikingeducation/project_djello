@@ -17,7 +17,7 @@ import DeleteConfirmation from './DeleteConfirmation'
 // 2. Set up board creation
 
 
-export default function Board({ board, updateBoard, deleteBoard, createBoard }) {
+export default function Board({ board, updateBoard, deleteBoard, createBoard, selectBoard }) {
 
   // lists.
   // for each list in board.lists, 
@@ -30,11 +30,9 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard }) 
   }
 
   const board_options = board.board_list.map(board_option => {
-    if (board_option.id !== board.current.id) {
-      return (
-        <option key={`board-option-${board_option.id}`} id={board_option.id}>{board_option.title}</option>
-      )
-    }
+    return (
+      <option key={`board-option-${board_option.id}`} id={board_option.id} value={board_option.id}>{board_option.title}</option>
+    )
   })
 
   function confirmDeletion() {
@@ -43,7 +41,11 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard }) 
 
   function boardCreation(e) {
     e.preventDefault()
-    console.log('create board')
+  }
+
+  function onBoardSelect(e) {
+    e.preventDefault()
+    selectBoard(e.target.value)
   }
 
 
@@ -69,11 +71,10 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard }) 
   		 <EditInPlace text={board.current.title} onSubmit={updateBoard} id={board.current.id} />
   		</Col>
   		<Col lg={5}>
-  			<Form inline className="float-lg-right">
+  			<Form inline className="float-lg-right" onSubmit={selectBoard}>
   			<FormGroup>
   				<Label for="board_id" >Select Board:</Label>
-  				<Input type="select" name="board_id" className="ml-sm-2">
-  				<option key={`board-option-${board.current.id}`} >{board.current.title}</option>
+  				<Input type="select" name="board_id" className="ml-sm-2" onChange={onBoardSelect} defaultValue={board.current.id}>
   				{board_options}
   				</Input>
   			</FormGroup>

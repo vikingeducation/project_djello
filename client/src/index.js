@@ -12,7 +12,7 @@ import index from './reducers/index'
 // so we don't have to keep signing in in development mode
 const login = {
   auth: {
-    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDkzNDY4MzIsInN1YiI6ODh9.76AH_3NMZl0dZgQHPCn21ir3tu75VOwgS7K144sD-28',
+    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDkzNTU1NTksInN1YiI6MTA4fQ.xJvBS3lK6rLMNujTYevL3srl889tN6lp9J4uvqJqXxg',
     isLoggedIn: true
   }
 }

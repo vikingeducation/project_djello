@@ -14,7 +14,7 @@ describe "User" do
   describe '#boards' do
     it 'returns a user\'s boards' do
       board
-      expect(user.boards.first.title).to eq('Board Title')
+      expect(user.boards.first.title).to eq('Board Title 1')
     end
   end
 end

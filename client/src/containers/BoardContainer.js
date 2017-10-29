@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Board from '../components/Board'
 import { connect } from 'react-redux'
-import { loadDefaultBoard, updateBoard, deleteBoard, createBoard } from '../actions/boardActions'
+import { loadBoard, updateBoard, deleteBoard, createBoard } from '../actions/boardActions'
 import serialize from 'form-serialize'
 
 const mapStateToProps = (state) => {
@@ -13,8 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadDefaultBoard: () => {
-      dispatch(loadDefaultBoard())
+    loadBoard: () => {
+      dispatch(loadBoard())
     },
     updateBoard: (form, board_id) => {
       const data = serialize(form, { hash: true })
@@ -22,10 +22,15 @@ const mapDispatchToProps = (dispatch) => {
       form.reset()
     },
     deleteBoard: (id) => {
-      dispatch(deleteBoard(id))
+      dispatch(deleteBoard(id)).then(() => {
+        dispatch(loadBoard())
+      })
     },
     createBoard: () => {
       dispatch(createBoard())
+    },
+    selectBoard: (board_id) => {
+      dispatch(loadBoard(board_id))
     }
   }
 }
@@ -33,14 +38,13 @@ const mapDispatchToProps = (dispatch) => {
 class BoardContainer extends Component {
 
   componentDidMount() {
-    this.props.loadDefaultBoard()
+    this.props.loadBoard()
   }
 
   componentWillReceiveProps(nextP) {
-    console.log('NextP', nextP)
-    if (this.props.board.current.id !== nextP.board.current.id) {
-      this.props.loadDefaultBoard()
-    }
+    // if (!nextP.board.current.id) {
+    //   this.props.loadBoard()
+    // }
   }
 
 
