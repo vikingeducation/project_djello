@@ -26,8 +26,8 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(loadBoard())
       })
     },
-    createBoard: () => {
-      dispatch(createBoard())
+    createBoard: (data) => {
+      dispatch(createBoard(data))
     },
     selectBoard: (board_id) => {
       dispatch(loadBoard(board_id))
@@ -39,12 +39,6 @@ class BoardContainer extends Component {
 
   componentDidMount() {
     this.props.loadBoard()
-  }
-
-  componentWillReceiveProps(nextP) {
-    // if (!nextP.board.current.id) {
-    //   this.props.loadBoard()
-    // }
   }
 
 

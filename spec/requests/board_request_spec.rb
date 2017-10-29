@@ -60,17 +60,34 @@ describe 'BoardRequests' do
         expect(response).to have_http_status(:unauthorized)
       end
     end
+
+
+    context 'logged in' do
+      it 'returns ok with proper token' do
+        boards
+        get board_path(boards.first.id), headers: auth_headers(user)
+        expect(response).to have_http_status(:ok)
+      end
+      it 'returns :not_found if user has no boards' do
+        get board_path(boards.first.id), headers: auth_headers(alt_user)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 
-  context 'logged in' do
-    it 'returns ok with proper token' do
-      boards
-      get board_path(boards.first.id), headers: auth_headers(user)
-      expect(response).to have_http_status(:ok)
+  describe '#create' do
+    context 'logged out' do
+      it 'returns :unauthorized if invalid token provided' do
+        post boards_path(),  headers: bad_auth_headers(user), params: {board: {title: 'A new board'}}
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
-    it 'returns :not_found if user has no boards' do
-      get board_path(boards.first.id), headers: auth_headers(alt_user)
-      expect(response).to have_http_status(:not_found)
+    context 'logged in' do
+      it 'allows board creation' do
+        title = 'A new board'
+        expect{post boards_path, params: {board: {title: title}}, headers: auth_headers(user)}.to change(Board, :count).by(1)
+        expect(Board.last.title).to eq(title)
+      end
     end
   end
 

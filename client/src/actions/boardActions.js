@@ -50,11 +50,8 @@ export function createBoardSuccess(data) {
 
 
 export function loadBoard(board_id) {
-  console.log('load baord')
-  console.log('board_id is defined', board_id)
   let fetchURL = board_id ? (baseURL + '/boards/' + board_id) : baseURL + '/main'
 
-  console.log('fetchURL', fetchURL)
   return (dispatch, getState) => {
     const token = getState().auth.token
     const options = {
@@ -132,6 +129,35 @@ export function deleteBoard(board_id) {
         return dispatch(deleteBoardSuccess())
       }).catch(error => {
         return dispatch(deleteBoardFailure(error.status))
+      })
+  }
+}
+
+export function createBoard(data) {
+  return (dispatch, getState) => {
+    const token = getState().auth.token
+    const options = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({ board: data })
+    }
+
+
+    dispatch(createBoardRequest())
+
+    return fetch(`${baseURL}/boards`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response)
+        }
+        return response.json()
+      }).then(json => {
+        dispatch(createBoardSuccess(json))
+      }).catch(error => {
+        dispatch(createBoardFailure(error))
       })
   }
 }

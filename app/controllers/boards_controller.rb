@@ -2,9 +2,10 @@ class BoardsController < ApplicationController
   respond_to :json
 
   def show
-    @board = Board.where(id: params[:id], owner: current_user).includes(lists: [:cards]).first
+    @board = Board.includes(:owner, {lists: [:cards]}).where(id: params[:id]).first
     if @board
-      render :show
+      @user = @board.owner
+      return render :show
     else
       return head :not_found
     end
@@ -28,6 +29,16 @@ class BoardsController < ApplicationController
       return head :no_content
     else
       return head :internal_server_error
+    end
+  end
+
+  def create
+    @board = current_user.boards.build(whitelisted_params)
+    if @board.save
+      @user = current_user
+      render :show
+    else
+      return head :bad_request
     end
   end
 

@@ -10,12 +10,12 @@
 json.current @current_board, :id, :title, :list_ids
 
 json.board_list do 
-json.array! @user.boards, :id, :title, :updated_at
+json.array! @user.boards.sort_by(&:title), :id, :title, :updated_at
 end
 
-json.lists @user.lists, :id, :title, :description, :board_id, :card_ids
+json.lists @current_board.lists, :id, :title, :description, :board_id, :card_ids
 
-json.cards @user.cards do |card|
+json.cards @current_board.cards do |card|
   json.id card.id
   json.title card.title
 end

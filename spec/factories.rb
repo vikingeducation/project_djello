@@ -22,6 +22,10 @@ FactoryBot.define do
   factory :board do
     sequence(:title){|n| "Board Title #{n}"}
     association :owner
+
+    trait :no_title do
+      title nil
+    end
   end
 
   factory :user, aliases: [:owner] do

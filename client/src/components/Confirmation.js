@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
 
-export default class DeleteConfirmation extends Component {
+export default class Confirmation extends Component {
   constructor(props) {
     super(props)
     this.state = {
       modal: false
     }
     this.toggle = this.toggle.bind(this)
-    this.confirmDeletion = this.confirmDeletion.bind(this)
+    this.confirmAction = this.confirmAction.bind(this)
   }
 
   toggle(e) {
@@ -18,7 +18,7 @@ export default class DeleteConfirmation extends Component {
     })
   }
 
-  confirmDeletion(e) {
+  confirmAction(e) {
     e.preventDefault()
     this.setState({
       modal: !this.state.modal
@@ -29,12 +29,12 @@ export default class DeleteConfirmation extends Component {
     return (
       <div className={this.props.className}>
         <a href="#" onClick={this.toggle} className="text-danger">{this.props.buttonLabel}</a>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalBody>
-            {this.props.body}
+            {this.props.children}
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" onClick={this.confirmDeletion}>{this.props.confirmationLabel}</Button>{' '}
+            <Button color="danger" onClick={this.confirmAction}>{this.props.confirmationLabel}</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

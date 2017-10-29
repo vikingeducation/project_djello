@@ -54,7 +54,7 @@ class Login extends Component {
 				<Label for="email" className="sr-only">Email</Label>
 				<Col>
 				<Input name="email" type="email" placeholder="Email" valid={isValid(feedback['email'])} ></Input>
-				<ValidationErrorMessage message={feedback['email']}></ValidationErrorMessage>
+				<ValidationErrorMessage message={feedback['email']} />
 				</Col>
 				</FormGroup>
 					<FormGroup row>

@@ -3,4 +3,6 @@ class Board < ApplicationRecord
   has_many :lists, dependent: :destroy
   has_many :cards, through: :lists
   has_many :members, through: :cards
+
+  validates :title, presence: true
 end

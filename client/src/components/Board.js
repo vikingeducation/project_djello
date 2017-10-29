@@ -10,7 +10,8 @@ import {
   Button
 } from 'reactstrap';
 import EditInPlace from './EditInPlace'
-import DeleteConfirmation from './DeleteConfirmation'
+import Confirmation from './Confirmation'
+import BoardCreator from './BoardCreator'
 
 // to do 
 // 1. set up SElect Board onChange method
@@ -31,7 +32,7 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard, se
 
   const board_options = board.board_list.map(board_option => {
     return (
-      <option key={`board-option-${board_option.id}`} id={board_option.id} value={board_option.id}>{board_option.title}</option>
+      <option key={`board-option-${board_option.id}`} id={board_option.id} value={board_option.id}>{board_option.title || 'Untitled Board'}</option>
     )
   })
 
@@ -39,14 +40,15 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard, se
     deleteBoard(board.current.id)
   }
 
-  function boardCreation(e) {
-    e.preventDefault()
+  function boardCreation(data) {
+    createBoard(data)
   }
 
   function onBoardSelect(e) {
     e.preventDefault()
     selectBoard(e.target.value)
   }
+
 
 
   if (!board.current.id) {
@@ -68,7 +70,7 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard, se
     <Container>
 	<Row className="justify-content-between align-items-top">
   		<Col md={9} lg={7} xs={12}>
-  		 <EditInPlace text={board.current.title} onSubmit={updateBoard} id={board.current.id} />
+  		 <EditInPlace text={board.current.title || 'Untitled Board'} onSubmit={updateBoard} id={board.current.id} />
   		</Col>
   		<Col lg={5}>
   			<Form inline className="float-lg-right" onSubmit={selectBoard}>
@@ -80,7 +82,9 @@ export default function Board({ board, updateBoard, deleteBoard, createBoard, se
   			</FormGroup>
   			</Form>
         <div className="float-lg-right">
-        <DeleteConfirmation buttonLabel="Delete Board" confirmationLabel="Delete" body="Delete board?" delete={confirmDeletion} className="d-inline-block"  /> / <a href="#"  >New Board</a></div>
+        <Confirmation buttonLabel="Delete Board" delete={confirmDeletion} confirmationLabel="Delete" className="d-inline-block">Delete board?</Confirmation> /{' '}
+        <BoardCreator actionLabel="Save" className="d-inline-block" create={boardCreation} />
+        </div>
   		</Col>
   	</Row>
   	<Row>

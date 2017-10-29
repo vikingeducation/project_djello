@@ -14,12 +14,13 @@ export default function board(state = initialState, action) {
     case Actions.GET_BOARD_REQUEST:
     case Actions.UPDATE_BOARD_REQUEST:
     case Actions.DELETE_BOARD_REQUEST:
+    case Actions.CREATE_BOARD_REQUEST:
       return {
         ...state,
         isFetching: true,
       }
     case Actions.GET_BOARD_SUCCESS:
-      console.log('get baord success', action.data)
+    case Actions.CREATE_BOARD_SUCCESS:
       return {
         ...state,
         ...action.data,
@@ -33,6 +34,7 @@ export default function board(state = initialState, action) {
       }
     case Actions.GET_BOARD_FAILURE:
     case Actions.UPDATE_BOARD_FAILURE:
+    case Actions.CREATE_BOARD_FAILURE:
       return {
         ...state,
         error: action.data,
