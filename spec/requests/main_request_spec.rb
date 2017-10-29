@@ -20,9 +20,9 @@ describe 'MainRequests' do
 
   describe 'authorized' do
     context 'user has no boards' do
-      it 'responds with no_content' do
+      it 'responds with not_found' do
         get main_path, headers: auth_headers(user)
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:not_found)
       end
     end
 

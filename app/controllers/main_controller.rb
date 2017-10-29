@@ -3,10 +3,10 @@ class MainController < ApplicationController
 
   def index
     if current_user.boards.empty?
-      return head :no_content
+      return head :not_found
     else
       @user = User.includes(:boards, :lists, cards: [:members]).where(id: current_user.id).first
-      @current_board = @user.most_recent_board if @user.boards.present?
+      @current_board = @user.most_recent_board
     end
   end
 end
