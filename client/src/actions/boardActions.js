@@ -1,6 +1,6 @@
 import * as Actions from './actionTypes'
-
 import { baseURL } from '../helpers/actionHelpers'
+import { arrayToObjectByID } from '../helpers/actionHelpers'
 
 export function getBoardRequest() {
   return { type: Actions.GET_BOARD_REQUEST }
@@ -70,8 +70,14 @@ export function loadBoard(board_id) {
         }
         return response.json()
       }).then(json => {
-        console.log('get board success', json)
-        dispatch(getBoardSuccess(json))
+        let lists = arrayToObjectByID(json.lists)
+        let cards = arrayToObjectByID(json.cards)
+        let massaged = {
+          ...json,
+          lists,
+          cards
+        }
+        dispatch(getBoardSuccess(massaged))
       }).catch(error => {
         console.log('load boarderror', error)
         dispatch(getBoardFailure(error))
@@ -144,7 +150,6 @@ export function createBoard(data) {
       method: 'POST',
       body: JSON.stringify({ board: data })
     }
-
 
     dispatch(createBoardRequest())
 
