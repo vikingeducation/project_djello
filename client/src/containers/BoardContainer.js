@@ -7,7 +7,8 @@ import serialize from 'form-serialize'
 const mapStateToProps = (state) => {
   console.log('state', state)
   return {
-    board: state.board
+    board: state.board,
+    list_ids: state.board.current.list_ids || []
   }
 }
 

@@ -8,3 +8,16 @@ export function arrayToObjectByID(data) {
   })
   return massaged
 }
+
+export function setOptions(state, method, data) {
+  const params = data ? JSON.stringify(data) : {}
+  const token = state.auth.token
+  return {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    method: method,
+    body: JSON.stringify(data)
+  }
+}

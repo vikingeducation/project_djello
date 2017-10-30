@@ -2,6 +2,7 @@ class BoardsController < ApplicationController
   respond_to :json
 
   def show
+    return head :not_found unless current_user.boards.present?
     @board = Board.includes(:owner, {lists: [:cards]}).where(id: params[:id]).first
     if @board
       @user = @board.owner
@@ -13,9 +14,10 @@ class BoardsController < ApplicationController
   end
 
   def update
-    @board = Board.includes(:owner).where(id: params[:id])
+    @board = Board.includes(:owner, lists: [:cards] ).where(id: params[:id])
     if @board.update(whitelisted_params)
       @board = @board.first
+      @user = @board.owner
       render :show
     else
       return head :unprocessable_entity

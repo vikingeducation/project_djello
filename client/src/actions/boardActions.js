@@ -1,6 +1,9 @@
 import * as Actions from './actionTypes'
 import { baseURL } from '../helpers/actionHelpers'
-import { arrayToObjectByID } from '../helpers/actionHelpers'
+import {
+  arrayToObjectByID,
+  setOptions
+} from '../helpers/actionHelpers'
 
 export function getBoardRequest() {
   return { type: Actions.GET_BOARD_REQUEST }
@@ -53,13 +56,7 @@ export function loadBoard(board_id) {
   let fetchURL = board_id ? (baseURL + '/boards/' + board_id) : baseURL + '/main'
 
   return (dispatch, getState) => {
-    const token = getState().auth.token
-    const options = {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      method: 'GET'
-    }
+    const options = setOptions(getState(), 'GET')
 
     dispatch(getBoardRequest())
 
@@ -88,14 +85,7 @@ export function loadBoard(board_id) {
 export function updateBoard(data, board_id) {
   return (dispatch, getState) => {
     const token = getState().auth.token
-    const options = {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      method: 'PUT',
-      body: JSON.stringify(data)
-    }
+    const options = setOptions(getState(), 'PUT', data)
 
     dispatch(updateBoardRequest())
 
@@ -105,7 +95,15 @@ export function updateBoard(data, board_id) {
       }
       return response.json()
     }).then(json => {
-      dispatch(updateBoardSuccess(json))
+      let lists = arrayToObjectByID(json.lists)
+      let cards = arrayToObjectByID(json.cards)
+      let massaged = {
+        ...json,
+        lists,
+        cards
+      }
+
+      dispatch(updateBoardSuccess(massaged))
     }).catch(error => {
       dispatch(updateBoardFailure(error.status))
     })
@@ -114,14 +112,8 @@ export function updateBoard(data, board_id) {
 
 export function deleteBoard(board_id) {
   return (dispatch, getState) => {
-    const token = getState().auth.token
-    const options = {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      method: 'DELETE',
-    }
+
+    const options = setOptions(getState(), 'DELETE')
 
     dispatch(deleteBoardRequest())
 
