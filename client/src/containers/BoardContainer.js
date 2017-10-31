@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Board from '../components/Board'
 import { connect } from 'react-redux'
 import { loadBoard, updateBoard, deleteBoard, createBoard } from '../actions/boardActions'
+import { createList } from '../actions/listActions'
 import serialize from 'form-serialize'
 
 const mapStateToProps = (state) => {
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadBoard: () => {
       dispatch(loadBoard())
@@ -32,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectBoard: (board_id) => {
       dispatch(loadBoard(board_id))
+    },
+    createList: (data, board_id) => {
+      dispatch(createList(data, board_id))
     }
   }
 }

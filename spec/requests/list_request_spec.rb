@@ -2,13 +2,14 @@ require 'rails_helper'
 
 describe 'ListRequests' do
   let(:user){ create(:user)}
+  let(:board){ create(:board)}
   let(:list){ create(:list)}
-
 
   describe '#update' do
     before do
       list
     end
+
     it 'returns unauthorized without auth token' do
       put list_path(list.id)
       expect(response).to have_http_status :unauthorized
@@ -31,5 +32,20 @@ describe 'ListRequests' do
       expect(response).to have_http_status(:ok)
       expect(list.title).to eq('A')
     end
+  end
+
+  describe '#create' do
+    context 'in production', exceptions: :catch do
+      it 'does not create a list if title is missing' do
+        post board_lists_path(board.id), headers: auth_headers(user)
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+    it 'creates a list with proper params' do
+      expect{ post board_lists_path(board.id), headers: auth_headers(user), params: {list: {title: 'New list'}} }.to change(List, :count).by(1)
+      expect(response).to have_http_status(:ok)
+
+    end
+
   end
 end

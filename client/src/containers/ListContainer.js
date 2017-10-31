@@ -23,11 +23,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 class ListContainer extends Component {
-  shouldComponentUpdate(nextP, nextS) {
-    console.log('nextP, nextS', nextP, nextS)
-    return true
-
-  }
 
   render() {
     return (<List {...this.props} />)

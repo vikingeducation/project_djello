@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     post 'login' => 'user_token#create'
     get 'main' => 'main#index'
     resources :users, only: [:index]
-    resources :boards, only: [:index, :update, :destroy, :show, :create]
+    resources :boards, only: [:index, :update, :destroy, :show, :create] do
+      resources :lists, only: [:create]
+    end
     resources :lists, only: [:update]
 
   end

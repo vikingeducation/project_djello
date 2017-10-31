@@ -45,14 +45,18 @@ export default function board(state = initialState, action) {
         ...initialState
       }
     case Actions.UPDATE_LIST_SUCCESS:
+    case Actions.CREATE_LIST_SUCCESS:
       const { id, ...rest } = action.data
       return {
         ...state,
+        current: {
+          ...state.current,
+          list_ids: [...state.current.list_ids, id]
+        },
         lists: {
           ...state.lists,
           [id]: rest
         }
-
       }
     default:
       return state

@@ -13,15 +13,17 @@ import EditInPlace from './EditInPlace'
 import Confirmation from './Confirmation'
 import BoardCreator from './BoardCreator'
 import ListContainer from '../containers/ListContainer'
+import ListCreator from './ListCreator'
 
-export default function Board({
+const Board = ({
   board,
   updateBoard,
   deleteBoard,
   createBoard,
   selectBoard,
-  list_ids
-}) {
+  list_ids,
+  createList
+}) => {
 
   // lists.
   // for each list in board.lists, 
@@ -60,6 +62,10 @@ export default function Board({
     selectBoard(e.target.value)
   }
 
+  function listCreation() {
+    createList(board.current.id)
+  }
+
 
 
   if (!board.current.id) {
@@ -86,7 +92,7 @@ export default function Board({
   		<Col lg={5}>
   			<Form inline className="float-lg-right" onSubmit={selectBoard}>
   			<FormGroup>
-  				<Label for="board_id" >Select Board:</Label>
+  				<Label for="board_id">Select Board:</Label>
   				<Input type="select" name="board_id" className="ml-sm-2" onChange={onBoardSelect} defaultValue={board.current.id}>
   				{board_options}
   				</Input>
@@ -109,10 +115,11 @@ export default function Board({
         </div>
   		</Col>
   	</Row>
-  	<Row>
-  		
-  			{lists}
-
+  	<Row className="list-container mt-5">
+  		{lists}
+  		<Col>
+      <ListCreator create={createList} board_id={board.current.id} />
+  		</Col>
   	</Row>
   
   
@@ -121,3 +128,5 @@ export default function Board({
 
   )
 }
+
+export default Board

@@ -21,3 +21,16 @@ a {
     text-decoration: none;
   }
 }
+
+/* LISTS */
+.list-item {
+  border: 1px solid $gray-600;
+  padding: 1rem;
+  width: 300px;
+}
+
+.list-container {
+  // overflow-x: scroll;
+  display: flex;
+  flex-wrap: nowrap;
+}

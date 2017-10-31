@@ -51,7 +51,6 @@ export function createBoardSuccess(data) {
   return { data, type: Actions.CREATE_BOARD_SUCCESS }
 }
 
-
 export function loadBoard(board_id) {
   let fetchURL = board_id ? (baseURL + '/boards/' + board_id) : baseURL + '/main'
 
@@ -133,15 +132,9 @@ export function deleteBoard(board_id) {
 
 export function createBoard(data) {
   return (dispatch, getState) => {
-    const token = getState().auth.token
-    const options = {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({ board: data })
-    }
+
+    const options = setOptions(getState(), 'POST', { board: data })
+
 
     dispatch(createBoardRequest())
 
