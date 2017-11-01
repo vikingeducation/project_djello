@@ -68,7 +68,7 @@ describe 'BoardRequests' do
         get board_path(boards.first.id), headers: auth_headers(user)
         expect(response).to have_http_status(:ok)
       end
-      it 'returns :not_found if user has no boards' do
+      it 'returns :not_found if user does not own' do
         get board_path(boards.first.id), headers: auth_headers(alt_user)
         expect(response).to have_http_status(:not_found)
       end

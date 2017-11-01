@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   respond_to :json
 
   def show
-    return head :not_found unless current_user.boards.present?
+    return head :not_found if current_user.boards.where(id: params[:id]).blank?
     @board = Board.includes(:owner, {lists: [:cards]}).where(id: params[:id]).first
     if @board
       @user = @board.owner
