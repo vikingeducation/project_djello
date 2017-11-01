@@ -1,4 +1,33 @@
 FactoryBot.define do
+
+
+  factory :membership do
+    association :card
+    association :user
+  end
+  factory :card do
+    sequence(:title){|n| "Card title #{n}"}
+    sequence(:description){|n| "Card description #{n}"}
+    done false
+    association :list
+    position ""
+  end
+
+  factory :list do
+    sequence(:title){|n| "List title #{n}"}
+    sequence(:description){ |n| "List description #{n}"}
+    association :board
+  end
+
+  factory :board do
+    sequence(:title){|n| "Board Title #{n}"}
+    association :owner
+
+    trait :no_title do
+      title nil
+    end
+  end
+
   factory :user, aliases: [:owner] do
     sequence(:email){|n| "foo#{n}@bar.com"}
     password 'password'

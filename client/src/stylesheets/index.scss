@@ -5,3 +5,57 @@
 #login-box {
   height: 100vh;
 }
+
+a {
+  transition: .3s all ease-in-out;
+}
+
+.link-danger {
+  color: $red;
+}
+
+.edit-in-place {
+  color: $body-color;
+  &:hover {
+    color: $body-color;
+    text-decoration: none;
+    background-color: $gray-200;
+  }
+}
+
+/* LISTS */
+
+.list-wrapper {
+   overflow-x: scroll;
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+
+  .list-container {
+  border: 1px solid $gray-300;
+  padding: 1rem;
+  width: 300px;
+  min-width: 300px;
+  margin-right: 1rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+}
+
+/* CARDS */
+.card-container {
+  border: 1px solid $gray-300;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition: all .3s ease-in-out;
+  display: block;
+
+  &:hover {
+  -moz-box-shadow:    2px 2px 5px 1px $gray-200;
+  -webkit-box-shadow: 2px 2px 5px 1px $gray-200;
+  box-shadow:         2px 2px 5px 1px $gray-200;
+  cursor: pointer;
+  }
+}

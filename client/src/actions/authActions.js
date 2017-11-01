@@ -1,6 +1,6 @@
 import * as Types from './actionTypes'
+import { baseURL } from '../helpers/actionHelpers'
 
-const baseURL = 'http://localhost:3000'
 
 export function loginRequest() {
   return { type: Types.LOGIN_REQUEST }
@@ -34,19 +34,16 @@ export function login(data) {
     return fetch(`${baseURL}/login`, options).
     then(response => {
       if (!response.ok) {
-        throw response
+        throw Error(response.status)
       }
       return response.json()
     }).then(json => {
+      console.log('token', json.jwt)
       dispatch(loginSuccess(json.jwt))
       return json.jwt
     }).catch(error => {
       dispatch(loginFailure(error.status))
     })
   }
-
-  // POST 
-  // save web token to state.auth.token 
-
 
 }
