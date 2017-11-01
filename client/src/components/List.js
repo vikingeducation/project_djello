@@ -11,7 +11,7 @@ const List = ({ list, updateList }) => {
   })
 
   return (
-    <div className="list-item border">
+    <div className="list-item">
     <EditInPlace name="title" text={title} tag="h3" onSubmit={updateList} placeholder="Add a title..." id={id} />
     <EditInPlace name="description" text={description} tag="p" onSubmit={updateList} type="textarea" placeholder="Add a description..." id={id} />
     </div>

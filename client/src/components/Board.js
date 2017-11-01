@@ -43,9 +43,9 @@ const Board = ({
 
 
   let lists = list_ids.map(id => {
-    return (<Col key={`BoardListCol-${id}`}>
+    return (<div key={`BoardListCol-${id}`} className="list-container">
     	<ListContainer key={`ListContainer-${id}`} id={id} />
-    </Col>)
+    </div>)
   })
 
 
@@ -115,12 +115,12 @@ const Board = ({
         </div>
   		</Col>
   	</Row>
-  	<Row className="list-container mt-5">
+  	<div className="list-wrapper mt-5 justify-content-start">
   		{lists}
-  		<Col>
+  		<div>
       <ListCreator create={createList} board_id={board.current.id} />
-  		</Col>
-  	</Row>
+  		</div>
+  	</div>
   
   
   	</Container>

@@ -23,14 +23,23 @@ a {
 }
 
 /* LISTS */
-.list-item {
-  border: 1px solid $gray-600;
-  padding: 1rem;
-  width: 300px;
-}
 
-.list-container {
-  // overflow-x: scroll;
+.list-wrapper {
+   overflow-x: scroll;
   display: flex;
   flex-wrap: nowrap;
+  padding-bottom: 1rem;
+
+  .list-container {
+  border: 1px solid $gray-300;
+  padding: 1rem;
+  width: 300px;
+  min-width: 300px;
+  margin-right: 1rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 }
