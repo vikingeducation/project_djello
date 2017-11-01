@@ -16,11 +16,12 @@ export default class EditInPlace extends Component {
     this.state = {
       isEditing: false,
       text: props.text,
-      placeholder: props.placeholder || 'Add some text...',
-      type: props.type || 'text',
+      placeholder: props.placeholder || `Add a ${props.name}`,
+      type: props.type,
       allowNull: props.allowNull || false,
-      valid: null,
-      message: props.errorMessage || 'Can\'t be blank'
+      valid: '',
+      message: props.message
+
     }
     this.onSave = this.onSave.bind(this)
     this.onClick = this.onClick.bind(this)
@@ -32,7 +33,7 @@ export default class EditInPlace extends Component {
     e.preventDefault()
       // if blank && allowNull
     if (this.state.text) {
-      this.setState({ isEditing: false, valid: null })
+      this.setState({ isEditing: false, valid: '' })
       if (this.props.text !== this.state.text) {
         this.props.onSubmit(e.target, this.props.id)
       }
@@ -54,13 +55,13 @@ export default class EditInPlace extends Component {
       this.setState({
         isEditing: false,
         text: this.state.text,
-        valid: null
+        valid: ''
       })
     } else {
       this.setState({
         isEditing: false,
-        text: this.props.text,
-        valid: null
+        text: this.props.text || '',
+        valid: ''
       })
     }
   }
@@ -71,15 +72,16 @@ export default class EditInPlace extends Component {
 
   render() {
 
-    const Tag = this.props.tag || 'h1'
+    const Tag = this.props.tag
 
     if (this.state.isEditing) {
+
       return (
 
         <Form onSubmit={this.onSave} className="mb-2">
         	<FormGroup>
         		<Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid}></Input>
-        		<FormFeedback>{this.state.valid === false ? this.state.message : ''}</FormFeedback>
+        		<FormFeedback>{ ! this.state.valid ? this.state.message  : ''}</FormFeedback>
         	</FormGroup>
         	<Button color="primary" className="mr-2">Save</Button>
         	<a href="#" className="text-muted" onClick={this.onCancel}>Cancel</a>
@@ -87,7 +89,15 @@ export default class EditInPlace extends Component {
       )
     }
 
-    return (<Tag><a href="#" onClick={this.onClick} className="edit-in-place">{this.state.text}</a></Tag>)
+    if (Tag) {
+      return (<Tag><a href="#" onClick={this.onClick} className="edit-in-place">{this.state.text || this.state.placeholder}</a></Tag>)
+    } else {
+      return (
+        <a href="#" onClick={this.onClick} className="edit-in-place">{this.state.text || this.state.placeholder}</a>)
+    }
+
+
+
 
   }
 
@@ -98,10 +108,11 @@ export default class EditInPlace extends Component {
 EditInPlace.propTypes = {
   name: PropTypes.string,
   text: PropTypes.string,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func.isRequired
 }
 
 EditInPlace.defaultProps = {
-  text: 'Untitled',
-  tag: 'h1'
+  type: 'text',
+  text: '',
+  message: "Can't be blank"
 }

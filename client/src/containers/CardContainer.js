@@ -1,20 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ListCard from '../components/ListCard'
+import { loadCard } from '../actions/cardActions'
+import serialize from 'form-serialize'
 
 const mapStateToProps = (state, props) => {
-  console.log('card container state', state.board.cards[props.id])
   return {
-    card: state.board.cards[props.id],
-    className: 'hanky'
+    card: state.board.cards[props.id], // title
+    details: state.card.cards[props.id] || {},
+    id: props.id
   }
 
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createCard: () => {
-
+    loadCard: () => {
+      dispatch(loadCard(ownProps.id))
+    },
+    editCard: (form) => {
+      const data = serialize(form, { hash: true })
+      console.log('edit description', data)
     }
   }
 }

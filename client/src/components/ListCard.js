@@ -1,26 +1,12 @@
-// import React from 'react'
-
-// export default function Card({
-//   card,
-//   id
-// }) {
-
-//   const { title } = card
-
-//   return (<a className="card-container">
-
-//   	{title}
-//   	</a>)
-// }
-
-import React from 'react'
+import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import EditInPlace from './EditInPlace'
 
-class ListCard extends React.Component {
+class ListCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      modal: false
+      modal: false,
     }
 
     this.toggle = this.toggle.bind(this)
@@ -29,6 +15,10 @@ class ListCard extends React.Component {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    }, () => {
+      if (this.state.modal) {
+        this.props.loadCard()
+      }
     })
   }
 
@@ -38,13 +28,17 @@ class ListCard extends React.Component {
 
     const { title } = this.props.card
 
+    const { description } = this.props.details
+
     return (
       <div>
-        <a className="card-container" onClick={this.toggle}>{title}</a>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}/>
+        <a className="cardlist" onClick={this.toggle}>{title}</a>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} key={`ListCardModal-${this.props.id}`}>
+          <ModalHeader toggle={this.toggle}>
+          <EditInPlace name="title" text={title} placeholder="Card title..." key={`ListCardEditTitle-${this.props.id}`} onSubmit={this.props.editCard} />
+          </ModalHeader>
           <ModalBody>
-           card container
+           <EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${this.props.id}`} onSubmit={this.props.editCard} />
           </ModalBody>
           
         </Modal>

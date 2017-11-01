@@ -44,11 +44,6 @@ export default class CardCreator extends Component {
         this.props.onSubmit(data)
       )
     }
-    console.log('data', data)
-      // this.setState({
-      //   editing: false
-      // })
-
   }
 
 

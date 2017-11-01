@@ -45,7 +45,7 @@ a {
 }
 
 /* CARDS */
-.card-container {
+.cardlist {
   border: 1px solid $gray-300;
   margin-bottom: 1rem;
   padding: 1rem;
@@ -59,3 +59,8 @@ a {
   cursor: pointer;
   }
 }
+
+
+  .modal-title {
+    width: 100%;
+  }

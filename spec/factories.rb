@@ -10,7 +10,6 @@ FactoryBot.define do
     sequence(:description){|n| "Card description #{n}"}
     done false
     association :list
-    position ""
   end
 
   factory :list do
