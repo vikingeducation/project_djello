@@ -25,6 +25,18 @@ export function createListSuccess(data) {
   return { data, type: Actions.CREATE_LIST_SUCCESS }
 }
 
+export function deleteListRequest() {
+  return { type: Actions.DELETE_LIST_REQUEST }
+}
+
+export function deleteListFailure(data) {
+  return { data, type: Actions.DELETE_LIST_FAILURE }
+}
+
+export function deleteListSuccess(data) {
+  return { data, type: Actions.DELETE_LIST_SUCCESS }
+}
+
 export function updateList(data, list_id) {
   return (dispatch, getState) => {
     const options = setOptions(getState(), 'PUT', data)
@@ -47,7 +59,6 @@ export function updateList(data, list_id) {
   }
 }
 
-
 export function createList(data, board_id) {
   return (dispatch, getState) => {
     const options = setOptions(getState(), 'POST', { list: data })
@@ -64,6 +75,28 @@ export function createList(data, board_id) {
       })
       .catch(error => {
         dispatch(createListFailure(error))
+      })
+  }
+}
+
+export function deleteList(list_id) {
+  return (dispatch, getState) => {
+    const options = setOptions(getState(), 'DELETE')
+
+    dispatch(deleteListRequest())
+
+    return fetch(`${baseURL}/lists/${list_id}`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response)
+        }
+        return response
+      })
+      .then(json => {
+        dispatch(deleteListSuccess(list_id))
+      })
+      .catch(error => {
+        dispatch(deleteListFailure(error))
       })
   }
 }

@@ -47,6 +47,7 @@ class BoardContainer extends Component {
   }
 
 
+
   render() {
     return (<Board {...this.props} />)
   }

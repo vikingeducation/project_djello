@@ -25,10 +25,6 @@ const Board = ({
   createList
 }) => {
 
-  // lists.
-  // for each list in board.lists, 
-  // output List
-
   if (board.isFetching) {
     return (
       <Container><Row><Col><p>isLoading Board...</p></Col></Row></Container>

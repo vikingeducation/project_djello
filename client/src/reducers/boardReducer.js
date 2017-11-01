@@ -35,6 +35,9 @@ export default function board(state = initialState, action) {
     case Actions.GET_BOARD_FAILURE:
     case Actions.UPDATE_BOARD_FAILURE:
     case Actions.CREATE_BOARD_FAILURE:
+    case Actions.UPDATE_LIST_FAILURE:
+    case Actions.CREATE_LIST_FAILURE:
+    case Actions.DELETE_LIST_FAILURE:
       return {
         ...state,
         error: action.data,
@@ -57,6 +60,21 @@ export default function board(state = initialState, action) {
           ...state.lists,
           [id]: rest
         }
+      }
+    case Actions.DELETE_LIST_SUCCESS:
+      console.log('state.current.lists', state, action.data)
+      const list_ids = [...state.current.list_ids]
+      list_ids.splice(list_ids.indexOf(action.data), 1)
+      const lists_copy = {...state.lists }
+      delete lists_copy[action.data]
+      console.log('lists_copy', lists_copy)
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          list_ids: list_ids
+        },
+        lists: lists_copy
       }
     default:
       return state

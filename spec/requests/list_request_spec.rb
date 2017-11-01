@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'ListRequests' do
   let(:user){ create(:user)}
-  let(:board){ create(:board)}
-  let(:list){ create(:list)}
+  let(:board){ create(:board, owner: user)}
+  let(:list){ create(:list, board: board)}
 
   describe '#update' do
     before do
@@ -35,17 +35,30 @@ describe 'ListRequests' do
   end
 
   describe '#create' do
-    context 'in production', exceptions: :catch do
-      it 'does not create a list if title is missing' do
-        post board_lists_path(board.id), headers: auth_headers(user)
-        expect(response).to have_http_status(:bad_request)
-      end
+    it 'does not create a list if title is missing' do
+      post board_lists_path(board.id), headers: auth_headers(user)
+      expect(response).to have_http_status(:bad_request)
     end
     it 'creates a list with proper params' do
       expect{ post board_lists_path(board.id), headers: auth_headers(user), params: {list: {title: 'New list'}} }.to change(List, :count).by(1)
       expect(response).to have_http_status(:ok)
-
     end
+  end
 
+  describe '#destroy' do
+    it 'does not destroy list if unauthorized' do
+      delete list_path(list.id), headers: bad_auth_headers(user)
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it 'returns not_found if list does not exist' do
+      delete list_path(999), headers: auth_headers(user)
+      expect(response).to have_http_status(:not_found)
+    end
+    context 'authorized' do
+      it 'successfully destroys list' do
+        delete list_path(list.id), headers: auth_headers(user)
+        expect(response).to have_http_status(:no_content)
+      end
+    end
   end
 end

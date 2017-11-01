@@ -17,8 +17,9 @@ a {
 .edit-in-place {
   color: $body-color;
   &:hover {
-    color: $blue;
+    color: $body-color;
     text-decoration: none;
+    background-color: $gray-200;
   }
 }
 

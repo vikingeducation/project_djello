@@ -1,16 +1,13 @@
 class ListsController < ApplicationController
 
   def update
-    @list = List.where(id: params[:id]).first
-    return head :not_found if @list.blank?
-    return head :bad_request unless params[:list]
+    @list = List.find(params[:id])
     if @list.update(whitelisted_params)
       render :show
     end
   end
 
   def create
-    return head :bad_request if params[:list].blank?
     @board = Board.find(params[:board_id])
     @list = @board.lists.build(whitelisted_params)
     if @list.save
@@ -20,6 +17,12 @@ class ListsController < ApplicationController
     end
   end
 
+  def destroy
+    @list = List.includes(cards: [:memberships]).find(params[:id])
+    if @list.destroy
+      return head :no_content
+    end
+  end
 
   private
 
