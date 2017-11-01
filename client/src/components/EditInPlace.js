@@ -76,7 +76,7 @@ export default class EditInPlace extends Component {
     if (this.state.isEditing) {
       return (
 
-        <Form onSubmit={this.onSave}>
+        <Form onSubmit={this.onSave} className="mb-2">
         	<FormGroup>
         		<Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid}></Input>
         		<FormFeedback>{this.state.valid === false ? this.state.message : ''}</FormFeedback>

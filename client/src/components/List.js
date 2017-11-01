@@ -18,12 +18,14 @@ const List = ({
 
   return (
     <div className="list-item">
+  <Confirmation buttonLabel={<button type="button" className="close text-danger" aria-label="Close"><span aria-hidden="true">&times;</span></button>} confirmationLabel="Delete" confirmationAction={deleteList} className="text-right">
+    Delete list "{title}"?
+    </Confirmation>
+
+    <div className="clearfix"></div>
     <EditInPlace name="title" text={title} tag="h3" onSubmit={updateList} placeholder="Add a title..." id={id} />
     <EditInPlace name="description" text={description} tag="p" onSubmit={updateList} type="textarea" placeholder="Add a description..." id={id} />
     {cards}
-    <Confirmation buttonLabel="Delete List" confirmationLabel="Delete" confirmationAction={deleteList}>
-    Delete list "{title}"?
-    </Confirmation>
     </div>
   )
 }

@@ -45,7 +45,10 @@ export default class Confirmation extends Component {
 }
 
 Confirmation.propTypes = {
-  buttonLabel: PropTypes.string.isRequired,
+  buttonLabel: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]).isRequired,
   confirmationAction: PropTypes.func.isRequired,
   confirmationLabel: PropTypes.string.isRequired,
   className: PropTypes.string,
