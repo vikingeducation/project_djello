@@ -6,7 +6,6 @@ import { logoutUser } from '../actions/authActions'
 
 
 const mapStateToProps = (state) => {
-  console.log('AppContainer', state)
   return {
     user: state.user
   }
@@ -17,7 +16,8 @@ const mapDispatchToProps = (dispatch) => {
     getUser: () => {
       dispatch(getUser())
     },
-    logOut: () => {
+
+    logout: () => {
       dispatch(logoutUser())
     }
   }
@@ -25,11 +25,11 @@ const mapDispatchToProps = (dispatch) => {
 
 class AppContainer extends Component {
   componentDidMount() {
-    console.log('componetn did mount')
     this.props.getUser()
   }
 
   render() {
+
     return (
       <App {...this.props} />
     )

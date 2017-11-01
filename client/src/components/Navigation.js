@@ -3,7 +3,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 import PropTypes from 'prop-types'
 
 
-export default class Header extends Component {
+export default class Navigation extends Component {
   constructor(props) {
     super(props)
 
@@ -11,7 +11,8 @@ export default class Header extends Component {
     this.state = {
       isOpen: false
     }
-    this.logOut = this.logOut.bind(this)
+
+    this.logout = this.logout.bind(this)
   }
   toggle() {
     this.setState({
@@ -19,17 +20,18 @@ export default class Header extends Component {
     })
   }
 
-  logOut(e) {
+
+  logout(e) {
     e.preventDefault()
-    this.props.logOut();
+    this.props.logout();
   }
   render() {
 
-    const { user, logOut } = this.props
+    const { user, logout } = this.props
 
     return (
-      <div>
-        <Navbar color='light' expand="md">
+
+      <Navbar color='light' expand="md" className="mb-2">
           <h1 className="navbar-text text-dark h4 m-0">Djello</h1>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -38,17 +40,18 @@ export default class Header extends Component {
                <span className="navbar-text text-dark">Welcome, {user.name}</span>
               </NavItem>
               <NavItem>
-                <NavLink onClick={logOut} href="#">Sign Out</NavLink>
+
+                <NavLink onClick={logout} href="#">Sign Out</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
-      </div>
     )
   }
 }
 
-Header.propTypes = {
-  user: PropTypes.object,
-  logOUut: PropTypes.func
+
+Navigation.propTypes = {
+  user: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 }
