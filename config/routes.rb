@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resources :boards, only: [:index, :update, :destroy, :show, :create] do
       resources :lists, only: [:create]
     end
-    resources :lists, only: [:update, :destroy]
+    resources :lists, only: [:update, :destroy] do
+      resources :cards, only: [:create]
+    end
 
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

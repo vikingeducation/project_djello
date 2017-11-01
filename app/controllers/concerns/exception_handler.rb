@@ -14,5 +14,9 @@ module ExceptionHandler
     rescue_from ActionController::ParameterMissing do
       head :bad_request
     end
+
+    rescue_from ActionController::UrlGenerationError do
+      head :not_found
+    end
   end
 end
