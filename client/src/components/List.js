@@ -2,11 +2,14 @@ import React from 'react'
 import EditInPlace from './EditInPlace'
 import CardContainer from '../containers/CardContainer'
 import Confirmation from './Confirmation'
+import { Button } from 'reactstrap'
+import CardCreator from './CardCreator'
 
 const List = ({
   list,
   updateList,
   deleteList,
+  createCard,
   id
 }) => {
 
@@ -26,7 +29,7 @@ const List = ({
     <EditInPlace name="title" text={title} tag="h3" onSubmit={updateList} placeholder="Add a title..." id={id} />
     <EditInPlace name="description" text={description} tag="p" onSubmit={updateList} type="textarea" placeholder="Add a description..." id={id} />
     {cards}
-    
+    <CardCreator onSubmit={createCard}  />
     </div>
   )
 }

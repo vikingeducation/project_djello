@@ -61,13 +61,12 @@ export default function board(state = initialState, action) {
           [id]: rest
         }
       }
+
     case Actions.DELETE_LIST_SUCCESS:
-      console.log('state.current.lists', state, action.data)
       const list_ids = [...state.current.list_ids]
       list_ids.splice(list_ids.indexOf(action.data), 1)
       const lists_copy = {...state.lists }
       delete lists_copy[action.data]
-      console.log('lists_copy', lists_copy)
       return {
         ...state,
         current: {
@@ -75,6 +74,21 @@ export default function board(state = initialState, action) {
           list_ids: list_ids
         },
         lists: lists_copy
+      }
+    case Actions.CREATE_CARD_SUCCESS:
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          [action.data.id]: action.data
+        },
+        lists: {
+          ...state.lists,
+          [action.data.list_id]: {
+            ...state.lists[action.data.list_id],
+            card_ids: [...state.lists[action.data.list_id]['card_ids'], action.data.id]
+          }
+        }
       }
     default:
       return state
