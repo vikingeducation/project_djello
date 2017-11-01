@@ -101,7 +101,7 @@ const Board = ({
         <div className="float-lg-right">
         <Confirmation 
 	        buttonLabel="Delete Board" 
-	        delete={confirmDeletion} 
+	        confirmationAction={confirmDeletion} 
 	        confirmationLabel="Delete" 
 	        className="d-inline-block">
         Delete board? 

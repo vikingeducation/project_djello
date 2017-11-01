@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
+import PropTypes from 'prop-types'
 
 export default class Confirmation extends Component {
   constructor(props) {
@@ -22,13 +23,13 @@ export default class Confirmation extends Component {
     e.preventDefault()
     this.setState({
       modal: !this.state.modal
-    }, this.props.delete())
+    }, this.props.confirmationAction())
   }
 
   render() {
     return (
       <div className={this.props.className}>
-        <a href="#" onClick={this.toggle} className="text-danger">{this.props.buttonLabel}</a>
+        <a href="#" onClick={this.toggle} className="text-muted">{this.props.buttonLabel}</a>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalBody>
             {this.props.children}
@@ -41,4 +42,11 @@ export default class Confirmation extends Component {
       </div>
     )
   }
+}
+
+Confirmation.propTypes = {
+  buttonLabel: PropTypes.string.isRequired,
+  confirmationAction: PropTypes.func.isRequired,
+  confirmationLabel: PropTypes.string.isRequired,
+  className: PropTypes.string,
 }
