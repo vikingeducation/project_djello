@@ -42,5 +42,20 @@ a {
     margin-right: 0;
   }
 }
+}
 
+/* CARDS */
+.card-container {
+  border: 1px solid $gray-300;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition: all .3s ease-in-out;
+  display: block;
+
+  &:hover {
+  -moz-box-shadow:    2px 2px 5px 1px $gray-200;
+  -webkit-box-shadow: 2px 2px 5px 1px $gray-200;
+  box-shadow:         2px 2px 5px 1px $gray-200;
+  cursor: pointer;
+  }
 }

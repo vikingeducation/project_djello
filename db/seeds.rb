@@ -26,14 +26,14 @@ end
 
 puts 'Creating Lists...'
 Board.all.each do |b|
-  rand(5..8).times do
+  rand(2..5).times do
     List.create!(board: b, title: Faker::Book.title, description: Faker::Hacker.say_something_smart)
   end
 end
 
 puts 'Creating Cards...'
 List.all.each do |l|
-  rand(3).times do
+  rand(5).times do
     Card.create!(list: l, title: Faker::Book.title, description: Faker::Hacker.say_something_smart)
   end
 end

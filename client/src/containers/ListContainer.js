@@ -8,7 +8,7 @@ const mapStateToProps = (state, props) => {
   return {
     list: state.board.lists[props.id],
     error: state.list.error,
-    id: props.id
+    id: props.id,
   }
 }
 

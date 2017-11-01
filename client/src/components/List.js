@@ -13,7 +13,7 @@ const List = ({
   const { title, description, card_ids, board_id } = list
 
   const cards = card_ids.map(card_id => {
-    return (<CardContainer key={`CardContainer-${card_id}`} id={card_id} />)
+    return (<CardContainer key={`CardContainer-${card_id}`} id={card_id}/>)
   })
 
   return (
@@ -26,6 +26,7 @@ const List = ({
     <EditInPlace name="title" text={title} tag="h3" onSubmit={updateList} placeholder="Add a title..." id={id} />
     <EditInPlace name="description" text={description} tag="p" onSubmit={updateList} type="textarea" placeholder="Add a description..." id={id} />
     {cards}
+    
     </div>
   )
 }
