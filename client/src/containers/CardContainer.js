@@ -10,6 +10,7 @@ const mapStateToProps = (state, props) => {
     card: state.board.cards[props.id], // title
     details: state.card.cards[props.id] || {},
     isFetching: state.card.isFetching,
+    list: state.board.lists[props.list_id],
     id: props.id
   }
 }
@@ -22,6 +23,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     editCard: (form) => {
       const data = serialize(form, { hash: true })
       dispatch(updateCard({ card: data }, ownProps.id))
+    },
+    markDone: () => {
+      console.log('markdone')
+    },
+    changeList: (e) => {
+      e.preventDefault()
     }
   }
 }

@@ -42,11 +42,27 @@ class ListCard extends Component {
           {
             isFetching ? <p>Loading...</p> : 
           (<ModalBody>
-          <Row>
-          <Col><p>List: list name</p></Col>
-          <Col className="mr-auto">Mark as completed</Col>
+          <Row className="mb-3">
+          <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span>
+         <a href="#" onClick={this.props.markDone} className="float-right"> Mark as completed</a>
+         </Col>
           </Row>
-           <EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${this.props.id}`} onSubmit={this.props.editCard} />
+           <Row>
+           	<Col>
+           		<EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${this.props.id}`} onSubmit={this.props.editCard} />
+           	</Col>
+           </Row>
+           <Row>
+           	<Col>
+           		<h3>Members</h3>
+           		
+           	</Col>
+           </Row>
+           <Row>
+           	<Col>
+           		<h3>Activity</h3>
+           	</Col>
+           </Row>
           </ModalBody>
           )
 

@@ -16,7 +16,7 @@ const List = ({
   const { title, description, card_ids, board_id } = list
 
   const cards = card_ids.map(card_id => {
-    return (<CardContainer key={`CardContainer-${card_id}`} id={card_id}/>)
+    return (<CardContainer key={`CardContainer-${card_id}`} id={card_id} list_id={id}/>)
   })
 
   return (
