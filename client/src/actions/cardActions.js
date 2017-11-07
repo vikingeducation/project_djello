@@ -25,6 +25,18 @@ export function getCardSuccess(data) {
   return { data, type: Actions.GET_CARD_SUCCESS }
 }
 
+export function updateCardRequest() {
+  return { type: Actions.UPDATE_CARD_REQUEST }
+}
+
+export function updateCardFailure(data) {
+  return { data, type: Actions.UPDATE_CARD_FAILURE }
+}
+
+export function updateCardSuccess(data) {
+  return { data, type: Actions.UPDATE_CARD_SUCCESS }
+}
+
 export function createCard(data, list_id) {
   return (dispatch, getState) => {
 
@@ -46,8 +58,27 @@ export function createCard(data, list_id) {
   }
 }
 
+export function updateCard(data, card_id) {
+  return (dispatch, getState) => {
+    const options = setOptions(getState(), 'PUT', data)
+    dispatch(updateCardRequest())
+
+    return fetch(`${baseURL}/cards/${card_id}`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response)
+        }
+        return response.json()
+      }).then(json => {
+        const massaged = arrayToObjectByID([json])
+        dispatch(updateCardSuccess(massaged))
+      }).catch(error => {
+        dispatch(updateCardFailure(error))
+      })
+  }
+}
+
 export function loadCard(card_id) {
-  console.log('loadCard form cardActions')
   return (dispatch, getState) => {
     const options = setOptions(getState(), 'GET')
 
@@ -60,11 +91,9 @@ export function loadCard(card_id) {
         }
         return response.json()
       }).then(json => {
-        console.log('json', arrayToObjectByID([json]))
         const massaged = arrayToObjectByID([json])
         dispatch(getCardSuccess(massaged))
       }).catch(error => {
-        console.log('error', error)
         dispatch(getCardFailure(error))
       })
   }

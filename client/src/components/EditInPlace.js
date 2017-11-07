@@ -19,7 +19,7 @@ export default class EditInPlace extends Component {
       placeholder: props.placeholder || `Add a ${props.name}`,
       type: props.type,
       allowNull: props.allowNull || false,
-      valid: '',
+      valid: true,
       message: props.message
 
     }
@@ -31,9 +31,8 @@ export default class EditInPlace extends Component {
 
   onSave(e) {
     e.preventDefault()
-      // if blank && allowNull
     if (this.state.text) {
-      this.setState({ isEditing: false, valid: '' })
+      this.setState({ isEditing: false, valid: true })
       if (this.props.text !== this.state.text) {
         this.props.onSubmit(e.target, this.props.id)
       }
@@ -80,8 +79,8 @@ export default class EditInPlace extends Component {
 
         <Form onSubmit={this.onSave} className="mb-2">
         	<FormGroup>
-        		<Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid}></Input>
-        		<FormFeedback>{ ! this.state.valid ? this.state.message  : ''}</FormFeedback>
+      <Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid ? '' : false}></Input>
+        		<FormFeedback>{  this.state.valid ? '' : this.state.message }</FormFeedback>
         	</FormGroup>
         	<Button color="primary" className="mr-2">Save</Button>
         	<a href="#" className="text-muted" onClick={this.onCancel}>Cancel</a>

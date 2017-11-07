@@ -90,6 +90,20 @@ export default function board(state = initialState, action) {
           }
         }
       }
+    case Actions.UPDATE_CARD_SUCCESS:
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          [action.data.id]: action.data
+        },
+        lists: {
+          ...state.lists,
+          [action.data.list_id]: {
+            ...state.lists[action.data.list_id]
+          }
+        }
+      }
     default:
       return state
   }

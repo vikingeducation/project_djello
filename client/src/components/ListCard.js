@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap'
 import EditInPlace from './EditInPlace'
 
 class ListCard extends Component {
@@ -30,6 +30,8 @@ class ListCard extends Component {
 
     const { description } = this.props.details
 
+    const isFetching = this.props.isFetching
+
     return (
       <div>
         <a className="cardlist" onClick={this.toggle}>{title}</a>
@@ -37,10 +39,19 @@ class ListCard extends Component {
           <ModalHeader toggle={this.toggle}>
           <EditInPlace name="title" text={title} placeholder="Card title..." key={`ListCardEditTitle-${this.props.id}`} onSubmit={this.props.editCard} />
           </ModalHeader>
-          <ModalBody>
+          {
+            isFetching ? <p>Loading...</p> : 
+          (<ModalBody>
+          <Row>
+          <Col><p>List: list name</p></Col>
+          <Col className="mr-auto">Mark as completed</Col>
+          </Row>
            <EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${this.props.id}`} onSubmit={this.props.editCard} />
           </ModalBody>
-          
+          )
+
+          }
+    
         </Modal>
       </div>
     )
