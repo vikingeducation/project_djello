@@ -21,7 +21,26 @@ describe 'MembershipRequests' do
     end
   end
 
-
+  describe '#create' do
+    context 'when invalid token sent' do
+      it 'returns unauthorized' do
+        post card_memberships_path(card), headers: bad_auth_headers(user), params: {user_id: user.id}
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+    context 'when valid token sent' do
+      it 'returns :accepted' do
+        post card_memberships_path(card), headers: auth_headers(user), params: {user_id: user.id}
+        expect(response).to have_http_status(:created)
+      end
+    end
+    context 'when user does not exist' do
+      it 'returns not found' do
+        post card_memberships_path(card), headers: auth_headers(user), params: {user_id: 9}
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 
 
 end

@@ -65,7 +65,6 @@ export function createCard(data, list_id) {
 export function removeCardMember(card_id, user_id) {
   return (dispatch, getState) => {
     const options = setOptions(getState(), 'DELETE')
-    dispatch(updateCardRequest())
 
     return fetch(`${baseURL}/cards/${card_id}/memberships/${user_id}`, options)
       .then(response => {

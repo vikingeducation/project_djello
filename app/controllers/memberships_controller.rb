@@ -10,9 +10,15 @@ class MembershipsController < ApplicationController
     end
   end
 
-
-  private
-
+  def create
+    return :bad_request unless params[:user_id]
+    @membership = Membership.new(user_id: params[:user_id], card_id: params[:card_id])
+    if @membership.save
+      return head :created
+    else
+      return head :not_found
+    end
+  end
 
 
 end
