@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ListCard from '../components/ListCard'
-import { loadCard, updateCard } from '../actions/cardActions'
+import { loadCard, updateCard, removeCardMember } from '../actions/cardActions'
 import serialize from 'form-serialize'
 
 const mapStateToProps = (state, props) => {
+
   return {
     card: state.board.cards[props.id], // title
     details: state.card.cards[props.id] || {},
@@ -24,7 +25,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(updateCard({ card: data }, ownProps.id))
     },
     markDone: (e) => {
-      console.log('markdone', ownProps)
       e.preventDefault()
       dispatch(updateCard({ card: { done: true } }, ownProps.id))
     },
@@ -34,6 +34,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     changeList: (e) => {
       e.preventDefault()
+    },
+    removeMember: (member_id) => {
+      console.log('removeMember', member_id)
+      dispatch(removeCardMember(ownProps.id, member_id))
+
     }
   }
 }

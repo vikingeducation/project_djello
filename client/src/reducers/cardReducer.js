@@ -7,13 +7,14 @@ const initialState = {
 }
 
 export default function cards(state = initialState, action) {
+  const data = action.data
   switch (action.type) {
     case Actions.CREATE_CARD_FAILURE:
     case Actions.GET_CARD_FAILURE:
     case Actions.UPDATE_CARD_FAILURE:
       return {
         ...state,
-        error: action.data,
+        error: data,
         isFetching: false
       }
     case Actions.CREATE_CARD_REQUEST:
@@ -27,17 +28,30 @@ export default function cards(state = initialState, action) {
     case Actions.CREATE_CARD_SUCCESS:
     case Actions.GET_CARD_SUCCESS:
     case Actions.UPDATE_CARD_SUCCESS:
-      console.log('action.data', action.data)
+      console.log('data', data)
       return {
         ...state,
         error: null,
         isFetching: false,
         cards: {
           ...state.cards,
-          ...action.data
+          ...data
         }
       }
-
+    case Actions.DELETE_CARD_MEMBER_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isFetching: false,
+        cards: {
+          ...state.cards,
+          [data.card_id]: {
+            ...state.cards[data.card_id],
+            members: state.cards[data.card_id]['members'].filter(member =>
+              member.id !== data.member_id)
+          }
+        }
+      }
     default:
       return state
   }

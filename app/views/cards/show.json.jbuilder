@@ -3,3 +3,8 @@ json.title @card.title
 json.description @card.description
 json.list_id @card.list_id
 json.done @card.done
+json.members @card.members do |member| 
+  json.id member.id
+  json.name member.full_name
+  json.card_id @card.id
+end

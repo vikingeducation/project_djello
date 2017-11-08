@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap'
 import EditInPlace from './EditInPlace'
+import MemberList from './MemberList'
+
 
 class ListCard extends Component {
   constructor(props) {
@@ -23,16 +25,24 @@ class ListCard extends Component {
   }
 
 
-
   render() {
 
     const { title } = this.props.card
 
-    const { description, done } = this.props.details
+    const { description, done, members } = this.props.details
 
     const isFetching = this.props.isFetching
 
     const markStatus = done ? (<a href="#" onClick={this.props.markIncomplete} className="float-right"> Mark as incomplete</a>) : (<a href="#" onClick={this.props.markDone} className="float-right"> Mark as completed</a>)
+
+    let memberList = ''
+    if (members) {
+      memberList = members.map(member => {
+        return (
+          <MemberList member={member} key={`Card-${member.card_id}-Member-${member.id}`} onRemove={this.props.removeMember} />
+        )
+      })
+    }
 
     return (
       <div>
@@ -46,7 +56,6 @@ class ListCard extends Component {
           (<ModalBody>
           <Row className="mb-3">
           <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span>{markStatus}
-        
          </Col>
           </Row>
            <Row>
@@ -54,12 +63,14 @@ class ListCard extends Component {
            		<EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${this.props.id}`} onSubmit={this.props.editCard} />
            	</Col>
            </Row>
+                     <hr />
            <Row>
            	<Col>
            		<h5>Members</h5>
-
+           		{memberList}
            	</Col>
            </Row>
+           <hr />
            <Row>
            	<Col>
            		<h5>Activity</h5>
@@ -75,5 +86,6 @@ class ListCard extends Component {
     )
   }
 }
+
 
 export default ListCard
