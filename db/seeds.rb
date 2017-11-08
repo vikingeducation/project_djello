@@ -18,17 +18,19 @@ puts 'Creating users...'
 end
 
 puts 'Creating boards...'
-User.all.sample(2).each do |u|
+User.all.each do |u|
   rand(7..12).times do
     Board.create!(title: Faker::Book.title, owner: u)
   end
 end
 
-puts 'Creating Lists...'
+puts 'Creating Lists & Board Members...'
 Board.all.each do |b|
   rand(2..5).times do
     List.create!(board: b, title: Faker::Book.title, description: Faker::Hacker.say_something_smart)
+    b.board_member_ids = User.all.sample(rand(1..4)).pluck(:id)
   end
+
 end
 
 puts 'Creating Cards...'

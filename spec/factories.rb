@@ -1,5 +1,8 @@
 FactoryBot.define do
-
+  factory :board_membership do
+    association :user
+    association :board
+  end
 
   factory :membership do
     association :card
