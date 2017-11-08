@@ -28,9 +28,11 @@ class ListCard extends Component {
 
     const { title } = this.props.card
 
-    const { description } = this.props.details
+    const { description, done } = this.props.details
 
     const isFetching = this.props.isFetching
+
+    const markStatus = done ? (<a href="#" onClick={this.props.markIncomplete} className="float-right"> Mark as incomplete</a>) : (<a href="#" onClick={this.props.markDone} className="float-right"> Mark as completed</a>)
 
     return (
       <div>
@@ -43,8 +45,8 @@ class ListCard extends Component {
             isFetching ? <p>Loading...</p> : 
           (<ModalBody>
           <Row className="mb-3">
-          <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span>
-         <a href="#" onClick={this.props.markDone} className="float-right"> Mark as completed</a>
+          <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span>{markStatus}
+        
          </Col>
           </Row>
            <Row>
@@ -54,13 +56,13 @@ class ListCard extends Component {
            </Row>
            <Row>
            	<Col>
-           		<h3>Members</h3>
-           		
+           		<h5>Members</h5>
+
            	</Col>
            </Row>
            <Row>
            	<Col>
-           		<h3>Activity</h3>
+           		<h5>Activity</h5>
            	</Col>
            </Row>
           </ModalBody>

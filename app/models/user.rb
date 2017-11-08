@@ -15,16 +15,4 @@ class User < ApplicationRecord
     self.boards.order('updated_at DESC').first
   end
 
-  def can_view(resource)
-    viewable = false
-    binding.pry
-    case resource.class
-    when Card
-      viewable = true if resource.members.include?(self)
-    when Board
-      viewable = true if resource.owner == self
-    end
-    viewable
-  end
-
 end
