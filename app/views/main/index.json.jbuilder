@@ -30,5 +30,9 @@ json.cards @current_board.cards do |card|
   json.title card.title
 end
 
+json.all_users User.all do |u|
+  json.id u.id
+  json.name u.full_name
+end 
 
 

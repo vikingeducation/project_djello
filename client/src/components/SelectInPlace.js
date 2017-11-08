@@ -46,12 +46,12 @@ class SelectInPlace extends Component {
 
     let optionList = []
 
-    if (options.length !== filter.length) {
-      optionList = options.map(option =>
-        filter.indexOf(option.id) < 0 ?
-        (<option value={option.id} key={`AddMember-${option.id}`}>{option.name}</option>) :
-        ''
-      )
+    if (options) {
+      optionList = options.map(option => {
+        if (filter.indexOf(option.id) < 0) {
+          return (<option value={option.id} key={`AddMember-${option.id}`}>{option.name}</option>)
+        }
+      })
     }
 
 

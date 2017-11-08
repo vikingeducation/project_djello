@@ -27,3 +27,8 @@ end
 json.lists @board.lists, :id, :title, :description, :board_id, :card_ids
 
 json.board_list @user.boards.sort_by(&:title), :id, :title
+
+json.all_users User.all do |u|
+  json.id u.id
+  json.name u.full_name
+end 

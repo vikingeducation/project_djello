@@ -9,7 +9,7 @@ const mapStateToProps = (state, props) => {
   return {
     card: state.board.cards[props.id], // title
     details: state.card.cards[props.id] || {},
-    users: state.board.current.board_members,
+    users: state.board.all_users,
     isFetching: state.card.isFetching,
     list: state.board.lists[props.list_id],
     id: props.id
