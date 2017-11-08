@@ -41,6 +41,11 @@ export function deleteCardMemberSuccess(data) {
   return { data, type: Actions.DELETE_CARD_MEMBER_SUCCESS }
 }
 
+export function addCardMemberSuccess(data) {
+  return { data, type: Actions.ADD_CARD_MEMBER_SUCCESS }
+}
+
+
 export function createCard(data, list_id) {
   return (dispatch, getState) => {
 
@@ -84,9 +89,27 @@ export function removeCardMember(card_id, user_id) {
   }
 }
 
+export function addCardMember(card_id, data) {
+  return (dispatch, getState) => {
+    const options = setOptions(getState(), 'POST', data)
+
+    return fetch(`${baseURL}/cards/${card_id}/memberships`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response)
+        }
+        return response.json()
+      }).then(json => {
+        dispatch(addCardMemberSuccess(json))
+      }).catch(error => {
+        dispatch(updateCardFailure(error))
+      })
+  }
+}
+
 export function updateCard(data, card_id) {
   return (dispatch, getState) => {
-    const options = setOptions(getState(), 'PUT', data)
+    const options = setOptions(getState(), 'PUT', { card: data })
     dispatch(updateCardRequest())
 
     return fetch(`${baseURL}/cards/${card_id}`, options)

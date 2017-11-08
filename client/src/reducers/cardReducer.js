@@ -20,7 +20,6 @@ export default function cards(state = initialState, action) {
     case Actions.CREATE_CARD_REQUEST:
     case Actions.GET_CARD_REQUEST:
     case Actions.UPDATE_CARD_REQUEST:
-      console.log('get card request')
       return {
         ...state,
         isFetching: true,
@@ -28,7 +27,6 @@ export default function cards(state = initialState, action) {
     case Actions.CREATE_CARD_SUCCESS:
     case Actions.GET_CARD_SUCCESS:
     case Actions.UPDATE_CARD_SUCCESS:
-      console.log('data', data)
       return {
         ...state,
         error: null,
@@ -49,6 +47,19 @@ export default function cards(state = initialState, action) {
             ...state.cards[data.card_id],
             members: state.cards[data.card_id]['members'].filter(member =>
               member.id !== data.member_id)
+          }
+        }
+      }
+    case Actions.ADD_CARD_MEMBER_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isFetching: false,
+        cards: {
+          ...state.cards,
+          [data.card_id]: {
+            ...state.cards[data.card_id],
+            members: [...state.cards[data.card_id]['members'], data.member]
           }
         }
       }

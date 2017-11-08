@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap'
 import EditInPlace from './EditInPlace'
 import MemberList from './MemberList'
+import SelectInPlace from './SelectInPlace'
 
 
 class ListCard extends Component {
@@ -35,13 +36,14 @@ class ListCard extends Component {
 
     const markStatus = done ? (<a href="#" onClick={this.props.markIncomplete} className="float-right"> Mark as incomplete</a>) : (<a href="#" onClick={this.props.markDone} className="float-right"> Mark as completed</a>)
 
-    let memberList = ''
+    let memberList, memberIDs = ''
     if (members) {
       memberList = members.map(member => {
         return (
           <MemberList member={member} key={`Card-${member.card_id}-Member-${member.id}`} onRemove={this.props.removeMember} />
         )
       })
+      memberIDs = members.map(member => member.id)
     }
 
     return (
@@ -68,6 +70,7 @@ class ListCard extends Component {
            	<Col>
            		<h5>Members</h5>
            		{memberList}
+           		<SelectInPlace onSubmit={this.props.addMember} options={this.props.users} filter={memberIDs}/>
            	</Col>
            </Row>
            <hr />

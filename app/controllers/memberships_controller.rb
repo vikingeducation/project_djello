@@ -14,7 +14,7 @@ class MembershipsController < ApplicationController
     return :bad_request unless params[:user_id]
     @membership = Membership.new(user_id: params[:user_id], card_id: params[:card_id])
     if @membership.save
-      return head :created
+      render :show
     else
       return head :not_found
     end

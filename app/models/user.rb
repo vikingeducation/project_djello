@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :lists, through: :boards
   has_many :cards, through: :lists
   has_many :memberships
-  has_many :board_memberships, through: :cards, source: :memberships
+  has_many :board_memberships, dependent: :destroy
 
   has_secure_password
 

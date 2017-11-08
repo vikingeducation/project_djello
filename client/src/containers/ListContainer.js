@@ -6,7 +6,6 @@ import { updateList, deleteList } from '../actions/listActions'
 import { createCard } from '../actions/cardActions'
 
 const mapStateToProps = (state, props) => {
-  console.log('list state', state)
   return {
     list: state.board.lists[props.id],
     error: state.list.error,
