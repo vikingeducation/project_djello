@@ -54,13 +54,13 @@ export default class EditInPlace extends Component {
       this.setState({
         isEditing: false,
         text: this.state.text,
-        valid: ''
+        valid: true
       })
     } else {
       this.setState({
         isEditing: false,
         text: this.props.text || '',
-        valid: ''
+        valid: true
       })
     }
   }
@@ -79,7 +79,7 @@ export default class EditInPlace extends Component {
 
         <Form onSubmit={this.onSave} className="mb-2">
         	<FormGroup>
-      <Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid ? '' : false}></Input>
+      <Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid ? null : false}></Input>
         		<FormFeedback>{  this.state.valid ? '' : this.state.message }</FormFeedback>
         	</FormGroup>
         	<Button color="primary" className="mr-2">Save</Button>
