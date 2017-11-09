@@ -57,18 +57,6 @@ describe 'CardRequests' do
         expect(response).to have_http_status(:unauthorized)
       end
     end
-    context 'when the record does not exist' do
-      it 'returns :not_found' do
-        put card_path(999), headers: auth_headers(user), params: card_update
-        expect(response).to have_http_status(:not_found)
-      end
-    end
-    context 'when the user does not own or is a member of a card' do
-      it 'return unauthorized' do
-        put card_path(create(:card)), headers: auth_headers(user), params: card_update
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
     context 'when valid token sent' do
       it 'returns :ok' do
         put card_path(card), headers: auth_headers(user), params: card_update
@@ -79,6 +67,25 @@ describe 'CardRequests' do
         put card_path(card), headers: auth_headers(user), params: card_update
         card.reload
         expect(original_title).not_to eq(card.title)
+      end
+    end
+    context 'when the record does not exist' do
+      it 'returns :not_found' do
+        put card_path(999), headers: auth_headers(user), params: card_update
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+    context 'when the user does not own or is a member of a card' do
+      it 'returns unauthorized' do
+        put card_path(create(:card)), headers: auth_headers(user), params: card_update
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+    context 'when the user owns or is a member of a card' do
+      it 'updates the card' do
+        put card_path(card), headers: auth_headers(user), params: card_update
+        card.reload
+        expect(card.title).to eq('Updated card')
       end
     end
   end
