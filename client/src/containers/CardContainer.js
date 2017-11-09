@@ -25,10 +25,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const data = serialize(form, { hash: true })
       dispatch(updateCard(data, ownProps.id))
     },
-    markDone: (e) => {
-      e.preventDefault()
-      dispatch(updateCard({ done: true }, ownProps.id))
-    },
     markIncomplete: (e) => {
       e.preventDefault()
       dispatch(updateCard({ done: false }, ownProps.id))

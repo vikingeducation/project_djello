@@ -39,7 +39,7 @@ class ListCard extends Component {
 
     const { title } = this.props.card
 
-    const { description, done, members } = this.props.details
+    const { description, members } = this.props.details
 
     const isFetching = this.props.isFetching
 
