@@ -22,10 +22,11 @@ describe 'CardRequests' do
         expect(response).to have_http_status(:bad_request)
       end
       it 'successfully creates card' do
-        expect{ post list_cards_path(list), headers: auth_headers(user), params: {card: {title: 'A new card'}}}.to change(List, :count).by(1)
+        expect{ post list_cards_path(list), headers: auth_headers(user), params: {card: {title: 'A new card'}}}.to change(Card, :count).by(1)
         expect(response).to have_http_status(:ok)
       end
     end
+
   end
 
   describe '#show' do
