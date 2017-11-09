@@ -13,6 +13,7 @@ export default function list(state = initialState, action) {
         ...state,
         error: action.data
       }
+
     default:
       return state
   }

@@ -44,6 +44,13 @@ export function deleteCardMemberSuccess(data) {
 export function addCardMemberSuccess(data) {
   return { data, type: Actions.ADD_CARD_MEMBER_SUCCESS }
 }
+export function deleteCardSuccess(data) {
+  console.log('delete card success')
+  return { data, type: Actions.DELETE_CARD_SUCCESS }
+}
+export function deleteCardFailure() {
+  return { type: Actions.DELETE_CARD_FAILURE }
+}
 
 
 export function createCard(data, list_id) {
@@ -146,4 +153,27 @@ export function loadCard(card_id) {
         dispatch(getCardFailure(error))
       })
   }
+}
+
+export function deleteCard(list_id, card_id) {
+  return (dispatch, getState) => {
+    const options = setOptions(getState(), 'DELETE')
+
+    // dispatch(getCardRequest())
+
+    return fetch(`${baseURL}/lists/${list_id}/cards/${card_id}`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response)
+        }
+
+      }).then(() => {
+        console.log('delete card success')
+        dispatch(deleteCardSuccess({ list_id: list_id, card_id: card_id }))
+      }).catch(error => {
+        dispatch(deleteCardFailure(error))
+      })
+  }
+
+
 }

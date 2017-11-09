@@ -13,6 +13,7 @@ class ListCard extends Component {
     }
 
     this.toggle = this.toggle.bind(this)
+    this.markDone = this.markDone.bind(this)
   }
 
   toggle() {
@@ -25,6 +26,14 @@ class ListCard extends Component {
     })
   }
 
+  markDone() {
+    this.setState({
+      modal: !this.state.modal
+    }, () => {
+      this.props.deleteCard()
+    })
+  }
+
 
   render() {
 
@@ -34,7 +43,6 @@ class ListCard extends Component {
 
     const isFetching = this.props.isFetching
 
-    const markStatus = done ? (<a href="#" onClick={this.props.markIncomplete} className="float-right"> Mark as incomplete</a>) : (<a href="#" onClick={this.props.markDone} className="float-right"> Mark as completed</a>)
 
     let memberList, memberIDs = ''
     if (members) {
@@ -57,7 +65,7 @@ class ListCard extends Component {
             isFetching ? <p>Loading...</p> : 
           (<ModalBody>
           <Row className="mb-3">
-          <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span>{markStatus}
+          <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span><a href="#" onClick={this.markDone} className="float-right"> Mark as completed</a>
          </Col>
           </Row>
            <Row>

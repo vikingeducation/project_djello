@@ -10,6 +10,8 @@ const initialState = {
 }
 
 export default function board(state = initialState, action) {
+  console.log('board reducer')
+  const data = action.data
   switch (action.type) {
     case Actions.GET_BOARD_REQUEST:
     case Actions.UPDATE_BOARD_REQUEST:
@@ -23,14 +25,14 @@ export default function board(state = initialState, action) {
     case Actions.CREATE_BOARD_SUCCESS:
       return {
         ...state,
-        ...action.data,
+        ...data,
         isFetching: false
       }
     case Actions.UPDATE_BOARD_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        ...action.data
+        ...data
       }
     case Actions.GET_BOARD_FAILURE:
     case Actions.UPDATE_BOARD_FAILURE:
@@ -40,7 +42,7 @@ export default function board(state = initialState, action) {
     case Actions.DELETE_LIST_FAILURE:
       return {
         ...state,
-        error: action.data,
+        error: data,
         isFetching: false
       }
     case Actions.DELETE_BOARD_SUCCESS:
@@ -49,7 +51,7 @@ export default function board(state = initialState, action) {
       }
     case Actions.UPDATE_LIST_SUCCESS:
     case Actions.CREATE_LIST_SUCCESS:
-      const { id, ...rest } = action.data
+      const { id, ...rest } = data
       return {
         ...state,
         current: {
@@ -64,9 +66,9 @@ export default function board(state = initialState, action) {
 
     case Actions.DELETE_LIST_SUCCESS:
       const list_ids = [...state.current.list_ids]
-      list_ids.splice(list_ids.indexOf(action.data), 1)
+      list_ids.splice(list_ids.indexOf(data), 1)
       const lists_copy = {...state.lists }
-      delete lists_copy[action.data]
+      delete lists_copy[data]
       return {
         ...state,
         current: {
@@ -80,15 +82,29 @@ export default function board(state = initialState, action) {
         ...state,
         cards: {
           ...state.cards,
-          [action.data.id]: action.data
+          [data.id]: data
         },
         lists: {
           ...state.lists,
-          [action.data.list_id]: {
-            ...state.lists[action.data.list_id],
-            card_ids: [...state.lists[action.data.list_id]['card_ids'], action.data.id]
+          [data.list_id]: {
+            ...state.lists[data.list_id],
+            card_ids: [...state.lists[data.list_id]['card_ids'], data.id]
           }
         }
+      }
+    case Actions.DELETE_CARD_SUCCESS:
+      const card_copy = {...state.cards }
+      delete card_copy[data.card_id]
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [data.list_id]: {
+            ...state.lists[data.list_id],
+            card_ids: state.lists[data.list_id]['card_ids'].filter(item => item !== data.card_id)
+          }
+        },
+        cards: card_copy
       }
     default:
       return state

@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   respond_to :json
-  before_action :check_membership, only: [:show, :update]
+  before_action :check_membership, only: [:show, :update, :destroy]
 
 
   def create
@@ -25,6 +25,12 @@ class CardsController < ApplicationController
     end
   end
 
+  def destroy
+    if @card.destroy
+      head :no_content
+    end
+  end
+
   private
 
   def whitelisted_params
@@ -32,9 +38,9 @@ class CardsController < ApplicationController
   end
 
   def check_membership
-    @card = Card.includes(:members).find_by_id(params[:id])
+    @card = Card.find_by_id(params[:id])
     return head :not_found unless @card
-    return head :unauthorized unless @card.members.include?(current_user) || @card.owner == current_user
+    return head :unauthorized unless @card.board.board_members.include?(current_user)
   end
 
 

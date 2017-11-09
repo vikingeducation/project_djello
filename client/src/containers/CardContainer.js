@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ListCard from '../components/ListCard'
-import { loadCard, updateCard, removeCardMember, addCardMember } from '../actions/cardActions'
+import { loadCard, updateCard, removeCardMember, addCardMember, deleteCard } from '../actions/cardActions'
 import serialize from 'form-serialize'
 
 const mapStateToProps = (state, props) => {
@@ -45,6 +45,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (data) {
         dispatch(addCardMember(ownProps.id, data))
       }
+    },
+    deleteCard: () => {
+      dispatch(deleteCard(ownProps.list_id, ownProps.id))
     }
   }
 }
