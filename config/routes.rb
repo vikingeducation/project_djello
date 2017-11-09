@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     resources :lists, only: [:update, :destroy] do
       resources :cards, only: [:create]
     end
+    resources :cards, only: [:show, :update] do
+      resources :memberships, only: [:destroy, :create]
+    end
 
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

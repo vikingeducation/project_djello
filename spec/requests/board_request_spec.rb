@@ -6,7 +6,7 @@ describe 'BoardRequests' do
   let(:boards){ create_list(:board, 3, owner: user)}
 
   describe '#update' do
-    context 'logged out' do
+    context 'when user is logged out' do
       it 'returns unauthorized if incorrect or no token' do
         boards
         put board_path(boards.first.id)
@@ -30,7 +30,7 @@ describe 'BoardRequests' do
   end
 
   describe '#destroy' do
-    context 'logged out' do
+    context 'when user is logged out' do
       before do
         boards
       end
@@ -49,7 +49,7 @@ describe 'BoardRequests' do
   end
 
   describe '#show' do
-    context 'logged out' do
+    context 'when user is logged out' do
       before do
         boards
       end
@@ -62,7 +62,7 @@ describe 'BoardRequests' do
     end
 
 
-    context 'logged in' do
+    context 'when user is logged in' do
       it 'returns ok with proper token' do
         boards
         get board_path(boards.first.id), headers: auth_headers(user)
@@ -76,7 +76,7 @@ describe 'BoardRequests' do
   end
 
   describe '#create' do
-    context 'logged out' do
+    context 'when user is logged out' do
       it 'returns :unauthorized if invalid token provided' do
         post boards_path(),  headers: bad_auth_headers(user), params: {board: {title: 'A new board'}}
         expect(response).to have_http_status(:unauthorized)

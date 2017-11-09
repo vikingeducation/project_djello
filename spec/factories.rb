@@ -1,5 +1,8 @@
 FactoryBot.define do
-
+  factory :board_membership do
+    association :user
+    association :board
+  end
 
   factory :membership do
     association :card
@@ -10,7 +13,6 @@ FactoryBot.define do
     sequence(:description){|n| "Card description #{n}"}
     done false
     association :list
-    position ""
   end
 
   factory :list do

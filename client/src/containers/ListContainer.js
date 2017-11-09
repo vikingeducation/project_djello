@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import List from '../components/List'
 import serialize from 'form-serialize'
 import { updateList, deleteList } from '../actions/listActions'
+import { createCard } from '../actions/cardActions'
 
 const mapStateToProps = (state, props) => {
   return {
     list: state.board.lists[props.id],
     error: state.list.error,
-    id: props.id,
+    // id: props.id,
   }
 }
 
@@ -20,6 +21,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     deleteList: () => {
       dispatch(deleteList(ownProps.id))
+    },
+    createCard: (data) => {
+
+      console.log('create card', ownProps.id)
+      dispatch(createCard(data, ownProps.id))
+
     }
   }
 }

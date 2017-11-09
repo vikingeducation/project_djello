@@ -83,7 +83,7 @@ const Board = ({
     <Container>
 	<Row className="justify-content-between align-items-top">
   		<Col md={9} lg={7} xs={12}>
-  		 <EditInPlace text={board.current.title || 'Untitled Board'} onSubmit={updateBoard} id={board.current.id} name="title" />
+  		 <EditInPlace text={board.current.title} onSubmit={updateBoard} id={board.current.id} name="title" tag="h1" />
   		</Col>
   		<Col lg={5}>
   			<Form inline className="float-lg-right" onSubmit={selectBoard}>

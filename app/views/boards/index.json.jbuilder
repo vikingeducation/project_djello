@@ -7,4 +7,6 @@
 #   }
 # }
 
-json.current @board.id, @board.title, @board.list_ids
+# json.current @board.id, @board.title, @board.list_ids
+
+json.current @board, :id, :title, :list_ids

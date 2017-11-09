@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "User" do
   let(:user){ create(:user)}
-  let(:board){ create(:board, owner: user)}
+  let(:board){ create(:board, owner: user, title: 'Test Board')}
 
 
   describe '#full_name' do
@@ -14,7 +14,7 @@ describe "User" do
   describe '#boards' do
     it 'returns a user\'s boards' do
       board
-      expect(user.boards.first.title).to eq('Board Title 1')
+      expect(user.boards.first.title).to eq('Test Board')
     end
   end
 end

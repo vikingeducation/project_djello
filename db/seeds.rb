@@ -13,7 +13,7 @@ Board.destroy_all
 
 puts 'Creating users...'
 
-2.times do |n|
+5.times do |n|
   User.create!(first_name: "Foo#{n}", last_name: "Bar#{n}", email: "foo#{n+1}@bar.com", password: 'foobarfoobar')
 end
 
@@ -24,11 +24,13 @@ User.all.each do |u|
   end
 end
 
-puts 'Creating Lists...'
+puts 'Creating Lists & Board Members...'
 Board.all.each do |b|
   rand(2..5).times do
     List.create!(board: b, title: Faker::Book.title, description: Faker::Hacker.say_something_smart)
+    b.board_member_ids = User.all.sample(rand(1..4)).pluck(:id)
   end
+
 end
 
 puts 'Creating Cards...'
@@ -40,9 +42,7 @@ end
 
 puts 'Assigning card memberships...'
 Card.all.each do |c|
-  rand(3).times do
-    c.members << User.all.sample
-  end
+  c.member_ids = c.board.board_member_ids.sample(rand(3))
 end
 
 puts 'Done!'

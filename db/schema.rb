@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029142324) do
+ActiveRecord::Schema.define(version: 20171108061700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "board_memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_memberships_on_board_id", using: :btree
+    t.index ["user_id"], name: "index_board_memberships_on_user_id", using: :btree
+  end
 
   create_table "boards", force: :cascade do |t|
     t.integer  "user_id"
@@ -60,6 +69,8 @@ ActiveRecord::Schema.define(version: 20171029142324) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "board_memberships", "boards"
+  add_foreign_key "board_memberships", "users"
   add_foreign_key "boards", "users"
   add_foreign_key "cards", "lists"
   add_foreign_key "lists", "boards"
