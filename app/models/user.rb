@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :cards, through: :lists
   has_many :memberships
   has_many :board_memberships, dependent: :destroy
+  has_many :all_boards, through: :board_memberships, source: :board
+
 
   has_secure_password
 
@@ -12,7 +14,8 @@ class User < ApplicationRecord
   end
 
   def most_recent_board
-    self.boards.order('updated_at DESC').first
+    self.board_memberships.order('updated_at DESC').first.board
   end
+
 
 end

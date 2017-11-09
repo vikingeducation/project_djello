@@ -11,13 +11,17 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    return :bad_request unless params[:user_id]
+    # return :bad_request unless params[:user_id]
     @membership = Membership.new(user_id: params[:user_id], card_id: params[:card_id])
     if @membership.save
       render :show
-    else
-      return head :not_found
     end
+  end
+
+  private
+
+  def add_user_as_board_member
+    @board_membership = BoardMembership.create!(user: @membership.user, board: @membership.card.board)
   end
 
 

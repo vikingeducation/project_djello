@@ -26,7 +26,10 @@ end
 
 json.lists @board.lists, :id, :title, :description, :board_id, :card_ids
 
-json.board_list @user.boards.sort_by(&:title), :id, :title
+
+json.board_list do 
+  json.array! @user.all_boards.sort_by(&:title), :id, :title
+end
 
 json.all_users User.all do |u|
   json.id u.id

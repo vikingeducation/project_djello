@@ -20,7 +20,7 @@ json.current do
 end
 
 json.board_list do 
-  json.array! @user.boards.sort_by(&:title), :id, :title, :updated_at
+  json.array! @user.all_boards.sort_by(&:title), :id, :title
 end
 
 json.lists @current_board.lists, :id, :title, :description, :board_id, :card_ids

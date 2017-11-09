@@ -1,11 +1,12 @@
 class BoardsController < ApplicationController
   respond_to :json
+  # after_action :add_user_as_board_member, only: [:create], if: -> {@board}
 
   def show
-    return head :not_found if current_user.boards.where(id: params[:id]).blank?
-    @board = Board.includes(:owner, {lists: [:cards]}).where(id: params[:id]).first
+    return head :not_found if BoardMembership.where(board_id: params[:id], user_id: current_user.id).blank?
+    @board = Board.includes({lists: [:cards]}).where(id: params[:id]).first
     if @board
-      @user = @board.owner
+      @user = current_user
       return render :show
     else
       return head :not_found
@@ -44,7 +45,12 @@ class BoardsController < ApplicationController
     end
   end
 
+  private
+
   def whitelisted_params
     params.require(:board).permit(:title, :description)
   end
+
+
+
 end
