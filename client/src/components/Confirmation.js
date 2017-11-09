@@ -35,8 +35,8 @@ export default class Confirmation extends Component {
             {this.props.children}
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" onClick={this.confirmAction}>{this.props.confirmationLabel}</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="danger" onClick={this.confirmAction} size="sm">{this.props.confirmationLabel}</Button>{' '}
+            <Button color="secondary" onClick={this.toggle} size="sm">Cancel</Button>
           </ModalFooter>
         </Modal>
       </div>

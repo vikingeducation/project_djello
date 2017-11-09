@@ -64,7 +64,7 @@ class Login extends Component {
 				<ValidationErrorMessage message={feedback['password']}></ValidationErrorMessage>
 				</Col>
 				</FormGroup>
-				<Button color="primary">Login</Button>
+				<Button color="primary" size="sm">Login</Button>
 			</Form>
 			</CardBody>
 		</Card>

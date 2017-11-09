@@ -60,8 +60,8 @@ export default class BoardCreator extends Component {
         </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary">{this.props.actionLabel}</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="primary" size="sm">{this.props.actionLabel}</Button>{' '}
+            <Button color="secondary" size="sm" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
             </Form>
         </Modal>

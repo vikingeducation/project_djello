@@ -82,7 +82,7 @@ export default class EditInPlace extends Component {
       <Input type={this.state.type} name={this.props.name} value={this.state.text} onChange={this.updateText} placeholder={this.state.placeholder} valid={this.state.valid ? null : false}></Input>
         		<FormFeedback>{  this.state.valid ? '' : this.state.message }</FormFeedback>
         	</FormGroup>
-        	<Button color="primary" className="mr-2">Save</Button>
+        	<Button color="primary" size="sm" className="mr-2">Save</Button>
         	<a href="#" className="text-muted" onClick={this.onCancel}>Cancel</a>
         </Form>
       )

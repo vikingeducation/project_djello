@@ -29,7 +29,6 @@ export default class CardCreator extends Component {
   }
 
   save(e) {
-    console.log('save')
     e.preventDefault()
     const data = serialize(e.target, { hash: true })
     if (!data.title) {
@@ -55,12 +54,12 @@ export default class CardCreator extends Component {
           <Input type="text" name="title" placeholder="Card title..." valid={this.state.isValid} />
           <FormFeedback>Can't be blank</FormFeedback>
         </FormGroup>
-        <Button color="primary">Save</Button>
+        <Button color="primary" size="sm">Save</Button>
         {' '}<a href="#" onClick={this.edit} className="text-muted">Cancel</a>
         </Form>)
     }
     return (
-      <Button color="primary" onClick={this.edit}>Add a Card</Button>
+      <Button color="primary" onClick={this.edit} size="sm">Add a Card</Button>
     )
   }
 }

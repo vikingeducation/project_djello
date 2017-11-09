@@ -21,7 +21,7 @@ const List = ({
 
   return (
     <div className="list-item">
-  <Confirmation buttonLabel={<button type="button" className="close text-danger" aria-label="Close"><span aria-hidden="true">&times;</span></button>} confirmationLabel="Delete" confirmationAction={deleteList} className="text-right">
+  <Confirmation buttonLabel={<button type="button" className="close text-danger" aria-label="Close"><span aria-hidden="true" size="sm">&times;</span></button>} confirmationLabel="Delete" confirmationAction={deleteList} className="text-right">
     Delete list "{title}"?
     </Confirmation>
 
