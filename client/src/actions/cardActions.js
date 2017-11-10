@@ -45,11 +45,13 @@ export function addCardMemberSuccess(data) {
   return { data, type: Actions.ADD_CARD_MEMBER_SUCCESS }
 }
 export function deleteCardSuccess(data) {
-  console.log('delete card success')
   return { data, type: Actions.DELETE_CARD_SUCCESS }
 }
 export function deleteCardFailure() {
   return { type: Actions.DELETE_CARD_FAILURE }
+}
+export function updateCardListSuccess(data) {
+  return { data, type: Actions.UPDATE_CARD_LIST_SUCCESS }
 }
 
 
@@ -133,6 +135,31 @@ export function updateCard(data, card_id) {
       })
   }
 }
+
+export function updateCardList(data, card_id, old_list_id) {
+  return (dispatch, getState) => {
+    const options = setOptions(getState(), 'PUT', { card: data })
+    dispatch(updateCardRequest())
+
+    return fetch(`${baseURL}/cards/${card_id}`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response)
+        }
+        return response.json()
+      }).then(json => {
+        const massaged = arrayToObjectByID([json])
+        dispatch(updateCardListSuccess({
+          card_id: card_id,
+          new_list_id: parseInt(data.list_id),
+          old_list_id: old_list_id
+        }))
+      }).catch(error => {
+        dispatch(updateCardFailure(error))
+      })
+  }
+}
+
 
 export function loadCard(card_id) {
   return (dispatch, getState) => {

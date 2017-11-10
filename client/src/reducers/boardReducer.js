@@ -82,13 +82,28 @@ export default function board(state = initialState, action) {
         ...state,
         cards: {
           ...state.cards,
-          [data.id]: data
+          ...data
         },
         lists: {
           ...state.lists,
           [data.list_id]: {
             ...state.lists[data.list_id],
             card_ids: [...state.lists[data.list_id]['card_ids'], data.id]
+          }
+        }
+      }
+    case Actions.UPDATE_CARD_LIST_SUCCESS:
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [data.old_list_id]: {
+            ...state.lists[data.old_list_id],
+            card_ids: state.lists[data.old_list_id]['card_ids'].filter(id => id != data.card_id)
+          },
+          [data.new_list_id]: {
+            ...state.lists[data.new_list_id],
+            card_ids: [...state.lists[data.new_list_id]['card_ids'], data.card_id]
           }
         }
       }

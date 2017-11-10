@@ -42,8 +42,7 @@ class SelectInPlace extends Component {
 
   render() {
 
-    const { options, filter } = this.props
-
+    const { options, filter, children, buttonLabel } = this.props
     let optionList = []
 
     if (options) {
@@ -54,13 +53,12 @@ class SelectInPlace extends Component {
       })
     }
 
-
     if (this.state.isEditing) {
       return (
         <Form onSubmit={this.onSubmit}>
     <FormGroup className="mt-2 mb-2">
-      <Input type="select" name="user_id" className="mb-2">
-      {optionList}
+      <Input type="select" name={this.props.name} className="mb-2">
+      {children}
       </Input>
       <Button color="primary" size="sm">Add</Button>{' '}
       <a href="#" onClick={this.onCancel} className="text-muted">Cancel</a>
@@ -70,13 +68,16 @@ class SelectInPlace extends Component {
       )
     }
 
-    return (optionList.length > 1 ? <a href="#" onClick={this.onClick}>Add a Member</a> : null)
+    return (children.length > 1 ? <a href="#" onClick={this.onClick}>{buttonLabel}</a> : null)
   }
 }
 
 export default SelectInPlace
 
 SelectInPlace.propTypes = {
-  options: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+}
+
+SelectInPlace.defaultProps = {
+  children: []
 }

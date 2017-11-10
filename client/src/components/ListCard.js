@@ -37,11 +37,11 @@ class ListCard extends Component {
 
   render() {
 
-    const { title } = this.props.card
+    const { card, details, list_id, id, board } = this.props
+    const { all_users: users, lists, current: { list_ids } } = board
+    const { title, isFetching } = card
+    const { description, members } = details
 
-    const { description, members } = this.props.details
-
-    const isFetching = this.props.isFetching
 
 
     let memberList, memberIDs = ''
@@ -54,6 +54,28 @@ class ListCard extends Component {
       memberIDs = members.map(member => member.id)
     }
 
+    let listOptions = []
+    if (list_ids) {
+
+      listOptions = list_ids.map(id => {
+
+        return (
+          <option key={`List-Options-${id}`} value={id} disabled={list_id === id}>{lists[id]['title']}</option>)
+      })
+    }
+
+    let memberOptions = []
+    if (users) {
+      memberOptions = users.map(user => {
+        if (memberIDs.indexOf(user.id) < 0) {
+          return (
+            <option key={`Member-Option-${user.id}`} value={user.id}>{user.name}</option>)
+        }
+      })
+    }
+
+
+
     return (
       <div>
         <a className="cardlist" onClick={this.toggle}>{title}</a>
@@ -65,12 +87,15 @@ class ListCard extends Component {
             isFetching ? <p>Loading...</p> : 
           (<ModalBody>
           <Row className="mb-3">
-          <Col><span>List: <a href="#" onClick={this.props.changeList} >{this.props.list.title}</a></span><a href="#" onClick={this.markDone} className="float-right"> Mark as completed</a>
+          <Col><span>List: </span><SelectInPlace onSubmit={this.props.changeList} name="list_id" buttonLabel={lists[list_id]['title']} key={`ChangeCardList-${id}`}>
+          {listOptions}
+          </SelectInPlace>
+          <a href="#" onClick={this.markDone} className="float-right"> Mark as completed</a>
          </Col>
           </Row>
            <Row>
            	<Col>
-           		<EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${this.props.id}`} onSubmit={this.props.editCard} />
+           		<EditInPlace name="description" text={description} tag="p" placeholder="Add a description..."  key={`ListCardEditDescription-${id}`} onSubmit={this.props.editCard} />
            	</Col>
            </Row>
                      <hr />
@@ -78,7 +103,9 @@ class ListCard extends Component {
            	<Col>
            		<h5>Members</h5>
            		{memberList}
-           		<SelectInPlace onSubmit={this.props.addMember} options={this.props.users} filter={memberIDs}/>
+           		<SelectInPlace onSubmit={this.props.addMember} name="user_id" buttonLabel="Add Member">
+           		{memberOptions}
+           		</SelectInPlace>
            	</Col>
            </Row>
            <hr />

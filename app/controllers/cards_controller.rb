@@ -34,7 +34,7 @@ class CardsController < ApplicationController
   private
 
   def whitelisted_params
-    params.require(:card).permit(:title, :description, :done)
+    params.require(:card).permit(:title, :description, :list_id)
   end
 
   def check_membership
