@@ -80,7 +80,7 @@ const Board = ({
 
   return (
 
-    <Container>
+    <div className="container-fluid">
 	<Row className="justify-content-between align-items-top">
   		<Col md={9} lg={7} xs={12}>
   		 <EditInPlace text={board.current.title} onSubmit={updateBoard} id={board.current.id} name="title" tag="h1" />
@@ -119,7 +119,7 @@ const Board = ({
   	</div>
   
   
-  	</Container>
+  	</div>
 
 
   )
