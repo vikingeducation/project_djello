@@ -1,4 +1,6 @@
 class Activity < ApplicationRecord
-  belongs_to :action
-  belongs_to :activitable
+  belongs_to :user
+  belongs_to :card
+
+  validates :verb, presence: true
 end

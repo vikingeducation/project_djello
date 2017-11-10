@@ -1,4 +1,15 @@
 FactoryBot.define do
+  factory :activity do
+    association :user
+    association :card
+    sequence(:verb){ |n| "Verb #{n}"}
+
+    trait :missing_verb do
+      verb nil
+    end
+
+  end
+
   factory :board_membership do
     association :user
     association :board
@@ -11,7 +22,6 @@ FactoryBot.define do
   factory :card do
     sequence(:title){|n| "Card title #{n}"}
     sequence(:description){|n| "Card description #{n}"}
-    done false
     association :list
   end
 
