@@ -46,7 +46,7 @@ class CardsController < ApplicationController
   end
 
   def check_membership
-    @card = Card.find_by_id(params[:id])
+    @card = Card.find_by(id: params[:id])
     return head :not_found unless @card
     return head :unauthorized unless @card.board.board_members.include?(current_user)
   end

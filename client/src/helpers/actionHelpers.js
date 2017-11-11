@@ -4,7 +4,7 @@ export function arrayToObjectByID(data) {
   let massaged = {}
   data.forEach(list => {
     const { id, ...rest } = list
-    massaged[id] = rest
+    massaged[id] = list
   })
   return massaged
 }

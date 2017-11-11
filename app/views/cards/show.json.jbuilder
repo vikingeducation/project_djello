@@ -7,3 +7,4 @@ json.members @card.members do |member|
   json.name member.full_name
   json.card_id @card.id
 end
+json.activities @card.activities

@@ -34,7 +34,7 @@ export default function cards(state = initialState, action) {
         isFetching: false,
         cards: {
           ...state.cards,
-          data
+          ...data
         }
       }
     case Actions.DELETE_CARD_MEMBER_SUCCESS:
