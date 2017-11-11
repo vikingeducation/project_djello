@@ -3,9 +3,14 @@ FactoryBot.define do
     association :user
     association :card
     sequence(:verb){ |n| "Verb #{n}"}
+    sequence(:object){|n| "Object #{n}"}
 
     trait :missing_verb do
       verb nil
+    end
+
+    trait :missing_object do
+      object nil
     end
 
   end

@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20171110012136) do
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "card_id",    null: false
+    t.string   "object",     null: false
+    t.string   "value"
     t.string   "verb",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

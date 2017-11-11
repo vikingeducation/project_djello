@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
   # after_action :add_user_as_board_member, only: [:create], if: -> {@board}
 
   def show
-    return head :not_found if BoardMembership.where(board_id: params[:id], user_id: current_user.id).blank?
+    return head :not_found unless BoardMembership.where(board_id: params[:id], user_id: current_user.id).exists?
     @board = Board.includes({lists: [:cards]}).where(id: params[:id]).first
     if @board
       @user = current_user

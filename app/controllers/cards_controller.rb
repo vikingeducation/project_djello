@@ -7,6 +7,7 @@ class CardsController < ApplicationController
     @list = List.find(params[:list_id])
     @card = @list.cards.build(whitelisted_params)
     if @card.save
+      current_user.track_card_creation(@card)
       render :show
     else
       head :unprocessable_entity
@@ -19,6 +20,7 @@ class CardsController < ApplicationController
 
   def update
     if @card.update(whitelisted_params)
+      current_user.track_card_update(@card, update_object)
       render :show
     else
       head :unprocessable_entity
@@ -35,6 +37,12 @@ class CardsController < ApplicationController
 
   def whitelisted_params
     params.require(:card).permit(:title, :description, :list_id)
+  end
+
+  def update_object
+    return :title if whitelisted_params[:title]
+    return :description if whitelisted_params[:description]
+    return :list if whitelisted_params[:description]
   end
 
   def check_membership

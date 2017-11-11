@@ -42,7 +42,7 @@ end
 
 puts 'Assigning card memberships...'
 Card.all.each do |c|
-  c.member_ids = c.board.board_member_ids.sample(rand(3))
+  c.member_ids = c.board.board_member_ids.sample(rand(1..3))
 end
 
 puts 'Done!'
