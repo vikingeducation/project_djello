@@ -5,9 +5,8 @@ import { loadCard, updateCard, removeCardMember, addCardMember, deleteCard, upda
 import serialize from 'form-serialize'
 
 const mapStateToProps = (state, props) => {
-
   return {
-    card: state.board.cards[props.id], // title
+    card: state.board.cards[props.id], // title only
     details: state.card.cards[props.id] || {},
     board: state.board,
     list_id: props.list_id,

@@ -27,13 +27,14 @@ export default function cards(state = initialState, action) {
     case Actions.CREATE_CARD_SUCCESS:
     case Actions.GET_CARD_SUCCESS:
     case Actions.UPDATE_CARD_SUCCESS:
+      console.log('data', data)
       return {
         ...state,
         error: null,
         isFetching: false,
         cards: {
           ...state.cards,
-          ...data
+          data
         }
       }
     case Actions.DELETE_CARD_MEMBER_SUCCESS:

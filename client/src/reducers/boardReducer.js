@@ -82,7 +82,7 @@ export default function board(state = initialState, action) {
         ...state,
         cards: {
           ...state.cards,
-          ...data
+          [data.id]: data
         },
         lists: {
           ...state.lists,
