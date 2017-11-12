@@ -36,13 +36,20 @@ end
 puts 'Creating Cards...'
 List.all.each do |l|
   rand(5).times do
-    Card.create!(list: l, title: Faker::Book.title, description: Faker::Hacker.say_something_smart)
+    card = Card.create!(list: l, title: Faker::Book.title, description: Faker::Hacker.say_something_smart)
+    card_creator = User.find(card.board.board_member_ids.sample(1).first)
+    card_creator.track_card_creation(card)
   end
 end
 
 puts 'Assigning card memberships...'
 Card.all.each do |c|
-  c.member_ids = c.board.board_member_ids.sample(rand(1..3))
+  board_members = c.board.board_member_ids.sample(rand(1..3))
+  c.member_ids = board_members
+  board_members.each do |m|
+    User.find(board_members.sample(1).first).track_add_card_member(c, User.find(m))
+  end
 end
+
 
 puts 'Done!'

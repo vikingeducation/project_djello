@@ -110,7 +110,9 @@ class ListCard extends Component {
            <Row>
            	<Col>
            		<h5>Activity</h5>
-           		<Activity activities={activities} users={users} />
+           	{ activities ?
+           		<Activity activities={activities} users={users} /> : ''
+           	}
            	</Col>
            </Row>
           </ModalBody>
