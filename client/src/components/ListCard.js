@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 're
 import EditInPlace from './EditInPlace'
 import MemberList from './MemberList'
 import SelectInPlace from './SelectInPlace'
+import Activity from './Activity'
 
 
 class ListCard extends Component {
@@ -40,7 +41,7 @@ class ListCard extends Component {
     const { card, details, list_id, id, board } = this.props
     const { all_users: users, lists, current: { list_ids } } = board
     const { title, isFetching } = card
-    const { description, members } = details
+    const { description, members, activities } = details
 
 
 
@@ -66,15 +67,12 @@ class ListCard extends Component {
 
     let memberOptions = []
     if (users) {
-      memberOptions = users.map(user => {
-        if (memberIDs.indexOf(user.id) < 0) {
-          return (
-            <option key={`Member-Option-${user.id}`} value={user.id}>{user.name}</option>)
+      for (let userID in users) {
+        if (memberIDs.indexOf(parseInt(userID)) < 0) {
+          memberOptions.push(<option key={`Member-Option-${userID}`} value={userID}>{users[userID].name}</option>)
         }
-      })
+      }
     }
-
-
 
     return (
       <div>
@@ -112,6 +110,7 @@ class ListCard extends Component {
            <Row>
            	<Col>
            		<h5>Activity</h5>
+           		<Activity activities={activities} users={users} />
            	</Col>
            </Row>
           </ModalBody>

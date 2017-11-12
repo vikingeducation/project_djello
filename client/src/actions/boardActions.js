@@ -5,6 +5,18 @@ import {
   setOptions
 } from '../helpers/actionHelpers'
 
+function massageBoardData(json) {
+  let lists = arrayToObjectByID(json.lists)
+  let cards = arrayToObjectByID(json.cards)
+  let all_users = arrayToObjectByID(json.all_users)
+  return {
+    ...json,
+    lists,
+    cards,
+    all_users
+  }
+}
+
 export function getBoardRequest() {
   return { type: Actions.GET_BOARD_REQUEST }
 }
@@ -66,13 +78,7 @@ export function loadBoard(board_id) {
         }
         return response.json()
       }).then(json => {
-        let lists = arrayToObjectByID(json.lists)
-        let cards = arrayToObjectByID(json.cards)
-        let massaged = {
-          ...json,
-          lists,
-          cards
-        }
+        const massaged = massageBoardData(json)
         dispatch(getBoardSuccess(massaged))
       }).catch(error => {
         console.log('load boarderror', error)
@@ -94,14 +100,7 @@ export function updateBoard(data, board_id) {
       }
       return response.json()
     }).then(json => {
-      let lists = arrayToObjectByID(json.lists)
-      let cards = arrayToObjectByID(json.cards)
-      let massaged = {
-        ...json,
-        lists,
-        cards
-      }
-
+      const massaged = massageBoardData(json)
       dispatch(updateBoardSuccess(massaged))
     }).catch(error => {
       dispatch(updateBoardFailure(error.status))

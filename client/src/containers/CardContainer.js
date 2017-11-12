@@ -7,10 +7,10 @@ import serialize from 'form-serialize'
 const mapStateToProps = (state, props) => {
   return {
     card: state.board.cards[props.id], // title only
-    details: state.card.cards[props.id] || {},
+    details: state.card.details[props.id] || {},
     board: state.board,
     list_id: props.list_id,
-    id: props.id
+    id: props.id,
   }
 }
 
