@@ -69,8 +69,7 @@ export function createCard(data, list_id) {
         }
         return response.json()
       }).then(json => {
-        const massaged = arrayToObjectByID([json])
-        dispatch(createCardSuccess(massaged))
+        dispatch(createCardSuccess(json))
       }).catch(error => {
         dispatch(createCardFailure(error))
       })
