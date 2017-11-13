@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap'
+import { sortable } from 'react-sortable'
 import EditInPlace from './EditInPlace'
 import MemberList from './MemberList'
 import SelectInPlace from './SelectInPlace'
@@ -40,20 +41,22 @@ class ListCard extends Component {
 
     const { card, details, list_id, id, board } = this.props
     const { all_users: users, lists, current: { list_ids } } = board
-    const { title, isFetching } = card
+    const { title, isFetching, member_ids } = card
     const { description, members, activities } = details
 
+    let memberList = ''
 
-
-    let memberList, memberIDs = ''
     if (members) {
       memberList = members.map(member => {
         return (
           <MemberList member={member} key={`Card-${member.card_id}-Member-${member.id}`} onRemove={this.props.removeMember} />
         )
       })
-      memberIDs = members.map(member => member.id)
     }
+
+    let memberNames = member_ids.map(id => {
+      return users[id]['name']
+    })
 
     let listOptions = []
     if (list_ids) {
@@ -68,7 +71,7 @@ class ListCard extends Component {
     let memberOptions = []
     if (users) {
       for (let userID in users) {
-        if (memberIDs.indexOf(parseInt(userID)) < 0) {
+        if (member_ids.indexOf(parseInt(userID)) < 0) {
           memberOptions.push(<option key={`Member-Option-${userID}`} value={userID}>{users[userID].name}</option>)
         }
       }
@@ -76,7 +79,8 @@ class ListCard extends Component {
 
     return (
       <div>
-        <a className="cardlist" onClick={this.toggle}>{title}</a>
+        <a className="cardlist" onClick={this.toggle}><b>{title}</b><br />
+        <span className="small">{memberNames.join(', ')}</span></a>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} key={`ListCardModal-${this.props.id}`}>
           <ModalHeader toggle={this.toggle}>
           <EditInPlace name="title" text={title} placeholder="Card title..." key={`ListCardEditTitle-${this.props.id}`} onSubmit={this.props.editCard} />

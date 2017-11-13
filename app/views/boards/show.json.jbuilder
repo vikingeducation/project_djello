@@ -22,6 +22,7 @@ end
 json.cards @board.cards do |card|
   json.id card.id
   json.title card.title
+  json.member_ids card.member_ids
 end
 
 json.lists @board.lists, :id, :title, :description, :board_id, :card_ids
