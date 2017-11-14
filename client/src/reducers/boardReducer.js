@@ -10,7 +10,6 @@ const initialState = {
 }
 
 export default function board(state = initialState, action) {
-  console.log('board reducer')
   const data = action.data
   switch (action.type) {
     case Actions.GET_BOARD_REQUEST:
@@ -52,11 +51,12 @@ export default function board(state = initialState, action) {
     case Actions.UPDATE_LIST_SUCCESS:
     case Actions.CREATE_LIST_SUCCESS:
       const { id, ...rest } = data
+      let updated_list_ids = state.current.list_ids.indexOf(id) < 0 ? [...state.current.list_ids, id] : [...state.current.list_ids]
       return {
         ...state,
         current: {
           ...state.current,
-          list_ids: [...state.current.list_ids, id]
+          list_ids: updated_list_ids
         },
         lists: {
           ...state.lists,

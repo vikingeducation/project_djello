@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap'
-import { sortable } from 'react-sortable'
+import { SortableElement } from 'react-sortable-hoc'
 import EditInPlace from './EditInPlace'
 import MemberList from './MemberList'
 import SelectInPlace from './SelectInPlace'
@@ -121,9 +121,7 @@ class ListCard extends Component {
            </Row>
           </ModalBody>
           )
-
-          }
-    
+          } 
         </Modal>
       </div>
     )

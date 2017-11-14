@@ -94,7 +94,8 @@ const Board = ({
   				</Input>
   			</FormGroup>
   			</Form>
-        <div className="float-lg-right">
+        <div className="clearfix"></div>
+        <div className="float-lg-right ">
         <Confirmation 
 	        buttonLabel="Delete Board" 
 	        confirmationAction={confirmDeletion} 

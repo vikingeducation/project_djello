@@ -3,7 +3,7 @@ class Board < ApplicationRecord
   has_many :lists, dependent: :destroy
   has_many :cards, through: :lists
   has_many :board_memberships, dependent: :destroy
-  has_many :board_members, through: :board_memberships, source: :user
+  has_many :board_members, through: :board_memberships, source: :user, dependent: :destroy
   after_create :create_board_membership
 
   include Reusable

@@ -4,19 +4,23 @@ import CardContainer from '../containers/CardContainer'
 import Confirmation from './Confirmation'
 import { Button } from 'reactstrap'
 import CardCreator from './CardCreator'
+import { SortableContainer } from 'react-sortable-hoc'
 
 const List = ({
   list,
   updateList,
   deleteList,
   createCard,
+  board_cards,
+  card_ids,
   id
 }) => {
 
-  const { title, description, card_ids, board_id } = list
 
-  const cards = card_ids.map(card_id => {
-    return (<CardContainer key={`CardContainer-${card_id}`} id={card_id} list_id={id}/>)
+  const { title, description, board_id } = list
+
+  const cards = card_ids.map((card_id, index) => {
+    return (<CardContainer key={`CardContainer-${card_id}`} id={card_id} list_id={id} index={index}/>)
   })
 
   return (
@@ -34,4 +38,4 @@ const List = ({
   )
 }
 
-export default List
+export default SortableContainer(List)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { SortableElement } from 'react-sortable-hoc'
 import ListCard from '../components/ListCard'
 import { loadCard, updateCard, removeCardMember, addCardMember, deleteCard, updateCardList } from '../actions/cardActions'
 import serialize from 'form-serialize'
@@ -48,4 +49,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListCard)
+export default connect(mapStateToProps, mapDispatchToProps)(SortableElement(ListCard))

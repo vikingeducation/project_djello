@@ -6,7 +6,19 @@ class Card < ApplicationRecord
   has_one :owner, through: :board
   has_many :activities, dependent: :destroy
 
-  validates :title, presence: true
+  after_create :set_position
 
+  validates :title, presence: true, if: :should_validate?
 
+  private
+
+  def should_validate?
+    !! self.title
+  end
+
+  def set_position
+    self.reload
+    self.update(position: self.list.cards.length - 1) if self.list.cards.length > 0
+    self.update(position: 0) unless self.position
+  end
 end

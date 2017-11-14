@@ -23,9 +23,11 @@ json.cards @board.cards do |card|
   json.id card.id
   json.title card.title
   json.member_ids card.member_ids
+  json.position card.position
 end
 
 json.lists @board.lists, :id, :title, :description, :board_id, :card_ids
+
 
 
 json.board_list do 

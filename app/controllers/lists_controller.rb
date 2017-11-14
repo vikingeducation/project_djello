@@ -1,7 +1,7 @@
 class ListsController < ApplicationController
 
   def update
-    @list = List.find(params[:id])
+    @list = List.includes(:cards).find(params[:id])
     if @list.update(whitelisted_params)
       render :show
     end
@@ -27,6 +27,6 @@ class ListsController < ApplicationController
   private
 
   def whitelisted_params
-    params.require(:list).permit(:title, :description, :board_list)
+    params.require(:list).permit(:title, :description, :board_list, cards_attributes: [:id, :position])
   end
 end

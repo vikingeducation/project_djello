@@ -13,13 +13,13 @@ Board.destroy_all
 
 puts 'Creating users...'
 
-5.times do |n|
-  User.create!(first_name: "Foo#{n}", last_name: "Bar#{n}", email: "foo#{n+1}@bar.com", password: 'foobarfoobar')
+3.times do |n|
+  User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: "foo#{n}@bar.com", password: 'password!')
 end
 
 puts 'Creating boards...'
 User.all.each do |u|
-  rand(7..12).times do
+  rand(3..5).times do
     Board.create!(title: Faker::Book.title, owner: u)
   end
 end
@@ -44,12 +44,14 @@ end
 
 puts 'Assigning card memberships...'
 Card.all.each do |c|
-  board_members = c.board.board_member_ids.sample(rand(1..3))
-  c.member_ids = board_members
+  board_members = c.board.board_member_ids.sample(rand(1..2))
   board_members.each do |m|
     User.find(board_members.sample(1).first).track_add_card_member(c, User.find(m))
   end
+  c.member_ids = board_members
+
 end
+
 
 
 puts 'Done!'

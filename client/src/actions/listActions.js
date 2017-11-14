@@ -39,7 +39,7 @@ export function deleteListSuccess(data) {
 
 export function updateList(data, list_id) {
   return (dispatch, getState) => {
-    const options = setOptions(getState(), 'PUT', data)
+    const options = setOptions(getState(), 'PUT', { list: data })
 
     dispatch(updateListRequest())
 
