@@ -17,10 +17,10 @@ export default class ListCreator extends Component {
     }
     this.toggle = this.toggle.bind(this)
     this.create = this.create.bind(this)
+    this.escape = this.escape.bind(this)
   }
 
-  toggle(e) {
-    e.preventDefault()
+  toggle() {
     this.setState({
       modal: !this.state.modal
     })
@@ -42,6 +42,21 @@ export default class ListCreator extends Component {
     }
   }
 
+  escape(e) {
+    if (e.keyCode === 27) {
+      this.setState({ modal: false })
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', this.escape)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.escape)
+  }
+
+
   render() {
 
     const { feedback } = this.state
@@ -53,7 +68,7 @@ export default class ListCreator extends Component {
         <ModalHeader toggle={this.toggle}>Create New List</ModalHeader>
           <ModalBody>
              <FormGroup>
-          <Label for="title">Title</Label>
+          <Label for="title">Title<span className="text-danger">*</span></Label>
           <Input type="title" name="title" valid={isValid(feedback['title'])} />
     <ValidationErrorMessage message={feedback['title']} />
         </FormGroup>

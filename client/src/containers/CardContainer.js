@@ -12,6 +12,7 @@ const mapStateToProps = (state, props) => {
     board: state.board,
     list_id: props.list_id,
     id: props.id,
+    isFetching: state.card.isFetching
   }
 }
 

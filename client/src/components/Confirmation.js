@@ -10,10 +10,10 @@ export default class Confirmation extends Component {
     }
     this.toggle = this.toggle.bind(this)
     this.confirmAction = this.confirmAction.bind(this)
+    this.escape = this.escape.bind(this)
   }
 
-  toggle(e) {
-    e.preventDefault()
+  toggle() {
     this.setState({
       modal: !this.state.modal
     })
@@ -24,6 +24,22 @@ export default class Confirmation extends Component {
     this.setState({
       modal: !this.state.modal
     }, this.props.confirmationAction())
+  }
+
+  escape(e) {
+    if (e.keyCode === 27) {
+      this.setState({
+        modal: false
+      })
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', this.escape)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.escape)
   }
 
   render() {

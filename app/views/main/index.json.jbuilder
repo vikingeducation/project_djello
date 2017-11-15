@@ -25,14 +25,15 @@ end
 
 json.lists @current_board.lists, :id, :title, :description, :board_id, :card_ids
 
+json.cards @current_board.cards, :id, :title, :member_ids, :position
 
-
-json.cards @current_board.cards.sort_by(&:position) do |card|
-  json.id card.id
-  json.title card.title
-  json.member_ids card.member_ids
-  json.position card.position
-end
+# json.cards @current_board.cards.sort_by(&:position) do |card|
+#   json.id card.id
+#   json.title card.title
+#   json.member_ids card.member_ids
+#   json.position card.position
+#   json.description card.description
+# end
 
 json.all_users User.all do |u|
   json.id u.id

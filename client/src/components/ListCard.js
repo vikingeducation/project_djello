@@ -37,11 +37,13 @@ class ListCard extends Component {
   }
 
 
+
+
   render() {
 
-    const { card, details, list_id, id, board } = this.props
+    const { card, details, list_id, id, board, isFetching } = this.props
     const { all_users: users, lists, current: { list_ids } } = board
-    const { title, isFetching, member_ids } = card
+    const { title, member_ids } = card
     const { description, members, activities } = details
 
     let memberList = ''
@@ -76,6 +78,7 @@ class ListCard extends Component {
         }
       }
     }
+
 
     return (
       <div>

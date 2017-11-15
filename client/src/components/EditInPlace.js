@@ -27,6 +27,7 @@ export default class EditInPlace extends Component {
     this.onClick = this.onClick.bind(this)
     this.updateText = this.updateText.bind(this)
     this.onCancel = this.onCancel.bind(this)
+    this.escape = this.escape.bind(this)
   }
 
   onSave(e) {
@@ -67,6 +68,20 @@ export default class EditInPlace extends Component {
 
   updateText(e) {
     this.setState({ text: e.target.value })
+  }
+
+  escape(e) {
+    if (e.keyCode === 27) {
+      this.setState({ isEditing: false })
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', this.escape)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.escape);
   }
 
   render() {
