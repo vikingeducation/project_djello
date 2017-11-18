@@ -3,12 +3,11 @@ import * as Actions from '../actions/actionTypes'
 const initialState = {
   error: null,
   isFetching: false,
-  cards: {
-    member_ids: []
-  }
+  cards: {}
 }
 
 export default function cards(state = initialState, action) {
+  console.log('cardreducer', action)
   const data = action.data
   switch (action.type) {
     case Actions.GET_BOARD_SUCCESS:
@@ -72,6 +71,7 @@ export default function cards(state = initialState, action) {
         error: null,
         isFetching: false,
         cards: {
+          ...state.cards,
           [data.card_id]: {
             ...state.cards[data.card_id],
             member_ids: [...state.cards[data.card_id]['member_ids'], data.member_id]
