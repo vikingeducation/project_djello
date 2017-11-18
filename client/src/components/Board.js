@@ -14,6 +14,7 @@ import Confirmation from './Confirmation'
 import BoardCreator from './BoardCreator'
 import ListContainer from '../containers/ListContainer'
 import ListCreator from './ListCreator'
+import Loader from './Loader'
 
 const Board = ({
   board,
@@ -27,7 +28,7 @@ const Board = ({
 
   if (board.isFetching) {
     return (
-      <Container><Row><Col><p>isLoading Board...</p></Col></Row></Container>
+      <Loader isFetching={board.isFetching} />
     )
   }
 

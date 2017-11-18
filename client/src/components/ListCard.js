@@ -5,6 +5,7 @@ import EditInPlace from './EditInPlace'
 import MemberList from './MemberList'
 import SelectInPlace from './SelectInPlace'
 import Activity from './Activity'
+import Loader from './Loader'
 
 
 class ListCard extends Component {
@@ -80,6 +81,7 @@ class ListCard extends Component {
 
     return (
       <div>
+
         <a className="cardlist" onClick={this.toggle}><b>{title}</b><br />
         <span className="small">{memberNames.join(', ')}</span></a>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} key={`ListCardModal-${this.props.id}`}>
@@ -87,7 +89,7 @@ class ListCard extends Component {
           <EditInPlace name="title" text={title} placeholder="Card title..." key={`ListCardEditTitle-${this.props.id}`} onSubmit={this.props.editCard} />
           </ModalHeader>
           {
-            isFetching ? <p>Loading...</p> : 
+            isFetching ? <Loader isFetching={isFetching} /> : 
           (<ModalBody>
           <Row className="mb-3">
           <Col><span>List: </span><SelectInPlace onSubmit={this.props.changeList} name="list_id" buttonLabel={lists[list_id]['title']} key={`ChangeCardList-${id}`}>

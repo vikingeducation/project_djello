@@ -102,6 +102,8 @@ export function addCardMember(card_id, data) {
   return (dispatch, getState) => {
     const options = setOptions(getState(), 'POST', data)
 
+    dispatch(updateCardRequest())
+
     return fetch(`${baseURL}/cards/${card_id}/memberships`, options)
       .then(response => {
         if (!response.ok) {
@@ -184,8 +186,7 @@ export function loadCard(card_id) {
 export function deleteCard(list_id, card_id) {
   return (dispatch, getState) => {
     const options = setOptions(getState(), 'DELETE')
-
-    // dispatch(getCardRequest())
+    dispatch(updateCardRequest())
 
     return fetch(`${baseURL}/lists/${list_id}/cards/${card_id}`, options)
       .then(response => {
