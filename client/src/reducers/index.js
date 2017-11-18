@@ -7,10 +7,10 @@ import card from './cardReducer'
 
 const index = combineReducers({
   auth,
-  user,
   board,
+  card,
   list,
-  card
+  user,
 })
 
 export default index

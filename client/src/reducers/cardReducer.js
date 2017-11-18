@@ -3,20 +3,29 @@ import * as Actions from '../actions/actionTypes'
 const initialState = {
   error: null,
   isFetching: false,
-  details: {}
+  cards: {
+    member_ids: []
+  }
 }
 
 export default function cards(state = initialState, action) {
   const data = action.data
   switch (action.type) {
+    case Actions.GET_BOARD_SUCCESS:
+      return {
+        ...state,
+        cards: data.cards
+      }
     case Actions.CREATE_CARD_FAILURE:
     case Actions.GET_CARD_FAILURE:
     case Actions.UPDATE_CARD_FAILURE:
+    case Actions.DELETE_CARD_FAILURE:
       return {
         ...state,
         error: data,
         isFetching: false
       }
+
     case Actions.CREATE_CARD_REQUEST:
     case Actions.GET_CARD_REQUEST:
     case Actions.UPDATE_CARD_REQUEST:
@@ -31,37 +40,43 @@ export default function cards(state = initialState, action) {
         ...state,
         error: null,
         isFetching: false,
-        details: {
-          ...state.details,
-          ...data
+        cards: {
+          ...state.cards,
+          [data.id]: data
         }
+      }
+    case Actions.DELETE_CARD_SUCCESS:
+      let cards_copy = {...state.cards }
+      delete cards_copy[data.id]
+      return {
+        ...state,
+        cards: cards_copy
       }
     case Actions.DELETE_CARD_MEMBER_SUCCESS:
       return {
         ...state,
         error: null,
         isFetching: false,
-        details: {
-          ...state.details,
+        cards: {
+          ...state.cards,
           [data.card_id]: {
-            ...state.details[data.card_id],
-            members: state.details[data.card_id]['members'].filter(member =>
-              member.id !== data.member_id)
+            ...state.cards[data.card_id],
+            member_ids: state.cards[data.card_id]['member_ids'].filter(member =>
+              member !== data.member_id)
           }
-        }
+        },
       }
     case Actions.ADD_CARD_MEMBER_SUCCESS:
       return {
         ...state,
         error: null,
         isFetching: false,
-        details: {
-          ...state.details,
+        cards: {
           [data.card_id]: {
-            ...state.details[data.card_id],
-            members: [...state.details[data.card_id]['members'], data.member]
+            ...state.cards[data.card_id],
+            member_ids: [...state.cards[data.card_id]['member_ids'], data.member_id]
           }
-        }
+        },
       }
     default:
       return state

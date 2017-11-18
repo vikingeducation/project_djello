@@ -1,5 +1,5 @@
 import * as Actions from './actionTypes'
-import { baseURL } from '../helpers/actionHelpers'
+import { baseURL, setError } from '../helpers/actionHelpers'
 import {
   arrayToObjectByID,
   setOptions
@@ -8,12 +8,12 @@ import {
 function massageBoardData(json) {
   let lists = arrayToObjectByID(json.lists)
   let cards = arrayToObjectByID(json.cards)
-  let all_users = arrayToObjectByID(json.all_users)
+  let users = arrayToObjectByID(json.users)
   return {
     ...json,
     lists,
     cards,
-    all_users
+    users
   }
 }
 
@@ -81,8 +81,7 @@ export function loadBoard(board_id) {
         const massaged = massageBoardData(json)
         dispatch(getBoardSuccess(massaged))
       }).catch(error => {
-        console.log('load boarderror', error)
-        dispatch(getBoardFailure(error))
+        dispatch(getBoardFailure(setError(error)))
       })
   }
 }
@@ -103,7 +102,7 @@ export function updateBoard(data, board_id) {
       const massaged = massageBoardData(json)
       dispatch(updateBoardSuccess(massaged))
     }).catch(error => {
-      dispatch(updateBoardFailure(error.status))
+      dispatch(updateBoardFailure(setError(error)))
     })
   }
 }
@@ -124,7 +123,7 @@ export function deleteBoard(board_id) {
       }).then(json => {
         return dispatch(deleteBoardSuccess())
       }).catch(error => {
-        return dispatch(deleteBoardFailure(error.status))
+        return dispatch(deleteBoardFailure(setError(error)))
       })
   }
 }
@@ -146,7 +145,7 @@ export function createBoard(data) {
       }).then(json => {
         dispatch(createBoardSuccess(json))
       }).catch(error => {
-        dispatch(createBoardFailure(error))
+        dispatch(createBoardFailure(setError(error)))
       })
   }
 }

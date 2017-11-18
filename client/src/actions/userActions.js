@@ -38,7 +38,6 @@ export function getUser() {
     return fetch(`${baseURL}/users`, options)
       .then(response => {
         if (!response.ok) {
-          console.log('response not ok', response)
           throw response
         }
         return response.json()

@@ -28,6 +28,7 @@ class CardsController < ApplicationController
   end
 
   def destroy
+    @card = Card.includes(:list).find(@card.id)
     if @card.destroy
       head :no_content
     end

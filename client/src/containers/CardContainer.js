@@ -7,11 +7,11 @@ import serialize from 'form-serialize'
 
 const mapStateToProps = (state, props) => {
   return {
-    card: state.board.cards[props.id], // title only
-    details: state.card.details[props.id] || {},
+    card: state.card.cards[props.id] || {}, // title only
     board: state.board,
+    users: state.user.users,
+    lists: state.list.lists,
     list_id: props.list_id,
-    id: props.id,
     isFetching: state.card.isFetching
   }
 }

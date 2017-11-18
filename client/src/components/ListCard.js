@@ -41,21 +41,20 @@ class ListCard extends Component {
 
   render() {
 
-    const { card, details, list_id, id, board, isFetching } = this.props
-    const { all_users: users, lists, current: { list_ids } } = board
-    const { title, member_ids } = card
-    const { description, members, activities } = details
-
+    const { card, list_id, board, isFetching, lists, users } = this.props
+    const { list_ids } = board
+    const { title, member_ids, description, activities, id } = card
     let memberList = ''
 
-    if (members) {
-      memberList = members.map(member => {
+
+    if (member_ids) {
+      memberList = member_ids.map(member_id => {
         return (
-          <MemberList member={member} key={`Card-${member.card_id}-Member-${member.id}`} onRemove={this.props.removeMember} />
+          <MemberList name={users[member_id]['name']} id={member_id} key={`Card-${card.id}-Member-${member_id}`} onRemove={this.props.removeMember} />
         )
       })
-    }
 
+    }
     let memberNames = member_ids.map(id => {
       return users[id]['name']
     })
@@ -78,7 +77,6 @@ class ListCard extends Component {
         }
       }
     }
-
 
     return (
       <div>

@@ -21,3 +21,10 @@ export function setOptions(state, method, data) {
     body: JSON.stringify(data)
   }
 }
+
+export function setError(response) {
+  return {
+    status: response.status,
+    message: response.statusText
+  }
+}

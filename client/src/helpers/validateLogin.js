@@ -11,6 +11,5 @@ const formConstraints = {
 }
 
 export function validateLogin(formData) {
-  console.log('formDAta', formData)
   return validate(formData, formConstraints)
 }

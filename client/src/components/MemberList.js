@@ -1,17 +1,18 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
+import PropTypes from 'prop-types'
 
-const MemberList = ({ member, onRemove }) => {
+const MemberList = ({ name, id, onRemove }) => {
 
   const onClick = (e) => {
     e.preventDefault()
-    onRemove(member.id)
+    onRemove(id)
   }
 
   return (
     <Row>
     <Col xs={12} sm={8}>
-       {member.name}
+       {name}
     </Col>
     <Col xs={12} sm={4}>
        <a href="#" onClick={onClick}>Remove Member</a>
@@ -20,3 +21,8 @@ const MemberList = ({ member, onRemove }) => {
 }
 
 export default MemberList
+
+MemberList.proptypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
+}

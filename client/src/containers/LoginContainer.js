@@ -8,7 +8,6 @@ import serialize from 'form-serialize'
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (e) => {
-      console.log('LoginContainer-login')
       e.preventDefault();
     }
   }

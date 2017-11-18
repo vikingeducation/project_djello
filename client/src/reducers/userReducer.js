@@ -2,10 +2,15 @@ import * as Actions from '../actions/actionTypes'
 
 const initialState = {
   isFetching: false,
-  error: null
+  error: {},
+  id: null,
+  name: null,
+  users: {}
+
 }
 
 function user(state = initialState, action) {
+  const data = action.data
   switch (action.type) {
     case Actions.GET_USER_REQUEST:
       return {
@@ -24,8 +29,13 @@ function user(state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        error: null,
+        error: {},
         ...action.data
+      }
+    case Actions.GET_BOARD_SUCCESS:
+      return {
+        ...state,
+        users: data.users
       }
     default:
       return state

@@ -1,5 +1,5 @@
 import * as Actions from './actionTypes'
-import { setOptions, baseURL, arrayToObjectByID } from '../helpers/actionHelpers'
+import { setOptions, baseURL, arrayToObjectByID, setError } from '../helpers/actionHelpers'
 
 export function updateListRequest() {
   return { type: Actions.UPDATE_LIST_REQUEST }
@@ -54,7 +54,7 @@ export function updateList(data, list_id) {
         dispatch(updateListSuccess(json.lists))
       })
       .catch(error => {
-        dispatch(updateListFailure(error))
+        dispatch(updateListFailure(setError(error)))
       })
   }
 }
@@ -74,7 +74,7 @@ export function createList(data, board_id) {
         dispatch(createListSuccess(json.lists))
       })
       .catch(error => {
-        dispatch(createListFailure(error))
+        dispatch(createListFailure(setError(error)))
       })
   }
 }
@@ -96,7 +96,7 @@ export function deleteList(list_id) {
         dispatch(deleteListSuccess(list_id))
       })
       .catch(error => {
-        dispatch(deleteListFailure(error))
+        dispatch(deleteListFailure(setError(error)))
       })
   }
 }

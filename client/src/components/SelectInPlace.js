@@ -42,6 +42,7 @@ class SelectInPlace extends Component {
 
   render() {
 
+
     const { options, filter, children, buttonLabel } = this.props
     let optionList = []
 
@@ -68,7 +69,7 @@ class SelectInPlace extends Component {
       )
     }
 
-    return (children.length > 1 ? <a href="#" onClick={this.onClick}>{buttonLabel}</a> : null)
+    return (children.length > 0 ? <a href="#" onClick={this.onClick}>{buttonLabel}</a> : null)
   }
 }
 

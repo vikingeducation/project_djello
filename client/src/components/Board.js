@@ -46,7 +46,7 @@ const Board = ({
 
 
   function confirmDeletion() {
-    deleteBoard(board.current.id)
+    deleteBoard(board.id)
   }
 
   function boardCreation(data) {
@@ -59,12 +59,12 @@ const Board = ({
   }
 
   function listCreation() {
-    createList(board.current.id)
+    createList(board.id)
   }
 
 
 
-  if (!board.current.id) {
+  if (!board.id) {
 
     return (
       <Container>
@@ -83,13 +83,13 @@ const Board = ({
     <Container fluid={true}>
 	<Row className="justify-content-between align-items-top">
   		<Col md={9} lg={7} xs={12}>
-  		 <EditInPlace text={board.current.title} onSubmit={updateBoard} id={board.current.id} name="title" tag="h1" />
+  		 <EditInPlace text={board.title} onSubmit={updateBoard} id={board.id} name="title" tag="h1" />
   		</Col>
   		<Col lg={5}>
   			<Form inline className="float-lg-right" onSubmit={selectBoard}>
   			<FormGroup>
   				<Label for="board_id">Select Board:</Label>
-  				<Input type="select" name="board_id" className="ml-sm-2" onChange={onBoardSelect} defaultValue={board.current.id}>
+  				<Input type="select" name="board_id" className="ml-sm-2" onChange={onBoardSelect} defaultValue={board.id}>
   				{board_options}
   				</Input>
   			</FormGroup>
@@ -115,7 +115,7 @@ const Board = ({
   	<div className="list-wrapper mt-5 justify-content-start">
   		{lists}
   		<div>
-      <ListCreator create={createList} board_id={board.current.id} />
+      <ListCreator create={createList} board_id={board.id} />
   		</div>
   	</div>
   

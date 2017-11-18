@@ -1,15 +1,4 @@
-# {
-#   board: {
-#    current: { id, title, list_ids}
-#     board_list: [{id, title}],
-#     lists: {id: {board_id, title, description, card_ids}}
-#     cards: {id: { title, description, list_id}}
-#   }
-# }
-
-#  json.current @current_board, :id, :title, :list_ids
-
-json.current do 
+json.board do 
   json.id @current_board.id
   json.title @current_board.title
   json.list_ids @current_board.list_ids
@@ -17,27 +6,22 @@ json.current do
     json.id m.id
     json.name m.full_name
   end
-end
-
-json.board_list do 
+  json.board_list do 
   json.array! @user.all_boards.sort_by(&:title), :id, :title
 end
+end
+
+
 
 json.lists @current_board.lists, :id, :title, :description, :board_id, :card_ids
 
 json.cards @current_board.cards, :id, :title, :member_ids, :position
 
-# json.cards @current_board.cards.sort_by(&:position) do |card|
-#   json.id card.id
-#   json.title card.title
-#   json.member_ids card.member_ids
-#   json.position card.position
-#   json.description card.description
-# end
 
-json.all_users User.all do |u|
+json.users User.all do |u|
   json.id u.id
   json.name u.full_name
 end 
+
 
 

@@ -1,5 +1,5 @@
 import * as Actions from '../actions/actionTypes'
-import { baseURL, setOptions, arrayToObjectByID } from '../helpers/actionHelpers'
+import { baseURL, setOptions, arrayToObjectByID, setError } from '../helpers/actionHelpers'
 
 export function createCardRequest() {
   return { type: Actions.CREATE_CARD_REQUEST }
@@ -47,8 +47,8 @@ export function addCardMemberSuccess(data) {
 export function deleteCardSuccess(data) {
   return { data, type: Actions.DELETE_CARD_SUCCESS }
 }
-export function deleteCardFailure() {
-  return { type: Actions.DELETE_CARD_FAILURE }
+export function deleteCardFailure(data) {
+  return { data, type: Actions.DELETE_CARD_FAILURE }
 }
 export function updateCardListSuccess(data) {
   return { data, type: Actions.UPDATE_CARD_LIST_SUCCESS }
@@ -71,7 +71,7 @@ export function createCard(data, list_id) {
       }).then(json => {
         dispatch(createCardSuccess(json))
       }).catch(error => {
-        dispatch(createCardFailure(error))
+        dispatch(createCardFailure(setError(error)))
       })
   }
 }
@@ -93,7 +93,7 @@ export function removeCardMember(card_id, user_id) {
         }))
       })
       .catch(error => {
-        dispatch(updateCardFailure(error))
+        dispatch(updateCardFailure(setError(error)))
       })
   }
 }
@@ -111,7 +111,7 @@ export function addCardMember(card_id, data) {
       }).then(json => {
         dispatch(addCardMemberSuccess(json))
       }).catch(error => {
-        dispatch(updateCardFailure(error))
+        dispatch(updateCardFailure(setError(error)))
       })
   }
 }
@@ -131,7 +131,7 @@ export function updateCard(data, card_id) {
         const massaged = arrayToObjectByID([json])
         dispatch(updateCardSuccess(massaged))
       }).catch(error => {
-        dispatch(updateCardFailure(error))
+        dispatch(updateCardFailure(setError(error)))
       })
   }
 }
@@ -155,7 +155,7 @@ export function updateCardList(data, card_id, old_list_id) {
           old_list_id: old_list_id
         }))
       }).catch(error => {
-        dispatch(updateCardFailure(error))
+        dispatch(updateCardFailure(setError(error)))
       })
   }
 }
@@ -174,10 +174,9 @@ export function loadCard(card_id) {
         }
         return response.json()
       }).then(json => {
-        const massaged = arrayToObjectByID([json])
-        dispatch(getCardSuccess(massaged))
+        dispatch(getCardSuccess(json))
       }).catch(error => {
-        dispatch(getCardFailure(error))
+        dispatch(getCardFailure(setError(error)))
       })
   }
 }
@@ -195,10 +194,9 @@ export function deleteCard(list_id, card_id) {
         }
 
       }).then(() => {
-        console.log('delete card success')
         dispatch(deleteCardSuccess({ list_id: list_id, card_id: card_id }))
       }).catch(error => {
-        dispatch(deleteCardFailure(error))
+        dispatch(deleteCardFailure(setError(error)))
       })
   }
 

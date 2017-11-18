@@ -7,8 +7,6 @@ import { createCard, updateCard } from '../actions/cardActions'
 import { arrayMove } from 'react-sortable-hoc'
 
 function newCardPositions(card_ids) {
-  console.log('newCardPositions', card_ids)
-    // { id: { position: ...}, id: {position: ...}}
   let data = {}
   card_ids.map((item, index) => {
     data[item] = { id: item, position: index }
@@ -18,11 +16,9 @@ function newCardPositions(card_ids) {
 
 const mapStateToProps = (state, props) => {
   return {
-    list: state.board.lists[props.id],
-    card_ids: state.board.lists[props.id]['card_ids'],
+    list: state.list.lists[props.id],
+    card_ids: state.list.lists[props.id]['card_ids'],
     error: state.list.error,
-    board_cards: state.board.cards,
-    // id: props.id,
   }
 }
 
@@ -59,6 +55,12 @@ class ListContainer extends Component {
     this.setState({
       card_ids: new_positions
     }, this.props.updateCardPositions(new_positions))
+  }
+
+  componentWillReceiveProps(nextP) {
+    if (this.state.card_ids != nextP.card_ids) {
+      this.setState({ card_ids: nextP.card_ids })
+    }
   }
 
   render() {
