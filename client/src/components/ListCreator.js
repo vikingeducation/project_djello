@@ -62,7 +62,7 @@ export default class ListCreator extends Component {
     const { feedback } = this.state
     return (
       <div className={this.props.className}>
-  	<Button onClick={this.toggle} color="primary" size="sm">New List</Button>
+  	<Button onClick={this.toggle} color="primary" size="sm">Add List</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <Form onSubmit={this.create}>
         <ModalHeader toggle={this.toggle}>Create New List</ModalHeader>

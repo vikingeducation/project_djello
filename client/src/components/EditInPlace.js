@@ -98,7 +98,7 @@ export default class EditInPlace extends Component {
         		<FormFeedback>{  this.state.valid ? '' : this.state.message }</FormFeedback>
         	</FormGroup>
         	<Button color="primary" size="sm" className="mr-2">Save</Button>
-        	<a href="#" className="text-muted" onClick={this.onCancel}>Cancel</a>
+        	<a href="#" className="text-muted edit-in-place-cancel" onClick={this.onCancel}>Cancel</a>
         </Form>
       )
     }

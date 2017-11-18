@@ -62,9 +62,17 @@ a {
 }
 
 
+/* MODAL */
   .modal-title {
     width: 100%;
   }
+  .card-modal {
+    .edit-in-place-cancel {
+      font-weight: normal;
+      font-size: 1rem;
+    }
+  }
+
 
   /* LOADER */
 // source: http://tobiasahlin.com/spinkit/
