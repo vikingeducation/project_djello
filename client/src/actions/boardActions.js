@@ -74,14 +74,14 @@ export function loadBoard(board_id) {
     return fetch(fetchURL, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
         const massaged = massageBoardData(json)
         dispatch(getBoardSuccess(massaged))
       }).catch(error => {
-        dispatch(getBoardFailure(setError(error)))
+        dispatch(getBoardFailure(error))
       })
   }
 }
@@ -95,14 +95,14 @@ export function updateBoard(data, board_id) {
 
     return fetch(`${baseURL}/boards/${board_id}`, options).then(response => {
       if (!response.ok) {
-        throw Error(response)
+        throw setError(response)
       }
       return response.json()
     }).then(json => {
       const massaged = massageBoardData(json)
       dispatch(updateBoardSuccess(massaged))
     }).catch(error => {
-      dispatch(updateBoardFailure(setError(error)))
+      dispatch(updateBoardFailure(error))
     })
   }
 }
@@ -117,13 +117,13 @@ export function deleteBoard(board_id) {
     return fetch(`${baseURL}/boards/${board_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw Error(response)
+          throw setError(response)
         }
         return response
       }).then(json => {
         return dispatch(deleteBoardSuccess())
       }).catch(error => {
-        return dispatch(deleteBoardFailure(setError(error)))
+        return dispatch(deleteBoardFailure(error))
       })
   }
 }
@@ -139,13 +139,13 @@ export function createBoard(data) {
     return fetch(`${baseURL}/boards`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
         dispatch(createBoardSuccess(json))
       }).catch(error => {
-        dispatch(createBoardFailure(setError(error)))
+        dispatch(createBoardFailure(error))
       })
   }
 }

@@ -72,7 +72,11 @@ const Board = ({
        <Row className="justify-content-center text-center align-items-center">
          <Col>
            <h1>Oops! You don't have any boards...</h1>
-           <p className="h4"><Button color="primary" onClick={boardCreation}>Create a board</Button></p>
+           <BoardCreator 
+          actionLabel="Save" 
+          create={boardCreation} 
+          button={true}
+          />
          </Col>
        </Row>
      </Container>

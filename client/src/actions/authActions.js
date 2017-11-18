@@ -1,5 +1,5 @@
 import * as Types from './actionTypes'
-import { baseURL } from '../helpers/actionHelpers'
+import { baseURL, setError } from '../helpers/actionHelpers'
 
 
 export function loginRequest() {
@@ -34,7 +34,7 @@ export function login(data) {
     return fetch(`${baseURL}/login`, options).
     then(response => {
       if (!response.ok) {
-        throw Error(response.status)
+        throw setError(response)
       }
       return response.json()
     }).then(json => {
@@ -42,7 +42,7 @@ export function login(data) {
       dispatch(loginSuccess(json.jwt))
       return json.jwt
     }).catch(error => {
-      dispatch(loginFailure(error.status))
+      dispatch(loginFailure(error))
     })
   }
 

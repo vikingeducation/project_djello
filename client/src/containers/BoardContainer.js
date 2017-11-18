@@ -9,7 +9,8 @@ const mapStateToProps = (state) => {
   console.log('state', state)
   return {
     board: state.board,
-    list_ids: state.board.list_ids || []
+    list_ids: state.board.list_ids || [],
+    errors: state.board.errors
   }
 }
 

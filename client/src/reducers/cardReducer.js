@@ -1,13 +1,12 @@
 import * as Actions from '../actions/actionTypes'
 
 const initialState = {
-  error: null,
+  error: {},
   isFetching: false,
   cards: {}
 }
 
 export default function cards(state = initialState, action) {
-  console.log('cardreducer', action)
   const data = action.data
   switch (action.type) {
     case Actions.GET_BOARD_SUCCESS:

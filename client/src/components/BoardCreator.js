@@ -59,16 +59,17 @@ export default class BoardCreator extends Component {
   render() {
 
     const { feedback } = this.state
+    const createClass = this.props.button ? 'btn btn-primary' : 'text-primary'
     return (
       <div className={this.props.className}>
-        <a href="#" onClick={this.toggle} className="text-primary">New Board</a>
+        <a href="#" onClick={this.toggle} className={createClass}>New Board</a>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <Form onSubmit={this.create}>
         <ModalHeader toggle={this.toggle}>Create New Board</ModalHeader>
           <ModalBody>
             {this.props.children}
              <FormGroup>
-          <Label for="title">Title</Label>
+          <Label for="title">Title<span className="text-danger">*</span></Label>
           <Input type="textarea" name="title" valid={isValid(feedback['title'])} />
     <ValidationErrorMessage message={feedback['title']} />
         </FormGroup>

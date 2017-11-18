@@ -46,7 +46,7 @@ export function updateList(data, list_id) {
     return fetch(`${baseURL}/lists/${list_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       })
@@ -54,7 +54,7 @@ export function updateList(data, list_id) {
         dispatch(updateListSuccess(json.lists))
       })
       .catch(error => {
-        dispatch(updateListFailure(setError(error)))
+        dispatch(updateListFailure(error))
       })
   }
 }
@@ -66,7 +66,7 @@ export function createList(data, board_id) {
     return fetch(`${baseURL}/boards/${board_id}/lists`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       })
@@ -74,7 +74,7 @@ export function createList(data, board_id) {
         dispatch(createListSuccess(json.lists))
       })
       .catch(error => {
-        dispatch(createListFailure(setError(error)))
+        dispatch(createListFailure(error))
       })
   }
 }
@@ -88,7 +88,7 @@ export function deleteList(list_id) {
     return fetch(`${baseURL}/lists/${list_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response
       })
@@ -96,7 +96,7 @@ export function deleteList(list_id) {
         dispatch(deleteListSuccess(list_id))
       })
       .catch(error => {
-        dispatch(deleteListFailure(setError(error)))
+        dispatch(deleteListFailure(error))
       })
   }
 }

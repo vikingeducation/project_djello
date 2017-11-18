@@ -65,13 +65,13 @@ export function createCard(data, list_id) {
     return fetch(`${baseURL}/lists/${list_id}/cards`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
         dispatch(createCardSuccess(json))
       }).catch(error => {
-        dispatch(createCardFailure(setError(error)))
+        dispatch(createCardFailure(error))
       })
   }
 }
@@ -83,7 +83,7 @@ export function removeCardMember(card_id, user_id) {
     return fetch(`${baseURL}/cards/${card_id}/memberships/${user_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
       })
       .then(() => {
@@ -93,7 +93,7 @@ export function removeCardMember(card_id, user_id) {
         }))
       })
       .catch(error => {
-        dispatch(updateCardFailure(setError(error)))
+        dispatch(updateCardFailure(error))
       })
   }
 }
@@ -107,13 +107,13 @@ export function addCardMember(card_id, data) {
     return fetch(`${baseURL}/cards/${card_id}/memberships`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
         dispatch(addCardMemberSuccess(json))
       }).catch(error => {
-        dispatch(updateCardFailure(setError(error)))
+        dispatch(updateCardFailure(error))
       })
   }
 }
@@ -126,14 +126,14 @@ export function updateCard(data, card_id) {
     return fetch(`${baseURL}/cards/${card_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
         const massaged = arrayToObjectByID([json])
         dispatch(updateCardSuccess(massaged))
       }).catch(error => {
-        dispatch(updateCardFailure(setError(error)))
+        dispatch(updateCardFailure(error))
       })
   }
 }
@@ -146,7 +146,7 @@ export function updateCardList(data, card_id, old_list_id) {
     return fetch(`${baseURL}/cards/${card_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
@@ -157,7 +157,7 @@ export function updateCardList(data, card_id, old_list_id) {
           old_list_id: old_list_id
         }))
       }).catch(error => {
-        dispatch(updateCardFailure(setError(error)))
+        dispatch(updateCardFailure(error))
       })
   }
 }
@@ -172,13 +172,13 @@ export function loadCard(card_id) {
     return fetch(`${baseURL}/cards/${card_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
         return response.json()
       }).then(json => {
         dispatch(getCardSuccess(json))
       }).catch(error => {
-        dispatch(getCardFailure(setError(error)))
+        dispatch(getCardFailure(error))
       })
   }
 }
@@ -191,13 +191,13 @@ export function deleteCard(list_id, card_id) {
     return fetch(`${baseURL}/lists/${list_id}/cards/${card_id}`, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(response)
+          throw setError(response)
         }
 
       }).then(() => {
         dispatch(deleteCardSuccess({ list_id: list_id, card_id: card_id }))
       }).catch(error => {
-        dispatch(deleteCardFailure(setError(error)))
+        dispatch(deleteCardFailure(error))
       })
   }
 
