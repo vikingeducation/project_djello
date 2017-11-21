@@ -7,8 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://yxlau.github.io/project_djello_react/'
-
+    origins 'https://yxlau.github.io'
     resource '*',
       headers: :any,
       :methods => [:get, :post, :put, :delete]

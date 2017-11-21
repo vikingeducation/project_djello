@@ -27,11 +27,11 @@ module Djello
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins 'https://yxlau.github.io/project_djello_react/'
-        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete]
-      end
-    end
+    # config.middleware.insert_before 0, Rack::Cors do
+    #   allow do
+    #     origins '*'
+    #     resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :create]
+    #   end
+    # end
   end
 end
