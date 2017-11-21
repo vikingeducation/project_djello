@@ -37,7 +37,7 @@ class Login extends Component {
 
     const { feedback } = this.state
     const invalidLogin = this.props.error ?
-      (<p className="text-danger">Couldn't log you in: No user with those login details found. Please try a different combination.</p>) :
+      (<p className="text-danger">Sorry, we couldn't sign you in: The email and/or password is incorrect.</p>) :
       ''
 
 
@@ -64,7 +64,7 @@ class Login extends Component {
 				<ValidationErrorMessage message={feedback['password']}></ValidationErrorMessage>
 				</Col>
 				</FormGroup>
-				<Button color="primary" size="sm">Login</Button>
+				<Button color="primary" size="sm">Sign In</Button>
 			</Form>
 			</CardBody>
 		</Card>

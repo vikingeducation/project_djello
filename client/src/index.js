@@ -9,16 +9,8 @@ import LoginContainer from './containers/LoginContainer'
 import Authenticator from './containers/Authenticator'
 import index from './reducers/index'
 
-// so we don't have to keep signing in in development mode
-const login = {
-  auth: {
-    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTExMDcwMjMsInN1YiI6NDJ9.52Qy6f98owTEsZGGt05vcmqB0PZBfkr3NKxC_Qb1Ebc',
-    isLoggedIn: true
-  }
-}
 
-
-const store = createStore(index, login, applyMiddleware(thunk));
+const store = createStore(index, applyMiddleware(thunk));
 
 
 ReactDOM.render(

@@ -3,7 +3,7 @@ import * as Actions from '../actions/actionTypes'
 const initialState = {
   isLoggedIn: false,
   token: null,
-  error: {},
+  error: null,
   feedback: {}
 }
 
