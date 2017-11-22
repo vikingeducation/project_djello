@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'UserRequests' do
   let(:user){ create(:user)}
+  let(:valid_user){ build(:user)}
 
   describe 'GET #index' do
 
@@ -17,7 +18,35 @@ describe 'UserRequests' do
       get users_path, headers: auth_headers(user)
       expect(response).to have_http_status(:ok)
     end
+  end
 
-
+  describe 'POST #create' do
+    before do
+      user
+    end
+    context 'when email is registered' do
+      it 'returns unprocessable_entity' do
+        post users_path, params: {email:user.email, password: '12345678'}
+        expect(response).to have_http_status :unprocessable_entity
+      end
+    end
+    context 'when email is not registered' do
+      it 'returns ok' do
+        post users_path, params: {email: valid_user.email, password: valid_user.password}
+        expect(response).to have_http_status :ok
+      end
+    end
+    context 'when password is too short' do
+      it 'returns unprocessable_entity' do
+        post users_path, params: {email: valid_user.email, password: 'a'}
+        expect(response).to have_http_status :unprocessable_entity
+      end
+    end
+    context 'when password is right length' do
+      it 'returns ok' do
+        post users_path, params: {email: valid_user.email, password: '12345678'}
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 end

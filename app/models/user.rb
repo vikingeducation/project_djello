@@ -10,8 +10,14 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  validates :email, uniqueness: true, on: :create
+  validates :password, length: {minimum: 8}, on: :create
+
   def full_name
-    self.first_name + ' ' + self.last_name
+    string = self.first_name || ''
+    string += string ? ' ' : ''
+    string += self.last_name || ''
+
   end
 
   def most_recent_board
