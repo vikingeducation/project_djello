@@ -25,9 +25,9 @@ describe 'UserRequests' do
       user
     end
     context 'when email is registered' do
-      it 'returns unprocessable_entity' do
+      it 'returns conflict' do
         post users_path, params: {email:user.email, password: '12345678'}
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to have_http_status :conflict
       end
     end
     context 'when email is not registered' do

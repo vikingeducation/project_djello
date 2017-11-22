@@ -12,11 +12,11 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, on: :create
   validates :password, length: {minimum: 8}, on: :create
+  validates :first_name, presence: true, on: :create
+  validates_confirmation_of :password, on: :create
 
   def full_name
-    string = self.first_name || ''
-    string += string ? ' ' : ''
-    string += self.last_name || ''
+    "#{self.first_name} #{self.last_name || ''}"
 
   end
 

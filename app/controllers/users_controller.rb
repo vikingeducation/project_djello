@@ -11,13 +11,14 @@ class UsersController < ApplicationController
       @token = Knock::AuthToken.new(payload: { sub: @user.id}).token
       render :show
     else
-      head :unprocessable_entity
+      return head :conflict if User.find_by(email: @user.email).persisted?
+      head :unprocessable_entity if @user.new_record?
     end
   end
 
   private
 
   def whitelisted_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name)
   end
 end
