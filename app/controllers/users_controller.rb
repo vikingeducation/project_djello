@@ -6,12 +6,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(email: params[:email], password: params[:password])
+    @user = User.new(whitelisted_params)
     if @user.save
       @token = Knock::AuthToken.new(payload: { sub: @user.id}).token
       render :show
     else
       head :unprocessable_entity
     end
+  end
+
+  private
+
+  def whitelisted_params
+    params.require(:user).permit(:email, :password)
   end
 end
