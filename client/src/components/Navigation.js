@@ -37,7 +37,7 @@ export default class Navigation extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-               <span className="navbar-text text-dark">Welcome, {user.name}</span>
+               <span className="navbar-text text-dark">Welcome, {user.name || user.email}</span>
               </NavItem>
               <NavItem>
 

@@ -1,5 +1,5 @@
 import * as Types from './actionTypes'
-import { baseURL, setError } from '../helpers/actionHelpers'
+import { baseURL, setError, setOptions } from '../helpers/actionHelpers'
 
 
 export function loginRequest() {
@@ -23,26 +23,20 @@ export function logoutUser() {
 }
 
 export function login(data) {
+  return (dispatch, getState) => {
+    const options = setOptions(getState(), 'POST', { auth: data })
 
-  return (dispatch) => {
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ auth: data })
-    }
-
-    return fetch(`${baseURL}/login`, options).
-    then(response => {
-      if (!response.ok) {
-        throw setError(response)
-      }
-      return response.json()
-    }).then(json => {
-      dispatch(loginSuccess(json.jwt))
-      return json.jwt
-    }).catch(error => {
-      dispatch(loginFailure(error))
-    })
+    return fetch(`${baseURL}/login`, options)
+      .then(response => {
+        if (!response.ok) {
+          throw setError(response)
+        }
+        return response.json()
+      }).then(json => {
+        dispatch(loginSuccess(json.jwt))
+        return json.jwt
+      }).catch(error => {
+        dispatch(loginFailure(error))
+      })
   }
-
 }

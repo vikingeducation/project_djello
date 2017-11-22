@@ -38,6 +38,12 @@ function authentication(state = initialState, action) {
         ...state,
         token: null,
       }
+    case Actions.CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        token: action.data.token,
+        isLoggedIn: true
+      }
     default:
       return state
   }

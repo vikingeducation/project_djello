@@ -37,6 +37,25 @@ function user(state = initialState, action) {
         ...state,
         users: data.users
       }
+    case Actions.CREATE_USER_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: {}
+      }
+    case Actions.CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        name: action.data.name,
+        id: action.data.id
+      }
+    case Actions.CREATE_USER_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.data
+      }
     default:
       return state
   }

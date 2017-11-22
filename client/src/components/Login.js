@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Card, CardBody, Form, FormGroup, FormFeedback, Label, Input, Button } from 'reactstrap'
 import PropTypes from 'prop-types';
 import ValidationErrorMessage from './ValidationErrorMessage'
-import { validateLogin } from '../helpers/login'
+import { validateLogin } from '../helpers/validateLogin'
 import serialize from 'form-serialize'
 
 const isValid = (value) => {
@@ -36,8 +36,8 @@ class Login extends Component {
   render() {
 
     const { feedback } = this.state
-    const invalidLogin = this.props.error ?
-      (<p className="text-danger">Sorry, we couldn't sign you in: The email and/or password is incorrect.</p>) :
+    const invalidLogin = this.props.authError ?
+      (<p className="text-danger">Sorry, we couldn't sign you in: The email and/or password is incorrect. Please try again</p>) :
       ''
 
 
@@ -46,7 +46,10 @@ class Login extends Component {
 	<Row className="justify-content-center align-items-center" id="login-box">
 		<Col md={8} lg={5} sm={10} >
 		<Card className="p-5">
-			<h1 className="text-center">Djello</h1>
+			<CardBody>
+				<h1>Djello</h1>
+				<h6 className="text-muted">Sign In</h6>
+			</CardBody>
 			<CardBody>
 		{invalidLogin}
 			<Form onSubmit={this.onSubmit} >
@@ -64,11 +67,11 @@ class Login extends Component {
 				<ValidationErrorMessage message={feedback['password']}></ValidationErrorMessage>
 				</Col>
 				</FormGroup>
-				<Button color="primary" size="sm">Sign In</Button>
+				<Button color="primary" size="sm" block>Sign In</Button>
 			</Form>
+    <Button className="float-right" size="sm" color="link" onClick={this.props.toggle}>Don't have an account? Sign up</Button>
 			</CardBody>
-		</Card>
-		</Col>	
+		</Card>		</Col>	
 	</Row>
 </Container>
     )
