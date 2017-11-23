@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       @token = Knock::AuthToken.new(payload: { sub: @user.id}).token
       render :show
     else
-      return head :conflict if User.find_by(email: @user.email).persisted?
+      return head :conflict if User.find_by(email: @user.email) && User.find_by(email: @user.email).persisted?
       head :unprocessable_entity if @user.new_record?
     end
   end

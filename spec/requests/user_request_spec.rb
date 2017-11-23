@@ -26,25 +26,25 @@ describe 'UserRequests' do
     end
     context 'when email is registered' do
       it 'returns conflict' do
-        post users_path, params: {email:user.email, password: '12345678'}
+        post users_path, params: {user: {email:user.email, password: 'password', first_name: user.first_name, password_confirmation: 'password'}}
         expect(response).to have_http_status :conflict
       end
     end
     context 'when email is not registered' do
       it 'returns ok' do
-        post users_path, params: {email: valid_user.email, password: valid_user.password}
+        post users_path, params: {user: {email: valid_user.email, password: 'password', password_confirmation: 'password', first_name: valid_user.first_name}}
         expect(response).to have_http_status :ok
       end
     end
     context 'when password is too short' do
       it 'returns unprocessable_entity' do
-        post users_path, params: {email: valid_user.email, password: 'a'}
+        post users_path, params:{user: {email: valid_user.email, password: 'a', password_confirmation: 'a', first_name: valid_user.first_name}}
         expect(response).to have_http_status :unprocessable_entity
       end
     end
     context 'when password is right length' do
       it 'returns ok' do
-        post users_path, params: {email: valid_user.email, password: '12345678'}
+        post users_path, params:{user: {email: valid_user.email, password: '12345678', password_confirmation: '12345678', first_name: valid_user.first_name}}
         expect(response).to have_http_status :ok
       end
     end

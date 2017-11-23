@@ -20,7 +20,7 @@ describe 'MembershipRequests' do
       end
       it 'returns :accepted' do
         delete card_membership_path(card, user), headers: auth_headers(user)
-        expect(response).to have_http_status(:no_content)
+        expect(response).to have_http_status(:accepted)
       end
       it 'creates an Activity record' do
         membership
