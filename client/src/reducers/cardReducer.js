@@ -36,7 +36,7 @@ export default function cards(state = initialState, action) {
     case Actions.UPDATE_CARD_SUCCESS:
       return {
         ...state,
-        error: null,
+        error: {},
         isFetching: false,
         cards: {
           ...state.cards,
@@ -53,27 +53,30 @@ export default function cards(state = initialState, action) {
     case Actions.DELETE_CARD_MEMBER_SUCCESS:
       return {
         ...state,
-        error: null,
+        error: {},
         isFetching: false,
         cards: {
           ...state.cards,
           [data.card_id]: {
             ...state.cards[data.card_id],
             member_ids: state.cards[data.card_id]['member_ids'].filter(member =>
-              member !== data.member_id)
+              member !== data.member_id),
+            activities: data.activities
+
           }
         },
       }
     case Actions.ADD_CARD_MEMBER_SUCCESS:
       return {
         ...state,
-        error: null,
+        error: {},
         isFetching: false,
         cards: {
           ...state.cards,
           [data.card_id]: {
             ...state.cards[data.card_id],
-            member_ids: [...state.cards[data.card_id]['member_ids'], data.member_id]
+            member_ids: [...state.cards[data.card_id]['member_ids'], data.member_id],
+            activities: data.activities
           }
         },
       }
