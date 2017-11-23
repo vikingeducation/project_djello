@@ -24,53 +24,69 @@ const createSignedSessionId = function(username) {
   return `${username}:${generateSignature(username)}`;
 };
 
-const checkSignature = function(sessionId) {
-  const [username, signature] = sessionId.split(":");
-  User.findOne({ username: username }, (err, user) => {
-    if (signature === generateSignature(username)) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+const checkCookieRouter = function(req, res) {
+  if (req.body.signature) {
+    const [username, signature] = req.body.signature.split(":");
+    User.findOne({ where: { username: username } }).then(user => {
+      if (signature === generateSignature(user.username)) {
+        res.status(200).send({ data: { match: true } });
+      } else {
+        res.status(200).send({ data: { match: false } });
+      }
+    });
+  } else {
+    res.status(200).send({ data: { match: false } });
+  }
 };
 
 //Login Router
 const loginRouter = function(req, res) {
-  if (req.signature && checkSignature(req.signature)) {
-    res.send(req.signature);
-  }
-  if (req.username && req.password) {
-    User.findOne({
-      where: {
-        username: req.username
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+    .then(user => {
+      if (user && validatePassword(user.passwordHash, req.body.password)) {
+        console.log("User Found!!!!");
+        res
+          .status(200)
+          .send({ data: createSignedSessionId(req.body.username) });
+      } else {
+        console.log("No User Found!!!");
+        res.status(404).send({ Error: "User Not Found" });
       }
     })
-      .then(user => {
-        console.log("Find", user);
-        if (validatePassword(user.passwordHash, req.password)) {
-          res.send(createSignedSessionId(user.username));
-        } else {
-          res.send("None");
-        }
-      })
-      .catch(e => {
-        console.log("Err", e);
-        res.status(500).send(e.stack);
-      });
-  } else {
-    res.send("None");
-  }
+    .catch(e => res.status(500).send(e.stack));
   //check if cookie?
   ////if cookie send back cookie verifid?
   //else if username is in db and sent password matchs hashed password in db
   ////send back cookie
   //else send back no good
-  res.send("Login ok");
 };
 
 //Signup Router
 const signupRouter = function(req, res) {
+  User.findOne({ where: { username: req.body.username } })
+    .then(user => {
+      if (user) {
+        res.status(400).send({ Error: "Unique Name Needed" });
+      }
+      const hPass = setPassword(req.body.password);
+      const createParams = {
+        username: req.body.username,
+        passwordHash: hPass
+      };
+      User.create(createParams)
+        .then(user => {
+          console.log("User created!!!!");
+          res
+            .status(200)
+            .send({ data: createSignedSessionId(req.body.username) });
+        })
+        .catch(e => res.status(500).send(e.stack));
+    })
+    .catch(e => res.status(500).send(e.stack));
   //check if cookie?
   ////if cookie send back no good
   //else if username isnt in database
@@ -78,13 +94,16 @@ const signupRouter = function(req, res) {
   ////send back cookie
   //else
   ////send back no good
-  res.send("Signup ok");
+  // res.send("Signup ok");
 };
 
 //Tables Router
 const tablesRouter = function(req, res) {
   //return data for tables
+  User.findAll().then(users => {
+    console.log(users);
+  });
   res.send("Tables ok");
 };
 
-module.exports = { loginRouter, signupRouter, tablesRouter };
+module.exports = { checkCookieRouter, loginRouter, signupRouter, tablesRouter };
