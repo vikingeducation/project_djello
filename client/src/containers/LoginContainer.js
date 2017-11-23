@@ -33,9 +33,11 @@ const LoginContainer = ({ setCookieInfo }) => {
           }
         })
         .then(json => {
-          Cookies.set("key", json.data, { expires: 1 });
-          setCookieInfo(json.data);
-          form.reset();
+          if (!json.data.Error) {
+            Cookies.set("key", json.data, { expires: 1 });
+            setCookieInfo(json.data);
+            form.reset();
+          }
         })
         .catch(err => console.log("err", err));
     }

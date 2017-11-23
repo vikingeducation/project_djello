@@ -5,7 +5,7 @@ const initailState = {
 };
 
 export function djello(state = initailState, action) {
-  console.log(action, state);
+  console.log("Redux--", action);
   switch (action.type) {
     case Actions.SET_COOKIE:
       return {

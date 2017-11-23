@@ -71,20 +71,21 @@ const signupRouter = function(req, res) {
     .then(user => {
       if (user) {
         res.status(400).send({ Error: "Unique Name Needed" });
+      } else {
+        const hPass = setPassword(req.body.password);
+        const createParams = {
+          username: req.body.username,
+          passwordHash: hPass
+        };
+        User.create(createParams)
+          .then(user => {
+            console.log("User created!!!!");
+            res
+              .status(200)
+              .send({ data: createSignedSessionId(req.body.username) });
+          })
+          .catch(e => res.status(500).send(e.stack));
       }
-      const hPass = setPassword(req.body.password);
-      const createParams = {
-        username: req.body.username,
-        passwordHash: hPass
-      };
-      User.create(createParams)
-        .then(user => {
-          console.log("User created!!!!");
-          res
-            .status(200)
-            .send({ data: createSignedSessionId(req.body.username) });
-        })
-        .catch(e => res.status(500).send(e.stack));
     })
     .catch(e => res.status(500).send(e.stack));
   //check if cookie?
