@@ -58,11 +58,6 @@ const loginRouter = function(req, res) {
       }
     })
     .catch(e => res.status(500).send(e.stack));
-  //check if cookie?
-  ////if cookie send back cookie verifid?
-  //else if username is in db and sent password matchs hashed password in db
-  ////send back cookie
-  //else send back no good
 };
 
 //Signup Router
@@ -88,14 +83,6 @@ const signupRouter = function(req, res) {
       }
     })
     .catch(e => res.status(500).send(e.stack));
-  //check if cookie?
-  ////if cookie send back no good
-  //else if username isnt in database
-  ////add username to db with hashed password
-  ////send back cookie
-  //else
-  ////send back no good
-  // res.send("Signup ok");
 };
 
 //Tables Router

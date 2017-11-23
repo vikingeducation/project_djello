@@ -45,13 +45,13 @@ app.get("*", (req, res, next) => {
   res.send("Ok");
 });
 
-function errorHandler(err, req, res, next) {
-  console.error(`Api Error: ${err.stack}`);
-  res.status(err.response ? err.response.status : 500);
-  res.json({ error: err.message });
-}
-
-app.use(errorHandler);
+// function errorHandler(err, req, res, next) {
+//   console.error(`Api Error: ${err.stack}`);
+//   res.status(err.response ? err.response.status : 500);
+//   res.json({ error: err.message });
+// }
+//
+// app.use(errorHandler);
 
 // ----------------------------------------
 // App Listen

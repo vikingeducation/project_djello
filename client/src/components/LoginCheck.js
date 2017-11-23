@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import "../App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
 import Cookies from "js-cookie";
-import SignupContainer from "../containers/SignupContainer";
-import LoginContainer from "../containers/LoginContainer";
 import { setCookie } from "../actions";
 import { connect } from "react-redux";
 import Button from "./elements/Button";
+import SignupContainer from "../containers/SignupContainer";
+import LoginContainer from "../containers/LoginContainer";
 
 class LoginCheck extends Component {
   componentWillMount() {
@@ -51,7 +50,7 @@ class LoginCheck extends Component {
       <Switch>
         <Route exact path="/" component={LoginContainer} />
         <Route exact path="/signup" component={SignupContainer} />
-        <Route render={() => <p>Incorrect Url</p>} />
+        <Route component={LoginContainer} />
       </Switch>
     );
     if (cookie) {

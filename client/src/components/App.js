@@ -8,7 +8,8 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path="/test" render={() => <p>test</p>} />
-            <Route path="/" render={() => <p>initail test</p>} />
+            <Route exact path="/" render={() => <p>initail test</p>} />
+            <Route render={() => <p>default component here</p>} />
           </Switch>
         </div>
       </Router>

@@ -1,12 +1,12 @@
 import React from "react";
-import Input from "../components/elements/Input";
-import InputGroup from "../components/elements/InputGroup";
-import Button from "../components/elements/Button";
+//Form
 import serialize from "form-serialize";
 import Cookies from "js-cookie";
+//Redux
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { setCookie } from "../actions";
+//Component
+import SigninForm from "../components/SigninForm";
 
 const LoginContainer = ({ setCookieInfo }) => {
   const submitLogIn = e => {
@@ -43,27 +43,13 @@ const LoginContainer = ({ setCookieInfo }) => {
     }
   };
   return (
-    <div className="container login">
-      <div className="row">
-        <div className="col">
-          <h3>Login</h3>
-          <form onSubmit={submitLogIn}>
-            <InputGroup labelText="Username">
-              <Input name="username" placeholder="Username" />
-            </InputGroup>
-            <InputGroup labelText="Password">
-              <Input name="password" type="password" placeholder="Password" />
-            </InputGroup>
-            <Button type="submit" color="primary">
-              Sign In
-            </Button>{" "}
-            <Link to="/signup">
-              <Button color="success">Sign up</Button>
-            </Link>
-          </form>
-        </div>
-      </div>
-    </div>
+    <SigninForm
+      onSubmit={submitLogIn}
+      title="Login"
+      button1="Sign In"
+      button2="Sign Up"
+      linkTo="/signup"
+    />
   );
 };
 
