@@ -1,7 +1,3 @@
 json.card_id @membership.card_id
 json.member_id @membership.user_id
-# json.member do 
-#   json.id @membership.user_id
-#   json.name @membership.user.full_name
-#   json.card_id @membership.card_id
-#   end
+json.activities @membership.card.activities, :id, :value, :object, :card_id, :user_id, :verb, :created_at.to_s

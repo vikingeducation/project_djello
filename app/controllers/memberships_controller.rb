@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
     return head :not_found unless @membership
     if @membership.destroy
       current_user.track_remove_card_member(@membership.card, @membership.user)
-      return head :no_content
+      render :show, status: :accepted
     else
       return head :unprocessable_entity
     end
