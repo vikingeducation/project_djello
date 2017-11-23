@@ -48,13 +48,18 @@ class LoginCheck extends Component {
   render() {
     const { cookie, logout } = this.props;
     let routes = (
-      <div>
+      <Switch>
         <Route exact path="/" component={LoginContainer} />
         <Route exact path="/signup" component={SignupContainer} />
-      </div>
+        <Route render={() => <p>Incorrect Url</p>} />
+      </Switch>
     );
     if (cookie) {
-      routes = <Route path="/" component={App} />;
+      routes = (
+        <Switch>
+          <Route path="/" component={App} />
+        </Switch>
+      );
     }
     return (
       <Router>
@@ -69,7 +74,7 @@ class LoginCheck extends Component {
               ""
             )}
           </header>
-          <Switch>{routes}</Switch>
+          {routes}
         </div>
       </Router>
     );

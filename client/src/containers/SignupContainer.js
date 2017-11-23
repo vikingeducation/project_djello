@@ -4,9 +4,11 @@ import InputGroup from "../components/elements/InputGroup";
 import Button from "../components/elements/Button";
 import serialize from "form-serialize";
 import Cookies from "js-cookie";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { setCookie } from "../actions";
 
-const SignupContainer = () => {
+const SignupContainer = ({ setCookieInfo }) => {
   const submitNew = e => {
     e.preventDefault();
     const form = e.target;
@@ -32,6 +34,7 @@ const SignupContainer = () => {
         })
         .then(json => {
           Cookies.set("key", json.data, { expires: 1 });
+          setCookieInfo(json.data);
           form.reset();
         })
         .catch(err => console.log("err", err));
@@ -66,4 +69,12 @@ const SignupContainer = () => {
   );
 };
 
-export default SignupContainer;
+const mapDispatchToProps = dispatch => {
+  return {
+    setCookieInfo: cookie => {
+      dispatch(setCookie(cookie));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignupContainer);
