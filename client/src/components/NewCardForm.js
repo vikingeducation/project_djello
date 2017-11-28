@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Input from "./elements/Input";
 import InputGroup from "./elements/InputGroup";
+import Button from "./elements/Button";
 import { connect } from "react-redux";
 import { getUsers } from "../actions";
+import serialize from "form-serialize";
 
 class NewCardForm extends Component {
   constructor(props) {
@@ -11,12 +13,14 @@ class NewCardForm extends Component {
     this.state = { formUsers: [] };
   }
   toggleUsers = e => {
-    console.log(e.target.id, e.target.checked);
+    e.preventDefault();
+    console.log("check?", e.target.id, e.target.checked);
     if (!e.target.checked) {
       let newFormUsers = this.state.formUsers.filter(user => {
         if (user !== e.target.id) {
           return user;
         }
+        return null;
       });
       this.setState({
         formUsers: newFormUsers
@@ -26,6 +30,16 @@ class NewCardForm extends Component {
         formUsers: [...this.state.formUsers, e.target.id]
       });
     }
+  };
+
+  onSubmitting = e => {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = serialize(form, { hash: true });
+    console.log(data);
+
+    // form.reset()
   };
 
   componentWillMount() {
@@ -64,7 +78,7 @@ class NewCardForm extends Component {
       });
     }
     return (
-      <form>
+      <form onSubmit={this.onSubmitting}>
         <InputGroup name="title" labelText="Title">
           <Input name="title" />
         </InputGroup>
@@ -73,6 +87,7 @@ class NewCardForm extends Component {
           <textarea rows="5" name="description" />
         </InputGroup>
         {usersToRender}
+        <input type="submit" color="primary" />
       </form>
     );
   }

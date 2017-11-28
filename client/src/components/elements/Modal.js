@@ -20,7 +20,7 @@ class Modal extends React.Component {
           }
         }}
       >
-        <div className="modal">
+        <div className="modal" onClick={e => e.stopPropagation()}>
           <div className="top-right text-right">
             <button onClick={this.props.onClose}>X</button>
           </div>
