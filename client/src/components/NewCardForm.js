@@ -12,31 +12,33 @@ class NewCardForm extends Component {
 
     this.state = { formUsers: [] };
   }
-  toggleUsers = e => {
+
+  addUsers = e => {
     e.preventDefault();
-    console.log("check?", e.target.id, e.target.checked);
-    if (!e.target.checked) {
-      let newFormUsers = this.state.formUsers.filter(user => {
-        if (user !== e.target.id) {
-          return user;
-        }
-        return null;
-      });
-      this.setState({
-        formUsers: newFormUsers
-      });
-    } else {
-      this.setState({
-        formUsers: [...this.state.formUsers, e.target.id]
-      });
-    }
+    console.log("add", e.target.name, e.target.value);
+    this.setState({ formUsers: [...this.state.formUsers, e.target.value] });
+  };
+
+  removeUsers = e => {
+    e.preventDefault();
+    console.log("remove", e.target.name, e.target.value);
+    let newFormUsers = this.state.formUsers.filter(user => {
+      if (user !== e.target.value) {
+        return user;
+      }
+      return null;
+    });
+    this.setState({
+      formUsers: newFormUsers
+    });
   };
 
   onSubmitting = e => {
     e.preventDefault();
 
     const form = e.target;
-    const data = serialize(form, { hash: true });
+    let data = serialize(form, { hash: true });
+    data.users = this.state.formUsers;
     console.log(data);
 
     // form.reset()
@@ -46,34 +48,35 @@ class NewCardForm extends Component {
     this.props.getAllUsers();
   }
 
-  componentWillUpdate() {
-    console.log("check in componentWillUpdate", this.state.formUsers);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log("check in componentDidUpdate", this.state.formUsers);
-    if (prevState.formUsers !== this.state.formUsers) {
-      // this.setState({ formUsers: [this.state.formUsers] });
-    }
-  }
-
   render() {
     console.log("In render", this.state.formUsers);
+    let formUsersRoll = this.state.formUsers;
     let usersToRender = <div />;
     if (!this.props.isFetching) {
       usersToRender = this.props.users.map(user => {
-        return (
-          <div key={user.username}>
-            <input
-              name="users"
-              type="checkbox"
-              id={user.username}
+        if (this.state.formUsers.indexOf(user.username) >= 0) {
+          return (
+            <Button
+              color="success"
               value={user.username}
-              onClick={this.toggleUsers}
-              checked={this.state.formUsers.includes(user.username)}
-            />
-            <label htmlFor={user.username}>{user.username}</label>
-          </div>
+              name="users"
+              key={user.username}
+              onClick={this.removeUsers}
+            >
+              {user.username}
+            </Button>
+          );
+        }
+        return (
+          <Button
+            color="default"
+            value={user.username}
+            name="users"
+            key={user.username}
+            onClick={this.addUsers}
+          >
+            {user.username}
+          </Button>
         );
       });
     }
@@ -86,8 +89,14 @@ class NewCardForm extends Component {
           <br />
           <textarea rows="5" name="description" />
         </InputGroup>
-        {usersToRender}
-        <input type="submit" color="primary" />
+        <InputGroup name="users" labelText="Users Included:">
+          <br />
+          {usersToRender}
+          <br />
+        </InputGroup>
+        <Button type="submit" color="primary">
+          Save
+        </Button>
       </form>
     );
   }

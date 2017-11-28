@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 import Button from "./elements/Button";
 import ModalButton from "./ModalButton";
 import NewCardForm from "./NewCardForm";
+import NewListForm from "./NewListForm";
 
 const BoardCard = ({ title, description, cards }) => {
   let mappedCards = [];
   //if no title, then no entry
   if (!title) {
     mappedCards.push(
-      <Button color="primary" key="NewList">
-        Add A List
-      </Button>
+      <ModalButton key="AddCard" label="Add A List">
+        <NewListForm />
+      </ModalButton>
     );
   }
 

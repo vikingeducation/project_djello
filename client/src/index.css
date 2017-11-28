@@ -38,6 +38,7 @@ body {
   margin: auto;
   padding: 5%;
   display: inline;
+  overflow: auto;
 }
 
 .col {
