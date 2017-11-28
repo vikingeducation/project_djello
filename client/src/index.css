@@ -3,3 +3,42 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.header {
+  border-bottom: 2px solid black;
+}
+
+.subcard {
+  width: 80%;
+  margin: 1px auto 1px auto;
+}
+
+.top-right {
+  margin: -6% -6% 0 0;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10%;
+  z-index: 2;
+}
+
+.modal {
+  background-color: #fff;
+  border-radius: 5;
+  width: fit-content;
+  max-width: 75%;
+  height: fit-content;
+  max-height: 80%;
+  margin: auto;
+  padding: 5%;
+  display: inline;
+}
+
+.col {
+}

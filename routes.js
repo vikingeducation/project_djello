@@ -85,6 +85,14 @@ const signupRouter = function(req, res) {
     .catch(e => res.status(500).send(e.stack));
 };
 
+const returnAllUsersRouter = function(req, res) {
+  User.findAll({ attributes: ["username"] })
+    .then(users => {
+      res.status(200).send({ data: users });
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+
 //Tables Router
 const tablesRouter = function(req, res) {
   //return data for tables
@@ -94,4 +102,10 @@ const tablesRouter = function(req, res) {
   res.send("Tables ok");
 };
 
-module.exports = { checkCookieRouter, loginRouter, signupRouter, tablesRouter };
+module.exports = {
+  checkCookieRouter,
+  loginRouter,
+  signupRouter,
+  tablesRouter,
+  returnAllUsersRouter
+};

@@ -4,7 +4,8 @@ const {
   checkCookieRouter,
   loginRouter,
   signupRouter,
-  tablesRouter
+  tablesRouter,
+  returnAllUsersRouter
 } = require("./routes");
 
 if (process.env.NODE_ENV !== "production") {
@@ -39,6 +40,8 @@ app.post("/signup", signupRouter);
 app.post("/cookie", checkCookieRouter);
 
 app.get("/tables", tablesRouter);
+
+app.get("/users", returnAllUsersRouter);
 
 app.get("*", (req, res, next) => {
   console.log("Called");

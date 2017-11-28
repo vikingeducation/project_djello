@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { setCookie } from "../actions";
 import { connect } from "react-redux";
 import Button from "./elements/Button";
+import Header from "./elements/Header";
 import SignupContainer from "../containers/SignupContainer";
 import LoginContainer from "../containers/LoginContainer";
 
@@ -45,7 +46,7 @@ class LoginCheck extends Component {
   }
 
   render() {
-    const { cookie, logout } = this.props;
+    const { cookie, logout, user } = this.props;
     let routes = (
       <Switch>
         <Route exact path="/" component={LoginContainer} />
@@ -64,14 +65,15 @@ class LoginCheck extends Component {
       <Router>
         <div>
           <header>
-            Djello {cookie ? "Welcome " + cookie.split(":")[0] : ""}
-            {cookie ? (
-              <Button color="danger" onClick={logout}>
-                Logout
-              </Button>
-            ) : (
-              ""
-            )}
+            <Header left="Djello" right={cookie ? "Welcome " + user : ""}>
+              {cookie ? (
+                <Button color="danger" onClick={logout}>
+                  Logout
+                </Button>
+              ) : (
+                ""
+              )}
+            </Header>
           </header>
           {routes}
         </div>
@@ -82,7 +84,8 @@ class LoginCheck extends Component {
 
 const mapStateToProps = state => {
   return {
-    cookie: state.cookie
+    cookie: state.cookie,
+    user: state.user
   };
 };
 
