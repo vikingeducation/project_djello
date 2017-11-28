@@ -5,10 +5,6 @@ import Button from "./elements/Button";
 import serialize from "form-serialize";
 
 class NewCardForm extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onSubmitting = e => {
     e.preventDefault();
 

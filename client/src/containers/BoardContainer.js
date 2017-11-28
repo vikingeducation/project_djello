@@ -40,13 +40,13 @@ class BoardContainer extends Component {
           </div>
           <div className="col">
             <p>test</p>
-            <ModalButton>
+            {/* <ModalButton>
               Test contentTest contentTest contentTest contentTest contentTest
               contentTest contentTest contentTest contentTest contentTest
               contentTest contentTest contentTest contentTest contentTest
               contentTest contentTest content
             </ModalButton>
-            <p>test</p>
+            <p>test</p> */}
           </div>
         </div>
       </div>

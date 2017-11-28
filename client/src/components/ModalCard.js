@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Modal from "./elements/Modal";
 import Button from "./elements/Button";
 
-class ModalButton extends Component {
+class ModalCard extends Component {
   constructor(props) {
     super(props);
 
@@ -17,10 +17,11 @@ class ModalButton extends Component {
 
   render() {
     return (
-      <div className="ModalButton text-center">
-        <Button color="primary" onClick={this.toggleModal}>
-          {this.props.label ? this.props.label : "Click Me"}
-        </Button>
+      <div className="ModalCard text-center" onClick={this.toggleModal}>
+        <div className="card subcard" key={this.props.title}>
+          <p>{this.props.title}</p>
+          <p>{this.props.description}</p>
+        </div>
 
         <Modal show={this.state.isOpen} onClose={this.toggleModal}>
           {this.props.children}
@@ -30,4 +31,4 @@ class ModalButton extends Component {
   }
 }
 
-export default ModalButton;
+export default ModalCard;

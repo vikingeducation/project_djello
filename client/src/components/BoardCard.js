@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "./elements/Button";
+// import Button from "./elements/Button";
 import ModalButton from "./ModalButton";
+import ModalCard from "./ModalCard";
 import NewCardForm from "./NewCardForm";
 import NewListForm from "./NewListForm";
 
@@ -19,17 +20,22 @@ const BoardCard = ({ title, description, cards }) => {
   //if title and cards, print out
   if (cards && title) {
     mappedCards = cards.map(card => (
-      <div className="card subcard" key={card.title}>
-        <p>{card.title}</p>
-      </div>
+      <ModalCard
+        title={card.title}
+        description={card.description ? card.description : ""}
+      >
+        hello
+      </ModalCard>
     ));
     //add header
     mappedCards.splice(
       0,
       0,
-      <div className="card-header" key="header">
+      <div className="card-header text-left" key="header">
         <h4 className="card-title text-center">{title}</h4>
-        <div className="card-subtitle mb-2 text-muted">{description}</div>
+        <div className="card-subtitle mb-2 text-muted text-left">
+          {description}
+        </div>
       </div>
     );
     //add bottom button

@@ -9,8 +9,7 @@ import serialize from "form-serialize";
 class NewCardForm extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { formUsers: [] };
+    this.state = { formUsers: [this.props.user] };
   }
 
   addUsers = e => {
@@ -49,8 +48,6 @@ class NewCardForm extends Component {
   }
 
   render() {
-    console.log("In render", this.state.formUsers);
-    let formUsersRoll = this.state.formUsers;
     let usersToRender = <div />;
     if (!this.props.isFetching) {
       usersToRender = this.props.users.map(user => {
@@ -105,7 +102,8 @@ class NewCardForm extends Component {
 const mapStateToProps = state => {
   return {
     users: state.users,
-    isFetching: state.isFetching
+    isFetching: state.isFetching,
+    user: state.user
   };
 };
 
