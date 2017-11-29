@@ -1,57 +1,84 @@
 import React, { Component } from "react";
 //Redux
-// import { connect } from "react-redux";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import BoardCard from "../components/BoardCard";
-import ModalButton from "../components/ModalButton";
+import { connect } from "react-redux";
+
+import Button from "../components/elements/Button";
+import { setCurrentBoard, getBoards } from "../actions";
+import NewBoardForm from "../components/NewBoardForm";
+import ListContainer from "./ListContainer";
 
 class BoardContainer extends Component {
   componentWillMount() {
     //Call boards from db here
+    this.props.getBoards();
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.boards.length && !this.props.currentBoard) {
+      nextProps.setCurrentBoardName({
+        target: { value: nextProps.boards[0].title }
+      });
+    }
+  }
+
   render() {
+    let boardsDropdown = this.props.boards.map(board => {
+      return (
+        <option value={board.title} key={board.title}>
+          {board.title}
+        </option>
+      );
+    });
+
     return (
       <div className="container container-fluid">
         <div className="row">
           <div className="col">
-            <p>Add Board Title</p>
+            <p>Board Title</p>
+          </div>
+          <div className="col">
+            <Button
+              color="danger"
+              size="sm"
+              onClick={() => console.log("Delete", this.props.currentBoard)}
+            >
+              Delete Board
+            </Button>
+          </div>
+          <div className="col">
+            <NewBoardForm size="sm" />
           </div>
           <div className="col">
             <label>Select Board</label>
-            <select>
-              <option>To-Do list</option>
-              <option>List 2</option>
+            <select onChange={this.props.setCurrentBoardName}>
+              {boardsDropdown}
             </select>
-            <br />
-            <span>Delete Board-</span>
-            <span>-New Board</span>
           </div>
         </div>
-        <div className="row">
-          <div className="col">
-            <BoardCard
-              title="Sample"
-              description="Sample Description"
-              cards={[{ title: "Sample 1 Title" }, { title: "Sample 2 Title" }]}
-            />
-          </div>
-          <div className="col">
-            <BoardCard />
-          </div>
-          <div className="col">
-            <p>test</p>
-            {/* <ModalButton>
-              Test contentTest contentTest contentTest contentTest contentTest
-              contentTest contentTest contentTest contentTest contentTest
-              contentTest contentTest contentTest contentTest contentTest
-              contentTest contentTest content
-            </ModalButton>
-            <p>test</p> */}
-          </div>
-        </div>
+
+        {this.props.currentBoard ? <ListContainer /> : ""}
       </div>
     );
   }
 }
 
-export default BoardContainer;
+const mapStateToProps = state => {
+  return {
+    currentBoard: state.currentBoard,
+    boards: state.boards
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentBoardName: data => {
+      console.log("SCN", data);
+      dispatch(setCurrentBoard(data.target.value));
+    },
+    getBoards: () => {
+      dispatch(getBoards());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BoardContainer);

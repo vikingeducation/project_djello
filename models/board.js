@@ -1,12 +1,12 @@
 "use strict";
 var models = require("../models");
 module.exports = (sequelize, DataTypes) => {
-  var board = sequelize.define("board", {
+  var Board = sequelize.define("Board", {
     title: DataTypes.STRING
   });
-  board.associate = function(models) {
+  Board.associate = function(models) {
     // associations can be defined here
-    this.hasMany(models.card, { foreignKey: "boardId" });
+    this.hasMany(models.List, { foreignKey: "boardid" });
   };
-  return board;
+  return Board;
 };

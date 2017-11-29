@@ -5,7 +5,13 @@ const {
   loginRouter,
   signupRouter,
   tablesRouter,
-  returnAllUsersRouter
+  returnAllUsersRouter,
+  newBoardRouter,
+  newListRouter,
+  newCardRouter,
+  allBoardRouter,
+  allListsOnBoardRouter,
+  allCardsonListRouter
 } = require("./routes");
 
 if (process.env.NODE_ENV !== "production") {
@@ -39,7 +45,17 @@ app.post("/signup", signupRouter);
 
 app.post("/cookie", checkCookieRouter);
 
-app.get("/tables", tablesRouter);
+app.post("/newBoard", newBoardRouter);
+
+app.post("/newList", newListRouter);
+
+app.post("/newCard", newCardRouter);
+
+app.get("/boards", allBoardRouter);
+
+app.get("/lists/:boardname", allListsOnBoardRouter);
+
+app.get("/cards/:listname", allCardsonListRouter);
 
 app.get("/users", returnAllUsersRouter);
 

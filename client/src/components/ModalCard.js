@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Modal from "./elements/Modal";
-import Button from "./elements/Button";
 
 class ModalCard extends Component {
   constructor(props) {

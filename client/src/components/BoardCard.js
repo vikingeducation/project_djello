@@ -12,6 +12,7 @@ const BoardCard = ({ title, description, cards }) => {
   if (!title) {
     mappedCards.push(
       <ModalButton key="AddCard" label="Add A List">
+        <h4>New List</h4>
         <NewListForm />
       </ModalButton>
     );
@@ -23,6 +24,7 @@ const BoardCard = ({ title, description, cards }) => {
       <ModalCard
         title={card.title}
         description={card.description ? card.description : ""}
+        key={card.title}
       >
         hello
       </ModalCard>
@@ -41,6 +43,7 @@ const BoardCard = ({ title, description, cards }) => {
     //add bottom button
     mappedCards.push(
       <ModalButton key="AddCard" label="Add A Card">
+        <h4>New Card</h4>
         <NewCardForm />
       </ModalButton>
     );
@@ -48,6 +51,7 @@ const BoardCard = ({ title, description, cards }) => {
     //add bottom button
     mappedCards.push(
       <ModalButton key="AddCard" label="Add A Card">
+        <h4>New Card</h4>
         <NewCardForm />
       </ModalButton>
     );

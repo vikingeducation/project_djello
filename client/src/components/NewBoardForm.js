@@ -3,13 +3,14 @@ import Input from "./elements/Input";
 import InputGroup from "./elements/InputGroup";
 import Button from "./elements/Button";
 import serialize from "form-serialize";
+import ModalButton from "../components/ModalButton";
 import { connect } from "react-redux";
-import { setLists } from "../actions";
+import { setBoards } from "../actions";
 
-class NewListForm extends Component {
+class NewBoardForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...this.state, status: "", error: false };
+    this.state = { status: "", error: false };
   }
 
   onSubmitting = e => {
@@ -17,8 +18,7 @@ class NewListForm extends Component {
 
     const form = e.target;
     let data = serialize(form, { hash: true });
-    data.boardname = this.props.currentBoard;
-    fetch("/newList", {
+    fetch("/newBoard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -29,24 +29,24 @@ class NewListForm extends Component {
         if (results.ok) {
           this.setState({
             ...this.state,
-            status: `${data.title} List Created`,
+            status: `${data.title} Board Created`,
             error: false
           });
+
           form.reset();
           return results.json();
         } else {
           this.setState({
-            ...this.state,
-            status: "Error: List Already Created",
+            status: "Error: Board Already Created",
             error: true
           });
         }
       })
-      .then(oneNewList => {
+      .then(oneNewBoard => {
         console.log("SETTING HERE");
-        let newLists = this.props.lists;
-        newLists.push(oneNewList.data);
-        this.props.setLists(newLists.slice());
+        let newBoards = this.props.boards;
+        newBoards.push(oneNewBoard.data);
+        this.props.setBoards(newBoards.slice());
       });
   };
 
@@ -58,37 +58,33 @@ class NewListForm extends Component {
       status = <div className="alert alert-success">{this.state.status}</div>;
     }
     return (
-      <form onSubmit={this.onSubmitting}>
-        {status}
-        <InputGroup name="title" labelText="Title">
-          <Input name="title" />
-        </InputGroup>
-        <InputGroup name="description" labelText="Description">
-          <br />
-          <textarea rows="5" name="description" />
-        </InputGroup>
-        <Button type="submit" color="primary">
-          Save
-        </Button>
-      </form>
+      <ModalButton size={this.props.size} key="NewBoard" label="New Board">
+        <form onSubmit={this.onSubmitting}>
+          <h4>New Board</h4>
+          {status}
+          <InputGroup name="title" labelText="Title">
+            <Input name="title" />
+          </InputGroup>
+          <Button type="submit" color="primary">
+            Save
+          </Button>
+        </form>
+      </ModalButton>
     );
   }
 }
-
 const mapStateToProps = state => {
   return {
-    currentBoard: state.currentBoard,
-    lists: state.lists,
-    cards: state.cards
+    boards: state.boards
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setLists: data => {
-      dispatch(setLists(data));
+    setBoards: data => {
+      dispatch(setBoards(data));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewListForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewBoardForm);

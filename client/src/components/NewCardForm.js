@@ -3,19 +3,22 @@ import Input from "./elements/Input";
 import InputGroup from "./elements/InputGroup";
 import Button from "./elements/Button";
 import { connect } from "react-redux";
-import { getUsers } from "../actions";
+import { getUsers, setCards } from "../actions";
 import serialize from "form-serialize";
 
 class NewCardForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { formUsers: [this.props.user] };
+    this.state = { formUsers: [this.props.user], status: "", error: false };
   }
 
   addUsers = e => {
     e.preventDefault();
     console.log("add", e.target.name, e.target.value);
-    this.setState({ formUsers: [...this.state.formUsers, e.target.value] });
+    this.setState({
+      ...this.state,
+      formUsers: [...this.state.formUsers, e.target.value]
+    });
   };
 
   removeUsers = e => {
@@ -28,6 +31,7 @@ class NewCardForm extends Component {
       return null;
     });
     this.setState({
+      ...this.state,
       formUsers: newFormUsers
     });
   };
@@ -37,10 +41,40 @@ class NewCardForm extends Component {
 
     const form = e.target;
     let data = serialize(form, { hash: true });
-    data.users = this.state.formUsers;
-    console.log(data);
+    data.members = this.state.formUsers;
+    data.listTitle = this.props.currentListTitle;
 
-    // form.reset()
+    fetch("/newCard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(results => {
+        if (results.ok) {
+          this.setState({
+            ...this.state,
+            status: `${data.title} Card Created`,
+            error: false
+          });
+          form.reset();
+          return results.json();
+        } else {
+          this.setState({
+            ...this.state,
+            status: "Error: Card Already Created",
+            error: true
+          });
+        }
+      })
+      .then(oneNewCard => {
+        console.log("SETTING HERE");
+        let newCards = this.props.cards;
+        newCards.push(oneNewCard.data);
+        console.log(newCards);
+        this.props.setCards(newCards.slice(), this.props.currentListTitle);
+      });
   };
 
   componentWillMount() {
@@ -56,7 +90,7 @@ class NewCardForm extends Component {
             <Button
               color="success"
               value={user.username}
-              name="users"
+              name="members"
               key={user.username}
               onClick={this.removeUsers}
             >
@@ -68,7 +102,7 @@ class NewCardForm extends Component {
           <Button
             color="default"
             value={user.username}
-            name="users"
+            name="members"
             key={user.username}
             onClick={this.addUsers}
           >
@@ -77,8 +111,15 @@ class NewCardForm extends Component {
         );
       });
     }
+    let status = <div />;
+    if (this.state.error && this.state.status) {
+      status = <div className="alert alert-danger">{this.state.status}</div>;
+    } else if (!this.state.error && this.state.status) {
+      status = <div className="alert alert-success">{this.state.status}</div>;
+    }
     return (
       <form onSubmit={this.onSubmitting}>
+        {status}
         <InputGroup name="title" labelText="Title">
           <Input name="title" />
         </InputGroup>
@@ -86,7 +127,7 @@ class NewCardForm extends Component {
           <br />
           <textarea rows="5" name="description" />
         </InputGroup>
-        <InputGroup name="users" labelText="Users Included:">
+        <InputGroup name="members" labelText="Users Included:">
           <br />
           {usersToRender}
           <br />
@@ -99,11 +140,13 @@ class NewCardForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     users: state.users,
     isFetching: state.isFetching,
-    user: state.user
+    user: state.user,
+    currentBoard: state.currentBoard,
+    cards: state.cards[ownProps.currentListTitle]
   };
 };
 
@@ -111,6 +154,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getAllUsers: () => {
       dispatch(getUsers());
+    },
+    setCards: (data, listName) => {
+      dispatch(setCards(data, listName));
     }
   };
 };

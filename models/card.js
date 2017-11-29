@@ -1,16 +1,17 @@
 "use strict";
 var models = require("../models");
 module.exports = (sequelize, DataTypes) => {
-  var card = sequelize.define("card", {
+  var Card = sequelize.define("Card", {
     title: DataTypes.STRING,
-    boardId: DataTypes.INTEGER,
+    listid: DataTypes.INTEGER,
+    description: DataTypes.STRING,
     complete: DataTypes.BOOLEAN,
     members: DataTypes.ARRAY(DataTypes.INTEGER),
     activity: DataTypes.ARRAY(DataTypes.STRING)
   });
-  card.associate = function(models) {
+  Card.associate = function(models) {
     // associations can be defined here
-    this.belongsTo(models.board, { foreignKey: "boardId" });
+    this.belongsTo(models.List, { foreignKey: "listid" });
   };
-  return card;
+  return Card;
 };
