@@ -12,11 +12,16 @@ class CardContainer extends Component {
   componentWillMount() {
     //Call boards from db here
 
-    this.props.getCards(this.props.currentList.title);
+    this.props.getCards(this.props.currentList.title, this.props.user);
   }
   render() {
-    console.log("RENDER", this.props.cards);
+    console.log("RENDER CARDS", this.props.cards);
     let cards = this.props.cards.map(card => {
+      let members = "";
+      for (var i = 0; i < card.members.length; i++) {
+        console.log(card.members[i]);
+        members += card.members[i] + " ";
+      }
       return (
         <ModalCard
           title={card.title}
@@ -26,7 +31,7 @@ class CardContainer extends Component {
           <div>
             <p>Title: {card.title}</p>
             <p>Description: {card.description}</p>
-            <p>Members: {card.members}</p>
+            <p>Members: {members}</p>
           </div>
         </ModalCard>
       );
@@ -44,14 +49,15 @@ class CardContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    cards: state.cards[ownProps.currentList.title]
+    cards: state.cards[ownProps.currentList.title],
+    user: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCards: data => {
-      dispatch(getCards(data));
+    getCards: (data, user) => {
+      dispatch(getCards(data, user));
     }
   };
 };

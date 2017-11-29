@@ -55,7 +55,7 @@ app.get("/boards", allBoardRouter);
 
 app.get("/lists/:boardname", allListsOnBoardRouter);
 
-app.get("/cards/:listname", allCardsonListRouter);
+app.get("/cards/:listname/:username", allCardsonListRouter);
 
 app.get("/users", returnAllUsersRouter);
 

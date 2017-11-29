@@ -132,11 +132,11 @@ export function getLists(boardName) {
   };
 }
 
-export function getCards(listName) {
+export function getCards(listName, username) {
   return dispatch => {
     console.log("Requesting Cards");
     dispatch(getRequest());
-    fetch(`/cards/${listName}`)
+    fetch(`/cards/${listName}/${username}`)
       .then(response => {
         if (!response.ok) {
           throw new Error("Error with api");

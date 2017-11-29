@@ -8,8 +8,9 @@ const sequelize = models.sequelize;
 const Op = require("sequelize").Op;
 const secret = process.env["SECRET"] || "lavalamp";
 const md5 = require("md5");
-
+//–––––––––––––––––––––––––
 //Password
+//–––––––––––––––––––––––––
 const validatePassword = function(hashedPassword, password) {
   return bcrypt.compareSync(password, hashedPassword);
 };
@@ -18,7 +19,9 @@ const setPassword = function(value) {
   return bcrypt.hashSync(value, 8);
 };
 
+//–––––––––––––––––––––––––
 //Signature
+//–––––––––––––––––––––––––
 const generateSignature = function(username) {
   return md5(username + secret);
 };
@@ -44,7 +47,9 @@ const checkCookieRouter = function(req, res) {
   }
 };
 
+//–––––––––––––––––––––––––
 //Login Router
+//–––––––––––––––––––––––––
 const loginRouter = function(req, res) {
   User.findOne({
     where: {
@@ -65,7 +70,9 @@ const loginRouter = function(req, res) {
     .catch(e => res.status(500).send(e.stack));
 };
 
+//–––––––––––––––––––––––––
 //Signup Router
+//–––––––––––––––––––––––––
 const signupRouter = function(req, res) {
   User.findOne({ where: { username: req.body.username } })
     .then(user => {
@@ -90,6 +97,9 @@ const signupRouter = function(req, res) {
     .catch(e => res.status(500).send(e.stack));
 };
 
+//–––––––––––––––––––––––––
+//Return Alls
+//–––––––––––––––––––––––––
 const returnAllUsersRouter = function(req, res) {
   User.findAll({ attributes: ["username"] })
     .then(users => {
@@ -98,6 +108,63 @@ const returnAllUsersRouter = function(req, res) {
     .catch(e => res.status(500).send(e.stack));
 };
 
+const allBoardRouter = function(req, res) {
+  Board.findAll({})
+    .then(boards => {
+      res.status(200).send({ data: boards });
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+const allListsOnBoardRouter = function(req, res) {
+  Board.findOne({ where: { title: req.params.boardname } }).then(board => {
+    List.findAll({ where: { boardid: board.id } })
+      .then(lists => {
+        res.status(200).send({ data: lists });
+      })
+      .catch(e => res.status(500).send(e.stack));
+  });
+};
+
+const allCardsonListRouter = function(req, res) {
+  List.findOne({ where: { title: req.params.listname } }).then(list => {
+    User.findOne({ where: { username: req.params.username } }).then(user => {
+      User.findAll().then(allUser => {
+        Card.findAll({
+          where: {
+            listid: list.id,
+            members: {
+              [Op.contains]: [user.id]
+            }
+          }
+        })
+          .then(cards => {
+            if (cards) {
+              //set userid to usernames
+              for (var i = 0; i < cards.length; i++) {
+                for (var j = 0; j < cards[i].members.length; j++) {
+                  for (var k = 0; k < allUser.length; k++) {
+                    if (allUser[k].id === cards[i].members[j]) {
+                      cards[i].members[j] = allUser[k].username;
+                    }
+                  }
+                }
+              }
+
+              res.status(200).send({ data: cards });
+            } else {
+              console.log("No User Found!!!");
+              res.status(404).send({ Error: "Cards Not Found" });
+            }
+          })
+          .catch(e => res.status(500).send(e.stack));
+      });
+    });
+  });
+};
+
+//–––––––––––––––––––––––––
+//New Tasks
+//–––––––––––––––––––––––––
 const newBoardRouter = function(req, res) {
   Board.findOne({ where: { title: req.body.title } })
     .then(board => {
@@ -175,8 +242,19 @@ const newCardRouter = function(req, res) {
               };
               Card.create(createParams)
                 .then(card => {
-                  console.log("Card created!!!!");
-                  res.status(200).send({ data: card });
+                  User.findAll().then(allUser => {
+                    //set userid to usernames
+                    for (var j = 0; j < card.members.length; j++) {
+                      for (var k = 0; k < allUser.length; k++) {
+                        if (allUser[k].id === card.members[j]) {
+                          card.members[j] = allUser[k].username;
+                        }
+                      }
+                    }
+
+                    console.log("Card created!!!!");
+                    res.status(200).send({ data: card });
+                  });
                 })
                 .catch(e => {
                   res.status(500).send(e.stack);
@@ -190,34 +268,10 @@ const newCardRouter = function(req, res) {
       });
   });
 };
-const allBoardRouter = function(req, res) {
-  Board.findAll({})
-    .then(boards => {
-      res.status(200).send({ data: boards });
-    })
-    .catch(e => res.status(500).send(e.stack));
-};
-const allListsOnBoardRouter = function(req, res) {
-  Board.findOne({ where: { title: req.params.boardname } }).then(board => {
-    List.findAll({ where: { boardid: board.id } })
-      .then(lists => {
-        res.status(200).send({ data: lists });
-      })
-      .catch(e => res.status(500).send(e.stack));
-  });
-};
 
-const allCardsonListRouter = function(req, res) {
-  List.findOne({ where: { title: req.params.listname } }).then(list => {
-    Card.findAll({ where: { listid: list.id } })
-      .then(cards => {
-        res.status(200).send({ data: cards });
-      })
-      .catch(e => res.status(500).send(e.stack));
-  });
-};
-
+//–––––––––––––––––––––––––
 //Tables Router
+//–––––––––––––––––––––––––
 const tablesRouter = function(req, res) {
   //return data for tables
   User.findAll().then(users => {
