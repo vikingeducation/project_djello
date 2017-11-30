@@ -306,6 +306,22 @@ const removeCardRouter = function(req, res) {
 };
 
 //–––––––––––––––––––––––––
+//Update Routers
+//–––––––––––––––––––––––––
+const changeBoardNameRouter = function(req, res) {
+  Board.findOne({ where: { title: req.params.oldName } })
+    .then(board => {
+      board
+        .update({ title: req.params.newName })
+        .then(() => {
+          res.status(200).send("Good");
+        })
+        .catch(e => res.status(500).send(e.stack));
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+
+//–––––––––––––––––––––––––
 //Tables Router
 //–––––––––––––––––––––––––
 const tablesRouter = function(req, res) {
@@ -330,5 +346,6 @@ module.exports = {
   allCardsonListRouter,
   removeBoardRouter,
   removeListRouter,
-  removeCardRouter
+  removeCardRouter,
+  changeBoardNameRouter
 };

@@ -14,7 +14,8 @@ const {
   allCardsonListRouter,
   removeBoardRouter,
   removeListRouter,
-  removeCardRouter
+  removeCardRouter,
+  changeBoardNameRouter
 } = require("./routes");
 
 if (process.env.NODE_ENV !== "production") {
@@ -61,6 +62,8 @@ app.get("/lists/:boardname", allListsOnBoardRouter);
 app.get("/cards/:listname/:username", allCardsonListRouter);
 
 app.get("/users", returnAllUsersRouter);
+
+app.get("/change/board/:oldName/:newName", changeBoardNameRouter);
 
 app.get("/remove/card/:cardName", removeCardRouter);
 

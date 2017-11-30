@@ -6,9 +6,46 @@ import Button from "../components/elements/Button";
 import { setCurrentBoard, getBoards } from "../actions";
 import NewBoardForm from "../components/NewBoardForm";
 import ListContainer from "./ListContainer";
-import { deleteBoard } from "../actions";
+import { deleteBoard, changeBoardName } from "../actions";
 
 class BoardContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { show: false, boardTitle: "" };
+    this.onClick = this.onClick.bind(this);
+    this.onEnteredText = this.onEnteredText.bind(this);
+    this.clickToHide = this.clickToHide.bind(this);
+    this.preventing = this.preventing.bind(this);
+    this.saveText = this.saveText.bind(this);
+  }
+
+  onClick() {
+    console.log("SHOW");
+    this.setState({
+      show: !this.state.show,
+      boardTitle: this.props.currentBoard
+    });
+  }
+  clickToHide(e) {
+    console.log("hide????");
+    if (this.state.show) {
+      this.setState({ show: false });
+    }
+  }
+  onEnteredText(event) {
+    this.setState({ boardTitle: event.target.value });
+  }
+  saveText(event) {
+    this.props.changeBoardName(this.props.currentBoard, this.state.boardTitle);
+    this.props.setCurrentBoardName({
+      target: { value: this.state.boardTitle }
+    });
+    this.setState({ show: false });
+  }
+  preventing(event) {
+    event.stopPropagation();
+  }
   componentWillMount() {
     //Call boards from db here
     this.props.getBoards();
@@ -45,12 +82,24 @@ class BoardContainer extends Component {
         </option>
       );
     });
+    let title = <p onClick={this.onClick}>{this.props.currentBoard}</p>;
+
+    if (this.state.show) {
+      title = (
+        <div onClick={this.preventing}>
+          <input onChange={this.onEnteredText} value={this.state.boardTitle} />
+          <button onClick={this.saveText}>Save</button>
+          <button onClick={this.clickToHide}>Cancel</button>
+        </div>
+      );
+    }
 
     return (
-      <div className="container container-fluid">
+      <div className="container container-fluid" onClick={this.clickToHide}>
         <div className="row">
           <div className="col">
-            <p>{this.props.currentBoard}</p>
+            {/* <p>{this.props.currentBoard}</p> */}
+            {title}
           </div>
           <div className="col">
             <Button
@@ -69,7 +118,10 @@ class BoardContainer extends Component {
           </div>
           <div className="col">
             <label>Select Board</label>
-            <select onChange={this.props.setCurrentBoardName}>
+            <select
+              onChange={this.props.setCurrentBoardName}
+              value={this.props.currentBoard}
+            >
               {boardsDropdown}
             </select>
           </div>
@@ -98,6 +150,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteBoard: data => {
       dispatch(deleteBoard(data));
+    },
+    changeBoardName: (oldName, newName) => {
+      dispatch(changeBoardName(oldName, newName));
     }
   };
 };

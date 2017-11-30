@@ -124,6 +124,17 @@ export function deleteCard(cardName, listName, userName) {
   };
 }
 
+export function changeBoardName(oldName, newName) {
+  return dispatch => {
+    console.log("Changing Board Name");
+    dispatch(getRequest());
+    fetch(`/change/board/${oldName}/${newName}`).then(() => {
+      dispatch(getRequestSuccess());
+      dispatch(getBoards());
+    });
+  };
+}
+
 export function getBoards() {
   return dispatch => {
     console.log("Requesting Boards");
