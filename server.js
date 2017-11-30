@@ -11,7 +11,10 @@ const {
   newCardRouter,
   allBoardRouter,
   allListsOnBoardRouter,
-  allCardsonListRouter
+  allCardsonListRouter,
+  removeBoardRouter,
+  removeListRouter,
+  removeCardRouter
 } = require("./routes");
 
 if (process.env.NODE_ENV !== "production") {
@@ -58,6 +61,12 @@ app.get("/lists/:boardname", allListsOnBoardRouter);
 app.get("/cards/:listname/:username", allCardsonListRouter);
 
 app.get("/users", returnAllUsersRouter);
+
+app.get("/remove/card/:cardName", removeCardRouter);
+
+app.get("/remove/list/:listName", removeListRouter);
+
+app.get("/remove/board/:boardName", removeBoardRouter);
 
 app.get("*", (req, res, next) => {
   console.log("Called");

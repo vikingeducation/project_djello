@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 //Redux
 import { connect } from "react-redux";
-
+import Button from "../components/elements/Button";
 import ModalCard from "../components/ModalCard";
 import ModalButton from "../components/ModalButton";
 
-import { getCards } from "../actions";
+import { getCards, deleteCard } from "../actions";
 import NewCardForm from "../components/NewCardForm";
 
 class CardContainer extends Component {
@@ -15,11 +15,9 @@ class CardContainer extends Component {
     this.props.getCards(this.props.currentList.title, this.props.user);
   }
   render() {
-    console.log("RENDER CARDS", this.props.cards);
     let cards = this.props.cards.map(card => {
       let members = "";
       for (var i = 0; i < card.members.length; i++) {
-        console.log(card.members[i]);
         members += card.members[i] + " ";
       }
       return (
@@ -32,6 +30,20 @@ class CardContainer extends Component {
             <p>Title: {card.title}</p>
             <p>Description: {card.description}</p>
             <p>Members: {members}</p>
+            <Button
+              color="danger"
+              size="sm"
+              onClick={() => {
+                this.props.deleteCard(
+                  card.title,
+                  this.props.currentList.title,
+                  this.props.user
+                );
+                console.log("Delete", card.title);
+              }}
+            >
+              Delete List
+            </Button>
           </div>
         </ModalCard>
       );
@@ -58,6 +70,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getCards: (data, user) => {
       dispatch(getCards(data, user));
+    },
+    deleteCard: (title, list, user) => {
+      dispatch(deleteCard(title, list, user));
     }
   };
 };

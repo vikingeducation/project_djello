@@ -14,7 +14,7 @@ class NewCardForm extends Component {
 
   addUsers = e => {
     e.preventDefault();
-    console.log("add", e.target.name, e.target.value);
+
     this.setState({
       ...this.state,
       formUsers: [...this.state.formUsers, e.target.value]
@@ -23,7 +23,7 @@ class NewCardForm extends Component {
 
   removeUsers = e => {
     e.preventDefault();
-    console.log("remove", e.target.name, e.target.value);
+
     let newFormUsers = this.state.formUsers.filter(user => {
       if (user !== e.target.value) {
         return user;
@@ -69,10 +69,9 @@ class NewCardForm extends Component {
         }
       })
       .then(oneNewCard => {
-        console.log("SETTING HERE");
         let newCards = this.props.cards;
         newCards.push(oneNewCard.data);
-        console.log(newCards);
+
         this.props.setCards(newCards.slice(), this.props.currentListTitle);
       });
   };

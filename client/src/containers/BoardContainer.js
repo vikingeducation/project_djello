@@ -6,6 +6,7 @@ import Button from "../components/elements/Button";
 import { setCurrentBoard, getBoards } from "../actions";
 import NewBoardForm from "../components/NewBoardForm";
 import ListContainer from "./ListContainer";
+import { deleteBoard } from "../actions";
 
 class BoardContainer extends Component {
   componentWillMount() {
@@ -14,7 +15,22 @@ class BoardContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    //Set initail board title
     if (nextProps.boards.length && !this.props.currentBoard) {
+      nextProps.setCurrentBoardName({
+        target: { value: nextProps.boards[0].title }
+      });
+    }
+    //If delete last board then set Title empty
+    if (!nextProps.boards.length && this.props.currentBoard) {
+      nextProps.setCurrentBoardName({ target: { value: "" } });
+      nextProps.getBoards();
+    }
+    //If delete one board of many
+    if (
+      nextProps.boards.length !== this.props.boards.length &&
+      nextProps.boards.length > 0
+    ) {
       nextProps.setCurrentBoardName({
         target: { value: nextProps.boards[0].title }
       });
@@ -34,13 +50,16 @@ class BoardContainer extends Component {
       <div className="container container-fluid">
         <div className="row">
           <div className="col">
-            <p>Board Title</p>
+            <p>{this.props.currentBoard}</p>
           </div>
           <div className="col">
             <Button
               color="danger"
               size="sm"
-              onClick={() => console.log("Delete", this.props.currentBoard)}
+              onClick={() => {
+                this.props.deleteBoard(this.props.currentBoard);
+                console.log("Delete", this.props.currentBoard);
+              }}
             >
               Delete Board
             </Button>
@@ -72,11 +91,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentBoardName: data => {
-      console.log("SCN", data);
       dispatch(setCurrentBoard(data.target.value));
     },
     getBoards: () => {
       dispatch(getBoards());
+    },
+    deleteBoard: data => {
+      dispatch(deleteBoard(data));
     }
   };
 };

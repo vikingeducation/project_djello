@@ -91,6 +91,39 @@ export function getUsers() {
   };
 }
 
+export function deleteBoard(boardName) {
+  return dispatch => {
+    console.log("Requesting Delete Board");
+    dispatch(getRequest());
+    fetch(`/remove/board/${boardName}`).then(() => {
+      dispatch(getRequestSuccess());
+      dispatch(getBoards());
+    });
+  };
+}
+
+export function deleteList(listName, boardName) {
+  return dispatch => {
+    console.log("Requesting Delete List");
+    dispatch(getRequest());
+    fetch(`/remove/list/${listName}`).then(() => {
+      dispatch(getRequestSuccess());
+      dispatch(getLists(boardName));
+    });
+  };
+}
+
+export function deleteCard(cardName, listName, userName) {
+  return dispatch => {
+    console.log("Requesting Delete Card");
+    dispatch(getRequest());
+    fetch(`/remove/card/${cardName}`).then(() => {
+      dispatch(getRequestSuccess());
+      dispatch(getCards(listName, userName));
+    });
+  };
+}
+
 export function getBoards() {
   return dispatch => {
     console.log("Requesting Boards");

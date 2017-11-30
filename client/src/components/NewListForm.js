@@ -43,7 +43,6 @@ class NewListForm extends Component {
         }
       })
       .then(oneNewList => {
-        console.log("SETTING HERE");
         let newLists = this.props.lists;
         newLists.push(oneNewList.data);
         this.props.setLists(newLists.slice());

@@ -270,6 +270,42 @@ const newCardRouter = function(req, res) {
 };
 
 //–––––––––––––––––––––––––
+//Remove Routers
+//–––––––––––––––––––––––––
+const removeBoardRouter = function(req, res) {
+  Board.findOne({ where: { title: req.params.boardName } })
+    .then(board => {
+      return board.destroy();
+    })
+    .then(() => {
+      res.status(200).send("Good");
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+
+const removeListRouter = function(req, res) {
+  List.findOne({ where: { title: req.params.listName } })
+    .then(list => {
+      return list.destroy();
+    })
+    .then(() => {
+      res.status(200).send("Good");
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+
+const removeCardRouter = function(req, res) {
+  Card.findOne({ where: { title: req.params.cardName } })
+    .then(card => {
+      return card.destroy();
+    })
+    .then(() => {
+      res.status(200).send("Good");
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+
+//–––––––––––––––––––––––––
 //Tables Router
 //–––––––––––––––––––––––––
 const tablesRouter = function(req, res) {
@@ -291,5 +327,8 @@ module.exports = {
   newCardRouter,
   allBoardRouter,
   allListsOnBoardRouter,
-  allCardsonListRouter
+  allCardsonListRouter,
+  removeBoardRouter,
+  removeListRouter,
+  removeCardRouter
 };

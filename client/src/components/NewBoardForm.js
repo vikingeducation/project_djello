@@ -43,7 +43,6 @@ class NewBoardForm extends Component {
         }
       })
       .then(oneNewBoard => {
-        console.log("SETTING HERE");
         let newBoards = this.props.boards;
         newBoards.push(oneNewBoard.data);
         this.props.setBoards(newBoards.slice());
