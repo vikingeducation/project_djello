@@ -308,17 +308,71 @@ const removeCardRouter = function(req, res) {
 //–––––––––––––––––––––––––
 //Update Routers
 //–––––––––––––––––––––––––
-const changeBoardNameRouter = function(req, res) {
-  Board.findOne({ where: { title: req.params.oldName } })
+const changeBoardRouter = function(req, res) {
+  Board.findOne({ where: { title: req.body.oldName } })
     .then(board => {
       board
-        .update({ title: req.params.newName })
+        .update({ title: req.body.newName })
         .then(() => {
           res.status(200).send("Good");
         })
         .catch(e => res.status(500).send(e.stack));
     })
     .catch(e => res.status(500).send(e.stack));
+};
+
+const changeListRouter = function(req, res) {
+  List.findOne({ where: { title: req.body.oldName } })
+    .then(list => {
+      list
+        .update({ title: req.body.newName, description: req.body.description })
+        .then(() => {
+          res.status(200).send("Good");
+        })
+        .catch(e => res.status(500).send(e.stack));
+    })
+    .catch(e => res.status(500).send(e.stack));
+};
+
+const changeCardRouter = function(req, res) {
+  console.log(req.body.oldName, req.body.members);
+  Card.findOne({ where: { title: req.body.oldName } })
+    .then(card => {
+      User.findAll({
+        where: {
+          username: {
+            [Op.or]: req.body.members
+          }
+        },
+        attributes: ["id"]
+      }).then(users => {
+        let userArray = [];
+        for (var i = 0; i < users.length; i++) {
+          userArray.push(users[i].dataValues.id);
+        }
+        card
+          .update({
+            title: req.body.newName,
+            // listid: card.listid,
+            description: req.body.description,
+            // complete: card.complete,
+            members: userArray
+            // activity: card.activity
+          })
+          .then(() => {
+            console.log("GOOOD!!!!!");
+            res.status(200).send("Good");
+          })
+          .catch(e => {
+            console.log("WHY!!!");
+            res.status(500).send(e.stack);
+          });
+      });
+    })
+    .catch(e => {
+      console.log("BIGERR");
+      res.status(500).send(e.stack);
+    });
 };
 
 //–––––––––––––––––––––––––
@@ -347,5 +401,7 @@ module.exports = {
   removeBoardRouter,
   removeListRouter,
   removeCardRouter,
-  changeBoardNameRouter
+  changeBoardRouter,
+  changeListRouter,
+  changeCardRouter
 };

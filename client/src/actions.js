@@ -124,14 +124,82 @@ export function deleteCard(cardName, listName, userName) {
   };
 }
 
-export function changeBoardName(oldName, newName) {
+export function changeBoard(oldName, newName) {
   return dispatch => {
     console.log("Changing Board Name");
     dispatch(getRequest());
-    fetch(`/change/board/${oldName}/${newName}`).then(() => {
+    fetch("/change/board", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ oldName: oldName, newName: newName })
+    }).then(() => {
       dispatch(getRequestSuccess());
       dispatch(getBoards());
     });
+  };
+}
+
+export function changeList(oldName, newName, newDescription, boardName) {
+  return dispatch => {
+    console.log("Changing List");
+    dispatch(getRequest());
+    fetch("/change/list", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        oldName: oldName,
+        newName: newName,
+        description: newDescription
+      })
+    }).then(() => {
+      dispatch(getRequestSuccess());
+      dispatch(getLists(boardName));
+    });
+  };
+}
+
+export function changeCard(
+  oldName,
+  newName,
+  newDescription,
+  newMembers,
+  listName,
+  username
+) {
+  return dispatch => {
+    console.log("Changing Card");
+    dispatch(getRequest());
+    console.log(newMembers, newMembers.join(":"));
+    newMembers.join(":");
+    fetch("/change/card", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        oldName: oldName,
+        newName: newName,
+        description: newDescription,
+        members: newMembers
+      })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error with api");
+        }
+        return response.json();
+      })
+      .then(response => {
+        dispatch(getRequestSuccess());
+        dispatch(getCards(listName, username));
+      })
+      .catch(e => {
+        dispatch(getRequestFailure({ error: e }));
+      });
   };
 }
 

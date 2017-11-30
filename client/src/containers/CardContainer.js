@@ -5,8 +5,10 @@ import Button from "../components/elements/Button";
 import ModalCard from "../components/ModalCard";
 import ModalButton from "../components/ModalButton";
 
-import { getCards, deleteCard } from "../actions";
+import { getCards, deleteCard, changeCard } from "../actions";
 import NewCardForm from "../components/NewCardForm";
+import EditableField from "../components/EditableField";
+import EditableMembers from "../components/EditableMembers";
 
 class CardContainer extends Component {
   componentWillMount() {
@@ -27,9 +29,52 @@ class CardContainer extends Component {
           key={card.title}
         >
           <div>
-            <p>Title: {card.title}</p>
-            <p>Description: {card.description}</p>
-            <p>Members: {members}</p>
+            <p>
+              Title:
+              <EditableField
+                currentValue={card.title}
+                changeValue={this.props.changeCardTitle}
+                setCurrentValue={this.props.changeCurrentCard}
+                indexCurrentValue={this.props.user}
+                addtionalParmas={[
+                  card.description,
+                  card.members,
+                  this.props.user
+                ]}
+              />
+            </p>
+            <p>
+              Description:{" "}
+              {card.description ? (
+                <EditableField
+                  currentValue={card.description}
+                  changeValue={this.props.changeCardDescription}
+                  setCurrentValue={this.props.changeCurrentCard}
+                  indexCurrentValue={this.props.user}
+                  addtionalParmas={[card.title, card.members, this.props.user]}
+                />
+              ) : (
+                ""
+              )}
+            </p>
+            <p>
+              Members:{" "}
+              {members ? (
+                <EditableMembers
+                  currentValue={card.members}
+                  changeValue={this.props.changeCardMembers}
+                  setCurrentValue={this.props.changeCurrentCard}
+                  indexCurrentValue={this.props.user}
+                  addtionalParmas={[
+                    card.title,
+                    card.description,
+                    this.props.user
+                  ]}
+                />
+              ) : (
+                ""
+              )}
+            </p>
             <Button
               color="danger"
               size="sm"
@@ -42,7 +87,7 @@ class CardContainer extends Component {
                 console.log("Delete", card.title);
               }}
             >
-              Delete List
+              Delete Card
             </Button>
           </div>
         </ModalCard>
@@ -66,13 +111,56 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getCards: (data, user) => {
       dispatch(getCards(data, user));
     },
     deleteCard: (title, list, user) => {
       dispatch(deleteCard(title, list, user));
+    },
+    changeCurrentCard: (w, user) => {
+      dispatch(getCards(ownProps.currentList.title, user));
+    },
+    changeCardTitle: (oldName, newName, descriptionnewMembersUser) => {
+      dispatch(
+        changeCard(
+          oldName,
+          newName,
+          descriptionnewMembersUser[0],
+          descriptionnewMembersUser[1],
+          ownProps.currentList.title,
+          descriptionnewMembersUser[2]
+        )
+      );
+    },
+    changeCardDescription: (
+      oldDescription,
+      newDescription,
+      titleMembersUser
+    ) => {
+      dispatch(
+        changeCard(
+          titleMembersUser[0],
+          titleMembersUser[0],
+          newDescription,
+          titleMembersUser[1],
+          ownProps.currentList.title,
+          titleMembersUser[2]
+        )
+      );
+    },
+    changeCardMembers: (oldMembers, newMembers, titleDescriptionUser) => {
+      dispatch(
+        changeCard(
+          titleDescriptionUser[0],
+          titleDescriptionUser[0],
+          titleDescriptionUser[1],
+          newMembers,
+          ownProps.currentList.title,
+          titleDescriptionUser[2]
+        )
+      );
     }
   };
 };
