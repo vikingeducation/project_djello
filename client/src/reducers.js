@@ -9,7 +9,8 @@ const initailState = {
   lists: [],
   cards: {},
   isFetching: false,
-  error: null
+  error: null,
+  inputField: false
 };
 
 export function djello(state = initailState, action) {
@@ -76,6 +77,11 @@ export function djello(state = initailState, action) {
       return {
         ...state,
         currentBoard: action.data
+      };
+    case Actions.SET_INPUTFIELD_SHOW:
+      return {
+        ...state,
+        inputField: action.data
       };
     default:
       return state;

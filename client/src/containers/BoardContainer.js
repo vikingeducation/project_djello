@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Button from "../components/elements/Button";
-import { setCurrentBoard, getBoards } from "../actions";
+import { setCurrentBoard, getBoards, setInputfieldShow } from "../actions";
 import NewBoardForm from "../components/NewBoardForm";
 import ListContainer from "./ListContainer";
 import { deleteBoard, changeBoard } from "../actions";
@@ -48,7 +48,14 @@ class BoardContainer extends Component {
     });
 
     return (
-      <div className="container container-fluid">
+      <div
+        className="container container-fluid"
+        onClick={() => {
+          if (this.props.inputField) {
+            this.props.setInputfieldShow(false);
+          }
+        }}
+      >
         <div className="row">
           <div className="col">
             <EditableField
@@ -92,7 +99,8 @@ class BoardContainer extends Component {
 const mapStateToProps = state => {
   return {
     currentBoard: state.currentBoard,
-    boards: state.boards
+    boards: state.boards,
+    inputField: state.inputField
   };
 };
 
@@ -109,6 +117,9 @@ const mapDispatchToProps = dispatch => {
     },
     changeBoard: (oldName, newName) => {
       dispatch(changeBoard(oldName, newName));
+    },
+    setInputfieldShow: booleanValue => {
+      dispatch(setInputfieldShow(booleanValue));
     }
   };
 };

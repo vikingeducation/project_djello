@@ -7,10 +7,18 @@ export const SET_USERS = "SET_USERS";
 export const SET_BOARDS = "SET_BOARDS";
 export const SET_LISTS = "SET_LISTS";
 export const SET_CARDS = "SET_CARDS";
+export const SET_INPUTFIELD_SHOW = "SET_INPUTFIELD_SHOW";
 
 export function setCookie(data) {
   return {
     type: SET_COOKIE,
+    data
+  };
+}
+
+export function setInputfieldShow(data) {
+  return {
+    type: SET_INPUTFIELD_SHOW,
     data
   };
 }

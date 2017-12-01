@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { setInputfieldShow } from "../actions";
 
 class EditableField extends Component {
   constructor(props) {
@@ -19,12 +21,14 @@ class EditableField extends Component {
       show: !this.state.show,
       text: this.props.currentValue
     });
+    this.props.setInputfieldShow(true);
   }
   clickToHide(e) {
     console.log("hide????");
     if (this.state.show) {
       this.setState({ show: false });
     }
+    this.props.setInputfieldShow(false);
   }
   onEnteredText(event) {
     this.setState({ text: event.target.value });
@@ -47,10 +51,16 @@ class EditableField extends Component {
     event.stopPropagation();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.inputField && !nextProps.inputField) {
+      this.setState({ show: false });
+    }
+  }
+
   render() {
     let title = <p onClick={this.onClick}>{this.props.currentValue}</p>;
 
-    if (this.state.show) {
+    if (this.state.show && this.props.inputField) {
       title = (
         <div onClick={this.preventing}>
           <input onChange={this.onEnteredText} value={this.state.text} />
@@ -59,9 +69,24 @@ class EditableField extends Component {
         </div>
       );
     }
+
     return <div>{title}</div>;
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    inputField: state.inputField
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setInputfieldShow: booleanValue => {
+      dispatch(setInputfieldShow(booleanValue));
+    }
+  };
+};
 
 EditableField.propTypes = {
   currentValue: PropTypes.string.isRequired,
@@ -71,4 +96,4 @@ EditableField.propTypes = {
   indexCurrentValue: PropTypes.node
 };
 //<EditableField currentValue={string} changeValue={func} setCurrentValue={func} />
-export default EditableField;
+export default connect(mapStateToProps, mapDispatchToProps)(EditableField);
