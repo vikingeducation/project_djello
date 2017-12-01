@@ -83,7 +83,7 @@ export function getUsers() {
   return dispatch => {
     console.log("Requesting Users");
     dispatch(getRequest());
-    fetch("/users")
+    fetch("https://desolate-temple-73642.herokuapp.com/users")
       .then(response => {
         if (!response.ok) {
           throw new Error("Error with api");
@@ -103,7 +103,9 @@ export function deleteBoard(boardName) {
   return dispatch => {
     console.log("Requesting Delete Board");
     dispatch(getRequest());
-    fetch(`/remove/board/${boardName}`).then(() => {
+    fetch(
+      `https://desolate-temple-73642.herokuapp.com/remove/board/${boardName}`
+    ).then(() => {
       dispatch(getRequestSuccess());
       dispatch(getBoards());
     });
@@ -114,7 +116,9 @@ export function deleteList(listName, boardName) {
   return dispatch => {
     console.log("Requesting Delete List");
     dispatch(getRequest());
-    fetch(`/remove/list/${listName}`).then(() => {
+    fetch(
+      `https://desolate-temple-73642.herokuapp.com/remove/list/${listName}`
+    ).then(() => {
       dispatch(getRequestSuccess());
       dispatch(getLists(boardName));
     });
@@ -125,7 +129,9 @@ export function deleteCard(cardName, listName, userName) {
   return dispatch => {
     console.log("Requesting Delete Card");
     dispatch(getRequest());
-    fetch(`/remove/card/${cardName}`).then(() => {
+    fetch(
+      `https://desolate-temple-73642.herokuapp.com/remove/card/${cardName}`
+    ).then(() => {
       dispatch(getRequestSuccess());
       dispatch(getCards(listName, userName));
     });
@@ -236,7 +242,7 @@ export function getLists(boardName) {
   return dispatch => {
     console.log("Requesting Lists");
     dispatch(getRequest());
-    fetch(`/lists/${boardName}`)
+    fetch(`https://desolate-temple-73642.herokuapp.com/lists/${boardName}`)
       .then(response => {
         if (!response.ok) {
           throw new Error("Error with api");
@@ -257,7 +263,11 @@ export function getCards(listName, username) {
   return dispatch => {
     console.log("Requesting Cards");
     dispatch(getRequest());
-    fetch(`/cards/${listName}/${username}`)
+    fetch(
+      `https://desolate-temple-73642.herokuapp.com/cards/${listName}/${
+        username
+      }`
+    )
       .then(response => {
         if (!response.ok) {
           throw new Error("Error with api");

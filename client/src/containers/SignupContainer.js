@@ -15,7 +15,7 @@ const SignupContainer = ({ setCookieInfo }) => {
     let data = serialize(form, { hash: true });
 
     if (data.username && data.password) {
-      fetch("/signup", {
+      fetch("https://desolate-temple-73642.herokuapp.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -18,7 +18,7 @@ class NewListForm extends Component {
     const form = e.target;
     let data = serialize(form, { hash: true });
     data.boardname = this.props.currentBoard;
-    fetch("/newList", {
+    fetch("https://desolate-temple-73642.herokuapp.com/newList", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

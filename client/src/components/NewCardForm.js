@@ -45,7 +45,7 @@ class NewCardForm extends Component {
     data.members = this.state.formUsers;
     data.listTitle = this.props.currentListTitle;
     data.user = this.props.user;
-    fetch("/newCard", {
+    fetch("https://desolate-temple-73642.herokuapp.com/newCard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

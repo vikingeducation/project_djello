@@ -18,7 +18,7 @@ class NewBoardForm extends Component {
 
     const form = e.target;
     let data = serialize(form, { hash: true });
-    fetch("/newBoard", {
+    fetch("https://desolate-temple-73642.herokuapp.com/newBoard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
