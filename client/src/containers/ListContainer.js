@@ -9,6 +9,7 @@ import NewListForm from "../components/NewListForm";
 
 import CardContainer from "./CardContainer";
 import EditableField from "../components/EditableField";
+import bin from "../icons/glyphicons-17-bin.png";
 
 class ListContainer extends Component {
   componentWillMount() {
@@ -36,7 +37,7 @@ class ListContainer extends Component {
                 console.log("Delete", list.title);
               }}
             >
-              Delete List
+              <img src={bin} alt="Delete" /> List
             </Button>
             <h4 className="card-title text-center">
               <EditableField
@@ -67,7 +68,7 @@ class ListContainer extends Component {
     });
     lists.push(
       <div className="col" key="newList">
-        <ModalButton key="AddCard" label="Add A List">
+        <ModalButton key="AddCard" label="+ List">
           <h4>New List</h4>
           <NewListForm />
         </ModalButton>

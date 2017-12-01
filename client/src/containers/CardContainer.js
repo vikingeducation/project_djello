@@ -9,6 +9,7 @@ import { getCards, deleteCard, changeCard, markComplete } from "../actions";
 import NewCardForm from "../components/NewCardForm";
 import EditableField from "../components/EditableField";
 import EditableMembers from "../components/EditableMembers";
+import bin from "../icons/glyphicons-17-bin.png";
 
 class CardContainer extends Component {
   componentWillMount() {
@@ -111,14 +112,14 @@ class CardContainer extends Component {
                 console.log("Delete", card.title);
               }}
             >
-              Delete Card
+              <img src={bin} alt="Delete" /> Card
             </Button>
           </div>
         </ModalCard>
       );
     });
     cards.push(
-      <ModalButton key="AddCard" label="Add A Card">
+      <ModalButton key="AddCard" label="+ Card">
         <h4>New Card</h4>
 
         <NewCardForm currentListTitle={this.props.currentList.title} />

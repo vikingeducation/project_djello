@@ -57,7 +57,7 @@ class NewBoardForm extends Component {
       status = <div className="alert alert-success">{this.state.status}</div>;
     }
     return (
-      <ModalButton size={this.props.size} key="NewBoard" label="New Board">
+      <ModalButton size={this.props.size} key="NewBoard" label="+ Board">
         <form onSubmit={this.onSubmitting}>
           <h4>New Board</h4>
           {status}

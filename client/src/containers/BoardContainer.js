@@ -8,6 +8,7 @@ import NewBoardForm from "../components/NewBoardForm";
 import ListContainer from "./ListContainer";
 import { deleteBoard, changeBoard } from "../actions";
 import EditableField from "../components/EditableField";
+import bin from "../icons/glyphicons-17-bin.png";
 
 class BoardContainer extends Component {
   componentWillMount() {
@@ -73,7 +74,7 @@ class BoardContainer extends Component {
                 console.log("Delete", this.props.currentBoard);
               }}
             >
-              Delete Board
+              <img src={bin} alt="Delete" /> Board
             </Button>
           </div>
           <div className="col">
