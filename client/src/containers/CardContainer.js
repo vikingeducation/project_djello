@@ -22,6 +22,9 @@ class CardContainer extends Component {
       for (var i = 0; i < card.members.length; i++) {
         members += card.members[i] + " ";
       }
+      let activity = card.activity.map(act => {
+        return <p>{act}</p>;
+      });
       return (
         <ModalCard
           title={card.title}
@@ -75,6 +78,7 @@ class CardContainer extends Component {
                 ""
               )}
             </p>
+            <p>Activity: {card.activity ? activity : ""}</p>
             <Button
               color="danger"
               size="sm"

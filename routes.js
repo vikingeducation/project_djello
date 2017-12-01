@@ -238,7 +238,14 @@ const newCardRouter = function(req, res) {
                 listid: list.id,
                 complete: false,
                 members: userArray,
-                activity: [""]
+                activity: [
+                  `${req.body.user} created at ${new Date().getMonth() +
+                    1 +
+                    "/" +
+                    new Date().getDate() +
+                    "/" +
+                    new Date().getFullYear()}`
+                ]
               };
               Card.create(createParams)
                 .then(card => {
@@ -335,7 +342,6 @@ const changeListRouter = function(req, res) {
 };
 
 const changeCardRouter = function(req, res) {
-  console.log(req.body.oldName, req.body.members);
   Card.findOne({ where: { title: req.body.oldName } })
     .then(card => {
       User.findAll({
@@ -350,14 +356,51 @@ const changeCardRouter = function(req, res) {
         for (var i = 0; i < users.length; i++) {
           userArray.push(users[i].dataValues.id);
         }
+        let activityArray = [];
+        for (var j = 0; j < card.activity.length; j++) {
+          activityArray.push(card.activity[j]);
+        }
+        if (req.body.oldName !== req.body.newName) {
+          activityArray.push(
+            `${req.body.user} updated title to ${
+              req.body.newName
+            } at ${new Date().getMonth() +
+              1 +
+              "/" +
+              new Date().getDate() +
+              "/" +
+              new Date().getFullYear()}`
+          );
+        } else if (req.body.description !== card.description) {
+          activityArray.push(
+            `${req.body.user} updated description to ${
+              req.body.description
+            } at ${new Date().getMonth() +
+              1 +
+              "/" +
+              new Date().getDate() +
+              "/" +
+              new Date().getFullYear()}`
+          );
+        } else {
+          activityArray.push(
+            `${req.body.user} updated members at ${new Date().getMonth() +
+              1 +
+              "/" +
+              new Date().getDate() +
+              "/" +
+              new Date().getFullYear()}`
+          );
+        }
+
         card
           .update({
             title: req.body.newName,
             // listid: card.listid,
             description: req.body.description,
             // complete: card.complete,
-            members: userArray
-            // activity: card.activity
+            members: userArray,
+            activity: activityArray
           })
           .then(() => {
             console.log("GOOOD!!!!!");
@@ -368,6 +411,35 @@ const changeCardRouter = function(req, res) {
             res.status(500).send(e.stack);
           });
       });
+    })
+    .catch(e => {
+      console.log("BIGERR");
+      res.status(500).send(e.stack);
+    });
+};
+
+const addActivityRouter = function(req, res) {
+  console.log(req.body.title, req.body.newActivity);
+  Card.findOne({ where: { title: req.body.title } })
+    .then(card => {
+      console.log(card.activity);
+      let activityArray = [];
+      for (var i = 0; i < card.activity.length; i++) {
+        activityArray.push(card.activity[i]);
+      }
+      activityArray.push(req.body.newActivity);
+      card
+        .update({
+          activity: activityArray
+        })
+        .then(() => {
+          console.log("GOOOD!!!!!");
+          res.status(200).send("Good");
+        })
+        .catch(e => {
+          console.log("WHY!!!");
+          res.status(500).send(e.stack);
+        });
     })
     .catch(e => {
       console.log("BIGERR");
@@ -403,5 +475,6 @@ module.exports = {
   removeCardRouter,
   changeBoardRouter,
   changeListRouter,
-  changeCardRouter
+  changeCardRouter,
+  addActivityRouter
 };
