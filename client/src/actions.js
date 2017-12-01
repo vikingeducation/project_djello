@@ -192,12 +192,9 @@ export function changeCard(
         if (!response.ok) {
           throw new Error("Error with api");
         }
-        return response.json();
+        return true;
       })
       .then(response => {
-        // dispatch(
-        //   addActivity(`${username} updated on`, newName, listName, username)
-        // );
         dispatch(getRequestSuccess());
         dispatch(getCards(listName, username));
       })
@@ -267,25 +264,28 @@ export function getCards(listName, username) {
       });
   };
 }
-export function addActivity(newActivity, cardTitle, listName, username) {
+
+export function markComplete(title, complete, username, listName) {
   return dispatch => {
-    console.log("Adding Activity");
+    console.log("Completeing Card");
     dispatch(getRequest());
-    fetch("/add/activity/card", {
+
+    fetch("/complete/card", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        title: cardTitle,
-        newActivity: newActivity
+        title: title,
+        user: username,
+        complete: complete
       })
     })
       .then(response => {
         if (!response.ok) {
           throw new Error("Error with api");
         }
-        return response.json();
+        return true;
       })
       .then(response => {
         dispatch(getRequestSuccess());

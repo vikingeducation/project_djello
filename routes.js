@@ -418,18 +418,36 @@ const changeCardRouter = function(req, res) {
     });
 };
 
-const addActivityRouter = function(req, res) {
-  console.log(req.body.title, req.body.newActivity);
+const completeCardRouter = function(req, res) {
   Card.findOne({ where: { title: req.body.title } })
     .then(card => {
-      console.log(card.activity);
       let activityArray = [];
-      for (var i = 0; i < card.activity.length; i++) {
-        activityArray.push(card.activity[i]);
+      for (var j = 0; j < card.activity.length; j++) {
+        activityArray.push(card.activity[j]);
       }
-      activityArray.push(req.body.newActivity);
+      if (req.body.complete) {
+        activityArray.push(
+          `${req.body.user} completed at ${new Date().getMonth() +
+            1 +
+            "/" +
+            new Date().getDate() +
+            "/" +
+            new Date().getFullYear()}`
+        );
+      } else {
+        activityArray.push(
+          `${req.body.user} uncompleted at ${new Date().getMonth() +
+            1 +
+            "/" +
+            new Date().getDate() +
+            "/" +
+            new Date().getFullYear()}`
+        );
+      }
+
       card
         .update({
+          complete: req.body.complete,
           activity: activityArray
         })
         .then(() => {
@@ -476,5 +494,5 @@ module.exports = {
   changeBoardRouter,
   changeListRouter,
   changeCardRouter,
-  addActivityRouter
+  completeCardRouter
 };

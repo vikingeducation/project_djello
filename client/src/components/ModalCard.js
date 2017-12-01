@@ -17,7 +17,12 @@ class ModalCard extends Component {
   render() {
     return (
       <div className="ModalCard text-center" onClick={this.toggleModal}>
-        <div className="card subcard" key={this.props.title}>
+        <div
+          className={
+            this.props.darker ? "card subcard completed" : "card subcard"
+          }
+          key={this.props.title}
+        >
           <p>{this.props.title}</p>
           <p>{this.props.description}</p>
         </div>

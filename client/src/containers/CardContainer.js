@@ -5,7 +5,7 @@ import Button from "../components/elements/Button";
 import ModalCard from "../components/ModalCard";
 import ModalButton from "../components/ModalButton";
 
-import { getCards, deleteCard, changeCard } from "../actions";
+import { getCards, deleteCard, changeCard, markComplete } from "../actions";
 import NewCardForm from "../components/NewCardForm";
 import EditableField from "../components/EditableField";
 import EditableMembers from "../components/EditableMembers";
@@ -23,15 +23,35 @@ class CardContainer extends Component {
         members += card.members[i] + " ";
       }
       let activity = card.activity.map(act => {
-        return <p>{act}</p>;
+        return <p key={act}>{act}</p>;
       });
       return (
         <ModalCard
-          title={card.title}
+          title={card.complete ? card.title + ": completed" : card.title}
           description={card.description ? card.description : ""}
+          darker={card.complete}
           key={card.title}
         >
           <div>
+            {card.complete ? (
+              <Button
+                onClick={() =>
+                  this.props.unmarkComplete(card.title, this.props.user)
+                }
+                color="dark"
+              >
+                Completed!
+              </Button>
+            ) : (
+              <Button
+                onClick={() =>
+                  this.props.markComplete(card.title, this.props.user)
+                }
+                color="warning"
+              >
+                Complete?
+              </Button>
+            )}
             <p>
               Title:
               <EditableField
@@ -164,6 +184,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           ownProps.currentList.title,
           titleDescriptionUser[2]
         )
+      );
+    },
+    markComplete: (title, username) => {
+      dispatch(markComplete(title, true, username, ownProps.currentList.title));
+    },
+    unmarkComplete: (title, username) => {
+      dispatch(
+        markComplete(title, false, username, ownProps.currentList.title)
       );
     }
   };

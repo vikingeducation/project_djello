@@ -18,7 +18,7 @@ const {
   changeBoardRouter,
   changeListRouter,
   changeCardRouter,
-  addActivityRouter
+  completeCardRouter
 } = require("./routes");
 
 if (process.env.NODE_ENV !== "production") {
@@ -70,7 +70,7 @@ app.post("/change/board", changeBoardRouter);
 app.post("/change/list", changeListRouter);
 app.post("/change/card", changeCardRouter);
 
-app.post("/add/activity/card", addActivityRouter);
+app.post("/complete/card", completeCardRouter);
 
 app.get("/remove/card/:cardName", removeCardRouter);
 
