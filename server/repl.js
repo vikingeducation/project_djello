@@ -1,31 +1,32 @@
-const repl = require('repl').start({});
-const lodash = require('lodash');
-const helpers = require('./helpers');
+// Require the REPL module
+// and models
+var repl = require("repl").start({});
+var models = require("./models");
 
+// Make the `models` object
+// a global variable in the
+// REPL
+repl.context.models = models;
 
-
-
-// ----------------------------------------
-// Libs
-// ----------------------------------------
-repl.context.lodash = lodash;
-
-
-
-// ----------------------------------------
-// Helpers
-// ----------------------------------------
-repl.context.helpers = helpers;
-Object.keys(helpers).forEach(key => {
-  repl.context[key] = helpers[key];
+// Make each model a global
+// object in the REPL
+Object.keys(models).forEach(modelName => {
+  repl.context[modelName] = models[modelName];
 });
 
-
-// ----------------------------------------
-// Logging
-// ----------------------------------------
-repl.context.lg = console.log;
-
-
-
-
+// Provide a convenience function `lg`
+// to pass to `then()` and `catch()`
+// to output less verbose values for
+// sequelize model query results
+repl.context.lg = data => {
+  if (Array.isArray(data)) {
+    if (data.length && data[0].dataValues) {
+      data = data.map(item => item.dataValues);
+    }
+  } else {
+    if (data.dataValues) {
+      data = data.dataValues;
+    }
+  }
+  console.log(data);
+};
