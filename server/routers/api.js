@@ -8,40 +8,38 @@ var sequelize = models.sequelize;
 // Create User
 // ----------------------------------------
 router.post("/users", (req, res) => {
-  console.log("req =>", req);
+  console.log("req =>", req.body);
+  let body = req.body;
+  var userParams = {
+    firstName: body.firstName,
+    lastName: body.lastName,
+    email: body.email,
+    password: body.password
+  };
 
-  res.send("sent");
-  // var userParams = {
-  //   firstName: body.firstName,
-  //   lastName: body.lastName,
-  //   email: body.email,
-  //   password: body.password
-  // };
-  //
-  // User.create(userParams)
-  //   .then(user => {
-  //     res.json(user);
-  //   })
-  //   .catch(e => res.send("error"));
+  User.create(userParams)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(e => res.send("error"));
 });
 
 // route test
-// curl -H "Content-Type: application/json" -X POST -d '{"firstName":"xyz", "lastName": "ddk", "email": "skjdflkjsd@gmail.welcome", "password":"xyz"}' http://localhost:3000/api/users
-
-module.exports = router;
+//replace body parser URL encoded with this: app.use(bodyParser.json());
+//curl -H "Content-Type: application/json" -d '{"firstName":"xyz", "lastName": "ddk", "email": "skjdflkjsd@gmail.welcome", "password":"xyz"}' http://localhost:3000/api/users
 
 // ----------------------------------------
 // Index
 // ----------------------------------------
 // var onIndex = (req, res) => {
 //   User.findAll()
-//     .then((users) => {
-//       res.render('users/index', { users });
+//     .then(users => {
+//       res.render("users/index", { users });
 //     })
-//     .catch((e) => res.status(500).send(e.stack));
+//     .catch(e => res.status(500).send(e.stack));
 // };
-// router.get('/', onIndex);
-// router.get('/users', onIndex);
+// router.get("/", onIndex);
+// router.get("/users", onIndex);
 
 // ----------------------------------------
 // New
@@ -119,3 +117,5 @@ module.exports = router;
 //     })
 //     .catch(e => res.status(500).send(e.stack));
 // });
+
+module.exports = router;

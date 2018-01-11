@@ -17,7 +17,8 @@ if (process.env.NODE_ENV !== "production") {
 // Body Parser
 // ----------------------------------------
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // ----------------------------------------
 // Sessions/Cookies
@@ -134,7 +135,7 @@ app.use((err, req, res, next) => {
   if (err.stack) {
     err = err.stack;
   }
-  res.status(500).render("errors/500", {error: err});
+  res.status(500).render("errors/500", { error: err });
 });
 
 module.exports = app;

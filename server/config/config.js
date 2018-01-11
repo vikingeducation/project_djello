@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 
 module.exports = {
   development: {
@@ -16,11 +16,7 @@ module.exports = {
     dialect: "postgres"
   },
   production: {
-    username: process.env.POSTGRES_USERNAME,
-    password: process.env.POSTGRES_PASSWORD,
-    database: "djello_production",
-    host: "127.0.0.1",
+    use_env_variable: "POSTGRES_URL",
     dialect: "postgres"
   }
-}
-
+};

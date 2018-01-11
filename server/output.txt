@@ -1,0 +1,26 @@
+Listening: http://localhost:3000
+
+req => { firstName: 'xyz',
+  lastName: 'ddk',
+  email: 'skjdflkjsd@gmail.welcome',
+  password: 'xyz' }
+****
+POST /api/users 200 4 - 9.329 ms
+
+Query: {}
+Params: {}
+Body: {
+  "firstName": "xyz",
+  "lastName": "ddk",
+  "email": "skjdflkjsd@gmail.welcome",
+  "password": "xyz"
+}
+Session: {
+  "backUrl": "/"
+}
+Cookies: {}
+SignedCookies: {}
+Cookies: {}
+****
+
+

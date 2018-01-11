@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -12,17 +12,17 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-  var users = [];
-  for (let i = 0; i < 10; i++) {
-    users.push({
-      fname: `Foo${ i }`,
-      lname: `Bar${ i }`,
-      email: `foobar${ i }@gmail.com`,
-      accesstoken: `${i}`,
-      password: `${i}`
-    });
-  }
-  return queryInterface.bulkInsert('Users', users);
+    var users = [];
+    for (let i = 0; i < 10; i++) {
+      users.push({
+        firstName: `Foo${i}`,
+        lastName: `Bar${i}`,
+        email: `foobar${i}@gmail.com`,
+        accessToken: `${i}`,
+        password: `${i}`
+      });
+    }
+    return queryInterface.bulkInsert("Users", users);
   },
 
   down: (queryInterface, Sequelize) => {
