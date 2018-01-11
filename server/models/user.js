@@ -12,6 +12,26 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Activity, {
       foreignKey: "userId"
     });
+
+    User.hasMany(models.UserToBoardJoin, {
+      foreignKey: "userId"
+    });
+
+    User.belongsToMany(models.Broad, {
+      through: models.UserToBoardJoin,
+      as: "UserId",
+      foreignKey: "userId"
+    });
+
+    User.hasMany(models.UserToCardJoin, {
+      foreignKey: "userId"
+    });
+
+    User.belongsToMany(models.Card, {
+      through: models.UserToCardJoin,
+      as: "UserId",
+      foreignKey: "userId"
+    });
   };
 
   return User;

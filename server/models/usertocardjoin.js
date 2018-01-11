@@ -1,13 +1,18 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  var UserToCardJoin = sequelize.define('UserToCardJoin', {
+  var UserToCardJoin = sequelize.define("UserToCardJoin", {
     card: DataTypes.ID
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  UserToCardJoin.associate = function(models) {
+    UserToCardJoin.belongsTo(models.Card, {
+      foreignKey: "cardid"
+    });
+
+    UserToCardJoin.belongsTo(models.User, {
+      foreignKey: "userid"
+    });
+  };
+
   return UserToCardJoin;
 };

@@ -1,13 +1,18 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  var UserToTeamJoin = sequelize.define('UserToTeamJoin', {
+  var UserToTeamJoin = sequelize.define("UserToTeamJoin", {
     team: DataTypes.ID
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  UserToTeamJoin.associate = function(models) {
+    UserToTeamJoin.belongsTo(models.Team, {
+      foreignKey: "teamid"
+    });
+
+    UserToTeamJoin.belongsTo(models.User, {
+      foreignKey: "userid"
+    });
+  };
+
   return UserToTeamJoin;
 };

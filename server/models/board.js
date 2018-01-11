@@ -8,6 +8,16 @@ module.exports = (sequelize, DataTypes) => {
     Board.hasMany(models.List, {
       foreignKey: "boardid"
     });
+
+    Board.hasMany(models.UserToBoardJoin, {
+      foreignKey: "boardid"
+    });
+
+    Board.belongsToMany(models.User, {
+      through: models.UserToBoardJoin,
+      as: "BoardId",
+      foreignKey: "boardid"
+    });
   };
 
   return Board;
