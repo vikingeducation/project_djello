@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      boardid: {
+      boardId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

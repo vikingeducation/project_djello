@@ -1,10 +1,10 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define("User", {
-    fname: DataTypes.STRING,
-    lname: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
     email: DataTypes.STRING,
-    accesstoken: DataTypes.STRING,
+    accessToken: DataTypes.STRING,
     password: DataTypes.STRING
   });
 
@@ -13,13 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId"
     });
 
-    User.hasMany(models.UserToBoardJoin, {
-      foreignKey: "userId"
-    });
-
-    User.belongsToMany(models.Broad, {
-      through: models.UserToBoardJoin,
-      as: "UserId",
+    User.hasMany(models.Broad, {
       foreignKey: "userId"
     });
 

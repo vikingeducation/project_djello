@@ -11,7 +11,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      listid: {
+      body: {
+        type: Sequelize.STRING
+      },
+      listId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

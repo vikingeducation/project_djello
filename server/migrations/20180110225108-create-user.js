@@ -8,19 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fname: {
+      firstName: {
         type: Sequelize.STRING,
-        validate: {isAlpha: true}
+        //validate: {isAlpha: true}
       },
-      lname: {
+      lastName: {
         type: Sequelize.STRING,
-        validate: {isAlpha: true}
+        //validate: {isAlpha: true}
       },
       email: {
         type: Sequelize.STRING,
-        validate: {isEmai: true}
+        validate: {isEmail: true}
       },
-      accesstoken: {
+      accessToken: {
         type: Sequelize.STRING,
         validate: {isNull: true}
       },

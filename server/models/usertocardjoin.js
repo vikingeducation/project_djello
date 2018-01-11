@@ -1,16 +1,17 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   var UserToCardJoin = sequelize.define("UserToCardJoin", {
-    card: DataTypes.ID
+    cardId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
   });
 
   UserToCardJoin.associate = function(models) {
     UserToCardJoin.belongsTo(models.Card, {
-      foreignKey: "cardid"
+      foreignKey: "cardId"
     });
 
     UserToCardJoin.belongsTo(models.User, {
-      foreignKey: "userid"
+      foreignKey: "userId"
     });
   };
 

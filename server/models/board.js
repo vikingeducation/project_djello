@@ -6,17 +6,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Board.associate = function(models) {
     Board.hasMany(models.List, {
-      foreignKey: "boardid"
+      foreignKey: "boardId"
     });
 
-    Board.hasMany(models.UserToBoardJoin, {
-      foreignKey: "boardid"
-    });
-
-    Board.belongsToMany(models.User, {
-      through: models.UserToBoardJoin,
-      as: "BoardId",
-      foreignKey: "boardid"
+    Board.belongsTo(models.User, {
+      foreignKey: "userId"
     });
   };
 

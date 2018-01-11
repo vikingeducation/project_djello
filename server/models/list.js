@@ -6,13 +6,11 @@ module.exports = (sequelize, DataTypes) => {
 
   List.associate = function(models) {
     List.belongsTo(models.Board, {
-      foreignKey: "boardid"
+      foreignKey: "boardId"
     });
-  };
 
-  List.associate = function(models) {
     List.hasMany(models.Card, {
-      foreignKey: "listid"
+      foreignKey: "listId"
     });
   };
 

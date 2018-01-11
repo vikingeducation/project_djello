@@ -6,21 +6,21 @@ module.exports = (sequelize, DataTypes) => {
 
   Card.associate = function(models) {
     Card.belongsTo(models.List, {
-      foreignKey: "listid"
+      foreignKey: "listId"
     });
 
     Card.hasMany(models.Activity, {
-      foreignKey: "cardid"
+      foreignKey: "cardId"
     });
 
     Card.hasMany(models.UserToCardJoin, {
-      foreignKey: "cardid"
+      foreignKey: "cardId"
     });
 
     Card.belongsToMany(models.User, {
       through: models.UserToCardJoin,
       as: "CardId",
-      foreignKey: "cardid"
+      foreignKey: "cardId"
     });
   };
 
