@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId"
     });
 
-    User.hasMany(models.Broad, {
+    User.hasMany(models.Board, {
       foreignKey: "userId"
     });
 

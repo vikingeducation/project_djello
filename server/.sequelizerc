@@ -2,10 +2,10 @@ var path = require('path');
 
 // Set options
 var config = {
-  "config": "./config/sequelize.js",
-  "migrations-path": "./migrations/sequelize",
-  "seeders-path": "./seeds/sequelize",
-  "models-path": "./models/sequelize"
+  "config": "./config/config.js",
+  "migrations-path": "./migrations",
+  "seeders-path": "./seeds",
+  "models-path": "./models"
 };
 
 // Resolve paths to absolute paths
