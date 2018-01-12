@@ -127,15 +127,24 @@ if (require.main === module) {
 // ----------------------------------------
 // Error Handling
 // ----------------------------------------
+const createError = require("http-errors");
+
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
 
-  if (err.stack) {
-    err = err.stack;
-  }
-  res.status(500).render("errors/500", { error: err });
+  console.error(err);
+
+  err = err.status ? createError(err.status, err.message) : createError(500);
+
+  res.status(err.status).json({
+    error: {
+      status: err.status,
+      statusCode: err.status,
+      message: err.message
+    }
+  });
 });
 
 module.exports = app;

@@ -23,7 +23,7 @@ router.post("/users", (req, res) => {
     .then(user => {
       res.json(user);
     })
-    .catch(e => res.send("error"));
+    .catch(e => next(e));
 });
 //curl -H "Content-Type: application/json" -d '{"firstName":"xyz", "lastName": "ddk", "email": "skjdflkjsd@gmail.welcome", "password":"xyz"}' http://localhost:3000/api/users
 
@@ -37,11 +37,11 @@ router.post("/users/:id/newboard", async (req, res) => {
     let body = req.body;
     let boardName = body.boardName;
 
-    let board = await Board.create({name: boardName, userId: id});
+    let board = await Board.create({ name: boardName, userId: id });
 
     res.json(board);
   } catch (e) {
-    console.log("errror =>", e);
+    next(e);
   }
 });
 //curl -H 'Content-Type: application/json' -d '{"boardName":"xyz"}' http://localhost:3000/api/users/10/newboard
@@ -56,11 +56,11 @@ router.post("/board/:id/newlist", async (req, res) => {
     let body = req.body;
     let listName = body.listName;
 
-    let list = await List.create({name: listName, boardId: id});
+    let list = await List.create({ name: listName, boardId: id });
 
     res.json(list);
   } catch (e) {
-    console.log("errror =>", e);
+    next(e);
   }
 });
 //curl -H 'Content-Type: application/json' -d '{"listName":"xyz"}' http://localhost:3000/api/board/1/newlist
@@ -76,11 +76,15 @@ router.post("/list/:id/newcard", async (req, res) => {
     let cardName = body.cardName;
     let cardBody = body.cardBody;
 
-    let card = await Card.create({name: cardName, listId: id, body: cardBody});
+    let card = await Card.create({
+      name: cardName,
+      listId: id,
+      body: cardBody
+    });
 
     res.json(card);
   } catch (e) {
-    console.log("errror =>", e);
+    next(e);
   }
 });
 //curl -H 'Content-Type: application/json' -d '{"cardName":"xyz", "cardBody": "kjsldkfjsdljfsdlkfj"}' http://localhost:3000/api/list/1/newCard
