@@ -1,7 +1,8 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   var List = sequelize.define("List", {
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    boardId: DataTypes.INTEGER
   });
 
   List.associate = function(models) {

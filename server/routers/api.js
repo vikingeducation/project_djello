@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var models = require("./../models");
 var User = models.User;
+var Board = models.Board;
+var List = models.List;
 var sequelize = models.sequelize;
 
 // ----------------------------------------
@@ -23,10 +25,68 @@ router.post("/users", (req, res) => {
     })
     .catch(e => res.send("error"));
 });
+//curl -H "Content-Type: application/json" -d '{"firstName":"xyz", "lastName": "ddk", "email": "skjdflkjsd@gmail.welcome", "password":"xyz"}' http://localhost:3000/api/users
+
+// ----------------------------------------
+// Create Board
+// ----------------------------------------
+router.post("/users/:id/newboard", async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    let body = req.body;
+    let boardName = body.boardName;
+
+    let board = await Board.create({name: boardName, userId: id});
+
+    res.json(board);
+  } catch (e) {
+    console.log("errror =>", e);
+  }
+});
+//curl -H 'Content-Type: application/json' -d '{"boardName":"xyz"}' http://localhost:3000/api/users/10/newboard
+
+// ----------------------------------------
+// Create List
+// ----------------------------------------
+router.post("/board/:id/newlist", async (req, res) => {
+  try {
+    const id = req.params.id; //boardId
+
+    let body = req.body;
+    let listName = body.listName;
+
+    let list = await List.create({name: listName, boardId: id});
+
+    res.json(list);
+  } catch (e) {
+    console.log("errror =>", e);
+  }
+});
+//curl -H 'Content-Type: application/json' -d '{"listName":"xyz"}' http://localhost:3000/api/board/1/newlist
+
+// ----------------------------------------
+// Create Cards
+// ----------------------------------------
+router.post("/list/:id/newcard", async (req, res) => {
+  try {
+    const id = req.params.id; //listId
+
+    let body = req.body;
+    let cardName = body.cardName;
+    let cardBody = body.cardBody;
+
+    let card = await Card.create({name: cardName, listId: id, body: cardBody});
+
+    res.json(card);
+  } catch (e) {
+    console.log("errror =>", e);
+  }
+});
+//curl -H 'Content-Type: application/json' -d '{"cardName":"xyz", "cardBody": "kjsldkfjsdljfsdlkfj"}' http://localhost:3000/api/list/1/newCard
 
 // route test
 //replace body parser URL encoded with this: app.use(bodyParser.json());
-//curl -H "Content-Type: application/json" -d '{"firstName":"xyz", "lastName": "ddk", "email": "skjdflkjsd@gmail.welcome", "password":"xyz"}' http://localhost:3000/api/users
 
 // ----------------------------------------
 // Index
