@@ -1,8 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var models = require("./../models");
+//{}
 var User = models.User;
 var Board = models.Board;
+var Card = models.Card;
 var List = models.List;
 var sequelize = models.sequelize;
 
@@ -31,6 +33,7 @@ router.post("/users", (req, res) => {
 // Create Board
 // ----------------------------------------
 router.post("/users/:id/newboard", async (req, res) => {
+  //chage to board
   try {
     const id = req.params.id;
 
@@ -50,6 +53,7 @@ router.post("/users/:id/newboard", async (req, res) => {
 // Create List
 // ----------------------------------------
 router.post("/board/:id/newlist", async (req, res) => {
+  //chage to list
   try {
     const id = req.params.id; //boardId
 
@@ -69,6 +73,7 @@ router.post("/board/:id/newlist", async (req, res) => {
 // Create Cards
 // ----------------------------------------
 router.post("/list/:id/newcard", async (req, res) => {
+  //chage to cards
   try {
     const id = req.params.id; //listId
 
