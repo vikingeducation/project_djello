@@ -1,27 +1,29 @@
-import React, { Component } from "react";
+// Import the connect function from React-Redux
 import { connect } from "react-redux";
-import { withRouter, NavLink } from "react-router-dom";
+// Import serialize to get the serialized form data
+import serialize from "form-serialize";
 import { createUser } from "../actions";
+// Import the presentational component
+import AddUser from "../components/User/AddUser";
 
-class User extends Component {
-  render() {
-    return <div />;
-  }
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
+// Map dispatch to props to create a submit function that
+// dispatches creating a user
+const mapDispatchToProps = dispatch => {
   return {
-    createUser: () => {
-      dispatch(createUser());
+    onSubmit: e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = serialize(form, { hash: true });
+
+      dispatch(createUser(data));
+      form.reset();
     }
   };
 };
 
-const UserContainer = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(User)
-);
-export default UserContainer;
+// Generate the AddUserContainer which renders AddUser
+// with all the new props. We don't need to map state to
+// props so we just send `null` in its place.
+const AddUserContainer = connect(null, mapDispatchToProps)(AddUser);
+
+export default AddUserContainer;

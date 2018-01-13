@@ -1,17 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+import Routes from "./routes";
 
-import { createStore, applyMiddleware } from "redux";
-import { reducers } from "./reducers";
+import "./index.css";
+
 import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
+import rootReducer from "./reducers";
 
-let store = createStore(reducers, applyMiddleware(thunk));
+const middleware = applyMiddleware(thunk, createLogger());
+export const store = createStore(rootReducer, middleware);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Routes />
   </Provider>,
   document.getElementById("root")
 );

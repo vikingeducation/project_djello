@@ -14,6 +14,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // ----------------------------------------
+// CORS
+// ----------------------------------------
+
+const cors = require("cors");
+app.use(cors());
+
+// ----------------------------------------
 // Body Parser
 // ----------------------------------------
 const bodyParser = require("body-parser");
@@ -86,11 +93,6 @@ app.use(morganToolkit());
 // ----------------------------------------
 const api = require("./routers/api");
 app.use("/api", api);
-
-app.get("/", (req, res) => {
-  req.flash("Hi!");
-  res.render("welcome/index");
-});
 
 // ----------------------------------------
 // Template Engine
