@@ -2,9 +2,9 @@
 import { connect } from "react-redux";
 // Import serialize to get the serialized form data
 import serialize from "form-serialize";
-import { userAdd } from "../actions";
+import { login } from "../actions";
 // Import the presentational component
-import AddUser from "../components/User/AddUser";
+import Login from "../components/User/Login";
 import { withRouter } from "react-router";
 
 // Map dispatch to props to create a submit function that
@@ -16,15 +16,15 @@ const mapDispatchToProps = dispatch => {
       const form = e.target;
       const data = serialize(form, { hash: true });
       console.log(data);
-      dispatch(userAdd(data));
+      dispatch(login(data));
       form.reset();
     }
   };
 };
 
-// Generate the AddUserContainer which renders AddUser
+// Generate the LoginContainer which renders Login
 // with all the new props. We don't need to map state to
 // props so we just send `null` in its place.
-const AddUserContainer = withRouter(connect(null, mapDispatchToProps)(AddUser));
+const LoginContainer = withRouter(connect(null, mapDispatchToProps)(Login));
 
-export default AddUserContainer;
+export default LoginContainer;

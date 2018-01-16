@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -12,6 +12,14 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+    var lists = [];
+    for (let i = 1; i <= 10; i++) {
+      lists.push({
+        name: `Foo${i}'s First List'`,
+        boardId: i
+      });
+    }
+    return queryInterface.bulkInsert("Lists", lists);
   },
 
   down: (queryInterface, Sequelize) => {

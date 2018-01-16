@@ -10,7 +10,9 @@ import About from "./../About/About";
 import classnames from "classnames";
 import logo from "./logo.svg";
 import "./style.css";
-import AddUser from "./../User/AddUser";
+import AddUserContainer from "./../../containers/UserContainer";
+import LoginContainer from "./../../containers/LoginContainer";
+import BoardContainer from "./../../containers/BoardContainer";
 
 const NavLinks = () => (
   <div className="NavLinks">
@@ -35,19 +37,38 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to Djello!</h2>
         </div>
+        <div style={{ padding: "30px" }}>
+          Current User:{JSON.stringify(this.props.user)}
+        </div>
         <p className="App-intro">
           Plan: do boards -> lists -> cards/modal -> login
         </p>
         <NavLinks />
         <br />
         <br />
-        <button onClick={this.props.actions.expressTest}>Show All Users</button>
+        <button onClick={this.props.actions.userAll}>Show All Users</button>
         <br />
         <br />
-        <button onClick={this.props.actions.dbTest}>Show All Boards</button>
+        <button onClick={this.props.getId}>Show One User</button>
         <br />
         <br />
-        <AddUser />
+        <LoginContainer />
+        <br />
+        <br />
+        <AddUserContainer />
+        <br />
+        <br />
+        <button onClick={this.props.actions.boardAll}>Show All Boards</button>
+        <br />
+        <br />
+        <button onClick={this.props.actions.boardUser}>
+          Show Current User's Boards
+        </button>
+        <br />
+        <br />
+        <BoardContainer />
+        <br />
+        <br />
         <div style={{ padding: "30px" }}>{this.props.results}</div>
       </div>
     );

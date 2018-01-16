@@ -4,30 +4,33 @@ var models = require("./../models");
 var { User, Board, Card, List } = models;
 var sequelize = models.sequelize;
 
-router.get("/users", function(req, res, next) {
-  User.findAll({
-    //include: [Review]
-  })
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(next);
-});
-
-router.get("/users/:id", function(req, res, next) {
+router.post("/login", function(req, res, next) {
   User.findOne({
-    where: { id: req.params.id }
+    where: { email: req.body.email, password: req.body.password }
     //include: [Board] //[{model: Board}]
   })
     .then(result => {
       res.status(200).send(result);
+    }) //res.json()
+    .catch(e => next(e));
+});
+
+// ----------------------------------------
+// Index
+// ----------------------------------------
+router.get("/users", function(req, res, next) {
+  User.findAll({
+    //include: [Board]
+  })
+    .then(result => {
+      res.status(200).send(result);
     })
-    .catch(next);
+    .catch(e => next(e));
 });
 
 router.get("/boards", function(req, res, next) {
   Board.findAll({
-    //include: [Review]
+    //include: [Board]
   })
     .then(result => {
       res.status(200).send(result);
@@ -36,7 +39,32 @@ router.get("/boards", function(req, res, next) {
 });
 
 // ----------------------------------------
-// Create User
+// Show
+// ----------------------------------------
+router.get("/users/:id", function(req, res, next) {
+  User.findOne({
+    where: { id: req.params.id },
+    include: Board //[{model: Board}]
+  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(e => next(e));
+});
+
+router.get("/boards/:id", function(req, res, next) {
+  Board.findOne({
+    where: { id: req.params.id }
+    //include: [Board] //[{model: Board}]
+  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(e => next(e));
+});
+
+// ----------------------------------------
+// Create User/Sign up
 // ----------------------------------------
 router.post("/users", (req, res) => {
   console.log("req =>", req.body);
@@ -123,6 +151,20 @@ router.post("/list/:id/newcard", async (req, res) => {
 
 // route test
 //replace body parser URL encoded with this: app.use(bodyParser.json());
+
+// ----------------------------------------
+// Destroy
+// ----------------------------------------
+router.delete("/boards/:id", (req, res) => {
+  Board.destroy({
+    where: { id: req.params.id },
+    limit: 1
+  })
+    .then(result => {
+      res.status(200).send(result);
+    }) //res.json()
+    .catch(e => res.status(500).send(e.stack));
+});
 
 // ----------------------------------------
 // Index
