@@ -6,11 +6,11 @@ var sequelize = models.sequelize;
 
 router.post("/login", function(req, res, next) {
   User.findOne({
-    where: { email: req.body.email, password: req.body.password }
-    //include: [Board] //[{model: Board}]
+    where: { email: req.body.email, password: req.body.password },
+    include: [Board] //[{model: Board}]
   })
     .then(result => {
-      res.status(200).send(result);
+      res.json(result);
     }) //res.json()
     .catch(e => next(e));
 });
@@ -20,23 +20,23 @@ router.post("/login", function(req, res, next) {
 // ----------------------------------------
 router.get("/users", function(req, res, next) {
   User.findAll({
-    //include: [Board]
+    include: [Board]
   })
     .then(result => {
-      res.status(200).send(result);
+      res.json(result);
     })
     .catch(e => next(e));
 });
 
-router.get("/boards", function(req, res, next) {
-  Board.findAll({
-    //include: [Board]
-  })
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(next);
-});
+// router.get("/boards", function(req, res, next) {
+//   User.findAll({
+//     include: [Board]
+//   })
+//     .then(result => {
+//       res.json(result);
+//     })
+//     .catch(e => next(e));
+// });
 
 // ----------------------------------------
 // Show
@@ -47,21 +47,32 @@ router.get("/users/:id", function(req, res, next) {
     include: Board //[{model: Board}]
   })
     .then(result => {
-      res.status(200).send(result);
+      res.json(result);
     })
     .catch(e => next(e));
 });
 
 router.get("/boards/:id", function(req, res, next) {
   Board.findOne({
-    where: { id: req.params.id }
-    //include: [Board] //[{model: Board}]
+    where: { id: req.params.id },
+    include: List //[{model: Board}]
   })
     .then(result => {
-      res.status(200).send(result);
+      res.json(result);
     })
     .catch(e => next(e));
 });
+
+// router.get("/lists/:id", function(req, res, next) {
+//   List.findOne({
+//     where: { id: req.params.id }
+//     //include: Board //[{model: Board}]
+//   })
+//     .then(result => {
+//       res.json(result);
+//     })
+//     .catch(e => next(e));
+// });
 
 // ----------------------------------------
 // Create User/Sign up
@@ -87,34 +98,34 @@ router.post("/users", (req, res) => {
 // ----------------------------------------
 // Create Board
 // ----------------------------------------
-router.post("/users/:id/newboard", async (req, res) => {
-  //chage to board
+router.post("/boards/new", async (req, res) => {
   try {
-    const id = req.params.id;
-
     let body = req.body;
     let boardName = body.boardName;
+    const id = body.id;
 
-    let board = await Board.create({ name: boardName, userId: id });
+    await Board.create({ name: boardName, userId: id });
 
-    res.json(board);
+    let results = await User.findOne({
+      where: { id: body.id },
+      include: Board //[{model: Board}]
+    });
+
+    res.json(results);
   } catch (e) {
     next(e);
   }
 });
-//curl -H 'Content-Type: application/json' -d '{"boardName":"xyz"}' http://localhost:3000/api/users/10/newboard
+//curl -H 'Content-Type: application/json' -d '{"boardName":"xyz","userId":"1"}' http://localhost:3000/api/users/10/newboard
 
 // ----------------------------------------
 // Create List
 // ----------------------------------------
-router.post("/board/:id/newlist", async (req, res) => {
-  //chage to list
+router.post("/lists", async (req, res) => {
   try {
-    const id = req.params.id; //boardId
-
     let body = req.body;
+    let id = body.id;
     let listName = body.listName;
-
     let list = await List.create({ name: listName, boardId: id });
 
     res.json(list);
@@ -127,14 +138,12 @@ router.post("/board/:id/newlist", async (req, res) => {
 // ----------------------------------------
 // Create Cards
 // ----------------------------------------
-router.post("/list/:id/newcard", async (req, res) => {
-  //chage to cards
+router.post("/cards", async (req, res) => {
   try {
-    const id = req.params.id; //listId
-
     let body = req.body;
     let cardName = body.cardName;
     let cardBody = body.cardBody;
+    const id = body.id;
 
     let card = await Card.create({
       name: cardName,
@@ -161,9 +170,11 @@ router.delete("/boards/:id", (req, res) => {
     limit: 1
   })
     .then(result => {
-      res.status(200).send(result);
-    }) //res.json()
-    .catch(e => res.status(500).send(e.stack));
+      res.send();
+    }) //res.send() is shorthand
+    .catch(e => {
+      next(e);
+    });
 });
 
 // ----------------------------------------

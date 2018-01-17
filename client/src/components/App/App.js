@@ -10,9 +10,17 @@ import About from "./../About/About";
 import classnames from "classnames";
 import logo from "./logo.svg";
 import "./style.css";
-import AddUserContainer from "./../../containers/UserContainer";
+import UserContainer from "./../../containers/UserContainer";
 import LoginContainer from "./../../containers/LoginContainer";
 import BoardContainer from "./../../containers/BoardContainer";
+import {
+  Button,
+  Jumbotron,
+  Container,
+  Alert,
+  Badge,
+  Progress
+} from "reactstrap";
 
 const NavLinks = () => (
   <div className="NavLinks">
@@ -46,25 +54,20 @@ class App extends Component {
         <NavLinks />
         <br />
         <br />
-        <button onClick={this.props.actions.userAll}>Show All Users</button>
+        <Button color="primary" onClick={this.props.actions.userAll}>
+          Show All Users
+        </Button>
         <br />
         <br />
-        <button onClick={this.props.getId}>Show One User</button>
+        <Button color="primary" onClick={this.props.getId}>
+          Show One User
+        </Button>
         <br />
         <br />
         <LoginContainer />
         <br />
         <br />
-        <AddUserContainer />
-        <br />
-        <br />
-        <button onClick={this.props.actions.boardAll}>Show All Boards</button>
-        <br />
-        <br />
-        <button onClick={this.props.actions.boardUser}>
-          Show Current User's Boards
-        </button>
-        <br />
+        <UserContainer />
         <br />
         <BoardContainer />
         <br />

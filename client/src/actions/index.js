@@ -21,7 +21,7 @@ export const userAll = () => {
     dispatch(userAllStart());
     axios
       .get(`http://localhost:3000/api/users`)
-      .then(res => dispatch(userAllResults(JSON.stringify(res.data))))
+      .then(res => dispatch(userAllResults(res.data)))
       .catch(err => dispatch(userAllError(err)));
   };
 };
@@ -47,7 +47,7 @@ export const userOne = id => {
     dispatch(userOneStart());
     axios
       .get(`http://localhost:3000/api/users/${id}`)
-      .then(res => dispatch(userOneResults(JSON.stringify(res.data))))
+      .then(res => dispatch(userOneResults(res.data)))
       .catch(err => dispatch(userOneError(err)));
   };
 };
@@ -76,7 +76,7 @@ export const login = data => {
         email: data.email,
         password: data.password
       })
-      .then(res => dispatch(loginResults(JSON.stringify(res.data))))
+      .then(res => dispatch(loginResults(res.data)))
       .catch(err => dispatch(loginError(err)));
   };
 };
@@ -107,32 +107,8 @@ export const userAdd = data => {
         email: data.email,
         password: data.password
       })
-      .then(res => dispatch(userAddResults(JSON.stringify(res.data))))
+      .then(res => dispatch(userAddResults(res.data)))
       .catch(err => dispatch(userAddError(err)));
-  };
-};
-
-export const BOARD_ALL_START = "BOARD_ALL_START";
-export const boardAllStart = () => {
-  return { type: BOARD_ALL_START };
-};
-export const BOARD_ALL_RESULTS = "BOARD_ALL_RESULTS";
-export const boardAllResults = data => {
-  return { type: BOARD_ALL_RESULTS, data };
-};
-export const BOARD_ALL_ERROR = "BOARD_ALL_ERROR";
-export const boardAllError = data => {
-  return { type: BOARD_ALL_ERROR, data };
-};
-
-export const BOARD_ALL = "BOARD_ALL";
-export const boardAll = () => {
-  return dispatch => {
-    dispatch(boardAllStart());
-    axios
-      .get(`http://localhost:3000/api/boards`)
-      .then(res => dispatch(boardAllResults(JSON.stringify(res.data))))
-      .catch(err => dispatch(boardAllError(err)));
   };
 };
 
@@ -150,38 +126,124 @@ export const boardDeleteError = data => {
 };
 
 export const BOARD_DELETE = "BOARD_DELETE";
-export const boardDelete = id => {
+export const boardDelete = (boardId, userId) => {
   return dispatch => {
     dispatch(boardDeleteStart());
     axios
-      .delete(`http://localhost:3000/api/boards/${id}`, {
-        //headers: { "Content-Type": "application/json" }
-      })
-      .then(res => dispatch(boardDeleteResults(JSON.stringify(res.data))))
+      .delete(`http://localhost:3000/api/boards/${boardId}`)
+      .then(res => dispatch(userOne(userId)))
       .catch(err => dispatch(boardDeleteError(err)));
   };
 };
 
-export const BOARD_USER_START = "BOARD_USER_START";
-export const boardUserStart = () => {
-  return { type: BOARD_USER_START };
+export const BOARD_CREATE_START = "BOARD_CREATE_START";
+export const boardCreateStart = () => {
+  return { type: BOARD_CREATE_START };
 };
-export const BOARD_USER_RESULTS = "BOARD_USER_RESULTS";
-export const boardUserResults = data => {
-  return { type: BOARD_USER_RESULTS, data };
+export const BOARD_CREATE_RESULTS = "BOARD_CREATE_RESULTS";
+export const boardCreateResults = data => {
+  return { type: BOARD_CREATE_RESULTS, data };
 };
-export const BOARD_USER_ERROR = "BOARD_USER_ERROR";
-export const boardUserError = data => {
-  return { type: BOARD_USER_ERROR, data };
+export const BOARD_CREATE_ERROR = "BOARD_CREATE_ERROR";
+export const boardCreateError = data => {
+  return { type: BOARD_CREATE_ERROR, data };
 };
 
-export const BOARD_USER = "BOARD_USER";
-export const boardUser = id => {
+export const BOARD_CREATE = "BOARD_CREATE";
+export const boardCreate = data => {
   return dispatch => {
-    dispatch(boardUserStart());
+    dispatch(boardCreateStart());
     axios
-      .get(`http://localhost:3000/api/users/${id}`)
-      .then(res => dispatch(boardUserResults(JSON.stringify(res.data))))
-      .catch(err => dispatch(boardUserError(err)));
+      .post(`http://localhost:3000/api/boards/new`, {
+        boardName: data.name,
+        id: data.userId
+      })
+      .then(res => dispatch(boardCreateResults(res.data)))
+      .catch(err => dispatch(boardCreateError(err)));
+  };
+};
+
+export const LIST_SHOW_START = "LIST_SHOW_START";
+export const listShowStart = () => {
+  return { type: LIST_SHOW_START };
+};
+
+export const LIST_SHOW_RESULTS = "LIST_SHOW_RESULTS";
+export const listShowResults = data => {
+  return { type: LIST_SHOW_RESULTS, data };
+};
+
+export const LIST_SHOW_ERROR = "LIST_SHOW_ERROR";
+export const listShowError = data => {
+  return { type: LIST_SHOW_ERROR, data };
+};
+
+export const LIST_SHOW = "LIST_SHOW";
+export const listShow = id => {
+  return dispatch => {
+    dispatch(listShowStart());
+    axios
+      .get(`http://localhost:3000/api/lists/${id}`)
+      .then(res => dispatch(listShowResults(res.data)))
+      .catch(err => dispatch(listShowError(err)));
+  };
+};
+
+export const LIST_CREATE_START = "LIST_CREATE_START";
+export const listCreateStart = () => {
+  return { type: LIST_CREATE_START };
+};
+
+export const LIST_CREATE_RESULTS = "LIST_CREATE_RESULTS";
+export const listCreateResults = data => {
+  return { type: LIST_CREATE_RESULTS, data };
+};
+
+export const LIST_CREATE_ERROR = "LIST_CREATE_ERROR";
+export const listCreateError = data => {
+  return { type: LIST_CREATE_ERROR, data };
+};
+
+export const LIST_CREATE = "LIST_CREATE";
+export const listCreate = data => {
+  return dispatch => {
+    dispatch(listCreateStart());
+    axios
+      .post(`http://localhost:3000/api/lists/`, {
+        listName: data.name,
+        id: data.boardId
+      })
+      .then(res => dispatch(listCreateResults(res.data)))
+      .catch(err => dispatch(listCreateError(err)));
+  };
+};
+
+export const CARD_CREATE_START = "CARD_CREATE_START";
+export const cardCreateStart = () => {
+  return { type: CARD_CREATE_START };
+};
+
+export const CARD_CREATE_RESULTS = "CARD_CREATE_RESULTS";
+export const cardCreateResults = data => {
+  return { type: CARD_CREATE_RESULTS, data };
+};
+
+export const CARD_CREATE_ERROR = "CARD_CREATE_ERROR";
+export const cardCreateError = data => {
+  return { type: CARD_CREATE_ERROR, data };
+};
+
+export const CARD_CREATE = "CARD_CREATE";
+export const cardCreate = data => {
+  return dispatch => {
+    dispatch(cardCreateStart());
+    axios
+      .post(`http://localhost:3000/api/cards`, {
+        cardName: data.name,
+        cardBody: data.cardBody,
+        id: data.listId
+      })
+      .then(res => dispatch(cardCreateResults(res.data)))
+      .catch(err => dispatch(cardCreateError(err)));
   };
 };

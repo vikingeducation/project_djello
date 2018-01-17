@@ -3,22 +3,48 @@ import PropTypes from "prop-types";
 import Input from "./../elements/Input";
 import InputGroup from "./../elements/InputGroup";
 import Button from "./../elements/Button";
-import Boards from "./Boards";
-import { boardAll, boardDelete } from "../../actions";
+import BoardElement from "./BoardElement";
+import { boardAll } from "../../actions";
+import CreateBoard from "./CreateBoard";
 
 class BoardsPanel extends Component {
   componentDidMount() {
-    this.props.getBoards();
+    this.props.userOne(this.props.user.id);
   }
 
   render() {
-    const { user, boards, isFetching, onDeleteBoardClick } = this.props;
+    let {
+      user,
+      boards,
+      isFetching,
+      onDeleteBoardClick,
+      onSubmit,
+      userOne
+    } = this.props;
+    let boardGallery = null;
+
+    if (isFetching) {
+      return <p>Fetching data...</p>;
+    }
+
+    if (boards) {
+      boardGallery = boards.map(board => {
+        return (
+          <BoardElement
+            board={board}
+            key={board.id}
+            onClick={onDeleteBoardClick}
+            user={user}
+          />
+        );
+      });
+    }
+
     return (
-      <Boards
-        boards={boards}
-        isFetching={isFetching}
-        onClick={onDeleteBoardClick}
-      />
+      <div>
+        <CreateBoard onSubmit={onSubmit} user={user} />
+        {boardGallery}
+      </div>
     );
   }
 }
