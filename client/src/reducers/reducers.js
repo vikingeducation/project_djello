@@ -1,4 +1,4 @@
-import * as Actions from "./actions";
+import * as Actions from "../actions/constents/types";
 
 const initailState = {
   cookie: "",
@@ -14,7 +14,6 @@ const initailState = {
 };
 
 export function djello(state = initailState, action) {
-  console.log("Redux--", action);
   switch (action.type) {
     case Actions.SET_COOKIE:
       return {

@@ -4,6 +4,7 @@ import InputGroup from "./elements/InputGroup";
 import Button from "./elements/Button";
 import { connect } from "react-redux";
 import { getUsers, setCards } from "../actions";
+import { database } from "../actions/constents/database";
 
 import serialize from "form-serialize";
 
@@ -45,7 +46,7 @@ class NewCardForm extends Component {
     data.members = this.state.formUsers;
     data.listTitle = this.props.currentListTitle;
     data.user = this.props.user;
-    fetch("https://desolate-temple-73642.herokuapp.com/newCard", {
+    fetch(`${database}/newCard`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

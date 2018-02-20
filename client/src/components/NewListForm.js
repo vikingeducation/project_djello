@@ -5,6 +5,7 @@ import Button from "./elements/Button";
 import serialize from "form-serialize";
 import { connect } from "react-redux";
 import { setLists } from "../actions";
+import { database } from "../actions/constents/database";
 
 class NewListForm extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class NewListForm extends Component {
     const form = e.target;
     let data = serialize(form, { hash: true });
     data.boardname = this.props.currentBoard;
-    fetch("https://desolate-temple-73642.herokuapp.com/newList", {
+    fetch(`${database}/newList`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

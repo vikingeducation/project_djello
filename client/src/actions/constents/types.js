@@ -1,0 +1,10 @@
+export const SET_COOKIE = "SET_COOKIE";
+export const GET_REQUEST_SUCCESS = "GET_REQUEST_SUCCESS";
+export const GET_REQUEST = "GET_REQUEST";
+export const GET_REQUEST_FAILURE = "GET_REQUEST_FAILURE";
+export const SET_CURRENT_BOARD = "SET_CURRENT_BOARD";
+export const SET_USERS = "SET_USERS";
+export const SET_BOARDS = "SET_BOARDS";
+export const SET_LISTS = "SET_LISTS";
+export const SET_CARDS = "SET_CARDS";
+export const SET_INPUTFIELD_SHOW = "SET_INPUTFIELD_SHOW";

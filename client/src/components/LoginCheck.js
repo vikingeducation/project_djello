@@ -15,7 +15,7 @@ class LoginCheck extends Component {
     //If cookie
     if (Cookies.get("key")) {
       //Check with server
-      fetch("https://desolate-temple-73642.herokuapp.com/cookie", {
+      fetch("http://10.0.0.10:3001/cookie", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

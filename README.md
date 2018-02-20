@@ -1,27 +1,84 @@
-# assignment_djello
+# Djello
 
-Project management with that great wobbly taste.
+A reproduction of Trello using a fullstack JavaScript stack.
 
-# Live demo:
+![Image of Djello](screenshots/Djello.png)
 
-* https://chuckstaskboards.herokuapp.com/
+Live Demo: https://chuckstaskboards.herokuapp.com/
 
-# Production reset:
+## Getting Started
 
-* heroku run sequelize db:migrate:undo:all && heroku run sequelize db:migrate &&
-  heroku run sequelize db:seed:all
+### Prerequisites
 
-# For Production:
+```
+ + npm
+ + PostgreSQL
+```
 
-* change fetches urls to server's location
+### Installing - server
 
-# development setup:
+Install modules
 
-* npm install
+```
+npm install
+```
 
-* add .env with SECRET key if desired change
-* config/config.json to database name
-* in root dir run npm start
-* --or--
-* in root dir run
-* npm run server in /client run npm start
+Edit `config/config.json` file for your Postgres database details, then run the server
+
+```
+npm run server
+```
+
+### Installing - server - optional
+
+For unique signed cookies, create a `.env` in the root directory
+
+```
+touch .env
+```
+
+In the .env file add
+
+```
+SECRET=123123
+```
+
+### Installing - client
+
+Change to client directory
+
+```
+cd client/
+```
+
+Install modules
+
+```
+npm install
+```
+
+Next is to edit the fetch url in `src/actions/constents/database` to your server's address (or `ip address` and `port`) eg.
+
+```javascript
+export const database = "http://127.0.0.1:3001";
+```
+
+Then run the react development server
+
+```
+npm start
+```
+
+## Built With
+
+* [React](https://reactjs.org/docs) - The front facing web framework used
+* [Express](https://expressjs.com/) - The server side framework used
+* [PostgreSQL](https://www.postgresql.org/docs/) - The SQL database used
+
+## Author
+
+* **Chuck Michael** - _Initial work_ - [chuckinabox](https://github.com/chuckinabox)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

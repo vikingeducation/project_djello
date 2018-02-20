@@ -6,6 +6,7 @@ import serialize from "form-serialize";
 import ModalButton from "../components/ModalButton";
 import { connect } from "react-redux";
 import { setBoards } from "../actions";
+import { database } from "../actions/constents/database";
 
 class NewBoardForm extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class NewBoardForm extends Component {
 
     const form = e.target;
     let data = serialize(form, { hash: true });
-    fetch("https://desolate-temple-73642.herokuapp.com/newBoard", {
+    fetch(`${database}/newBoard`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

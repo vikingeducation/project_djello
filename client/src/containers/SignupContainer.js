@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { connect } from "react-redux";
 import { setCookie } from "../actions";
 //Component
+import { database } from "../actions/constents/database";
 import SigninForm from "../components/SigninForm";
 
 const SignupContainer = ({ setCookieInfo }) => {
@@ -15,7 +16,7 @@ const SignupContainer = ({ setCookieInfo }) => {
     let data = serialize(form, { hash: true });
 
     if (data.username && data.password) {
-      fetch("https://desolate-temple-73642.herokuapp.com/signup", {
+      fetch(`${database}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
