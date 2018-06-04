@@ -3,8 +3,13 @@ const Schema = mongoose.Schema;
 const Card = require('./card').schema;
 
 const ListSchema = new Schema({
+	_id: {
+		type: String,
+		required: true
+	},
 	boardId: {
-		type: String
+		type: String,
+		required: true
 	},
 	position: Number,
 	title: {

@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CardSchema = new Schema({
-	listId: {
+	_id: {
 		type: String,
 		required: true
 	},
-	listName: {
+	listId: {
 		type: String,
 		required: true
 	},
@@ -17,7 +17,10 @@ const CardSchema = new Schema({
 	description: {
 		type: String
 	},
-	completed: Boolean,
+	completed: {
+		type: Boolean,
+		default: false
+	},
 	members: Array,
 	activity: Array
 })

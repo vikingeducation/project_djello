@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken'),  
       crypto = require('crypto'),
       User = require('../models/user'),
-      config = require('../config/main');
+      config = require('../config/main'),
+      shortid = require('shortid');
 
 function generateToken(user) {
 	return jwt.sign(user, config.secret, {
@@ -34,8 +35,6 @@ exports.register = function(req, res, next) {
 	const lastName = req.body.lastName;
 	const password = req.body.password;
 
-	console.log(email, firstName, lastName, password);
-
 	// return error if no email provided
 	if(!email) {
 		return res.status(422).send({ error: 'You must enter an email address.'});
@@ -58,6 +57,7 @@ exports.register = function(req, res, next) {
 		}
 
 		let user = new User({
+			_id: shortid.generate(),
 			email: email,
 			password: password,
 			profile: { firstName: firstName, lastName: lastName }

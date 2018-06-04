@@ -35,11 +35,12 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 // router
-const authRouter = require('./routes/auth')(requireLogin);
+const authController = require('./controllers/authentication');
 const userRouter = require('./routes/user');
 
+app.post('/register', authController.register);
+app.post('/login', requireLogin, authController.login);
 app.use('/users', userRouter);
-
 
 
 // server  ====================================================================
@@ -47,4 +48,5 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), () => {
   console.log(`Find the server at ${app.get('port')}`);
 });
+
 

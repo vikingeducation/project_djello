@@ -8,4 +8,6 @@ router.get('/:listId', listController.getList);
 router.post('/:listId/edit', listController.editList);
 router.post('/:listId/delete', listController.deleteList);
 
+router.use('/:listId/cards', cardRouter);
+
 module.exports = router;

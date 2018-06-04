@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 const List = require('./list').schema;
 
 const BoardSchema = new Schema({
+	_id: {
+		type: String,
+		required: true
+	},
 	userId: {
 		type: String,
 		required: true

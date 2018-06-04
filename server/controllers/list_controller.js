@@ -1,9 +1,11 @@
 const Board = require('../models/board');
 const List = require('../models/list');
+const Card = require('../models/card');
+const shortid = require('shortid');
 
-function formatLists(boards) {
-	return boards.map(board => {
-		return formatBoard(board);
+function formatLists(lists) {
+	return lists.map(list => {
+		return formatList(list);
 	});
 };
 
@@ -64,6 +66,7 @@ exports.createList = (req, res) => {
 		.then(lists => {
 			const position = lists.length;
 			const newList = new List({
+				_id: shortid.generate(),
 				boardId: req.params.boardId,
 				title: req.body.title,
 				description: req.body.description,
@@ -109,7 +112,7 @@ exports.deleteList = (req, res) => {
 
 	const listId = req.params.listId;
 
-	List.deleteOne({ _id: listId })
+	Promise.all([List.deleteOne({ _id: listId }), Card.deleteMany({ listId: listId })])
 		.then(() => {
 			res.status(200).json({ success: `LIST ${ listId } DELETED`});
 		})

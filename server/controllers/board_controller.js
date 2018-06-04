@@ -1,4 +1,7 @@
 const Board = require('../models/board');
+const List = require('../models/list');
+const Card = require('../models/card');
+const shortid = require('shortid');
 
 function formatBoards(boards) {
 	return boards.map(board => {
@@ -24,17 +27,38 @@ function updateBoard(title, members) {
 	const obj = {}
 
 	if(title) obj.title = title;
-	if(members) obj.members = members;
+	if(members) obj.members.push(members)
 
 	return obj;
 }
 
+function deleteCardsByBoard(boardId) {
+	List.find({ boardId: boardId })
+		.then(lists => {
+			if(lists) {
+				const qry = lists.map(list => {
+					return {
+						listId: list._id
+					}
+				});
+				Card.deleteMany().or(qry)
+					.then(res => {
+						return res;
+					})
+					.catch(e => {
+						return e;
+					})
+			} else {
+				return [];
+			}
+		})
+		.catch(e => {
+			return e;
+		});
+}
 
-exports.getBoards = (req, res) => {
-
-	const userId = req.params.userId;
-	
-	Board.find({ userId: userId })
+exports.getBoards = (req, res) => {	
+	Board.find({ userId: req.params.userId })
 		.then(boards => {
 			res.status(200).json(formatBoards(boards));
 		})	
@@ -44,10 +68,7 @@ exports.getBoards = (req, res) => {
 };
 
 exports.getBoard = (req, res) => {
-
-	const boardId = req.params.boardId;
-
-	Board.findOne({ _id: boardId })
+	Board.findOne({ _id: req.params.boardId })
 		.then(board => {
 			res.status(200).json(formatBoard(board));
 		})
@@ -58,12 +79,10 @@ exports.getBoard = (req, res) => {
 
 exports.createBoard = (req, res) => {
 
-	const userId = req.params.userId;
-	const title = req.body.title;
-
 	let board = new Board({
-		title: title,
-		userId: userId
+		_id: shortid.generate(),
+		title: req.body.title,
+		userId: req.params.userId
 	})
 
 	board.save((err, board) => {
@@ -74,10 +93,9 @@ exports.createBoard = (req, res) => {
 
 exports.editBoard = (req, res) => {
 
-	const boardId = req.params.boardId;
 	const boardObj = updateBoard(req.body.title, req.body.members);
 
-	Board.findById({ _id: boardId })
+	Board.findById({ _id: req.params.boardId })
 		.then(board => {
 			if(board) {
 				board.set(boardObj);
@@ -96,7 +114,7 @@ exports.deleteBoard = (req, res) => {
 	
 	const boardId = req.params.boardId;
 
-	Board.deleteOne({ _id: boardId })
+	Promise.all([Board.deleteOne({ _id: boardId }), List.deleteMany({ boardId: boardId }), deleteCardsByBoard(boardId)])
 		.then(() => {
 			res.status(200).json({ success: `BOARD ${ boardId } DELETED`})
 		})
