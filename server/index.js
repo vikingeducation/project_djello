@@ -5,11 +5,11 @@ const express = require('express');
 const app 	  = express();
 
 const config = require('./config/main')
-// mongoose
+// mongoose ===================================================================
 const mongoose = require('mongoose');
 mongoose.connect(config.database);
 
-// logging
+// logging ====================================================================
 const logger = require('morgan');
 const morganToolkit = require('morgan-toolkit')(logger);
 app.use(morganToolkit());
@@ -21,32 +21,31 @@ app.use(bodyParser.json());
 
 // enable CORS from client-side ===============================================
 app.use(function(req, res, next) {  
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
+	res.header("Access-Control-Allow-Credentials", "true");
+	next();
 });
 
-// passport 
+// passport ===================================================================
 const passport = require('passport');
 const passportService = require('./config/passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
-// router
+// router =====================================================================
 const authController = require('./controllers/authentication');
 const userRouter = require('./routes/user');
 
 app.post('/register', authController.register);
 app.post('/login', requireLogin, authController.login);
-app.use('/users', userRouter);
-
+app.use('/users', requireAuth, userRouter);
 
 // server  ====================================================================
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), () => {
-  console.log(`Find the server at ${app.get('port')}`);
+	console.log(`Find the server at ${app.get('port')}`);
 });
 
 

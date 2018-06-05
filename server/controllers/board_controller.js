@@ -68,6 +68,7 @@ exports.getBoards = (req, res) => {
 };
 
 exports.getBoard = (req, res) => {
+
 	Board.findOne({ _id: req.params.boardId })
 		.then(board => {
 			res.status(200).json(formatBoard(board));

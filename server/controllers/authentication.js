@@ -2,13 +2,15 @@ const jwt = require('jsonwebtoken'),
       crypto = require('crypto'),
       User = require('../models/user'),
       config = require('../config/main'),
-      shortid = require('shortid');
+      shortid = require('shortid'),
+      ExtractJwt = require('passport-jwt').ExtractJwt;
 
 function generateToken(user) {
 	return jwt.sign(user, config.secret, {
 		expiresIn: 10080
 	})
 };
+
 
 function setUserInfo(request) {
 	return {

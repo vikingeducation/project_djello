@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const authController = require('../controllers/authentication');
 
 function formatUsers(users) {
 	return users.map(user => {
@@ -42,8 +43,6 @@ exports.getUsers = (req, res) => {
 	User.find({})
 		.then(users => {
 
-			console.log(users);
-
 			res.status(200).json(formatUsers(users));
 		})
 		.catch(e => {
@@ -63,6 +62,19 @@ exports.getUser = (req, res) => {
 			res.status(500).json({ error: e.stack });
 		});
 };
+
+exports.verifyUser = (req, res, next) => {
+
+	const paramId = req.params.userId;
+	const reqId = req.user._id;
+
+	console.log(reqId);
+
+	if(paramId === reqId)
+		next();
+	else
+		res.status(500).send('Unauthorized');
+}
 
 exports.editUser = (req, res) => {
 
