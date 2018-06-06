@@ -3,13 +3,14 @@ const List = require('../models/list');
 const Card = require('../models/card');
 const shortid = require('shortid');
 
+
 function formatLists(lists) {
 	return lists.map(list => {
 		return formatList(list);
 	});
 };
 
-function formatList(list) {
+function formatList(list, cards) {
 	if(list)
 		return {
 			id: list._id,
@@ -17,7 +18,8 @@ function formatList(list) {
 			title: list.title,
 			description: list.description,
 			position: list.position,
-			completed: list.completed
+			completed: list.completed,
+			cards: cards
 		};
 	else
 		return {};
@@ -37,17 +39,23 @@ function updateList(position, completed, title, description) {
 
 exports.getList = (req, res) => {
 
-	List.findById({ _id: req.params.listId })
-		.then(list => {
+	 Promise.all([List.findById({ _id: req.params.listId }), Card.find({ listId: req.params.listId })])
+		.then(([list, cards]) => {
 			if(list) {
-				res.status(200).json(formatList(list));
-			} else {
-				res.status(404).json({});
+
+				const obj = formatList(list, cards);
+				res.status(200).json(obj);
 			}
+			else {
+				return {};
+			}
+
 		})
 		.catch(e => {
 			res.status(500).json({ error: e.stack })
 		});
+	
+
 }
 
 exports.getLists = (req, res) => {

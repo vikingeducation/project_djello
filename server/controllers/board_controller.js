@@ -2,6 +2,7 @@ const Board = require('../models/board');
 const List = require('../models/list');
 const Card = require('../models/card');
 const shortid = require('shortid');
+const { getBoardData, getListCards, getListsCards, getBoardLists } = require('../lib/query');
 
 function formatBoards(boards) {
 	return boards.map(board => {
@@ -46,39 +47,21 @@ function deleteCardsByBoard(boardId) {
 						return res;
 					})
 					.catch(e => {
-						return e;
+						return new Error(e.stack);
 					})
 			} else {
 				return [];
 			}
 		})
 		.catch(e => {
-			return e;
-		});
-}
-
-exports.getBoards = (req, res) => {	
-	Board.find({ userId: req.params.userId })
-		.then(boards => {
-			res.status(200).json(formatBoards(boards));
-		})	
-		.catch(e => {
-			res.status(500).json({ error: e.stack });
-		})
-};
-
-exports.getBoard = (req, res) => {
-
-	Board.findOne({ _id: req.params.boardId })
-		.then(board => {
-			res.status(200).json(formatBoard(board));
-		})
-		.catch(e => {
-			res.status(500).json({ error: e.stack });
+			return new Error(e.stack);
 		});
 }
 
 exports.createBoard = (req, res) => {
+
+	console.log(`REQUEST: ${ req.body }`);
+
 
 	let board = new Board({
 		_id: shortid.generate(),
@@ -100,7 +83,8 @@ exports.editBoard = (req, res) => {
 		.then(board => {
 			if(board) {
 				board.set(boardObj);
-				board.save(function(err, updatedBoard){
+
+				board.save((err, updatedBoard) => {
 					if(err) return res.status(500).json({ error: e.stack });
 					res.status(200).json(formatBoard(updatedBoard));
 				})
@@ -123,6 +107,64 @@ exports.deleteBoard = (req, res) => {
 			res.status(500).json({ error: e.stack })
 		})
 }
+
+exports.getBoard = (req, res) => {
+
+	getBoardData(req.params.boardId)
+		.then(board => {
+			if(board)
+				res.status(200).json(board);
+			else
+				res.status(404).json({});
+		});
+};
+
+exports.getBoards = (req, res) => {	
+	Board
+		.find({ userId: req.params.userId })
+		.then(boards => {
+			
+			let promises = [];
+
+			boards.forEach(board => {
+				promises.push(getBoardData(board._id))
+			})
+
+			Promise.all(promises)
+				.then(allBoards => {
+					console.log(allBoards)
+					res.status(200).json(allBoards)
+				})
+				.catch(e => {
+					res.status(500).json({ error: e.stack })
+				})
+
+		})	
+		.catch(e => {
+			res.status(500).json({ error: e.stack });
+		})
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

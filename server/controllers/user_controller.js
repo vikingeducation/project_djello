@@ -68,8 +68,6 @@ exports.verifyUser = (req, res, next) => {
 	const paramId = req.params.userId;
 	const reqId = req.user._id;
 
-	console.log(reqId);
-
 	if(paramId === reqId)
 		next();
 	else

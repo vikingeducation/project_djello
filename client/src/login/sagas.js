@@ -1,5 +1,4 @@
 import { take, fork, cancel, call, put, cancelled } from 'redux-saga/effects';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { handleApiErrors } from '../lib/api-errors';
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from './constants';
 import { setClient, unsetClient } from '../client/actions';
@@ -7,7 +6,7 @@ import { CLIENT_UNSET } from '../client/constants';
 import history from '../lib/history';
 
 
-const loginUrl = `${process.env.REACT_APP_API_URL}/api/auth/login`;
+const loginUrl = `${process.env.REACT_APP_API_URL}/login`;
 
 function loginApi(email, password) {
 
@@ -33,13 +32,13 @@ function* logout() {
 }
 
 function* loginFlow(email, password){
-	let token
+	let response
 	try {
-		token = yield call(loginApi, email, password)
-		yield put(setClient(token))
+		response = yield call(loginApi, email, password)
+		yield put(setClient(response))
 		yield put({ type: LOGIN_SUCCESS })
-		localStorage.setItem('token', token)
-		history.push('/widgets')
+		localStorage.setItem('token', response.token)
+		history.push('/dashboard')
 	} catch (error) {
 		yield put({ type: LOGIN_ERROR, error })
 	} finally {
@@ -59,7 +58,6 @@ function* loginWatcher(){
 		yield call(logout)
 
 	}
-
 }
 
 export default loginWatcher
