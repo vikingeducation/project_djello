@@ -28,8 +28,8 @@ const Board = (props) => {
 						>CREATE</button>
 				</form>	
 					<hr />
-					<div className="widget-messages">
-						{requesting && <span>Creating widget...</span>}
+					<div className="board-messages">
+						{requesting && <span>Creating Board...</span>}
 						{!requesting && !!errors.length && (
 							<Errors message="Failure to create Widget due to:" errors={errors} />
 							)}

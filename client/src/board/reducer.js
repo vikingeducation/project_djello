@@ -8,7 +8,10 @@ import {
 } from './constants';
 
 const initialState = {
-	list: [],
+	boards: {
+		byId: {},
+		allIds: [],
+	},
 	requesting: false,
 	successful: false,
 	messages: [],
@@ -31,11 +34,17 @@ const reducer = function boardReducer(state = initialState, action) {
 
 		case BOARD_CREATE_SUCCESS:
 			return {
-				list: state.list.concat([action.board]),
+				boards: {
+					allIds: [ ...state.boards.allIds, action.id],
+					byId: {
+						...state.boards.byId,
+						[action.id]: action.payload
+					}
+				},
 				requesting: false,
 				successful: true,
 				messages: [{
-					body: `Board: ${ action.board.name } created!`,
+					body: `Board: ${ action.board.title } created!`,
 					time: new Date(),
 				}],
 				errors: [],

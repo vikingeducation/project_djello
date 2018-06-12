@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const authController = require('../controllers/authentication');
+const { readListsByUserId } = require('../lib/list_query');
+const { readDataByUserId } = require('../lib/card_query');
 
 function formatUsers(users) {
 	return users.map(user => {
@@ -37,12 +39,22 @@ function updateUser(email, password, firstName, lastName) {
 	return obj;
 }
 
+exports.readData = (req, res) => {
 
-exports.getUsers = (req, res) => {
+	readDataByUserId(req.params.userId)
+		.then(all => {
+			res.status(200).json(all)
+		})
+		.catch(e => {
+			res.status(500).json({ error: e.stack });
+		});
+}
+
+
+exports.readAll = (req, res) => {
 
 	User.find({})
 		.then(users => {
-
 			res.status(200).json(formatUsers(users));
 		})
 		.catch(e => {
@@ -50,7 +62,7 @@ exports.getUsers = (req, res) => {
 		})
 };
 
-exports.getUser = (req, res) => {
+exports.read = (req, res) => {
 
 	const userId = req.params.userId;
 
@@ -74,7 +86,7 @@ exports.verifyUser = (req, res, next) => {
 		res.status(500).send('Unauthorized');
 }
 
-exports.editUser = (req, res) => {
+exports.updateUser = (req, res) => {
 
 	const userId = req.params.userId;
 

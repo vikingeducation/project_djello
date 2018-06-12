@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const List = require('./list').schema;
+const List = require('./list');
 
 const BoardSchema = new Schema({
 	_id: {
@@ -15,7 +15,15 @@ const BoardSchema = new Schema({
 		type: String,
 		required: true
 	},
-	members: Array
+	description: {
+		type: String,
+	},
+	members: [],
+	lists: [{type: String}]
+})
+
+BoardSchema.pre('remove', function(next) {
+	this.model('List').remove({ boardId: this._id }, next);
 })
 
 module.exports = mongoose.model('Board', BoardSchema)

@@ -46,7 +46,7 @@ const userRouter = require('./routes/user');
 
 app.post('/register', authController.register);
 app.post('/login', requireLogin, authController.login);
-app.use('/users', requireAuth, userRouter);
+app.use('/users', userRouter);
 
 // server  ====================================================================
 app.set('port', (process.env.PORT || 3000));

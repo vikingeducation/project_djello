@@ -1,133 +1,89 @@
-const Board = require('../models/board');
 const List = require('../models/list');
-const Card = require('../models/card');
-const shortid = require('shortid');
+const { format } = require('../lib/format');
+const { removeIdFromBoard } = require('../lib/board_query');
+const { createList, readListById, readListsByUserId, readListsByBoardId, updateList, deleteList } = require('../lib/list_query');
 
+exports.create = (req, res) => {
 
-function formatLists(lists) {
-	return lists.map(list => {
-		return formatList(list);
-	});
-};
-
-function formatList(list, cards) {
-	if(list)
-		return {
-			id: list._id,
-			boardId: list.boardId,
-			title: list.title,
-			description: list.description,
-			position: list.position,
-			completed: list.completed,
-			cards: cards
-		};
-	else
-		return {};
-};
-
-function updateList(position, completed, title, description) {
-
-	const obj = {}
-
-	if(title) obj.title = title;
-	if(description) obj.description = description;
-	if(completed === false || completed) obj.completed = completed;
-	if(position === 0 || position) obj.position = position;
-
-	return obj;
-}
-
-exports.getList = (req, res) => {
-
-	 Promise.all([List.findById({ _id: req.params.listId }), Card.find({ listId: req.params.listId })])
-		.then(([list, cards]) => {
-			if(list) {
-
-				const obj = formatList(list, cards);
-				res.status(200).json(obj);
-			}
-			else {
-				return {};
-			}
-
+	createList(req.body.list)
+		.then(created => {
+			res.status(200).json(created);
 		})
 		.catch(e => {
-			res.status(500).json({ error: e.stack })
-		});
-	
-
-}
-
-exports.getLists = (req, res) => {
-
-	List.find({ boardId: req.params.boardId })
-		.then(lists => {
-			res.status(200).json(formatLists(lists));
+			res.status(500).json({ error: e.stack });
 		})
-		.catch(e => {
-			res.status(500).json({ error: e.stack })
-		});
 }
 
-exports.createList = (req, res) => {
-	List.find({ boardId: req.params.boardId })
-		.then(lists => {
-			const position = lists.length;
-			const newList = new List({
-				_id: shortid.generate(),
-				boardId: req.params.boardId,
-				title: req.body.title,
-				description: req.body.description,
-				position: position
-			});
+exports.read = (req, res) => {
 
-			newList.save(function(e, list) {
-				if(e) 
-					res.status(500).json({ error: e.stack })
-				else
-					res.status(200).json(formatList(list));
-			})
-		})
-		.catch(e => {
-			res.status(500).json({ error: e.stack })
-		});
-}
-
-exports.editList = (req, res) => {
-	List.findById({ _id: req.params.listId })
+	readListById(req.params.listId)
 		.then(list => {
-			if(list) {
-
-				const params = updateList(req.body.position, req.body.completed, req.body.title, req.body.description);
-
-				list.set(params);
-				list.save(function(e, updatedList) {
-					if(e) 
-						res.status(500).json({ error: e.stack });
-					else
-						res.status(200).json(formatList(updatedList));
-				});
-			} else {
-				res.status(404).json({});
-			}
+			if(list)
+				res.status(200).json(list);
+			else
+				res.status(500).json({});
 		})
 		.catch(e => {
 			res.status(500).json({ error: e.stack });
 		})
 }
 
-exports.deleteList = (req, res) => {
+exports.readAll = (req, res) => {
 
-	const listId = req.params.listId;
+	readListsByBoardId(req.params.boardId)
+		.then(lists => {
+			if(lists)
+				res.status(200).json((lists));
+			else
+				res.status(500).json({});
+		})
+		.catch(e => {
+			res.status(500).json({ error: e.stack });
+		})
+}
 
-	Promise.all([List.deleteOne({ _id: listId }), Card.deleteMany({ listId: listId })])
-		.then(() => {
-			res.status(200).json({ success: `LIST ${ listId } DELETED`});
+exports.update = (req, res) => {
+
+	updateList(req.body.list)
+		.then(updatedList => {
+			res.status(200).json(req.body.list);
 		})
 		.catch(e => {
 			res.status(500).json({ error: e.stack });
 		});
 }
+
+exports.delete = (req, res) => {
+
+	deleteList(req.body.list)
+		.then(() => {
+			res.status(200).json(req.body.list);
+		})
+		.catch(e => {
+			res.status(500).json({ error: e.stack });
+		});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

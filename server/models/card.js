@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const List = require('./list');
 const Schema = mongoose.Schema;
 
 const CardSchema = new Schema({
@@ -7,16 +8,16 @@ const CardSchema = new Schema({
 		required: true
 	},
 	listId: {
-		type: String,
+		type: String, 
 		required: true
 	},
-	position: Number,
 	title: {
 		type: String
 	},
 	description: {
 		type: String
 	},
+	position: Number,
 	completed: {
 		type: Boolean,
 		default: false
@@ -24,5 +25,17 @@ const CardSchema = new Schema({
 	members: Array,
 	activity: Array
 })
+
+CardSchema.pre('remove', function(next) {
+	this.model('List').update({ cards: this._id }, { $pull: { cards: this._id } }, next)
+});
+
+CardSchema.pre('save', function(next) {
+	if(this.isNew) {
+		this.model('List').update({ _id: this.listId }, { $push: { cards: this._id } }, next)
+	} else
+		next();
+});
+
 
 module.exports = mongoose.model('Card', CardSchema)
