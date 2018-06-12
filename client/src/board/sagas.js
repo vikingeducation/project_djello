@@ -61,13 +61,14 @@ function boardRequestApi(client, board) {
 		.catch(error => { throw error })
 }
 
-function boardRequestFlow(action) {
+function* boardRequestFlow(action) {
 	try {
 		const { client, board } = action
 		const requestedBoard = yield call(boardRequestApi, client, board)
 		yield put(boardRequestSuccess(requestedBoard))
-	} catch(error)
+	} catch(error) {
 		yield put(boardRequestError(error))
+	}
 }
 
 function* boardCreateFlow(action) {

@@ -1,7 +1,6 @@
 const List = require('../models/list');
 const shortid = require('shortid');
 const { readBoardById, readBoardsByUserId } = require('./board_query');
-const { flatten } = require('./format');
 
 
 function createObj(list) {
@@ -37,6 +36,7 @@ function createList(list) {
 function readListById(listId) {
 	return List
 		.findById({ _id: listId })
+		.populate('cards')
 		.then(list => {
 			return list;
 		})
@@ -45,36 +45,15 @@ function readListById(listId) {
 		})
 }
 
-function readListsByUserId(userId) {
-	return readBoardsByUserId(userId)
-			.then(boards => {
-				return Promise.all(listsPromises(boards))
-			})
-			.then(lists => {
-				return flatten(lists);
-			})
-			.catch(e => {
-				return new Error(e.stack);
-			})
-}
-
-function listsPromises(boards) {
-	return boards.map(board => {
-		return readListsByBoardId(board._id);
-	});
-}
 
 function readListsByBoardId(boardId) {
 	return List.find({ boardId: boardId })
+		.populate('cards')
 		.then(lists => {
 			return lists;
 		}).catch(err => {
 			return new Error(err.stack);
 		});
-}
-
-function readListsByBoards(boards) {
-	return Promise.all(listsPromises(boards))
 }
 
 function updateList(newlist) {
@@ -110,11 +89,8 @@ function deleteList(list) {
 module.exports = {
 	createList,
 	readListById,
-	readListsByUserId,
 	readListsByBoardId,
-	readListsByBoards,
 	updateList,
-	deleteList,
-	listsPromises
+	deleteList
 }
 

@@ -1,8 +1,7 @@
 const Card = require('../models/card');
 const shortid = require('shortid');
-const { flatten, format } = require('./format');
 const { readBoardsByUserId } = require('../lib/board_query');
-const { readListsByBoardId, listsPromises } = require('../lib/list_query');
+const { readListsByBoardId } = require('../lib/list_query');
 
 function createObj(card) {
 
@@ -39,45 +38,6 @@ function readCardById(cardId) {
 		})
 }
 
-function readDataByUserId(userId) {
-
-	let obj = {};
-
-	return readBoardsByUserId(userId)
-		.then(boards => {
-			console.log(boards);
-			obj['boards'] = format(boards);
-			const promises = listsPromises(boards);
-			return Promise.all(promises);
-			
-		})
-		.then(lists => {
-			console.log(`lists ${lists}`);
-			let flattenLists = flatten(lists);
-			obj['lists'] = format(flattenLists);
-			const promises = cardsPromises(flattenLists);
-
-			return Promise.all(promises);
-		})
-		.then(cards => {
-
-			let flattenCards = flatten(cards);
-			obj['cards'] = format(flattenCards);
-
-			return obj;
-		})
-		.catch(e => {
-			return new Error(e.stack);
-		});
-}
-
-
-function cardsPromises(lists) {
-	return lists.map(list => {
-		return readCardsByListId(list._id);
-	});
-}
-
 function readCardsByListId(listId) {
 	return Card
 		.find({ listId: listId })
@@ -87,10 +47,6 @@ function readCardsByListId(listId) {
 		.catch(e => {
 			return new Error(e.stack);
 		})
-}
-
-function readCardsByLists(lists) {
-	return Promise.all(cardsPromises(lists));
 }
 
 function updateCard(newcard) {
@@ -128,7 +84,6 @@ module.exports = {
 	createCard,
 	readCardById,
 	readCardsByListId,
-	readDataByUserId,
 	updateCard,
 	deleteCard
 }

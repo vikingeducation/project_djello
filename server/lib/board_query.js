@@ -1,5 +1,7 @@
 const Board = require('../models/board');
 const shortid = require('shortid');
+const mongoose = require('mongoose');
+
 
 
 function createObj(board) {
@@ -25,6 +27,12 @@ function createBoard(board) {
 function readBoardById(boardId) {
 	return Board
 		.findById({ _id: boardId })
+		.populate({
+			path: 'lists',
+			populate: {
+				path: 'cards',
+			}
+		})
 		.then(board => {
 			return board;
 		})
@@ -36,6 +44,12 @@ function readBoardById(boardId) {
 function readBoardsByUserId(userId) {
 	return Board
 		.find({ userId: userId })
+		.populate({
+			path: 'lists',
+			populate: {
+				path: 'cards',
+			}
+		})
 		.then(boards => {
 			return boards;
 		})
@@ -75,24 +89,11 @@ function deleteBoard(board) {
 		})
 }
 
-function addIdToBoard(list) {
-	return Board
-		.findById({ _id: list.boardId })
-		.then(board => {
-			board.lists.push(list._id);
-			return board.save();
-		})
-		.catch(e => {
-			return new Error(e.stack);
-		});
-}
-
 module.exports = {
 	createBoard,
 	readBoardById,
 	readBoardsByUserId,
 	updateBoard,
 	deleteBoard,
-	addIdToBoard
 }
 

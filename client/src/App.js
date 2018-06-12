@@ -24,9 +24,7 @@ class App extends Component {
         <Switch>
         	<Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
-          <Route path='/dashboard' render={() => checkDashboardAuthorization(store) ? 
-            <Dashboard /> :
-            <Redirect to='/login' /> }
+          <Route path='/dashboard' component={Dashboard} />
           />
         </Switch>
       </Router>

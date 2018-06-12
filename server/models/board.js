@@ -19,7 +19,7 @@ const BoardSchema = new Schema({
 		type: String,
 	},
 	members: [],
-	lists: [{type: String}]
+	lists: [{ type: String, ref: 'List' }]
 })
 
 BoardSchema.pre('remove', function(next) {

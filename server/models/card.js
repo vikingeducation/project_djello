@@ -9,6 +9,7 @@ const CardSchema = new Schema({
 	},
 	listId: {
 		type: String, 
+		ref: 'List',
 		required: true
 	},
 	title: {

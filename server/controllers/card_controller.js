@@ -1,6 +1,6 @@
 const Card = require('../models/card');
 const { format } = require('../lib/format');
-const { createCard, readCardById, readCardsByUserId, readCardsByBoardId, updateCard, deleteCard } = require('../lib/card_query');
+const { createCard, readCardById, readCardsByUserId, readCardsByListId, readCardsByBoardId, updateCard, deleteCard } = require('../lib/card_query');
 
 exports.create = (req, res) => {
 
@@ -32,7 +32,7 @@ exports.readAll = (req, res) => {
 	readCardsByListId(req.params.listId)
 		.then(cards => {
 			if(cards)
-				res.status(200).json(format(cards));
+				res.status(200).json(cards);
 			else
 				res.status(500).json({});
 		})
@@ -45,7 +45,6 @@ exports.update = (req, res) => {
 
 	updateCard(req.body.card)
 		.then(updatedCard => {
-			console.log(updatedCard);
 			res.status(200).json(updatedCard);
 		})
 		.catch(e => {

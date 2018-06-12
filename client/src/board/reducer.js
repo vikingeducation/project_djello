@@ -8,10 +8,7 @@ import {
 } from './constants';
 
 const initialState = {
-	boards: {
-		byId: {},
-		allIds: [],
-	},
+	boards: {},
 	requesting: false,
 	successful: false,
 	messages: [],
@@ -76,7 +73,7 @@ const reducer = function boardReducer(state = initialState, action) {
 
 		case BOARD_REQUEST_SUCCESS:
 			return {
-				list: action.boards,
+				boards: action.boards,
 				requesting: false,
 				successful: true,
 				messages: [{

@@ -9,7 +9,8 @@ const ListSchema = new Schema({
 		required: true
 	},
 	boardId: {
-		type: String,
+		type: String, 
+		ref: 'List',
 		required: true
 	},
 	title: {
@@ -23,7 +24,7 @@ const ListSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
-	cards: [{ type: String }]
+	cards: [{ type: String, ref: 'Card' }]
 })
 
 ListSchema.pre('remove', function(next) {

@@ -4,13 +4,15 @@ import client from './client/reducer'
 import signup from './signup/reducer'  
 import login from './login/reducer'  
 import board from './board/reducer' 
+import data from './dashboard/reducer';
 
 const IndexReducer = combineReducers({  
   signup,
   client,
   login,
   form,
-  board, 
+  board,
+  data
 })
 
 export default IndexReducer  
