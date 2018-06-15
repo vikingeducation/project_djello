@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 function createObj(board) {
 
+	console.log(board)
+
 	const obj = {
 		_id: shortid.generate(),
 		userId: board.userId,
@@ -21,6 +23,9 @@ function createBoard(board) {
 	return newBoard.save()
 		.then(savedBoard => {
 			return savedBoard;
+		})
+		.catch(e => {
+			return new Error(e.stack);
 		});
 }
 
