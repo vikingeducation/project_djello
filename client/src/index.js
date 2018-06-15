@@ -4,6 +4,9 @@ import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux' 
 import createSagaMiddleware from 'redux-saga'
 
+// CSS
+import 'bootstrap/dist/css/bootstrap.css';
+
 // Import all of our components
 import App from './App'  
 

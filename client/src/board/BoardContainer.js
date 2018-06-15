@@ -1,77 +1,46 @@
-import React, { Component, PropTypes } from 'react'  
-import { reduxForm } from 'redux-form'  
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { reduxForm, Field } from 'redux-form'
 import Board from './Board';
+import BoardCreate from './BoardCreate'
+import BoardUpdate from './BoardUpdate'
+import BoardDelete from './BoardDelete'
+import Messages from '../notifications/Messages'  
+import Errors from '../notifications/Errors'
 
-import { boardCreate } from './actions'
+import { boardCreate } from './actions';
 
-// Our validation function for `name` field.
-const titleRequired = value => (value ? undefined : 'Name Required')
 
-class BoardContainer extends Component {  
-
-	submit = (board) => {
-		const { client, boardCreate, reset } = this.props
-		boardCreate(client, board)
-		reset()
-	}
-
-	  renderTitleInput = ({ input, type, meta: { touched, error } }) => (
-    <div>
-      {/* Spread RF's input properties onto our input */}
-      <input
-        {...input}
-        type={type}
-      />
-      {/*
-        If the form has been touched AND is in error, show `error`.
-        `error` is the message returned from our validate function above
-        which in this case is `Name Required`.
-
-        `touched` is a live updating property that RF passes in.  It tracks
-        whether or not a field has been "touched" by a user.  This means
-        focused at least once.
-      */}
-      {touched && error && (
-        <div style={{ color: '#cc7a6f', margin: '-10px 0 15px', fontSize: '0.7rem' }}>
-          {error}
-        </div>
-        )
-      }
-    </div>
-  )
+class BoardContainer extends Component {
 
 
 	render() {
 
-		const { handleSubmit, invalid, board } = this.props;
+		const { board, handleSubmit, invalid, submit } = this.props;
 
 		return (
-			<Board 
-				titleRequired={titleRequired}
-				handleSubmit={handleSubmit}
-				invalid={invalid}
-        board={board}
-				renderTitleInput={this.renderTitleInput}
-				submit={this.submit}
-			/>
-		)
-	}
 
+			<div className="board">
+
+				<BoardCreate />
+				<BoardUpdate />
+				<BoardDelete />
+
+				{ board ? <Board board={board} /> : <p>no board found</p> } 
+			</div>
+			)
+	}
 }
 
-// Pull in both the Client and the Board state
-const mapStateToProps = state => ({  
-  client: state.client,
-  board: state.board,
+const getBoard = (state) => {
+	return state.board.boards.byId[state.board.current];
+}
+
+const mapStateToProps = state => ({
+	board: getBoard(state),
+	client: state.client
 })
 
-// Make the Client and Board available in the props as well
-// as the boardCreate() function
-const connected = connect(mapStateToProps, { boardCreate })(BoardContainer)  
-const formed = reduxForm({  
-  form: 'board',
-})(connected)
+const connected = connect(mapStateToProps, { boardCreate })(BoardContainer);
 
-export default formed  
+export default connected;

@@ -1,38 +1,38 @@
-import { call, put, takeLatest } from 'redux-saga/effects'  
+import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'  
 import { handleApiErrors } from '../lib/api-errors'  
 import {  
   BOARD_CREATING,
-  BOARD_REQUESTING,
+  BOARD_UPDATING,
+  BOARD_DELETING,
 } from './constants'
 
 import {
 	boardCreateSuccess,
 	boardCreateError,
-	boardRequestSuccess,
-	boardRequestError,
+	boardUpdateSuccess,
+	boardUpdateError,
+	boardDeleteSuccess,
+	boardDeleteError,
+	boardSet,
 } from './actions'
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
 
 function boardCreateApi(client, board) {
 
-	const { title } = board
-
 	const url = `${baseUrl}/${client.user._id}/boards/new`;
 
 	const options = {
 		method: 'POST',
-		withCredentials: true,
+		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': client.token
 		},
 		body: JSON.stringify({
-			'title': title
+			board,
 		})
 	};
-
-	console.log(options);
 
 	return fetch(url, options)
 	.then(handleApiErrors)
@@ -41,35 +41,6 @@ function boardCreateApi(client, board) {
 	.catch((error) => { throw error })
 }
 
-function boardRequestApi(client, board) {
-
-	const url = `${baseUrl}/${client.user._id}/boards/`
-
-	const options = {
-		method: 'GET',
-		withCredentials: true,
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': client.token
-		}
-	}
-
-	return fetch(url, options)
-		.then(handleApiErrors)
-		.then(response => response.json())
-		.then(json => json)
-		.catch(error => { throw error })
-}
-
-function* boardRequestFlow(action) {
-	try {
-		const { client, board } = action
-		const requestedBoard = yield call(boardRequestApi, client, board)
-		yield put(boardRequestSuccess(requestedBoard))
-	} catch(error) {
-		yield put(boardRequestError(error))
-	}
-}
 
 function* boardCreateFlow(action) {
 	try {
@@ -81,11 +52,80 @@ function* boardCreateFlow(action) {
 	}
 }
 
+function boardDeleteApi(client, board) {
+
+	const url = `${baseUrl}/${client.user._id}/boards/${board._id}/delete`;
+
+	const options = {
+		method: 'POST',
+		mode: 'cors',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': client.token
+		},
+		body: JSON.stringify({
+			board,
+		})
+	};
+
+	return fetch(url, options)
+	.then(handleApiErrors)
+	.then(response => response.json())
+	.then(json => json)
+	.catch((error) => { throw error })
+
+}
+
+function* boardDeleteFlow(action) {
+	try {
+		const { client, board } = action
+		const deletedBoard = yield call(boardDeleteApi, client, board)
+		yield put(boardDeleteSuccess(deletedBoard))
+	} catch(error) {
+		yield put(boardDeleteError(error))
+	}
+}
+
+function boardUpdateApi(client, board) {
+
+	console.log(client, board);
+
+	const url = `${baseUrl}/${client.user._id}/boards/${board._id}/update`;
+
+	const options = {
+		method: 'POST',
+		mode: 'cors',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': client.token
+		},
+		body: JSON.stringify({
+			board,
+		})
+	};
+
+	return fetch(url, options)
+	.then(handleApiErrors)
+	.then(response => response.json())
+	.then(json => json)
+	.catch((error) => { throw error })
+}
+
+function* boardUpdateFlow(action) {
+	try {
+		const { client, board } = action
+		const updatedBoard = yield call(boardUpdateApi, client, board)
+		yield put(boardUpdateSuccess(updatedBoard))
+	} catch(error) {
+		yield put(boardUpdateError(error))
+	}
+}
 
 function* boardWatcher() {
 	yield [
 		takeLatest(BOARD_CREATING, boardCreateFlow),
-		takeLatest(BOARD_REQUESTING, boardRequestFlow),
+		takeLatest(BOARD_UPDATING, boardUpdateFlow),
+		takeLatest(BOARD_DELETING, boardDeleteFlow)
 	]
 }
 

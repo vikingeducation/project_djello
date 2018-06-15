@@ -44,7 +44,7 @@ class Login extends Component {
 
 		return (
 			<div className="login">
-				<form className="widget-form" onSubmit={handleSubmit(this.submit)}>
+				<form className="login-form" onSubmit={handleSubmit(this.submit)}>
 					<h1>LOGIN</h1>
 					<label htmlFor="email">Email</label>
 					{/*

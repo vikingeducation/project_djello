@@ -1,19 +1,16 @@
-import { call, put, takeLatest } from 'redux-saga/effects'  
+import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'  
 import { handleApiErrors } from '../lib/api-errors' 
+
+import { boardSet } from '../board/actions'
+import { listSet } from '../list/actions'
+import { cardSet } from '../card/actions'
+import { DATA_REQUESTING } from './constants';
 
 import {
 	dataRequest,
 	dataRequestSuccess,
 	dataRequestError
 } from './actions';
-
-import {
-	boardRequestSuccess,
-} from '../board/actions'
-
-import {
-	DATA_REQUESTING
-} from './constants';
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
 
@@ -42,7 +39,9 @@ function* dataRequestFlow(action) {
 		const { client } = action
 		const requestedData = yield call(dataRequestApi, client)
 		yield put(dataRequestSuccess());
-		yield put(boardRequestSuccess(requestedData.boards))
+		yield put(boardSet(requestedData.boards))
+		yield put(listSet(requestedData.lists))
+		yield put(cardSet(requestedData.cards))
 	} catch(error) {
 		yield put(dataRequestError(error))
 	}

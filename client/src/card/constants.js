@@ -1,0 +1,4 @@
+export const CARD_SET = 'CARD_SET';
+export const CARD_CREATING = 'CARD_CREATING';
+export const CARD_CREATE_SUCCESS = 'CARD_CREATE_SUCCESS'
+export const CARD_CREATE_ERROR = 'CARD_CREATE_ERROR'

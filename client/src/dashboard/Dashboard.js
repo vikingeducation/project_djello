@@ -1,9 +1,13 @@
 import React from 'react';
+import Dropdown from '../components/dropdown';
 
 const Dashboard = (props) => {
+	
+	const { boards } = props;
+
 	return (
 		<div>
-			dashboard
+			<Dropdown boards={boards} />
 		</div>
 		)
 }

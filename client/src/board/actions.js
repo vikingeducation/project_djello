@@ -2,9 +2,14 @@ import {
 	BOARD_CREATING,
 	BOARD_CREATE_SUCCESS,
 	BOARD_CREATE_ERROR,
-	BOARD_REQUESTING,
-	BOARD_REQUEST_SUCCESS,
-	BOARD_REQUEST_ERROR
+	BOARD_UPDATING,
+	BOARD_UPDATE_SUCCESS,
+	BOARD_UPDATE_ERROR,
+	BOARD_DELETING,
+	BOARD_DELETE_SUCCESS,
+	BOARD_DELETE_ERROR,
+	BOARD_SET_CURRENT,
+	BOARD_SET,
 } from './constants';
 
 export const boardCreate = function boardCreate(client, board) {
@@ -29,23 +34,60 @@ export const boardCreateError = function boardCreateError(error) {
 	}
 }
 
-export const boardRequest = function boardRequest(client) {
+export const boardUpdate = function boardUpdate(client, board) {
 	return {
-		type: BOARD_REQUESTING,
-		client
+		type: BOARD_UPDATING,
+		client,
+		board
 	}
 }
 
-export const boardRequestSuccess = function boardRequestSuccess(boards) {
+export const boardUpdateSuccess = function boardUpdateSuccess(board) {
 	return {
-		type: BOARD_REQUEST_SUCCESS,
+		type: BOARD_UPDATE_SUCCESS,
+		board
+	}
+}
+
+export const boardUpdateError = function boardUpdateError(error) {
+	return {
+		type: BOARD_UPDATE_ERROR,
+		error
+	}
+}
+
+export const boardDelete = function boardDelete(client, board) {
+	return {
+		type: BOARD_DELETING,
+		client,
+		board,
+	}
+}
+
+export const boardDeleteSuccess = function boardDeleteSuccess(board) {
+	return {
+		type: BOARD_DELETE_SUCCESS,
+		board
+	}
+}
+
+export const boardDeleteError = function boardDeleteError(error) {
+	return {
+		type: BOARD_DELETE_ERROR,
+		error
+	}
+}
+
+export const boardSet = function boardSet(boards) {
+	return {
+		type: BOARD_SET,
 		boards
 	}
 }
 
-export const boardRequestError = function boardRequestError(error) {
+export const boardSetCurrent= function boardSetCurrent(board) {
 	return {
-		type: BOARD_REQUEST_ERROR,
-		error
+		type: BOARD_SET_CURRENT,
+		board
 	}
 }

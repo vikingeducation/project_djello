@@ -4,8 +4,7 @@ import Signup from './signup/SignupContainer';
 import Login from './login';
 import Dashboard from './dashboard/DashboardContainer';
 import Board from './board/BoardContainer';
-import history from './lib/history'  
-import './App.css'
+import history from './lib/history'
 
 import {
   checkDashboardAuthorization,

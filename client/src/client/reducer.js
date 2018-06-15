@@ -1,8 +1,10 @@
 import { CLIENT_SET, CLIENT_UNSET } from './constants'
 
 const initialState = {  
-  user: null,
-  token: null,
+			user: {
+				_id: 'HyFxJ4eW7'
+			},
+			token: 'tokenValue'
 }
 
 const reducer = function clientReducer(state = initialState, action) {
