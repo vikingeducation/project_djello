@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { boardUpdate } from './actions';
+import { listCreate } from './actions';
 
-class BoardUpdateForm extends Component {
 
-	submitUpdate = (values) => {
+class ListCreate extends Component {
 
-		this.props.boardUpdate(this.props.client, {	...this.props.board, ...values });
+	submitCreate = (values) => {
+
+		this.props.listCreate(this.props.client, { ...values, boardId: this.props.board._id });
 		this.props.reset()
 	}
 
@@ -16,9 +17,9 @@ class BoardUpdateForm extends Component {
 		const { handleSubmit, invalid, submit } = this.props;
 
 		return (
-				<div className="board-form">
-					<form onSubmit={handleSubmit(this.submitUpdate)}>
-						<h1>Update Board</h1>
+				<div className="list-form">
+					<form onSubmit={handleSubmit(this.submitCreate)}>
+						<h1>Create List</h1>
 						<label htmlFor="title">Title</label>
 
 						<Field
@@ -39,7 +40,7 @@ class BoardUpdateForm extends Component {
 						<button
 							disabled={invalid}
 							action="submit"
-						>Update</button>
+						>CREATE</button>
 					</form>
 				</div>
 		)
@@ -51,12 +52,13 @@ const getBoard = (state) => {
 }
 
 const mapStateToProps = state => ({
-	board: getBoard(state),
 	client: state.client,
-	initialValues: getBoard(state)
+	board: getBoard(state),
 })
 
-export default connect(mapStateToProps, { boardUpdate })(reduxForm({
-	form: 'BoardUpdateForm',
-	enableReinitialize: true,
-})(BoardUpdateForm));
+const connected = connect(mapStateToProps, { listCreate })(ListCreate);
+const formed = reduxForm({
+	form: 'listCreate',
+})(connected)
+
+export default formed;

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { boardUpdate } from './actions';
+import { cardCreate } from './actions';
 
-class BoardUpdateForm extends Component {
 
-	submitUpdate = (values) => {
+class CardCreate extends Component {
 
-		this.props.boardUpdate(this.props.client, {	...this.props.board, ...values });
+	submitCreate = (values) => {
+
+		this.props.cardCreate(this.props.client, this.props.list, { ...values, listId: this.props.list._id });
 		this.props.reset()
 	}
 
@@ -16,9 +17,9 @@ class BoardUpdateForm extends Component {
 		const { handleSubmit, invalid, submit } = this.props;
 
 		return (
-				<div className="board-form">
-					<form onSubmit={handleSubmit(this.submitUpdate)}>
-						<h1>Update Board</h1>
+				<div className="card-form">
+					<form onSubmit={handleSubmit(this.submitCreate)}>
+						<h1>Create Card</h1>
 						<label htmlFor="title">Title</label>
 
 						<Field
@@ -39,24 +40,25 @@ class BoardUpdateForm extends Component {
 						<button
 							disabled={invalid}
 							action="submit"
-						>Update</button>
+						>CREATE</button>
 					</form>
 				</div>
 		)
 	}
 }
 
-const getBoard = (state) => {
-	return state.board.boards.byId[state.board.current];
+const getList = (state, ownProps) => {
+	return state.list.lists.byId[ownProps.listId]
 }
 
-const mapStateToProps = state => ({
-	board: getBoard(state),
+const mapStateToProps = (state, ownProps) => ({
 	client: state.client,
-	initialValues: getBoard(state)
+	list: getList(state, ownProps),
 })
 
-export default connect(mapStateToProps, { boardUpdate })(reduxForm({
-	form: 'BoardUpdateForm',
-	enableReinitialize: true,
-})(BoardUpdateForm));
+const connected = connect(mapStateToProps, { cardCreate })(CardCreate);
+const formed = reduxForm({
+	form: 'cardCreate',
+})(connected)
+
+export default formed;

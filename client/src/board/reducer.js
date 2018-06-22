@@ -1,3 +1,5 @@
+import {defineState} from 'redux-localstore'
+
 import {
 	BOARD_CREATING,
 	BOARD_CREATE_SUCCESS,
@@ -10,9 +12,11 @@ import {
 	BOARD_DELETE_ERROR,
 	BOARD_SET_CURRENT,
 	BOARD_SET,
+	LIST_BOARD_CREATE_SUCCESS,
+	LIST_BOARD_DELETE_SUCCESS
 } from './constants';
 
-const initialState = {
+const defaultState = {
 	current: '',
 	boards: {
 		byId: {},
@@ -24,19 +28,20 @@ const initialState = {
 	errors: [],
 }
 
-function removeItemArray(array, action) {
+const initialState = defineState(defaultState)('board')
+
+
+function removeItemArray(array, obj) {
 	return array.filter(item => {
-		return item !== action.board._id;
+		return item !== obj._id;
 	})
 }
 
-function removeItemObject(obj, action) {
-	const key = action.board._id
+function removeItemObject(obj, toRemove) {
+	const key = toRemove._id
 	const { [key]: del, ...restOfItems } = obj
 
 	return restOfItems
-
-
 }
 
 const reducer = function boardReducer(state = initialState, action) {
@@ -57,10 +62,10 @@ const reducer = function boardReducer(state = initialState, action) {
 			return {
 				...state,
 				boards: {
-					allIds: [ ...state.boards.allIds, action._id ],
+					allIds: [ ...state.boards.allIds, action.board._id ],
 					byId: {
 						...state.boards.byId,
-						[action._id]: action.board
+						[action.board._id]: action.board
 					}
 				},
 				requesting: false,
@@ -100,7 +105,7 @@ const reducer = function boardReducer(state = initialState, action) {
 			return {
 				...state,
 				boards: {
-					allIds: [...state.boards.allIds],
+					...state.boards,
 					byId: {
 						...state.boards.byId,
 						[action.board._id]: action.board
@@ -143,7 +148,7 @@ const reducer = function boardReducer(state = initialState, action) {
 			return {
 				...state,
 				boards: {
-					allIds: removeItemArray(state.boards.allIds, action._id),
+					allIds: removeItemArray(state.boards.allIds, action.board),
 					byId: removeItemObject(state.boards.byId, action.board)
 				},
 				requesting: false,
@@ -184,6 +189,37 @@ const reducer = function boardReducer(state = initialState, action) {
 				...state,
 				current: action.board,
 			}
+
+		case LIST_BOARD_CREATE_SUCCESS:
+			return {
+				...state,
+				boards: {
+					...state.boards,
+					byId: {
+						...state.boards.byId,
+						[action.list.boardId]: {
+							...state.boards.byId[action.list.boardId],
+							lists: [ ...state.boards.byId[action.list.boardId].lists, action.list._id ]
+						}
+					}
+				}
+			}
+
+		case LIST_BOARD_DELETE_SUCCESS:
+			return {
+				...state,
+				boards: {
+					...state.boards,
+					byId: {
+						...state.boards.byId,
+						[action.list.boardId]: {
+							...state.boards.byId[action.list.boardId],
+							lists: removeItemArray(state.boards.byId[action.list.boardId].lists, action.list)
+						}
+					}
+				}
+			}
+
 
 		default:
 			return state;

@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import storeSynchronize from 'redux-localstore'
 import { applyMiddleware, createStore, compose } from 'redux' 
 import { Provider } from 'react-redux' 
 import createSagaMiddleware from 'redux-saga'
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.css';
+import 'mdbreact/dist/css/mdb.css';
 
 // Import all of our components
 import App from './App'  
@@ -27,6 +29,8 @@ const store = createStore(
   IndexReducer,
   composeSetup(applyMiddleware(sagaMiddleware)), // allows redux devtools to watch sagas
 )
+
+storeSynchronize(store)
 
 // Begin our Index Saga
 sagaMiddleware.run(IndexSagas)

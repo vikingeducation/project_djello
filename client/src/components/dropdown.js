@@ -42,8 +42,8 @@ class CustomDropdown extends Component {
 
 		return (
 			<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-				<DropdownToggle>
-					Boards
+				<DropdownToggle caret>
+					Board List
 				</DropdownToggle>
 					<DropdownMenu>
 					{ boards.map(board => (

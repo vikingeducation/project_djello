@@ -5,6 +5,9 @@ import Board from './Board';
 import BoardCreate from './BoardCreate'
 import BoardUpdate from './BoardUpdate'
 import BoardDelete from './BoardDelete'
+
+import ListCreate from '../list/ListCreate'
+
 import Messages from '../notifications/Messages'  
 import Errors from '../notifications/Errors'
 
@@ -16,7 +19,7 @@ class BoardContainer extends Component {
 
 	render() {
 
-		const { board, handleSubmit, invalid, submit } = this.props;
+		const { board } = this.props;
 
 		return (
 
@@ -25,6 +28,8 @@ class BoardContainer extends Component {
 				<BoardCreate />
 				<BoardUpdate />
 				<BoardDelete />
+
+				<ListCreate />
 
 				{ board ? <Board board={board} /> : <p>no board found</p> } 
 			</div>

@@ -10,7 +10,23 @@ import {
 	BOARD_DELETE_ERROR,
 	BOARD_SET_CURRENT,
 	BOARD_SET,
+	LIST_BOARD_CREATE_SUCCESS,
+	LIST_BOARD_DELETE_SUCCESS,
 } from './constants';
+
+export const listBoardCreateSuccess = function(list) {
+	return {
+		type: LIST_BOARD_CREATE_SUCCESS,
+		list
+	}
+}
+
+export const listBoardDeleteSuccess = function(list) {
+	return {
+		type: LIST_BOARD_DELETE_SUCCESS,
+		list
+	}
+}
 
 export const boardCreate = function boardCreate(client, board) {
 	return {

@@ -8,10 +8,13 @@ const Board = (props) => {
 	return (
 		<div>
 			<p>Board: { board._id }</p>
-
+			<div className="row">
 			{ board.lists.map(list => (
-				<ListContainer key={list} listId={list} />
+				<div key={list} className="col-4">
+					<ListContainer listId={list} />
+				</div>
 			))}
+			</div>
 		</div>
 	)
 }

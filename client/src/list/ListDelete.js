@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { reduxForm, Field } from 'redux-form'
-import { boardDelete } from './actions';
+import { reduxForm } from 'redux-form'
+import { listDelete } from './actions';
 
 
-class BoardDelete extends Component {
+class ListDelete extends Component {
 
 	submitDelete = () => {
-		this.props.boardDelete(this.props.client, this.props.board);
+		this.props.listDelete(this.props.client, this.props.list);
 	}
 
 	render() {
@@ -15,7 +15,7 @@ class BoardDelete extends Component {
 		const { handleSubmit, submit } = this.props;
 
 		return (
-				<div className="board-delete">
+				<div className="list-delete">
 					<form onSubmit={handleSubmit(this.submitDelete)}>
 						<button action="submit">Delete</button>
 					</form>
@@ -24,18 +24,13 @@ class BoardDelete extends Component {
 	}
 }
 
-const getBoard = (state) => {
-	return state.board.boards.byId[state.board.current];
-}
-
 const mapStateToProps = state => ({
-	board: getBoard(state),
 	client: state.client
 })
 
-const connected = connect(mapStateToProps, { boardDelete })(BoardDelete);
+const connected = connect(mapStateToProps, { listDelete })(ListDelete);
 const formed = reduxForm({
-	form: 'boardDelete',
+	form: 'listCreate',
 })(connected)
 
 export default formed;

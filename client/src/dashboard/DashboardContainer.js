@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dashboard from './Dashboard';
 import { connect } from 'react-redux'
-
+import { Container, Row, Col } from 'reactstrap';
 import { dataRequest } from './actions';
 import { setClient } from '../client/actions';
 import Dropdown from '../components/dropdown';
@@ -11,8 +11,8 @@ import CardContainer from '../card/CardContainer';
 
 class DashboardContainer extends Component {
 
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			boards: [],
 		}
@@ -26,38 +26,31 @@ class DashboardContainer extends Component {
 		});
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		if(prevProps.boards !== this.props.boards) {
-			
-			const updated = this.props.boards.allIds.map(id => {
-				return this.props.boards.byId[id];
-			})
-
-			this.setState({
-				boards: updated,
-			})
-		}
-	}
-
-
-
 	render() {
 
-		const { boards } = this.state;
+		const { boards } = this.props;
 
 		return (
-			<div>
+			<Container>
 				<Dropdown />
 				<BoardContainer />
-			</div>
+			</Container>
 		)
 	}
 
 }
 
+
+const getBoards = (state) => {
+	return state.board.boards.allIds.map(id => {
+		return state.board.boards.byId[id];
+	})
+}
+
+
 const mapStateToProps = state => ({  
   client: state.client,
-  boards: state.board.boards,
+  boards: getBoards(state)
 })
 
 // Make the Client and Board available in the props as well

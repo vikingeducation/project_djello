@@ -6,11 +6,11 @@ class CardContainer extends Component {
 
 	render() {
 
-		const { card } = this.props;
+		const { card, listId } = this.props;
 
 		return (
 			card ? 
-			<Card card={card} /> : <p>no card</p>
+			<Card card={card} listId={listId} /> : <p>no card</p>
 			)
 
 	}
