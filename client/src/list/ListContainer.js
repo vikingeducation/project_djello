@@ -2,31 +2,77 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import List from './List';
-import ListCreate from './ListCreate'
-import ListUpdate from './ListUpdate'
-import ListDelete from './ListDelete'
+import { listDelete, listUpdate } from './actions'
 import Messages from '../notifications/Messages'  
 import Errors from '../notifications/Errors'
 
-import { listSetCurrent } from './actions'
 
 class ListContainer extends Component {
 
-	handleClick = (list) => {
-		this.props.listSetCurrent(list)
+	state = {
+		list: this.props.list,
+		showTitle: false,
+		showDescription: false,
+	}
+
+	componentWillReceiveProps(nextProps) {
+  	if (nextProps.list !== this.state.list) {
+   		this.setState({ list: nextProps.list,
+    		showTitle: false,
+			showDescription: false, });
+  		}
+	}
+
+	handleUpdate = (e) => {
+		e.preventDefault();
+		this.props.listUpdate(this.props.client, { ...this.props.list, ...this.state.list });
+	}
+
+	handleDelete = (e) => {
+		e.preventDefault();
+		this.props.listDelete(this.props.client, this.props.list);
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			list: {
+				...this.state.list,
+				[e.target.name]: e.target.value
+			}
+		})
+	}
+
+	handleEditTitle = (e) => {
+		this.setState({
+			showTitle: !this.state.showTitle
+		})
+	}
+
+	handleEditDescription= (e) => {
+		this.setState({
+			showDescription: !this.state.showDescription
+		})
 	}
 
 	render() {
 
-		const { list } = this.props;
+		
+		const { showTitle, showDescription, list } = this.state;
 
-		return (
-
-			<div className="list">
-
-				{ list ? <List handleClick={this.handleClick} list={list} /> : <p>no list found</p> } 
-			</div>
-			)
+		if(list) {
+			return <List 
+						list={list}
+						handleDelete={this.handleDelete} 
+						handleEditTitle={this.handleEditTitle} 
+						handleEditDescription={this.handleEditDescription}
+						handleUpdate={this.handleUpdate}
+						handleChange={this.handleChange}
+						showTitle={showTitle}
+						showDescription={showDescription}
+					/>  
+		} else {
+			return <p>No List Found!</p>
+		}
 	}
 }
 
@@ -39,6 +85,6 @@ const mapStateToProps = (state, ownProps) => ({
 	client: state.client
 })
 
-const connected = connect(mapStateToProps, { listSetCurrent })(ListContainer);
+const connected = connect(mapStateToProps, { listDelete, listUpdate })(ListContainer);
 
 export default connected;

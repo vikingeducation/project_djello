@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import Dashboard from './Dashboard';
 import { connect } from 'react-redux'
-import { Container, Row, Col } from 'reactstrap';
 import { dataRequest } from './actions';
 import { setClient } from '../client/actions';
-import Dropdown from '../components/dropdown';
-
-import BoardContainer from '../board/BoardContainer';
-import CardContainer from '../card/CardContainer';
+import { boardSetCurrent } from '../board/actions';
+import CustomDropdown from './Dropdown';
+import CreateModal from './CreateModal';
+import { Container } from 'mdbreact';
+import BoardContainer from '../board/BoardContainer'
 
 class DashboardContainer extends Component {
 
 	constructor(props){
-		super(props);
+		super(props)
 		this.state = {
-			boards: [],
+			dropdownOpen: false,
 		}
-	}
+	};
 
 	componentDidMount() {
 		this.props.dataRequest({
@@ -26,20 +25,37 @@ class DashboardContainer extends Component {
 		});
 	}
 
+	handleToggleDropdown = (e) => {
+		this.setState({
+			dropdownOpen: !this.state.dropdownOpen
+		})
+	}
+
+	setCurrentBoard = (board) => {
+		this.props.boardSetCurrent(board);
+	}
 	render() {
 
 		const { boards } = this.props;
 
-		return (
-			<Container>
-				<Dropdown />
-				<BoardContainer />
-			</Container>
-		)
+		if(boards) {
+			return <Container>
+						<div className="row justify-content-end">
+							<CustomDropdown 
+								boards={boards}
+								handleToggleDropdown={this.handleToggleDropdown}
+								setCurrentBoard={this.setCurrentBoard}
+								dropdownOpen={this.state.dropdownOpen}
+							/>
+							<CreateModal/>
+						</div>
+						<BoardContainer />
+					</Container>
+		} else {
+			return <h1>No Boards Found!</h1>
+		}
 	}
-
 }
-
 
 const getBoards = (state) => {
 	return state.board.boards.allIds.map(id => {
@@ -47,14 +63,11 @@ const getBoards = (state) => {
 	})
 }
 
-
 const mapStateToProps = state => ({  
-  client: state.client,
-  boards: getBoards(state)
+	client: state.client,
+	boards: getBoards(state)
 })
 
-// Make the Client and Board available in the props as well
-// as the boardCreate() function
-const connected = connect(mapStateToProps, { dataRequest, setClient })(DashboardContainer)  
+const connected = connect(mapStateToProps, { dataRequest, setClient, boardSetCurrent })(DashboardContainer)  
 
 export default connected;  

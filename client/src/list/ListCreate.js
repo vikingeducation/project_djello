@@ -1,64 +1,75 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { reduxForm, Field } from 'redux-form'
-import { listCreate } from './actions';
-
+import { listCreate } from '../list/actions'
+import { Container, Fa, Input, Col, Row, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 
 class ListCreate extends Component {
 
-	submitCreate = (values) => {
+	constructor(props){
+		super(props)
+		this.state = {
+			modal: false,
+			name: '',
+			description: '',
+		}
+	};
 
-		this.props.listCreate(this.props.client, { ...values, boardId: this.props.board._id });
-		this.props.reset()
+	handleToggleModal = (e) => {
+		this.setState({
+			modal: !this.state.modal
+		})
+	}
+
+	handleSubmit = (e) => {
+		e.preventDefault();
+		this.props.listCreate(this.props.client, { title: this.state.name, description: this.state.description, boardId: this.props.board._id });
+		this.setState({
+			modal: false
+		})
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		})
 	}
 
 	render() {
 
-		const { handleSubmit, invalid, submit } = this.props;
-
 		return (
-				<div className="list-form">
-					<form onSubmit={handleSubmit(this.submitCreate)}>
-						<h1>Create List</h1>
-						<label htmlFor="title">Title</label>
-
-						<Field
-							name="title"
-							type="text"
-							id="title"
-							className="title"
-							component="input"
-						/>
-						<label htmlFor="description">Description</label>
-						<Field
-							name="description"
-							type="text"
-							id="description"
-							className="description"
-							component="input"
-						/>
-						<button
-							disabled={invalid}
-							action="submit"
-						>CREATE</button>
+			<Row>
+				<Col>
+					<Button color="info" onClick={this.handleToggleModal}>New List</Button>
+					<Modal isOpen={this.state.modal} toggle={this.handleToggleModal} className="cascading-modal">
+						<div className="modal-header primary-color white-text">
+							<h4 className="title">Create New List</h4>
+						</div>
+						<form onSubmit={this.handleSubmit}>
+					<ModalBody className="grey-text">
+				      <label htmlFor="listName" className="grey-text font-weight-light">List Name</label>
+				      <input type="text" id="listName" name="name"className="form-control" onChange={this.handleChange}/>
+				      <br/>
+				      <label htmlFor="listDescription" className="grey-text font-weight-light">List Description</label>
+				      <input type="text" id="listDescription" name="description"className="form-control" onChange={this.handleChange}/>
+					</ModalBody>
+					<ModalFooter>
+						<Button color="secondary" onClick={this.handleToggleModal}>Close</Button>{' '}
+						<Button color="primary" type="submit">Save</Button>
+					</ModalFooter>
 					</form>
-				</div>
-		)
+					</Modal>
+				</Col>
+			</Row>
+     
+			)
 	}
 }
 
-const getBoard = (state) => {
-	return state.board.boards.byId[state.board.current];
-}
-
-const mapStateToProps = state => ({
+const mapStateToProps = state => ({  
 	client: state.client,
-	board: getBoard(state),
+	board: state.board.boards.byId[state.board.current]
 })
 
-const connected = connect(mapStateToProps, { listCreate })(ListCreate);
-const formed = reduxForm({
-	form: 'listCreate',
-})(connected)
+const connected = connect(mapStateToProps, { listCreate })(ListCreate)  
 
-export default formed;
+export default connected; 

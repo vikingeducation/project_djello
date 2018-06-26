@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Router, Redirect, Route, Switch } from "react-router-dom";
 import Signup from './signup/SignupContainer';
 import Login from './login';
-import Dashboard from './dashboard/DashboardContainer';
-import Board from './board/BoardContainer';
+import DashboardContainer from './dashboard/DashboardContainer';
 import history from './lib/history'
 
 import {
@@ -23,7 +22,7 @@ class App extends Component {
         <Switch>
         	<Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
-          <Route path='/dashboard' component={Dashboard} />
+          <Route path='/dashboard' component={DashboardContainer} />
           />
         </Switch>
       </Router>

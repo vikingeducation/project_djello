@@ -10,6 +10,7 @@ import {
 	CARD_DELETE_ERROR,
 	CARD_SET_CURRENT,
 	CARD_SET,
+	LIST_CARD_DELETE_SUCCESS
 } from './constants';
 
 export const cardCreate = function cardCreate(client, list, card) {
@@ -88,9 +89,9 @@ export const cardSet = function cardSet(cards) {
 	}
 }
 
-export const cardSetCurrent = function cardSetCurrent(cardId) {
+export const listCardDeleteSuccess = function listCardDeleteSuccess(list) {
 	return {
-		type: CARD_SET_CURRENT,
-		cardId
+		type: LIST_CARD_DELETE_SUCCESS,
+		list
 	}
 }

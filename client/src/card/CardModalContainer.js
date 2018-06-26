@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { cardUpdate } from './actions'
+import { cardUpdate, cardDelete } from './actions'
 import CardModal from './CardModal'
 
 class CardModalContainer extends Component {
@@ -12,10 +12,20 @@ class CardModalContainer extends Component {
 		showDescription: false,
 	}
 
-	handleSubmit = (e) => {
+	componentWillReceiveProps(nextProps) {
+  	if (nextProps.card !== this.state.card) {
+   		this.setState({ card: nextProps.card,
+    		showTitle: false,
+			showDescription: false, });
+  		}
+	}
+
+	handleUpdate = (e) => {
 		e.preventDefault();
 		this.props.cardUpdate(this.props.client, this.props.list, { ...this.state.card });
-
+		this.setState({
+			modal: false
+		})
 	}
 
 	handleToggle = (e) => {
@@ -32,6 +42,16 @@ class CardModalContainer extends Component {
 		this.setState({
 			showTitle: !this.state.showTitle
 		})
+	}
+
+	handleEditDescription = (e) => {
+		this.setState({
+			showDescription: !this.state.showDescription
+		})
+	}
+
+	handleDelete = (e) => {
+		this.props.cardDelete(this.props.client, this.props.list, this.props.card)
 	}
 
 
@@ -53,9 +73,11 @@ class CardModalContainer extends Component {
 		return (
 			<CardModal 
 				handleToggle={this.handleToggle}
-				handleSubmit={this.handleSubmit}
+				handleUpdate={this.handleUpdate}
 				handleChange={this.handleChange}
+				handleDelete={this.handleDelete}
 				handleEditTitle={this.handleEditTitle}
+				handleEditDescription={this.handleEditDescription}
 				modal={this.state.modal}
 				showTitle={this.state.showTitle}
 				showDescription={this.state.showDescription}
@@ -81,7 +103,6 @@ const mapStateToProps = (state, ownProps) => ({
 	card: getCard(state, ownProps),
 	list: getList(state, ownProps),
 	client: state.client,
-	initialValues: getCard(state, ownProps),
 })
 
-export default connect(mapStateToProps, { cardUpdate })(CardModalContainer);
+export default connect(mapStateToProps, { cardUpdate, cardDelete })(CardModalContainer);

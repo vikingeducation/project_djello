@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { cardCreate } from '../card/actions'
+import { boardCreate } from '../board/actions'
 import { Container, Fa, Input, Col, Row, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 
-class CardCreate extends Component {
+class CreateModal extends Component {
 
 	constructor(props){
 		super(props)
@@ -22,7 +22,7 @@ class CardCreate extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.props.cardCreate(this.props.client, this.props.list, { title: this.state.name, description: this.state.description, listId: this.props.list._id });
+		this.props.boardCreate(this.props.client, { title: this.state.name, description: this.state.description, userId: this.props.client.user._id });
 		this.setState({
 			modal: false
 		})
@@ -37,19 +37,20 @@ class CardCreate extends Component {
 	render() {
 
 		return (
-				<div>
-					<Button className="col" onClick={this.handleToggleModal} size="sm" color="primary">Add Card</Button>
+			<Row>
+				<Col>
+					<Button color="info" onClick={this.handleToggleModal}>New Board</Button>
 					<Modal isOpen={this.state.modal} toggle={this.handleToggleModal} className="cascading-modal">
 						<div className="modal-header primary-color white-text">
-							<h4 className="title">Create New Card</h4>
+							<h4 className="title">Create New Board</h4>
 						</div>
 						<form onSubmit={this.handleSubmit}>
 					<ModalBody className="grey-text">
-				      <label htmlFor="cardName" className="grey-text font-weight-light">Card Name</label>
-				      <input type="text" id="cardName" name="name"className="form-control" onChange={this.handleChange}/>
+				      <label htmlFor="boardName" className="grey-text font-weight-light">Board Name</label>
+				      <input type="text" id="boardName" name="name"className="form-control" value={this.state.name} onChange={this.handleChange}/>
 				      <br/>
-				      <label htmlFor="cardDescription" className="grey-text font-weight-light">Card Description</label>
-				      <input type="text" id="cardDescription" name="description"className="form-control" onChange={this.handleChange}/>
+				      <label htmlFor="boardDescription" className="grey-text font-weight-light">Board Description</label>
+				      <input type="text" id="boardDescription" name="description"className="form-control" value={this.state.description} onChange={this.handleChange}/>
 					</ModalBody>
 					<ModalFooter>
 						<Button color="secondary" onClick={this.handleToggleModal}>Close</Button>{' '}
@@ -57,7 +58,8 @@ class CardCreate extends Component {
 					</ModalFooter>
 					</form>
 					</Modal>
-					</div>
+				</Col>
+			</Row>
      
 			)
 	}
@@ -67,6 +69,6 @@ const mapStateToProps = state => ({
 	client: state.client,
 })
 
-const connected = connect(mapStateToProps, { cardCreate })(CardCreate)  
+const connected = connect(mapStateToProps, { boardCreate })(CreateModal)  
 
 export default connected; 

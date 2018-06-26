@@ -18,6 +18,10 @@ import {
 	listSet,
 } from './actions'
 
+import {
+	listCardDeleteSuccess
+} from '../card/actions'
+
 const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
 
 function listCreateApi(client, list) {
@@ -85,6 +89,7 @@ function* listDeleteFlow(action) {
 		const deletedList = yield call(listDeleteApi, client, list)
 		yield put(listDeleteSuccess(deletedList))
 		yield put(listBoardDeleteSuccess(deletedList))
+		yield put(listCardDeleteSuccess(deletedList))
 	} catch(error) {
 		yield put(listDeleteError(error))
 	}

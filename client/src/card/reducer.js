@@ -10,11 +10,11 @@ const {
 	CARD_DELETE_ERROR,
 	CARD_SET_CURRENT,
 	CARD_SET,
+	LIST_CARD_DELETE_SUCCESS,
 } = require('./constants');
 
 
 const initialState = {
-	current: '',
 	cards: {
 		byId: {},
 		allIds: [],
@@ -39,6 +39,39 @@ function removeItemObject(obj, toRemove) {
 	return restOfItems
 }
 
+function findIds(obj, id) {
+
+	const idsToRemove = [];
+
+	for(var item in obj) {
+		if(obj[item].listId == id) {
+			idsToRemove.push(obj[item]._id)
+		}
+	}
+
+	return idsToRemove;
+
+}
+
+function removeCardsByListId(obj, list) {
+
+	return Object.keys(obj).reduce((acc, key) => {
+		if(obj[key].listId !== list._id) {
+			return {...acc, [key]: obj[key]}
+		}
+		return acc;
+	}, {})
+}
+
+function removeCardIdsByListId(obj, list) {
+
+	return Object.keys(obj).reduce((acc, key) => {
+		if(obj[key].listId !== list._id) {
+			return [ ...acc, obj[key]._id ]
+		}
+		return acc;
+	}, [])
+}
 
 const reducer = function(state = initialState, action) {
 	switch(action.type) {
@@ -184,6 +217,15 @@ const reducer = function(state = initialState, action) {
 					body: action.error.toString(),
 					time: new Date(),
 				}])
+			}
+
+		case LIST_CARD_DELETE_SUCCESS:
+			return {
+				...state,
+				cards: {
+					byId: removeCardsByListId(state.cards.byId, action.list),
+					allIds: removeCardIdsByListId(state.cards.byId, action.list),
+				}
 			}
 
 		default:

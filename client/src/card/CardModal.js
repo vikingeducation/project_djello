@@ -1,38 +1,28 @@
 import React from 'react';
-import { Container, Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardHeader, CardFooter, CardImage, CardBody, CardTitle, CardText } from 'mdbreact';
-
-
-const editField = (props) => {
-
-	return (
-
-		<div>
-
-		</div>
-
-	)
-
-
-}
+import { Card, CardTitle, CardText, Button, Modal, ModalBody, ModalHeader, ModalFooter, CardHeader, ListGroupItem } from 'mdbreact';
 
 
 
 const CardModal = (props) => {
 
-	const { handleToggle, handleChange, invalid, modal, handleSubmit, handleEditTitle, card, list, showTitle } = props;
+	const { handleToggle, handleChange, handleUpdate, handleDelete, modal, handleEditTitle, handleEditDescription, card, list, showTitle, showDescription } = props;
 
 	return (
-			<Container>
-			<Button color="danger" onClick={handleToggle}>Modal</Button>
+			
+			<Card className="my-2 px-2 py-2" border="light" onClick={handleToggle}>
+				<CardText>
+				{card.title}
+				</CardText>
 				<Modal isOpen={modal} toggle={handleToggle} size="lg">
-					<form onSubmit={handleSubmit}>
-					<Card>
-						<CardHeader onDoubleClick={handleEditTitle} color="primary-color">
+					
+				
+					<form onSubmit={handleUpdate}>
+						<ModalHeader onDoubleClick={handleEditTitle} color="primary-color">
 							
 							{showTitle ? <input style={{background: 'transparent', }} type="text" name="title" value={card.title} onChange={handleChange} /> : <p> {card.title} </p>}
-
-						</CardHeader>
-			        	<CardBody>
+							
+						</ModalHeader>
+			        	<ModalBody>
 			        		<div className="row">
 			        			<div className="col text-left">
 			        				In List: {list.title}
@@ -42,9 +32,10 @@ const CardModal = (props) => {
 			        			</div>
 			        		</div>
 			            	<hr className="my-3"/>
-			            	<div>
-								<p>{card.description}</p>
-								<input style={{background: 'transparent', }} type="text" name="description" value={card.description} onChange={handleChange} />
+			            	<div onDoubleClick={handleEditDescription}>
+								
+								{showDescription ? <input style={{background: 'transparent' }} type="text" name="description" value={card.description} onChange={handleChange} /> : <p>{card.description}</p>}
+			            	
 			            	</div>
 			            	<hr className="my-3"/>
 			            	<div>
@@ -64,18 +55,15 @@ const CardModal = (props) => {
 			            	</div>
 			            	<hr className="my-3"/>
 			       			<div className="mx-auto" style={{textAlign: 'center'}}>
-			            	<button 
-							disabled={invalid}
-							action="submit"
-								>Update</button>
-			            	<Button color="danger">Delete</Button>
+							<Button className="btn btn-indigo" type="submit">Save</Button>
+			            	<Button color="danger" onClick={handleDelete}>Delete</Button>
 			            	</div>
 			           
-				        </CardBody>
-			    	</Card>
-			    	</form>
+				        </ModalBody>
+				        </form>
 				</Modal>
-			</Container>
+				</Card>
+		
 		)
 }
 

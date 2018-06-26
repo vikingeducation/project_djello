@@ -187,7 +187,7 @@ const reducer = function boardReducer(state = initialState, action) {
 		case BOARD_SET_CURRENT:
 			return {
 				...state,
-				current: action.board,
+				current: action.board._id,
 			}
 
 		case LIST_BOARD_CREATE_SUCCESS:
