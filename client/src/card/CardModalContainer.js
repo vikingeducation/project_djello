@@ -22,7 +22,7 @@ class CardModalContainer extends Component {
 
 	handleUpdate = (e) => {
 		e.preventDefault();
-		this.props.cardUpdate(this.props.client, this.props.list, { ...this.state.card });
+		this.props.cardUpdate(this.props.client, this.props.list, this.state.card);
 		this.setState({
 			modal: false
 		})
@@ -51,7 +51,7 @@ class CardModalContainer extends Component {
 	}
 
 	handleDelete = (e) => {
-		this.props.cardDelete(this.props.client, this.props.list, this.props.card)
+		this.props.cardDelete(this.props.client, this.props.list, this.state.card)
 	}
 
 
@@ -66,9 +66,9 @@ class CardModalContainer extends Component {
 
 	render() {
 
-		const { handleSubmit, invalid, submit, card, list } = this.props;
+		const { card, list } = this.props;
 
-		if(this.state.card) {
+		if(card) {
 
 		return (
 			<CardModal 
@@ -83,9 +83,10 @@ class CardModalContainer extends Component {
 				showDescription={this.state.showDescription}
 				card={this.state.card}
 				list={list}
-				invalid={invalid}
 			/>
 		);
+		} else {
+			return <p></p>
 		}
 	}
 }

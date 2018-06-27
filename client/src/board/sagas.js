@@ -1,4 +1,4 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'  
+import { call, put, takeLatest, select } from 'redux-saga/effects'  
 import { handleApiErrors } from '../lib/api-errors'  
 import {  
   BOARD_CREATING,
@@ -15,6 +15,14 @@ import {
 	boardDeleteError,
 	boardSet,
 } from './actions'
+
+import {
+	boardListDeleteSuccess
+} from '../list/actions'
+
+import {
+	boardListCardDeleteSuccess
+} from '../card/actions'
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
 
@@ -81,10 +89,13 @@ function* boardDeleteFlow(action) {
 		const { client, board } = action
 		const deletedBoard = yield call(boardDeleteApi, client, board)
 		yield put(boardDeleteSuccess(deletedBoard))
+		yield put(boardListDeleteSuccess(deletedBoard))
+		yield put(boardListCardDeleteSuccess(deletedBoard))
 	} catch(error) {
 		yield put(boardDeleteError(error))
 	}
 }
+
 
 function boardUpdateApi(client, board) {
 
@@ -120,6 +131,7 @@ function* boardUpdateFlow(action) {
 		yield put(boardUpdateError(error))
 	}
 }
+
 
 function* boardWatcher() {
 	yield [

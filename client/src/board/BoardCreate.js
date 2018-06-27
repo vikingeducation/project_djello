@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { boardCreate } from '../board/actions'
+import { boardCreate } from './actions'
 import { Container, Fa, Input, Col, Row, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 
 class CreateModal extends Component {
@@ -20,7 +20,7 @@ class CreateModal extends Component {
 		})
 	}
 
-	handleSubmit = (e) => {
+	handleCreate = (e) => {
 		e.preventDefault();
 		this.props.boardCreate(this.props.client, { title: this.state.name, description: this.state.description, userId: this.props.client.user._id });
 		this.setState({
@@ -44,23 +44,23 @@ class CreateModal extends Component {
 						<div className="modal-header primary-color white-text">
 							<h4 className="title">Create New Board</h4>
 						</div>
-						<form onSubmit={this.handleSubmit}>
-					<ModalBody className="grey-text">
-				      <label htmlFor="boardName" className="grey-text font-weight-light">Board Name</label>
-				      <input type="text" id="boardName" name="name"className="form-control" value={this.state.name} onChange={this.handleChange}/>
-				      <br/>
-				      <label htmlFor="boardDescription" className="grey-text font-weight-light">Board Description</label>
-				      <input type="text" id="boardDescription" name="description"className="form-control" value={this.state.description} onChange={this.handleChange}/>
-					</ModalBody>
-					<ModalFooter>
-						<Button color="secondary" onClick={this.handleToggleModal}>Close</Button>{' '}
-						<Button color="primary" type="submit">Save</Button>
-					</ModalFooter>
-					</form>
+						<form onSubmit={this.handleCreate}>
+							<ModalBody className="grey-text">
+								<label htmlFor="boardName" className="grey-text font-weight-light">Board Name</label>
+								<input type="text" id="boardName" name="name"className="form-control" value={this.state.name} onChange={this.handleChange}/>
+								<br/>
+								<label htmlFor="boardDescription" className="grey-text font-weight-light">Board Description</label>
+								<input type="text" id="boardDescription" name="description"className="form-control" value={this.state.description} onChange={this.handleChange}/>
+							</ModalBody>
+							<ModalFooter>
+								<Button color="secondary" onClick={this.handleToggleModal}>Close</Button>{' '}
+								<Button color="primary" type="submit">Save</Button>
+							</ModalFooter>
+						</form>
 					</Modal>
 				</Col>
 			</Row>
-     
+
 			)
 	}
 }

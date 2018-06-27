@@ -10,6 +10,7 @@ import {
 	LIST_DELETE_ERROR,
 	LIST_SET_CURRENT,
 	LIST_SET,
+	BOARD_LIST_DELETE_SUCCESS,
 	CARD_LIST_CREATE_SUCCESS,
 	CARD_LIST_DELETE_SUCCESS
 } from './constants';
@@ -37,8 +38,37 @@ function removeItemObject(obj, toRemove) {
 
 	return restOfItems
 
-
 }
+
+function removeListByBoardId(obj, board) {
+
+	return Object.keys(obj).reduce((acc, key) => {
+		if(obj[key].boardId !== board._id) {
+			return {...acc, [key]: obj[key]}
+		}
+		return acc;
+	}, {})
+}
+
+function removeListIdByBoardId(obj, board) {
+
+	return Object.keys(obj).reduce((acc, key) => {
+		if(obj[key].boardId !== board._id) {
+			return [ ...acc, obj[key]._id ]
+		}
+		return acc;
+	}, [])
+}
+
+function getListIdByBoardId(obj, board) {
+	return Object.keys(obj).reduce((acc, key) => {
+		if(obj[key].boardId === board._id) {
+			return [ ...acc, obj[key]._id ]
+		}
+		return acc;
+	}, [])
+	}
+
 
 const reducer = function listReducer(state = initialState, action) {
 	switch(action.type) {
@@ -205,10 +235,19 @@ const reducer = function listReducer(state = initialState, action) {
 						...state.lists.byId,
 						[action.card.listId]: {
 							...state.lists.byId[action.card.listId],
-							cards:  removeItemArray(state.lists.byId[action.card.listId].cards, action.card._id)
+							cards:  removeItemArray(state.lists.byId[action.card.listId].cards, action.card)
 						}
 					}
 
+				}
+			}
+
+		case BOARD_LIST_DELETE_SUCCESS:
+			return {
+				...state,
+				lists: {
+					byId: removeListByBoardId(state.lists.byId, action.board),
+					allIds: removeListIdByBoardId(state.lists.byId, action.board)
 				}
 			}
 

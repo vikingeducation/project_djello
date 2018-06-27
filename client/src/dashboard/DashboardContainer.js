@@ -3,19 +3,14 @@ import { connect } from 'react-redux'
 import { dataRequest } from './actions';
 import { setClient } from '../client/actions';
 import { boardSetCurrent } from '../board/actions';
-import CustomDropdown from './Dropdown';
-import CreateModal from './CreateModal';
-import { Container } from 'mdbreact';
+import BoardSelect from '../board/BoardSelect'
+import BoardCreate from '../board/BoardCreate'
 import BoardContainer from '../board/BoardContainer'
 
-class DashboardContainer extends Component {
 
-	constructor(props){
-		super(props)
-		this.state = {
-			dropdownOpen: false,
-		}
-	};
+import { Container } from 'mdbreact';
+
+class DashboardContainer extends Component {
 
 	componentDidMount() {
 		this.props.dataRequest({
@@ -25,30 +20,14 @@ class DashboardContainer extends Component {
 		});
 	}
 
-	handleToggleDropdown = (e) => {
-		this.setState({
-			dropdownOpen: !this.state.dropdownOpen
-		})
-	}
-
-	setCurrentBoard = (board) => {
-		this.props.boardSetCurrent(board);
-	}
 	render() {
 
 		const { boards } = this.props;
 
 		if(boards) {
 			return <Container>
-						<div className="row justify-content-end">
-							<CustomDropdown 
-								boards={boards}
-								handleToggleDropdown={this.handleToggleDropdown}
-								setCurrentBoard={this.setCurrentBoard}
-								dropdownOpen={this.state.dropdownOpen}
-							/>
-							<CreateModal/>
-						</div>
+						<BoardSelect />
+						<BoardCreate />
 						<BoardContainer />
 					</Container>
 		} else {

@@ -11,8 +11,16 @@ import {
 	LIST_SET_CURRENT,
 	LIST_SET,
 	CARD_LIST_CREATE_SUCCESS,
-	CARD_LIST_DELETE_SUCCESS
+	CARD_LIST_DELETE_SUCCESS,
+	BOARD_LIST_DELETE_SUCCESS
 } from './constants';
+
+export const boardListDeleteSuccess = function(board) {
+	return {
+		type: BOARD_LIST_DELETE_SUCCESS,
+		board
+	}
+}
 
 export const cardListCreateSuccess = function(card) {
 	return {

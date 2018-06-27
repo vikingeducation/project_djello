@@ -25,12 +25,12 @@ class ListContainer extends Component {
 
 	handleUpdate = (e) => {
 		e.preventDefault();
-		this.props.listUpdate(this.props.client, { ...this.props.list, ...this.state.list });
+		this.props.listUpdate(this.props.client, this.state.list);
 	}
 
 	handleDelete = (e) => {
 		e.preventDefault();
-		this.props.listDelete(this.props.client, this.props.list);
+		this.props.listDelete(this.props.client, this.state.list);
 	}
 
 	handleChange = (e) => {

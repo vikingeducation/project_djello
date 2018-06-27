@@ -32,7 +32,7 @@ class BoardContainer extends Component {
 
 	handleDelete = (e) => {
 		e.preventDefault();
-		this.props.boardDelete(this.props.client, this.props.board);
+		this.props.boardDelete(this.props.client, this.state.board);
 	}
 
 	handleChange = (e) => {
@@ -67,6 +67,7 @@ class BoardContainer extends Component {
 						handleEditDescription={this.handleEditDescription}
 						handleUpdate={this.handleUpdate}
 						handleChange={this.handleChange}
+						handleDelete={this.handleDelete}
 						showTitle={showTitle}
 						showDescription={showDescription}
 					/>  

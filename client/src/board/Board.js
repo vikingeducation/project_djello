@@ -10,7 +10,7 @@ const Board = (props) => {
 
 	return (
 		<div>
-			<form onSubmit={handleUpdate}>
+			
 				<div className="row">
 					<div className="col text-left my-1">
 						<Edit 
@@ -48,11 +48,11 @@ const Board = (props) => {
 			))}
 			</div>
 			<div className="row justify-content-end">
-				<button className="btn btn-indigo" type="submit">Save</button>
+				<button className="btn btn-indigo" onClick={handleUpdate}>Save</button>
 				<button className="btn btn-indigo" onClick={handleDelete}>Delete</button>
 				<ListCreate />
 			</div>
-			</form>
+			
 		</div>
 	)
 }

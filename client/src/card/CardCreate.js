@@ -13,7 +13,7 @@ class CardCreate extends Component {
 			description: '',
 		}
 	};
-
+	
 	handleToggleModal = (e) => {
 		this.setState({
 			modal: !this.state.modal
@@ -57,7 +57,7 @@ class CardCreate extends Component {
 					</ModalFooter>
 					</form>
 					</Modal>
-					</div>
+				</div>
      
 			)
 	}

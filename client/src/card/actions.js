@@ -10,7 +10,8 @@ import {
 	CARD_DELETE_ERROR,
 	CARD_SET_CURRENT,
 	CARD_SET,
-	LIST_CARD_DELETE_SUCCESS
+	LIST_CARD_DELETE_SUCCESS,
+	BOARD_LIST_CARD_DELETE_SUCCESS
 } from './constants';
 
 export const cardCreate = function cardCreate(client, list, card) {
@@ -93,5 +94,12 @@ export const listCardDeleteSuccess = function listCardDeleteSuccess(list) {
 	return {
 		type: LIST_CARD_DELETE_SUCCESS,
 		list
+	}
+}
+
+export const boardListCardDeleteSuccess = function boardListCardDeleteSuccess(board) {
+	return {
+		type: BOARD_LIST_CARD_DELETE_SUCCESS,
+		board
 	}
 }

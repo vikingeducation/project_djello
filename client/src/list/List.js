@@ -1,5 +1,5 @@
 import React from 'react'
-import CardContainer from '../card/CardContainer'
+import CardModalContainer from '../card/CardModalContainer'
 import CardCreate from '../card/CardCreate'
 import Edit from '../elements/Edit'
 import { Button } from 'mdbreact'
@@ -40,7 +40,7 @@ const List = (props) => {
 			</Edit>
 			{ list.cards.map(card => (
 
-				<CardContainer key={card} cardId={card} listId={list._id}/>
+				<CardModalContainer key={card} cardId={card} listId={list._id}/>
 
 			))}
 			<div className="row">
