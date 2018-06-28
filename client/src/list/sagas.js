@@ -1,12 +1,15 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'  
+import { call, put, takeLatest } from 'redux-saga/effects'  
 import { handleApiErrors } from '../lib/api-errors'  
 import {  
-  LIST_CREATING,
-  LIST_UPDATING,
-  LIST_DELETING,
+	LIST_CREATING,
+	LIST_UPDATING,
+	LIST_DELETING,
 } from './constants'
 
-import { listBoardCreateSuccess, listBoardDeleteSuccess } from '../board/actions'
+import { 
+	listBoardCreateSuccess, 
+	listBoardDeleteSuccess 
+} from '../board/actions'
 
 import {
 	listCreateSuccess,
@@ -15,7 +18,6 @@ import {
 	listUpdateError,
 	listDeleteSuccess,
 	listDeleteError,
-	listSet,
 } from './actions'
 
 import {
@@ -24,9 +26,9 @@ import {
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
 
-function listCreateApi(client, list) {
+function listApi(client, list, path) {
 
-	const url = `${baseUrl}/${client.user._id}/boards/${list.boardId}/lists/new`;
+	const url = `${baseUrl}/${client.user._id}/boards/${list.boardId}/lists/${path}`;
 
 	const options = {
 		method: 'POST',
@@ -47,11 +49,10 @@ function listCreateApi(client, list) {
 	.catch((error) => { throw error })
 }
 
-
 function* listCreateFlow(action) {
 	try {
 		const { client, list } = action
-		const createdList = yield call(listCreateApi, client, list)
+		const createdList = yield call(listApi, client, list, 'new')
 		yield put(listCreateSuccess(createdList))
 		yield put(listBoardCreateSuccess(createdList))
 	} catch(error) {
@@ -59,34 +60,20 @@ function* listCreateFlow(action) {
 	}
 }
 
-function listDeleteApi(client, list) {
-
-	const url = `${baseUrl}/${client.user._id}/boards/${list.boardId}/lists/${list._id}/delete`;
-
-	const options = {
-		method: 'POST',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': client.token
-		},
-		body: JSON.stringify({
-			list,
-		})
-	};
-
-	return fetch(url, options)
-	.then(handleApiErrors)
-	.then(response => response.json())
-	.then(json => json)
-	.catch((error) => { throw error })
-
+function* listUpdateFlow(action) {
+	try {
+		const { client, list } = action
+		const updatedList = yield call(listApi, client, list, `${list._id}/update`)
+		yield put(listUpdateSuccess(updatedList))
+	} catch(error) {
+		yield put(listUpdateError(error))
+	}
 }
 
 function* listDeleteFlow(action) {
 	try {
 		const { client, list } = action
-		const deletedList = yield call(listDeleteApi, client, list)
+		const deletedList = yield call(listApi, client, list, `${list._id}/delete`)
 		yield put(listDeleteSuccess(deletedList))
 		yield put(listBoardDeleteSuccess(deletedList))
 		yield put(listCardDeleteSuccess(deletedList))
@@ -95,44 +82,11 @@ function* listDeleteFlow(action) {
 	}
 }
 
-function listUpdateApi(client, list) {
-
-	const url = `${baseUrl}/${client.user._id}/boards/${list.boardId}/lists/${list._id}/update`;
-
-	const options = {
-		method: 'POST',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': client.token
-		},
-		body: JSON.stringify({
-			list,
-		})
-	};
-
-	return fetch(url, options)
-	.then(handleApiErrors)
-	.then(response => response.json())
-	.then(json => json)
-	.catch((error) => { throw error })
-}
-
-function* listUpdateFlow(action) {
-	try {
-		const { client, list } = action
-		const updatedList = yield call(listUpdateApi, client, list)
-		yield put(listUpdateSuccess(updatedList))
-	} catch(error) {
-		yield put(listUpdateError(error))
-	}
-}
-
 function* listWatcher() {
 	yield [
-		takeLatest(LIST_CREATING, listCreateFlow),
-		takeLatest(LIST_UPDATING, listUpdateFlow),
-		takeLatest(LIST_DELETING, listDeleteFlow)
+	takeLatest(LIST_CREATING, listCreateFlow),
+	takeLatest(LIST_UPDATING, listUpdateFlow),
+	takeLatest(LIST_DELETING, listDeleteFlow)
 	]
 }
 

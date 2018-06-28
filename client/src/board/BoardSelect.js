@@ -27,7 +27,7 @@ class BoardSelect extends Component {
 		return (
 			<Dropdown isOpen={this.state.dropdownOpen} toggle={this.handleToggleDropdown}>
 				<DropdownToggle caret>
-					Board List
+					<span>Board List </span>
 				</DropdownToggle>
 				<DropdownMenu>
 					{ this.props.boards.map(board => (

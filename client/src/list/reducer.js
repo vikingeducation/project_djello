@@ -8,12 +8,18 @@ import {
 	LIST_DELETING,
 	LIST_DELETE_SUCCESS,
 	LIST_DELETE_ERROR,
-	LIST_SET_CURRENT,
 	LIST_SET,
 	BOARD_LIST_DELETE_SUCCESS,
 	CARD_LIST_CREATE_SUCCESS,
 	CARD_LIST_DELETE_SUCCESS
 } from './constants';
+
+import { 
+	removeIdFromAllIds,
+	removeObjById,
+	removeObjByParentId,
+	removeIdByParentId
+} from '../helpers/reducer_helpers';
 
 const initialState = {
 	lists: {
@@ -25,49 +31,6 @@ const initialState = {
 	messages: [],
 	errors: [],
 }
-
-function removeItemArray(array, obj) {
-	return array.filter(item => {
-		return item !== obj._id;
-	})
-}
-
-function removeItemObject(obj, toRemove) {
-	const key = toRemove._id
-	const { [key]: del, ...restOfItems } = obj
-
-	return restOfItems
-
-}
-
-function removeListByBoardId(obj, board) {
-
-	return Object.keys(obj).reduce((acc, key) => {
-		if(obj[key].boardId !== board._id) {
-			return {...acc, [key]: obj[key]}
-		}
-		return acc;
-	}, {})
-}
-
-function removeListIdByBoardId(obj, board) {
-
-	return Object.keys(obj).reduce((acc, key) => {
-		if(obj[key].boardId !== board._id) {
-			return [ ...acc, obj[key]._id ]
-		}
-		return acc;
-	}, [])
-}
-
-function getListIdByBoardId(obj, board) {
-	return Object.keys(obj).reduce((acc, key) => {
-		if(obj[key].boardId === board._id) {
-			return [ ...acc, obj[key]._id ]
-		}
-		return acc;
-	}, [])
-	}
 
 
 const reducer = function listReducer(state = initialState, action) {
@@ -113,6 +76,19 @@ const reducer = function listReducer(state = initialState, action) {
 					body: action.error.toString(),
 					time: new Date(),
 				}])
+			}
+			
+		case LIST_SET:
+			return {
+				...state,
+				lists: action.lists,
+				requesting: false,
+				successful: true,
+				messages: [{
+					body: `Lists set!`,
+					time: new Date(),
+				}],
+				errors: [],
 			}
 
 		case LIST_UPDATING:
@@ -174,8 +150,8 @@ const reducer = function listReducer(state = initialState, action) {
 			return {
 				...state,
 				lists: {
-					allIds: removeItemArray(state.lists.allIds, action.list),
-					byId: removeItemObject(state.lists.byId, action.list)
+					allIds: removeIdFromAllIds(state.lists.allIds, action.list),
+					byId: removeObjById(state.lists.byId, action.list)
 				},
 				requesting: false,
 				successful: true,
@@ -195,19 +171,6 @@ const reducer = function listReducer(state = initialState, action) {
 					body: action.error.toString(),
 					time: new Date(),
 				}])
-			}
-
-		case LIST_SET:
-			return {
-				...state,
-				lists: action.lists,
-				requesting: false,
-				successful: true,
-				messages: [{
-					body: `Lists set!`,
-					time: new Date(),
-				}],
-				errors: [],
 			}
 
 		case CARD_LIST_CREATE_SUCCESS:
@@ -235,7 +198,7 @@ const reducer = function listReducer(state = initialState, action) {
 						...state.lists.byId,
 						[action.card.listId]: {
 							...state.lists.byId[action.card.listId],
-							cards:  removeItemArray(state.lists.byId[action.card.listId].cards, action.card)
+							cards:  removeIdFromAllIds(state.lists.byId[action.card.listId].cards, action.card)
 						}
 					}
 
@@ -246,8 +209,8 @@ const reducer = function listReducer(state = initialState, action) {
 			return {
 				...state,
 				lists: {
-					byId: removeListByBoardId(state.lists.byId, action.board),
-					allIds: removeListIdByBoardId(state.lists.byId, action.board)
+					byId: removeObjByParentId(state.lists.byId, action.board, 'boardId'),
+					allIds: removeIdByParentId(state.lists.byId, action.board, 'boardId'),
 				}
 			}
 

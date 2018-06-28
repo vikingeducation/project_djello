@@ -38,9 +38,43 @@ class CardModalContainer extends Component {
 		});
 	}
 
+	handleAddMember = (e) => {
+		let toAdd = e.target.value;
+		this.setState({
+			card: {
+				...this.state.card,
+				members: [...this.state.card.members, toAdd]
+			}
+		})
+	}
+
+	handleDeleteMember = (e) => {
+		let toDelete = e.target.value;
+		let members = this.state.card.members.filter(member => {
+			return member !== toDelete;
+		})
+
+		this.setState({
+			card: {
+				...this.state.card,
+				members: members
+			}
+		})
+	}
+
 	handleEditTitle = (e) => {
 		this.setState({
 			showTitle: !this.state.showTitle
+		})
+	}
+
+	handleCompleted = (e) => {
+
+		this.setState({
+			card: {
+				...this.state.card,
+				completed: !this.state.card.completed
+			}
 		})
 	}
 
@@ -66,7 +100,8 @@ class CardModalContainer extends Component {
 
 	render() {
 
-		const { card, list } = this.props;
+		const { list } = this.props;
+		const { card } = this.state;
 
 		if(card) {
 
@@ -76,6 +111,7 @@ class CardModalContainer extends Component {
 				handleUpdate={this.handleUpdate}
 				handleChange={this.handleChange}
 				handleDelete={this.handleDelete}
+				handleCompleted={this.handleCompleted}
 				handleEditTitle={this.handleEditTitle}
 				handleEditDescription={this.handleEditDescription}
 				modal={this.state.modal}

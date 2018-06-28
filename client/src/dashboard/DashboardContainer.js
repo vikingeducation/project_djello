@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+
+// import actions
 import { dataRequest } from './actions';
 import { setClient } from '../client/actions';
 import { boardSetCurrent } from '../board/actions';
+
+// import components
+import { Container } from 'mdbreact';
 import BoardSelect from '../board/BoardSelect'
 import BoardCreate from '../board/BoardCreate'
 import BoardContainer from '../board/BoardContainer'
-
-
-import { Container } from 'mdbreact';
+import Navbar from '../navbar/Navbar'
 
 class DashboardContainer extends Component {
 
@@ -25,11 +28,16 @@ class DashboardContainer extends Component {
 		const { boards } = this.props;
 
 		if(boards) {
-			return <Container>
-						<BoardSelect />
-						<BoardCreate />
+			return <div>
+					<Navbar />
+					<Container className="mt-3 pt-3">
+						<div className="row justify-content-end">
+							<BoardSelect />
+							<BoardCreate />
+						</div>
 						<BoardContainer />
 					</Container>
+					</div>
 		} else {
 			return <h1>No Boards Found!</h1>
 		}

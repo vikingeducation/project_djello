@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Board from './Board';
-
-
 import { boardUpdate, boardDelete } from './actions'
+import Board from './Board';
+import BoardError from './BoardError'
 
-import Messages from '../notifications/Messages'  
-import Errors from '../notifications/Errors'
-
+/**
+  * @desc performs the initial data fetching for boards.
+  * @params state - board of the current state.
+  * @return board - presentational component.
+*/
 
 class BoardContainer extends Component {
 
@@ -72,7 +73,7 @@ class BoardContainer extends Component {
 						showDescription={showDescription}
 					/>  
 		} else {
-			return <h1>No Board Found!</h1>
+			return <BoardError />
 		}	
 	}
 }

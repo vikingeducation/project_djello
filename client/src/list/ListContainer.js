@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { reduxForm, Field } from 'redux-form'
 import List from './List';
 import { listDelete, listUpdate } from './actions'
 import Messages from '../notifications/Messages'  

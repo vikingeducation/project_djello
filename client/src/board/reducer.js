@@ -1,17 +1,18 @@
 import {defineState} from 'redux-localstore'
+import { removeIdFromAllIds, removeObjById } from '../helpers/reducer_helpers'
 
 import {
 	BOARD_CREATING,
 	BOARD_CREATE_SUCCESS,
 	BOARD_CREATE_ERROR,
+	BOARD_SET,
+	BOARD_SET_CURRENT,
 	BOARD_UPDATING,
 	BOARD_UPDATE_SUCCESS,
 	BOARD_UPDATE_ERROR,
 	BOARD_DELETING,
 	BOARD_DELETE_SUCCESS,
 	BOARD_DELETE_ERROR,
-	BOARD_SET_CURRENT,
-	BOARD_SET,
 	LIST_BOARD_CREATE_SUCCESS,
 	LIST_BOARD_DELETE_SUCCESS
 } from './constants';
@@ -30,19 +31,6 @@ const defaultState = {
 
 const initialState = defineState(defaultState)('board')
 
-
-function removeItemArray(array, obj) {
-	return array.filter(item => {
-		return item !== obj._id;
-	})
-}
-
-function removeItemObject(obj, toRemove) {
-	const key = toRemove._id
-	const { [key]: del, ...restOfItems } = obj
-
-	return restOfItems
-}
 
 const reducer = function boardReducer(state = initialState, action) {
 	switch(action.type) {
@@ -89,6 +77,25 @@ const reducer = function boardReducer(state = initialState, action) {
 				}])
 			}
 
+		case BOARD_SET:
+			return {
+				...state,
+				boards: action.boards,
+				requesting: false,
+				successful: true,
+				messages: [{
+					body: `Boards set!`,
+					time: new Date(),
+				}],
+				errors: [],
+			}
+
+		case BOARD_SET_CURRENT:
+			return {
+				...state,
+				current: action.board._id,
+			}
+			
 		case BOARD_UPDATING:
 			return {
 				...state,
@@ -148,8 +155,8 @@ const reducer = function boardReducer(state = initialState, action) {
 			return {
 				...state,
 				boards: {
-					allIds: removeItemArray(state.boards.allIds, action.board),
-					byId: removeItemObject(state.boards.byId, action.board)
+					byId: removeObjById(state.boards.byId, action.board),
+					allIds: removeIdFromAllIds(state.boards.allIds, action.board),
 				},
 				requesting: false,
 				successful: true,
@@ -169,25 +176,6 @@ const reducer = function boardReducer(state = initialState, action) {
 					body: action.error.toString(),
 					time: new Date(),
 				}])
-			}
-
-		case BOARD_SET:
-			return {
-				...state,
-				boards: action.boards,
-				requesting: false,
-				successful: true,
-				messages: [{
-					body: `Boards set!`,
-					time: new Date(),
-				}],
-				errors: [],
-			}
-
-		case BOARD_SET_CURRENT:
-			return {
-				...state,
-				current: action.board._id,
 			}
 
 		case LIST_BOARD_CREATE_SUCCESS:
@@ -214,7 +202,7 @@ const reducer = function boardReducer(state = initialState, action) {
 						...state.boards.byId,
 						[action.list.boardId]: {
 							...state.boards.byId[action.list.boardId],
-							lists: removeItemArray(state.boards.byId[action.list.boardId].lists, action.list)
+							lists: removeIdFromAllIds(state.boards.byId[action.list.boardId].lists, action.list)
 						}
 					}
 				}

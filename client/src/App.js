@@ -3,6 +3,7 @@ import { Router, Redirect, Route, Switch } from "react-router-dom";
 import Signup from './signup/SignupContainer';
 import Login from './login';
 import DashboardContainer from './dashboard/DashboardContainer';
+import Navbar from './navbar/Navbar';
 import history from './lib/history'
 
 import {
@@ -14,8 +15,6 @@ class App extends Component {
 
 
   render() {
-
-    const { store } = this.props;
 
     return (
       <Router history={history}>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { cardCreate } from '../card/actions'
-import { Container, Fa, Input, Col, Row, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import { Button, Modal, ModalBody, ModalFooter } from 'mdbreact';
 
 class CardCreate extends Component {
 
@@ -38,7 +38,7 @@ class CardCreate extends Component {
 
 		return (
 				<div>
-					<Button className="col" onClick={this.handleToggleModal} size="sm" color="primary">Add Card</Button>
+					<Button block onClick={this.handleToggleModal} size="sm" color="primary">Add Card</Button>
 					<Modal isOpen={this.state.modal} toggle={this.handleToggleModal} className="cascading-modal">
 						<div className="modal-header primary-color white-text">
 							<h4 className="title">Create New Card</h4>

@@ -1,4 +1,4 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'  
+import { call, put, takeLatest } from 'redux-saga/effects'  
 import { handleApiErrors } from '../lib/api-errors' 
 
 import { boardSet } from '../board/actions'
@@ -7,7 +7,6 @@ import { cardSet } from '../card/actions'
 import { DATA_REQUESTING } from './constants';
 
 import {
-	dataRequest,
 	dataRequestSuccess,
 	dataRequestError
 } from './actions';

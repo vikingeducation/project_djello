@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { listCreate } from '../list/actions'
-import { Container, Fa, Input, Col, Row, Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import { Col, Row, Button, Modal, ModalBody, ModalFooter } from 'mdbreact';
 
 class ListCreate extends Component {
 
