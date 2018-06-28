@@ -26,7 +26,7 @@ mongooseeder.seed({
   		var card = new Card({
   			_id: `foobar${ i }`,
   			listId: `bar${ genRan }`,
-  			title: faker.lorem.word(),
+  			title: faker.name.title(),
   			description: faker.lorem.words(),
   		})
 
