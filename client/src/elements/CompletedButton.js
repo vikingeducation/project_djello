@@ -9,7 +9,7 @@ const CompletedButton = (props) => {
 	let text = completed ? 'Completed' : 'Uncompleted';
 
 	return (
-		<Button onClick={handleCompleted} size="sm" value={completed} color={color}>{text}</Button>
+		<Button className="mr-0" onClick={handleCompleted} size="sm" value={completed} color={color}>{text}</Button>
 	)
 }
 

@@ -38,7 +38,7 @@ class CreateModal extends Component {
 
 		return (
 				<div>
-					<Button color="info" onClick={this.handleToggleModal}>New Board</Button>
+					<Button color="default" onClick={this.handleToggleModal}>New Board</Button>
 					<Modal isOpen={this.state.modal} toggle={this.handleToggleModal} className="cascading-modal">
 						<div className="modal-header primary-color white-text">
 							<h4 className="title">Create New Board</h4>

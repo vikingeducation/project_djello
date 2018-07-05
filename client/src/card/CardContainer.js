@@ -4,9 +4,6 @@ import { cardUpdate, cardDelete } from './actions'
 import CardModal from './CardModal'
 import shortid from 'shortid'
 import moment from 'moment'
-import Activity from './Activity'
-import MemberList from './MemberList'
-import UserDropdown from '../user/UserDropdown'
 
 function diff(a, b) {
 	return a.filter(i => {
@@ -14,7 +11,7 @@ function diff(a, b) {
 	})
 }
 
-class CardModalContainer extends Component {
+class CardContainer extends Component {
 
 	state = {
 		card: this.props.card,
@@ -169,26 +166,19 @@ class CardModalContainer extends Component {
 				handleUpdate={this.handleUpdate}
 				handleChange={this.handleChange}
 				handleDelete={this.handleDelete}
-	
-		
+				handleSelectedMember={this.handleSelectedMember}
+				handleDeleteMember={this.handleDeleteMember}
+				handleAddMember={this.handleAddMember}
 				handleCompleted={this.handleCompleted}
 				handleEditTitle={this.handleEditTitle}
 				handleEditDescription={this.handleEditDescription}
 				modal={this.state.modal}
-	
+				selected={selectedMember}
 				showTitle={this.state.showTitle}
 				showDescription={this.state.showDescription}
 				card={this.state.card}
 				list={list}
-				memberlist={ <MemberList members={card.members} handleDeleteMember={this.handleDeleteMember} />}
-				userdropdown={ <UserDropdown 
-							members={card.members}
-							selected={selectedMember} 
-							handleSelectedMember={this.handleSelectedMember}
-							handleAddMember={this.handleAddMember}/>}
-				activity={ <Activity log={card.activity}/> }
-			>
-			</CardModal>
+			/>
 		);
 		} else {
 			return null
@@ -211,4 +201,4 @@ const mapStateToProps = (state, ownProps) => ({
 	client: state.client,
 })
 
-export default connect(mapStateToProps, { cardUpdate, cardDelete })(CardModalContainer);
+export default connect(mapStateToProps, { cardUpdate, cardDelete })(CardContainer);

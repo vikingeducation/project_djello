@@ -39,7 +39,7 @@ class ListCreate extends Component {
 		return (
 			<Row>
 				<Col>
-					<Button color="info" onClick={this.handleToggleModal}>New List</Button>
+					<Button color="default" onClick={this.handleToggleModal}>New List</Button>
 					<Modal isOpen={this.state.modal} toggle={this.handleToggleModal} className="cascading-modal">
 						<div className="modal-header primary-color white-text">
 							<h4 className="title">Create New List</h4>

@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { boardUpdate, boardDelete } from './actions'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { boardUpdate, boardDelete } from './actions';
 import Board from './Board';
-import BoardError from './BoardError'
 
 /**
   * @desc performs the initial data fetching for boards.
@@ -22,7 +22,8 @@ class BoardContainer extends Component {
   	if (nextProps.board !== this.state.board) {
    		this.setState({ board: nextProps.board,
     		showTitle: false,
-			showDescription: false, });
+			showDescription: false, 
+		});
   		}
 	}
 
@@ -64,18 +65,23 @@ class BoardContainer extends Component {
 		if(board) {
 			return <Board 
 						board={board} 
+						handleChange={this.handleChange}
+						handleUpdate={this.handleUpdate}
+						handleDelete={this.handleDelete}
 						handleEditTitle={this.handleEditTitle} 
 						handleEditDescription={this.handleEditDescription}
-						handleUpdate={this.handleUpdate}
-						handleChange={this.handleChange}
-						handleDelete={this.handleDelete}
 						showTitle={showTitle}
 						showDescription={showDescription}
 					/>  
 		} else {
-			return <BoardError />
+			return null
 		}	
 	}
+}
+
+BoardContainer.propTypes = {
+	board: PropTypes.object,
+	client: PropTypes.object,
 }
 
 const getBoard = (state) => {

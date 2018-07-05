@@ -1,5 +1,6 @@
 import SignupSaga from './signup/sagas';
 import LoginSaga from './login/sagas';
+import UserSaga from './user/sagas';
 import BoardSaga from './board/sagas';
 import DataSaga from './dashboard/sagas';
 import ListSaga from './list/sagas';
@@ -10,6 +11,7 @@ export default function* IndexSaga() {
 		SignupSaga(),
 		LoginSaga(),
 		DataSaga(),
+		UserSaga(),
 		BoardSaga(),
 		ListSaga(),
 		CardSaga(),

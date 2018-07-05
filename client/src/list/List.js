@@ -1,5 +1,6 @@
 import React from 'react'
 import CardModalContainer from '../card/CardModalContainer'
+import CardContainer from '../card/CardContainer'
 import CardCreate from '../card/CardCreate'
 import Edit from '../elements/Edit'
 import CloseButton from '../elements/CloseButton'
@@ -57,7 +58,7 @@ const List = (props) => {
 					<Button block size="sm" onClick={handleUpdate}>Save</Button>
 				</div>
 				<div className="col pl-1">
-					<CardCreate />
+					<CardCreate list={list} />
 				</div>
 			</div>
 			</CardFooter>

@@ -2,7 +2,7 @@ import { CLIENT_SET, CLIENT_UNSET } from './constants'
 
 const initialState = {  
 			user: {
-				_id: 'HyFxJ4eW7'
+				_id: 'user1'
 			},
 			token: 'tokenValue'
 }

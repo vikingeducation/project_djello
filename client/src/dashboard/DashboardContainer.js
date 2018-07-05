@@ -18,7 +18,7 @@ class DashboardContainer extends Component {
 	componentDidMount() {
 		this.props.dataRequest({
 			user: {
-				_id: 'HyFxJ4eW7'
+				_id: 'user1'
 			}
 		});
 	}

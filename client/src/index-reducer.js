@@ -1,22 +1,22 @@
 import { combineReducers } from 'redux'  
-import { reducer as form } from 'redux-form'  
 import client from './client/reducer'  
 import signup from './signup/reducer'  
-import login from './login/reducer'  
+import login from './login/reducer'
+import user from './user/reducer'  
 import board from './board/reducer'
 import list from './list/reducer'
-import card from './card/reducer' 
+import card from './card/reducer'
 import data from './dashboard/reducer';
 
 const IndexReducer = combineReducers({  
   signup,
   client,
   login,
-  form,
   data,
+  user,
   board,
   list,
-  card
+  card,
 })
 
 

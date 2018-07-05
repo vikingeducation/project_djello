@@ -26,7 +26,7 @@ class BoardSelect extends Component {
 	render() {
 		return (
 			<Dropdown isOpen={this.state.dropdownOpen} toggle={this.handleToggleDropdown}>
-				<DropdownToggle caret>
+				<DropdownToggle caret color="info">
 					<span>Board List </span>
 				</DropdownToggle>
 				<DropdownMenu>

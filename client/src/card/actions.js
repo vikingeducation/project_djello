@@ -102,3 +102,6 @@ export const boardListCardDeleteSuccess = function boardListCardDeleteSuccess(bo
 		board
 	}
 }
+
+
+

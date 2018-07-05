@@ -31,7 +31,7 @@ class NavbarFeatures extends React.Component {
 			
 <Navbar color="indigo" expand="md" dark scrolling>
     <NavbarBrand href="#">
-        Navbar
+        Djello
     </NavbarBrand>
     { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
     <Collapse isOpen = { this.state.collapse } navbar>
@@ -40,10 +40,13 @@ class NavbarFeatures extends React.Component {
                 <NavLink className="nav-link" to="#">Home</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink className="nav-link" to="#">Link</NavLink>
+                <NavLink className="nav-link" to="#">Profile</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink className="nav-link" to="#" disabled>Disabled</NavLink>
+                <NavLink className="nav-link" to="#">Shared Items</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink className="nav-link" to="#">Add Users</NavLink>
             </NavItem>
         </NavbarNav>
     </Collapse>

@@ -51,12 +51,17 @@ const CardModal = (props) => {
 					<hr className="my-3"/>
 					<div>
 						<p className="font-weight-bold">Members</p>
-						{props.memberlist}
-						{props.userdropdown}
+						<MemberList members={card.members} handleDeleteMember={handleDeleteMember} />
+						<UserDropdown 
+							members={card.members}
+							selected={selectedMember} 
+							handleSelectedMember={handleSelectedMember}
+							handleAddMember={handleAddMember}/>
 					</div>
 					<hr className="my-3"/>
 					<div>
-						{props.activity}
+						<p className="font-weight-bold">Activity Log</p>
+						<Activity log={card.activity} />
 					</div>
 					
 				</CardBody>

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 import List from './List';
 import { listDelete, listUpdate } from './actions'
-import Messages from '../notifications/Messages'  
-import Errors from '../notifications/Errors'
 
 
 class ListContainer extends Component {
@@ -15,11 +14,20 @@ class ListContainer extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-  	if (nextProps.list !== this.state.list) {
-   		this.setState({ list: nextProps.list,
-    		showTitle: false,
-			showDescription: false, });
-  		}
+		if (nextProps.list !== this.state.list) {
+			this.setState({ list: nextProps.list,
+				showTitle: false,
+				showDescription: false, });
+		}
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			list: {
+				...this.state.list,
+				[e.target.name]: e.target.value
+			}
+		})
 	}
 
 	handleUpdate = (e) => {
@@ -30,15 +38,6 @@ class ListContainer extends Component {
 	handleDelete = (e) => {
 		e.preventDefault();
 		this.props.listDelete(this.props.client, this.state.list);
-	}
-
-	handleChange = (e) => {
-		this.setState({
-			list: {
-				...this.state.list,
-				[e.target.name]: e.target.value
-			}
-		})
 	}
 
 	handleEditTitle = (e) => {
@@ -60,19 +59,25 @@ class ListContainer extends Component {
 
 		if(list) {
 			return <List 
-						list={list}
-						handleDelete={this.handleDelete} 
-						handleEditTitle={this.handleEditTitle} 
-						handleEditDescription={this.handleEditDescription}
-						handleUpdate={this.handleUpdate}
-						handleChange={this.handleChange}
-						showTitle={showTitle}
-						showDescription={showDescription}
-					/>  
+				list={list}
+				handleDelete={this.handleDelete} 
+				handleEditTitle={this.handleEditTitle} 
+				handleEditDescription={this.handleEditDescription}
+				handleUpdate={this.handleUpdate}
+				handleChange={this.handleChange}
+				showTitle={showTitle}
+				showDescription={showDescription}
+			/>  
 		} else {
-			return <p>No List Found!</p>
+			return null
 		}
 	}
+}
+
+ListContainer.propTypes = {
+	listId: PropTypes.string,
+	list: PropTypes.object,
+	client: PropTypes.object,
 }
 
 const getList = (state, ownProps) => {
