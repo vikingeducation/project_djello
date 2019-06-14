@@ -1,0 +1,38 @@
+{
+  "name": "project_djello",
+  "version": "1.0.0",
+  "description": "Project management with that great wobbly taste.",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "md5": "^2.2.1",
+    "pg": "^7.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.22.11",
+    "sequelize-cli": "^3.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
+    "server": "nodemon server.js",
+    "seed": "npm run sql db:migrate:undo:all && npm run sql db:migrate && npm run sql db:seed:all",
+    "seeds": "npm run sql db:migrate:undo:all && npm run sql db:migrate && npm run sql db:seed:all",
+    "sql": "node_modules/.bin/sequelize"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chuckinabox/project_djello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chuckinabox/project_djello/issues"
+  },
+  "homepage": "https://github.com/chuckinabox/project_djello#readme"
+}
